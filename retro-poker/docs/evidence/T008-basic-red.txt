@@ -1,0 +1,225 @@
+COMMAND: npm.cmd test -- tests/unit/betting.test.ts
+EXIT: 1
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/betting.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/betting.test.ts (14 tests | 14 failed) 16ms
+   ❯ basic betting / AC04–AC07 (14)
+     × AC04 rejects check facing 20 and preserves state 6ms
+     × AC05 minimum raise is 50, not 49 1ms
+     × AC06 raise-to deducts only the difference 1ms
+     × AC07 short call is all-in but not eliminated 0ms
+     × BB retains option after limp; equal bets alone do not finish the round 1ms
+     × short blind keeps nominal pre-flop minimum 1ms
+     × one funded player cannot create a dry side pot 2ms
+     × fold leaves contributions and closes the hand 0ms
+     × rejects bad action {"type":"raise","amountTo":-1} 0ms
+     × rejects bad action {"type":"raise","amountTo":1.5} 1ms
+     × rejects bad action {"type":"raise","amountTo":1001} 0ms
+     × rejects bad action {"type":"call","amountTo":5} 0ms
+     × rejects bad action {"type":"dance"} 0ms
+     × only active current actor has actions 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC04 rejects check facing 20 and preserves state
+AssertionError: expected error to be instance of BettingError
+
+- Expected:
+[Function BettingError]
+
++ Received:
+Error {
+  "message": "Betting transition not implemented",
+}
+
+ ❯ tests/unit/betting.test.ts:12:36
+     10|     const s = betting([player('A',0), player('B',1,{stack:980,streetCo…
+     11|     const before=structuredClone(s);
+     12|     expect(()=>act(s,'A','check')).toThrow(BettingError);
+       |                                    ^
+     13|     expect(s).toEqual(before);
+     14|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC05 minimum raise is 50, not 49
+AssertionError: expected [] to deep equally contain { Object (type, minAmountTo, ...) }
+
+- Expected:
+{
+  "maxAmountTo": 1000,
+  "minAmountTo": 50,
+  "type": "raise",
+}
+
++ Received:
+[]
+
+ ❯ tests/unit/betting.test.ts:17:33
+     15|   it('AC05 minimum raise is 50, not 49', () => {
+     16|     const s=betting([player('A',0),player('B',1,{stack:970,streetContr…
+     17|     expect(legalActions(s,'A')).toContainEqual({type:'raise',minAmount…
+       |                                 ^
+     18|     expect(()=>applyAction(s,'A',{type:'raise',amountTo:49})).toThrow(…
+     19|     const next=applyAction(s,'A',{type:'raise',amountTo:50});
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC06 raise-to deducts only the difference
+Error: Betting transition not implemented
+ ❯ applyAction backend/src/engine/betting.ts:6:9
+      4| export function legalActions(_state: BettingState, _playerId: string):…
+      5| export function applyAction(_state: BettingState, _playerId: string, _…
+      6|   throw new Error('Betting transition not implemented');
+       |         ^
+      7| }
+      8|
+ ❯ tests/unit/betting.test.ts:25:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC07 short call is all-in but not eliminated
+Error: Betting transition not implemented
+ ❯ applyAction backend/src/engine/betting.ts:6:9
+      4| export function legalActions(_state: BettingState, _playerId: string):…
+      5| export function applyAction(_state: BettingState, _playerId: string, _…
+      6|   throw new Error('Betting transition not implemented');
+       |         ^
+      7| }
+      8|
+ ❯ act tests/unit/betting.test.ts:6:84
+ ❯ tests/unit/betting.test.ts:32:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > BB retains option after limp; equal bets alone do not finish the round
+Error: Betting transition not implemented
+ ❯ applyAction backend/src/engine/betting.ts:6:9
+      4| export function legalActions(_state: BettingState, _playerId: string):…
+      5| export function applyAction(_state: BettingState, _playerId: string, _…
+      6|   throw new Error('Betting transition not implemented');
+       |         ^
+      7| }
+      8|
+ ❯ act tests/unit/betting.test.ts:6:84
+ ❯ tests/unit/betting.test.ts:37:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > short blind keeps nominal pre-flop minimum
+AssertionError: expected [] to deep equally contain { type: 'call', payAmount: 7, …(1) }
+
+- Expected:
+{
+  "isAllIn": false,
+  "payAmount": 7,
+  "type": "call",
+}
+
++ Received:
+[]
+
+ ❯ tests/unit/betting.test.ts:46:33
+     44|       player('B',1,{stack:0,status:'all_in',streetContribution:7,handC…
+     45|       player('C',2,{stack:1993})],{currentBet:10});
+     46|     expect(legalActions(s,'A')).toContainEqual({type:'call',payAmount:…
+       |                                 ^
+     47|     expect(legalActions(s,'A')).toContainEqual({type:'raise',minAmount…
+     48|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > one funded player cannot create a dry side pot
+AssertionError: expected [] to deeply equal [ 'fold', 'call' ]
+
+- Expected
++ Received
+
+- [
+-   "fold",
+-   "call",
+- ]
++ []
+
+ ❯ tests/unit/betting.test.ts:51:48
+     49|   it('one funded player cannot create a dry side pot', () => {
+     50|     const s=betting([player('A',0),player('B',1,{stack:0,status:'all_i…
+     51|     expect(legalActions(s,'A').map(a=>a.type)).toEqual(['fold','call']…
+       |                                                ^
+     52|     expect(()=>act(s,'A','all_in')).toThrow(BettingError);
+     53|     expect(act(s,'A','call').actorId).toBeNull();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > fold leaves contributions and closes the hand
+Error: Betting transition not implemented
+ ❯ applyAction backend/src/engine/betting.ts:6:9
+      4| export function legalActions(_state: BettingState, _playerId: string):…
+      5| export function applyAction(_state: BettingState, _playerId: string, _…
+      6|   throw new Error('Betting transition not implemented');
+       |         ^
+      7| }
+      8|
+ ❯ act tests/unit/betting.test.ts:6:84
+ ❯ tests/unit/betting.test.ts:56:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"raise","amountTo":-1}
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"raise","amountTo":1.5}
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"raise","amountTo":1001}
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"call","amountTo":5}
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"dance"}
+AssertionError: expected error to be instance of BettingError
+
+- Expected:
+[Function BettingError]
+
++ Received:
+Error {
+  "message": "Betting transition not implemented",
+}
+
+ ❯ tests/unit/betting.test.ts:63:58
+     61|     {type:'call',amountTo:5},{type:'dance'}])('rejects bad action %j',…
+     62|     const s=headsUp();
+     63|     expect(()=>applyAction(s,'A',action as PokerAction)).toThrow(Betti…
+       |                                                          ^
+     64|     expect(s).toEqual(headsUp());
+     65|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/14]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > only active current actor has actions
+AssertionError: expected error to be instance of BettingError
+
+- Expected:
+[Function BettingError]
+
++ Received:
+Error {
+  "message": "Betting transition not implemented",
+}
+
+ ❯ tests/unit/betting.test.ts:68:43
+     66|   it('only active current actor has actions',()=>{
+     67|     expect(legalActions(headsUp(),'B')).toEqual([]);
+     68|     expect(()=>act(headsUp(),'B','call')).toThrow(BettingError);
+       |                                           ^
+     69|     const s=headsUp(); s.actorId=null; s.pendingActors=[];
+     70|     expect(legalActions(s,'A')).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/14]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  14 failed (14)
+   Start at  23:12:31
+   Duration  271ms (transform 60%, import 20%, tests 17%, worker 4%)
+
+

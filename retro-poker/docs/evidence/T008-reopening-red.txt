@@ -1,0 +1,93 @@
+COMMAND: npm.cmd test -- tests/unit/betting.test.ts
+EXIT: 1
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/betting.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/betting.test.ts (21 tests | 3 failed) 23ms
+   ❯ reopening / AC08–AC10 (7)
+     × AC08 short raise does not reopen A, even through all_in 10ms
+     × AC09 cumulative short raises reopen A but not C after A calls 2ms
+     × AC10 short opening does not reopen a checker after C calls 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC08 short raise does not reopen A, even through all_in
+AssertionError: expected [ 'fold', 'call', 'raise', 'all_in' ] to deeply equal [ 'fold', 'call' ]
+
+- Expected
++ Received
+
+  [
+    "fold",
+    "call",
++   "raise",
++   "all_in",
+  ]
+
+ ❯ tests/unit/betting.test.ts:14:48
+     12|     s=act(s,'B','all_in'); s=act(s,'C','call');
+     13|     expect(s.actorId).toBe('A'); expect(s.lastFullRaise).toBe(100);
+     14|     expect(legalActions(s,'A').map(a=>a.type)).toEqual(['fold','call']…
+       |                                                ^
+     15|     const before=structuredClone(s);
+     16|     expect(()=>act(s,'A','all_in')).toThrow(BettingError);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC09 cumulative short raises reopen A but not C after A calls
+AssertionError: expected [ 'fold', 'call', 'raise', 'all_in' ] to deeply equal [ 'fold', 'call' ]
+
+- Expected
++ Received
+
+  [
+    "fold",
+    "call",
++   "raise",
++   "all_in",
+  ]
+
+ ❯ tests/unit/betting.test.ts:27:48
+     25|     expect(legalActions(s,'A')).toContainEqual({type:'raise',minAmount…
+     26|     s=act(s,'A','call'); expect(s.actorId).toBe('C');
+     27|     expect(legalActions(s,'C').map(a=>a.type)).toEqual(['fold','call']…
+       |                                                ^
+     28|     s=act(s,'C','call'); expect(s.actorId).toBeNull(); expectChips(s,4…
+     29|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC10 short opening does not reopen a checker after C calls
+AssertionError: expected [ 'fold', 'call', 'raise', 'all_in' ] to deeply equal [ 'fold', 'call' ]
+
+- Expected
++ Received
+
+  [
+    "fold",
+    "call",
++   "raise",
++   "all_in",
+  ]
+
+ ❯ tests/unit/betting.test.ts:40:48
+     38|     expect(()=>applyAction(s,'C',{type:'raise',amountTo:10})).toThrow(…
+     39|     s=act(s,'C','call');
+     40|     expect(legalActions(s,'A').map(a=>a.type)).toEqual(['fold','call']…
+       |                                                ^
+     41|     expectChips(s,3000);
+     42|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 18 passed (21)
+   Start at  23:14:45
+   Duration  323ms (transform 61%, import 17%, tests 17%, worker 4%)
+
+

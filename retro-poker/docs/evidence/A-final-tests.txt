@@ -1,0 +1,16 @@
+COMMAND: npm.cmd test
+EXIT: 0
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  3 passed (3)
+      Tests  121 passed (121)
+   Start at  23:15:19
+   Duration  631ms (import 47%, transform 38%, tests 12%, worker 3%)
+
+
