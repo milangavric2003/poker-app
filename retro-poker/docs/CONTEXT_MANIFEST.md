@@ -64,3 +64,30 @@ za ovaj ograničeni blok. Novi direktni artefakti su pots/hand testovi, invarian
 `pots.ts`, settlement deo `hand.ts` i prošireni domenski tipovi/helper. Stvarni RED,
 GREEN, regresioni i završni izlazi nalaze se u `docs/evidence/T010-*` do `T013-*` i
 `T010-T013-*`; neuspešni međukoraci su zadržani, ne predstavljeni kao uspeh.
+
+## T014–T015 — član B, 2026-09-22
+
+Polazna verzija: HEAD `29c3d04a5f324c3508eb8e304d94478d81bb8e4a`, grana vedran,
+čist worktree. Korisnikov novi zahtev ima prioritet nad starom podelom A/B:
+B preuzima samo T014–T015. Git mutacije nisu odobrene.
+
+| Stvarno korišćen izvor | Prioritet i razlog | Rizik / granica |
+|---|---|---|
+| Aktuelni zahtev; BUILD_PROMPT_T014_T015 | Najviši; obim, RED/GREEN, bez T016–T019 | Bez samovoljnog nastavka ostalih taskova |
+| AGENTS.md; constitution1.0.0 | Ponovo učitani; SDD/TDD, granice domena, istiniti dokazi | Jedan agent, sačuvati postojeći settlement |
+| GAME_SPEC1.0; feature spec | Učitani tokom pripreme u ovom razgovoru; GAME_SPEC ponovo fokusirano §1–9 | AC01/02/validni03, R1–R3; AC23 samo domen |
+| plan; tasks; fixtures; data-model; contracts/http | Učitani; relevantni dokumenti ponovo pročitani za ovaj blok | Vlasništvo taska ne menja pravila ili javni ugovor |
+| research D3; quickstart | Učitani; Fisher–Yates, odvojeni RNG, npm.cmd komande | Instalacija je potrebna u novom checkout-u |
+| speckit-implement SKILL.md; checklists/requirements.md | Učitani; prerequisite/checklist/implement/provere, uz scope T014–T015 | Checklist16/16 nije dokaz završene igre; nema extensions.yml |
+| speckit-converge SKILL.md | Pročitan radi procene završnog workflow-a | Pun feature converge nije pokrenut; korisnik ograničava izmene na dva taska |
+| evaluator/rank; engine/betting,pots,hand,types | Pročitani pre testova; postojeći evaluator i isplate | Nema dupliranja betting pravila, izmene samo hand.ts |
+| tests/helpers/fixtures,assertions; tests/unit/hand | Učitani; postojeći AC23, RNG, chip helper i settlement testovi | Oracle nije izlaz funkcije pod testom |
+| package.json; tsconfig/tsconfig.server; vitest.config; eslint.config; .gitignore | Pročitani; komande, strict tipovi i granice build-a | Bez konfiguracionih izmena ili novih zavisnosti |
+| EVIDENCE_003; AI_USAGE_LOG; CONTEXT_MANIFEST | Pročitani tokom pripreme, dopunjeni novim blokom | Prethodni rezultati ostaju istorijski; ne izmišljati review |
+
+Suggestion je u ranijem skeniranju prepoznat kao istorijski predlog i nije korišćen
+za ovaj blok. Nastavni PDF, spoljni poker izvori i web dokumentacija nisu učitavani
+za implementaciju; projektni oracle-i i ugovori su dovoljni. Nema novih produktnih odluka.
+Novonastali izvori: deal.test.ts, cards.ts, positions.ts, tok u hand.ts i stvarni
+RED/GREEN/final logovi. Kratak prefiks špila dopunjen je prema fixtures.md;
+seed/RNG transakcija, bot strategija i transport ostaju za kasnije taskove.

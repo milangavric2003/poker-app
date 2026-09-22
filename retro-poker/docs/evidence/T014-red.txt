@@ -1,0 +1,299 @@
+﻿Command: npm.cmd test -- tests/unit/deal.test.ts
+Expected: failures from T014 importable not-implemented stubs, before GREEN.
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/deal.test.ts
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ❯ |node| tests/unit/deal.test.ts (33 tests | 33 failed) 22ms
+   ❯ T014 špil i ubrizgana slučajnost (11)
+     × pravi sve 52 jedinstvene karte bez džokera i nezavisne nizove 4ms
+     × Fisher–Yates sa 51 nulom daje unapred poznatu rotaciju 1ms
+     × kontrolisani prefiks dopunjava do 52 bez mutacije i trošenja RNG-a 0ms
+     × odbija nevalidan ili dupliran kontrolisani špil 0 4ms
+     × odbija nevalidan ili dupliran kontrolisani špil 1 1ms
+     × odbija nevalidan ili dupliran kontrolisani špil 2 1ms
+     × odbija nevalidan ili dupliran kontrolisani špil 3 0ms
+     × odbija RNG vrednost -0.1 1ms
+     × odbija RNG vrednost 1 1ms
+     × odbija RNG vrednost NaN 1ms
+     × odbija RNG vrednost Infinity 0ms
+   ❯ T014 AC01/AC02/validni AC03: početak ruke (10)
+     × 1 botova: početne pozicije, blindovi i dva kruga deljenja 1ms
+     × 2 botova: početne pozicije, blindovi i dva kruga deljenja 0ms
+     × 3 botova: početne pozicije, blindovi i dva kruga deljenja 0ms
+     × 4 botova: početne pozicije, blindovi i dva kruga deljenja 2ms
+     × 5 botova: početne pozicije, blindovi i dva kruga deljenja 0ms
+     × bez kontrolisanog špila koristi ubrizgani RNG i čuva bot RNG 0ms
+     × odbija nevalidan broj botova 0 pre RNG-a 0ms
+     × odbija nevalidan broj botova 6 pre RNG-a 0ms
+     × odbija nevalidan broj botova 1.5 pre RNG-a 0ms
+     × odbija nevalidan broj botova NaN pre RNG-a 0ms
+   ❯ T014 tok runde do settlement-a (12)
+     × 1 botova: legalni call/check tok završava bez zastoja 0ms
+     × 2 botova: legalni call/check tok završava bez zastoja 0ms
+     × 3 botova: legalni call/check tok završava bez zastoja 0ms
+     × 4 botova: legalni call/check tok završava bez zastoja 0ms
+     × 5 botova: legalni call/check tok završava bez zastoja 0ms
+     × AC02/AC23: BB dobija prvu kartu, ima opciju, board je 3–1–1 sa burn-ovima 0ms
+     × AC16: fold odmah isplaćuje 995/1005 bez burn-a ili board-a 0ms
+     × all-in čeka odgovor na dug pa automatski deli ostatak i isplaćuje jednom 0ms
+     × all-in na flop-u ne deli flop ponovo i resetuje puni raise na novoj ulici 0ms
+     × preskače folded/all-in mesta, ali dva solventna igrača nastavljaju za side pot 0ms
+     × jedini solventni igrač ne dobija novu rundu protiv all-in protivnika 0ms
+     × odbijena akcija ne menja karte, cursor, žetone ili red poteza 0ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯ Failed Tests 33 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > pravi sve 52 jedinstvene karte bez džokera i nezavisne nizove
+Error: T014: deck not implemented
+ ❯ createDeck backend/src/engine/cards.ts:4:9
+      2|
+      3| export function createDeck(): Card[] {
+      4|   throw new Error('T014: deck not implemented');
+       |         ^
+      5| }
+      6|
+ ❯ tests/unit/deal.test.ts:48:18
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > Fisher–Yates sa 51 nulom daje unapred poznatu rotaciju
+Error: T014: shuffle not implemented
+ ❯ prepareDeck backend/src/engine/cards.ts:8:9
+      6|
+      7| export function prepareDeck(_random: RandomSource, _prefix?: readonly …
+      8|   throw new Error('T014: shuffle not implemented');
+       |         ^
+      9| }
+     10|
+ ❯ tests/unit/deal.test.ts:58:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > kontrolisani prefiks dopunjava do 52 bez mutacije i trošenja RNG-a
+Error: T014: shuffle not implemented
+ ❯ prepareDeck backend/src/engine/cards.ts:8:9
+      6|
+      7| export function prepareDeck(_random: RandomSource, _prefix?: readonly …
+      8|   throw new Error('T014: shuffle not implemented');
+       |         ^
+      9| }
+     10|
+ ❯ tests/unit/deal.test.ts:65:18
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 0
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 1
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 2
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 3
+AssertionError: expected [Function] to throw error including 'Invalid deck' but got 'T014: shuffle not implemented'
+System.Management.Automation.RemoteException
+Expected: "Invalid deck"
+Received: "T014: shuffle not implemented"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/deal.test.ts:74:70
+     72|   it.each([['As', 'As'], ['1c'], ['XX'], [...ordered, 'As']])(
+     73|     'odbija nevalidan ili dupliran kontrolisani špil %#', (...cards) =…
+     74|       expect(() => prepareDeck(sequenceRandom([]), cards as Card[])).t…
+       |                                                                      ^
+     75|     });
+     76|
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost -0.1
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost 1
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost NaN
+ FAIL  |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost Infinity
+AssertionError: expected [Function] to throw error including 'Invalid random value' but got 'T014: shuffle not implemented'
+System.Management.Automation.RemoteException
+Expected: "Invalid random value"
+Received: "T014: shuffle not implemented"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/deal.test.ts:79:36
+     77|   it.each([-0.1, 1, NaN, Infinity])('odbija RNG vrednost %s', value =>…
+     78|     const rng = { next: () => value, clone() { return this; } };
+     79|     expect(() => prepareDeck(rng)).toThrow('Invalid random value');
+       |                                    ^
+     80|   });
+     81| });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 1 botova: početne pozicije, blindovi i dva kruga deljenja
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 2 botova: početne pozicije, blindovi i dva kruga deljenja
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 3 botova: početne pozicije, blindovi i dva kruga deljenja
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 4 botova: početne pozicije, blindovi i dva kruga deljenja
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 5 botova: početne pozicije, blindovi i dva kruga deljenja
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:91:18
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > bez kontrolisanog špila koristi ubrizgani RNG i čuva bot RNG
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ tests/unit/deal.test.ts:121:18
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova 0 pre RNG-a
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova 6 pre RNG-a
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova 1.5 pre RNG-a
+ FAIL  |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova NaN pre RNG-a
+AssertionError: expected [Function] to throw error including 'Invalid bot count' but got 'T014: dealing not implemented'
+System.Management.Automation.RemoteException
+Expected: "Invalid bot count"
+Received: "T014: dealing not implemented"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/deal.test.ts:128:80
+    126|
+    127|   it.each([0, 6, 1.5, NaN])('odbija nevalidan broj botova %s pre RNG-a…
+    128|     expect(() => createHand(bots, handId, { deckRandom: sequenceRandom…
+       |                                                                                ^
+    129|   });
+    130| });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 1 botova: legalni call/check tok završava bez zastoja
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 2 botova: legalni call/check tok završava bez zastoja
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 3 botova: legalni call/check tok završava bez zastoja
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 4 botova: legalni call/check tok završava bez zastoja
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 5 botova: legalni call/check tok završava bez zastoja
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:134:16
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > AC02/AC23: BB dobija prvu kartu, ima opciju, board je 3–1–1 sa burn-ovima
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:148:16
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > AC16: fold odmah isplaćuje 995/1005 bez burn-a ili board-a
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:189:23
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > all-in čeka odgovor na dug pa automatski deli ostatak i isplaćuje jednom
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:201:21
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > all-in na flop-u ne deli flop ponovo i resetuje puni raise na novoj ulici
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:215:21
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > preskače folded/all-in mesta, ali dva solventna igrača nastavljaju za side pot
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:231:16
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > jedini solventni igrač ne dobija novu rundu protiv all-in protivnika
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:258:16
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/33]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > odbijena akcija ne menja karte, cursor, žetone ili red poteza
+Error: T014: dealing not implemented
+ ❯ createHand backend/src/engine/hand.ts:12:9
+     10| export function createHand(_botCount: number, _handId: string,
+     11|   _dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): Activ…
+     12|   throw new Error('T014: dealing not implemented');
+       |         ^
+     13| }
+     14|
+ ❯ start tests/unit/deal.test.ts:17:3
+ ❯ tests/unit/deal.test.ts:273:18
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/33]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  33 failed (33)
+   Start at  23:11:58
+   Duration  407ms (transform 63%, tests 17%, import 17%, worker 4%)
+
+Exit code: 1

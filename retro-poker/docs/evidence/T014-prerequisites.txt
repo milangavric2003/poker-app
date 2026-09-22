@@ -1,0 +1,16 @@
+﻿Command: npm.cmd test -- tests/unit/evaluator.test.ts tests/unit/betting.test.ts tests/unit/pots.test.ts tests/unit/hand.test.ts tests/unit/invariants.test.ts
+Node: v24.20.0; npm: 11.19.0
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/evaluator.test.ts tests/unit/betting.test.ts tests/unit/pots.test.ts tests/unit/hand.test.ts tests/unit/invariants.test.ts
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  5 passed (5)
+      Tests  134 passed (134)
+   Start at  23:08:50
+   Duration  324ms (transform 47%, import 28%, tests 18%, worker 7%)
+
+Exit code: 0

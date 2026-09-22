@@ -41,3 +41,19 @@ Rezultat: baseline 117/117; T010 5 RED padova → T011 6 GREEN; T012 9 RED padov
 T013 11 GREEN; završno 234/234, typecheck/lint/build exit0. Sačuvani su i parser pad
 prvog GREEN pokušaja i type narrowing pad prve završne provere. Test očekivanja nisu
 oslabljena; T014+ nije implementiran. Detalji i ograničenja su u EVIDENCE_003.
+
+## B-01 — T014–T015, 2026-09-22
+
+Alat: Codex, jedan coding agent; bez paralelnih agenata. Svrha: početni špil,
+pozicije i tok runde do postojećeg settlement-a. Korisnička odluka: član B
+preuzima isključivo T014–T015 na grani vedran, bez commit/push/promene grane.
+[Prompt i očekivanja](BUILD_PROMPT_T014_T015.md), [kontekst](CONTEXT_MANIFEST.md).
+
+Rezultat: preduslovi134/134; stvarni RED33/33 padova → GREEN33/33;
+puna regresija267/267 i typecheck/lint/build exit0. Testovi posle RED-a nisu menjani.
+Nedostajuće zavisnosti instalirane pomoću npm ci uz odobrenje posle sandbox EACCES.
+Neuspeh okruženja nije RED. Nema dodatnih biblioteka ili promene lockfile-a.
+Korisnik određuje obim i preuzima Git rad; Codex izvršava kod/testove/evidenciju.
+Nema potvrde ljudskog review-a ili A review-a. Tačan runtime model, tokeni i cena
+nisu potvrđeni telemetrijom: nepoznato. Jedan značajan coding blok i jedan TDD ciklus.
+Ograničenja i svi logovi su u EVIDENCE_003; T016+ nisu rađeni.

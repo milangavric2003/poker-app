@@ -1,0 +1,9 @@
+export interface Positions {
+  buttonSeat: number;
+  smallBlindSeat: number;
+  bigBlindSeat: number;
+}
+
+export function initialPositions(_botCount: number): Positions {
+  throw new Error('T014: positions not implemented');
+}

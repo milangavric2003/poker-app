@@ -123,3 +123,65 @@ Prva završna provera imala je samo TypeScript suženje `reason` tipa i zato bui
 je bila type-only anotacija union-a, bez promene ponašanja; kompletan set je ponovljen.
 Nema tvrdnje o ljudskom review-u, E2E-u ili završenoj Week03 igri. T014 i kasniji
 lifecycle/dealing/API taskovi ostaju otvoreni. Potrošnja i cena AI poziva nisu dostupne.
+
+## T014–T015 — špil, početne pozicije i tok runde, član B, 2026-09-22
+
+Korisnik se identifikuje kao član B i izričito preuzima samo T014–T015.
+[Sačuvan prompt, plan i očekivanja](BUILD_PROMPT_T014_T015.md).
+Polazni HEAD `29c3d04a5f324c3508eb8e304d94478d81bb8e4a`, čist worktree,
+grana `vedran`. Nisu izvršeni commit, push ili promena grane.
+Prethodni odeljci ostaju istorijski zapisi; aktuelni završeni opseg je T001–T015.
+
+Tvrdnja: FR-001/FR-003 i početni deo FR-004, R1–R3 i AC01/AC02/validni AC03
+rade kao čist domen za 1–5 botova. Signal: nedostajali su špil, početne pozicije,
+deljenje i prelazi između rundi. Hipoteza: postojeći betting/settlement dovoljan je
+za jednu celu ruku uz male nove module i povezivanje u hand.ts.
+
+Najmanja promena: createDeck/prepareDeck (Fisher–Yates, ubrizgani RandomSource),
+initialPositions/clockwiseAfter, createHand/act i interni prelazi u hand.ts.
+ActiveHand proširuje postojeći HandState bez promene starih settlement fixtures.
+Prvi button je čovek0, početni stack1000, blindovi5/10, karte u dva kruga.
+Kontrolisani prefiks dopunjava se do52 u procesu, bez RNG-a i bez HTTP rute.
+Potezi se proveravaju postojećim applyAction; nova ulica resetuje street ulaganja,
+acted/lastFacedBet i puni raise10. Fold završava odmah; all-in čeka odgovor na dug,
+zatim automatski deli ostatak board-a. Dva solventna učesnika nastavljaju side pot.
+
+| Provera | Stvarni rezultat / dokaz |
+|---|---|
+| T006–T013 regresija pre novih testova | [134/134, 5 fajlova, exit0](evidence/T014-prerequisites.txt) |
+| `npm.cmd test -- tests/unit/deal.test.ts` RED | [33 pada, exit1](evidence/T014-red.txt); importabilni stubovi, ne setup/import pad |
+| Ista komanda GREEN, ista očekivanja | [33/33, exit0](evidence/T015-green.txt) |
+| `npm.cmd test` | [267/267, 8 fajlova, exit0](evidence/T014-T015-final-test.txt) |
+| `npm.cmd run typecheck` | [exit0](evidence/T014-T015-final-typecheck.txt) |
+| `npm.cmd run lint` | [exit0](evidence/T014-T015-final-lint.txt) |
+| `npm.cmd run build` | [exit0](evidence/T014-T015-final-build.txt) |
+
+Kontrolisani AC23 domenski tok daje1010/990, fold995/1005, all-in2000/0.
+Poseban ručni side-pot oracle daje2035/995/970/0, potove20/15/40 (ukupno75).
+Oracle je aritmetički pregledan pre RED-a; posle RED-a testovi/očekivanja nisu menjani.
+Provereni su burn6c/8c/Tc, board3–1–1, BB opcija, folded/all-in preskakanje,
+reset raise minimuma, nepromenjen ulaz, očuvanje žetona i jedinstvenost karata
+pri svakom testiranom prelazu. Za svih pet brojeva botova izvršen je call/check tok.
+
+Ponovljiv RED: u zasebnoj kopiji projekta sa istim testom privremeno zameniti
+tri modula sadržajem [cards stuba](evidence/T014-cards-red-stub.txt),
+[positions stuba](evidence/T014-positions-red-stub.txt) i
+[hand stuba](evidence/T014-hand-red-stub.txt), pa pokrenuti fokusiranu komandu.
+Stubovi su sačuvani pre GREEN-a. Ovo nije E4 propust integrisanog baseline-a.
+
+Okruženje: Node24.20.0/npm11.19.0. Prvi pokušaj testiranja nije našao Vitest jer
+zavisnosti nisu bile instalirane. `npm.cmd ci` u sandbox-u pao je sa EACCES pri
+preuzimanju; ponovljen uz odobrenu eskalaciju: exit0, 267 instaliranih paketa.
+Package/lockfile nisu menjani. Spec Kit prvo nije našao lokalnu feature oznaku;
+uspešan ponovni poziv koristio je procesni SPECIFY_FEATURE_DIRECTORY sa apsolutnom
+putanjom postojećeg feature-a i `-ExecutionPolicy Bypass`. Checklist16/16,
+bez promene markera; extensions.yml ne postoji. Setup padovi nisu RED dokaz.
+
+Ograničenja: createHand pravi prvu ruku sa početnim stackovima; rotacije, kratki
+blindovi narednih ruku i next-hand ostaju T025–T028. Nema bot strategije/petlje,
+istorije, session-a, HTTP-a ili UI-ja; AC23 je ovde samo domenski scenario,
+ne ispunjenje celog UI/E2E kriterijuma. E2E, demo eval, screenshot, produkcijski
+izvor seed-a i offline browser provera nisu izvršeni/implementirani ovim blokom.
+T016+ ostaju otvoreni. Nisu dodate zavisnosti niti menjana poker pravila.
+Član B zadao je scope i odobrio instalaciju; Codex je napisao testove/kod i izvršio
+provere. Review člana A i ljudski pregled koda nisu potvrđeni. Potrošnja/cena nepoznati.

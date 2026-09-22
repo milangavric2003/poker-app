@@ -2,11 +2,13 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: T001–T013 izvršeni; ostali taskovi nisu završeni.
+[quickstart](quickstart.md). Status: T001–T015 izvršeni; ostali taskovi nisu završeni.
 
 Zajednički artefakti pripremljeni su iz ugla člana A uz coding agenta;
 kolegin doprinos i review nisu potvrđeni. Dokazi: [EVIDENCE_003](../../docs/EVIDENCE_003.md).
-Po aktuelnoj podeli A vodi T001–T021, a B vodi T022–T040. Ovo nije kraj A rada za Week03.
+Osnovna podela je A: T001–T021, B: T022–T040, uz izričit izuzetak od 2026-09-22:
+član B preuzima i završava samo T014–T015 na grani `vedran`.
+Ostalo vlasništvo nije promenjeno. [Prompt bloka](../../docs/BUILD_PROMPT_T014_T015.md).
 
 **Tests**: TDD obavezan. RED task prethodi GREEN tasku za isti behavior slice.
 Svaki RED/GREEN task zapisuje stvarnu komandu, exit kod i smislen razlog u
@@ -14,7 +16,7 @@ docs/evidence/Txxx-red.txt odnosno Txxx-green.txt. Prazan runner/import error ni
 Dozvoljene putanje su navedene u tasku, uz taj evidence fajl i dopunu
 docs/AI_USAGE_LOG.md / docs/CONTEXT_MANIFEST.md za stvarno izvršene značajne pozive.
 
-A = ti, prvi blok T001–T021. B = kolega, završni blok T022–T040.
+A = prvi član; B = drugi član (korisnik ovog T014–T015 bloka).
 Navedeni vlasnik vodi rad; drugi je reviewer. U većim blokovima menjajte driver/reviewer.
 Zajednički ugovor i lockfile imaju jednog aktivnog urednika. Jedan coding agent;
 nema [P] oznaka koje bi sugerisale paralelne agente. Putanje su iz retro-poker/.
@@ -59,8 +61,8 @@ ali nema istovremenih agent sesija niti menjanja istih fajlova.
 Cilj: prvi pun UI–backend demo sa već proverenim obračunom.
 Samostalna provera: AC23 kontrolisana heads-up ruka završava stackovima1010/990.
 
-- [ ] T014 [US1] A — RED u tests/unit/deal.test.ts za AC01/AC02/validni AC03, dva kruga deljenja, burn/board, fold/all-in preskakanje i jednoznačan tok; deps: T013; dokaz: svi botCount1–5, početni button0, heads-up prva karta BB.
-- [ ] T015 [US1] A — GREEN u backend/src/engine/cards.ts, backend/src/engine/positions.ts i početak/runde backend/src/engine/hand.ts; 52 jedinstvene karte i board3–1–1, prvi button čovek; deps: T014; dokaz: new-hand do settlement toka iz fixture-a.
+- [x] T014 [US1] B — RED u tests/unit/deal.test.ts za AC01/AC02/validni AC03, dva kruga deljenja, burn/board, fold/all-in preskakanje i jednoznačan tok; deps: T013; dokaz: svi botCount1–5, početni button0, heads-up prva karta BB; [33 stvarna RED pada](../../docs/evidence/T014-red.txt), [preduslovi 134/134](../../docs/evidence/T014-prerequisites.txt).
+- [x] T015 [US1] B — GREEN u backend/src/engine/cards.ts, backend/src/engine/positions.ts i početak/runde backend/src/engine/hand.ts; 52 jedinstvene karte i board3–1–1, prvi button čovek; deps: T014; dokaz: new-hand do settlement toka iz fixture-a; [33/33 GREEN](../../docs/evidence/T015-green.txt), [267/267 regresija](../../docs/evidence/T014-T015-final-test.txt), typecheck/lint/build exit0. Pozicije su početne; rotacija i next-hand ostaju kasniji taskovi.
 - [ ] T016 [US1] A — RED u tests/unit/bot.test.ts i tests/unit/history.test.ts za BOT1–BOT6, AC17 i FR-018: strategija D3, odvojen RNG, privatna ograničenja, detektovan fallback, samo trenutna/poslednja istorija; deps: T015; dokaz: isti seed/input isti potez, bez tuđih skrivenih podataka.
 - [ ] T017 [US1] A — GREEN u backend/src/bots/strategy.ts i backend/src/engine/history.ts prema research D3; događaji imaju „seq (rastući broj u ruci)”, privatno observation ne izlazi u public event; deps: T016; dokaz: bot po istom validatoru završava ruku i posle ljudskog fold-a.
 - [ ] T018 [US1] A — RED u tests/integration/actions.test.ts i tests/integration/hand-flow.test.ts za create/get/action, nevalidan config bez zamene, izgubljenu reviziju, serijski commit/rollback, bot loop, početnu privatnost i AC23; deps: T017; dokaz: Fastify inject fixture i RNG/history snapshot pre/posle greške.
@@ -123,7 +125,7 @@ ne namerno kvariti kod radi obojenog loga.
 
 ## Handoff i ljudski review
 
-- A izvršava T001–T021 redom i predaje kolegi zeleni unit/contract/integration/UI skup.
+- A vodi T001–T021, uz korisnički odobren handoff T014–T015 članu B; predaja punog unit/contract/integration/UI skupa tek sledi.
 - Granica je posle T021: B počinje T022 pravim E2E testom nad A implementacijom.
 - B izvršava T022–T040 i prijavljuje svaki nalaz koji zahteva promenu A koda.
 - Drugi član može review-ovati završeni blok, ali vlasništvo taska ostaje po ovoj podeli.
