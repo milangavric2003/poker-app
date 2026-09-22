@@ -2,7 +2,7 @@
 
 Početno stanje2026-09-21: samo specifikacije, bez package.json i aplikacije.
 Polazni HEAD a63699d77237f12e231b2b10ec1016fd447b20e1.
-Korisnik je odobrio A deo implementacije; B evaluator/frontend ostaju kolegi.
+Tadašnji scope: korisnik je odobrio A deo implementacije; evaluator/frontend bili su ostavljeni kolegi. Aktuelni zahtev za T006–T007 zabeležen je ispod.
 
 T001: BUILD_PROMPT_V1 i početni manifest/log/eval sačuvani pre aplikacionog koda.
 Rezultati dopunjeni 2026-09-22: setup, ugovori i betting modul implementirani.
@@ -39,10 +39,56 @@ ponovnog podizanja uloga. Importabilni početni stubovi sačuvani su uz logove.
   ponovnim pokretanjem. To nisu RED dokazi ponašanja igre.
 - E2E, kompletna igra i instalacija na koleginom računaru nisu provereni.
 
-Sledeći A zadatak T010 zavisi od koleginog evaluatora T006–T007.
+T010 zavisi od evaluatora T006–T007 (završen u narednom bloku ispod); T010 ostaje otvoren.
 Backend API, botovi, tok ruke i session logika još nisu implementirani.
 RED stubovi nisu stvarni raniji propust E4 niti integrisani baseline.
 
 Integrisani baseline, screenshot, stvarni E4 propust, kontrolisana promena,
 holdout i ponavljanje na koleginom računaru još ne postoje.
 Nema tvrdnje o završenoj Week03 igri niti koleginom review-u.
+
+## T006–T007 — evaluator, član A, 2026-09-22
+
+Korisnik u ovom chatu izričito preuzima T006–T007 kao član A. Prompt ovog bloka:
+raditi iz retro-poker, pročitati pravila/specifikacije/tipove/helpere, sačuvati postojeće
+izmene, napisati EV01–EV10 i dodatne kategorične/granične/negativne testove pre
+implementacije, zabeležiti stvarni RED, zatim enumerisati pet karata za GREEN;
+pokrenuti fokusirane testove, npm test, typecheck, lint i build ako je pogođen;
+ažurirati samo završene taskove i dokaze, bez T010+ i bez izmišljenog koleginog review-a.
+
+Polazni Git HEAD: `ffc70ceae12962cf5cbd0487ab66044485e9ceaf`; worktree čist.
+Git koren je `D:/AIBootcamp/week3-4`, projektni koren njegov `retro-poker` poddirektorijum.
+Nisu menjani postojeći T001–T005/T008–T009 kod, helper-i, poker zahtevi ili zavisnosti.
+
+Tvrdnja: FR-009, R7 i evaluatorski deo AC14/AC15 rade za 5/6/7 jedinstvenih karata.
+Signal/hipoteza: evaluator ne postoji; importabilni stub treba da otkrije nedostajuću
+evaluaciju, poređenje i runtime validaciju kroz unapred zadate oracle-e.
+Najmanja promena: `rank` vraća `{ category, kickers }`, `compareRanks` poredi
+leksikografski; `rank` enumeriše 1/6/21 kombinaciju pet karata, bez suit tiebreak-a.
+Očekivanja potiču iz postojećih ručnih `evaluatorOracles` i eksplicitnih dodatnih
+test podataka, nikada iz funkcije pod testom. Test ulaz ostaje nepromenjen.
+
+| Provera | Stvarni rezultat / dokaz |
+|---|---|
+| `npm.cmd test -- tests/unit/evaluator.test.ts` — RED | [96 pada, exit 1](evidence/T006-red.txt); [importabilni stub](evidence/T006-rank-red-stub.txt), bez import/setup greške |
+| Ista komanda — prvi GREEN | [96 prolazi, exit 0](evidence/T007-green.txt) |
+| `npm.cmd test` | [217 prolazi u 4 fajla, exit 0](evidence/T007-test.txt) |
+| `npm.cmd run typecheck` | [exit 0](evidence/T007-typecheck.txt) |
+| `npm.cmd run lint` — prva provera | [exit 1](evidence/T007-lint.txt), prelom reda između dva poziva `it.each` |
+| Fokusirani test, ceo skup, typecheck, lint posle korekcije formatiranja | [96/217 testova prolazi, sve exit 0](evidence/T007-final-checks.txt) |
+| `npm.cmd run build` | [exit 0](evidence/T007-build.txt); novi evaluator ulazi u backend build |
+
+RED je ponovljiv privremenim vraćanjem sadržaja sačuvanog stuba u `rank.ts`
+i pokretanjem navedene fokusirane komande; testovi imaju iste oracle-e kao GREEN.
+Jedina izmena nakon prvog GREEN-a jeste formatiranje `it.each` poziva za lint.
+Nije bilo promene očekivanja niti funkcionalnog refaktorisanja.
+Node `24.20.0`, npm `11.19.0`. Spec Kit prerequisite skripta prvobitno blokirana
+PowerShell execution policy-jem; poziv sa procesnim `-ExecutionPolicy Bypass` uspešan.
+Prvi sandbox pokušaj upisa evidence logova bio je odbijen; ponovljen je uz
+odobrenu eskalaciju. Neuspeh okruženja nije prikazan kao RED dokaz.
+
+Ograničenja: nije izvršeno iscrpno testiranje svih poker kombinacija, E2E niti
+showdown/raspodela potova kroz igru. AC14 ovde dokazuje jednak rank, ne isplatu.
+T010+ nisu implementirani. RED stub nije E4 propust. T006–T007 su završeni;
+Week03 kao celina nije završena. Član A zadao je scope, Codex je napisao kod/testove
+i izvršio navedene provere; kolegin doprinos i ljudski review nisu potvrđeni.

@@ -16,3 +16,18 @@ Kolegin doprinos i review nisu prijavljeni niti pretpostavljeni.
 Model identifikator nije nezavisno potvrđen iz runtime telemetrije.
 Značajne iteracije, rezultati i odluke dopunjavaju se posle izvršavanja; pojedinačni
 pozivi shell-a nisu svaki zasebna coding iteracija. Nema privatnog chain-of-thought zapisa.
+
+## A-04 — T006–T007, 2026-09-22
+
+Alat: Codex, jedan coding agent; tačan model iz runtime telemetrije nije potvrđen.
+Svrha/očekivanje: TDD evaluator za FR-009/AC14/AC15, nezavisni oracle-i i stvarni
+RED/GREEN dokazi. Korisnička odluka: član A u ovom chatu radi isključivo T006–T007;
+ranija rezervacija evaluatora za B ne važi za ovaj izričito odobreni blok.
+Kontekst: pravila, constitution, feature dokumenti, types i postojeći helper-i;
+detalji u [manifestu](CONTEXT_MANIFEST.md#t006t007--2026-09-22).
+Rezultat: 96 RED padova → 96 GREEN; regresija 217/217; typecheck, lint i build exit 0.
+Prvi lint pad ispravljen je isključivo formatiranjem testa, pa provere ponovljene.
+Dokazi i sažetak značajnog prompta: [EVIDENCE_003](EVIDENCE_003.md#t006t007--evaluator-član-a-2026-09-22).
+Jedan dodatni značajni coding blok, jedan TDD ciklus; ukupno četiri zabeležena bloka.
+Potrošnja tokena i trošak: nepoznato. Kolegin doprinos/review i završni ljudski
+pregled koda nisu prijavljeni. Nema paralelnih agenata ni implementacije T010+.

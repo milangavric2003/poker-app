@@ -1,0 +1,43 @@
+﻿Final checks after lint-only formatting fix
+Command: npm.cmd test -- tests/unit/evaluator.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/evaluator.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  1 passed (1)
+      Tests  96 passed (96)
+   Start at  17:55:49
+   Duration  228ms (transform 64%, import 19%, tests 13%, worker 3%)
+
+Exit code: 0
+Command: npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  217 passed (217)
+   Start at  17:55:50
+   Duration  462ms (transform 48%, import 37%, tests 11%, worker 3%)
+
+Exit code: 0
+Command: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit code: 0
+Command: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+Exit code: 0

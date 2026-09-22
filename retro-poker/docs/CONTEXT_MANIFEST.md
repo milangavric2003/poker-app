@@ -25,3 +25,26 @@ Podaci npm registra o verzijama, engines i peer zavisnostima provereni su pre in
 Tačne instalirane verzije čuva package-lock.json; Node 24.20.0 i npm 11.19.0.
 GAME_SPEC §4.1–4.4 ponovo je fokusirano pročitan pri proveri betting pravila.
 Stvarni rezultati i ograničenja zabeleženi su u [EVIDENCE_003.md](EVIDENCE_003.md).
+
+## T006–T007 — 2026-09-22
+
+Polazna verzija za donje izvore: HEAD `ffc70ceae12962cf5cbd0487ab66044485e9ceaf`,
+čist worktree. Sadržaj je učitan u ovom bloku pre implementacije.
+
+| Izvor | Prioritet / upotreba | Rizik i granica |
+|---|---|---|
+| Aktuelni korisnički zahtev | Najviši; samo T006–T007, član A, test-first i stvarni logovi | Ranije beleške o B evaluatoru nisu aktuelno vlasništvo ovog bloka |
+| AGENTS.md; constitution 1.0.0 | Operativna pravila, TDD i nezavisni oracle-i | Jedan agent; nema tvrdnje o ljudskom review-u |
+| GAME_SPEC 1.0 | R7, §4.4, AC14/AC15, arhitektonske granice | Jednak rank ne dokazuje raspodelu potova |
+| spec.md; plan.md; tasks.md | FR-009, čist evaluator, enumeracija pet karata, dozvoljene putanje i deps | T010+ van obima; ne ponavljati završene taskove |
+| fixtures.md; tests/helpers/fixtures.ts | EV01–EV10 i postojeći ručno zadati rank nizovi | Očekivanja ne računati evaluatorom |
+| data-model.md; contracts/http.md; backend/src/engine/types.ts | ASCII Card i domenski tip; bez promene HTTP ugovora | Runtime validacija i dalje potrebna |
+| tests/helpers/assertions.ts, server.ts, public-fixtures.ts | Postojeći test interfejsi i granice harness-a | Nema odgovarajućeg rank helper-a; bez proširenja scope-a |
+| research.md D3; quickstart.md | 21 kombinacija od sedam; lokalne npm.cmd komande | Budući scenariji nisu izvršeni testovi |
+| .agents/skills/speckit-implement/SKILL.md; checklists/requirements.md | Skill uz suženje na T006–T007; read-only checklist 16/16 | Nema extension hook konfiguracije, nema promene markera |
+| package.json, tsconfig.json, .gitignore, eslint.config.js | Provere, strict tipovi, ignorisani build izlazi | Bez promene konfiguracije i zavisnosti |
+| EVIDENCE_003, AI_USAGE_LOG, CONTEXT_MANIFEST | Očuvanje ranijih dokaza uz novi blok | Istorijski rezultat ne prepisivati novim |
+| suggestion.md, nastavni PDF, spoljni poker izvori | Nisu korišćeni; dovoljne su projektne specifikacije | Bez tvrdnje da su ponovo provereni |
+
+Novi testovi i `backend/src/evaluator/rank.ts` nastali su tokom ovog ciklusa.
+RED stub i svi stvarni izlazi čuvaju se u docs/evidence/T006-* i T007-*.

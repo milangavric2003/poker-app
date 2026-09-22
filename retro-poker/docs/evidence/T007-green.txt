@@ -1,0 +1,15 @@
+﻿Command: npm.cmd test -- tests/unit/evaluator.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/evaluator.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  1 passed (1)
+      Tests  96 passed (96)
+   Start at  17:55:01
+   Duration  261ms (transform 59%, import 20%, tests 17%, worker 3%)
+
+Exit code: 0

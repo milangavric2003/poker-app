@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: T001–T005 i T008–T009 izvršeni; ostali taskovi nisu završeni.
+[quickstart](quickstart.md). Status: T001–T009 izvršeni; ostali taskovi nisu završeni.
 
 Zajednički artefakti pripremljeni su iz ugla člana A uz coding agenta;
 kolegin doprinos i review nisu potvrđeni. Dokazi: [EVIDENCE_003](../../docs/EVIDENCE_003.md).
@@ -42,8 +42,8 @@ jer njegov evaluator/obračun omogućava nezavisno testiranje i završetak US1.
 Cilj: deterministički domen za uloge, rank i potove.
 Samostalna provera: zadati snapshot-i AC05–AC15, bez UI-ja ili cele partije.
 
-- [ ] T006 [US2] A — RED u tests/unit/evaluator.test.ts za EV01–EV10, sve kategorije/kickere i duple/nevalidne karte; deps: T005; dokaz: AC14/AC15 oracle pre implementacije, poređenje susednih kategorija.
-- [ ] T007 [US2] A — GREEN u backend/src/evaluator/rank.ts enumeracijom pet karata, category0–8 i kicker niz; validno5/6/7 dostupnih karata, showdown7, bez suit tiebreak-a; deps: T006; dokaz: evaluator testovi prolaze i ne koriste evaluator za očekivanje.
+- [x] T006 [US2] A — RED u tests/unit/evaluator.test.ts za EV01–EV10, sve kategorije/kickere i duple/nevalidne karte; deps: T005; dokaz: AC14/AC15 oracle pre implementacije, poređenje susednih kategorija. [Stvarni RED: 96 pada](../../docs/evidence/T006-red.txt).
+- [x] T007 [US2] A — GREEN u backend/src/evaluator/rank.ts enumeracijom pet karata, category0–8 i kicker niz; validno5/6/7 dostupnih karata, showdown7, bez suit tiebreak-a; deps: T006; dokaz: evaluator testovi prolaze i ne koriste evaluator za očekivanje. [GREEN: 96 prolazi](../../docs/evidence/T007-green.txt); [završne provere](../../docs/evidence/T007-final-checks.txt).
 - [x] T008 [US2] A — RED u tests/unit/betting.test.ts za AC04–AC10, BB opciju, kratki blind, dry side-pot, zabranu raise-a kroz all_in; deps: T005; dokaz: currentBet/lastFullRaise/pendingActors i individualni lastFacedBet imaju očekivanja.
 - [x] T009 [US2] A — GREEN u backend/src/engine/betting.ts za legalActions i primenu uloga; „lastFullRaise ≥ 10”, iznosi safe integer, „Check beleži lastFacedBet=0”; deps: T008; dokaz: svi RED slučajevi i očuvanje stackova prolaze.
 - [ ] T010 [US2] A — RED u tests/unit/pots.test.ts za AC11/AC12/AC13, foldovane doprinose, više tied side potova i ponovljen settlement; deps: T007, T009; dokaz: refund120/pot160 i 300/300 oracle iz fixtures.
