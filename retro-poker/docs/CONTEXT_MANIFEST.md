@@ -19,5 +19,9 @@ Manifest opisuje kontekst ovog bloka, ne tvrdi istoriju svih ranijih poziva.
 | Nastavni PDF i Week04 izvori | Nisu ponovo učitani | Projektni dokumenti prenose zahteve | Ne tvrditi novo čitanje PDF-a |
 
 Aktuelni test i kod svakog ciklusa učitava/kreira agent neposredno pre izmene.
-Nova dokumentacija paketa, zaključane verzije i rezultati biće dodati nakon stvarnih provera.
-
+Tokom setup-a konsultovani su [Vitest konfiguracija](https://vitest.dev/config/),
+[Zod API](https://zod.dev/api) i [Vite server options](https://vite.dev/config/server-options.html).
+Podaci npm registra o verzijama, engines i peer zavisnostima provereni su pre instalacije.
+Tačne instalirane verzije čuva package-lock.json; Node 24.20.0 i npm 11.19.0.
+GAME_SPEC §4.1–4.4 ponovo je fokusirano pročitan pri proveri betting pravila.
+Stvarni rezultati i ograničenja zabeleženi su u [EVIDENCE_003.md](EVIDENCE_003.md).

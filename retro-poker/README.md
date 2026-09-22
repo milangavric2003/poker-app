@@ -1,7 +1,11 @@
 # Retro Poker
 
-Lokalni Week03 projekat. Trenutno se pripremaju setup, ugovori i betting modul člana A.
+Lokalni Week03 projekat. Implementirani su setup, ugovori i betting modul člana A.
 Frontend igra i evaluator pripadaju kolegi i još nisu implementirani.
+
+Ovo još nije igriva aplikacija niti završen A deo Week03. Prolazi 121 unit/contract
+test; typecheck, lint i build su provereni. Sledeći A zadatak T010 (potovi)
+zavisi od B evaluatora T006–T007. Status i ograničenja: [dokazi](docs/EVIDENCE_003.md).
 
 ## Pokretanje
 
@@ -34,4 +38,3 @@ odsustvo testova nije PASS. Instalacija paketa/browser-a zahteva mrežu, lokalni
 Tačne verzije čuva package-lock.json; prvi setup koristi npm install, drugi checkout npm ci.
 Dokazi i ograničenja: [EVIDENCE_003](docs/EVIDENCE_003.md).
 Plan i vlasnici: [tasks](specs/001-week03-retro-poker/tasks.md).
-

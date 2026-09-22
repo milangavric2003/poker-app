@@ -2,7 +2,11 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: svi taskovi su planirani, nijedan nije izvršen.
+[quickstart](quickstart.md). Status: T001–T005 i T008–T009 izvršeni; ostali taskovi nisu završeni.
+
+Zajednički artefakti pripremljeni su iz ugla člana A uz coding agenta;
+kolegin doprinos i review nisu potvrđeni. Dokazi: [EVIDENCE_003](../../docs/EVIDENCE_003.md).
+Sledeći A task T010 zavisi od B evaluatora T006–T007. Ovo nije kraj A rada za Week03.
 
 **Tests**: TDD obavezan. RED task prethodi GREEN tasku za isti behavior slice.
 Svaki RED/GREEN task zapisuje stvarnu komandu, exit kod i smislen razlog u
@@ -19,16 +23,16 @@ nema [P] oznaka koje bi sugerisale paralelne agente. Putanje su iz retro-poker/.
 
 Cilj: sačuvati polazni kontekst i uspostaviti alate bez implementacije poker ponašanja.
 
-- [ ] T001 A+B — Sačuvati docs/BUILD_PROMPT_V1.md pre koda i otvoriti docs/CONTEXT_MANIFEST.md, docs/AI_USAGE_LOG.md, docs/EVALS.md i docs/EVIDENCE_003.md sa stvarnim izvorima i statusom „nije pokrenuto”; deps: nema; dokaz: scope/DoD/prompt sačuvani, bez izmišljenih rezultata.
-- [ ] T002 A — Uvesti package.json, package-lock.json, tsconfig.json, tsconfig.server.json, vite.config.ts, vitest.config.ts, playwright.config.ts, eslint.config.js, frontend/index.html, README.md i projektni .gitignore; zaključati kompatibilne pakete iz research D1 i sve komande iz quickstart; deps: T001; dokaz: instalacija/runner/typecheck setup rade, oba server porta eksplicitna, generisani dist/dependencies ignorisani. Nema tvrdnje da poker testovi prolaze.
+- [x] T001 A+B — Sačuvati docs/BUILD_PROMPT_V1.md pre koda i otvoriti docs/CONTEXT_MANIFEST.md, docs/AI_USAGE_LOG.md, docs/EVALS.md i docs/EVIDENCE_003.md sa stvarnim izvorima i statusom „nije pokrenuto”; deps: nema; dokaz: scope/DoD/prompt sačuvani, bez izmišljenih rezultata.
+- [x] T002 A — Uvesti package.json, package-lock.json, tsconfig.json, tsconfig.server.json, vite.config.ts, vitest.config.ts, playwright.config.ts, eslint.config.js, frontend/index.html, README.md i projektni .gitignore; zaključati kompatibilne pakete iz research D1 i sve komande iz quickstart; deps: T001; dokaz: instalacija/runner/typecheck setup rade, oba server porta eksplicitna, generisani dist/dependencies ignorisani. Nema tvrdnje da poker testovi prolaze.
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
 Cilj: zajednički ugovori i test infrastruktura pre obe P1 priče.
 
-- [ ] T003 A+B — RED u tests/contract/config.test.ts i tests/contract/messages.test.ts za kompletan contracts/http.md: botCount „ceo JSON broj 1–5”, Chips „Bezbedan ceo broj 0–6000”, UUID identitet, version „bezbedan ceo broj ≥ 0”, amountTo samo bet/raise, strict nepoznata polja i sve izlazne unije; deps: T002; dokaz: svaki negativni primer iz GAME_SPEC §7 i granice polja imaju unapred očekivanje.
-- [ ] T004 A — GREEN u shared/contracts.ts za T003; Card „rang iz 23456789TJQKA, suit iz cdhs”, Seat „Ceo broj 0–5”, cards null ili tačno2; board0/3/4/5, svi enum-i i nullable uslovi iz ugovora bez implicitne konverzije; deps: T003; dokaz: contract regresija, tipovi i schema output saglasni.
-- [ ] T005 A+B — Pripremiti backend/src/engine/types.ts, tests/helpers/fixtures.ts, tests/helpers/assertions.ts i tests/helpers/server.ts kao test interfejse i ručne podatke iz fixtures.md; deps: T004; dokaz: EV/BL primeri preneti bez promene oracle-a, ukupni stack u fixture-u konzistentan, odvojeni RNG izvori i bez produkcione test HTTP rute. Helper ne računa očekivanje funkcijom pod testom.
+- [x] T003 A+B — RED u tests/contract/config.test.ts i tests/contract/messages.test.ts za kompletan contracts/http.md: botCount „ceo JSON broj 1–5”, Chips „Bezbedan ceo broj 0–6000”, UUID identitet, version „bezbedan ceo broj ≥ 0”, amountTo samo bet/raise, strict nepoznata polja i sve izlazne unije; deps: T002; dokaz: svaki negativni primer iz GAME_SPEC §7 i granice polja imaju unapred očekivanje.
+- [x] T004 A — GREEN u shared/contracts.ts za T003; Card „rang iz 23456789TJQKA, suit iz cdhs”, Seat „Ceo broj 0–5”, cards null ili tačno2; board0/3/4/5, svi enum-i i nullable uslovi iz ugovora bez implicitne konverzije; deps: T003; dokaz: contract regresija, tipovi i schema output saglasni.
+- [x] T005 A+B — Pripremiti backend/src/engine/types.ts, tests/helpers/fixtures.ts, tests/helpers/assertions.ts i tests/helpers/server.ts kao test interfejse i ručne podatke iz fixtures.md; deps: T004; dokaz: EV/BL primeri preneti bez promene oracle-a, ukupni stack u fixture-u konzistentan, odvojeni RNG izvori i bez produkcione test HTTP rute. Helper ne računa očekivanje funkcijom pod testom.
 
 Checkpoint: osnovne šeme i harness spremni. Prvo se razrađuje US2, koji je takođe P1,
 jer njegov evaluator/obračun omogućava nezavisno testiranje i završetak US1.
@@ -40,8 +44,8 @@ Samostalna provera: zadati snapshot-i AC05–AC15, bez UI-ja ili cele partije.
 
 - [ ] T006 [US2] B — RED u tests/unit/evaluator.test.ts za EV01–EV10, sve kategorije/kickere i duple/nevalidne karte; deps: T005; dokaz: AC14/AC15 oracle pre implementacije, poređenje susednih kategorija.
 - [ ] T007 [US2] B — GREEN u backend/src/evaluator/rank.ts enumeracijom pet karata, category0–8 i kicker niz; validno5/6/7 dostupnih karata, showdown7, bez suit tiebreak-a; deps: T006; dokaz: evaluator testovi prolaze i ne koriste evaluator za očekivanje.
-- [ ] T008 [US2] A — RED u tests/unit/betting.test.ts za AC04–AC10, BB opciju, kratki blind, dry side-pot, zabranu raise-a kroz all_in; deps: T005; dokaz: currentBet/lastFullRaise/pendingActors i individualni lastFacedBet imaju očekivanja.
-- [ ] T009 [US2] A — GREEN u backend/src/engine/betting.ts za legalActions i primenu uloga; „lastFullRaise ≥ 10”, iznosi safe integer, „Check beleži lastFacedBet=0”; deps: T008; dokaz: svi RED slučajevi i očuvanje stackova prolaze.
+- [x] T008 [US2] A — RED u tests/unit/betting.test.ts za AC04–AC10, BB opciju, kratki blind, dry side-pot, zabranu raise-a kroz all_in; deps: T005; dokaz: currentBet/lastFullRaise/pendingActors i individualni lastFacedBet imaju očekivanja.
+- [x] T009 [US2] A — GREEN u backend/src/engine/betting.ts za legalActions i primenu uloga; „lastFullRaise ≥ 10”, iznosi safe integer, „Check beleži lastFacedBet=0”; deps: T008; dokaz: svi RED slučajevi i očuvanje stackova prolaze.
 - [ ] T010 [US2] A — RED u tests/unit/pots.test.ts za AC11/AC12/AC13, foldovane doprinose, više tied side potova i ponovljen settlement; deps: T007, T009; dokaz: refund120/pot160 i 300/300 oracle iz fixtures.
 - [ ] T011 [US2] A — GREEN u backend/src/engine/pots.ts; svaki nivo doprinosa, eligibleIds, refund i split zasebno, neparni žeton levo od button-a; deps: T010; dokaz: nema duple isplate ni izgubljenih žetona.
 - [ ] T012 [US2] A — RED u tests/unit/hand.test.ts i tests/unit/invariants.test.ts za settlement iz river/all-in/fold snapshot-a, netChanges zbir0 i handContribution reset; deps: T011; dokaz: AC16 i generisani legalni prelazi proveravaju invarijante.
