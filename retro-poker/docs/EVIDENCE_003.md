@@ -185,3 +185,32 @@ izvor seed-a i offline browser provera nisu izvršeni/implementirani ovim blokom
 T016+ ostaju otvoreni. Nisu dodate zavisnosti niti menjana poker pravila.
 Član B zadao je scope i odobrio instalaciju; Codex je napisao testove/kod i izvršio
 provere. Review člana A i ljudski pregled koda nisu potvrđeni. Potrošnja/cena nepoznati.
+
+## T016–T019 — botovi, istorija i backend integracija, član A, 2026-09-22/23
+
+Polazna provera T001–T015: `npm.cmd test` je dala 267/267 prolaznih testova u osam
+fajlova. Checklist je ostao 16/16; prerequisite je uspeo uz process-scoped PowerShell
+`-ExecutionPolicy Bypass`. Nema extension hook-ova niti novih zavisnosti.
+
+Prvi ciklus: testovi unapred određuju D3 jaku/slabu ruku, 1/4 minimalni raise,
+deterministički zaseban bot RNG, privatni observation, zajednički betting validator,
+detektovan check/fold fallback, rastući seq i zadržavanje samo trenutne/poslednje
+istorije. [T016 RED](evidence/T016-red.txt) je sačuvan pre modula; zatim
+[T017 GREEN](evidence/T017-green.txt) daje 9/9 i typecheck exit0.
+
+Drugi ciklus: Fastify inject pokriva prazan GET, create, GET snapshot, action, UUID,
+nevalidan config bez zamene, stale paralelni duplikat sa jednim commit-om, javnu
+projekciju, početnu privatnost, bot loop, AC17 i AC23 rezultat1010/990. Poseban
+in-process fault se aktivira posle bot odluke i promene kandidat istorije: 500 ostavlja
+GET identičan, retry ponovo dobija prvi RNG ishod (raise20), čime su stanje, istorija
+i RNG obuhvaćeni rollback dokazom. [T018 RED](evidence/T018-red.txt) prethodi kodu;
+[T019 GREEN](evidence/T019-green.txt) daje 8/8 i typecheck exit0.
+
+[Završna provera](evidence/T016-T019-final.txt): 12/12 fajlova i 284/284 testova,
+typecheck, lint i build exit0. Prvi lint pokušaj (tri nekorišćena destrukturisana imena)
+sačuvan je u opisu i popravljen eksplicitnom konstrukcijom PokerAction; ceo skup je
+ponovljen. `npm run dev` nije pokrenut, pa blok nije otvorio portove/procese.
+
+Ograničenja: next-hand pripada T027–T028; puna CORS/content-type/error matrica T031–T034;
+frontend, E2E i UI AC23 pripadaju T020+. Ovaj blok nema produkcioni endpoint za špil,
+bazu, naloge, multiplayer, deployment ili Week04 AI. Ljudski review nije potvrđen.

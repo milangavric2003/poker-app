@@ -57,3 +57,16 @@ Korisnik određuje obim i preuzima Git rad; Codex izvršava kod/testove/evidenci
 Nema potvrde ljudskog review-a ili A review-a. Tačan runtime model, tokeni i cena
 nisu potvrđeni telemetrijom: nepoznato. Jedan značajan coding blok i jedan TDD ciklus.
 Ograničenja i svi logovi su u EVIDENCE_003; T016+ nisu rađeni.
+
+## A-06 — T016–T019, 2026-09-22/23
+
+Alat: Codex, jedan coding agent, bez paralelnih agenata. Svrha: dva odvojena TDD
+ciklusa za bot/istoriju i backend integraciju. Korisnik je izričito dodelio članu A
+T016–T019 i zabranio frontend T020–T021 i širenje produkcionog scope-a.
+
+Rezultat: baseline267/267; T016 smisleni import RED u 2 suite-a → T017 GREEN9/9;
+T018 smisleni import RED u 2 suite-a → T019 GREEN8/8. Završno284/284,
+typecheck/lint/build exit0. Prvi lint pokušaj imao je tri nekorišćena lokalna imena;
+ispravljen je bez promene test očekivanja, a ceo završni skup ponovljen. `npm run dev`
+nije pokrenut; Fastify inject nije otvorio port. Potrošnja/tokeni/cena i ljudski review
+nisu dostupni ili potvrđeni. Detalji su u EVIDENCE_003 i docs/evidence/T016-*–T019-*.

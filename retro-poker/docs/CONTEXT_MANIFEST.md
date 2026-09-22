@@ -91,3 +91,19 @@ za implementaciju; projektni oracle-i i ugovori su dovoljni. Nema novih produktn
 Novonastali izvori: deal.test.ts, cards.ts, positions.ts, tok u hand.ts i stvarni
 RED/GREEN/final logovi. Kratak prefiks špila dopunjen je prema fixtures.md;
 seed/RNG transakcija, bot strategija i transport ostaju za kasnije taskove.
+
+## T016–T019 — član A, 2026-09-22/23
+
+Učitani su aktuelni korisnički zahtev, AGENTS.md, constitution1.0.0, GAME_SPEC1.0,
+kompletni spec/plan/tasks/research (posebno D3), data-model, HTTP ugovor, fixtures,
+quickstart, shared ugovori, postojeći engine/evaluator, svi relevantni unit testovi i
+test helper-i. `speckit-implement` je vodio prerequisite/checklist/TDD tok; checklist
+je 16/16, extensions.yml ne postoji. `speckit-converge` je korišćen samo kao završna
+provera zadanog T016–T019 opsega: nije pokrenut full-feature append jer T020–T040
+namerno ostaju postojeći otvoreni taskovi i korisnik je zabranio frontend T020–T021.
+
+Najviši prioritet: BOT1–BOT6, AC17/AC23, FR-018, D2/D3 transakcija i privatnost,
+contracts/http create/get/action pravila. Suggestion, nastavni PDF, spoljni izvori,
+frontend i Week04 materijali nisu korišćeni. Nisu dodate zavisnosti. Novi kontekst
+čine bot/history unit testovi, Fastify inject integration testovi i backend moduli
+app/routes/session/view. RED/GREEN/final izlazi su u docs/evidence/T016-* do T019-*.

@@ -1,0 +1,13 @@
+Komanda: npm.cmd test -- tests/integration/actions.test.ts tests/integration/hand-flow.test.ts
+Datum: 2026-09-22 (Europe/Belgrade)
+Exit status: 1
+
+Vitest 5.0.1 je pronašao oba nova integration suite-a, ali nijedan test nije mogao
+da se učita jer backend/src/app.ts još ne postoji:
+- tests/integration/actions.test.ts: Cannot find module '../../backend/src/app.js'
+- tests/integration/hand-flow.test.ts: Cannot find module '../../backend/src/app.js'
+
+Test Files  2 failed (2)
+Tests       no tests
+
+Očekivani razlog RED-a: T019 Fastify aplikacija/rute/session/view još nisu implementirani.

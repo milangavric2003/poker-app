@@ -1,6 +1,5 @@
-// T002: development transport scaffold only. Game routes belong to T019.
-import Fastify from 'fastify';
-const app = Fastify({ logger: true });
+import { buildApp } from './app.js';
+const app = buildApp();
 for (const signal of ['SIGINT', 'SIGTERM'] as const) {
   process.once(signal, () => { void app.close(); });
 }
@@ -10,4 +9,3 @@ try {
   app.log.error(error);
   process.exitCode = 1;
 }
-
