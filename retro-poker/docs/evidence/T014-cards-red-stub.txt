@@ -1,0 +1,9 @@
+import type { Card, RandomSource } from './types.js';
+
+export function createDeck(): Card[] {
+  throw new Error('T014: deck not implemented');
+}
+
+export function prepareDeck(_random: RandomSource, _prefix?: readonly Card[]): Card[] {
+  throw new Error('T014: shuffle not implemented');
+}

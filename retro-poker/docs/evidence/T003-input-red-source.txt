@@ -1,0 +1,9 @@
+// T003 RED scaffold: exports exist; behavior is intentionally not implemented yet.
+import { z } from 'zod';
+export const GameConfigSchema = z.never();
+export const PlayerActionSchema = z.never();
+export const NextHandSchema = z.never();
+export const CardSchema = z.never();
+export const ChipsSchema = z.never();
+export const SeatSchema = z.never();
+

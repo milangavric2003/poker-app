@@ -1,0 +1,82 @@
+import type { BettingPlayer, BettingState, LegalAction, PokerAction } from './types.js';
+
+export class BettingError extends Error { readonly code = 'ILLEGAL_ACTION'; }
+const funded = (p: BettingPlayer) => p.status === 'active' && p.stack > 0;
+const contender = (p: BettingPlayer) => p.status === 'active' || p.status === 'all_in';
+
+export function legalActions(state: BettingState, playerId: string): LegalAction[] {
+  const p = state.players.find(p => p.id === playerId);
+  if (!p || state.actorId !== playerId || !state.pendingActors.includes(playerId) || !funded(p)
+    || state.players.filter(contender).length < 2) return [];
+  const debt = Math.max(0, state.currentBet - p.streetContribution);
+  const max = p.streetContribution + p.stack;
+  const actions: LegalAction[] = [{ type: 'fold' }];
+  if (debt === 0) actions.push({ type: 'check' });
+  else actions.push({ type: 'call', payAmount: Math.min(debt, p.stack), isAllIn: debt >= p.stack });
+  const canIncrease = state.players.some(other => other.id !== playerId && funded(other));
+  if (canIncrease) {
+    const min = state.currentBet + state.lastFullRaise;
+    if (max >= min) actions.push({ type: state.currentBet === 0 ? 'bet' : 'raise',
+      minAmountTo: min, maxAmountTo: max });
+  }
+  if ((debt > 0 && max <= state.currentBet) || (canIncrease && max > state.currentBet)) {
+    actions.push({ type: 'all_in', amountTo: max, payAmount: p.stack,
+      classification: max <= state.currentBet ? 'call' : state.currentBet === 0 ? 'bet' : 'raise' });
+  }
+  return actions;
+}
+
+function validateShape(action: PokerAction): void {
+  if (!action || typeof action !== 'object' || Array.isArray(action)) throw new BettingError('Nevalidan potez.');
+  const amount = action.type === 'bet' || action.type === 'raise';
+  const keys = Object.keys(action);
+  if (keys.length !== (amount ? 2 : 1) || !keys.includes('type')
+    || (amount && (!keys.includes('amountTo') || !Number.isSafeInteger(action.amountTo)
+      || action.amountTo < 1 || action.amountTo > 6000))) throw new BettingError('Nevalidan potez.');
+}
+
+export function applyAction(state: BettingState, playerId: string, action: PokerAction): BettingState {
+  validateShape(action);
+  const legal = legalActions(state, playerId).find(a => a.type === action.type);
+  if (!legal) throw new BettingError('Potez nije dozvoljen.');
+  if (action.type === 'bet' || action.type === 'raise') {
+    if (!('minAmountTo' in legal) || action.amountTo < legal.minAmountTo || action.amountTo > legal.maxAmountTo) {
+      throw new BettingError('Ulog je van dozvoljenog raspona.');
+    }
+  }
+  // Validate fully before copying/committing. The caller's state is never mutated.
+  const next: BettingState = { ...state, players: state.players.map(p => ({ ...p })),
+    pendingActors: state.pendingActors.filter(id => id !== playerId) };
+  const p = next.players.find(p => p.id === playerId)!;
+  if (action.type === 'fold') p.status = 'folded';
+  else {
+    let pay = 0;
+    if (action.type === 'call') pay = Math.min(next.currentBet - p.streetContribution, p.stack);
+    if (action.type === 'all_in') pay = p.stack;
+    if (action.type === 'bet' || action.type === 'raise') pay = action.amountTo - p.streetContribution;
+    p.stack -= pay;
+    p.streetContribution += pay;
+    p.handContribution += pay;
+    if (p.stack === 0) p.status = 'all_in';
+    if (p.streetContribution > next.currentBet) {
+      const increment = p.streetContribution - next.currentBet;
+      if (increment >= next.lastFullRaise) next.lastFullRaise = increment;
+      next.currentBet = p.streetContribution;
+      next.pendingActors = next.players.filter(other => other.id !== playerId && funded(other)).map(p => p.id);
+    }
+  }
+  p.acted = true;
+  p.lastFacedBet = next.currentBet;
+  next.pendingActors = next.pendingActors.filter(id => next.players.some(p => p.id === id && funded(p)));
+  const solvent = next.players.filter(funded);
+  if (next.players.filter(contender).length <= 1) next.pendingActors = [];
+  else if (solvent.length <= 1) {
+    next.pendingActors = solvent.filter(p => p.streetContribution < next.currentBet).map(p => p.id);
+  }
+  // Fixed seats: rotate clockwise after the actor, including gaps.
+  const ordered = [...next.players].sort((a, b) => a.seat - b.seat);
+  const after = [...ordered.filter(other => other.seat > p.seat), ...ordered.filter(other => other.seat <= p.seat)];
+  next.actorId = after.find(other => next.pendingActors.includes(other.id))?.id ?? null;
+  return next;
+}
+

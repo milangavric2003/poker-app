@@ -1,0 +1,337 @@
+﻿Command: npm.cmd test -- tests/unit/evaluator.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/evaluator.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/evaluator.test.ts (96 tests | 96 failed) 48ms
+   ❯ rank — AC14/AC15 (96)
+     × EV01A 6ms
+     × EV01B 1ms
+     × EV02A 0ms
+     × EV02B 1ms
+     × EV03 0ms
+     × EV04 0ms
+     × EV05 0ms
+     × EV06 0ms
+     × EV07 0ms
+     × EV08 0ms
+     × EV09 0ms
+     × EV10A 0ms
+     × EV10B 0ms
+     × pet karata: [ 0, 14, 13, 12, 11, 8 ] 0ms
+     × pet karata: [ 1, 2, 5, 4, 3 ] 0ms
+     × pet karata: [ 2, 3, 2, 4 ] 0ms
+     × pet karata: [ 3, 2, 4, 3 ] 0ms
+     × pet karata: [ 4, 5 ] 0ms
+     × pet karata: [ 5, 7, 5, 4, 3, 2 ] 0ms
+     × pet karata: [ 6, 2, 3 ] 0ms
+     × pet karata: [ 7, 2, 3 ] 0ms
+     × pet karata: [ 8, 5 ] 2ms
+     × susedne kategorije: [ 0, 14, 13, 12, 11, 8 ] < [ 1, 2, 5, 4, 3 ] 0ms
+     × susedne kategorije: [ 1, 2, 5, 4, 3 ] < [ 2, 3, 2, 4 ] 0ms
+     × susedne kategorije: [ 2, 3, 2, 4 ] < [ 3, 2, 4, 3 ] 0ms
+     × susedne kategorije: [ 3, 2, 4, 3 ] < [ 4, 5 ] 0ms
+     × susedne kategorije: [ 4, 5 ] < [ 5, 7, 5, 4, 3, 2 ] 0ms
+     × susedne kategorije: [ 5, 7, 5, 4, 3, 2 ] < [ 6, 2, 3 ] 0ms
+     × susedne kategorije: [ 6, 2, 3 ] < [ 7, 2, 3 ] 0ms
+     × susedne kategorije: [ 7, 2, 3 ] < [ 8, 5 ] 0ms
+     × EV01: poređenje po rangu i kickerima 0ms
+     × EV02: poređenje po rangu i kickerima 0ms
+     × high-card poslednji kicker: poređenje po rangu i kickerima 0ms
+     × par poslednji kicker: poređenje po rangu i kickerima 0ms
+     × dva para kicker: poređenje po rangu i kickerima 0ms
+     × dva para niži par: poređenje po rangu i kickerima 0ms
+     × trips drugi kicker: poređenje po rangu i kickerima 0ms
+     × flush poslednji kicker: poređenje po rangu i kickerima 0ms
+     × full house par: poređenje po rangu i kickerima 0ms
+     × full house trips: poređenje po rangu i kickerima 0ms
+     × quads kicker: poređenje po rangu i kickerima 0ms
+     × straight flush high: poređenje po rangu i kickerima 0ms
+     × šest karata, kasniji straight 0ms
+     × šest karata, najviši flush 0ms
+     × sedam karata, najviši flush 0ms
+     × dupli rang unutar straight-a 0ms
+     × straight i flush nisu straight flush 0ms
+     × nema QKA23 wrap-a 0ms
+     × jedna privatna karta poboljšava board 0ms
+     × EV10: board određuje jednak rezultat bez privatnog kickera 0ms
+     × suit ne razrešava jednakost: [ 0, 14, 13, 12, 11, 8 ] 0ms
+     × suit ne razrešava jednakost: [ 1, 2, 5, 4, 3 ] 0ms
+     × suit ne razrešava jednakost: [ 2, 3, 2, 4 ] 0ms
+     × suit ne razrešava jednakost: [ 3, 2, 4, 3 ] 0ms
+     × suit ne razrešava jednakost: [ 4, 5 ] 0ms
+     × suit ne razrešava jednakost: [ 5, 7, 5, 4, 3, 2 ] 0ms
+     × suit ne razrešava jednakost: [ 6, 2, 3 ] 0ms
+     × suit ne razrešava jednakost: [ 7, 2, 3 ] 0ms
+     × suit ne razrešava jednakost: [ 8, 5 ] 0ms
+     × EV01A: redosled ne menja rank niti ulaz 0ms
+     × EV01B: redosled ne menja rank niti ulaz 0ms
+     × EV02A: redosled ne menja rank niti ulaz 0ms
+     × EV02B: redosled ne menja rank niti ulaz 0ms
+     × EV03: redosled ne menja rank niti ulaz 0ms
+     × EV04: redosled ne menja rank niti ulaz 0ms
+     × EV05: redosled ne menja rank niti ulaz 0ms
+     × EV06: redosled ne menja rank niti ulaz 0ms
+     × EV07: redosled ne menja rank niti ulaz 0ms
+     × EV08: redosled ne menja rank niti ulaz 0ms
+     × EV09: redosled ne menja rank niti ulaz 0ms
+     × EV10A: redosled ne menja rank niti ulaz 0ms
+     × EV10B: redosled ne menja rank niti ulaz 0ms
+     × odbija nevalidan ulaz 0 5ms
+     × odbija nevalidan ulaz 1 1ms
+     × odbija nevalidan ulaz 2 1ms
+     × odbija nevalidan ulaz 3 1ms
+     × odbija nevalidan ulaz 4 1ms
+     × odbija nevalidan ulaz 5 1ms
+     × odbija nevalidan ulaz 6 1ms
+     × odbija nevalidan ulaz 7 1ms
+     × odbija nevalidan ulaz 8 1ms
+     × odbija nevalidan ulaz 9 1ms
+     × odbija nevalidan ulaz 10 1ms
+     × odbija nevalidan ulaz 11 0ms
+     × odbija nevalidan ulaz 12 1ms
+     × odbija nevalidan ulaz 13 2ms
+     × odbija nevalidan ulaz 14 1ms
+     × odbija nevalidan ulaz 15 0ms
+     × odbija nevalidan ulaz 16 0ms
+     × odbija nevalidan ulaz 17 1ms
+     × odbija nevalidan ulaz 18 1ms
+     × odbija nevalidan ulaz 19 0ms
+     × odbija nevalidan ulaz 20 0ms
+     × odbija nevalidan ulaz 21 0ms
+     × odbija nevalidan ulaz 22 0ms
+     × odbija nevalidan ulaz 23 0ms
+npm.cmd : 
+At line:2 char:311
++ ... 'Continue'; npm.cmd test -- tests/unit/evaluator.test.ts 2>&1 | Out-F ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯ Failed Tests 96 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01A
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01B
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02A
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02B
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV03
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV04
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV05
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV06
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV07
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV08
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV09
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10A
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10B
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ vector tests/unit/evaluator.test.ts:8:18
+ ❯ tests/unit/evaluator.test.ts:27:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 0, 14, 13, 12, 11, 8 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 1, 2, 5, 4, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 2, 3, 2, 4 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 3, 2, 4, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 4, 5 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 5, 7, 5, 4, 3, 2 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 6, 2, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 7, 2, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 8, 5 ]
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ vector tests/unit/evaluator.test.ts:8:18
+ ❯ tests/unit/evaluator.test.ts:31:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 0, 14, 13, 12, 11, 8 ] < [ 1, 2, 
+5, 4, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 1, 2, 5, 4, 3 ] < [ 2, 3, 2, 4 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 2, 3, 2, 4 ] < [ 3, 2, 4, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 3, 2, 4, 3 ] < [ 4, 5 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 4, 5 ] < [ 5, 7, 5, 4, 3, 2 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 5, 7, 5, 4, 3, 2 ] < [ 6, 2, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 6, 2, 3 ] < [ 7, 2, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 7, 2, 3 ] < [ 8, 5 ]
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ tests/unit/evaluator.test.ts:36:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > high-card poslednji kicker: poređenje po rangu i kicker
+ima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > par poslednji kicker: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > dva para kicker: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > dva para niži par: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > trips drugi kicker: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > flush poslednji kicker: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > full house par: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > full house trips: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > quads kicker: poređenje po rangu i kickerima
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > straight flush high: poređenje po rangu i kickerima
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ tests/unit/evaluator.test.ts:56:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > šest karata, kasniji straight
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > šest karata, najviši flush
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > sedam karata, najviši flush
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > dupli rang unutar straight-a
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > straight i flush nisu straight flush
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > nema QKA23 wrap-a
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > jedna privatna karta poboljšava board
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ vector tests/unit/evaluator.test.ts:8:18
+ ❯ tests/unit/evaluator.test.ts:69:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10: board određuje jednak rezultat bez privatnog kick
+era
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ tests/unit/evaluator.test.ts:73:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 0, 14, 13, 12, 11, 8 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 1, 2, 5, 4, 3 ]
+
+ Test Files  1 failed (1)
+      Tests  96 failed (96)
+   Start at  17:54:27
+   Duration  880ms (transform 43%, tests 32%, import 20%, worker 5%)
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 2, 3, 2, 4 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 3, 2, 4, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 4, 5 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 5, 7, 5, 4, 3, 2 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 6, 2, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 7, 2, 3 ]
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 8, 5 ]
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ vector tests/unit/evaluator.test.ts:8:18
+ ❯ tests/unit/evaluator.test.ts:81:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01A: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01B: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02A: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02B: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV03: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV04: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV05: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV06: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV07: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV08: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV09: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10A: redosled ne menja rank niti ulaz
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10B: redosled ne menja rank niti ulaz
+Error: Evaluator not implemented
+ ❯ rank backend/src/evaluator/rank.ts:10:9
+      8| // T006: importabilan stub za RED na nedostajućem ponašanju.
+      9| export function rank(_cards: readonly Card[]): HandRank {
+     10|   throw new Error('Evaluator not implemented');
+       |         ^
+     11| }
+     12|
+ ❯ vector tests/unit/evaluator.test.ts:8:18
+ ❯ tests/unit/evaluator.test.ts:88:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/96]⎯
+
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 0
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 1
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 2
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 3
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 4
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 5
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 6
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 7
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 8
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 9
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 10
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 11
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 12
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 13
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 14
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 15
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 16
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 17
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 18
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 19
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 20
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 21
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 22
+ FAIL  |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 23
+AssertionError: expected [Function] to throw error including 'Invalid cards' but got 'Evaluator not implemented'
+
+Expected: "Invalid cards"
+Received: "Evaluator not implemented"
+
+ ❯ tests/unit/evaluator.test.ts:99:50
+     97|     new Array(5), null, undefined, 'Ac Kd Qh Js 9c', { length: 5 },
+     98|   ].map((input, index) => ({ input, index })))('odbija nevalidan ulaz …
+     99|     expect(() => rank(input as readonly Card[])).toThrow('Invalid card…
+       |                                                  ^
+    100|   });
+    101| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/96]⎯
+
+Exit code: 1

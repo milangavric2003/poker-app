@@ -1,0 +1,13 @@
+Komanda: npm.cmd test -- tests/unit/bot.test.ts tests/unit/history.test.ts
+Datum: 2026-09-22 (Europe/Belgrade)
+Exit status: 1
+
+Vitest 5.0.1 je pronašao oba nova suite-a, ali nijedan test nije mogao da se učita:
+- tests/unit/bot.test.ts: Cannot find module '../../backend/src/bots/strategy.js'
+- tests/unit/history.test.ts: Cannot find module '../../backend/src/engine/history.js'
+
+Test Files  2 failed (2)
+Tests       no tests
+
+Očekivani razlog RED-a: T017 produkcioni moduli još ne postoje. Baseline pre ovog
+RED-a bio je 8 test fajlova i 267/267 prolaznih testova.

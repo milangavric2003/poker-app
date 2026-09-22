@@ -1,0 +1,16 @@
+COMMAND: npm.cmd test -- tests/unit/betting.test.ts
+EXIT: 0
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/betting.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  1 passed (1)
+      Tests  21 passed (21)
+   Start at  23:14:49
+   Duration  216ms (transform 65%, import 20%, tests 11%, worker 3%)
+
+

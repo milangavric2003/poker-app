@@ -1,0 +1,9 @@
+Komanda: npm.cmd test -- tests/unit/bot.test.ts tests/unit/history.test.ts
+Datum: 2026-09-22 (Europe/Belgrade)
+Exit status: 0
+
+Test Files  2 passed (2)
+Tests       9 passed (9)
+
+Prateća provera: npm.cmd run typecheck
+Exit status: 0

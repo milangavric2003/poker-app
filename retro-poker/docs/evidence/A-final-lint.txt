@@ -1,0 +1,7 @@
+COMMAND: npm.cmd run lint
+EXIT: 0
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+

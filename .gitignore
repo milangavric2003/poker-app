@@ -1,0 +1,7 @@
+/week-03-week-04-pdf-review
+node_modules/
+dist/
+coverage/
+.env
+.env.local
+*.log

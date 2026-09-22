@@ -1,0 +1,12 @@
+﻿Command: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+D:\AIBootcamp\week3-4\retro-poker\tests\unit\evaluator.test.ts
+  35:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+
+✖ 1 problem (1 error, 0 warnings)
+
+Exit code: 1

@@ -1,0 +1,14 @@
+﻿Command: npm.cmd run build
+
+> retro-poker@0.1.0 build
+> vite build && tsc -p tsconfig.server.json
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 2 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/frontend/index.html  0.26 kB │ gzip: 0.21 kB
+
+✓ built in 38ms
+Exit code: 0

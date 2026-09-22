@@ -1,0 +1,8 @@
+// T008 RED scaffold. Domain transitions are not implemented yet.
+import type { BettingState, LegalAction, PokerAction } from './types.js';
+export class BettingError extends Error { readonly code = 'ILLEGAL_ACTION'; }
+export function legalActions(_state: BettingState, _playerId: string): LegalAction[] { return []; }
+export function applyAction(_state: BettingState, _playerId: string, _action: PokerAction): BettingState {
+  throw new Error('Betting transition not implemented');
+}
+

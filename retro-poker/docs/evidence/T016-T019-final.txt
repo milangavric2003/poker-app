@@ -1,0 +1,24 @@
+Završne komande ponovljene posle lint ispravke i scoped convergence pregleda,
+2026-09-23 (Europe/Belgrade):
+
+1. npm.cmd test
+   Exit status: 0
+   Test Files  12 passed (12)
+   Tests       284 passed (284)
+
+2. npm.cmd run typecheck
+   Exit status: 0
+
+3. npm.cmd run lint
+   Exit status: 0
+
+4. npm.cmd run build
+   Exit status: 0
+   Vite 8.3.0: frontend build uspešan; backend tsc build uspešan.
+
+Prvi završni lint pokušaj imao je 3 greške za nekorišćene destrukturisane identifikatore
+u backend/src/session.ts. Ispravka je eksplicitno konstruisanje PokerAction unije;
+ceo skup iznad je zatim ponovljen i svi izlazi su bili uspešni.
+
+npm run dev nije pokrenut. Integracija je proverena Fastify inject-om bez mrežnog
+listener-a, pa nije bilo procesa za gašenje niti zauzetih portova koje bi ovaj blok stvorio.

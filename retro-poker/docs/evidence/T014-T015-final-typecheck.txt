@@ -1,0 +1,6 @@
+﻿Command: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit code: 0

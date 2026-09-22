@@ -1,0 +1,197 @@
+COMMAND: npm.cmd test -- tests/contract/config.test.ts tests/contract/messages.test.ts
+EXIT: 1
+
+> retro-poker@0.1.0 test
+> vitest run tests/contract/config.test.ts tests/contract/messages.test.ts
+
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/contract/messages.test.ts (61 tests | 24 failed) 26ms
+   ❯ output contracts (45)
+     × accepts legal action {"type":"fold"} 3ms
+     × accepts legal action {"type":"check"} 1ms
+     × accepts legal action {"type":"call","payAmount":5,"isAllIn":false} 0ms
+     × accepts legal action {"type":"bet","minAmountTo":10,"maxAmountTo":1000} 0ms
+     × accepts legal action {"type":"raise","minAmountTo":20,"maxAmountTo":1000} 0ms
+     × accepts legal action {"type":"all_in","amountTo":1000,"payAmount":995,"classification":"raise"} 0ms
+     × accepts public event {"type":"hand_started","number":1,"buttonSeat":0,"smallBlindSeat":0,"bigBlindSeat":1} 0ms
+     × accepts public event {"type":"blind_posted","playerId":"p0","blind":"small","amount":5} 0ms
+     × accepts public event {"type":"action","playerId":"p0","actionType":"call","payAmount":5,"amountTo":10} 0ms
+     × accepts public event {"type":"board_dealt","cards":["2c","3d","7h"]} 0ms
+     × accepts public event {"type":"refund","playerId":"p0","amount":5} 0ms
+     × accepts public event {"type":"settled","reason":"showdown"} 0ms
+     × accepts empty and active game envelope 0ms
+     × requires all snapshot fields 0ms
+     × validates payouts, winner eligibility and zero-sum net result 0ms
+     × accepts settled view only with result and no pending pot/actor/actions 0ms
+     × accepts safe error INVALID_INPUT 0ms
+     × accepts safe error GAME_NOT_FOUND 0ms
+     × accepts safe error STALE_STATE 0ms
+     × accepts safe error ILLEGAL_ACTION 0ms
+     × accepts safe error PRECONDITION_REQUIRED 0ms
+     × accepts safe error PAYLOAD_TOO_LARGE 0ms
+     × accepts safe error UNSUPPORTED_MEDIA_TYPE 1ms
+     × accepts safe error INTERNAL_ERROR 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 24 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"fold"}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"check"}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"call","payAmount":5,"isAllIn":false}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"bet","minAmountTo":10,"maxAmountTo":1000}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"raise","minAmountTo":20,"maxAmountTo":1000}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"all_in","amountTo":1000,"payAmount":995,"classification":"raise"}
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:45:30
+     43|     { type: 'all_in', amountTo: 1000, payAmount: 995, classification: …
+     44|   it.each(actions)('accepts legal action %j', value => {
+     45|     expect(LegalActionSchema.parse(value)).toEqual(value);
+       |                              ^
+     46|     expect(LegalActionSchema.safeParse({ ...value, secret: 42 }).succe…
+     47|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/24]⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"hand_started","number":1,"buttonSeat":0,"smallBlindSeat":0,"bigBlindSeat":1}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"blind_posted","playerId":"p0","blind":"small","amount":5}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"action","playerId":"p0","actionType":"call","payAmount":5,"amountTo":10}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"board_dealt","cards":["2c","3d","7h"]}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"refund","playerId":"p0","amount":5}
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"settled","reason":"showdown"}
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:64:30
+     62|   it.each(events)('accepts public event %j', event => {
+     63|     const value = { seq: 1, handId, street: 'flop', ...event };
+     64|     expect(PublicEventSchema.parse(value)).toEqual(value);
+       |                              ^
+     65|     expect(PublicEventSchema.safeParse({ ...value, deck: ['As'] }).suc…
+     66|     expect(PublicEventSchema.safeParse({ ...value, seq: 0 }).success).…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/24]⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts empty and active game envelope
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:74:31
+     72|   });
+     73|   it('accepts empty and active game envelope', () => {
+     74|     expect(GameResponseSchema.parse({ game: null })).toEqual({ game: n…
+       |                               ^
+     75|     expect(GameResponseSchema.parse({ game: publicView() })).toEqual({…
+     76|     expect(GameResponseSchema.safeParse({ game: null, deck: [] }).succ…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/24]⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > requires all snapshot fields
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:79:27
+     77|   });
+     78|   it('requires all snapshot fields', () => {
+     79|     expect(GameViewSchema.parse(publicView())).toEqual(publicView());
+       |                           ^
+     80|     for (const key of Object.keys(publicView())) {
+     81|       const value: Record<string, unknown> = publicView();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/24]⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > validates payouts, winner eligibility and zero-sum net result
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:110:29
+    108|   it('validates payouts, winner eligibility and zero-sum net result', …
+    109|     const result = handResult();
+    110|     expect(HandResultSchema.parse(result)).toEqual(result);
+       |                             ^
+    111|     expect(HandResultSchema.safeParse({ ...result, netChanges: [{ play…
+    112|     for (const patch of [{ amount: 21 }, { winnerIds: ['missing'] },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/24]⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts settled view only with result and no pending pot/actor/actions
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:123:27
+    121|         handContribution: 0, streetContribution: 0, cards: i === 0 ? […
+    122|       totalPot: 0, pots: [], legalActions: [], result: handResult() };
+    123|     expect(GameViewSchema.parse(value)).toEqual(value);
+       |                           ^
+    124|     expect(GameViewSchema.safeParse({ ...value, result: null }).succes…
+    125|     expect(GameViewSchema.safeParse({ ...value, actorId: 'p0' }).succe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/24]⎯
+
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error INVALID_INPUT
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error GAME_NOT_FOUND
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error STALE_STATE
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error ILLEGAL_ACTION
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error PRECONDITION_REQUIRED
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error PAYLOAD_TOO_LARGE
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error UNSUPPORTED_MEDIA_TYPE
+ FAIL  |node| tests/contract/messages.test.ts > output contracts > accepts safe error INTERNAL_ERROR
+ZodError: [
+  {
+    "expected": "never",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected never, received object"
+  }
+]
+ ❯ tests/contract/messages.test.ts:131:28
+    129|   ('accepts safe error %s', code => {
+    130|     const value = { error: { code, message: 'Zahtev nije prihvaćen.' }…
+    131|     expect(GameErrorSchema.parse(value)).toEqual(value);
+       |                            ^
+    132|     expect(GameErrorSchema.safeParse({ error: { ...value.error, stack:…
+    133|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/24]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  24 failed | 76 passed (100)
+   Start at  22:51:28
+   Duration  509ms (import 62%, transform 27%, tests 8%, worker 2%)
+
+
