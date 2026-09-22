@@ -1,0 +1,29 @@
+T022 - stvarni E2E RED zapis
+Datum: 2026-09-23 (Europe/Belgrade)
+
+Komanda validne behavior provere:
+npx.cmd playwright test tests/e2e/play-hand.spec.ts
+
+Exit code: 0
+Rezultat: 2 passed (6.1s)
+
+ZakljuÄak: E2E test nije proizveo behavior RED. PostojeÄ‡e integrisano ponaÅ¡anje je
+veÄ‡ ispunilo AC23 i AC16: stvarni React/Vite frontend i Fastify backend, AC23 Å¡pil
+ubrizgan samo kao in-process konstruktor dependency, call 5/check tok 1010/990 i
+fold tok 995/1005. U skladu sa tasks.md nije izmiÅ¡ljen RED niti je aplikacioni kod
+menjan bez potrebe.
+
+Setup incidenti koji NISU TDD RED:
+1. Prvi pokuÅ¡aj: npx.cmd playwright test tests/e2e/play-hand.spec.ts; Chromium nije
+   bio instaliran (browserType.launch executable doesn't exist). Standardna komanda
+   npx.cmd playwright install chromium prvo je u sandbox-u pala EPERM, zatim je uz
+   odobrenje zavrÅ¡ila exit 0.
+2. SledeÄ‡i pokuÅ¡aj je potvrdio da oba scenarija funkcionalno prolaze, ali postojeÄ‡i
+   globalni playwright webServer (npm run dev / tsx watch) nije vratio procesni exit.
+   PoÅ¡to test helper veÄ‡ pokreÄ‡e i uredno gasi izolovane stvarne servere, uklonjen je
+   dupli globalni webServer iz playwright.config.ts. Posle toga ista komanda exit 0.
+3. Prve tekstualne provere sa dijakriticima bile su neispravne zbog kodiranja literal-a;
+   zamenjene su stabilnim semantiÄkim podstringovima pre prihvatanja rezultata.
+
+Nema produkcione HTTP rute za Å¡pil. Setup/import/browser padovi nisu predstavljeni
+kao RED nedostajuÄ‡eg ponaÅ¡anja.

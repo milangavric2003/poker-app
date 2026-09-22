@@ -1,0 +1,21 @@
+T023 - GREEN integracije
+Datum: 2026-09-23 (Europe/Belgrade)
+
+Komanda:
+npx.cmd playwright test tests/e2e/play-hand.spec.ts
+
+Exit code: 0
+Rezultat: 2 passed (6.1s)
+
+AC23: call 5, zatim check kroz flop/turn/river; board 2c 3d 7h 9s Jc;
+showdown; konaÄni stackovi player-0/player-1 = 1010/990.
+AC16: ljudski fold; board ostaje prazan; stackovi 995/1005.
+
+Pre showdown-a UI nema Kc/Kd, a posle showdown-a ih prikazuje. Test proverava ljudske
+karte, board, pot, legalne akcije, istoriju, rezultat i stackove. Backend fixture je
+in-process dependency injection iz tests/helpers/server.ts; nema set-deck endpoint-a.
+
+Nisu bile potrebne izmene u dozvoljenim T023 aplikacionim putanjama: postojeÄ‡e
+ponaÅ¡anje T019/T021 je potvrÄ‘eno. Jedina test-infrastrukturna promena van E2E testa i
+helpera je uklanjanje redundantnog globalnog webServer-a iz playwright.config.ts da
+bi izolovani helper serveri mogli uredno da zavrÅ¡e komandu.
