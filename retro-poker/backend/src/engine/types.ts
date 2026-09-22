@@ -18,10 +18,34 @@ export interface BettingState {
 export interface Player extends BettingPlayer {
   kind: 'human' | 'bot'; holeCards: Card[]; stackAtHandStart: number;
 }
+export interface Pot {
+  id: string; amount: number; contributionCap: number;
+  contributorIds: string[]; eligibleIds: string[];
+}
+export interface PotPayout {
+  id: string; amount: number; eligibleIds: string[]; winnerIds: string[];
+  payouts: { playerId: string; amount: number }[];
+}
+export interface Refund { playerId: string; amount: number; }
+export interface PotSettlementState {
+  players: Player[]; board: Card[]; buttonSeat: number; settled: boolean;
+  pots: PotPayout[]; refunds: Refund[];
+}
+export type GameStatus = 'playing' | 'won' | 'lost';
+export interface HandResult {
+  handId: string; reason: 'showdown' | 'uncontested'; gameStatus: GameStatus;
+  pots: PotPayout[]; refunds: Refund[];
+  revealedCards: { playerId: string; cards: [Card, Card] }[];
+  netChanges: { playerId: string; amount: number }[];
+}
+export interface HandState {
+  handId: string; phase: 'preflop' | 'flop' | 'turn' | 'river' | 'complete';
+  buttonSeat: number; board: Card[]; players: Player[]; actorId: string | null;
+  settled: boolean; result: HandResult | null; gameStatus: GameStatus;
+}
 export interface RandomSource { next(): number; clone(): RandomSource; }
 export interface GameDependencies {
   deckRandom: RandomSource; botRandom: RandomSource;
   // In-process test harness only; never an HTTP input.
   deck?: readonly Card[];
 }
-

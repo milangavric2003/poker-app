@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: T001–T009 izvršeni; ostali taskovi nisu završeni.
+[quickstart](quickstart.md). Status: T001–T013 izvršeni; ostali taskovi nisu završeni.
 
 Zajednički artefakti pripremljeni su iz ugla člana A uz coding agenta;
 kolegin doprinos i review nisu potvrđeni. Dokazi: [EVIDENCE_003](../../docs/EVIDENCE_003.md).
@@ -46,10 +46,10 @@ Samostalna provera: zadati snapshot-i AC05–AC15, bez UI-ja ili cele partije.
 - [x] T007 [US2] A — GREEN u backend/src/evaluator/rank.ts enumeracijom pet karata, category0–8 i kicker niz; validno5/6/7 dostupnih karata, showdown7, bez suit tiebreak-a; deps: T006; dokaz: evaluator testovi prolaze i ne koriste evaluator za očekivanje. [GREEN: 96 prolazi](../../docs/evidence/T007-green.txt); [završne provere](../../docs/evidence/T007-final-checks.txt).
 - [x] T008 [US2] A — RED u tests/unit/betting.test.ts za AC04–AC10, BB opciju, kratki blind, dry side-pot, zabranu raise-a kroz all_in; deps: T005; dokaz: currentBet/lastFullRaise/pendingActors i individualni lastFacedBet imaju očekivanja.
 - [x] T009 [US2] A — GREEN u backend/src/engine/betting.ts za legalActions i primenu uloga; „lastFullRaise ≥ 10”, iznosi safe integer, „Check beleži lastFacedBet=0”; deps: T008; dokaz: svi RED slučajevi i očuvanje stackova prolaze.
-- [ ] T010 [US2] A — RED u tests/unit/pots.test.ts za AC11/AC12/AC13, foldovane doprinose, više tied side potova i ponovljen settlement; deps: T007, T009; dokaz: refund120/pot160 i 300/300 oracle iz fixtures.
-- [ ] T011 [US2] A — GREEN u backend/src/engine/pots.ts; svaki nivo doprinosa, eligibleIds, refund i split zasebno, neparni žeton levo od button-a; deps: T010; dokaz: nema duple isplate ni izgubljenih žetona.
-- [ ] T012 [US2] A — RED u tests/unit/hand.test.ts i tests/unit/invariants.test.ts za settlement iz river/all-in/fold snapshot-a, netChanges zbir0 i handContribution reset; deps: T011; dokaz: AC16 i generisani legalni prelazi proveravaju invarijante.
-- [ ] T013 [US2] A — GREEN settlement deo backend/src/engine/hand.ts; reason showdown/uncontested, settled boolean, result i status tek nakon isplata; deps: T012; dokaz: US2 radi iz fixture-a bez transporta, nema negativnih/razlomljenih Chips.
+- [x] T010 [US2] A — RED u tests/unit/pots.test.ts za AC11/AC12/AC13, foldovane doprinose, više tied side potova i ponovljen settlement; deps: T007, T009; dokaz: [5 pada, 1 prolazi](../../docs/evidence/T010-red.txt), refund120/pot160 i 300/300 oracle iz fixtures.
+- [x] T011 [US2] A — GREEN u backend/src/engine/pots.ts; svaki nivo doprinosa, eligibleIds, refund i split zasebno, neparni žeton levo od button-a; deps: T010; dokaz: [6 prolazi](../../docs/evidence/T011-green.txt), [regresija 123](../../docs/evidence/T011-regression.txt), nema duple isplate ni izgubljenih žetona.
+- [x] T012 [US2] A — RED u tests/unit/hand.test.ts i tests/unit/invariants.test.ts za settlement iz river/all-in/fold snapshot-a, netChanges zbir0 i handContribution reset; deps: T011; dokaz: [9 pada, 2 prolaze](../../docs/evidence/T012-red.txt), AC16 i generisani legalni prelazi proveravaju invarijante.
+- [x] T013 [US2] A — GREEN settlement deo backend/src/engine/hand.ts; reason showdown/uncontested, settled boolean, result i status tek nakon isplata; deps: T012; dokaz: [11 prolazi](../../docs/evidence/T013-green.txt), [regresija 134](../../docs/evidence/T013-regression.txt), nema negativnih/razlomljenih Chips.
 
 Checkpoint: domen US2 prolazi. B može naknadno review-ovati domen pre svoje integracije,
 ali nema istovremenih agent sesija niti menjanja istih fajlova.

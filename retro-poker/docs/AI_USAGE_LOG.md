@@ -31,3 +31,13 @@ Dokazi i sažetak značajnog prompta: [EVIDENCE_003](EVIDENCE_003.md#t006t007--e
 Jedan dodatni značajni coding blok, jedan TDD ciklus; ukupno četiri zabeležena bloka.
 Potrošnja tokena i trošak: nepoznato. Kolegin doprinos/review i završni ljudski
 pregled koda nisu prijavljeni. Nema paralelnih agenata ni implementacije T010+.
+
+## A-05 — T010–T013, 2026-09-22
+
+Alat: Codex, jedan coding agent; model i potrošnja nisu potvrđeni runtime telemetrijom.
+Svrha: dva stvarna TDD ciklusa za FR-008/FR-010 i AC11–AC13/AC16. Korisnik je
+izričito ograničio rad na T010–T013 i zahtevao proveru zavisnosti T006–T009.
+Rezultat: baseline 117/117; T010 5 RED padova → T011 6 GREEN; T012 9 RED padova →
+T013 11 GREEN; završno 234/234, typecheck/lint/build exit0. Sačuvani su i parser pad
+prvog GREEN pokušaja i type narrowing pad prve završne provere. Test očekivanja nisu
+oslabljena; T014+ nije implementiran. Detalji i ograničenja su u EVIDENCE_003.

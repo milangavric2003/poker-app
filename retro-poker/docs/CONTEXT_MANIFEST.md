@@ -48,3 +48,19 @@ Polazna verzija za donje izvore: HEAD `ffc70ceae12962cf5cbd0487ab66044485e9ceaf`
 
 Novi testovi i `backend/src/evaluator/rank.ts` nastali su tokom ovog ciklusa.
 RED stub i svi stvarni izlazi čuvaju se u docs/evidence/T006-* i T007-*.
+
+## T010–T013 — 2026-09-22
+
+Polazna verzija: worktree čist; T006–T009 fokusirana regresija 117/117. Učitani su
+aktuelni korisnički zahtev, AGENTS.md, constitution1.0.0, GAME_SPEC, kompletni feature
+spec/plan/tasks/fixtures, relevantni data-model i HTTP ugovor, research/quickstart,
+evaluator, betting, tipovi, helper-i i postojeći evidence dokumenti. Korišćen je
+`speckit-implement` workflow; checklist 16/16 i prerequisite uspešan. Nema extensions.yml.
+
+Najviši prioritet imali su AC11–AC13/AC16, FR-008/FR-010, eksplicitni oracle-i iz
+fixtures.md, celobrojni žetoni i jednokratna isplata. `suggestion.md`, nastavni PDF,
+spoljni poker izvori, UI/transport i T014+ nisu učitani niti korišćeni jer nisu potrebni
+za ovaj ograničeni blok. Novi direktni artefakti su pots/hand testovi, invariants test,
+`pots.ts`, settlement deo `hand.ts` i prošireni domenski tipovi/helper. Stvarni RED,
+GREEN, regresioni i završni izlazi nalaze se u `docs/evidence/T010-*` do `T013-*` i
+`T010-T013-*`; neuspešni međukoraci su zadržani, ne predstavljeni kao uspeh.

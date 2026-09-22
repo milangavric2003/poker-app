@@ -1,7 +1,12 @@
-import type { BettingPlayer, BettingState, Card, RandomSource } from '../../backend/src/engine/types.js';
+import type { BettingPlayer, BettingState, Card, Player, RandomSource } from '../../backend/src/engine/types.js';
 export function player(id: string, seat: number, patch: Partial<BettingPlayer> = {}): BettingPlayer {
   return { id, seat, stack: 1000, streetContribution: 0, handContribution: 0,
     status: 'active', acted: false, lastFacedBet: 0, ...patch };
+}
+export function handPlayer(id: string, seat: number, holeCards: Card[],
+  patch: Partial<Player> = {}): Player {
+  return { ...player(id, seat), kind: id === 'A' ? 'human' : 'bot', holeCards,
+    stackAtHandStart: 1000, ...patch };
 }
 export function betting(players: BettingPlayer[], patch: Partial<BettingState> = {}): BettingState {
   return { players, currentBet: 0, lastFullRaise: 10, actorId: players[0]?.id ?? null,
@@ -50,4 +55,3 @@ export const positionOracles = [
   { id: 'BL09', active: [0,1,2], previous: [0,1,2], out: [2], next: [1,1,0], actors: [1,0] },
   { id: 'BL10', active: [0,1], previous: [0,0,1], out: [], next: [1,1,0], actors: [1,0] },
 ];
-

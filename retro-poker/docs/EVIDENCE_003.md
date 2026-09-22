@@ -92,3 +92,34 @@ showdown/raspodela potova kroz igru. AC14 ovde dokazuje jednak rank, ne isplatu.
 T010+ nisu implementirani. RED stub nije E4 propust. T006–T007 su završeni;
 Week03 kao celina nije završena. Član A zadao je scope, Codex je napisao kod/testove
 i izvršio navedene provere; kolegin doprinos i ljudski review nisu potvrđeni.
+
+## T010–T013 — potovi i settlement, član A, 2026-09-22
+
+Polazno stanje: čist worktree; T006–T009 potvrđeni fokusiranom regresijom 117/117.
+Checklist je 16/16, a Spec Kit prerequisite je uspeo uz process-scoped
+`-ExecutionPolicy Bypass`. Scope je bio isključivo T010–T013; T014+ nije menjan.
+
+Prvi ciklus dokazuje AC11–AC13: slojevi 300/300, refund120 + pot160, foldovani
+doprinos u potu, više tied side potova, neparni žeton od prvog mesta levo od button-a
+i idempotentan settlement. Drugi ciklus povezuje ledger sa river/all-in/fold završetkom,
+resetuje doprinose, računa neto promene zbira0 i tek posle isplate postavlja rezultat,
+`complete`, eliminacije i status partije.
+
+| Provera | Stvarni rezultat / dokaz |
+|---|---|
+| T010 RED — `npm.cmd test -- tests/unit/pots.test.ts` | [5 pada, 1 prolazi](evidence/T010-red.txt), exit1 zbog importabilnog `Not implemented` stuba |
+| T011 GREEN / regresija | [6/6](evidence/T011-green.txt) i [123/123](evidence/T011-regression.txt), exit0 |
+| T012 RED — hand + invariants | [9 pada, 2 prolaze](evidence/T012-red.txt), exit1 zbog importabilnog `Not implemented` stuba |
+| T013 prvi pokušaj | [parser pad](evidence/T013-first-green-failed.txt); sačuvan, nije predstavljen kao GREEN |
+| T013 GREEN / regresija | [11/11](evidence/T013-green.txt) i [134/134](evidence/T013-regression.txt), exit0 |
+| `npm.cmd test` | [234/234 u 7 fajlova](evidence/T010-T013-final-test.txt), exit0 |
+| `npm.cmd run typecheck` | [exit0](evidence/T010-T013-final-typecheck.txt) |
+| `npm.cmd run lint` | [exit0](evidence/T010-T013-final-lint.txt) |
+| `npm.cmd run build` | [exit0](evidence/T010-T013-final-build.txt) |
+
+Prva završna provera imala je samo TypeScript suženje `reason` tipa i zato build pad;
+[typecheck](evidence/T010-T013-first-final-typecheck-failed.txt) i
+[build](evidence/T010-T013-first-final-build-failed.txt) logovi su sačuvani. Ispravka
+je bila type-only anotacija union-a, bez promene ponašanja; kompletan set je ponovljen.
+Nema tvrdnje o ljudskom review-u, E2E-u ili završenoj Week03 igri. T014 i kasniji
+lifecycle/dealing/API taskovi ostaju otvoreni. Potrošnja i cena AI poziva nisu dostupne.
