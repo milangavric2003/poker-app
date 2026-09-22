@@ -1,5 +1,16 @@
 # Context manifest — implementacioni blok člana A
 
+## T020–T021 — član A, 2026-09-23
+
+Učitani su aktuelni zahtev, AGENTS.md, constitution1.0.0, GAME_SPEC1.0, kompletni
+spec/plan/tasks, data-model, HTTP ugovor, frontend delovi research/quickstart,
+shared/contracts.ts, public-fixtures, backend rute/view i konfiguracija. Korišćen je
+`speckit-implement`; checklist16/16, prerequisite uspešan uz process-scoped bypass,
+bez extensions.yml. Prioritet su GameView/legalActions, amountTo/doplata, blokada,
+runtime validacija i reset precondition. Suggestion, PDF, spoljni izvori, E2E i T022+
+nisu korišćeni. Novi izvori su tri UI testa i T021 frontend fajlovi; stvarni logovi
+su evidence/T020-red.txt i evidence/T021-green.txt.
+
 Datum2026-09-21; polazni HEAD a63699d77237f12e231b2b10ec1016fd447b20e1.
 Manifest opisuje kontekst ovog bloka, ne tvrdi istoriju svih ranijih poziva.
 

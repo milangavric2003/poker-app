@@ -1,0 +1,24 @@
+T020-T021 završne provere — 2026-09-23 (Europe/Belgrade)
+
+1. npm.cmd test -- tests/ui/table.test.tsx tests/ui/actions.test.tsx tests/ui/api.test.ts
+   Exit 0; Test Files 3 passed (3); Tests 7 passed (7).
+2. npm.cmd test
+   Exit 0; Test Files 15 passed (15); Tests 291 passed (291).
+3. npm.cmd run typecheck
+   Exit 0; tsc --noEmit && tsc -p tsconfig.server.json --noEmit.
+4. npm.cmd run lint
+   Exit 0; eslint .
+5. npm.cmd run build
+   Exit 0; Vite 8.3.0, 116 modula; frontend i server/shared build uspešni.
+
+Prva objedinjena provera: npm test 291/291, lint i build exit0; typecheck exit1
+zbog preuskog ActionDraft tipa i mutable inferencije public fixture-a. Ispravljen je
+samo tip draft akcije i konstrukcija test snapshot-a; assertion-i nisu oslabljeni.
+Potom je ceo gornji skup ponovljen sa exit0.
+
+Lokalni smoke (nije T022 E2E): npm.cmd run dev je podigao Vite i backend. Kroz Vite
+/api proxy: GET je vratio game:null, create verziju1, legalni fold verziju2,
+phase complete i 6 događaja. Ctrl+C je ugasio oba procesa; nema preostalih node procesa.
+
+Ograničenja: next-hand/continuation, E2E harness, screenshot i završno vizuelno
+poliranje ostaju T022+ odnosno kasnijim taskovima.

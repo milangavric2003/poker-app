@@ -1,5 +1,21 @@
 # Evidence Week03 — blok člana A
 
+## T020–T021 — osnovni frontend, član A, 2026-09-23
+
+Baseline: 12/12 suite-ova i 284/284 testova. [Stvarni RED](evidence/T020-red.txt)
+ima exit1 jer tri tražena T021 modula ne postoje; testovi koriste zajednički public
+fixture. GREEN uvodi React ulaz, Zod-validiran API klijent, App stanje, sto, akcije,
+rezultat i jednostavan retro CSS. UI mapira backend legalActions, ne uvozi backend,
+jasno odvaja ukupan amountTo od doplate, čuva redosled događaja i vidljiv rezultat.
+
+Fokusirani UI: 3/3 suite-a i 7/7 testova. Puna regresija: 15/15 i 291/291.
+Typecheck, lint i build: exit0. Lokalni smoke: game:null → create v1 → legalni fold
+→ v2/complete/6 događaja; oba dev procesa su ugašena. Prvi typecheck pad zbog uskog
+draft tipa/fixture inferencije ispravljen je bez slabljenja assertion-a; zatim je ceo
+skup ponovljen. [Kompletan GREEN](evidence/T021-green.txt). T022 E2E, next-hand,
+kontinuirana partija i završno poliranje nisu rađeni. T022–T040 ostaju članu B;
+Week03 nije završen. Ljudski review i potrošnja nisu potvrđeni.
+
 Početno stanje2026-09-21: samo specifikacije, bez package.json i aplikacije.
 Polazni HEAD a63699d77237f12e231b2b10ec1016fd447b20e1.
 Tadašnji scope: korisnik je odobrio A deo implementacije; evaluator/frontend bili su ostavljeni kolegi. Aktuelni zahtev za T006–T007 zabeležen je ispod.

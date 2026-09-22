@@ -1,5 +1,14 @@
 # AI usage log
 
+## A-07 — T020–T021, 2026-09-23
+
+Codex, jedan coding agent, bez paralelnih agenata. Stvarni RED→GREEN za osnovni
+React UI i runtime-validiran HTTP klijent. Korisnik je dodelio članu A T020–T021 i
+rezervisao T022+ kolegi. Rezultat: baseline284/284; RED tri suite-a zbog odsutnih
+modula; GREEN UI7/7, regresija291/291 i typecheck/lint/build exit0. Lokalni smoke je
+izvršio create i legalni potez, pa su procesi ugašeni. E2E, kontinuirana partija i
+završno poliranje nisu rađeni. Model, tokeni, cena i ljudski review nisu potvrđeni.
+
 Ovaj log počinje sada; ne rekonstruiše izmišljenu istoriju prethodnih poziva.
 Trošak i tokeni nisu dostupni u ovom interfejsu: nepoznato.
 
