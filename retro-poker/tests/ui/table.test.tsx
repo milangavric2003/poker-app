@@ -33,4 +33,18 @@ describe('Table', () => {
       expect.stringContaining('Flop: 2c 3d 4h'),
     ]);
   });
+
+  it('daje kartama i mestima razumljiva imena koja ne zavise samo od boje', () => {
+    const game = GameViewSchema.parse(publicView());
+
+    const view = render(<Table game={game} />);
+    const table = within(view.container);
+
+    expect(table.getByRole('article', { name: /Ti.*mesto 1/i })).toBeVisible();
+    expect(table.getByRole('article', { name: /Bot 1.*mesto 2/i })).toBeVisible();
+    expect(table.getByLabelText('As pik')).toHaveTextContent('A♠');
+    expect(table.getByLabelText('As herc')).toHaveTextContent('A♥');
+    expect(table.getByText(/Mali blind: Ti, 5/)).toBeVisible();
+    expect(table.getByText(/Veliki blind: Bot 1, 10/)).toBeVisible();
+  });
 });

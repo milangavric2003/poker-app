@@ -1,5 +1,23 @@
 # Context manifest — implementacioni blok člana A
 
+## T035–T036 — član B, 2026-09-23
+
+Pročitani su aktuelni zahtev; AGENTS.md; constitution1.0.0; GAME_SPEC1.0; kompletni
+spec/plan/tasks/quickstart; postojeći EVIDENCE_003, AI_USAGE_LOG i CONTEXT_MANIFEST;
+svi frontend/src fajlovi i svi relevantni E2E/UI testovi. `speckit-implement` je vodio
+prerequisite/checklist/TDD; prerequisite je uspeo uz ExecutionPolicy Bypass, checklist
+je 16/16, a extensions.yml ne postoji.
+
+Prioritet: T035/T036, FR-017/SC-005, očuvanje GameView/DOM ugovora i stvarni 1280×720
+nalaz. Korišćeni su lokalni Chromium, Testing Library, Playwright i postojeći test server.
+Nisu korišćeni web, spoljni asseti/CDN, suggestion.md, nastavni PDF, Week04 izvori ili
+backend domen. T037–T040 i docs/EVALS.md namerno nisu menjani.
+
+Novi kontekst: accessibility E2E, proširen table UI test, četiri frontend T036 fajla,
+RED/GREEN logovi i pre/posle screenshotovi. Privremeni čisti HEAD snapshot korišćen za
+baseline screenshot uklonjen je; originalni node_modules je ostao prisutan. Playwright
+server/browser procesi zatvoreni su kroz finally blokove.
+
 ## T031–T034 — član B, 2026-09-23
 
 Učitani su aktuelni zahtev, AGENTS.md, tasks, HTTP ugovor, T031–T034 testovi,

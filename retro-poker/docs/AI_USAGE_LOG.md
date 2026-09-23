@@ -1,5 +1,18 @@
 # AI usage log
 
+## B-05 — T035–T036, 2026-09-23
+
+Alat: Codex, jedan coding agent, bez paralelnih agenata; model/tokeni/cena nisu dostupni
+u telemetriji. Svrha: stvarni RED→GREEN za FR-017/SC-005 accessibility i 1280×720
+retro raspored. Korisnik je ograničio rad na T035–T036 i zabranio T037–T040.
+
+Očekivanje: sačuvati prolazne regresije, naći stvarni semantički/layout nedostatak,
+napraviti pre/posle screenshot i očuvati ponašanje. Ishod: baseline336/336 i E2E7/7;
+RED UI1/2 i accessibility0/2; GREEN UI10/10, accessibility2/2, završno337/337 i
+E2E9/9, typecheck/lint/build exit0. Prvi puni GREEN pao je zbog tri postojeća DOM
+ugovora i ispravljen bez slabljenja testova. Član B je zadao scope; ljudski/A review
+nije potvrđen. Detalji su u EVIDENCE_003 i T035/T036 evidence fajlovima.
+
 ## B-02 — završetak T031–T034, 2026-09-23
 
 Codex, jedan coding agent, bez paralelnih agenata. Nastavak je proverio postojeću

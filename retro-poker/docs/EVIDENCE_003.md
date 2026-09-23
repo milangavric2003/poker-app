@@ -1,5 +1,31 @@
 # Evidence Week03 — blok člana A
 
+## T035–T036 — desktop pristupačnost i retro UI, član B, 2026-09-23
+
+Tvrdnja: FR-017/SC-005 tok sa 1 i 5 botova ima tastaturne kontrole, vidljiv fokus,
+razumljiva imena, suit simbol + tekst, šest čitljivih mesta i dostupne rezultate/greške,
+bez horizontalnog skrola ili preklapanja na 1280×720.
+
+Polaznih 336/336 testova i 7/7 E2E su prolazili. Novi T035 testovi pali su jer mesta
+nisu imala accessible name, karte su bile samo ASCII kodovi, a rezultat nije bio live
+region. [Pre-screenshot](evidence/T035-before-1280x720.png) pokazuje oko 1025 px punu
+stranicu: akcije su ispod 720 px viewporta. [RED](evidence/T035-red.txt) čuva exit1.
+
+Najmanja promena je semantički Card/mesto/blind prikaz i kompaktniji CSS bez izmene
+GameView-a, API-ja ili poker pravila. Promenjena su samo četiri T036 frontend fajla;
+lokalni CSS raster daje retro teksturu bez CDN-a, uz fokus, kontrast i aria-live.
+
+Rezultat: UI10/10 i accessibility E2E2/2. Prvi puni pokušaj je pao zbog tri postojeća
+DOM ugovora (E2E3/9, ukupno332/337); ugovori su očuvani bez slabljenja testova. Ponovljeno:
+E2E9/9, npm test337/337, typecheck/lint/build exit0. [GREEN](evidence/T036-green.txt) i
+[posle-screenshot](evidence/T036-after-1280x720.png).
+
+Ručni pregled: šest mesta, istorija i akcije staju u 1280×720 bez horizontalnog skrola
+ili preklapanja. Duga istorija namerno koristi svoj vertikalni skrol; mobilni prikaz nije
+deo kriterijuma. Greške zadržavaju role=alert, rezultat je aria-live region. T037–T040
+nisu započeti. Član B je zadao scope; Codex je implementirao/proverio. Review člana A,
+cena i tokeni nisu potvrđeni. Test serveri i browser procesi su ugašeni.
+
 ## T031–T034 — privatnost, HTTP granice i recovery, član B, 2026-09-23
 
 T031/T032 pokrivaju AC18/AC19, javnu projekciju kroz sve faze i nested događaje/
