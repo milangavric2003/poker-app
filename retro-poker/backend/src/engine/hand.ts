@@ -1,7 +1,7 @@
 import { settlePots } from './pots.js';
 import { applyAction, BettingError } from './betting.js';
 import { prepareDeck } from './cards.js';
-import { clockwiseAfter, initialPositions } from './positions.js';
+import { clockwiseAfter, initialPositions, nextPositions, type Positions } from './positions.js';
 import type { Card, GameDependencies, HandResult, HandState, Player, PokerAction } from './types.js';
 
 export interface ActiveHand extends HandState {
@@ -35,6 +35,37 @@ export function createHand(botCount: number, handId: string,
   return { handId, ...positions, players, deck, deckCursor, burnCards: [], board: [],
     phase: 'preflop', currentBet: 10, lastFullRaise: 10, pendingActors,
     actorId: pendingActors[0]!, settled: false, result: null, gameStatus: 'playing' };
+}
+
+export function createNextHand(previous: ActiveHand, handId: string,
+  dependencies: Pick<GameDependencies, 'deckRandom' | 'deck'>): ActiveHand {
+  const survivors = previous.players.filter(player => player.stack > 0);
+  const positions = nextPositions(previous.players.map(player => player.seat),
+    survivors.map(player => player.seat), previous as Positions);
+  const deck = prepareDeck(dependencies.deckRandom, dependencies.deck);
+  const players: Player[] = previous.players.map(player => ({ ...player,
+    stackAtHandStart: player.stack, holeCards: [], status: player.stack > 0 ? 'active' : 'eliminated',
+    streetContribution: 0, handContribution: 0, acted: false, lastFacedBet: 0 }));
+  for (const [seat, nominal] of [[positions.smallBlindSeat, 5], [positions.bigBlindSeat, 10]] as const) {
+    const player = players.find(item => item.seat === seat && item.stack > 0);
+    if (!player) continue;
+    const amount = Math.min(nominal, player.stack);
+    player.stack -= amount; player.streetContribution = amount; player.handContribution = amount;
+    if (player.stack === 0) player.status = 'all_in';
+  }
+  let deckCursor = 0;
+  const dealOrder = clockwiseAfter(survivors, positions.buttonSeat);
+  for (let round = 0; round < 2; round++) for (const survivor of dealOrder) {
+    players.find(player => player.id === survivor.id)!.holeCards.push(deck[deckCursor++]!);
+  }
+  const pendingActors = clockwiseAfter(players.filter(player => player.status === 'active'),
+    positions.bigBlindSeat).map(player => player.id);
+  const started: ActiveHand = { handId, buttonSeat: positions.buttonSeat,
+    smallBlindSeat: positions.smallBlindSeat,
+    bigBlindSeat: positions.bigBlindSeat, players, deck, deckCursor, burnCards: [], board: [],
+    phase: 'preflop', currentBet: 10, lastFullRaise: 10, pendingActors,
+    actorId: pendingActors[0] ?? null, settled: false, result: null, gameStatus: 'playing' };
+  return started.actorId === null ? advance(started) : started;
 }
 
 /** A single validated human/bot action followed by forced street/settlement transitions. */

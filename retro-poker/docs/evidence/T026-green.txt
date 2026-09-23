@@ -1,0 +1,7 @@
+T026 GREEN - 2026-09-23
+Komanda: npm.cmd test -- tests/unit/positions.test.ts
+Prethodni fokusirani rezultat: 15 passed, exit0.
+Finalna puna regresija uključuje 16/16 positions testova, uključujući automatski
+runout kada su oba kratka blinda all-in; vidi T022-T030-final-regression.txt.
+Potvrđeni su BL01-BL10, stabilan ring, dead SB bez naplate, kratki SB/BB all-in,
+nominalni minimum10, heads-up izuzetak i AC23 početak druge ruke1000/985.

@@ -1,0 +1,13 @@
+Komanda: npm.cmd test -- tests/ui/table.test.tsx tests/ui/actions.test.tsx tests/ui/api.test.ts
+Datum: 2026-09-23 (Europe/Belgrade)
+Exit code: 1
+
+Vitest 5.0.1 je pronašao sva tri UI suite-a, ali ih nije mogao učitati:
+- tests/ui/table.test.tsx: ne postoji frontend/src/components/Table
+- tests/ui/actions.test.tsx: ne postoji frontend/src/api
+- tests/ui/api.test.ts: ne postoji frontend/src/api
+
+Rezime runner-a: Test Files 3 failed (3); Tests no tests.
+Očekivani RED je posledica nedostajuće T021 implementacije. Pre njega je baseline
+T001-T019 prošao sa 12 suite-ova i 284/284 testa. Testovi koriste zajednički
+tests/helpers/public-fixtures.ts i ne računaju poker legalnost.

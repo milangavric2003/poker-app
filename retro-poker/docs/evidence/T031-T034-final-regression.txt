@@ -1,0 +1,47 @@
+Finalna regresija T031-T034 — 2026-09-23
+Polazni commit: b8b62d826da6827ab61f4d46810b3a6ce497ec29
+Node v24.20.0; npm 11.19.0; Windows PowerShell; cwd retro-poker.
+
+Pre finalne regresije ispravljena su dva problema testne infrastrukture:
+- contract test je prosleđivao transportna polja LegalAction objekta domenskoj PokerAction funkciji;
+  fixture sada šalje samo { type: 'check' | 'call' } (prvi puni npm test: 335/336, exit1).
+- Windows os.userInfo() je vraćao uv_os_get_passwd/ENOMEM pri drugom tsx child procesu;
+  testni preload daje tsx-u stabilan procesni ID. Fokusirani recovery E2E: 5/5, exit0.
+Produkcioni kod i očekivanja nisu menjani ovim dvema korekcijama.
+
+Komanda: npm.cmd test
+Exit code: 0
+Test Files 20 passed (20)
+Tests 336 passed (336)
+Duration 3.18s
+
+Komanda: npm.cmd run test:e2e
+Exit code: 0
+Running 7 tests using 1 worker
+play-hand: 2 passed
+recovery refresh/lost/invalid/timeout/backend restart: 5 passed
+Ukupno: 7 passed (8.4s)
+
+Komanda: npm.cmd run typecheck
+Exit code: 0
+tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Komanda: npm.cmd run lint
+Exit code: 0
+eslint .
+
+Komanda: npm.cmd run build
+Exit code: 0
+vite v8.3.0; 116 modules transformed; built in 192ms
+tsc -p tsconfig.server.json
+
+Potvrđeno ponašanje:
+- javni GameView i svi nested event/result objekti odbacuju interne/private dodatke;
+- protivničke karte ostaju skrivene pre showdown-a i za foldovanog bota na showdown-u;
+- stale/dupli/nevalidni zahtevi i 500 rollback ne mutiraju potvrđeno stanje/RNG;
+- izgubljen, nevalidan i timeout odgovor čuvaju poslednji potvrđeni UI snapshot;
+- mutacioni POST se ne ponavlja automatski; eksplicitni GET usklađuje stanje;
+- restart pravog backend child procesa briše memory-only session, GET vraća game:null,
+  a UI uklanja stari sto i nudi pokretanje nove partije.
+
+T035 nije započet.

@@ -2,7 +2,14 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: T001–T019 izvršeni; ostali taskovi nisu završeni.
+[quickstart](quickstart.md). Status: T001–T040 izvršeni uz zabeležena ograničenja;
+finalni handoff je u `docs/EVIDENCE_003.md`.
+
+Finalna provera T022–T030 (2026-09-23): 320/320 testova, E2E2/2,
+typecheck/lint/build exit0; [stvarni log](../../docs/evidence/T022-T030-final-regression.txt).
+Čekiranje T025/T027/T029 označava funkcionalni completion uz korisnički prihvaćeno
+ograničenje: originalni TDD RED nije sačuvan i nije retroaktivno proizveden.
+Novi completion RED/GREEN nalazi, uključujući T028 all-in istoriju, zabeleženi su zasebno.
 
 Zajednički artefakti pripremljeni su iz ugla člana A uz coding agenta;
 kolegin doprinos i review nisu potvrđeni. Dokazi: [EVIDENCE_003](../../docs/EVIDENCE_003.md).
@@ -67,11 +74,11 @@ Samostalna provera: AC23 kontrolisana heads-up ruka završava stackovima1010/990
 - [x] T017 [US1] A — GREEN u backend/src/bots/strategy.ts i backend/src/engine/history.ts prema research D3; događaji imaju „seq (rastući broj u ruci)”, privatno observation ne izlazi u public event; deps: T016; dokaz: [9/9 fokusiranih testova i typecheck prolaze](../../docs/evidence/T017-green.txt), bot odluka prolazi isti betting validator i fallback je dijagnostički vidljiv.
 - [x] T018 [US1] A — RED u tests/integration/actions.test.ts i tests/integration/hand-flow.test.ts za create/get/action, nevalidan config bez zamene, izgubljenu reviziju, serijski commit/rollback, bot loop, početnu privatnost i AC23; deps: T017; dokaz: [oba suite-a padaju jer T019 app modul ne postoji](../../docs/evidence/T018-red.txt); Fastify inject test sadrži fault posle bot RNG/istorije radi stvarnog rollback oracle-a.
 - [x] T019 [US1] A — GREEN u backend/src/app.ts, backend/src/server.ts, backend/src/routes.ts, backend/src/session.ts i backend/src/view.ts; memory-only127.0.0.1:3001, create/get/actions iz ugovora, UUID Game/Hand, version jednom po komandi, strict javna projekcija; deps: T018; dokaz: [8/8 integracionih testova i typecheck prolaze](../../docs/evidence/T019-green.txt), [završno 284/284 + typecheck/lint/build](../../docs/evidence/T016-T019-final.txt), bez produkcionog fixture endpoint-a i curenja privatnog stanja.
-- [ ] T020 [US1] A — RED u tests/ui/table.test.tsx, tests/ui/actions.test.tsx i tests/ui/api.test.ts za početak, karte/stack/pot, legalne kontrole i amountTo/doplatu, loading blokadu, schema odgovora, potvrdu reseta; deps: T004, T019; dokaz: validni javni fixtures bez ručno dupliranih poker pravila.
-- [ ] T021 [US1] A — GREEN u frontend/src/main.tsx, frontend/src/App.tsx, frontend/src/api.ts, frontend/src/components/Table.tsx, frontend/src/components/ActionPanel.tsx, frontend/src/components/HandResult.tsx i frontend/src/styles.css; deps: T020; dokaz: lokalni kompletan potez, događaji redom, rezultat ostaje vidljiv.
-- [ ] T022 [US1] B — RED u tests/e2e/play-hand.spec.ts i po potrebi tests/helpers/server.ts za AC23 špil iz fixtures, čovek call5/check do kraja i AC16 fold; deps: T021; dokaz: pravi backend i frontend, bez mrežnog set-deck-a, rezultat1010/990 ili995/1005.
-- [ ] T023 [US1] B — GREEN integracionih razlika samo u backend/src/session.ts, backend/src/routes.ts, backend/src/view.ts, frontend/src/App.tsx i frontend/src/api.ts; deps: T022; dokaz: E2E i postojeća regresija. Ako test odmah prođe, zabeležiti proveru postojećeg ponašanja bez izmišljanja RED-a ili promene koda.
-- [ ] T024 [US1] B — Sačuvati prvi integrisani baseline u docs/EVIDENCE_003.md, docs/EVALS.md i docs/evidence/ sa ponovljivim Git snapshot-om, promptom, manifestom, stvarnim komandama/screenshot-om; deps: T023; dokaz: baseline se može ponoviti pre ciljane izmene. Ako je stvarni propust otkriven ranije, njegov snapshot sačuvati pre tadašnje popravke.
+- [x] T020 [US1] A — RED u tests/ui/table.test.tsx, tests/ui/actions.test.tsx i tests/ui/api.test.ts za početak, karte/stack/pot, legalne kontrole i amountTo/doplatu, loading blokadu, schema odgovora, potvrdu reseta; deps: T004, T019; dokaz: validni javni fixtures bez ručno dupliranih poker pravila. [Stvarni RED: 3 suite-a padaju pre T021 modula](../../docs/evidence/T020-red.txt).
+- [x] T021 [US1] A — GREEN u frontend/src/main.tsx, frontend/src/App.tsx, frontend/src/api.ts, frontend/src/components/Table.tsx, frontend/src/components/ActionPanel.tsx, frontend/src/components/HandResult.tsx i frontend/src/styles.css; deps: T020; dokaz: lokalni kompletan potez, događaji redom, rezultat ostaje vidljiv. [GREEN i završne provere](../../docs/evidence/T021-green.txt): UI 7/7, ukupno 291/291, typecheck/lint/build exit0 i lokalni proxy/backend potez uspešan.
+- [x] T022 [US1] B — RED u tests/e2e/play-hand.spec.ts i po potrebi tests/helpers/server.ts za AC23 špil iz fixtures, čovek call5/check do kraja i AC16 fold; deps: T021; dokaz: pravi backend i frontend, bez mrežnog set-deck-a, rezultat1010/990 ili995/1005.
+- [x] T023 [US1] B — GREEN integracionih razlika samo u backend/src/session.ts, backend/src/routes.ts, backend/src/view.ts, frontend/src/App.tsx i frontend/src/api.ts; deps: T022; dokaz: E2E i postojeća regresija. Ako test odmah prođe, zabeležiti proveru postojećeg ponašanja bez izmišljanja RED-a ili promene koda.
+- [x] T024 [US1] B — Sačuvati prvi integrisani baseline u docs/EVIDENCE_003.md, docs/EVALS.md i docs/evidence/ sa ponovljivim Git snapshot-om, promptom, manifestom, stvarnim komandama/screenshot-om; deps: T023; dokaz: baseline se može ponoviti pre ciljane izmene. Ako je stvarni propust otkriven ranije, njegov snapshot sačuvati pre tadašnje popravke.
 
 Checkpoint: prvi upotrebljiv demo. Nema još tvrdnje da su lifecycle/recovery/Week03
 dokazi završeni. Ne ograničavati legalna poker pravila da bi demo izgledao završen.
@@ -81,31 +88,31 @@ dokazi završeni. Ne ograničavati legalna poker pravila da bi demo izgledao zav
 Cilj: stack carry-over, eliminacija, pomeranje blindova i završetak.
 Samostalna provera: BL01–BL10 i AC20 iz gotovih snapshot-a, zatim dve povezane ruke.
 
-- [ ] T025 [US3] B — RED u tests/unit/positions.test.ts za sve BL01–BL10 i rotacije, kratke blindove i neiskorišćena mesta; deps: T024; dokaz: AC21 konkretne pozicije, pre/post actor i izostanak uzastopnog BB u heads-up prelazu.
-- [ ] T026 [US3] B — GREEN prelazi u backend/src/engine/positions.ts; Seat „Ceo broj 0–5”, stabilan configured ring, dead SB bez naplate i heads-up izuzetak; deps: T025; dokaz: sve BL tabele i početni AC02 prolaze.
-- [ ] T027 [US3] B — RED u tests/integration/session.test.ts za next-hand, „status playing/won/lost”, AC20, stack carry-over, odbijen prerani/dupli nastavak, FR-018 rotaciju istorije i reset; deps: T026; dokaz: ljudska eliminacija zaustavlja session čak i kada čisti positions modul može računati botove.
-- [ ] T028 [US3] B — GREEN u backend/src/session.ts, backend/src/routes.ts, backend/src/engine/hand.ts i backend/src/engine/history.ts za next-hand i ispadanje tek posle potova; deps: T027; dokaz: AC20/AC21 i gubitak memorije pri novom app procesu.
-- [ ] T029 [US3] B — RED u tests/ui/results.test.tsx i proširenju tests/e2e/play-hand.spec.ts za result, next-hand, pobedu/poraz i reset confirmation cancel/confirm; deps: T028; dokaz: AC23 druga ruka počinje stackovima1000/985 plus blindovi10/5.
-- [ ] T030 [US3] B — GREEN u frontend/src/App.tsx, frontend/src/components/HandResult.tsx i frontend/src/api.ts; deps: T029; dokaz: rezultat ne nestaje sam, terminalna partija nema next-hand, reset vraća početne stackove.
+- [x] T025 [US3] B — RED u tests/unit/positions.test.ts za sve BL01–BL10 i rotacije, kratke blindove i neiskorišćena mesta; deps: T024; dokaz: AC21 konkretne pozicije, pre/post actor i izostanak uzastopnog BB u heads-up prelazu.
+- [x] T026 [US3] B — GREEN prelazi u backend/src/engine/positions.ts; Seat „Ceo broj 0–5”, stabilan configured ring, dead SB bez naplate i heads-up izuzetak; deps: T025; dokaz: sve BL tabele i početni AC02 prolaze.
+- [x] T027 [US3] B — RED u tests/integration/session.test.ts za next-hand, „status playing/won/lost”, AC20, stack carry-over, odbijen prerani/dupli nastavak, FR-018 rotaciju istorije i reset; deps: T026; dokaz: ljudska eliminacija zaustavlja session čak i kada čisti positions modul može računati botove.
+- [x] T028 [US3] B — GREEN u backend/src/session.ts, backend/src/routes.ts, backend/src/engine/hand.ts i backend/src/engine/history.ts za next-hand i ispadanje tek posle potova; deps: T027; dokaz: AC20/AC21 i gubitak memorije pri novom app procesu.
+- [x] T029 [US3] B — RED u tests/ui/results.test.tsx i proširenju tests/e2e/play-hand.spec.ts za result, next-hand, pobedu/poraz i reset confirmation cancel/confirm; deps: T028; dokaz: AC23 druga ruka počinje stackovima1000/985 plus blindovi10/5.
+- [x] T030 [US3] B — GREEN u frontend/src/App.tsx, frontend/src/components/HandResult.tsx i frontend/src/api.ts; deps: T029; dokaz: rezultat ne nestaje sam, terminalna partija nema next-hand, reset vraća početne stackove.
 
 ## Phase 6: User Story 4 — Jasne informacije i kontrolisane greške (P2)
 
 Cilj: proveriti granice javnog pogleda, duple zahteve, recovery i desktop pristupačnost.
 Samostalna provera: public snapshot, namerna greška veze i dupli zahtevi u fixture-u.
 
-- [ ] T031 [US4] B — Proširiti RED tests/contract/view.test.ts i tests/integration/concurrency.test.ts: AC19 kroz sve faze/fold/showdown, svaki nested event/result bez tajni, AC18, create/reset preconditions, 400/404/409/413/415/428/500 i rollback RNG; deps: T030; dokaz: ulazi iz celog HTTP ugovora.
-- [ ] T032 [US4] B — GREEN potrebnih granica u backend/src/view.ts, backend/src/session.ts, backend/src/routes.ts i backend/src/app.ts; deps: T031; dokaz: stale/double ne mutira, samo dozvoljeni Origin, bez debug endpoint-a. Već prolazne slučajeve beležiti kao regresiju, ne fabrikovati RED.
-- [ ] T033 [US4] B — RED u tests/e2e/recovery.spec.ts i tests/ui/api.test.ts: AC22 refresh/restart, timeout/izgubljen uspešan odgovor, nevalidan odgovor i zabrana automatskog retry mutacije; deps: T032; dokaz: poslednji snapshot ostaje, GET usklađuje stanje bez ponovljenog poteza.
-- [ ] T034 [US4] B — GREEN u frontend/src/api.ts i frontend/src/App.tsx; deps: T033; dokaz: razumljive srpske greške, game:null vodi novu partiju, loading/error ne izmišlja uspeh.
-- [ ] T035 [US4] B — RED u tests/e2e/accessibility.spec.ts i tests/ui/table.test.tsx za1280×720, fokus/tastaturu, karte bez oslanjanja samo na boju, sva mesta/potove i istoriju; deps: T034; dokaz: kontrola skrola/preklapanja i semantičkih label-a, screenshot za ručni vizuelni review.
-- [ ] T036 [US4] B — GREEN u frontend/src/styles.css, frontend/src/components/Table.tsx, frontend/src/components/ActionPanel.tsx i frontend/src/components/HandResult.tsx; deps: T035; dokaz: retro prikaz sa lokalnim assetima, svi obavezni UI elementi čitljivi, postojeći E2E prolazi.
+- [x] T031 [US4] B — Proširiti RED tests/contract/view.test.ts i tests/integration/concurrency.test.ts: AC19 kroz sve faze/fold/showdown, svaki nested event/result bez tajni, AC18, create/reset preconditions, 400/404/409/413/415/428/500 i rollback RNG; deps: T030; dokaz: ulazi iz celog HTTP ugovora.
+- [x] T032 [US4] B — GREEN potrebnih granica u backend/src/view.ts, backend/src/session.ts, backend/src/routes.ts i backend/src/app.ts; deps: T031; dokaz: stale/double ne mutira, samo dozvoljeni Origin, bez debug endpoint-a. Već prolazne slučajeve beležiti kao regresiju, ne fabrikovati RED.
+- [x] T033 [US4] B — RED u tests/e2e/recovery.spec.ts i tests/ui/api.test.ts: AC22 refresh/restart, timeout/izgubljen uspešan odgovor, nevalidan odgovor i zabrana automatskog retry mutacije; deps: T032; dokaz: poslednji snapshot ostaje, GET usklađuje stanje bez ponovljenog poteza.
+- [x] T034 [US4] B — GREEN u frontend/src/api.ts i frontend/src/App.tsx; deps: T033; dokaz: razumljive srpske greške, game:null vodi novu partiju, loading/error ne izmišlja uspeh. [Završna regresija: 336/336, E2E 7/7, typecheck/lint/build exit0](../../docs/evidence/T031-T034-final-regression.txt).
+- [x] T035 [US4] B — RED u tests/e2e/accessibility.spec.ts i tests/ui/table.test.tsx za1280×720, fokus/tastaturu, karte bez oslanjanja samo na boju, sva mesta/potove i istoriju; deps: T034; dokaz: [stvarni RED i pre-screenshot](../../docs/evidence/T035-red.txt), kontrola skrola/preklapanja i semantičkih label-a.
+- [x] T036 [US4] B — GREEN u frontend/src/styles.css, frontend/src/components/Table.tsx, frontend/src/components/ActionPanel.tsx i frontend/src/components/HandResult.tsx; deps: T035; dokaz: [GREEN, posle-screenshot i puna regresija](../../docs/evidence/T036-green.txt), retro prikaz bez spoljnih resursa i svi obavezni UI elementi čitljivi.
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T037 B — U docs/EVALS.md i docs/EVIDENCE_003.md povezati baseline i stvarni E4 nalaz, unapred zapisati očekivanja E1/E2/E3/E4 i nezavisan holdout; deps: T036; dokaz: identičan eval pre/posle može da se ponovi. Ako E4 nije pronađen, proširiti stvarne provere i ostaviti kriterijum otvoren.
-- [ ] T038 B — RED za stvarni izabrani propust u odgovarajućem tests/unit/, tests/contract/, tests/integration/, tests/ui/ ili tests/e2e/ fajlu; pre izmene upisati tačnu izabranu putanju i snapshot u docs/EVIDENCE_003.md; deps: T037 i stvarni nalaz; dokaz: test reprodukuje nalaz. Ako raniji sačuvani ciklus već zadovoljava E4, povezati dokaz bez ponovnog ubacivanja buga.
-- [ ] T039 B — Najmanji GREEN samo u izabranoj putanji backend/src/, shared/contracts.ts ili frontend/src/ zabeleženoj u T038, uz isti eval i holdout; deps: T038; dokaz: docs/EVIDENCE_003.md ima pre/posle, ograničenje i ljudsku odluku. Postojeći validni raniji dokaz može se referencirati; ne izmišljati novu promenu.
-- [ ] T040 B — Ponoviti quickstart, sve unit/contract/integration/UI/E2E, typecheck/lint/build, offline localhost proveru i drugi checkout; ažurirati README.md, docs/EVIDENCE_003.md i docs/AI_USAGE_LOG.md; deps: T039; dokaz: svi AC01–AC23/SC-001–SC-007 imaju stvarni rezultat, nema označenih uspeha za nepokrenute provere, bez deploymenta.
+- [x] T037 B — U docs/EVALS.md i docs/EVIDENCE_003.md povezati baseline i stvarni E4 nalaz, unapred zapisati očekivanja E1/E2/E3/E4 i nezavisan holdout; deps: T036; dokaz: [eval rezultat](../../docs/evidence/T037-evals.txt).
+- [x] T038 B — RED za stvarni izabrani propust u tests/integration/session.test.ts; pre izmene upisati snapshot u docs/EVIDENCE_003.md; deps: T037; dokaz: [stvarni RED](../../docs/evidence/T038-red.txt), istorijski T028 ciklus.
+- [x] T039 B — Najmanji GREEN u backend/src/session.ts uz isti eval i holdout; deps: T038; dokaz: [GREEN](../../docs/evidence/T039-green.txt) i ograničenja u EVIDENCE_003.
+- [x] T040 B — Ponoviti quickstart, sve unit/contract/integration/UI/E2E, typecheck/lint/build, offline localhost proveru i drugi checkout; deps: T039; dokaz: [finalna provera](../../docs/evidence/T040-final.txt), README i završni handoff.
 
 ## Dependencies & Execution Order
 

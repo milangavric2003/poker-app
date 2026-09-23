@@ -1,0 +1,28 @@
+T035 RED — accessibility i desktop raspored — 2026-09-23
+
+Preduslovi: T001–T034 završeni; početni worktree čist. Polazna regresija:
+npm.cmd test = 336/336, exit 0; npm.cmd run test:e2e = 7/7, exit 0.
+Viewport: Chromium 1280×720.
+
+Novi testovi pre produkcione izmene:
+- tests/ui/table.test.tsx: pristupačna imena mesta/karata, suit simbol + tekst, blindovi.
+- tests/e2e/accessibility.spec.ts: rasporedi sa 1 i 5 botova, šest mesta, širina i
+  preklapanje, akcije u viewportu, tastatura/fokus, čitljivi pot/istorija/akcije i
+  rezultat dostupan čitaču ekrana.
+
+Komanda: npm.cmd test -- tests/ui/table.test.tsx
+Rezultat: exit 1; 1 prošao, 1 pao. Article mesta nemaju accessible name, a karta je
+samo kod "As" bez razumljivog suit imena/simbola.
+
+Komanda: npm.cmd run test:e2e -- tests/e2e/accessibility.spec.ts --workers=1
+Rezultat: exit 1; 0 prošlo, 2 pala. Nema imenovanih mesta, rezultat nije live/status
+sadržaj za čitač ekrana i karte koriste samo kompaktne ASCII kodove.
+
+Screenshot pre izmene: docs/evidence/T035-before-1280x720.png
+Napravljen iz čistog HEAD snapshot-a c84f7bb na 1280×720. Ručni nalaz: puna stranica
+je visoka oko 1025 px; panel legalnih akcija počinje ispod 720 px viewporta. Šest mesta
+se ne preklapa i nema horizontalnog skrola, ali akcije nisu istovremeno vidljive sa
+stolom. Karte "2c" i "Jc" ne prenose suit razumljivim simbolom ili imenom.
+
+Nisu izmišljeni padovi: prethodnih 336 testova i 7 E2E testova prolazili su; RED je
+isključivo stvarni accessibility/layout nedostatak iz T035.

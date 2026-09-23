@@ -1,0 +1,31 @@
+T036 GREEN — pristupačan retro desktop prikaz — 2026-09-23
+
+Najmanja promena:
+- Table: imenovana mesta/potovi, blindovi, karte sa suit simbolom, kodom i srpskim
+  accessible name-om; zadržan kontinualni board kod radi prethodnog E2E ugovora.
+- ActionPanel: jasna instrukcija i opis raspona/doplate povezan sa number inputom.
+- HandResult: imenovani aria-live region; postojeći region ugovor ostaje očuvan.
+- CSS: vidljiv :focus-visible, viši kontrast, lokalni retro raster/felt bez CDN-a,
+  kompaktan 1280×720 raspored i kontrolisan history skrol.
+
+Fokusirano: table 2/2; relevantni UI 10/10; accessibility E2E 2/2, sve exit 0.
+Prvi puni pokušaj je stvarno pao: E2E 3/9 i npm test 332/337 jer novi vizuelni tekst
+prekida board kod, role=status menja prethodni region ugovor, a pomoćni tekst proširuje
+tačan tekst doplate. Typecheck/lint/build su bili exit 0. Ispravka je očuvala stare DOM
+ugovore uz nove aria oznake; assertion-i nisu oslabljeni. Ceo skup je ponovljen.
+
+Završno:
+- npm.cmd run test:e2e: 9/9, exit 0 (accessibility 2/2).
+- npm.cmd test: 20 fajlova, 337/337, exit 0.
+- npm.cmd run typecheck, npm.cmd run lint, npm.cmd run build: exit 0.
+- Vite: 116 modula, build 191 ms; server tsc uspešan.
+
+Screenshot posle izmene: docs/evidence/T036-after-1280x720.png
+Ručni pregled: svih šest mesta, stackovi, blindovi, potovi, board, istorija i akcije
+čitljivi su bez horizontalnog skrola/preklapanja; akcije završavaju iznad ivice 720 px.
+Fokus ima cijan outline. Suit nosi simbol i tekstualno accessible ime, ne samo boju.
+
+Provereni su 1 i 5 botova. Rezultat je aria-live region; role=alert grešaka je očuvan.
+Ograničenje: duga istorija namerno ima sopstveni vertikalni skrol; mobilni prelom nije
+predmet 1280×720 kriterijuma. Nema spoljnih resursa, novih zavisnosti, backend/poker
+izmena ili rada na T037–T040. Test serveri i Chromium procesi su ugašeni.

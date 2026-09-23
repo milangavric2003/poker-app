@@ -1,5 +1,58 @@
 # Context manifest — implementacioni blok člana A
 
+## T035–T036 — član B, 2026-09-23
+
+Pročitani su aktuelni zahtev; AGENTS.md; constitution1.0.0; GAME_SPEC1.0; kompletni
+spec/plan/tasks/quickstart; postojeći EVIDENCE_003, AI_USAGE_LOG i CONTEXT_MANIFEST;
+svi frontend/src fajlovi i svi relevantni E2E/UI testovi. `speckit-implement` je vodio
+prerequisite/checklist/TDD; prerequisite je uspeo uz ExecutionPolicy Bypass, checklist
+je 16/16, a extensions.yml ne postoji.
+
+Prioritet: T035/T036, FR-017/SC-005, očuvanje GameView/DOM ugovora i stvarni 1280×720
+nalaz. Korišćeni su lokalni Chromium, Testing Library, Playwright i postojeći test server.
+Nisu korišćeni web, spoljni asseti/CDN, suggestion.md, nastavni PDF, Week04 izvori ili
+backend domen. T037–T040 i docs/EVALS.md namerno nisu menjani.
+
+Novi kontekst: accessibility E2E, proširen table UI test, četiri frontend T036 fajla,
+RED/GREEN logovi i pre/posle screenshotovi. Privremeni čisti HEAD snapshot korišćen za
+baseline screenshot uklonjen je; originalni node_modules je ostao prisutan. Playwright
+server/browser procesi zatvoreni su kroz finally blokove.
+
+## T031–T034 — član B, 2026-09-23
+
+Učitani su aktuelni zahtev, AGENTS.md, tasks, HTTP ugovor, T031–T034 testovi,
+frontend API/App, backend app/routes/session/view, test server/process helperi i postojeći
+RED/GREEN evidence. Za finalizaciju su korišćeni samo izvori potrebni za privatnost,
+preconditions i recovery. T035 accessibility/style izvori nisu učitani niti menjani.
+Finalne komande i stvarni rezultati su u evidence/T031-T034-final-regression.txt.
+
+## T022–T030 — član B, 2026-09-23
+
+Učitani: AGENTS.md, GAME_SPEC, constitution, spec, plan, tasks, fixtures,
+data-model, HTTP ugovor, research, quickstart, evidence/evals/AI log i relevantni
+frontend/backend/test helperi. Prioritet: GAME_SPEC/constitution, zatim feature
+artefakti i ugovor. Week04 i istorijski suggestion nisu korišćeni jer su van scope-a.
+Completion je dodatno učitao aktuelne positions/session/results testove i T025–T030
+evidence; T031+ izvori i implementacija nisu uključeni.
+
+Finalni audit 2026-09-23: polazni commit 3cddfdb1f18e1b198596d0aeb1d7e269f96f2e3c.
+Ponovo pregledani session.ts, engine/hand.ts, test helper server.ts,
+positions.test.ts, session.test.ts, tasks i aktuelni evidence/AI log/evals.
+Prioritet: T028/FR-018 veza između automatskog all-in settlement-a i javne istorije.
+Stvarni novi nalaz pokriven je RED→GREEN testom. Komande i izlazi su sačuvani u
+docs/evidence/T022-T030-final-regression.txt; T031 implementacija nije započeta.
+
+## T020–T021 — član A, 2026-09-23
+
+Učitani su aktuelni zahtev, AGENTS.md, constitution1.0.0, GAME_SPEC1.0, kompletni
+spec/plan/tasks, data-model, HTTP ugovor, frontend delovi research/quickstart,
+shared/contracts.ts, public-fixtures, backend rute/view i konfiguracija. Korišćen je
+`speckit-implement`; checklist16/16, prerequisite uspešan uz process-scoped bypass,
+bez extensions.yml. Prioritet su GameView/legalActions, amountTo/doplata, blokada,
+runtime validacija i reset precondition. Suggestion, PDF, spoljni izvori, E2E i T022+
+nisu korišćeni. Novi izvori su tri UI testa i T021 frontend fajlovi; stvarni logovi
+su evidence/T020-red.txt i evidence/T021-green.txt.
+
 Datum2026-09-21; polazni HEAD a63699d77237f12e231b2b10ec1016fd447b20e1.
 Manifest opisuje kontekst ovog bloka, ne tvrdi istoriju svih ranijih poziva.
 
@@ -80,8 +133,23 @@ B preuzima samo T014–T015. Git mutacije nisu odobrene.
 | research D3; quickstart | Učitani; Fisher–Yates, odvojeni RNG, npm.cmd komande | Instalacija je potrebna u novom checkout-u |
 | speckit-implement SKILL.md; checklists/requirements.md | Učitani; prerequisite/checklist/implement/provere, uz scope T014–T015 | Checklist16/16 nije dokaz završene igre; nema extensions.yml |
 | speckit-converge SKILL.md | Pročitan radi procene završnog workflow-a | Pun feature converge nije pokrenut; korisnik ograničava izmene na dva taska |
-| evaluator/rank; engine/betting,pots,hand,types | Pročitani pre testova; postojeći evaluator i isplate | Nema dupliranja betting pravila, izmene samo hand.ts |
-| tests/helpers/fixtures,assertions; tests/unit/hand | Učitani; postojeći AC23, RNG, chip helper i settlement testovi | Oracle nije izlaz funkcije pod testom |
+Novi kontekst čine bot/history unit testovi, Fastify inject integration testovi i
+test helper-i. RED/GREEN/final izlazi su u docs/evidence/T016-* do T019-*.
+
+## T037–T040 — završni audit, 2026-09-23
+
+Učitani su AGENTS.md, GAME_SPEC.md, constitution, kompletan feature skup, README,
+EVALS, EVIDENCE_003, AI_USAGE_LOG, raniji evidence, git status/istorija, package
+skripte, session/positions/actions/deal testovi i relevantni backend/frontend
+konfiguracioni fajlovi. Korišćeni su lokalni Vitest, Playwright, TypeScript,
+ESLint, Vite i loopback HTTP smoke; nisu korišćeni web, CDN, Week04 izvori ili
+spoljni AI/API servisi.
+
+Prioriteti su bili istinit E4 snapshot par, identičan E1–E4/H1 skup, puna regresija,
+clean install, drugi izolovani worktree-i i gašenje procesa. Pre-fix/fix worktree-i
+su uklonjeni nakon provere; `.verification/**` ostaje generisani i ignorisani
+lokalni materijal. Poznati rizici su da istorijski snapshot-i nemaju lockfile,
+H1 nije slepi ljudski holdout, a T040 nije pravio novi ručni screenshot.
 | package.json; tsconfig/tsconfig.server; vitest.config; eslint.config; .gitignore | Pročitani; komande, strict tipovi i granice build-a | Bez konfiguracionih izmena ili novih zavisnosti |
 | EVIDENCE_003; AI_USAGE_LOG; CONTEXT_MANIFEST | Pročitani tokom pripreme, dopunjeni novim blokom | Prethodni rezultati ostaju istorijski; ne izmišljati review |
 

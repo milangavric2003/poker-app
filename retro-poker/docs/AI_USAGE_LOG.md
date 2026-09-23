@@ -1,5 +1,52 @@
 # AI usage log
 
+## B-05 — T035–T036, 2026-09-23
+
+Alat: Codex, jedan coding agent, bez paralelnih agenata; model/tokeni/cena nisu dostupni
+u telemetriji. Svrha: stvarni RED→GREEN za FR-017/SC-005 accessibility i 1280×720
+retro raspored. Korisnik je ograničio rad na T035–T036 i zabranio T037–T040.
+
+Očekivanje: sačuvati prolazne regresije, naći stvarni semantički/layout nedostatak,
+napraviti pre/posle screenshot i očuvati ponašanje. Ishod: baseline336/336 i E2E7/7;
+RED UI1/2 i accessibility0/2; GREEN UI10/10, accessibility2/2, završno337/337 i
+E2E9/9, typecheck/lint/build exit0. Prvi puni GREEN pao je zbog tri postojeća DOM
+ugovora i ispravljen bez slabljenja testova. Član B je zadao scope; ljudski/A review
+nije potvrđen. Detalji su u EVIDENCE_003 i T035/T036 evidence fajlovima.
+
+## B-02 — završetak T031–T034, 2026-09-23
+
+Codex, jedan coding agent, bez paralelnih agenata. Nastavak je proverio postojeću
+privacy/recovery implementaciju, reprodukovao nestabilan restart test i utvrdio da
+Windows `os.userInfo()` vraća ENOMEM pri novom tsx procesu. Dodat je test-only preload,
+a jedan contract fixture je sužen na validan PokerAction oblik. Produkciona pravila i
+assertion-i nisu oslabljeni. Rezultat: 336/336, E2E 7/7, typecheck/lint/build exit0.
+T031–T034 su završeni; T035 nije započet. Model, tokeni i cena: nepoznati.
+
+## B-01 — T022–T030, 2026-09-23
+
+Svrha: audit T022–T024 i implementacija kontinuirane partije. Korišćeni su
+autoritativni projektni dokumenti, postojeći kod/testovi i lokalne Spec Kit veštine.
+Ishod: T022–T024 potvrđeni; T025–T030 completion pokriva pozicije, kratke/all-in
+blindove, terminalni session, rollback, AC23 nastavak i rezultat UI-ja. Regresija
+320/320, E2E2/2, typecheck/lint/build exit0. Originalni validni RED dokazi
+T025/T027/T029 nisu uhvaćeni i ne mogu se retroaktivno proizvesti; novi completion
+RED nalazi za rollback i Pobeda/Poraz su stvarno zabeleženi. Ljudski review nije
+tvrđen. Model i potrošnja: nepoznati.
+
+Finalni nastavak posle prekida računara: sačuvana ispravka i test potvrđeni su
+ponovljenom punom regresijom. Novi stvarni RED za izostalu all-in istoriju u T028
+dao je 7 passed/1 failed; GREEN beleži blindove, board, refund i settlement.
+Polazni commit je 3cddfdb1f18e1b198596d0aeb1d7e269f96f2e3c; dodatak ostaje u worktree-u.
+
+## A-07 — T020–T021, 2026-09-23
+
+Codex, jedan coding agent, bez paralelnih agenata. Stvarni RED→GREEN za osnovni
+React UI i runtime-validiran HTTP klijent. Korisnik je dodelio članu A T020–T021 i
+rezervisao T022+ kolegi. Rezultat: baseline284/284; RED tri suite-a zbog odsutnih
+modula; GREEN UI7/7, regresija291/291 i typecheck/lint/build exit0. Lokalni smoke je
+izvršio create i legalni potez, pa su procesi ugašeni. E2E, kontinuirana partija i
+završno poliranje nisu rađeni. Model, tokeni, cena i ljudski review nisu potvrđeni.
+
 Ovaj log počinje sada; ne rekonstruiše izmišljenu istoriju prethodnih poziva.
 Trošak i tokeni nisu dostupni u ovom interfejsu: nepoznato.
 
@@ -57,6 +104,17 @@ Korisnik određuje obim i preuzima Git rad; Codex izvršava kod/testove/evidenci
 Nema potvrde ljudskog review-a ili A review-a. Tačan runtime model, tokeni i cena
 nisu potvrđeni telemetrijom: nepoznato. Jedan značajan coding blok i jedan TDD ciklus.
 Ograničenja i svi logovi su u EVIDENCE_003; T016+ nisu rađeni.
+
+## B-06 — T037–T040 završni audit, 2026-09-23
+
+Alat: GitHub Copilot, jedan coding agent, bez paralelnih coding agenata. Svrha:
+nastaviti prekinuti završni blok, proveriti istorijski T028 RED/GREEN, izvršiti
+eval-e i quickstart. Očekivanje: bez fabrikovanja propusta i bez Week04 scope-a.
+Ishod: izolovani pre-fix test 7/8 RED, fix 8/8 GREEN; aktuelno 337/337 testova,
+E2E 9/9, typecheck/lint/build exit 0 i loopback smoke PASS. Dodat je samo ESLint
+ignore za generisane verification snapshot-e i završna dokumentacija. Korisnička
+odluka: prihvatiti istorijski E4 ciklus uz ograničenje da H1 nije slepi ljudski
+holdout. Model, tokeni, cena i ljudski review nisu dostupni.
 
 ## A-06 — T016–T019, 2026-09-22/23
 

@@ -1,0 +1,6 @@
+T025 completion zapis - 2026-09-23
+
+Originalni validan TDD RED nije sačuvan i ne može se retroaktivno proizvesti:
+test i prva implementacija bili su dodati pre prvog pokretanja. To se ne predstavlja
+kao RED. Completion je dodao unapred izračunate testove za kratke/all-in blindove,
+dead SB i AC23 drugu ruku. Konačna fokusirana komanda prolazi 15/15 testova.

@@ -1,5 +1,85 @@
 # Evidence Week03 — blok člana A
 
+## T035–T036 — desktop pristupačnost i retro UI, član B, 2026-09-23
+
+Tvrdnja: FR-017/SC-005 tok sa 1 i 5 botova ima tastaturne kontrole, vidljiv fokus,
+razumljiva imena, suit simbol + tekst, šest čitljivih mesta i dostupne rezultate/greške,
+bez horizontalnog skrola ili preklapanja na 1280×720.
+
+Polaznih 336/336 testova i 7/7 E2E su prolazili. Novi T035 testovi pali su jer mesta
+nisu imala accessible name, karte su bile samo ASCII kodovi, a rezultat nije bio live
+region. [Pre-screenshot](evidence/T035-before-1280x720.png) pokazuje oko 1025 px punu
+stranicu: akcije su ispod 720 px viewporta. [RED](evidence/T035-red.txt) čuva exit1.
+
+Najmanja promena je semantički Card/mesto/blind prikaz i kompaktniji CSS bez izmene
+GameView-a, API-ja ili poker pravila. Promenjena su samo četiri T036 frontend fajla;
+lokalni CSS raster daje retro teksturu bez CDN-a, uz fokus, kontrast i aria-live.
+
+Rezultat: UI10/10 i accessibility E2E2/2. Prvi puni pokušaj je pao zbog tri postojeća
+DOM ugovora (E2E3/9, ukupno332/337); ugovori su očuvani bez slabljenja testova. Ponovljeno:
+E2E9/9, npm test337/337, typecheck/lint/build exit0. [GREEN](evidence/T036-green.txt) i
+[posle-screenshot](evidence/T036-after-1280x720.png).
+
+Ručni pregled: šest mesta, istorija i akcije staju u 1280×720 bez horizontalnog skrola
+ili preklapanja. Duga istorija namerno koristi svoj vertikalni skrol; mobilni prikaz nije
+deo kriterijuma. Greške zadržavaju role=alert, rezultat je aria-live region. T037–T040
+nisu započeti. Član B je zadao scope; Codex je implementirao/proverio. Review člana A,
+cena i tokeni nisu potvrđeni. Test serveri i browser procesi su ugašeni.
+
+## T031–T034 — privatnost, HTTP granice i recovery, član B, 2026-09-23
+
+T031/T032 pokrivaju AC18/AC19, javnu projekciju kroz sve faze i nested događaje/
+rezultate, fold/showdown privatnost, preconditions, CORS/content-type/error matricu,
+stale i duple zahteve te rollback stanja, istorije i RNG-a. T033/T034 pokrivaju
+refresh, stvarni restart backend procesa, timeout, izgubljen uspešan odgovor i
+nevalidan odgovor. Klijent ne ponavlja mutacioni POST: zadržava poslednji potvrđeni
+snapshot, blokira dalje akcije i usklađuje se tek eksplicitnim GET-om. Posle restarta
+memory-only backend vraća `game:null`; stari sto se uklanja i može se otvoriti nova partija.
+
+[Finalna regresija](evidence/T031-T034-final-regression.txt): 20/20 test fajlova i
+336/336 testova, E2E 7/7 (recovery 5/5), typecheck, lint i build exit0. Sačuvani
+[T031 RED](evidence/T031-red.txt), [T032 GREEN](evidence/T032-green.txt),
+[T033 RED](evidence/T033-red.txt) i [T034 GREEN](evidence/T034-green.txt) ostaju
+istorijski dokazi. Tokom finalizacije ispravljeni su samo oblik akcije u jednom test
+fixture-u i Windows preload testnog child procesa; produkciona očekivanja nisu menjana.
+T035 nije započet. Ljudski review nije potvrđen; trošak i tokeni nisu dostupni.
+
+## T022–T030 audit i kontinuirana partija, 2026-09-23
+
+Početni baseline:291/291; typecheck/lint/build exit0. T022–T024 potvrđeni su
+snapshot-om `7aacb0464fea3e2efb5938d67d14731aab27be58`, screenshot-om
+`docs/evidence/T024-first-hand.png` i E2E rezultatom2/2. Completion rezultat:
+320/320, E2E2/2, typecheck/lint/build exit0. Potvrđeni su BL01–BL10, kratki/all-in
+blindovi, dead SB, stvarni playing/won/lost settlement, terminalni tok, rollback,
+AC23 druga ruka, trajni rezultat i reset. Originalni validni TDD RED dokazi za
+T025/T027/T029 nisu sačuvani i ne mogu se retroaktivno proizvesti; tokom completion-a
+sačuvani su novi stvarni RED nalazi za rollback i Pobeda/Poraz. Svi acceptance
+kriterijumi pokriveni navedenim testovima prolaze i taskovi su označeni završenim.
+
+Finalna provera 2026-09-23 polazi od commita
+`3cddfdb1f18e1b198596d0aeb1d7e269f96f2e3c`. Otkriven je dodatni T028 propust:
+automatski settlement oba all-in blinda ostavlja samo hand_started u istoriji.
+Novi test prvo pada (7 passed, 1 failed); minimalna ispravka recordInitial beleži
+stvarne blindove, tri board događaja, refund i settled. Finalni izlazi komandi su u
+[finalnom logu](evidence/T022-T030-final-regression.txt). Završno stanje uključuje
+ovu nekomitovanu ispravku i test; nije identično navedenom polaznom commitu.
+
+## T020–T021 — osnovni frontend, član A, 2026-09-23
+
+Baseline: 12/12 suite-ova i 284/284 testova. [Stvarni RED](evidence/T020-red.txt)
+ima exit1 jer tri tražena T021 modula ne postoje; testovi koriste zajednički public
+fixture. GREEN uvodi React ulaz, Zod-validiran API klijent, App stanje, sto, akcije,
+rezultat i jednostavan retro CSS. UI mapira backend legalActions, ne uvozi backend,
+jasno odvaja ukupan amountTo od doplate, čuva redosled događaja i vidljiv rezultat.
+
+Fokusirani UI: 3/3 suite-a i 7/7 testova. Puna regresija: 15/15 i 291/291.
+Typecheck, lint i build: exit0. Lokalni smoke: game:null → create v1 → legalni fold
+→ v2/complete/6 događaja; oba dev procesa su ugašena. Prvi typecheck pad zbog uskog
+draft tipa/fixture inferencije ispravljen je bez slabljenja assertion-a; zatim je ceo
+skup ponovljen. [Kompletan GREEN](evidence/T021-green.txt). T022 E2E, next-hand,
+kontinuirana partija i završno poliranje nisu rađeni. T022–T040 ostaju članu B;
+Week03 nije završen. Ljudski review i potrošnja nisu potvrđeni.
+
 Početno stanje2026-09-21: samo specifikacije, bez package.json i aplikacije.
 Polazni HEAD a63699d77237f12e231b2b10ec1016fd447b20e1.
 Tadašnji scope: korisnik je odobrio A deo implementacije; evaluator/frontend bili su ostavljeni kolegi. Aktuelni zahtev za T006–T007 zabeležen je ispod.
@@ -214,3 +294,76 @@ ponovljen. `npm run dev` nije pokrenut, pa blok nije otvorio portove/procese.
 Ograničenja: next-hand pripada T027–T028; puna CORS/content-type/error matrica T031–T034;
 frontend, E2E i UI AC23 pripadaju T020+. Ovaj blok nema produkcioni endpoint za špil,
 bazu, naloge, multiplayer, deployment ili Week04 AI. Ljudski review nije potvrđen.
+
+## T037–T040 — završni handoff, član B, 2026-09-23
+
+Tvrdnja: Week03 je proveren kroz unapred definisane eval-e, stvarni istorijski T028
+propust i ponovljiv završni quickstart.
+
+Signal/hipoteza: T028 evidence je navodio RED 7/8 za all-in istoriju, ali pre-fix
+commit nije sadržao test. Hipoteza je bila da se test može ponoviti u čistom
+pre-fix worktree-u i da `recordInitial` u `backend/src/session.ts` kontroliše
+izgubljene javne događaje.
+
+Promena: kvar nije ubačen u aplikaciju. Identičan test je privremeno dodat samo u
+pre-fix worktree; postojeći fix iz `2b34c68` je potvrđen kao najmanja promena.
+Aktuelna dodatna promena je ESLint ignore za generisani `.verification/**`, jer je
+clean-snapshot sadržaj inače rušio `npm run lint`.
+
+Provera: E1 PASS 1/1, E2 PASS 33/33, E3 PASS 5/5, E4 RED 7/8 pre-fix i GREEN
+8/8 posle fix-a, H1 PASS 16/16; aktuelna puna regresija je 337/337, E2E 9/9,
+typecheck/lint/build exit 0. Dev smoke je vratio frontend 200 i backend
+`{"game":null}`; procesi i portovi su očišćeni. Detalji su u [T037](evidence/T037-evals.txt),
+[T038](evidence/T038-red.txt), [T039](evidence/T039-green.txt) i
+[T040](evidence/T040-final.txt).
+
+AC01–AC23: AC01–AC03 PASS kroz deal/session testove; AC04–AC16 PASS kroz
+betting/pots/evaluator/hand regresiju; AC17–AC19 PASS kroz bot/view/privacy testove;
+AC20–AC21 PASS kroz session/positions testove; AC22 PASS kroz recovery E2E; AC23
+PASS kroz play-hand E2E i kontrolisanu 1010/990 ruku. SC-001–SC-007 su PASS prema
+odgovarajućim testovima, T035/T036 screenshotovima i lokalnom smoke-u.
+
+| Zahtev | Status | Dokaz |
+|---|---|---|
+| AC01 | PASS | deal.test.ts, puna regresija |
+| AC02 | PASS | deal.test.ts, positions.test.ts |
+| AC03 | PASS | config/actions testovi |
+| AC04 | PASS | betting.test.ts |
+| AC05 | PASS | betting.test.ts |
+| AC06 | PASS | betting.test.ts |
+| AC07 | PASS | betting/hand testovi |
+| AC08 | PASS | betting.test.ts |
+| AC09 | PASS | betting.test.ts |
+| AC10 | PASS | betting.test.ts |
+| AC11 | PASS | pots.test.ts |
+| AC12 | PASS | pots.test.ts |
+| AC13 | PASS | pots.test.ts |
+| AC14 | PASS | evaluator.test.ts |
+| AC15 | PASS | evaluator.test.ts |
+| AC16 | PASS | hand-flow/session testovi |
+| AC17 | PASS | bot/session testovi |
+| AC18 | PASS | concurrency/actions testovi |
+| AC19 | PASS | view/privacy testovi |
+| AC20 | PASS | session/results testovi |
+| AC21 | PASS | positions/session testovi |
+| AC22 | PASS | recovery.spec.ts |
+| AC23 | PASS | play-hand.spec.ts, E1 |
+| SC-001 | PASS | E1, play-hand E2E |
+| SC-002 | PASS | invariants/pots/hand regresija |
+| SC-003 | PASS | deal.test.ts za 1–5 botova |
+| SC-004 | PASS | actions/concurrency/view testovi |
+| SC-005 | PASS | T035/T036 accessibility E2E i screenshotovi |
+| SC-006 | PASS | recovery.spec.ts |
+| SC-007 | PASS | T040 puna regresija i smoke |
+
+Git snapshot-i: aktuelni `aca8365`, baseline `7aacb04`, pre-fix `3cddfdb`, fix
+`2b34c68`; commit za ovaj rad nije pravljen. Član B je zadao i završio ovaj audit;
+raniji doprinos člana A opisan je u istorijskim odeljcima. Nema potvrđenog ljudskog
+review-a, novog T040 screenshot-a ni slepog holdout-a. Model, tokeni i cena nisu
+dostupni.
+
+Nema LLM/API poziva u igri, baze, naloga, deploymenta, multiplayera ili trajnog
+stanja. Drugi checkout je simuliran izolovanim git worktree snapshotima; istorijski
+snapshot-i nemaju lockfile pa je korišćen `npm install --package-lock=false`.
+Week03 Definition of Done je tehnički ispunjen prema lokalnim proverama, uz navedena
+ograničenja ljudskog review-a, manualnog T040 screenshot-a i slepog holdout-a.

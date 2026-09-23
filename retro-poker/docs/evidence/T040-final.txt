@@ -1,0 +1,25 @@
+T040 finalna provera - 2026-09-23
+
+Clean install:
+  npm.cmd ci -> exit 0, 267 packages, 0 vulnerabilities.
+
+Aktuelni HEAD aca8365:
+  npm.cmd test -> exit 0, 20 test files, 337 tests passed.
+  npm.cmd run test:e2e -> exit 0, 9 tests passed.
+  npm.cmd run typecheck -> exit 0.
+  npm.cmd run lint -> exit 0. ESLint sada ignoriše generisani .verification/**.
+  npm.cmd run build -> exit 0.
+
+Offline localhost smoke:
+  npm.cmd run dev -> frontend http://127.0.0.1:5173, backend 127.0.0.1:3001.
+  GET frontend / -> 200, root element prisutan.
+  GET backend /api/game -> 200, {"game":null}.
+  Procesi su ugašeni; portovi 3001 i 5173 nisu ostali u LISTEN stanju.
+
+Drugi ponovljivi snapshot: pre-fix/fix git worktree-i na 3cddfdb/2b34c68,
+sa npm install --package-lock=false jer ti istorijski snapshot-i nemaju lockfile;
+E1/E2/E3/H1 i E4 RED/GREEN su zabeleženi u T037-T039 evidence fajlovima.
+
+Poznato ograničenje: 1/5 botova, tastatura i 1280x720 imaju automatizovane dokaze
+u T035/T036, ali ovaj završni blok nije radio novi ručni screenshot; ljudski review
+člana A nije potvrđen. Nema LLM/API, baze, naloga, deploymenta ni multiplayera.
