@@ -5,7 +5,12 @@ export type ActionDraft =
   | { type: 'bet' | 'raise'; amountTo: number };
 
 async function request(path: string, init?: RequestInit): Promise<GameView | null> {
-  const response = await fetch(path, init);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10000);
+  try {
+  let response: Response;
+  try { response = await fetch(path, { ...init, signal: controller.signal }); }
+  catch { throw new Error(controller.signal.aborted ? 'Vreme čekanja je isteklo. Učitaj stanje pre nastavka.' : 'Veza sa serverom je prekinuta. Učitaj stanje pre nastavka.'); }
   let payload: unknown;
   try { payload = await response.json(); } catch { throw new Error('Nevažeći odgovor servera.'); }
   if (!response.ok) {
@@ -15,6 +20,7 @@ async function request(path: string, init?: RequestInit): Promise<GameView | nul
   const parsed = GameResponseSchema.safeParse(payload);
   if (!parsed.success) throw new Error('Nevažeći odgovor servera.');
   return parsed.data.game;
+  } finally { clearTimeout(timer); }
 }
 
 const jsonHeaders = { 'Content-Type': 'application/json' };

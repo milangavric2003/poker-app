@@ -3,9 +3,30 @@ import { GameViewSchema } from '../../shared/contracts';
 import { publicView } from '../helpers/public-fixtures';
 import { createGame, loadGame, sendAction } from '../../frontend/src/api';
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 
 describe('frontend API', () => {
+  it('timeout prekida čekanje bez ponavljanja mutacije', async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn((_path: string, init: RequestInit) => new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')));
+    }));
+    vi.stubGlobal('fetch', fetchMock);
+    const result = sendAction(GameViewSchema.parse(publicView()), { type: 'call' });
+    const assertion = expect(result).rejects.toThrow(/isteklo/i);
+    await vi.advanceTimersByTimeAsync(10000);
+    await assertion;
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+  it('izgubljen odgovor daje srpsku grešku i GET može uskladiti stanje bez POST retry', async () => {
+    const game = GameViewSchema.parse(publicView());
+    const fetchMock = vi.fn().mockRejectedValueOnce(new TypeError('Failed to fetch'))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ game: { ...game, version: game.version + 1 } })));
+    vi.stubGlobal('fetch', fetchMock);
+    await expect(sendAction(game, { type: 'call' })).rejects.toThrow(/veza|odgovor/i);
+    expect((await loadGame())?.version).toBe(game.version + 1);
+    expect(fetchMock.mock.calls.map(c => c[1]?.method ?? 'GET')).toEqual(['POST', 'GET']);
+  });
   it('runtime validira uspešan backend odgovor', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ game: { ...publicView(), deck: ['As'] } }), {
       status: 200, headers: { 'content-type': 'application/json' },

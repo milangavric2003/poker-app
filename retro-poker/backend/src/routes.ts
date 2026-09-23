@@ -21,8 +21,10 @@ export function registerRoutes(app: FastifyInstance, session: GameSession): void
     const current = session.get();
     const noneMatch = request.headers['if-none-match'];
     const match = request.headers['if-match'];
-    if (!current && noneMatch !== '*') return error(reply, 428, 'PRECONDITION_REQUIRED', 'Nedostaje uslov za kreiranje.');
-    if (current && match === undefined) return error(reply, 428, 'PRECONDITION_REQUIRED', 'Nedostaje uslov za zamenu.');
+    if (noneMatch === undefined && match === undefined) return error(reply, 428, 'PRECONDITION_REQUIRED', 'Nedostaje uslov za kreiranje ili zamenu.');
+    if ((!current && (noneMatch !== '*' || match !== undefined)) || (current && noneMatch !== undefined)) {
+      return error(reply, 409, 'STALE_STATE', 'Stanje partije je zastarelo.');
+    }
     if (current && match !== `"${current.gameId}:${current.version}"`) {
       return error(reply, 409, 'STALE_STATE', 'Stanje partije je zastarelo.');
     }

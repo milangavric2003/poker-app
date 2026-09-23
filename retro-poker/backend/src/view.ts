@@ -1,6 +1,27 @@
 import { legalActions } from './engine/betting.js';
 import type { GameState } from './session.js';
-import type { GameView, HandResult } from '../../shared/contracts.js';
+import type { GameView, HandResult, PublicEvent } from '../../shared/contracts.js';
+
+function publicResult(result: GameState['previousResult']): HandResult | null {
+  if (!result) return null;
+  return { handId: result.handId, reason: result.reason, gameStatus: result.gameStatus,
+    pots: result.pots.map(p => ({ id: p.id, amount: p.amount, eligibleIds: [...p.eligibleIds],
+      winnerIds: [...p.winnerIds], payouts: p.payouts.map(a => ({ playerId: a.playerId, amount: a.amount })) })),
+    refunds: result.refunds.map(a => ({ playerId: a.playerId, amount: a.amount })),
+    revealedCards: result.reason === 'showdown' ? result.revealedCards.map(a => ({ playerId: a.playerId, cards: [a.cards[0]!, a.cards[1]!] })) : [],
+    netChanges: result.netChanges.map(a => ({ playerId: a.playerId, amount: a.amount })) };
+}
+function publicEvent(event: PublicEvent): PublicEvent {
+  const base = { seq: event.seq, handId: event.handId, street: event.street };
+  switch (event.type) {
+    case 'hand_started': return { ...base, type: event.type, number: event.number, buttonSeat: event.buttonSeat, smallBlindSeat: event.smallBlindSeat, bigBlindSeat: event.bigBlindSeat };
+    case 'blind_posted': return { ...base, type: event.type, playerId: event.playerId, blind: event.blind, amount: event.amount };
+    case 'action': return { ...base, type: event.type, playerId: event.playerId, actionType: event.actionType, payAmount: event.payAmount, amountTo: event.amountTo };
+    case 'board_dealt': return { ...base, type: event.type, cards: [...event.cards] };
+    case 'refund': return { ...base, type: event.type, playerId: event.playerId, amount: event.amount };
+    case 'settled': return { ...base, type: event.type, reason: event.reason };
+  }
+}
 
 function currentPots(game: GameState): GameView['pots'] {
   const levels = [...new Set(game.hand.players.map(player => player.handContribution)
@@ -38,8 +59,8 @@ export function toGameView(game: GameState): GameView {
     })),
     totalPot: pots.reduce((sum, pot) => sum + pot.amount, 0), pots,
     legalActions: human && hand.actorId === human.id ? legalActions(hand, human.id) : [],
-    events: game.history.current.events.map(event => ({ ...event })),
-    result: hand.result as HandResult | null,
-    previousResult: game.previousResult as HandResult | null,
+    events: game.history.current.events.map(publicEvent),
+    result: publicResult(hand.result),
+    previousResult: publicResult(game.previousResult),
   };
 }
