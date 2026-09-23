@@ -1,5 +1,14 @@
 # Context manifest — implementacioni blok člana A
 
+## T022–T030 — član B, 2026-09-23
+
+Učitani: AGENTS.md, GAME_SPEC, constitution, spec, plan, tasks, fixtures,
+data-model, HTTP ugovor, research, quickstart, evidence/evals/AI log i relevantni
+frontend/backend/test helperi. Prioritet: GAME_SPEC/constitution, zatim feature
+artefakti i ugovor. Week04 i istorijski suggestion nisu korišćeni jer su van scope-a.
+Completion je dodatno učitao aktuelne positions/session/results testove i T025–T030
+evidence; T031+ izvori i implementacija nisu uključeni.
+
 ## T020–T021 — član A, 2026-09-23
 
 Učitani su aktuelni zahtev, AGENTS.md, constitution1.0.0, GAME_SPEC1.0, kompletni

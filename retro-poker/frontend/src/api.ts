@@ -34,3 +34,12 @@ export async function sendAction(game: GameView, action: ActionDraft): Promise<G
   if (!next) throw new Error('Server nije vratio stanje partije.');
   return next;
 }
+
+
+export async function nextHand(game: GameView): Promise<GameView> {
+  const body = { gameId: game.gameId, handId: game.handId, expectedVersion: game.version };
+  const next = await request('/api/game/next-hand', { method: 'POST', headers: jsonHeaders,
+    body: JSON.stringify(body) });
+  if (!next) throw new Error('Server nije vratio sledeću ruku.');
+  return next;
+}

@@ -1,6 +1,10 @@
 # Eval — očekivanja pre implementacije
 
-Status: nema pune aplikacije ni integrisanog baseline-a. Nijedan demo eval nije pokrenut.
+Status: prvi integrisani baseline T024 je potvrđen na snapshot-u
+`7aacb0464fea3e2efb5938d67d14731aab27be58`:291/291 i E2E2/2. Posle T025–T030
+completion-a regresija je318/318 i E2E2/2; typecheck/lint/build exit0. Originalni
+validni RED dokazi T025/T027/T029 nisu sačuvani i nisu retroaktivno izmišljeni;
+GREEN i svi acceptance kriterijumi bloka su potvrđeni.
 
 | ID | Scenario | Očekivanje | Baseline / posle |
 |---|---|---|---|

@@ -1,5 +1,17 @@
 # Evidence Week03 — blok člana A
 
+## T022–T030 audit i kontinuirana partija, 2026-09-23
+
+Početni baseline:291/291; typecheck/lint/build exit0. T022–T024 potvrđeni su
+snapshot-om `7aacb0464fea3e2efb5938d67d14731aab27be58`, screenshot-om
+`docs/evidence/T024-first-hand.png` i E2E rezultatom2/2. Completion rezultat:
+318/318, E2E2/2, typecheck/lint/build exit0. Potvrđeni su BL01–BL10, kratki/all-in
+blindovi, dead SB, stvarni playing/won/lost settlement, terminalni tok, rollback,
+AC23 druga ruka, trajni rezultat i reset. Originalni validni TDD RED dokazi za
+T025/T027/T029 nisu sačuvani i ne mogu se retroaktivno proizvesti; tokom completion-a
+sačuvani su novi stvarni RED nalazi za rollback i Pobeda/Poraz. Svi acceptance
+kriterijumi T025–T030 sada prolaze i taskovi su označeni završenim.
+
 ## T020–T021 — osnovni frontend, član A, 2026-09-23
 
 Baseline: 12/12 suite-ova i 284/284 testova. [Stvarni RED](evidence/T020-red.txt)

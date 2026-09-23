@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { buildBotObservation, chooseBotAction, safeBotAction } from './bots/strategy.js';
 import { BettingError } from './engine/betting.js';
-import { act, createHand, type ActiveHand } from './engine/hand.js';
-import { appendEvent, createHistory, type GameHistory } from './engine/history.js';
+import { act, createHand, createNextHand, type ActiveHand } from './engine/hand.js';
+import { appendEvent, completeHistory, createHistory, type GameHistory } from './engine/history.js';
 import type { GameDependencies, HandResult, PokerAction, RandomSource } from './engine/types.js';
 
 export class SessionError extends Error {
@@ -25,18 +25,19 @@ export interface GameState {
 export interface SessionDependencies extends GameDependencies {
   /** In-process transaction fault injection; never exposed by HTTP. */
   beforeActionCommit?: () => void;
+  beforeNextHandCommit?: () => void;
 }
 
-function recordInitial(hand: ActiveHand): GameHistory {
-  let history = createHistory(hand.handId);
-  history = appendEvent(history, { type: 'hand_started', street: 'preflop', number: 1,
+function recordInitial(hand: ActiveHand, handNumber = 1,
+  history = createHistory(hand.handId)): GameHistory {
+  history = appendEvent(history, { type: 'hand_started', street: 'preflop', number: handNumber,
     buttonSeat: hand.buttonSeat, smallBlindSeat: hand.smallBlindSeat, bigBlindSeat: hand.bigBlindSeat });
   const small = hand.players.find(player => player.seat === hand.smallBlindSeat);
   const big = hand.players.find(player => player.seat === hand.bigBlindSeat);
-  if (small) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
-    playerId: small.id, blind: 'small', amount: 5 });
-  if (big) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
-    playerId: big.id, blind: 'big', amount: 10 });
+  if (small?.handContribution) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
+    playerId: small.id, blind: 'small', amount: small.handContribution });
+  if (big?.handContribution) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
+    playerId: big.id, blind: 'big', amount: big.handContribution });
   return history;
 }
 
@@ -145,5 +146,35 @@ export class GameSession {
     candidate.version++;
     this.game = candidate;
     return candidate;
+  }
+
+  nextHand(input: { gameId: string; handId: string; expectedVersion: number }): GameState {
+    const current = this.game;
+    if (!current || current.gameId !== input.gameId) throw new SessionError('GAME_NOT_FOUND', 'Partija nije pronađena.');
+    if (current.hand.handId !== input.handId || current.version !== input.expectedVersion) {
+      throw new SessionError('STALE_STATE', 'Stanje partije je zastarelo.');
+    }
+    if (current.hand.phase !== 'complete' || current.hand.gameStatus !== 'playing') {
+      throw new SessionError('ILLEGAL_ACTION', 'Sledeća ruka nije dozvoljena.');
+    }
+    const candidate = cloneGame(current);
+    try {
+      const handId = randomUUID();
+      const hand = createNextHand(candidate.hand, handId, { deckRandom: candidate.deckRandom,
+        ...(this.dependencies.deck === undefined ? {} : { deck: this.dependencies.deck }) });
+      candidate.previousResult = candidate.hand.result;
+      candidate.handNumber++;
+      candidate.hand = hand;
+      candidate.history = recordInitial(hand, candidate.handNumber,
+        completeHistory(candidate.history, handId));
+      runBots(candidate);
+      this.dependencies.beforeNextHandCommit?.();
+      candidate.version++;
+      this.game = candidate;
+      return candidate;
+    } catch (error) {
+      if (error instanceof SessionError) throw error;
+      throw new SessionError('INTERNAL_ERROR', 'Interna greška pri pokretanju sledeće ruke.');
+    }
   }
 }

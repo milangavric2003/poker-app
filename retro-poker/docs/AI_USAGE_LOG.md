@@ -1,5 +1,16 @@
 # AI usage log
 
+## B-01 — T022–T030, 2026-09-23
+
+Svrha: audit T022–T024 i implementacija kontinuirane partije. Korišćeni su
+autoritativni projektni dokumenti, postojeći kod/testovi i lokalne Spec Kit veštine.
+Ishod: T022–T024 potvrđeni; T025–T030 completion pokriva pozicije, kratke/all-in
+blindove, terminalni session, rollback, AC23 nastavak i rezultat UI-ja. Regresija
+318/318, E2E2/2, typecheck/lint/build exit0. Originalni validni RED dokazi
+T025/T027/T029 nisu uhvaćeni i ne mogu se retroaktivno proizvesti; novi completion
+RED nalazi za rollback i Pobeda/Poraz su stvarno zabeleženi. Ljudski review nije
+tvrđen. Model i potrošnja: nepoznati.
+
 ## A-07 — T020–T021, 2026-09-23
 
 Codex, jedan coding agent, bez paralelnih agenata. Stvarni RED→GREEN za osnovni

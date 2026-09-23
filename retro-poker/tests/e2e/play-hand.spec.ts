@@ -44,7 +44,14 @@ test('AC23: call 5 i check do showdown-a daje stackove 1010/990', async ({ page 
     await expect(table.getByText('Kd')).toBeVisible();
     await expect(page.getByRole('list', { name: 'Istorija ruke' })).toContainText('call');
     await expect(page.getByRole('list', { name: 'Istorija ruke' })).toContainText('showdown');
+    await expect(page.getByRole('button', { name: 'Sledeća ruka' })).toBeVisible();
     await page.screenshot({ path: 'docs/evidence/T024-first-hand.png', fullPage: true });
+
+    await page.getByRole('button', { name: 'Sledeća ruka' }).click();
+    await expect(table).toContainText('Ruka 2');
+    await expect(table).toContainText('Stack: 1015');
+    await expect(table).toContainText('Stack: 985');
+    await expect(page.getByRole('region', { name: 'Rezultat ruke' })).toBeVisible();
   });
 });
 

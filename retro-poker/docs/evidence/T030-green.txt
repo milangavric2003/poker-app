@@ -1,0 +1,6 @@
+T030 GREEN - 2026-09-23
+UI:5 passed. E2E:2 passed. Puna regresija:318/318; typecheck/lint/build exit0.
+Rezultat i previousResult ostaju vidljivi, Pobeda/Poraz su eksplicitni, next-hand je
+samo za playing, a reset potvrda pokriva cancel/confirm. AC23 domen pre bot akcije
+ima1000/985 i blindove10/5; javni HTTP snapshot deterministički uključuje botovu
+instant akciju u istoj transakciji, prema planu D2.
