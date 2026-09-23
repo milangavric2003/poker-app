@@ -21,8 +21,9 @@ export async function startTestServers(processBackend = false): Promise<TestServ
   if (processBackend) {
     let child: ChildProcess;
     async function start(port: number) {
+      const processShim = fileURLToPath(new URL('./process-user-shim.cjs', import.meta.url));
       child = fork(fileURLToPath(new URL('./backend-process.ts', import.meta.url)), [], {
-        execArgv: ['--import', 'tsx'], windowsHide: true,
+        execArgv: ['--require', processShim, '--import', 'tsx'], windowsHide: true,
         env: { ...process.env, TEST_BACKEND_PORT: String(port) },
       });
       const [boundPort] = await once(child, 'message');

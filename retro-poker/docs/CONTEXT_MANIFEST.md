@@ -1,5 +1,13 @@
 # Context manifest — implementacioni blok člana A
 
+## T031–T034 — član B, 2026-09-23
+
+Učitani su aktuelni zahtev, AGENTS.md, tasks, HTTP ugovor, T031–T034 testovi,
+frontend API/App, backend app/routes/session/view, test server/process helperi i postojeći
+RED/GREEN evidence. Za finalizaciju su korišćeni samo izvori potrebni za privatnost,
+preconditions i recovery. T035 accessibility/style izvori nisu učitani niti menjani.
+Finalne komande i stvarni rezultati su u evidence/T031-T034-final-regression.txt.
+
 ## T022–T030 — član B, 2026-09-23
 
 Učitani: AGENTS.md, GAME_SPEC, constitution, spec, plan, tasks, fixtures,

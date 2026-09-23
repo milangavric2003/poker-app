@@ -74,7 +74,7 @@ it('foldovani bot ostaje skriven kada drugi učesnici stignu na showdown', () =>
     const actor = g.hand.actorId!;
     const options = legalActions(g.hand, actor);
     const action = actor === 'player-1' ? { type: 'fold' as const }
-      : options.find(a => a.type === 'check') ?? options.find(a => a.type === 'call')!;
+      : { type: (options.some(a => a.type === 'check') ? 'check' : 'call') as 'check' | 'call' };
     g.hand = act(g.hand, actor, action);
   }
   const view = toGameView(g);

@@ -1,5 +1,14 @@
 # AI usage log
 
+## B-02 — završetak T031–T034, 2026-09-23
+
+Codex, jedan coding agent, bez paralelnih agenata. Nastavak je proverio postojeću
+privacy/recovery implementaciju, reprodukovao nestabilan restart test i utvrdio da
+Windows `os.userInfo()` vraća ENOMEM pri novom tsx procesu. Dodat je test-only preload,
+a jedan contract fixture je sužen na validan PokerAction oblik. Produkciona pravila i
+assertion-i nisu oslabljeni. Rezultat: 336/336, E2E 7/7, typecheck/lint/build exit0.
+T031–T034 su završeni; T035 nije započet. Model, tokeni i cena: nepoznati.
+
 ## B-01 — T022–T030, 2026-09-23
 
 Svrha: audit T022–T024 i implementacija kontinuirane partije. Korišćeni su

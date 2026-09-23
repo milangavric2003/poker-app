@@ -1,5 +1,23 @@
 # Evidence Week03 — blok člana A
 
+## T031–T034 — privatnost, HTTP granice i recovery, član B, 2026-09-23
+
+T031/T032 pokrivaju AC18/AC19, javnu projekciju kroz sve faze i nested događaje/
+rezultate, fold/showdown privatnost, preconditions, CORS/content-type/error matricu,
+stale i duple zahteve te rollback stanja, istorije i RNG-a. T033/T034 pokrivaju
+refresh, stvarni restart backend procesa, timeout, izgubljen uspešan odgovor i
+nevalidan odgovor. Klijent ne ponavlja mutacioni POST: zadržava poslednji potvrđeni
+snapshot, blokira dalje akcije i usklađuje se tek eksplicitnim GET-om. Posle restarta
+memory-only backend vraća `game:null`; stari sto se uklanja i može se otvoriti nova partija.
+
+[Finalna regresija](evidence/T031-T034-final-regression.txt): 20/20 test fajlova i
+336/336 testova, E2E 7/7 (recovery 5/5), typecheck, lint i build exit0. Sačuvani
+[T031 RED](evidence/T031-red.txt), [T032 GREEN](evidence/T032-green.txt),
+[T033 RED](evidence/T033-red.txt) i [T034 GREEN](evidence/T034-green.txt) ostaju
+istorijski dokazi. Tokom finalizacije ispravljeni su samo oblik akcije u jednom test
+fixture-u i Windows preload testnog child procesa; produkciona očekivanja nisu menjana.
+T035 nije započet. Ljudski review nije potvrđen; trošak i tokeni nisu dostupni.
+
 ## T022–T030 audit i kontinuirana partija, 2026-09-23
 
 Početni baseline:291/291; typecheck/lint/build exit0. T022–T024 potvrđeni su

@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: T001–T030 izvršeni; T031–T040 nisu završeni.
+[quickstart](quickstart.md). Status: T001–T034 izvršeni; T035–T040 nisu završeni.
 
 Finalna provera T022–T030 (2026-09-23): 320/320 testova, E2E2/2,
 typecheck/lint/build exit0; [stvarni log](../../docs/evidence/T022-T030-final-regression.txt).
@@ -99,10 +99,10 @@ Samostalna provera: BL01–BL10 i AC20 iz gotovih snapshot-a, zatim dve povezane
 Cilj: proveriti granice javnog pogleda, duple zahteve, recovery i desktop pristupačnost.
 Samostalna provera: public snapshot, namerna greška veze i dupli zahtevi u fixture-u.
 
-- [ ] T031 [US4] B — Proširiti RED tests/contract/view.test.ts i tests/integration/concurrency.test.ts: AC19 kroz sve faze/fold/showdown, svaki nested event/result bez tajni, AC18, create/reset preconditions, 400/404/409/413/415/428/500 i rollback RNG; deps: T030; dokaz: ulazi iz celog HTTP ugovora.
-- [ ] T032 [US4] B — GREEN potrebnih granica u backend/src/view.ts, backend/src/session.ts, backend/src/routes.ts i backend/src/app.ts; deps: T031; dokaz: stale/double ne mutira, samo dozvoljeni Origin, bez debug endpoint-a. Već prolazne slučajeve beležiti kao regresiju, ne fabrikovati RED.
-- [ ] T033 [US4] B — RED u tests/e2e/recovery.spec.ts i tests/ui/api.test.ts: AC22 refresh/restart, timeout/izgubljen uspešan odgovor, nevalidan odgovor i zabrana automatskog retry mutacije; deps: T032; dokaz: poslednji snapshot ostaje, GET usklađuje stanje bez ponovljenog poteza.
-- [ ] T034 [US4] B — GREEN u frontend/src/api.ts i frontend/src/App.tsx; deps: T033; dokaz: razumljive srpske greške, game:null vodi novu partiju, loading/error ne izmišlja uspeh.
+- [x] T031 [US4] B — Proširiti RED tests/contract/view.test.ts i tests/integration/concurrency.test.ts: AC19 kroz sve faze/fold/showdown, svaki nested event/result bez tajni, AC18, create/reset preconditions, 400/404/409/413/415/428/500 i rollback RNG; deps: T030; dokaz: ulazi iz celog HTTP ugovora.
+- [x] T032 [US4] B — GREEN potrebnih granica u backend/src/view.ts, backend/src/session.ts, backend/src/routes.ts i backend/src/app.ts; deps: T031; dokaz: stale/double ne mutira, samo dozvoljeni Origin, bez debug endpoint-a. Već prolazne slučajeve beležiti kao regresiju, ne fabrikovati RED.
+- [x] T033 [US4] B — RED u tests/e2e/recovery.spec.ts i tests/ui/api.test.ts: AC22 refresh/restart, timeout/izgubljen uspešan odgovor, nevalidan odgovor i zabrana automatskog retry mutacije; deps: T032; dokaz: poslednji snapshot ostaje, GET usklađuje stanje bez ponovljenog poteza.
+- [x] T034 [US4] B — GREEN u frontend/src/api.ts i frontend/src/App.tsx; deps: T033; dokaz: razumljive srpske greške, game:null vodi novu partiju, loading/error ne izmišlja uspeh. [Završna regresija: 336/336, E2E 7/7, typecheck/lint/build exit0](../../docs/evidence/T031-T034-final-regression.txt).
 - [ ] T035 [US4] B — RED u tests/e2e/accessibility.spec.ts i tests/ui/table.test.tsx za1280×720, fokus/tastaturu, karte bez oslanjanja samo na boju, sva mesta/potove i istoriju; deps: T034; dokaz: kontrola skrola/preklapanja i semantičkih label-a, screenshot za ručni vizuelni review.
 - [ ] T036 [US4] B — GREEN u frontend/src/styles.css, frontend/src/components/Table.tsx, frontend/src/components/ActionPanel.tsx i frontend/src/components/HandResult.tsx; deps: T035; dokaz: retro prikaz sa lokalnim assetima, svi obavezni UI elementi čitljivi, postojeći E2E prolazi.
 
