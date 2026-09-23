@@ -31,6 +31,24 @@ async function complete(app: FastifyInstance) {
 }
 
 describe('T027/T028 session lifecycle', () => {
+  it('belezi blindove, board i settlement kada oba blinda odmah idu all-in', () => {
+    const session = new GameSession({ deck: ac23Deck, deckRandom: sequenceRandom([]),
+      botRandom: sequenceRandom(Array<number>(100).fill(0.9)) });
+    let game = session.create(1);
+    game = session.action({ gameId: game.gameId, handId: game.hand.handId,
+      expectedVersion: game.version, type: 'fold' });
+    game.hand.players[0]!.stack = 7;
+    game.hand.players[1]!.stack = 3;
+    game = session.nextHand({ gameId: game.gameId, handId: game.hand.handId,
+      expectedVersion: game.version });
+    expect(game.hand.phase).toBe('complete');
+    expect(game.history.current.events.map(event => event.type)).toEqual([
+      'hand_started', 'blind_posted', 'blind_posted', 'board_dealt',
+      'board_dealt', 'board_dealt', 'refund', 'settled',
+    ]);
+    expect(game.history.current.events.filter(event => event.type === 'blind_posted')
+      .map(event => [event.playerId, event.amount])).toEqual([['player-1', 3], ['player-0', 7]]);
+  });
   it('prenosi stackove, rotira heads-up blindove i čuva samo poslednji rezultat', async () => {
     const app = makeApp(); const finished = await complete(app);
     const response = await app.inject({ method: 'POST', url: '/api/game/next-hand', payload: {

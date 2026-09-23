@@ -4,6 +4,12 @@
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
 [quickstart](quickstart.md). Status: T001–T030 izvršeni; T031–T040 nisu završeni.
 
+Finalna provera T022–T030 (2026-09-23): 320/320 testova, E2E2/2,
+typecheck/lint/build exit0; [stvarni log](../../docs/evidence/T022-T030-final-regression.txt).
+Čekiranje T025/T027/T029 označava funkcionalni completion uz korisnički prihvaćeno
+ograničenje: originalni TDD RED nije sačuvan i nije retroaktivno proizveden.
+Novi completion RED/GREEN nalazi, uključujući T028 all-in istoriju, zabeleženi su zasebno.
+
 Zajednički artefakti pripremljeni su iz ugla člana A uz coding agenta;
 kolegin doprinos i review nisu potvrđeni. Dokazi: [EVIDENCE_003](../../docs/EVIDENCE_003.md).
 Osnovna podela je A: T001–T021, B: T022–T040, uz izričit izuzetak od 2026-09-22:

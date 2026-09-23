@@ -9,6 +9,13 @@ artefakti i ugovor. Week04 i istorijski suggestion nisu korišćeni jer su van s
 Completion je dodatno učitao aktuelne positions/session/results testove i T025–T030
 evidence; T031+ izvori i implementacija nisu uključeni.
 
+Finalni audit 2026-09-23: polazni commit 3cddfdb1f18e1b198596d0aeb1d7e269f96f2e3c.
+Ponovo pregledani session.ts, engine/hand.ts, test helper server.ts,
+positions.test.ts, session.test.ts, tasks i aktuelni evidence/AI log/evals.
+Prioritet: T028/FR-018 veza između automatskog all-in settlement-a i javne istorije.
+Stvarni novi nalaz pokriven je RED→GREEN testom. Komande i izlazi su sačuvani u
+docs/evidence/T022-T030-final-regression.txt; T031 implementacija nije započeta.
+
 ## T020–T021 — član A, 2026-09-23
 
 Učitani su aktuelni zahtev, AGENTS.md, constitution1.0.0, GAME_SPEC1.0, kompletni

@@ -34,10 +34,20 @@ function recordInitial(hand: ActiveHand, handNumber = 1,
     buttonSeat: hand.buttonSeat, smallBlindSeat: hand.smallBlindSeat, bigBlindSeat: hand.bigBlindSeat });
   const small = hand.players.find(player => player.seat === hand.smallBlindSeat);
   const big = hand.players.find(player => player.seat === hand.bigBlindSeat);
-  if (small?.handContribution) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
-    playerId: small.id, blind: 'small', amount: small.handContribution });
-  if (big?.handContribution) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
-    playerId: big.id, blind: 'big', amount: big.handContribution });
+  // Forced all-in runouts can already be settled here, with contributions cleared.
+  if (small && small.stackAtHandStart > 0) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
+    playerId: small.id, blind: 'small', amount: Math.min(5, small.stackAtHandStart) });
+  if (big && big.stackAtHandStart > 0) history = appendEvent(history, { type: 'blind_posted', street: 'preflop',
+    playerId: big.id, blind: 'big', amount: Math.min(10, big.stackAtHandStart) });
+  if (hand.result) {
+    history = appendEvent(history, { type: 'board_dealt', street: 'flop', cards: hand.board.slice(0, 3) });
+    history = appendEvent(history, { type: 'board_dealt', street: 'turn', cards: hand.board.slice(3, 4) });
+    history = appendEvent(history, { type: 'board_dealt', street: 'river', cards: hand.board.slice(4, 5) });
+    for (const refund of hand.result.refunds) {
+      history = appendEvent(history, { type: 'refund', street: 'complete', ...refund });
+    }
+    history = appendEvent(history, { type: 'settled', street: 'complete', reason: hand.result.reason });
+  }
   return history;
 }
 

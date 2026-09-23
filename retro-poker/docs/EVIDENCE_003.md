@@ -5,12 +5,20 @@
 Početni baseline:291/291; typecheck/lint/build exit0. T022–T024 potvrđeni su
 snapshot-om `7aacb0464fea3e2efb5938d67d14731aab27be58`, screenshot-om
 `docs/evidence/T024-first-hand.png` i E2E rezultatom2/2. Completion rezultat:
-318/318, E2E2/2, typecheck/lint/build exit0. Potvrđeni su BL01–BL10, kratki/all-in
+320/320, E2E2/2, typecheck/lint/build exit0. Potvrđeni su BL01–BL10, kratki/all-in
 blindovi, dead SB, stvarni playing/won/lost settlement, terminalni tok, rollback,
 AC23 druga ruka, trajni rezultat i reset. Originalni validni TDD RED dokazi za
 T025/T027/T029 nisu sačuvani i ne mogu se retroaktivno proizvesti; tokom completion-a
 sačuvani su novi stvarni RED nalazi za rollback i Pobeda/Poraz. Svi acceptance
-kriterijumi T025–T030 sada prolaze i taskovi su označeni završenim.
+kriterijumi pokriveni navedenim testovima prolaze i taskovi su označeni završenim.
+
+Finalna provera 2026-09-23 polazi od commita
+`3cddfdb1f18e1b198596d0aeb1d7e269f96f2e3c`. Otkriven je dodatni T028 propust:
+automatski settlement oba all-in blinda ostavlja samo hand_started u istoriji.
+Novi test prvo pada (7 passed, 1 failed); minimalna ispravka recordInitial beleži
+stvarne blindove, tri board događaja, refund i settled. Finalni izlazi komandi su u
+[finalnom logu](evidence/T022-T030-final-regression.txt). Završno stanje uključuje
+ovu nekomitovanu ispravku i test; nije identično navedenom polaznom commitu.
 
 ## T020–T021 — osnovni frontend, član A, 2026-09-23
 
