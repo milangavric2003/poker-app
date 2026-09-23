@@ -2,7 +2,8 @@
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [ugovor](contracts/http.md), [fixtures](fixtures.md),
-[quickstart](quickstart.md). Status: T001–T036 izvršeni; T037–T040 nisu završeni.
+[quickstart](quickstart.md). Status: T001–T040 izvršeni uz zabeležena ograničenja;
+finalni handoff je u `docs/EVIDENCE_003.md`.
 
 Finalna provera T022–T030 (2026-09-23): 320/320 testova, E2E2/2,
 typecheck/lint/build exit0; [stvarni log](../../docs/evidence/T022-T030-final-regression.txt).
@@ -108,10 +109,10 @@ Samostalna provera: public snapshot, namerna greška veze i dupli zahtevi u fixt
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T037 B — U docs/EVALS.md i docs/EVIDENCE_003.md povezati baseline i stvarni E4 nalaz, unapred zapisati očekivanja E1/E2/E3/E4 i nezavisan holdout; deps: T036; dokaz: identičan eval pre/posle može da se ponovi. Ako E4 nije pronađen, proširiti stvarne provere i ostaviti kriterijum otvoren.
-- [ ] T038 B — RED za stvarni izabrani propust u odgovarajućem tests/unit/, tests/contract/, tests/integration/, tests/ui/ ili tests/e2e/ fajlu; pre izmene upisati tačnu izabranu putanju i snapshot u docs/EVIDENCE_003.md; deps: T037 i stvarni nalaz; dokaz: test reprodukuje nalaz. Ako raniji sačuvani ciklus već zadovoljava E4, povezati dokaz bez ponovnog ubacivanja buga.
-- [ ] T039 B — Najmanji GREEN samo u izabranoj putanji backend/src/, shared/contracts.ts ili frontend/src/ zabeleženoj u T038, uz isti eval i holdout; deps: T038; dokaz: docs/EVIDENCE_003.md ima pre/posle, ograničenje i ljudsku odluku. Postojeći validni raniji dokaz može se referencirati; ne izmišljati novu promenu.
-- [ ] T040 B — Ponoviti quickstart, sve unit/contract/integration/UI/E2E, typecheck/lint/build, offline localhost proveru i drugi checkout; ažurirati README.md, docs/EVIDENCE_003.md i docs/AI_USAGE_LOG.md; deps: T039; dokaz: svi AC01–AC23/SC-001–SC-007 imaju stvarni rezultat, nema označenih uspeha za nepokrenute provere, bez deploymenta.
+- [x] T037 B — U docs/EVALS.md i docs/EVIDENCE_003.md povezati baseline i stvarni E4 nalaz, unapred zapisati očekivanja E1/E2/E3/E4 i nezavisan holdout; deps: T036; dokaz: [eval rezultat](../../docs/evidence/T037-evals.txt).
+- [x] T038 B — RED za stvarni izabrani propust u tests/integration/session.test.ts; pre izmene upisati snapshot u docs/EVIDENCE_003.md; deps: T037; dokaz: [stvarni RED](../../docs/evidence/T038-red.txt), istorijski T028 ciklus.
+- [x] T039 B — Najmanji GREEN u backend/src/session.ts uz isti eval i holdout; deps: T038; dokaz: [GREEN](../../docs/evidence/T039-green.txt) i ograničenja u EVIDENCE_003.
+- [x] T040 B — Ponoviti quickstart, sve unit/contract/integration/UI/E2E, typecheck/lint/build, offline localhost proveru i drugi checkout; deps: T039; dokaz: [finalna provera](../../docs/evidence/T040-final.txt), README i završni handoff.
 
 ## Dependencies & Execution Order
 

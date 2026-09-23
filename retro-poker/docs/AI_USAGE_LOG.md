@@ -105,6 +105,17 @@ Nema potvrde ljudskog review-a ili A review-a. Tačan runtime model, tokeni i ce
 nisu potvrđeni telemetrijom: nepoznato. Jedan značajan coding blok i jedan TDD ciklus.
 Ograničenja i svi logovi su u EVIDENCE_003; T016+ nisu rađeni.
 
+## B-06 — T037–T040 završni audit, 2026-09-23
+
+Alat: GitHub Copilot, jedan coding agent, bez paralelnih coding agenata. Svrha:
+nastaviti prekinuti završni blok, proveriti istorijski T028 RED/GREEN, izvršiti
+eval-e i quickstart. Očekivanje: bez fabrikovanja propusta i bez Week04 scope-a.
+Ishod: izolovani pre-fix test 7/8 RED, fix 8/8 GREEN; aktuelno 337/337 testova,
+E2E 9/9, typecheck/lint/build exit 0 i loopback smoke PASS. Dodat je samo ESLint
+ignore za generisane verification snapshot-e i završna dokumentacija. Korisnička
+odluka: prihvatiti istorijski E4 ciklus uz ograničenje da H1 nije slepi ljudski
+holdout. Model, tokeni, cena i ljudski review nisu dostupni.
+
 ## A-06 — T016–T019, 2026-09-22/23
 
 Alat: Codex, jedan coding agent, bez paralelnih agenata. Svrha: dva odvojena TDD

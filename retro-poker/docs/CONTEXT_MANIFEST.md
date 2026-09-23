@@ -133,8 +133,23 @@ B preuzima samo T014–T015. Git mutacije nisu odobrene.
 | research D3; quickstart | Učitani; Fisher–Yates, odvojeni RNG, npm.cmd komande | Instalacija je potrebna u novom checkout-u |
 | speckit-implement SKILL.md; checklists/requirements.md | Učitani; prerequisite/checklist/implement/provere, uz scope T014–T015 | Checklist16/16 nije dokaz završene igre; nema extensions.yml |
 | speckit-converge SKILL.md | Pročitan radi procene završnog workflow-a | Pun feature converge nije pokrenut; korisnik ograničava izmene na dva taska |
-| evaluator/rank; engine/betting,pots,hand,types | Pročitani pre testova; postojeći evaluator i isplate | Nema dupliranja betting pravila, izmene samo hand.ts |
-| tests/helpers/fixtures,assertions; tests/unit/hand | Učitani; postojeći AC23, RNG, chip helper i settlement testovi | Oracle nije izlaz funkcije pod testom |
+Novi kontekst čine bot/history unit testovi, Fastify inject integration testovi i
+test helper-i. RED/GREEN/final izlazi su u docs/evidence/T016-* do T019-*.
+
+## T037–T040 — završni audit, 2026-09-23
+
+Učitani su AGENTS.md, GAME_SPEC.md, constitution, kompletan feature skup, README,
+EVALS, EVIDENCE_003, AI_USAGE_LOG, raniji evidence, git status/istorija, package
+skripte, session/positions/actions/deal testovi i relevantni backend/frontend
+konfiguracioni fajlovi. Korišćeni su lokalni Vitest, Playwright, TypeScript,
+ESLint, Vite i loopback HTTP smoke; nisu korišćeni web, CDN, Week04 izvori ili
+spoljni AI/API servisi.
+
+Prioriteti su bili istinit E4 snapshot par, identičan E1–E4/H1 skup, puna regresija,
+clean install, drugi izolovani worktree-i i gašenje procesa. Pre-fix/fix worktree-i
+su uklonjeni nakon provere; `.verification/**` ostaje generisani i ignorisani
+lokalni materijal. Poznati rizici su da istorijski snapshot-i nemaju lockfile,
+H1 nije slepi ljudski holdout, a T040 nije pravio novi ručni screenshot.
 | package.json; tsconfig/tsconfig.server; vitest.config; eslint.config; .gitignore | Pročitani; komande, strict tipovi i granice build-a | Bez konfiguracionih izmena ili novih zavisnosti |
 | EVIDENCE_003; AI_USAGE_LOG; CONTEXT_MANIFEST | Pročitani tokom pripreme, dopunjeni novim blokom | Prethodni rezultati ostaju istorijski; ne izmišljati review |
 

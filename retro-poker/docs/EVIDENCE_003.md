@@ -294,3 +294,76 @@ ponovljen. `npm run dev` nije pokrenut, pa blok nije otvorio portove/procese.
 Ograničenja: next-hand pripada T027–T028; puna CORS/content-type/error matrica T031–T034;
 frontend, E2E i UI AC23 pripadaju T020+. Ovaj blok nema produkcioni endpoint za špil,
 bazu, naloge, multiplayer, deployment ili Week04 AI. Ljudski review nije potvrđen.
+
+## T037–T040 — završni handoff, član B, 2026-09-23
+
+Tvrdnja: Week03 je proveren kroz unapred definisane eval-e, stvarni istorijski T028
+propust i ponovljiv završni quickstart.
+
+Signal/hipoteza: T028 evidence je navodio RED 7/8 za all-in istoriju, ali pre-fix
+commit nije sadržao test. Hipoteza je bila da se test može ponoviti u čistom
+pre-fix worktree-u i da `recordInitial` u `backend/src/session.ts` kontroliše
+izgubljene javne događaje.
+
+Promena: kvar nije ubačen u aplikaciju. Identičan test je privremeno dodat samo u
+pre-fix worktree; postojeći fix iz `2b34c68` je potvrđen kao najmanja promena.
+Aktuelna dodatna promena je ESLint ignore za generisani `.verification/**`, jer je
+clean-snapshot sadržaj inače rušio `npm run lint`.
+
+Provera: E1 PASS 1/1, E2 PASS 33/33, E3 PASS 5/5, E4 RED 7/8 pre-fix i GREEN
+8/8 posle fix-a, H1 PASS 16/16; aktuelna puna regresija je 337/337, E2E 9/9,
+typecheck/lint/build exit 0. Dev smoke je vratio frontend 200 i backend
+`{"game":null}`; procesi i portovi su očišćeni. Detalji su u [T037](evidence/T037-evals.txt),
+[T038](evidence/T038-red.txt), [T039](evidence/T039-green.txt) i
+[T040](evidence/T040-final.txt).
+
+AC01–AC23: AC01–AC03 PASS kroz deal/session testove; AC04–AC16 PASS kroz
+betting/pots/evaluator/hand regresiju; AC17–AC19 PASS kroz bot/view/privacy testove;
+AC20–AC21 PASS kroz session/positions testove; AC22 PASS kroz recovery E2E; AC23
+PASS kroz play-hand E2E i kontrolisanu 1010/990 ruku. SC-001–SC-007 su PASS prema
+odgovarajućim testovima, T035/T036 screenshotovima i lokalnom smoke-u.
+
+| Zahtev | Status | Dokaz |
+|---|---|---|
+| AC01 | PASS | deal.test.ts, puna regresija |
+| AC02 | PASS | deal.test.ts, positions.test.ts |
+| AC03 | PASS | config/actions testovi |
+| AC04 | PASS | betting.test.ts |
+| AC05 | PASS | betting.test.ts |
+| AC06 | PASS | betting.test.ts |
+| AC07 | PASS | betting/hand testovi |
+| AC08 | PASS | betting.test.ts |
+| AC09 | PASS | betting.test.ts |
+| AC10 | PASS | betting.test.ts |
+| AC11 | PASS | pots.test.ts |
+| AC12 | PASS | pots.test.ts |
+| AC13 | PASS | pots.test.ts |
+| AC14 | PASS | evaluator.test.ts |
+| AC15 | PASS | evaluator.test.ts |
+| AC16 | PASS | hand-flow/session testovi |
+| AC17 | PASS | bot/session testovi |
+| AC18 | PASS | concurrency/actions testovi |
+| AC19 | PASS | view/privacy testovi |
+| AC20 | PASS | session/results testovi |
+| AC21 | PASS | positions/session testovi |
+| AC22 | PASS | recovery.spec.ts |
+| AC23 | PASS | play-hand.spec.ts, E1 |
+| SC-001 | PASS | E1, play-hand E2E |
+| SC-002 | PASS | invariants/pots/hand regresija |
+| SC-003 | PASS | deal.test.ts za 1–5 botova |
+| SC-004 | PASS | actions/concurrency/view testovi |
+| SC-005 | PASS | T035/T036 accessibility E2E i screenshotovi |
+| SC-006 | PASS | recovery.spec.ts |
+| SC-007 | PASS | T040 puna regresija i smoke |
+
+Git snapshot-i: aktuelni `aca8365`, baseline `7aacb04`, pre-fix `3cddfdb`, fix
+`2b34c68`; commit za ovaj rad nije pravljen. Član B je zadao i završio ovaj audit;
+raniji doprinos člana A opisan je u istorijskim odeljcima. Nema potvrđenog ljudskog
+review-a, novog T040 screenshot-a ni slepog holdout-a. Model, tokeni i cena nisu
+dostupni.
+
+Nema LLM/API poziva u igri, baze, naloga, deploymenta, multiplayera ili trajnog
+stanja. Drugi checkout je simuliran izolovanim git worktree snapshotima; istorijski
+snapshot-i nemaju lockfile pa je korišćen `npm install --package-lock=false`.
+Week03 Definition of Done je tehnički ispunjen prema lokalnim proverama, uz navedena
+ograničenja ljudskog review-a, manualnog T040 screenshot-a i slepog holdout-a.
