@@ -2,7 +2,7 @@
 
 **Feature Branch**: Git grana `ai-integ`; feature direktorijum `002-week04-ai-integration`  
 **Created**: 2026-09-26  
-**Status**: Draft — specify i clarify završeni; izvorni scope konflikt još zahteva posebno usklađivanje pre implementacije  
+**Status**: Draft — specify, clarify i odobreno usklađivanje izvora završeni; implementacija nije započeta
 **Input**: Google Gemini predlaže poteze botova i analizira završenu partiju, uz strogu backend validaciju, bezbedan fallback i lokalni usage dashboard.
 
 Autoritativni izvori za postojeću igru su [GAME_SPEC v1.0](../../docs/GAME_SPEC.md),
@@ -19,7 +19,9 @@ kontrolisanu read-only sposobnost za rezime završene ruke i izričito kažu da 
 ne upravlja botovima niti menja stanje igre. Nastavni challenge takođe postavlja
 read-only AI alat kao Core, a lokalnu telemetry kao Stretch.
 
-Aktuelni zahtev vlasnika za feature 002 materijalno proširuje i menja tu granicu:
+Aktuelni zahtev vlasnika za feature 002 materijalno je proširio i promenio tu granicu.
+Odobrenim amandmanom izvora od 2026-09-26 ta promena je sada eksplicitno preneta u
+`GAME_SPEC.md` v1.1 i constitution v1.1.0:
 
 - Gemini modeli predlažu poteze botova tokom aktivne ruke;
 - validan predlog, tek posle backend validacije, može dovesti do standardne mutacije igre;
@@ -28,10 +30,8 @@ Aktuelni zahtev vlasnika za feature 002 materijalno proširuje i menja tu granic
 
 Model i dalje nije autoritet: ne izvršava potez, ne dobija direktan pristup engine-u i
 ne zaobilazi postojeća pravila. Ipak, ovo nije ponašanje koje postojeći §12 već odobrava.
-Pre implementacije MORA postojati zasebno, eksplicitno odobreno usklađivanje
-`GAME_SPEC.md`, a po zahtevu constitution procesa i odgovarajući amendment constitution-a.
-Ova specifikacija beleži novu produktnu odluku, ali sama ne menja te izvorne dokumente
-i nije dozvola da se governance gate preskoči.
+Feature specifikacija i budući planovi MORAJU ostati usklađeni sa tim novim izvorima;
+ovo odobrenje ne proširuje scope izvan navedenih Week04 granica.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -338,8 +338,8 @@ rezultat. Dashboard beleži bezbednu kategoriju prelaza, ne sadržaj poziva.
 - **SC-008**: Sve automatske AI unit/integration provere rade bez interneta i stvarnog
   ključa; live smoke ostaje zasebna, ručna i opciona provera.
 - **SC-009**: Pre implementacije je eksplicitno odobreno i evidentirano usklađivanje
-  `GAME_SPEC.md` §12 i, ako governance pregled zahteva, constitution-a sa model-driven
-  botovima, match analizom i obaveznim dashboardom.
+  `GAME_SPEC.md` §12 i constitution-a sa model-driven botovima, match analizom i
+  obaveznim dashboardom; izvori su sada na verzijama v1.1 i v1.1.0.
 - **SC-010**: U testu sa providerom koji ostaje pending, nezavisan lokalni read-only
   zahtev završava se pre provider odgovora, dok nijedna dodatna mutacija partije nije prihvaćena.
 

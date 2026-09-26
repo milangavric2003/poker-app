@@ -1,6 +1,6 @@
 <!--
-Sync Impact Report — privremena beleška za pregled; ukloniti pre commit-a.
-Version: nepopunjen scaffold → 1.0.0 (prvo usvajanje).
+Sync Impact Report — amandman za odobreni Week04 AI scope; privremena beleška za pregled; ukloniti pre commit-a.
+Version: 1.0.0 → 1.1.0 (materijalno proširena obaveza principa VI).
 Principles: pet placeholder principa zamenjeno je sa sedam projektnih principa:
 I. Specifikacija pre implementacije; II. Obavezan TDD;
 III. Ispravnost domena i deterministički dokazi; IV. Autoritet i granice podataka;
@@ -9,7 +9,8 @@ VII. Ponovljivost i istinitost dokaza.
 Added sections: Projektna ograničenja; Tok rada i uslovi prihvatanja;
 popunjena Governance pravila izmene, verzionisanja i pregleda.
 Removed sections: nema usvojenih odeljaka; uklonjeni su primeri i placeholder-i.
-Conflicts: nisu pronađeni u odnosu na AGENTS.md i docs/GAME_SPEC.md v1.0.
+Conflicts: prethodni konflikt sa GAME_SPEC.md §12 rešen je odobrenim scope amandmanom;
+AGENTS.md i feature 002 moraju ostati usklađeni.
 Deferred placeholders: nema. AC15/AC21 fixture tabele ostaju obaveza budućeg plana.
 Dependent templates/commands: nisu menjani; constitution čitaju tokom izvršavanja.
 -->
@@ -79,9 +80,15 @@ malim backend-om i stanjem u memoriji, prema GAME_SPEC. Oba servisa MORAJU sluš
 samo loopback; posle instalacije zavisnosti igra i testovi MORAJU raditi bez interneta.
 Pravi novac, nalozi, ljudski multiplayer, baza, leaderboard i deployment su van scope-a.
 LLM pozivi, AI rezime, tool calling i provider SDK ne smeju biti deo Week03 aplikacije.
-Week04 analiza zahteva poseban spec i ostaje read-only u odnosu na stanje igre.
-Do tada se čuva samo dogovorena memorijska istorija aktuelne i poslednje završene ruke.
-Nova zavisnost ili infrastruktura MORA imati neposredno opravdanje u aktivnom zahtevu.
+Week04 zahteva poseban spec i može dodati Gemini model-driven predloge poteza botova,
+strukturisanu analizu završene partije i lokalni AI usage dashboard. Model nikada nije
+autoritet: backend proverava privatnost, oblik, identitet, reviziju i legalnost kroz
+postojeći poker engine pre standardne mutacije; nevalidan ili neuspešan poziv koristi
+ograničeni retry/fallback, a postojeća deterministička strategija ostaje bezbedan bot
+fallback. Analiza je read-only u odnosu na završeni rezultat i ne sme ga poništiti.
+Week04 može voditi bounded memorijske činjenice kroz celu tekuću partiju, bez baze,
+trajnog replay-a ili cloud scope-a. Nova zavisnost ili infrastruktura MORA imati
+neposredno opravdanje u aktivnom zahtevu.
 
 ### VII. Ponovljivost i istinitost dokaza
 
@@ -129,7 +136,8 @@ ili ljudski doprinos postoji bez dokaza. Tajne i privatni chain-of-thought se ne
 
 ## Governance
 
-Ovo je prvo usvajanje principa projekta, verzija 1.0.0, na izričit zahtev vlasnika.
+Ovo je prvo usvajanje principa projekta, a ovaj amandman verzije 1.1.0 je odobren na
+izričit zahtev vlasnika radi usklađivanja Week04 AI scope-a.
 Constitution uređuje inženjerske principe, GAME_SPEC ponašanje proizvoda, a AGENTS
 rad agenta. Feature artefakti MORAJU biti usklađeni sa sva tri dokumenta; konflikt
 se prijavljuje i rešava pre zavisne implementacije, bez tihog prepisivanja izvora.
@@ -147,4 +155,4 @@ izmene prati stvarnu izmenu. Sync Impact Report prati amandman tokom pregleda;
 privremeni komentar se uklanja pre commit-a. Dependent šabloni se ne menjaju ovim
 korakom; potrebna usklađivanja evidentiraju se i proveravaju u odgovarajućem tasku.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-21 | **Last Amended**: 2026-09-21
+**Version**: 1.1.0 | **Ratified**: 2026-09-21 | **Last Amended**: 2026-09-26

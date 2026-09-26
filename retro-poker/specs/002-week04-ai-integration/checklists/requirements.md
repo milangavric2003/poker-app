@@ -5,7 +5,7 @@
 **Feature**: [spec.md](../spec.md)
 
 **Review Ownership**: Codex je izvršio requirements-quality pregled u specify/clarify
-koraku. Ljudski review niti governance amendment nisu predstavljeni kao završeni.  
+koraku i proverio odobreno usklađivanje izvora 2026-09-26.
 **Marker Semantics**: `[x]` znači da je kvalitet zahteva pregledan i zadovoljen; ne
 znači da je implementacija ili test izvršen. `[ ]` označava stvarni pre-implementation gate.
 
@@ -62,17 +62,16 @@ znači da je implementacija ili test izvršen. `[ ]` označava stvarni pre-imple
 
 ## Pre-implementation Governance Gate
 
-- [ ] CHK026 Pre implementacije posebno uskladiti `GAME_SPEC.md` §12 sa odobrenim
-  model-driven botovima, analizom završene partije i obaveznim dashboardom; ako
-  constitution proces to zahteva, eksplicitno odobriti i evidentirati amendment
-  principa VI i zavisnih odredbi. Ovaj specify korak namerno ne menja te dokumente.
+- [x] CHK026 `GAME_SPEC.md` §12 je usklađen sa odobrenim model-driven botovima,
+  analizom završene partije i obaveznim dashboardom; constitution princip VI je
+  ažuriran u v1.1.0 sa evidentiranim amendment-om.
 
 ## Review Result
 
-- Requirements-quality rezultat: **25/25 primenljivih kriterijuma zadovoljeno**.
+- Requirements-quality rezultat: **26/26 primenljivih kriterijuma zadovoljeno**.
 - Clarify rezultat: nema `NEEDS CLARIFICATION` oznaka; rutinske odluke su zapisane kao
   assumptions ili numerički `PROP-*` predlozi.
-- Governance rezultat: **1 otvoren, nameran pre-implementation gate (CHK026)** zbog
-  eksplicitnog konflikta sa `GAME_SPEC.md` §12 i constitution principom VI.
+- Governance rezultat: **gate zatvoren**; `GAME_SPEC.md` v1.1 i constitution v1.1.0
+  sada eksplicitno odobravaju usklađeni Week04 scope.
 - Nisu kreirani `plan.md`, `tasks.md`, aplikacioni kod, test implementacija, zavisnosti,
   API klijent niti live provider poziv.
