@@ -1,5 +1,16 @@
 # AI usage log
 
+## Gemini adapter — 2026-09-27
+
+Codex, jedan coding agent, bez paralelnih agenata. Svrha: test-first implementacija
+isključivo zvaničnog Gemini adaptera, server-side konfiguracije i DI wiring-a. Zvanična
+Google dokumentacija proverena je 2026-09-27; izabran je planom zaključan
+`@google/genai` 2.24.0. Live Gemini poziv nije izvršen i API ključ nije tražen niti
+učitan. Mock SDK testovi, offline AI testovi, Week03 regresija, typecheck, lint i build
+prošli su; početna puna regresija imala je 23 ranije postojeća fixture/migration pada.
+Model ovog coding poziva, tokeni i cena nisu dostupni: nepoznato. Detalji su u
+[Gemini evidence](evidence/002-gemini-adapter.md).
+
 ## B-05 — T035–T036, 2026-09-23
 
 Alat: Codex, jedan coding agent, bez paralelnih agenata; model/tokeni/cena nisu dostupni

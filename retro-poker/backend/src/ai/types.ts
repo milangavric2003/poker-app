@@ -8,14 +8,21 @@ export type AttemptOutcome = 'success' | 'timeout' | 'rate_limited' | 'server_er
   | 'safety_refusal' | 'auth_config_error' | 'cancelled' | 'stale';
 
 export interface AiRuntimeConfig {
+  enabled: boolean;
   apiKey: string | null;
+  configError: 'MODEL_NOT_ALLOWED' | null;
   primaryModel: string;
   fallbackModel: string | null;
-  maxAttempts: 2;
+  maxAttempts: 1 | 2;
   botTotalMs: 12000;
   analysisTotalMs: 30000;
-  botAttemptMs: 5000;
-  analysisAttemptMs: 12000;
+  botAttemptMs: number;
+  analysisAttemptMs: number;
+  backoffMinMs: number;
+  backoffMaxMs: number;
+  public: Readonly<{ enabled: boolean; primaryModel: string; fallbackModel: string | null;
+    maxAttempts: 1 | 2; botAttemptMs: number; analysisAttemptMs: number;
+    backoffMinMs: number; backoffMaxMs: number; configError: 'MODEL_NOT_ALLOWED' | null }>;
 }
 
 export interface ProviderUsage {

@@ -1,5 +1,16 @@
 # Evidence Week03 — blok člana A
 
+## Week04 Gemini adapter — 2026-09-27
+
+Provider-neutral tok je dobio zvanični `@google/genai` 2.24.0 adapter i produkcioni
+DI wiring bez promene engine autoriteta. Adapter šalje samo već izgrađeni minimalni
+kontekst, zahteva strukturisan JSON, sanitizuje provider greške, normalizuje usage i
+isključuje SDK retry. Dozvoljeni su samo `gemini-3.8-flash` i
+`gemini-3.5-flash-lite`; bez ključa ili uz nevalidan model ostaje offline fallback.
+
+Stvarni RED/GREEN, komande, rezultati, izvori i ograničenja nalaze se u
+[002-gemini-adapter.md](evidence/002-gemini-adapter.md). Live poziv nije izvršen.
+
 ## T035–T036 — desktop pristupačnost i retro UI, član B, 2026-09-23
 
 Tvrdnja: FR-017/SC-005 tok sa 1 i 5 botova ima tastaturne kontrole, vidljiv fokus,

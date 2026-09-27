@@ -2,15 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { retryDecision } from '../../backend/src/ai/retry-policy.js';
 import { loadAiConfig } from '../../backend/src/ai/config.js';
 
-const config = loadAiConfig({ GEMINI_API_KEY: 'test', GEMINI_PRIMARY_MODEL: 'primary', GEMINI_FALLBACK_MODEL: 'secondary' });
+const config = loadAiConfig({ GEMINI_API_KEY: 'test', GEMINI_PRIMARY_MODEL: 'gemini-3.8-flash',
+  GEMINI_FALLBACK_MODEL: 'gemini-3.5-flash-lite' });
 describe('bounded retry policy', () => {
   it('retries transient same-model and uses second model for 5xx', () => {
-    expect(retryDecision('rate_limited', 'bot', config, 'primary', 10)).toEqual({ retry: true,
-      relation: 'same_model_retry', model: 'primary', backoffMs: 260 });
-    expect(retryDecision('server_error', 'bot', config, 'primary', 0)).toMatchObject({ retry: true,
-      relation: 'model_fallback', model: 'secondary' });
+    expect(retryDecision('rate_limited', 'bot', config, 'gemini-3.8-flash', 10)).toEqual({ retry: true,
+      relation: 'same_model_retry', model: 'gemini-3.8-flash', backoffMs: 260 });
+    expect(retryDecision('server_error', 'bot', config, 'gemini-3.8-flash', 0)).toMatchObject({ retry: true,
+      relation: 'model_fallback', model: 'gemini-3.5-flash-lite' });
   });
   it.each(['auth_config_error', 'safety_refusal'] as const)('does not retry %s', outcome => {
-    expect(retryDecision(outcome, 'bot', config, 'primary').retry).toBe(false);
+    expect(retryDecision(outcome, 'bot', config, 'gemini-3.8-flash').retry).toBe(false);
   });
 });

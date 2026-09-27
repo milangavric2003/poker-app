@@ -344,7 +344,7 @@ export class GameSession {
 }
 
 function dependenciesConfigured(dependencies: SessionDependencies, config: AiRuntimeConfig): boolean {
-  return dependencies.aiProvider !== undefined && (dependencies.aiConfig !== undefined || config.apiKey !== null);
+  return dependencies.aiProvider !== undefined && config.enabled && config.apiKey !== null;
 }
 
 function buildBotObservationForHuman(game: GameState) {

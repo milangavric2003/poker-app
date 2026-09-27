@@ -3,6 +3,8 @@ import Fastify from 'fastify';
 import type { RandomSource } from './engine/types.js';
 import { registerRoutes } from './routes.js';
 import { GameSession, type SessionDependencies } from './session.js';
+import { loadAiConfig } from './ai/config.js';
+import { createGeminiProvider } from './ai/providers/gemini.js';
 
 class SeededRandom implements RandomSource {
   constructor(private state: number) {}
@@ -15,9 +17,18 @@ class SeededRandom implements RandomSource {
 
 function secureRandom(): RandomSource { return new SeededRandom(randomBytes(4).readUInt32LE(0)); }
 
-export function buildApp(dependencies: SessionDependencies = {
-  deckRandom: secureRandom(), botRandom: secureRandom(),
-}) {
+export function productionAiDependencies(
+  env: Readonly<Record<string, string | undefined>> = process.env,
+  providerFactory: (apiKey: string) => NonNullable<SessionDependencies['aiProvider']> = createGeminiProvider,
+): Partial<Pick<SessionDependencies, 'aiConfig' | 'aiProvider'>> {
+  const aiConfig = loadAiConfig(env);
+  return aiConfig.enabled && aiConfig.apiKey
+    ? { aiConfig, aiProvider: providerFactory(aiConfig.apiKey) }
+    : { aiConfig };
+}
+
+export function buildApp(dependencies: Partial<SessionDependencies> = {}) {
+  const resolved: SessionDependencies = { deckRandom: secureRandom(), botRandom: secureRandom(), ...dependencies };
   const app = Fastify({ logger: false, bodyLimit: 16 * 1024 });
   app.addHook('onRequest', async (request, reply) => {
     if (request.headers.origin !== undefined && request.headers.origin !== 'http://127.0.0.1:5173') {
@@ -37,6 +48,6 @@ export function buildApp(dependencies: SessionDependencies = {
       : [500, 'INTERNAL_ERROR', 'Interna greška servera.'];
     return reply.code(http as number).send({ error: { code, message } });
   });
-  registerRoutes(app, new GameSession(dependencies));
+  registerRoutes(app, new GameSession(resolved));
   return app;
 }

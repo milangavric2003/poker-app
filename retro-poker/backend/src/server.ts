@@ -1,5 +1,5 @@
-import { buildApp } from './app.js';
-const app = buildApp();
+import { buildApp, productionAiDependencies } from './app.js';
+const app = buildApp(productionAiDependencies());
 for (const signal of ['SIGINT', 'SIGTERM'] as const) {
   process.once(signal, () => { void app.close(); });
 }

@@ -1,8 +1,8 @@
 # Research — Week04 AI integracija
 
-**Datum provere**: 2026-09-26. Izvori su zvanična Google AI for Developers
+**Datum poslednje provere**: 2026-09-27. Izvori su zvanična Google AI for Developers
 dokumentacija i zvanični `googleapis/js-genai` repozitorijum. Ovo su planske odluke;
-zavisnost nije dodata i live API nije pozvan.
+Zavisnost je implementacionim taskom zaključana na 2.24.0; live API nije pozvan.
 
 ## D1 — SDK i verzija
 
