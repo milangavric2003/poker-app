@@ -1,0 +1,57 @@
+Week04 AI integracija — offline backend RED/GREEN evidence
+Datum: 2026-09-27
+Grana: ai-integ
+
+RED pre implementacije
+
+Komanda:
+npm.cmd test -- tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts tests/unit/ai-config.test.ts tests/unit/ai-context.test.ts tests/unit/ai-semantic.test.ts tests/unit/ai-retry.test.ts tests/unit/match-facts.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts tests/integration/ai-analysis.test.ts
+
+Exit code: 1
+Stvarni rezultat: 4 pronađena fajla su pala; 19 testova palo, 4 prošla. Planirani unit,
+failure i concurrency fajlovi tada nisu postojali u checkout-u i Vitest ih nije izvršio.
+Padovi su bili zbog nedostajućih aiMode/GameView.ai ugovora, ruta i offline AI toka.
+
+GREEN fokusirane provere
+
+1. npm.cmd test -- tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts
+   Exit code: 0 — 2 fajla, 16 testova prošlo.
+2. npm.cmd test -- tests/unit/ai-config.test.ts tests/unit/ai-context.test.ts tests/unit/ai-semantic.test.ts tests/unit/ai-retry.test.ts
+   Exit code: 0 — 4 fajla, 7 testova prošlo.
+3. npm.cmd test -- tests/unit/match-facts.test.ts
+   Exit code: 0 — 1 fajl, 1 test prošao.
+4. npm.cmd test -- tests/integration/ai-bots.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts tests/integration/ai-analysis.test.ts
+   Exit code: 0 — 4 fajla, 9 testova prošlo.
+5. npm.cmd test -- tests/integration/session.test.ts tests/integration/concurrency.test.ts tests/integration/actions.test.ts tests/unit/bot.test.ts tests/unit/history.test.ts tests/contract/view.test.ts
+   Exit code: 0 — 6 fajlova, 36 Week03 regresionih testova prošlo.
+6. npm.cmd run typecheck
+   Exit code: 0.
+7. npm.cmd run lint
+   Exit code: 0.
+8. npm.cmd run build
+   Exit code: 0.
+
+Puna regresija
+
+Komanda: npm.cmd test
+Exit code: 1 — 25 fajlova prošlo, 9 palo; 348 testova prošlo, 23 pala.
+
+Preostali padovi:
+- UI testovi za ai-status, analysis i dashboard pripadaju izričito odloženom frontend/UI
+  scope-u; frontend nije menjan.
+- postojeći Week03 contract/UI fixture `publicView()` još nema novo obavezno `ai` polje,
+  dok Week04 contract test izričito proverava da snapshot bez tog polja bude odbijen;
+  assertion-i nisu menjani radi veštačkog GREEN rezultata.
+- stari Week03 config test očekuje tačno `{botCount}`, dok novi odobreni ugovor vraća
+  normalizovan `{botCount, aiMode:false}`; assertion nije oslabljen.
+
+Scope i bezbednost
+
+- Nema novih dependency-ja niti izmene package.json/package-lock.json.
+- Nema mrežnih/live poziva, GEMINI_API_KEY nije tražen niti sačuvan.
+- Nema Gemini SDK-a, Gemini adaptera ili @google/genai importa.
+- Nema frontend izmene. Usage rute su samo minimalni offline contract seam, bez dashboard
+  agregatora/UI implementacije.
+- Fake provider je isključivo test helper i ne koristi mrežu, environment ključ ili
+  production provider adapter.
+- Week04 nije kompletan: Gemini adapter, UI/dashboard i opciona ručna live provera ostaju.

@@ -62,5 +62,6 @@ export function toGameView(game: GameState): GameView {
     events: game.history.current.events.map(publicEvent),
     result: publicResult(hand.result),
     previousResult: publicResult(game.previousResult),
+    ai: structuredClone(game.ai),
   };
 }

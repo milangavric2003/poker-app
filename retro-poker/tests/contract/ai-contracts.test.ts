@@ -32,10 +32,10 @@ describe('Week04 provider-neutral public contracts (FR-001, FR-015–FR-023)', (
     expect(GameViewSchema.safeParse({ ...value, ai: { ...idleAi, rawResponse: '{}' } }).success).toBe(false);
   });
 
-  it.each(['AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED'])
-  ('accepts the safe Week04 error code %s and still rejects internal details', code => {
+  it.each(['AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED'])(
+    'accepts the safe Week04 error code %s and still rejects internal details', code => {
     const value = { error: { code, message: 'AI zahtev nije dostupan.' } };
     expect(GameErrorSchema.parse(value)).toEqual(value);
     expect(GameErrorSchema.safeParse({ error: { ...value.error, apiKey: 'secret' } }).success).toBe(false);
-  });
+    });
 });

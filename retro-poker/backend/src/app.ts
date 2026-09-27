@@ -23,7 +23,8 @@ export function buildApp(dependencies: SessionDependencies = {
     if (request.headers.origin !== undefined && request.headers.origin !== 'http://127.0.0.1:5173') {
       return reply.code(400).send({ error: { code: 'INVALID_INPUT', message: 'Poreklo zahteva nije dozvoljeno.' } });
     }
-    if (request.method === 'POST' && ['/api/game', '/api/game/actions', '/api/game/next-hand'].includes(request.url)
+    if (request.method === 'POST' && ['/api/game', '/api/game/actions', '/api/game/next-hand',
+      '/api/game/analysis', '/api/ai/usage/reset'].includes(request.url)
       && request.headers['content-type']?.split(';')[0]?.trim().toLowerCase() !== 'application/json') {
       return reply.code(415).send({ error: { code: 'UNSUPPORTED_MEDIA_TYPE', message: 'Zahtev mora biti JSON.' } });
     }

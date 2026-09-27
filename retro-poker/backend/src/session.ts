@@ -1,12 +1,20 @@
 import { randomUUID } from 'node:crypto';
 import { buildBotObservation, chooseBotAction, safeBotAction } from './bots/strategy.js';
-import { BettingError } from './engine/betting.js';
+import { BettingError, legalActions } from './engine/betting.js';
 import { act, createHand, createNextHand, type ActiveHand } from './engine/hand.js';
 import { appendEvent, completeHistory, createHistory, type GameHistory } from './engine/history.js';
 import type { GameDependencies, HandResult, PokerAction, RandomSource } from './engine/types.js';
+import { buildBotDecisionContext } from './ai/context.js';
+import { coordinateAnalysis, coordinateBot, systemClock, zeroJitter } from './ai/coordinator.js';
+import { loadAiConfig } from './ai/config.js';
+import type { AiClock, AiJitter, AiProvider, AiRuntimeConfig, BotDecisionContext } from './ai/types.js';
+import { attachHandOutcome, createMatchFacts, recordHumanDecision, type MatchFacts } from './ai/match-facts.js';
+import { analysisContext } from './ai/match-facts.js';
+import type { MatchAnalysis } from '../../shared/contracts.js';
 
 export class SessionError extends Error {
-  constructor(readonly code: 'GAME_NOT_FOUND' | 'STALE_STATE' | 'ILLEGAL_ACTION' | 'INTERNAL_ERROR',
+  constructor(readonly code: 'GAME_NOT_FOUND' | 'STALE_STATE' | 'ILLEGAL_ACTION' | 'INTERNAL_ERROR'
+    | 'AI_UNAVAILABLE' | 'AI_ALREADY_PENDING' | 'ANALYSIS_NOT_ALLOWED',
     message: string) { super(message); }
 }
 
@@ -20,12 +28,27 @@ export interface GameState {
   previousResult: HandResult | null;
   deckRandom: RandomSource;
   botRandom: RandomSource;
+  ai: {
+    mode: 'off' | 'on'; availability: 'configured' | 'unavailable';
+    active: { interactionId: string; purpose: 'bot' | 'analysis';
+      status: 'waiting' | 'retrying' | 'model_fallback'; attemptCount: number; model: string } | null;
+    lastBotOutcome: { handId: string; actorId: string; decisionOrdinal: number;
+      outcome: 'model' | 'local_fallback'; attemptCount: number; finalModel: string | null } | null;
+    analysis: { status: 'idle' | 'generating' | 'completed' | 'failed' | 'unavailable';
+      interactionId: string | null; result: MatchAnalysis | null };
+  };
+  aiDecisionOrdinal: number;
+  facts: MatchFacts;
 }
 
 export interface SessionDependencies extends GameDependencies {
   /** In-process transaction fault injection; never exposed by HTTP. */
   beforeActionCommit?: () => void;
   beforeNextHandCommit?: () => void;
+  aiProvider?: AiProvider;
+  aiConfig?: AiRuntimeConfig;
+  aiClock?: AiClock;
+  aiJitter?: AiJitter;
 }
 
 function recordInitial(hand: ActiveHand, handNumber = 1,
@@ -108,7 +131,11 @@ function runBots(game: GameState): void {
 export class GameSession {
   private game: GameState | null = null;
   private queue: Promise<void> = Promise.resolve();
-  constructor(private readonly dependencies: SessionDependencies) {}
+  private activeBot: { interactionId: string; controller: AbortController } | null = null;
+  private readonly aiConfig: AiRuntimeConfig;
+  constructor(private readonly dependencies: SessionDependencies) {
+    this.aiConfig = dependencies.aiConfig ?? loadAiConfig();
+  }
 
   async serial<T>(operation: () => T | Promise<T>): Promise<T> {
     const previous = this.queue;
@@ -120,16 +147,30 @@ export class GameSession {
 
   get(): GameState | null { return this.game; }
 
-  create(botCount: number): GameState {
+  create(botCount: number, aiMode = false): GameState {
+    this.activeBot?.controller.abort();
+    this.activeBot = null;
     const deckRandom = (this.game?.deckRandom ?? this.dependencies.deckRandom).clone();
     const botRandom = (this.game?.botRandom ?? this.dependencies.botRandom).clone();
     const gameId = randomUUID();
     const hand = createHand(botCount, randomUUID(), { deckRandom,
       ...(this.dependencies.deck === undefined ? {} : { deck: this.dependencies.deck }) });
+    const configured = dependenciesConfigured(this.dependencies, this.aiConfig);
     const candidate: GameState = { gameId, version: 1, botCount, handNumber: 1,
-      hand, history: recordInitial(hand), previousResult: null, deckRandom, botRandom };
-    runBots(candidate);
+      hand, history: recordInitial(hand), previousResult: null, deckRandom, botRandom,
+      aiDecisionOrdinal: 0, ai: { mode: aiMode ? 'on' : 'off',
+        availability: configured ? 'configured' : 'unavailable', active: null, lastBotOutcome: null,
+        analysis: { status: 'idle', interactionId: null, result: null } }, facts: createMatchFacts(gameId) };
+    if (!aiMode || !configured) {
+      const beforeActor = candidate.hand.actorId;
+      runBots(candidate);
+      if (aiMode && beforeActor !== candidate.hand.actorId) {
+        candidate.ai.lastBotOutcome = { handId: candidate.hand.handId, actorId: beforeActor!,
+          decisionOrdinal: ++candidate.aiDecisionOrdinal, outcome: 'local_fallback', attemptCount: 0, finalModel: null };
+      }
+    }
     this.game = candidate;
+    if (aiMode && configured) queueMicrotask(() => this.kickBot());
     return candidate;
   }
 
@@ -145,8 +186,18 @@ export class GameSession {
       ? { type: input.type, amountTo: input.amountTo }
       : { type: input.type };
     try {
+      const observation = buildBotObservationForHuman(candidate);
+      candidate.facts = recordHumanDecision(candidate.facts, candidate, action, observation);
       applyAndRecord(candidate, human.id, action);
-      runBots(candidate);
+      if (candidate.ai.mode === 'off' || candidate.ai.availability === 'unavailable') {
+        const firstBot = candidate.hand.players.find(p => p.id === candidate.hand.actorId && p.kind === 'bot');
+        runBots(candidate);
+        if (candidate.ai.mode === 'on' && firstBot) candidate.ai.lastBotOutcome = {
+          handId: candidate.hand.handId, actorId: firstBot.id,
+          decisionOrdinal: ++candidate.aiDecisionOrdinal, outcome: 'local_fallback',
+          attemptCount: 0, finalModel: null };
+      }
+      candidate.facts = attachHandOutcome(candidate.facts, candidate);
       this.dependencies.beforeActionCommit?.();
     } catch (error) {
       if (error instanceof BettingError) throw new SessionError('ILLEGAL_ACTION', error.message);
@@ -155,6 +206,7 @@ export class GameSession {
     }
     candidate.version++;
     this.game = candidate;
+    if (candidate.ai.mode === 'on' && candidate.ai.availability === 'configured') queueMicrotask(() => this.kickBot());
     return candidate;
   }
 
@@ -177,14 +229,125 @@ export class GameSession {
       candidate.hand = hand;
       candidate.history = recordInitial(hand, candidate.handNumber,
         completeHistory(candidate.history, handId));
-      runBots(candidate);
+      if (candidate.ai.mode === 'off' || candidate.ai.availability === 'unavailable') {
+        const firstBot = candidate.hand.players.find(p => p.id === candidate.hand.actorId && p.kind === 'bot');
+        runBots(candidate);
+        if (candidate.ai.mode === 'on' && firstBot) candidate.ai.lastBotOutcome = {
+          handId: candidate.hand.handId, actorId: firstBot.id,
+          decisionOrdinal: ++candidate.aiDecisionOrdinal, outcome: 'local_fallback',
+          attemptCount: 0, finalModel: null };
+      }
       this.dependencies.beforeNextHandCommit?.();
       candidate.version++;
       this.game = candidate;
+      if (candidate.ai.mode === 'on' && candidate.ai.availability === 'configured') queueMicrotask(() => this.kickBot());
       return candidate;
     } catch (error) {
       if (error instanceof SessionError) throw error;
       throw new SessionError('INTERNAL_ERROR', 'Interna greška pri pokretanju sledeće ruke.');
     }
   }
+
+  private kickBot(): void {
+    void this.runOneBotInteraction();
+  }
+
+  private async runOneBotInteraction(): Promise<void> {
+    const reservation = await this.serial(() => {
+      const game = this.game;
+      if (!game || game.ai.mode !== 'on' || game.ai.availability !== 'configured' || game.ai.active) return null;
+      const actor = game.hand.players.find(p => p.id === game.hand.actorId);
+      if (!actor || actor.kind !== 'bot' || game.hand.phase === 'complete') return null;
+      const interactionId = randomUUID();
+      const controller = new AbortController();
+      const ordinal = ++game.aiDecisionOrdinal;
+      const context = buildBotDecisionContext(game, actor.id, ordinal);
+      game.ai.active = { interactionId, purpose: 'bot', status: 'waiting', attemptCount: 0,
+        model: this.aiConfig.primaryModel };
+      this.activeBot = { interactionId, controller };
+      return { interactionId, controller, context };
+    });
+    if (!reservation || !this.dependencies.aiProvider) return;
+    const result = await coordinateBot(this.dependencies.aiProvider, this.aiConfig, reservation.context,
+      reservation.controller.signal, this.dependencies.aiClock ?? systemClock,
+      this.dependencies.aiJitter ?? zeroJitter);
+    await this.serial(() => this.commitBot(reservation.interactionId, reservation.context, result));
+  }
+
+  private commitBot(interactionId: string, context: BotDecisionContext,
+    result: Awaited<ReturnType<typeof coordinateBot>>): void {
+    const current = this.game;
+    if (!current || current.ai.active?.interactionId !== interactionId || this.activeBot?.interactionId !== interactionId
+      || current.gameId !== context.gameId || current.hand.handId !== context.handId
+      || current.version !== context.expectedVersion || current.hand.actorId !== context.actorId) return;
+    const candidate = cloneGame(current);
+    const observation = buildBotObservation(candidate.hand, context.actorId, candidate.history.current.events);
+    const action = result.ok && result.value ? result.value : safeBotAction(observation.legalActions,
+      () => chooseBotAction(observation, candidate.botRandom)).action;
+    try { applyAndRecord(candidate, context.actorId, action); }
+    catch {
+      const fallback = safeBotAction(observation.legalActions, () => { throw new Error('AI proposal rejected'); });
+      applyAndRecord(candidate, context.actorId, fallback.action);
+    }
+    candidate.version++;
+    candidate.ai.active = null;
+    candidate.ai.lastBotOutcome = { handId: context.handId, actorId: context.actorId,
+      decisionOrdinal: context.decisionOrdinal, outcome: result.ok ? 'model' : 'local_fallback',
+      attemptCount: result.attempts.length, finalModel: result.finalModel };
+    candidate.facts = attachHandOutcome(candidate.facts, candidate);
+    this.game = candidate;
+    this.activeBot = null;
+    queueMicrotask(() => this.kickBot());
+  }
+
+  startAnalysis(input: { gameId: string; handId: string; expectedVersion: number }): GameState {
+    const game = this.game;
+    if (!game || game.gameId !== input.gameId) throw new SessionError('GAME_NOT_FOUND', 'Partija nije pronađena.');
+    if (game.hand.handId !== input.handId || game.version !== input.expectedVersion
+      || game.hand.phase !== 'complete' || game.hand.gameStatus === 'playing') {
+      throw new SessionError('ANALYSIS_NOT_ALLOWED', 'Analiza nije dozvoljena za trenutno stanje.');
+    }
+    if (game.ai.analysis.status === 'generating') throw new SessionError('AI_ALREADY_PENDING', 'Analiza je već u toku.');
+    if (!dependenciesConfigured(this.dependencies, this.aiConfig) || !this.dependencies.aiProvider) {
+      game.ai.analysis = { status: 'unavailable', interactionId: null, result: null };
+      throw new SessionError('AI_UNAVAILABLE', 'AI analiza nije dostupna.');
+    }
+    const interactionId = randomUUID();
+    const controller = new AbortController();
+    game.ai.analysis = { status: 'generating', interactionId, result: null };
+    game.ai.active = { interactionId, purpose: 'analysis', status: 'waiting', attemptCount: 0,
+      model: this.aiConfig.primaryModel };
+    this.activeBot = { interactionId, controller };
+    const fingerprint = { gameId: game.gameId, handId: game.hand.handId,
+      expectedVersion: game.version, factsRevision: game.facts.revision };
+    const context = analysisContext(game.facts);
+    void this.runAnalysis(interactionId, controller, fingerprint, context);
+    return game;
+  }
+
+  private async runAnalysis(interactionId: string, controller: AbortController,
+    fingerprint: { gameId: string; handId: string; expectedVersion: number; factsRevision: number },
+    context: unknown): Promise<void> {
+    const result = await coordinateAnalysis(this.dependencies.aiProvider!, this.aiConfig, context,
+      controller.signal, this.dependencies.aiClock ?? systemClock, this.dependencies.aiJitter ?? zeroJitter);
+    await this.serial(() => {
+      const game = this.game;
+      if (!game || game.ai.active?.interactionId !== interactionId || game.gameId !== fingerprint.gameId
+        || game.hand.handId !== fingerprint.handId || game.version !== fingerprint.expectedVersion
+        || game.facts.revision !== fingerprint.factsRevision) return;
+      game.ai.active = null;
+      game.ai.analysis = { status: result.ok ? 'completed' : 'failed', interactionId,
+        result: result.ok ? result.value ?? null : null };
+      this.activeBot = null;
+    });
+  }
+}
+
+function dependenciesConfigured(dependencies: SessionDependencies, config: AiRuntimeConfig): boolean {
+  return dependencies.aiProvider !== undefined && (dependencies.aiConfig !== undefined || config.apiKey !== null);
+}
+
+function buildBotObservationForHuman(game: GameState) {
+  const human = game.hand.players.find(p => p.kind === 'human')!;
+  return legalActions(game.hand, human.id);
 }
