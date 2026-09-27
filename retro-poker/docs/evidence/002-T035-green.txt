@@ -1,0 +1,78 @@
+Week04 frontend AI UI evidence
+Datum: 2026-09-27
+Grana: ai-integ
+
+Opseg
+
+Frontend status, zavrsena analiza i usage dashboard; frontend API runtime validacija;
+UI stale-response i duplicate-action zastita. Gemini adapter, backend, shared ugovori,
+poker engine i package manifest nisu menjani. `npm ci` je instalirao dependency-je iz
+postojeceg lockfile-a; manifesti nisu menjani.
+
+RED
+
+Komanda:
+npm.cmd test -- tests/ui/actions.test.tsx tests/ui/ai-status.test.tsx
+
+Exit code: 1. Posle ispravke test fixture-a i React cleanup-a, dva ciljna ponasanja
+su pala: aplikacija je server-confirmed model potez prikazala kao "AI je spreman",
+a `acceptsAiSnapshot` je prihvatio kasni `generating` snapshot preko terminalne
+analize. Duplicate-action oracle je prosao pre dodatne sinhrone mutation brave.
+
+GREEN
+
+- `npm.cmd test -- tests/ui/actions.test.tsx tests/ui/ai-status.test.tsx tests/ui/analysis.test.tsx tests/ui/dashboard.test.tsx tests/ui/api.test.ts` — exit 0, 5 fajlova, 38/38.
+- `npm.cmd test -- tests/ui` — exit 0, 7 fajlova, 45/45 (svi UI testovi, ukljucujuci Week03; zavrsni prolaz).
+- `npm.cmd run typecheck` — exit 0.
+- `npm.cmd run lint` — exit 0.
+- `npm.cmd run build` — exit 0; Vite 119 modula i server TypeScript build (zavrsni build: 341 ms).
+- `npm.cmd ci` — exit 0; 304 paketa dodato iz lockfile-a, 0 prijavljenih ranjivosti.
+
+AI/backend regresija
+
+Komanda:
+npm.cmd test -- tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts tests/integration/ai-analysis.test.ts tests/integration/gemini-adapter.test.ts
+
+Prvi prolaz je imao exit code 1: sest fajlova je proslo, a jedan stale contract
+assertion je pao (35/36). `publicView()` vec sadrzi `ai`, pa test nije stvarno
+prosledio legacy snapshot bez tog polja. Ispravljen je samo test input da ukloni
+`ai`; deljeni contract schema i backend nisu menjani.
+
+Zavrsni prolaz iste komande — exit code 0, 7 fajlova i 36/36 testova. AI route,
+bot/failure/concurrency/analysis integration i mocked Gemini adapter su prosli.
+
+Pokriven UI
+
+- Status komponenta: off/on idle, waiting, retrying, model fallback, accepted model
+  potez, local fallback, timeout, 429, provider error, cancelled, stale, missing
+  config i semantic rejection. Status ima tekst i aria-live; loader ima accessible
+  label.
+- App povezuje server `lastBotOutcome` sa success/fallback porukom, ogranicava
+  outcome na aktuelnu ruku, sinhrono zakljucava mutacije i odbacuje starije ili
+  nepovezane polling rezultate. Zakasneli analysis `generating` odgovor ne pregazi
+  terminalno stanje iste interakcije.
+- Analysis panel: samo terminalna partija, loading/completed/failed/unavailable,
+  rucni retry, validirani strukturisani rezultat, disclaimer i nepromenjen
+  `HandResult`; nevalidan API/GameView odgovor se odbija runtime schemom.
+- Dashboard: broj logickih zahteva, uspesni model zahtevi, local fallback, timeout/
+  429/server/network/schema greske, prosecno trajanje i broj analiza; reset trazi
+  potvrdu i salje ocekivanu reviziju. Tokeni se oznacavaju kao delimični kada deo
+  metapodataka nedostaje, a cena kao nepoznata bez direktne provider vrednosti.
+- API usage DTO odbija nepoznata polja, ukljucujuci potencijalno privatna polja.
+- Postojece native buttons/inputs ostaju fokusabilni tastaturom; vidljivi
+  `:focus-visible`, reduced-motion i responsive pravila na 760px/420px postoje.
+
+Bezbednost i ogranicenja
+
+Nije pokrenut nijedan live Gemini/API poziv i nijedan API kljuc nije trazen ili
+ucitan za ovaj rad. Testovi koriste mock podatke i mock Gemini SDK.
+
+Aktuelni backend `GET /api/ai/usage` trenutno vraca prazne `logical` i `attempts`
+nizove i brojac nula; zato dashboard ispravno prikazuje prazno stanje dok backend
+ne emituje stvarne agregate. UI-only scope nije prosiren na backend.
+
+Javni `GameView` daje bot terminalni ishod samo kao `model` ili `local_fallback`, a
+ne izvor greske. Zbog toga UI moze prikazati samo bezbednu genericku fallback poruku;
+timeout, 429, provider error i semantic rejection tekstovi testiraju komponentu, ali
+ne mogu se pouzdano povezati sa zivim bot ishodom bez prosirenja backend ugovora.
+Live kvota, dostupnost modela, naplata i realna latencija nisu proverene.

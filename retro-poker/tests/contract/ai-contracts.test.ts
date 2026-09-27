@@ -27,8 +27,9 @@ describe('Week04 provider-neutral public contracts (FR-001, FR-015–FR-023)', (
 
   it('requires and runtime-validates the additive public AI snapshot', () => {
     const value = { ...publicView(), ai: idleAi };
+    const legacyView = Object.fromEntries(Object.entries(publicView()).filter(([key]) => key !== 'ai'));
     expect(GameViewSchema.parse(value)).toEqual(value);
-    expect(GameViewSchema.safeParse(publicView()).success).toBe(false);
+    expect(GameViewSchema.safeParse(legacyView).success).toBe(false);
     expect(GameViewSchema.safeParse({ ...value, ai: { ...idleAi, rawResponse: '{}' } }).success).toBe(false);
   });
 

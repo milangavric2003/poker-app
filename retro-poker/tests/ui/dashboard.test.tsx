@@ -31,12 +31,29 @@ describe('local usage dashboard', () => {
     render(<UsageDashboard />);
     fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
     expect(await screen.findByTestId('total-requests')).toHaveTextContent('7');
-    expect(screen.getByTestId('successful-requests')).toHaveTextContent('3');
+    expect(screen.getByTestId('successful-requests')).toHaveTextContent('5');
     expect(screen.getByTestId('fallback-count')).toHaveTextContent('2');
     expect(screen.getByTestId('error-count')).toHaveTextContent('4');
     expect(screen.getByTestId('average-latency')).toHaveTextContent('214 ms');
     expect(screen.getByTestId('analysis-count')).toHaveTextContent('2');
     expect(document.body).not.toHaveTextContent(/api.?key|raw prompt|holeCards|stack trace/i);
+  });
+  it('shows partial token usage and labels missing cost as unknown', async () => {
+    const partial = structuredClone(usage);
+    partial.attempts[0]!.usage = {
+      promptTokens: { knownCount: 1, missingCount: 2, sum: 900 },
+      candidateTokens: { knownCount: 1, missingCount: 2, sum: 80 },
+      thoughtTokens: { knownCount: 0, missingCount: 3, sum: 0 },
+      cachedTokens: { knownCount: 0, missingCount: 3, sum: 0 },
+      totalTokens: { knownCount: 1, missingCount: 2, sum: 980 },
+      cost: { knownCount: 0, missingCount: 3, sum: null, currency: null },
+    };
+    vi.spyOn(api, 'loadUsage').mockResolvedValue(partial);
+    render(<UsageDashboard />);
+    fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
+
+    expect(await screen.findByTestId('usage-total-tokens')).toHaveTextContent('980 (delimično)');
+    expect(screen.getByTestId('usage-cost')).toHaveTextContent('Nepoznato');
   });
   it('confirms reset, prevents duplicates and refreshes snapshot', async () => {
     vi.spyOn(api, 'loadUsage').mockResolvedValue(usage);
@@ -56,6 +73,6 @@ describe('local usage dashboard', () => {
     fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
     expect(await screen.findByRole('alert')).toHaveTextContent(/nije moguće/i);
     fireEvent.click(screen.getByRole('button', { name: /pokušaj ponovo/i }));
-    expect(await screen.findByTestId('successful-requests')).toHaveTextContent('3');
+    expect(await screen.findByTestId('successful-requests')).toHaveTextContent('5');
   });
 });

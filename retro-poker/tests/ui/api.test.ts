@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { GameViewSchema } from '../../shared/contracts';
 import { publicView } from '../helpers/public-fixtures';
-import { createGame, loadGame, sendAction } from '../../frontend/src/api';
+import { createGame, loadGame, loadUsage, sendAction } from '../../frontend/src/api';
 
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 
@@ -58,5 +58,15 @@ describe('frontend API', () => {
     expect(JSON.parse(fetchMock.mock.calls[0]![1].body)).toEqual({
       gameId: game.gameId, handId: game.handId, expectedVersion: game.version, type: 'call',
     });
+  });
+
+  it('runtime validira usage i odbija nepoznata potencijalno privatna polja', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ usage: {
+      revision: 0, logical: [], attempts: [{ purpose: 'bot', model: 'model-a', relation: 'initial',
+        outcome: 'success', count: 1, latency: { count: 1, sumMs: 8, maxMs: 8 },
+        usage: { rawPrompt: 'private context' } }], retryCount: 0, modelFallbackCount: 0, localFallbackCount: 0,
+    } }), { status: 200 })));
+
+    await expect(loadUsage()).rejects.toThrow(/odgovor servera/i);
   });
 });

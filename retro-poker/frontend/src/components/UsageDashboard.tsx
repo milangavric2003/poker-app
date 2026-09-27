@@ -28,11 +28,34 @@ export function UsageDashboard() {
     finally { if (id === requestId.current) setLoading(false); }
   }
   const total = usage?.logical.reduce((sum, row) => sum + row.count, 0) ?? 0;
-  const successes = usage?.attempts.filter(row => row.outcome === 'success').reduce((sum, row) => sum + row.count, 0) ?? 0;
+  const successes = usage?.logical.filter(row => row.finalOutcome === 'model_success')
+    .reduce((sum, row) => sum + row.count, 0) ?? 0;
   const errors = usage?.attempts.filter(row => failureOutcomes.has(row.outcome)).reduce((sum, row) => sum + row.count, 0) ?? 0;
   const latencyCount = usage?.attempts.reduce((sum, row) => sum + row.latency.count, 0) ?? 0;
   const latencySum = usage?.attempts.reduce((sum, row) => sum + row.latency.sumMs, 0) ?? 0;
   const analyses = usage?.logical.filter(row => row.purpose === 'analysis').reduce((sum, row) => sum + row.count, 0) ?? 0;
+  const totalTokens = usage?.attempts.reduce((aggregate, row) => {
+    const metric = row.usage?.totalTokens;
+    if (metric) {
+      aggregate.knownCount += metric.knownCount;
+      aggregate.missingCount += metric.missingCount;
+      aggregate.sum += metric.sum;
+    }
+    return aggregate;
+  }, { knownCount: 0, missingCount: 0, sum: 0 });
+  const cost = usage?.attempts.reduce((aggregate, row) => {
+    const metric = row.usage?.cost;
+    if (metric) {
+      aggregate.knownCount += metric.knownCount;
+      aggregate.missingCount += metric.missingCount;
+      if (metric.sum !== null) aggregate.sum += metric.sum;
+      if (metric.currency) aggregate.currency = metric.currency;
+    }
+    return aggregate;
+  }, { knownCount: 0, missingCount: 0, sum: 0, currency: '' });
+  const usageLabel = (metric: { knownCount: number; missingCount: number; sum: number } | undefined,
+    suffix = '') => !metric || metric.knownCount === 0 ? 'Nepoznato'
+      : `${metric.sum}${suffix}${metric.missingCount > 0 ? ' (delimično)' : ''}`;
   return <section className="usage-dashboard">
     <button aria-expanded={open} aria-controls="usage-panel" onClick={toggle}>AI upotreba</button>
     {open && <div id="usage-panel" className="usage-panel">
@@ -48,6 +71,9 @@ export function UsageDashboard() {
         <div><dt>Timeout / 429 / greške</dt><dd data-testid="error-count">{errors}</dd></div>
         <div><dt>Prosečno trajanje</dt><dd data-testid="average-latency">{latencyCount ? Math.round(latencySum / latencyCount) + ' ms' : 'Nema podataka'}</dd></div>
         <div><dt>Analize</dt><dd data-testid="analysis-count">{analyses}</dd></div>
+        <div><dt>Ukupno tokena</dt><dd data-testid="usage-total-tokens">{usageLabel(totalTokens)}</dd></div>
+        <div><dt>Trošak</dt><dd data-testid="usage-cost">{cost?.knownCount
+          ? usageLabel(cost, ` ${cost.currency}`) : 'Nepoznato'}</dd></div>
       </dl>}
       {usage && !error && <button disabled={loading} onClick={() => void reset()}>Resetuj metrike</button>}
     </div>}

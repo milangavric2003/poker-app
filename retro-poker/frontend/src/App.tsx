@@ -13,7 +13,14 @@ export function acceptsAiSnapshot(current: GameView | null, incoming: GameView |
   if (current.gameId !== incoming.gameId) return false;
   if (incoming.version < current.version) return false;
   const active = current.ai.active?.interactionId;
-  return !active || incoming.ai.active?.interactionId === active
+  if (!active) {
+    const terminalAnalysis = current.ai.analysis;
+    if (terminalAnalysis.interactionId && terminalAnalysis.status !== 'idle'
+      && terminalAnalysis.status !== 'generating'
+      && incoming.ai.active?.interactionId === terminalAnalysis.interactionId) return false;
+    return true;
+  }
+  return incoming.ai.active?.interactionId === active
     || incoming.ai.lastBotOutcome?.handId === current.handId || incoming.ai.analysis.interactionId === active;
 }
 
@@ -24,15 +31,18 @@ export function App() {
   const [aiMode, setAiMode] = useState(false);
   const [pending, setPending] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [aiNotice, setAiNotice] = useState<AiUiStatus | null>(null);
   const pollId = useRef(0);
+  const snapshotSequence = useRef(0);
+  const mutationLock = useRef(false);
   function commit(next: GameView | null, force = false) {
+    snapshotSequence.current++;
     if (force || acceptsAiSnapshot(gameRef.current, next)) { gameRef.current = next; setGame(next); }
   }
   useEffect(() => {
     let mounted = true;
-    loadGame().then(next => { if (mounted) commit(next, true); })
-      .catch(caught => { if (mounted) setError(caught instanceof Error ? caught.message : 'Greška.'); })
+    const requestId = ++snapshotSequence.current;
+    loadGame().then(next => { if (mounted && requestId === snapshotSequence.current) commit(next, true); })
+      .catch(caught => { if (mounted && requestId === snapshotSequence.current) setError(caught instanceof Error ? caught.message : 'Greška.'); })
       .finally(() => { if (mounted) setPending(false); });
     return () => { mounted = false; };
   }, []);
@@ -40,53 +50,76 @@ export function App() {
     if (!game?.ai.active) return;
     const id = ++pollId.current;
     const timer = window.setInterval(() => {
-      void loadGame().then(next => { if (id === pollId.current) commit(next); }).catch(() => undefined);
+      const requestId = ++snapshotSequence.current;
+      void loadGame().then(next => {
+        if (id === pollId.current && requestId === snapshotSequence.current) commit(next);
+      }).catch(() => undefined);
     }, 750);
     return () => { ++pollId.current; window.clearInterval(timer); };
   }, [game?.gameId, game?.ai.active?.interactionId]);
 
   async function synchronize() {
-    if (pending) return;
+    if (pending || mutationLock.current) return;
+    mutationLock.current = true;
+    snapshotSequence.current++;
     setPending(true);
     try { commit(await loadGame(), true); setError(null); }
     catch (caught) { setError(caught instanceof Error ? caught.message : 'Stanje nije učitano.'); }
-    finally { setPending(false); }
+    finally { mutationLock.current = false; setPending(false); }
   }
   async function start() {
-    if (pending || error) return;
+    if (pending || error || mutationLock.current) return;
     if (game?.status === 'playing' && !window.confirm('Aktivna partija će biti zamenjena. Nastaviti?')) return;
-    setPending(true); setError(null); setAiNotice(null);
+    mutationLock.current = true;
+    snapshotSequence.current++;
+    setPending(true); setError(null);
     try { commit(aiMode ? await createGame(botCount, game, true) : await createGame(botCount, game), true); }
     catch (caught) { setError(caught instanceof Error ? caught.message : 'Partija nije pokrenuta.'); }
-    finally { setPending(false); }
+    finally { mutationLock.current = false; setPending(false); }
   }
   async function act(action: ActionDraft) {
-    if (!game || pending || error) return;
-    setPending(true); setError(null); setAiNotice(null);
-    try { commit(await sendAction(game, action)); setAiNotice({ kind: 'success' }); }
+    if (!game || pending || error || mutationLock.current) return;
+    mutationLock.current = true;
+    snapshotSequence.current++;
+    setPending(true); setError(null);
+    try { commit(await sendAction(game, action)); }
     catch (caught) { setError(caught instanceof Error ? caught.message : 'Potez nije obrađen.'); }
-    finally { setPending(false); }
+    finally { mutationLock.current = false; setPending(false); }
   }
   async function advance() {
-    if (!game || pending || error) return;
+    if (!game || pending || error || mutationLock.current) return;
+    mutationLock.current = true;
+    snapshotSequence.current++;
     setPending(true); setError(null);
     try { commit(await nextHand(game)); }
     catch (caught) { setError(caught instanceof Error ? caught.message : 'Sledeća ruka nije pokrenuta.'); }
-    finally { setPending(false); }
+    finally { mutationLock.current = false; setPending(false); }
   }
   async function analyze() {
-    if (!game || pending || game.status === 'playing' || game.ai.analysis.status === 'generating') return;
+    if (!game || pending || mutationLock.current || game.status === 'playing' || game.ai.analysis.status === 'generating') return;
+    mutationLock.current = true;
+    snapshotSequence.current++;
     setPending(true); setError(null);
     try { commit(await requestAnalysis(game)); }
-    catch (caught) { setError(caught instanceof Error ? caught.message : 'Analiza nije pokrenuta.'); }
-    finally { setPending(false); }
+    catch (caught) {
+      try {
+        const latest = await loadGame();
+        if (latest?.gameId === game.gameId && latest.handId === game.handId
+          && latest.ai.analysis.status !== 'idle') commit(latest);
+        else setError(caught instanceof Error ? caught.message : 'Analiza nije pokrenuta.');
+      } catch { setError('Analiza nije pokrenuta. Ucitaj stanje pre nastavka.'); }
+    }
+    finally { mutationLock.current = false; setPending(false); }
   }
   const visibleResult = game?.result ?? game?.previousResult;
+  const lastBotOutcome = game && game.ai.lastBotOutcome?.handId === game.handId ? game.ai.lastBotOutcome : null;
   const status: AiUiStatus = game?.ai.active
-    ? { kind: 'requesting', purpose: game.ai.active.purpose, attemptCount: game.ai.active.attemptCount }
-    : game?.ai.lastBotOutcome?.outcome === 'local_fallback' ? { kind: 'fallback' }
-    : aiNotice ?? (game?.ai.availability === 'unavailable' && game.ai.mode === 'on'
-      ? { kind: 'missing_key' } : { kind: 'idle', mode: game?.ai.mode ?? 'off' });
+    ? { kind: 'requesting', purpose: game.ai.active.purpose, attemptCount: game.ai.active.attemptCount,
+      stage: game.ai.active.status }
+    : lastBotOutcome?.outcome === 'model' ? { kind: 'success' }
+    : lastBotOutcome?.outcome === 'local_fallback' ? { kind: 'fallback' }
+    : game?.ai.availability === 'unavailable' && game.ai.mode === 'on'
+      ? { kind: 'missing_key' } : { kind: 'idle', mode: game?.ai.mode ?? 'off' };
   const busy = pending || !!game?.ai.active;
   return <div className="app-shell">
     <header className="titlebar"><h1>RETRO POKER</h1><span>LOCAL TABLE // NO LIMIT</span></header>

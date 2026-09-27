@@ -1,6 +1,7 @@
 export type AiUiStatus =
   | { kind: 'idle'; mode: 'off' | 'on' }
-  | { kind: 'requesting'; purpose: 'bot' | 'analysis'; attemptCount: number }
+  | { kind: 'requesting'; purpose: 'bot' | 'analysis'; attemptCount: number;
+      stage?: 'waiting' | 'retrying' | 'model_fallback' }
   | { kind: 'success' | 'fallback' | 'timeout' | 'rate_limited' | 'provider_error'
     | 'cancelled' | 'stale' | 'missing_key' | 'semantic_rejection' };
 
@@ -19,8 +20,11 @@ const labels: Record<Exclude<AiUiStatus['kind'], 'idle' | 'requesting'>, string>
 export function AiStatus({ status }: { status: AiUiStatus }) {
   let label: string;
   if (status.kind === 'idle') label = status.mode === 'off' ? 'AI režim je isključen.' : 'AI je spreman.';
-  else if (status.kind === 'requesting') label = status.purpose === 'bot'
-    ? 'AI razmišlja o potezu…' : 'AI priprema analizu…';
+  else if (status.kind === 'requesting') {
+    if (status.stage === 'retrying') label = 'AI ponavlja pokušaj…';
+    else if (status.stage === 'model_fallback') label = 'AI prelazi na rezervni model…';
+    else label = status.purpose === 'bot' ? 'AI razmišlja o potezu…' : 'AI priprema analizu…';
+  }
   else label = labels[status.kind];
   return <div className={`ai-status ai-status--${status.kind}`} role="status" aria-live="polite">
     {status.kind === 'requesting' && <span className="loading-dot" aria-label={status.purpose === 'bot'
