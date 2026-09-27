@@ -132,7 +132,8 @@ export function App() {
         onChange={event => setAiMode(event.target.checked)} /> AI režim</label>
       <button disabled={pending || !!error} onClick={() => void start()}>Nova partija</button>
     </section>
-    <AiStatus status={status} />
+    {(game?.ai.mode === 'on' || game?.ai.active || game?.ai.lastBotOutcome || game?.ai.analysis.status !== 'idle') &&
+      <AiStatus status={status} />}
     <UsageDashboard />
     {error && <><p className="error" role="alert">{error} Učitaj stanje pre nastavka.</p>
       <button disabled={pending} onClick={() => void synchronize()}>Učitaj stanje</button></>}

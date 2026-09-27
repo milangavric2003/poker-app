@@ -2,15 +2,18 @@ import { afterEach, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from '../../backend/src/app.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
+import { processUsageStore } from '../../backend/src/ai/usage.js';
 
 const apps: FastifyInstance[] = [];
 function makeApp() {
+  const snapshot = processUsageStore.snapshot(); processUsageStore.reset(snapshot.revision);
   const app = buildApp({ deck: ac23Deck, deckRandom: sequenceRandom([]),
     botRandom: sequenceRandom(Array<number>(100).fill(0.9)) });
   apps.push(app);
   return app;
 }
 afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); });
+afterEach(() => { const current = processUsageStore.snapshot(); processUsageStore.reset(current.revision); });
 
 describe('Week04 HTTP contracts (AIAC01, AIAC12–AIAC13)', () => {
   it('keeps omitted aiMode backward-compatible and exposes mode off', async () => {
@@ -41,25 +44,47 @@ describe('Week04 HTTP contracts (AIAC01, AIAC12–AIAC13)', () => {
   });
 
   it('offers a process-wide usage snapshot even when no game exists', async () => {
-    const response = await makeApp().inject('/api/ai/usage');
+    const app = makeApp();
+    const response = await app.inject('/api/ai/usage');
     expect(response.statusCode).toBe(200);
     expect(response.headers['cache-control']).toBe('no-store');
-    expect(response.json()).toEqual({ usage: {
-      revision: 0, logical: [], attempts: [], retryCount: 0,
-      modelFallbackCount: 0, localFallbackCount: 0,
-    } });
+    expect(response.json().usage).toMatchObject({ logical: [], attempts: [], retryCount: 0,
+      modelFallbackCount: 0, localFallbackCount: 0 });
+    expect(response.json().usage.revision).toBe(processUsageStore.snapshot().revision);
   });
 
   it('uses strict optimistic concurrency for usage reset', async () => {
     const app = makeApp();
+    processUsageStore.record({ purpose: 'bot', initialModel: 'model-a', finalOutcome: 'model_success', attempts: [
+      { model: 'model-a', relation: 'initial', outcome: 'success', durationMs: 12,
+        usage: { promptTokens: 0 } },
+    ] });
+    const before = (await app.inject('/api/game')).json().game;
     const reset = await app.inject({ method: 'POST', url: '/api/ai/usage/reset',
-      headers: { 'content-type': 'application/json' }, payload: { expectedRevision: 0 } });
+      headers: { 'content-type': 'application/json' }, payload: { expectedRevision: processUsageStore.snapshot().revision } });
     expect(reset.statusCode).toBe(200);
-    expect(reset.json().usage.revision).toBe(1);
+    expect(reset.json().usage.logical).toEqual([]);
+    expect(reset.json().usage.revision).toBe(processUsageStore.snapshot().revision);
+    expect((await app.inject('/api/game')).json().game).toEqual(before);
     const duplicate = await app.inject({ method: 'POST', url: '/api/ai/usage/reset',
       headers: { 'content-type': 'application/json' }, payload: { expectedRevision: 0 } });
     expect(duplicate.statusCode).toBe(409);
     expect(duplicate.json().error.code).toBe('STALE_STATE');
+  });
+
+  it('rejects unknown reset fields and preserves the process aggregate after game replacement', async () => {
+    const app = makeApp();
+    processUsageStore.record({ purpose: 'analysis', initialModel: 'model-a', finalOutcome: 'failed', attempts: [] });
+    const resetWithUnknown = await app.inject({ method: 'POST', url: '/api/ai/usage/reset',
+      headers: { 'content-type': 'application/json' }, payload: { expectedRevision: processUsageStore.snapshot().revision, apiKey: 'secret' } });
+    expect(resetWithUnknown.statusCode).toBe(400);
+    const create = (headers: Record<string, string>, payload: object) => app.inject({ method: 'POST', url: '/api/game',
+      headers: { ...headers, 'content-type': 'application/json' }, payload });
+    const started = await create({ 'if-none-match': '*' }, { botCount: 1 });
+    const game = started.json().game;
+    const replacement = await create({ 'if-match': `"${game.gameId}:${game.version}"` }, { botCount: 1 });
+    expect(replacement.statusCode).toBe(201);
+    expect((await app.inject('/api/ai/usage')).json().usage.logical).toHaveLength(1);
   });
 
   it('rejects analysis before a terminal game with a stable semantic error', async () => {

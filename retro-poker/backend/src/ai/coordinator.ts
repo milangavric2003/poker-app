@@ -7,6 +7,19 @@ import { ProviderError, type AIAttempt, type AiClock, type AiJitter, type AiProv
   type ProviderResult } from './types.js';
 import type { PokerAction } from '../engine/types.js';
 import type { MatchAnalysis } from '../../../shared/contracts.js';
+import { processUsageStore } from './usage.js';
+
+function finalOutcome(result: CoordinatorResult<unknown>): string {
+  return result.ok ? 'model_success'
+    : result.failure === 'cancelled' ? 'cancelled'
+    : result.failure === 'stale' ? 'stale' : 'local_fallback';
+}
+
+export function recordUsageOnce(interactionId: string, purpose: 'bot' | 'analysis', initialModel: string,
+  result: CoordinatorResult<unknown>, startedEpoch: number): void {
+  processUsageStore.record({ purpose, initialModel, finalOutcome: purpose === 'analysis' && !result.ok ? 'failed' : finalOutcome(result),
+    attempts: result.attempts }, interactionId, startedEpoch);
+}
 
 export const systemClock: AiClock = {
   now: () => performance.now(),
@@ -74,7 +87,7 @@ export async function coordinateBot(provider: AiProvider, config: AiRuntimeConfi
           const action = validateBotProposal(parsed.data, context);
           if (!action) attemptOutcome = 'semantic_rejected';
           else {
-            attempts.push({ ordinal, model, relation, outcome: 'success',
+            attempts.push({ ordinal, model: result.model ?? model, relation, outcome: 'success',
               durationMs: Math.max(0, clock.now() - attemptStarted), ...(result.usage ? { usage: result.usage } : {}) });
             return { ok: true, value: action, attempts, finalModel: result.model ?? model };
           }
@@ -127,7 +140,7 @@ export async function coordinateAnalysis(provider: AiProvider, config: AiRuntime
           const items = [...parsed.data.goodDecisions, ...parsed.data.possibleMistakes];
           if (items.some(item => !refs.has(item.decisionRef))) attemptOutcome = 'semantic_rejected';
           else {
-            attempts.push({ ordinal, model, relation, outcome: 'success', durationMs: Math.max(0, clock.now() - attemptStarted) });
+            attempts.push({ ordinal, model: result.model ?? model, relation, outcome: 'success', durationMs: Math.max(0, clock.now() - attemptStarted), ...(result.usage ? { usage: result.usage } : {}) });
             return { ok: true, value: { ...parsed.data,
               disclaimer: 'AI analiza je obrazovna pomoć, ne garantovano optimalna strategija.' },
               attempts, finalModel: result.model ?? model };

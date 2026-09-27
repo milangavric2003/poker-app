@@ -36,6 +36,10 @@ describe('local usage dashboard', () => {
     expect(screen.getByTestId('error-count')).toHaveTextContent('4');
     expect(screen.getByTestId('average-latency')).toHaveTextContent('214 ms');
     expect(screen.getByTestId('analysis-count')).toHaveTextContent('2');
+    expect(screen.getByText('Logical requests')).toBeVisible();
+    expect(screen.getByText('Attempts')).toBeVisible();
+    expect(screen.getByTestId('retry-count')).toHaveTextContent('1');
+    expect(screen.getByTestId('latency-summary')).toHaveTextContent('7 / 214 / 1000 ms');
     expect(document.body).not.toHaveTextContent(/api.?key|raw prompt|holeCards|stack trace/i);
   });
   it('shows partial token usage and labels missing cost as unknown', async () => {
@@ -54,6 +58,9 @@ describe('local usage dashboard', () => {
 
     expect(await screen.findByTestId('usage-total-tokens')).toHaveTextContent('980 (delimično)');
     expect(screen.getByTestId('usage-cost')).toHaveTextContent('Nepoznato');
+    await screen.getByText('Attempts').click();
+    expect(screen.getAllByText(/980/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Nepoznato/).length).toBeGreaterThan(0);
   });
   it('confirms reset, prevents duplicates and refreshes snapshot', async () => {
     vi.spyOn(api, 'loadUsage').mockResolvedValue(usage);

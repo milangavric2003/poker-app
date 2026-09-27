@@ -1,6 +1,6 @@
 import { ProviderError, type AiProvider, type ProviderRequest, type ProviderResult } from '../../backend/src/ai/types.js';
 
-export type FakeAiStep = ProviderResult | { kind: 'malformed' | 'schema_mismatch' | 'semantic_illegal'
+export type FakeAiStep = ProviderResult | { kind: 'analysis_success' } | { kind: 'malformed' | 'schema_mismatch' | 'semantic_illegal'
   | 'timeout' | '429' | '5xx' | 'safety_refusal' | 'auth_config' | 'network' }
   | { kind: 'pending'; id?: string };
 interface Pending { resolve: (result: ProviderResult) => void; reject: (error: unknown) => void; signal: AbortSignal; }
@@ -23,6 +23,10 @@ export class FakeAiProvider implements AiProvider {
     }
     if (step.kind === 'malformed') return { candidate: '{not-json' };
     if (step.kind === 'schema_mismatch') return { candidate: { answer: 'check' } };
+    if (step.kind === 'analysis_success') {
+      return { candidate: { summary: 'Analiza fake uspesno zavrsena.', goodDecisions: [],
+        possibleMistakes: [], nextSteps: ['Nastavi da proveravas velicinu pota.'] } };
+    }
     if (step.kind === 'semantic_illegal') return { candidate: { gameId: '00000000-0000-4000-8000-000000000000',
       handId: '00000000-0000-4000-8000-000000000000', expectedVersion: 0, actorId: 'wrong', type: 'check' } };
     if (step.kind === '429') throw new ProviderError('rate_limited');

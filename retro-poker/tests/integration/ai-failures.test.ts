@@ -4,9 +4,10 @@ import { buildApp } from '../../backend/src/app.js';
 import { loadAiConfig } from '../../backend/src/ai/config.js';
 import { FakeAiProvider } from '../helpers/fake-ai-provider.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
+import { processUsageStore } from '../../backend/src/ai/usage.js';
 
 const apps: FastifyInstance[] = [];
-afterEach(async () => Promise.all(apps.splice(0).map(app => app.close())));
+afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); const s = processUsageStore.snapshot(); processUsageStore.reset(s.revision); });
 describe('offline AI recovery', () => {
   it('bounds malformed recovery at two attempts and commits one local fallback', async () => {
     const provider = new FakeAiProvider([{ kind: 'malformed' }, { kind: 'schema_mismatch' }]);
@@ -23,5 +24,10 @@ describe('offline AI recovery', () => {
     expect(provider.callCount).toBe(2);
     expect(game.ai.lastBotOutcome).toMatchObject({ outcome: 'local_fallback', attemptCount: 2 });
     expect(game.version).toBe(initial.version + 1);
+    const usage = (await app.inject('/api/ai/usage')).json().usage;
+    expect(usage.logical).toEqual([{ purpose: 'bot', initialModel: 'gemini-3.8-flash', finalOutcome: 'local_fallback', count: 1 }]);
+    expect(usage.attempts.reduce((sum: number, row: { count: number }) => sum + row.count, 0)).toBe(2);
+    expect(usage.retryCount).toBe(1);
+    expect(usage.localFallbackCount).toBe(1);
   });
 });

@@ -64,7 +64,17 @@ export function UsageDashboard() {
       {error && !loading && <><p role="alert">Nije moguće učitati AI metrike.</p>
         <button onClick={() => void refresh()}>Pokušaj ponovo</button></>}
       {usage && !loading && !error && total === 0 && <p>Nema zabeleženih AI zahteva.</p>}
-      {usage && !loading && !error && total > 0 && <dl className="metric-grid">
+      {usage && !loading && !error && total > 0 && <>
+        <p data-testid="retry-count">Retry: {usage.retryCount} | model fallback: {usage.modelFallbackCount} | local fallback: {usage.localFallbackCount}</p>
+        <p data-testid="latency-summary">Latency count / avg / max: {latencyCount} / {latencyCount ? Math.round(latencySum / latencyCount) : 0} / {Math.max(0, ...usage.attempts.map(row => row.latency.maxMs))} ms</p>
+        <details className="usage-details"><summary>Logical requests</summary>
+        <div className="usage-table-wrap"><table><thead><tr><th>Purpose</th><th>Initial model</th><th>Final outcome</th><th>Count</th></tr></thead><tbody>{usage.logical.map((row, i) => <tr key={`l-${i}`}><td>{row.purpose}</td><td>{row.initialModel}</td><td>{row.finalOutcome}</td><td>{row.count}</td></tr>)}</tbody></table></div>
+        </details>
+        <details className="usage-details"><summary>Attempts</summary>
+        <div className="usage-table-wrap"><table><thead><tr><th>Purpose</th><th>Actual model</th><th>Relation</th><th>Outcome</th><th>Count</th><th>Latency count / avg / max</th><th>Total tokens</th><th>Cost</th></tr></thead><tbody>{usage.attempts.map((row, i) => <tr key={`a-${i}`}><td>{row.purpose}</td><td>{row.model}</td><td>{row.relation}</td><td>{row.outcome}</td><td>{row.count}</td><td>{row.latency.count} / {row.latency.count ? Math.round(row.latency.sumMs / row.latency.count) : 0} / {row.latency.maxMs} ms</td><td>{usageLabel(row.usage?.totalTokens)}</td><td>{row.usage?.cost.knownCount && row.usage.cost.sum !== null ? `${row.usage.cost.sum} ${row.usage.cost.currency ?? ''}` : 'Nepoznato'}</td></tr>)}</tbody></table></div>
+        </details>
+        <details className="usage-details"><summary>Tokeni i trošak</summary>
+      <dl className="metric-grid">
         <div><dt>Ukupno zahteva</dt><dd data-testid="total-requests">{total}</dd></div>
         <div><dt>Uspešni pokušaji</dt><dd data-testid="successful-requests">{successes}</dd></div>
         <div><dt>Lokalni fallback</dt><dd data-testid="fallback-count">{usage.localFallbackCount}</dd></div>
@@ -74,7 +84,9 @@ export function UsageDashboard() {
         <div><dt>Ukupno tokena</dt><dd data-testid="usage-total-tokens">{usageLabel(totalTokens)}</dd></div>
         <div><dt>Trošak</dt><dd data-testid="usage-cost">{cost?.knownCount
           ? usageLabel(cost, ` ${cost.currency}`) : 'Nepoznato'}</dd></div>
-      </dl>}
+      </dl>
+        </details>
+      </>}
       {usage && !error && <button disabled={loading} onClick={() => void reset()}>Resetuj metrike</button>}
     </div>}
   </section>;

@@ -1,12 +1,13 @@
-import { afterEach, describe, expect, it } from 'vitest';
+﻿import { afterEach, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from '../../backend/src/app.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
+import { processUsageStore } from '../../backend/src/ai/usage.js';
 
 const apps: FastifyInstance[] = [];
-afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); });
+afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); const s = processUsageStore.snapshot(); processUsageStore.reset(s.revision); });
 
-describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)', () => {
+describe('analysis route read-only boundary (FR-016â€“FR-019, AIAC10â€“AIAC11)', () => {
   it('does not mutate a nonterminal game when analysis eligibility is rejected', async () => {
     const app = buildApp({ deck: ac23Deck, deckRandom: sequenceRandom([]),
       botRandom: sequenceRandom(Array<number>(100).fill(0.9)) });
@@ -28,3 +29,5 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     expect(response.json().error.code).toBe('ANALYSIS_NOT_ALLOWED');
   });
 });
+
+

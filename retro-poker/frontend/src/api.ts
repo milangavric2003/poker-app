@@ -14,7 +14,8 @@ async function fetchJson(path: string, init?: RequestInit): Promise<unknown> {
   const timer = setTimeout(() => controller.abort(), 10000);
   try {
     let response: Response;
-    try { response = await fetch(path, { ...init, signal: controller.signal }); }
+    const apiOrigin = (import.meta as ImportMeta & { env?: { VITE_API_ORIGIN?: string } }).env?.VITE_API_ORIGIN;
+    try { response = await fetch(apiOrigin ? new URL(path, apiOrigin).toString() : path, { ...init, signal: controller.signal }); }
     catch { throw new ApiError(controller.signal.aborted
       ? 'Vreme čekanja je isteklo. Učitaj stanje pre nastavka.'
       : 'Veza sa serverom je prekinuta. Učitaj stanje pre nastavka.'); }

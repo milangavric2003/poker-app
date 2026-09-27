@@ -5,10 +5,11 @@ import { act, createHand, createNextHand, type ActiveHand } from './engine/hand.
 import { appendEvent, completeHistory, createHistory, type GameHistory } from './engine/history.js';
 import type { GameDependencies, HandResult, PokerAction, RandomSource } from './engine/types.js';
 import { buildBotDecisionContext } from './ai/context.js';
-import { coordinateAnalysis, coordinateBot, systemClock, zeroJitter } from './ai/coordinator.js';
+import { coordinateAnalysis, coordinateBot, recordUsageOnce, systemClock, zeroJitter } from './ai/coordinator.js';
 import { loadAiConfig } from './ai/config.js';
 import type { AiClock, AiJitter, AiProvider, AiRuntimeConfig, BotDecisionContext } from './ai/types.js';
 import { attachHandOutcome, createMatchFacts, recordHumanDecision, type MatchFacts } from './ai/match-facts.js';
+import { processUsageStore } from './ai/usage.js';
 import { analysisContext } from './ai/match-facts.js';
 import type { MatchAnalysis } from '../../shared/contracts.js';
 
@@ -265,12 +266,13 @@ export class GameSession {
       game.ai.active = { interactionId, purpose: 'bot', status: 'waiting', attemptCount: 0,
         model: this.aiConfig.primaryModel };
       this.activeBot = { interactionId, controller };
-      return { interactionId, controller, context };
+      return { interactionId, controller, context, usageEpoch: processUsageStore.currentEpoch() };
     });
     if (!reservation || !this.dependencies.aiProvider) return;
     const result = await coordinateBot(this.dependencies.aiProvider, this.aiConfig, reservation.context,
       reservation.controller.signal, this.dependencies.aiClock ?? systemClock,
       this.dependencies.aiJitter ?? zeroJitter);
+    recordUsageOnce(reservation.interactionId, 'bot', this.aiConfig.primaryModel, result, reservation.usageEpoch);
     await this.serial(() => this.commitBot(reservation.interactionId, reservation.context, result));
   }
 
@@ -321,15 +323,17 @@ export class GameSession {
     const fingerprint = { gameId: game.gameId, handId: game.hand.handId,
       expectedVersion: game.version, factsRevision: game.facts.revision };
     const context = analysisContext(game.facts);
-    void this.runAnalysis(interactionId, controller, fingerprint, context);
+    const usageEpoch = processUsageStore.currentEpoch();
+    void this.runAnalysis(interactionId, controller, fingerprint, context, usageEpoch);
     return game;
   }
 
   private async runAnalysis(interactionId: string, controller: AbortController,
     fingerprint: { gameId: string; handId: string; expectedVersion: number; factsRevision: number },
-    context: unknown): Promise<void> {
+    context: unknown, usageEpoch: number): Promise<void> {
     const result = await coordinateAnalysis(this.dependencies.aiProvider!, this.aiConfig, context,
       controller.signal, this.dependencies.aiClock ?? systemClock, this.dependencies.aiJitter ?? zeroJitter);
+    recordUsageOnce(interactionId, 'analysis', this.aiConfig.primaryModel, result, usageEpoch);
     await this.serial(() => {
       const game = this.game;
       if (!game || game.ai.active?.interactionId !== interactionId || game.gameId !== fingerprint.gameId

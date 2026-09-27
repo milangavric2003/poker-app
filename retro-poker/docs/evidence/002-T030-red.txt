@@ -1,0 +1,6 @@
+T030 RED — usage aggregator
+Komanda: npm.cmd test -- tests/unit/ai-usage.test.ts
+Rezultat: exit 1. Test suite nije učitana jer backend/src/ai/usage.ts ne postoji
+(Cannot find module .../usage.js). Agregator, grupisanje događaja, partial usage,
+known zero i privacy-safe cost još nisu implementirani. Ovo je očekivani RED za
+nedostajući produkcioni modul; nije greška test setup-a.

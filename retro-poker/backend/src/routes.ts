@@ -3,20 +3,17 @@ import { GameConfigSchema, NextHandSchema, PlayerActionSchema } from '../../shar
 import { SessionError, type GameSession } from './session.js';
 import { toGameView } from './view.js';
 import { z } from 'zod';
+import { processUsageStore } from './ai/usage.js';
 
 const UsageResetSchema = z.strictObject({ expectedRevision: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER) });
 const AnalysisRequestSchema = z.strictObject({ gameId: z.uuid(), handId: z.uuid(),
   expectedVersion: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER) });
-interface UsageState { revision: number; logical: never[]; attempts: never[]; retryCount: number;
-  modelFallbackCount: number; localFallbackCount: number; }
 
 function error(reply: FastifyReply, status: number, code: string, message: string) {
   return reply.code(status).send({ error: { code, message } });
 }
 
 export function registerRoutes(app: FastifyInstance, session: GameSession): void {
-  let usage: UsageState = { revision: 0, logical: [], attempts: [], retryCount: 0,
-    modelFallbackCount: 0, localFallbackCount: 0 };
   app.addHook('onSend', async (_request, reply, payload) => {
     reply.header('cache-control', 'no-store');
     return payload;
@@ -24,14 +21,12 @@ export function registerRoutes(app: FastifyInstance, session: GameSession): void
   app.get('/api/game', async () => ({
     game: session.get() ? toGameView(session.get()!) : null,
   }));
-  app.get('/api/ai/usage', async () => ({ usage }));
+  app.get('/api/ai/usage', async () => ({ usage: processUsageStore.snapshot() }));
   app.post('/api/ai/usage/reset', async (request, reply) => {
     const parsed = UsageResetSchema.safeParse(request.body);
     if (!parsed.success) return error(reply, 400, 'INVALID_INPUT', 'Nevalidan zahtev za reset metrika.');
-    if (parsed.data.expectedRevision !== usage.revision) return error(reply, 409, 'STALE_STATE', 'Stanje metrika je zastarelo.');
-    usage = { revision: usage.revision + 1, logical: [], attempts: [], retryCount: 0,
-      modelFallbackCount: 0, localFallbackCount: 0 };
-    return { usage };
+    if (!processUsageStore.reset(parsed.data.expectedRevision)) return error(reply, 409, 'STALE_STATE', 'Stanje metrika je zastarelo.');
+    return { usage: processUsageStore.snapshot() };
   });
   app.post('/api/game', async (request, reply) => session.serial(() => {
     const parsed = GameConfigSchema.safeParse(request.body);
