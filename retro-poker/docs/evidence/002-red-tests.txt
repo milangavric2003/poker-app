@@ -1,0 +1,45 @@
+Week04 AI integracija — TDD RED evidence
+Datum: 2026-09-27
+Grana: ai-integ
+Commit baseline: ae40827 (start TDD RED phase, Codex stop, check what it finished)
+
+Fokusirana komanda:
+npm.cmd test -- tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-analysis.test.ts tests/ui/ai-status.test.tsx tests/ui/analysis.test.tsx tests/ui/dashboard.test.tsx
+
+Stvarni rezultat:
+- exit code: 1
+- Vitest 5.0.1
+- Test files: 7 failed
+- Tests: 29 ukupno; 25 failed; 4 passed
+- Nema runner/setup/import greške. UI testovi se izvršavaju u jsdom; node testovi kroz postojeći Fastify/Zod seam.
+
+Smislen RED zbog nedostajućeg ponašanja:
+- tests/contract/ai-contracts.test.ts: additive aiMode default/type strictness, obavezni GameView.ai i Week04 safe error codes nedostaju u shared/contracts.ts.
+- tests/contract/ai-routes.test.ts: POST /api/game aiMode/GameView.ai, GET/POST /api/ai/usage, POST /api/ai/usage/reset i POST /api/game/analysis još nisu implementirani.
+- tests/integration/ai-bots.test.ts: eksplicitni aiMode false/true tok i javni AI status još nisu podržani.
+- tests/integration/ai-analysis.test.ts: non-terminal analysis eligibility route još nije dostupna; pre/posle game snapshot potvrđuje read-only oracle.
+- tests/ui/ai-status.test.tsx: App još ne prikazuje AI off/waiting status, kontrolu i disabled akcije.
+- tests/ui/analysis.test.tsx: App još nema terminal analysis action, četiri sekcije ni disclaimer.
+- tests/ui/dashboard.test.tsx: App još nema collapsible usage dashboard ni reset kontrolu.
+
+Prolazne negativne kontrole u istom pokretanju:
+- strict unknown-field/type rejection kontrole koje postojeći Week03 ugovor već podržava (4 testa).
+
+Testovi koji nisu mogli biti pokrenuti zbog nedostajućeg bezbednog test seam-a:
+- tests/unit/ai-config.test.ts — nema backend/src/ai/config.ts ili provider-neutral runtime config seam-a.
+- tests/unit/ai-context.test.ts — nema context builder-a; slepi import bi bio setup greška.
+- tests/unit/ai-semantic.test.ts — nema schema/semantic validator seam-a.
+- tests/unit/ai-retry.test.ts — nema retry policy/coordinator seam-a ni fake clock interfejsa.
+- tests/unit/match-facts.test.ts — nema bounded MatchFacts/HumanDecisionFact seam-a.
+- tests/unit/ai-usage.test.ts — nema process-wide usage store/agregator seam-a.
+- tests/integration/ai-failures.test.ts — nema injected provider/coordinator seam-a za timeout/429/5xx/missing-key/fallback.
+- tests/integration/ai-concurrency.test.ts — nema active interaction/fingerprint/cancellation seam-a.
+  Nisu fabrikovani RED importima koji bi pali zbog nepostojećeg modula.
+
+Postojeći testovi koji nisu pokretani:
+- Cela Week03 unit/contract/integration/UI/e2e regresija, typecheck, lint i build nisu pokretani u ovom RED koraku.
+- Nije pokretan live Gemini poziv; nije tražen API ključ; nije korišćen fake provider jer nije implementiran.
+
+Scope potvrda:
+- U ovom koraku nema production koda, fake provider-a, Gemini adaptera, UI implementacije, dashboard implementacije, novih API ruta ni izmene package manifest-a/lockfile-a.
+- Nisu menjani spec.md, plan.md, tasks.md, constitution ni GAME_SPEC.
