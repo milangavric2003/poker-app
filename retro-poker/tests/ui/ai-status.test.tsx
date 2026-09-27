@@ -1,36 +1,44 @@
 import '@testing-library/jest-dom/vitest';
 import { cleanup, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { App } from '../../frontend/src/App';
-import { GameViewSchema, type GameView } from '../../shared/contracts';
+import { afterEach, describe, expect, it } from 'vitest';
+import { AiStatus, type AiUiStatus } from '../../frontend/src/components/AiStatus';
+import { acceptsAiSnapshot } from '../../frontend/src/App';
+import { GameViewSchema } from '../../shared/contracts';
 import { publicView } from '../helpers/public-fixtures';
-import * as api from '../../frontend/src/api';
 
-afterEach(() => { cleanup(); vi.restoreAllMocks(); });
-
-describe('AI status UI seam (FR-015)', () => {
-  it('shows AI-off status and an explicit AI mode control', async () => {
-    const game = { ...GameViewSchema.parse(publicView()), ai: {
-      mode: 'off', availability: 'unavailable', active: null, lastBotOutcome: null,
-      analysis: { status: 'idle', interactionId: null, result: null },
-    } } as unknown as GameView;
-    vi.spyOn(api, 'loadGame').mockResolvedValue(game);
-    render(<App />);
-    expect(await screen.findByText(/AI režim je isključen/i)).toBeVisible();
-    expect(screen.getByRole('checkbox', { name: /AI režim/i })).not.toBeChecked();
+afterEach(cleanup);
+describe('AI status', () => {
+  it.each<[AiUiStatus, RegExp]>([
+    [{ kind: 'idle', mode: 'off' }, /isključen/i],
+    [{ kind: 'idle', mode: 'on' }, /spreman/i],
+    [{ kind: 'requesting', purpose: 'bot', attemptCount: 0 }, /AI razmišlja/i],
+    [{ kind: 'success' }, /potez je prihvaćen/i],
+    [{ kind: 'fallback' }, /lokalni fallback/i],
+    [{ kind: 'timeout' }, /isteklo/i],
+    [{ kind: 'rate_limited' }, /previše zahteva/i],
+    [{ kind: 'provider_error' }, /provider nije odgovorio/i],
+    [{ kind: 'cancelled' }, /otkazan/i],
+    [{ kind: 'stale' }, /zastareo/i],
+    [{ kind: 'missing_key' }, /nije konfigurisan/i],
+    [{ kind: 'semantic_rejection' }, /nije prošao semantičku proveru/i],
+  ])('renders textual accessible state', (status, expected) => {
+    render(<AiStatus status={status} />);
+    expect(screen.getByRole('status')).toHaveTextContent(expected);
   });
-
-  it('announces waiting without exposing provider internals and disables human actions', async () => {
-    const game = { ...GameViewSchema.parse(publicView()), ai: {
-      mode: 'on', availability: 'configured',
+  it('labels loading and hides sensitive data', () => {
+    render(<AiStatus status={{ kind: 'requesting', purpose: 'bot', attemptCount: 1 }} />);
+    expect(screen.getByLabelText('AI obrađuje potez')).toBeVisible();
+    expect(document.body).not.toHaveTextContent(/api.?key|raw prompt|holeCards|gemini-primary/i);
+  });
+  it('rejects an older or unrelated polling response', () => {
+    const current = GameViewSchema.parse({ ...publicView(), version: 3, ai: {
+      ...publicView().ai, mode: 'on', availability: 'configured',
       active: { interactionId: '33333333-3333-4333-8333-333333333333', purpose: 'bot',
-        status: 'waiting', attemptCount: 0, model: 'gemini-primary' },
-      lastBotOutcome: null, analysis: { status: 'idle', interactionId: null, result: null },
-    } } as unknown as GameView;
-    vi.spyOn(api, 'loadGame').mockResolvedValue(game);
-    render(<App />);
-    expect(await screen.findByRole('status')).toHaveTextContent(/čeka.*AI/i);
-    expect(screen.getByRole('button', { name: 'Fold' })).toBeDisabled();
-    expect(document.body).not.toHaveTextContent('gemini-primary');
+        status: 'waiting', attemptCount: 0, model: 'private-model-label' },
+    } });
+    expect(acceptsAiSnapshot(current, { ...current, version: 2 })).toBe(false);
+    expect(acceptsAiSnapshot(current, { ...current, ai: { ...current.ai, active: {
+      ...current.ai.active!, interactionId: '44444444-4444-4444-8444-444444444444',
+    } } })).toBe(false);
   });
 });

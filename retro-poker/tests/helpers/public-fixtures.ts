@@ -20,6 +20,8 @@ export function publicView() {
     events: [{ seq: 1, handId, street: 'preflop', type: 'hand_started', number: 1,
       buttonSeat: 0, smallBlindSeat: 0, bigBlindSeat: 1 }],
     result: null, previousResult: null,
+    ai: { mode: 'off', availability: 'unavailable', active: null, lastBotOutcome: null,
+      analysis: { status: 'idle', interactionId: null, result: null } },
   };
 }
 
