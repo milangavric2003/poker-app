@@ -80,8 +80,15 @@ plana, ne predstavljaju dokaz implementacije.*
 | VI Lokalni scope i granica faza | PASS / PASS | Samo Gemini family, memory-only, lokalni fallback, bez DB/auth/deploymenta |
 | VII Ponovljivost i istinitost dokaza | PASS / PASS | Offline failure matrix je obavezna; live smoke je ručan/opcion i ne može zameniti testove |
 
-Nema constitution izuzetaka. CHK026 mora biti formalno ponovo pregledan pre dodavanja
-zavisnosti ili aplikacionog koda; pogrešan marker/zbir blokira zavisne taskove.
+Nema constitution izuzetaka. CHK026 je ponovo pregledan nakon usklađivanja iz 2026-09-26;
+verzije `GAME_SPEC.md` v1.1 i constitution v1.1.0, marker i zbir 26/26 zabeleženi su
+u `docs/evidence/002-T001-governance.txt`. To potvrđuje governance gate, ne završetak
+implementacije.
+
+Napomena o as-built stanju: gore navedeni PASS za Princip II opisuje planirani TDD
+postupak. Pregled kasnijih logova našao je RED testove koji nisu bili prisutni u
+početnom RED pokretanju, kao i import-only RED pokušaje. Ti taskovi ostaju otvoreni u
+`tasks.md`; statusi se ne zaključuju iz ovog planskog PASS-a.
 
 ## Project Structure
 
@@ -107,13 +114,13 @@ backend/src/
 ├── app.ts, routes.ts, server.ts, session.ts, view.ts
 ├── ai/
 │   ├── config.ts, types.ts, schemas.ts, context.ts, semantic.ts
-│   ├── coordinator.ts, retry-policy.ts, usage.ts, analysis.ts
+│   ├── coordinator.ts, retry-policy.ts, usage.ts, match-facts.ts
 │   └── providers/gemini.ts
 ├── bots/strategy.ts
 └── engine/history.ts
 frontend/src/
 ├── App.tsx, api.ts, styles.css
-└── components/AiStatus.tsx, MatchAnalysis.tsx, UsageDashboard.tsx
+└── components/AiStatus.tsx, AnalysisPanel.tsx, UsageDashboard.tsx
 tests/
 ├── helpers/fake-ai-provider.ts, fake-clock.ts
 ├── contract/ai-contracts.test.ts, ai-routes.test.ts
@@ -136,8 +143,9 @@ primenjuje poker potez. `session.ts` rezerviše i commit-uje pod svojim serijski
 
 Detaljna obrazloženja i alternative su u [research.md](research.md). Sažetak odluka:
 
-1. **SDK**: `@google/genai` 2.24.0, zvanični GA JavaScript/TypeScript SDK; verzija je
-   proverena 2026-09-26 i zaključava se tek u implementacionom tasku.
+1. **SDK**: `@google/genai` 2.24.0, zvanični JavaScript/TypeScript SDK; verzija je
+   zaključana u manifestima. Izbor/evidence su iz 2026-09-27; dostupnost i capability
+   modela ponovo su proverene zvaničnom dokumentacijom 2026-09-28.
 2. **Modeli**: server-side defaults `gemini-3.8-flash` (primary) i
    `gemini-3.5-flash-lite` (fallback). `GEMINI_PRIMARY_MODEL` i
    `GEMINI_FALLBACK_MODEL` smeju zameniti defaults samo eksplicitnim stable Gemini
@@ -240,7 +248,7 @@ retrying, drugi Gemini model, lokalni fallback, completed, unavailable ili faile
 Dok je bot AI pending, potezi čoveka su onemogućeni; frontend periodično radi samo
 `GET /api/game`, nikad ne ponavlja mutaciju.
 
-Na terminalnoj partiji prikazuje se „Analiziraj partiju”. `MatchAnalysis` prikazuje
+Na terminalnoj partiji prikazuje se „Analiziraj partiju”. `AnalysisPanel` prikazuje
 sažetak, dobre odluke, moguće greške i sledeće korake, uz stalnu oznaku da je sadržaj
 obrazovna pomoć, ne optimalna strategija. Failed/unavailable ne prikazuje placeholder
 analizu; retry je eksplicitan. Analiza zavisi od terminalne partije i validne backend

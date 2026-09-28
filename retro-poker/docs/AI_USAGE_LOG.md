@@ -1,5 +1,14 @@
 # AI usage log
 
+## Week04 task/status dokumentacioni pregled — 2026-09-28
+
+Alat: Codex; svrha: uporediti postojeću Week04 implementaciju i Git/evidence istoriju
+sa specifikacijom, planom, taskovima i governance checklistom, zatim ispraviti
+zastarele statuse. Nisu menjani aplikacioni kod, package manifesti ili testovi; nijedan
+test nije pokrenut i nije izvršen Gemini poziv. Rezultat i otvorene stavke su u
+[`002-task-status-audit.md`](evidence/002-task-status-audit.md). Tačan model Codex,
+tokeni i cena nisu dostupni: nepoznato.
+
 ## Opciono rucno Gemini smoke testiranje - 2026-09-28
 
 Izvrsena su ukupno **2 stvarna provider zahteva** ka `gemini-3.8-flash`: jedan bot

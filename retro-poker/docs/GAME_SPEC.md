@@ -2,7 +2,9 @@
 
 Verzija: 1.1 · Datum: 2026-09-26 · Faza: Week03 + odobreni Week04 scope addendum
 
-Status: Week03 specifikacija sa odobrenim Week04 scope amandmanom; implementacija još ne postoji.
+Status: Week03 specifikacija sa odobrenim Week04 scope amandmanom. Week04 implementacija
+je u toku; detalji i otvorene provere su u [feature 002 status auditu](evidence/002-task-status-audit.md)
+i [feature task listi](../specs/002-week04-ai-integration/tasks.md).
 
 ## 1. Namera i potvrđene odluke
 

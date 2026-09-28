@@ -1,5 +1,27 @@
 # Context manifest — implementacioni blok člana A
 
+## Week04 status reconciliation — 2026-09-28
+
+Za usklađivanje task statusa pregledani su `AGENTS.md`, constitution v1.1.0,
+`GAME_SPEC.md` v1.1, feature 002 `spec.md`/`plan.md`/`tasks.md`/requirements checklist,
+commit istorija do `c8f6864`, aktuelni backend AI/provider/session/rute, frontend AI
+komponente, odgovarajući testovi i `docs/evidence/002-*` logovi. Zatim su provereni
+README, `.env.example`, postojeći Gemini evidence i live smoke zapis. Zvanična
+Google [Gemini models dokumentacija](https://ai.google.dev/gemini-api/docs/models)
+ponovo je proverena 2026-09-28 radi potvrde stabilnih model ID-jeva; to ne potvrđuje
+pristup konkretnog projekta, kvotu, naplatu ili uspešan runtime odgovor.
+
+Prioritet: razlikovati implementirani kod od dokazano zatvorenih Spec Kit taskova;
+sačuvati obavezni TDD standard, ne fabricirati nedostajuće RED rezultate i popraviti
+zastarele tvrdnje o statusu. `speckit-converge` nije primenjen kao writer jer njegov
+append-only izlaz ne odgovara korisničkom zahtevu da se postojeći statusi i zastareli
+opisi usklade.
+
+Nalaz: offline backend, Gemini adapter, UI i dashboard postoje. Otvoreni browser
+analysis acceptance, nedostajuća task-specifična RED evidencija i nezavršena finalna
+provera su sažeti u `docs/evidence/002-task-status-audit.md`. Nisu pokretani testovi,
+nisu pozivani Gemini endpoint-i i nijedan API ključ nije čitan.
+
 ## T035–T036 — član B, 2026-09-23
 
 Pročitani su aktuelni zahtev; AGENTS.md; constitution1.0.0; GAME_SPEC1.0; kompletni

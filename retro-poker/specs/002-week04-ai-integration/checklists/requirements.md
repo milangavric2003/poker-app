@@ -73,5 +73,9 @@ znači da je implementacija ili test izvršen. `[ ]` označava stvarni pre-imple
   assumptions ili numerički `PROP-*` predlozi.
 - Governance rezultat: **gate zatvoren**; `GAME_SPEC.md` v1.1 i constitution v1.1.0
   sada eksplicitno odobravaju usklađeni Week04 scope.
-- Nisu kreirani `plan.md`, `tasks.md`, aplikacioni kod, test implementacija, zavisnosti,
-  API klijent niti live provider poziv.
+- Ovaj checklist meri kvalitet i governance specifikacije; `[x]` ne potvrđuje
+  implementaciju. Plan i kod su naknadno kreirani. Trenutni implementacioni status,
+  otvorene TDD/evidence stavke i stvarni live smoke ishodi nalaze se u
+  [task status auditu](../../../docs/evidence/002-task-status-audit.md). CHK026 ostaje
+  zatvoren kao pre-implementation governance gate; formalna provera verzija ponovljena
+  je u [T001 evidence-u](../../../docs/evidence/002-T001-governance.txt).

@@ -2,21 +2,21 @@
 
 **Feature Branch**: Git grana `ai-integ`; feature direktorijum `002-week04-ai-integration`  
 **Created**: 2026-09-26  
-**Status**: Draft — specify, clarify i odobreno usklađivanje izvora završeni; implementacija nije započeta
+**Status**: Implementacija u toku — offline backend, Gemini adapter, UI i usage dashboard su implementirani; završni browser acceptance, TDD evidence i finalni consistency gate još nisu zatvoreni. Stanje pregledano 2026-09-28; vidi [task status audit](../../docs/evidence/002-task-status-audit.md).
 **Input**: Google Gemini predlaže poteze botova i analizira završenu partiju, uz strogu backend validaciju, bezbedan fallback i lokalni usage dashboard.
 
-Autoritativni izvori za postojeću igru su [GAME_SPEC v1.0](../../docs/GAME_SPEC.md),
-[constitution v1.0.0](../../.specify/memory/constitution.md), [AGENTS.md](../../AGENTS.md)
+Autoritativni izvori za postojeću igru su [GAME_SPEC v1.1](../../docs/GAME_SPEC.md),
+[constitution v1.1.0](../../.specify/memory/constitution.md), [AGENTS.md](../../AGENTS.md)
 i ugovori feature-a [001-week03-retro-poker](../001-week03-retro-poker/spec.md).
 Aktuelni korisnički zahtev od 2026-09-26 određuje prošireni Week04 smer tamo gde je
-u eksplicitnom konfliktu sa starijim Week04 opisom. Taj konflikt je evidentiran ispod,
-ali se `GAME_SPEC.md` ne menja u ovom koraku.
+u eksplicitnom konfliktu sa starijim Week04 opisom. Istorijski konflikt i njegovo
+odobreno zatvaranje opisani su ispod; aktuelni izvori već nose odobreni scope.
 
 ## Scope konflikt i governance gate *(obavezno)*
 
-`GAME_SPEC.md` §12 i constitution princip VI trenutno ograničavaju Week04 na jednu
-kontrolisanu read-only sposobnost za rezime završene ruke i izričito kažu da model
-ne upravlja botovima niti menja stanje igre. Nastavni challenge takođe postavlja
+`GAME_SPEC.md` §12 i constitution princip VI su u vreme izrade ograničavali Week04 na
+kontrolisanu read-only sposobnost za rezime završene ruke i izričito isključivali
+model-driven botove. Nastavni challenge takođe postavlja
 read-only AI alat kao Core, a lokalnu telemetry kao Stretch.
 
 Aktuelni zahtev vlasnika za feature 002 materijalno je proširio i promenio tu granicu.
@@ -29,7 +29,7 @@ Odobrenim amandmanom izvora od 2026-09-26 ta promena je sada eksplicitno preneta
 - lokalni AI usage dashboard ulazi u obavezni scope.
 
 Model i dalje nije autoritet: ne izvršava potez, ne dobija direktan pristup engine-u i
-ne zaobilazi postojeća pravila. Ipak, ovo nije ponašanje koje postojeći §12 već odobrava.
+ne zaobilazi postojeća pravila. Ovo je sada izričito odobreno u §12 v1.1.
 Feature specifikacija i budući planovi MORAJU ostati usklađeni sa tim novim izvorima;
 ovo odobrenje ne proširuje scope izvan navedenih Week04 granica.
 
@@ -355,8 +355,11 @@ rezultat. Dashboard beleži bezbednu kategoriju prelaza, ne sadržaj poziva.
   demo-u; samo eksplicitni dashboard reset ili restart servisa briše metrike.
 - Celokupna match analiza zahteva novo bounded memorijsko prikupljanje činjenica kroz
   partiju. Ne čuvaju se pune prompt poruke, raw odgovori ili trajni replay.
-- Model ID-jevi, SDK/biblioteka, provider adapter arhitektura, endpoint-i, tačni
-  timeout-i, backoff, rate-limit algoritam i vizuelni raspored dashboarda ostaju planu.
+- Specifikacija je namerno ostavila model ID-jeve, SDK/biblioteku, provider adapter
+  arhitekturu, endpoint-e, timeout/backoff, rate-limit pristup i dashboard raspored
+  otvorenim. Plan ih je razrešio; implementacioni izbori i naknadna zvanična provera
+  modela zabeleženi su u [planu](plan.md), [research-u](research.md) i
+  [Gemini evidence-u](../../docs/evidence/002-gemini-adapter.md).
 - PROP-001–PROP-004 su početni, proverljivi predlozi i moraju biti potvrđeni ili
   obrazloženo promenjeni pre implementacionih testova.
 
@@ -384,13 +387,16 @@ provider family van Gemini, solver/garancija optimalnosti i bilo koji drugi Week
 | Week04 API addendum §§3, 7, 9–11 | Gemini granica, bounded retry, offline fake, privacy-safe telemetry, unknown usage | FR-002, FR-008–FR-015, FR-020–FR-025 |
 | Aktuelni korisnički zahtev 2026-09-26 | Model-driven botovi, match analysis, Gemini-first, dashboard i failure matrix | Ceo feature 002; nadjačava staru produktnu granicu uz SC-009 gate |
 
-### Zvanični Google kontekst proveren 2026-09-26
+### Zvanični Google kontekst
+
+SDK/billing/rate-limit izvori pregledani su tokom specify faze 2026-09-26. Konkretni
+model ID-jevi ponovo su provereni 2026-09-28 i odluke su zabeležene u planu/evidence-u.
 
 Korišćeni su samo aktuelni zvanični Google AI for Developers izvori:
 
 - [Gemini API libraries](https://ai.google.dev/gemini-api/docs/libraries): Google
   preporučuje Google GenAI SDK i navodi podršku za JavaScript/TypeScript; konkretan
-  izbor i verzija biblioteke ostaju planu.
+  izbor i verzija biblioteke razrešeni su u planu.
 - [API keys](https://ai.google.dev/gemini-api/docs/api-key): dokumentovani su
   `GEMINI_API_KEY`/`GOOGLE_API_KEY` environment pristup i server-side čuvanje ključa;
   feature standardizuje `GEMINI_API_KEY` bez zapisivanja vrednosti.
@@ -398,10 +404,11 @@ Korišćeni su samo aktuelni zvanični Google AI for Developers izvori:
   podržan je JSON Schema subset, ali aplikacija i dalje mora lokalno validirati
   semantiku; zato model output nikada nije neposredna game komanda.
 - [Function calling](https://ai.google.dev/gemini-api/docs/function-calling): model
-  predlaže funkciju i argumente, dok aplikacija izvršava i proverava operaciju. Feature
-  ne zahteva da se bot predlog tehnički realizuje function calling-om; odluka ostaje planu.
+  predlaže funkciju i argumente, dok aplikacija izvršava i proverava operaciju. Plan je
+  razrešio da se function calling ne koristi; adapter vraća inertan strukturisani predlog.
 - [Models](https://ai.google.dev/gemini-api/docs/models): dostupnost i životni ciklus
   modela se menjaju; zato spec ne zaključava model ID i zahteva server-side konfiguraciju.
+  Trenutni izbor stable modela i ponovna provera navedeni su u planu/evidence-u.
 - [Rate limits](https://ai.google.dev/gemini-api/docs/rate-limits): limiti zavise od
   modela i project tier-a, mere se po projektu i prekoračenje može dati 429; nijedna
   konkretna kvota se ovde ne obećava.
