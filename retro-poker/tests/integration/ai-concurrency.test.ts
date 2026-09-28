@@ -39,7 +39,10 @@ describe('AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010)', (
       'if-none-match': '*', 'content-type': 'application/json' }, payload: { botCount: 3, aiMode: true } });
     await waitForCall(provider);
     const read = await app.inject('/api/game');
+    const usageRead = await app.inject('/api/ai/usage');
     expect(read.statusCode).toBe(200);
+    expect(usageRead.statusCode).toBe(200);
+    expect(usageRead.json().usage).toBeDefined();
     expect(read.json().game.ai.active).toMatchObject({ purpose: 'bot', status: 'waiting' });
     expect(provider.pending.has('pending-read')).toBe(true);
   });

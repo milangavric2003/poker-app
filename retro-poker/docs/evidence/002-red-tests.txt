@@ -72,3 +72,14 @@ Komanda: `npm.cmd test -- tests/contract/ai-routes.test.ts`
 Stvarni rezultat dopunjenog oracle-a: exit code 0; Vitest 5.0.1; 1 fajl i 7/7 testova
 prošlo. Dopunjeni test je odmah zelen nad postojećom implementacijom; nije predstavljen
 kao novi RED niti je radi njega menjana implementacija. Nema mreže ili live ključa.
+
+## T022 UI status/polling dopuna — 2026-09-28
+
+Komanda: `npm.cmd test -- tests/ui/ai-status.test.tsx`
+
+Posle ispravke test-fixture konzistentnosti, stvarni behavior RED imao je exit code 1:
+1 fajl, 23 testa, 3 pala i 20 prošlo; trajanje 3.78 s. `completed`, `unavailable` i
+`failed` analysis snapshot-i su u accessibility statusu prikazivani kao opšti
+„AI spreman”/missing-key tekst. Waiting/retrying/model fallback/local fallback,
+disabled human actions, GET-only polling, terminal stop i unmount cleanup kontrole su
+već prolazile. Nije korišćena mreža ni provider ključ.

@@ -3,7 +3,8 @@ export type AiUiStatus =
   | { kind: 'requesting'; purpose: 'bot' | 'analysis'; attemptCount: number;
       stage?: 'waiting' | 'retrying' | 'model_fallback' }
   | { kind: 'success' | 'fallback' | 'timeout' | 'rate_limited' | 'provider_error'
-    | 'cancelled' | 'stale' | 'missing_key' | 'semantic_rejection' };
+    | 'cancelled' | 'stale' | 'missing_key' | 'semantic_rejection'
+    | 'completed' | 'unavailable' | 'failed' };
 
 const labels: Record<Exclude<AiUiStatus['kind'], 'idle' | 'requesting'>, string> = {
   success: 'AI potez je prihvaćen.',
@@ -15,6 +16,9 @@ const labels: Record<Exclude<AiUiStatus['kind'], 'idle' | 'requesting'>, string>
   stale: 'Zastareo AI odgovor je odbačen.',
   missing_key: 'AI nije konfigurisan na lokalnom serveru.',
   semantic_rejection: 'AI predlog nije prošao semantičku proveru; korišćen je fallback.',
+  completed: 'AI analiza je zavrsena.',
+  unavailable: 'AI analiza nije dostupna.',
+  failed: 'AI analiza nije uspela.',
 };
 
 export function AiStatus({ status }: { status: AiUiStatus }) {

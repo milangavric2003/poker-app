@@ -1,12 +1,26 @@
 import '@testing-library/jest-dom/vitest';
-import { cleanup, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { AiStatus, type AiUiStatus } from '../../frontend/src/components/AiStatus';
-import { acceptsAiSnapshot } from '../../frontend/src/App';
-import { GameViewSchema } from '../../shared/contracts';
-import { publicView } from '../helpers/public-fixtures';
+import { acceptsAiSnapshot, App } from '../../frontend/src/App';
+import * as api from '../../frontend/src/api';
+import { GameViewSchema, HandResultSchema, type GameView } from '../../shared/contracts';
+import { handResult, publicView } from '../helpers/public-fixtures';
 
-afterEach(cleanup);
+afterEach(() => { cleanup(); vi.restoreAllMocks(); });
+
+function terminalAnalysis(status: 'completed' | 'unavailable' | 'failed'): GameView {
+  const base = GameViewSchema.parse(publicView());
+  return GameViewSchema.parse({ ...base, status: 'won', phase: 'complete', actorId: null,
+    players: base.players.map(player => ({ ...player, stack: 1000,
+      streetContribution: 0, handContribution: 0 })),
+    legalActions: [], totalPot: 0, pots: [], result: HandResultSchema.parse({
+      ...handResult(), gameStatus: 'won' }),
+    ai: { ...base.ai, mode: 'on', availability: status === 'unavailable' ? 'unavailable' : 'configured',
+      analysis: { status, interactionId: crypto.randomUUID(), result: status === 'completed' ? {
+        summary: 'Zavrsena analiza.', goodDecisions: [], possibleMistakes: [], nextSteps: ['Nastavi.'],
+      } : null } } });
+}
 describe('AI status', () => {
   it.each<[AiUiStatus, RegExp]>([
     [{ kind: 'idle', mode: 'off' }, /isključen/i],
@@ -68,5 +82,58 @@ describe('AI status', () => {
     } };
 
     expect(acceptsAiSnapshot(completed, lateGenerating)).toBe(false);
+  });
+
+  it.each([
+    ['completed', /analiza je zavrsena/i],
+    ['unavailable', /analiza nije dostupna/i],
+    ['failed', /analiza nije uspela/i],
+  ] as const)('maps public analysis %s to an accessible terminal status', async (state, label) => {
+    vi.spyOn(api, 'loadGame').mockResolvedValue(terminalAnalysis(state));
+    render(<App />);
+    expect(await screen.findByRole('status')).toHaveTextContent(label);
+  });
+
+  it('disables all human action controls while a bot interaction is active', async () => {
+    const base = GameViewSchema.parse(publicView());
+    const active = GameViewSchema.parse({ ...base, ai: { ...base.ai, mode: 'on', availability: 'configured',
+      active: { interactionId: crypto.randomUUID(), purpose: 'bot', status: 'waiting',
+        attemptCount: 0, model: 'gemini-3.8-flash' } } });
+    vi.spyOn(api, 'loadGame').mockResolvedValue(active);
+    render(<App />);
+    expect(await screen.findByRole('button', { name: 'Fold' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Call 5' })).toBeDisabled();
+  });
+
+  it('polls with GET only and stops after a terminal snapshot', async () => {
+    const base = GameViewSchema.parse(publicView());
+    const interactionId = crypto.randomUUID();
+    const active = GameViewSchema.parse({ ...base, ai: { ...base.ai, mode: 'on', availability: 'configured',
+      active: { interactionId, purpose: 'bot', status: 'waiting', attemptCount: 0,
+        model: 'gemini-3.8-flash' } } });
+    const terminal = GameViewSchema.parse({ ...base, version: 1, ai: { ...base.ai, mode: 'on',
+      availability: 'configured', active: null, lastBotOutcome: { handId: base.handId, actorId: 'p1',
+        decisionOrdinal: 1, outcome: 'model', attemptCount: 1, finalModel: 'gemini-3.8-flash' } } });
+    const load = vi.spyOn(api, 'loadGame').mockResolvedValueOnce(active).mockResolvedValue(terminal);
+    const mutations = [vi.spyOn(api, 'createGame'), vi.spyOn(api, 'sendAction'),
+      vi.spyOn(api, 'nextHand'), vi.spyOn(api, 'requestAnalysis')];
+    render(<App />);
+    await waitFor(() => expect(load).toHaveBeenCalledTimes(2), { timeout: 1800 });
+    await new Promise(resolve => setTimeout(resolve, 850));
+    expect(load).toHaveBeenCalledTimes(2);
+    for (const mutation of mutations) expect(mutation).not.toHaveBeenCalled();
+  });
+
+  it('clears polling on unmount', async () => {
+    const base = GameViewSchema.parse(publicView());
+    const active = GameViewSchema.parse({ ...base, ai: { ...base.ai, mode: 'on', availability: 'configured',
+      active: { interactionId: crypto.randomUUID(), purpose: 'bot', status: 'waiting',
+        attemptCount: 0, model: 'gemini-3.8-flash' } } });
+    const load = vi.spyOn(api, 'loadGame').mockResolvedValue(active);
+    const rendered = render(<App />);
+    await screen.findByText(/AI razmi/i);
+    rendered.unmount();
+    await new Promise(resolve => setTimeout(resolve, 850));
+    expect(load).toHaveBeenCalledTimes(1);
   });
 });

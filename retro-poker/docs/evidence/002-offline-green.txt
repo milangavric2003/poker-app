@@ -134,3 +134,22 @@ stale usage bez engine mutacije.
 Stvarni behavior RED rezultati su u `002-T016-red.txt` i `002-T020-red.txt`. T018
 proširenje je bilo produkciono zeleno; `002-T018-red.txt` čuva tu činjenicu i ne
 predstavlja test-setup grešku kao RED. Sve provere su offline.
+
+## T021–T025 ponovna implementacija — 2026-09-28
+
+- `npm.cmd test -- tests/integration/ai-concurrency.test.ts tests/ui/ai-status.test.tsx tests/unit/match-facts.test.ts`
+  — exit 0; 3 fajla, 38/38 testova.
+- `npm.cmd test` — exit 0; 36 fajlova, 492/492 testova.
+- `npm.cmd run lint`, `npm.cmd run typecheck`, `npm.cmd run build` — exit 0; Vite
+  build je transformisao 119 modula i server TypeScript build je prošao.
+
+Concurrency test sada potvrđuje da i game GET i usage GET završavaju dok provider čeka.
+UI oracle pokriva off/waiting/retrying/model fallback/local fallback/completed/
+unavailable/failed, zaključane ljudske akcije, isključivo GET polling, terminal stop i
+unmount cleanup. Match facts pokrivaju pre-action board/karte/stackove/contributions/
+potove/legal actions/64 event-a, odvojeni settlement, revision, cap od 200, numeričke
+aggregate i reset. Aggregate koristi početni stack iz originalnog fakta i settlement
+dopunjava završni stack/net change i kada su stare odluke već sažete.
+
+Stvarni behavior RED za terminalne UI statuse dodat je u `002-red-tests.txt`, a T024
+RED je u `002-T024-red.txt`. Sve provere su offline.

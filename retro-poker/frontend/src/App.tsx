@@ -116,6 +116,9 @@ export function App() {
   const status: AiUiStatus = game?.ai.active
     ? { kind: 'requesting', purpose: game.ai.active.purpose, attemptCount: game.ai.active.attemptCount,
       stage: game.ai.active.status }
+    : game?.ai.analysis.status === 'completed' ? { kind: 'completed' }
+    : game?.ai.analysis.status === 'unavailable' ? { kind: 'unavailable' }
+    : game?.ai.analysis.status === 'failed' ? { kind: 'failed' }
     : lastBotOutcome?.outcome === 'model' ? { kind: 'success' }
     : lastBotOutcome?.outcome === 'local_fallback' ? { kind: 'fallback' }
     : game?.ai.availability === 'unavailable' && game.ai.mode === 'on'
