@@ -57,7 +57,8 @@ export class UsageStore {
       relation: attempt.relation, outcome: attempt.outcome, count: 0,
       latency: { count: 0, sumMs: 0, maxMs: 0 }, usage: emptyUsage() };
     row.count++;
-    const durationMs = Number.isSafeInteger(attempt.durationMs) ? Math.max(0, attempt.durationMs) : 0;
+    const durationMs = Number.isFinite(attempt.durationMs)
+      ? Math.min(Number.MAX_SAFE_INTEGER, Math.max(0, Math.round(attempt.durationMs))) : 0;
     row.latency.count++;
     row.latency.sumMs += durationMs;
     row.latency.maxMs = Math.max(row.latency.maxMs, durationMs);

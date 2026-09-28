@@ -26,4 +26,12 @@ describe('privacy safe AI usage aggregation', () => {
         expect.objectContaining({ purpose: 'bot', model: 'model-b', relation: 'model_fallback', outcome: 'success', count: 1 }),
       ]), retryCount: 1, modelFallbackCount: 1, localFallbackCount: 1 });
   });
+
+  it('records fractional monotonic durations as rounded milliseconds', () => {
+    const store = new UsageStore();
+    store.record({ purpose: 'analysis', initialModel: 'model-a', finalOutcome: 'failed', attempts: [
+      { model: 'model-a', relation: 'initial', outcome: 'server_error', durationMs: 125.7 },
+    ] });
+    expect(store.snapshot().attempts[0]?.latency).toEqual({ count: 1, sumMs: 126, maxMs: 126 });
+  });
 });

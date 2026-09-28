@@ -53,5 +53,5 @@ Preostale runtime neizvesnosti bez live provere: dostupnost modela konkretnom Go
 projektu, quota/billing, realna latencija, stvarna safety metadata i potpunost usage
 metadata. Cena se ne procenjuje iz tokena.
 
-Live Gemini poziv nije pokrenut. API ključ nije tražen, pročitan iz korisnikovog
-okruženja, upisan u fajl niti prikazan u izlazu.
+Ovaj status važi za adapter evidence od 2026-09-27. Kasniji ručni smoke je zasebno
+zabeležen u [002-live-smoke.md](002-live-smoke.md).

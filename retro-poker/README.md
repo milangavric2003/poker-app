@@ -45,6 +45,10 @@ Plan i vlasnici: [tasks](specs/001-week03-retro-poker/tasks.md).
 
 ## Gemini konfiguracija (opciono)
 
+Kopirati `.env.example` u `.env` i lokalno upisati `GEMINI_API_KEY`. Fajl `.env` je
+ignorisan u Git-u. Backend dev komanda automatski učitava taj fajl; frontend nema
+pristup ključu. Za produkcioni start proslediti promenljive okruženja backend procesu.
+
 Zvanični `@google/genai` 2.24.0 koristi se samo u backend procesu. Bez
 `GEMINI_API_KEY` nema mrežnog poziva: AI bot koristi lokalni fallback, a analiza je
 nedostupna. Ključ se ne šalje browseru, ne ulazi u javni snapshot, metrike ili greške.

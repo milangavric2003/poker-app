@@ -7,6 +7,7 @@ postoje. Automatske provere moraju raditi bez interneta i bez `GEMINI_API_KEY`.
 
 - radni direktorijum `retro-poker/`, Node 24 i npm 11 prema postojećem manifestu;
 - `npm.cmd ci` posle implementacionog taska koji doda i zaključa `@google/genai` 2.24.0;
+- kopirati `.env.example` u lokalni `.env`; backend dev komanda ga automatski učitava;
 - bez `.env` u Git-u; ključ se ne kopira u chat, log, screenshot ili evidence.
 
 ## Offline acceptance matrica
@@ -64,6 +65,8 @@ ponovo proveriti zvanične model stranice, capability, quota i billing za konkre
 projekat. Ne ispisivati vrednost environment promenljive.
 
 - najviše jedan AI bot potez i jedna analysis interakcija;
+- smoke serveru nametnuti `GEMINI_MAX_ATTEMPTS=1` i isti `GEMINI_FALLBACK_MODEL` kao
+  `GEMINI_PRIMARY_MODEL`, tako da retry i prelazak modela ne prekorače limit;
 - potvrditi structured parse, model ID, attempt count i usage samo ako je vraćen;
 - ne snimati prompt/raw response/privatne karte;
 - failure zbog dostupnosti, quota ili billing-a dokumentovati kao runtime ograničenje,

@@ -1,6 +1,23 @@
 # AI usage log
 
-## Gemini adapter — 2026-09-27
+## Opciono rucno Gemini smoke testiranje - 2026-09-28
+
+Izvrsena su ukupno **2 stvarna provider zahteva** ka `gemini-3.8-flash`: jedan bot
+interaction i jedna analysis interakcija. Smoke runtime je nametnuo `maxAttempts=1`,
+iskljucio rezervni model i SDK retry (`attempts=1`). Nije pokrenut dodatni zahtev ni
+nakon neuspeha. Bot interakcija je zavrsena lokalnim fallback-om; analiza se zavrsila
+sa `server_error` i UI statusom `failed`. Analysis attempt usage nije sadrzao poznate
+token metapodatke; trosak je nepoznat. Sazetak i ogranicenja su u
+[live smoke evidence](evidence/002-live-smoke.md).
+
+U prvom privremenom procesu evidence runner nije ispisao bot attempt klasifikaciju,
+trajanje ni usage metapodatke, a procesni in-memory dashboard podaci su izgubljeni po
+gasenju. Za analysis je stari usage store odbacio decimalno monotono trajanje i prikazao
+0 ms; stvarno trajanje zato nije poznato. Ovo je ispravljeno i pokriveno offline testom;
+live ponavljanje nije izvrseno. Kljuc, prompt, karte i raw response nisu sacuvani.
+Billing/project podesavanja nisu menjana.
+
+## Gemini adapter - 2026-09-27
 
 Codex, jedan coding agent, bez paralelnih agenata. Svrha: test-first implementacija
 isključivo zvaničnog Gemini adaptera, server-side konfiguracije i DI wiring-a. Zvanična
