@@ -72,3 +72,16 @@ metadata. Cena se ne procenjuje iz tokena.
 
 Ovaj status važi za adapter evidence od 2026-09-27. Kasniji ručni smoke je zasebno
 zabeležen u [002-live-smoke.md](002-live-smoke.md).
+
+## T038–T040 ponovna provera — 2026-09-29
+
+- Manifest i lockfile i dalje tačno zaključavaju jedinu novu runtime zavisnost
+  `@google/genai` na `2.24.0`; npm skripte i druge zavisnosti nisu menjane.
+- Novi T039 behavior RED (`npm.cmd test -- tests/integration/gemini-adapter.test.ts`)
+  imao je exit 1: 1 test pao, 11 prošlo. Adapter je propuštao negative/fractional/
+  NaN/Infinity usageMetadata umesto unknown/null vrednosti. Dokaz je u
+  `002-T039-red.txt`.
+- T040 sada normalizuje token count samo kada je nenegativan safe integer; zero ostaje
+  poznata vrednost. Mock test potvrđuje da dodatno raw SDK polje nije sačuvano.
+- Fokusirani adapter/contract/UI skup: 53/53. Puna Vitest regresija: 505/505.
+  Typecheck/lint/build: exit 0; Playwright: 10/10. Nije bilo mreže ni live ključa.

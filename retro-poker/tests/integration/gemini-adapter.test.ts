@@ -47,6 +47,21 @@ describe('Gemini provider adapter', () => {
     expect(call.contents[0].parts[0].text).not.toContain('secret');
   });
 
+  it('normalizes invalid or missing usage metadata to unknown safe fields', async () => {
+    const mocked = client({ text: '{}', privateRawBody: 'must-not-persist', usageMetadata: {
+      promptTokenCount: -1, candidatesTokenCount: 1.5, thoughtsTokenCount: Number.NaN,
+      cachedContentTokenCount: 0, totalTokenCount: Number.POSITIVE_INFINITY,
+    } });
+    const result = await createGeminiProvider('secret', () => mocked.sdk).generate(request,
+      new AbortController().signal);
+
+    expect(result).toEqual({ candidate: '{}', usage: {
+      promptTokens: null, candidateTokens: null, thoughtTokens: null,
+      cachedTokens: 0, totalTokens: null,
+    } });
+    expect(JSON.stringify(result)).not.toContain('privateRawBody');
+  });
+
   it('classifies empty output and safety refusal without exposing raw provider content', async () => {
     const empty = client({ text: undefined });
     await expect(createGeminiProvider('secret', () => empty.sdk).generate(request,

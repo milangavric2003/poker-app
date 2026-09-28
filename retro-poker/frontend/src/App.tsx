@@ -47,7 +47,9 @@ export function App() {
     return () => { mounted = false; };
   }, []);
   useEffect(() => {
-    if (!game?.ai.active) return;
+    const awaitingBotReservation = game?.ai.mode === 'on' && game.phase !== 'complete'
+      && game.actorId !== null && game.legalActions.length === 0;
+    if (!game?.ai.active && !awaitingBotReservation) return;
     const id = ++pollId.current;
     const timer = window.setInterval(() => {
       const requestId = ++snapshotSequence.current;
@@ -56,7 +58,8 @@ export function App() {
       }).catch(() => undefined);
     }, 750);
     return () => { ++pollId.current; window.clearInterval(timer); };
-  }, [game?.gameId, game?.ai.active?.interactionId]);
+  }, [game?.gameId, game?.handId, game?.phase, game?.actorId,
+    game?.legalActions.length, game?.ai.mode, game?.ai.active?.interactionId]);
 
   async function synchronize() {
     if (pending || mutationLock.current) return;

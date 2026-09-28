@@ -1,0 +1,12 @@
+T037 fake-path integracija — 2026-09-29
+
+Smisleni T036 RED je zahtevao minimalne korekcije:
+- App pokreće read-only GET polling i kada AI bot turn još čeka backend reservation;
+- offline fake namerno drži bot pending, zatim proizvodi model outcome;
+- prva analysis interakcija terminalno pada, ručni retry uspeva;
+- terminalni showdown validator dozvoljava karte eliminisanog igrača samo kroz postojeći
+  parent GameView showdown/privacy uslov.
+
+GREEN:
+npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts --workers=1
+Exit 0; 1/1 passed na 1280x720. Mutation POST nije automatski ponovljen.

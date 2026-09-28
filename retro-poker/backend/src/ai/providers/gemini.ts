@@ -16,13 +16,16 @@ export interface GeminiClient {
 }
 type ClientFactory = (apiKey: string) => GeminiClient;
 
+function tokenCount(value: number | undefined): number | null {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : null;
+}
 function usage(value: GeminiResponse['usageMetadata']): ProviderUsage | undefined {
   if (!value) return undefined;
-  return { promptTokens: value.promptTokenCount ?? null,
-    candidateTokens: value.candidatesTokenCount ?? null,
-    thoughtTokens: value.thoughtsTokenCount ?? null,
-    cachedTokens: value.cachedContentTokenCount ?? null,
-    totalTokens: value.totalTokenCount ?? null };
+  return { promptTokens: tokenCount(value.promptTokenCount),
+    candidateTokens: tokenCount(value.candidatesTokenCount),
+    thoughtTokens: tokenCount(value.thoughtsTokenCount),
+    cachedTokens: tokenCount(value.cachedContentTokenCount),
+    totalTokens: tokenCount(value.totalTokenCount) };
 }
 function providerError(error: unknown): never {
   if (error instanceof DOMException && error.name === 'AbortError') throw error;

@@ -54,8 +54,6 @@ Evidence sources include:
 | Tasks | Current reason |
 |---|---|
 | T026 | Analysis tests/implementation exist. The recorded analysis RED covered eligibility, not the full required success/failure/retry oracle; no valid full task RED is recorded. |
-| T036, T037 | `tests/e2e/ai-offline.spec.ts` passes its representative bot/dashboard/reset flow, but it does not cover browser-level analysis success, failure and manual retry. T037 depends on closing that scope. See `002-T036-T037-status.txt`. |
-| T039 | Mocked Gemini adapter tests pass. The recorded initial RED was an adapter import/module failure rather than a valid behavior failure; do not label this TDD task complete on that basis. |
 | T043 | Full 418-test/10-E2E regression is recorded before the 2026-09-28 usage-latency change. The later change has focused regression and typecheck evidence, but no recorded complete test:e2e/lint/build run against the current HEAD. |
 | T044 | Final 100% traceability cannot pass while the above items remain open; the full verification prerequisite T043 is also open. |
 
@@ -108,3 +106,17 @@ results above retain their original dates and scope.
   proverava known/partial/unknown usage i unknown cost.
 - Fokusirani skup: 23/23; puna Vitest regresija: 504/504; Playwright: 10/10;
   typecheck/lint/build: exit 0. T031–T035 ostaju opravdano čekirani.
+
+## T036–T040 ponovna implementacija — 2026-09-29
+
+- T036 browser tok sada pokriva AI toggle, waiting→terminalni model outcome, analysis
+  failure, eksplicitan retry kao novu uspešnu interakciju, strukturisan rezultat,
+  dashboard agregate i nezavisna game/usage resetovanja. Fokusirani E2E: 1/1.
+- Smisleni T037 RED otkrio je da UI nije poll-ovao bot turn pre objave `ai.active`, a
+  zatim i kontradikciju terminalnog showdown DTO validatora za eliminisanog igrača.
+  Minimalne korekcije čuvaju GET-only polling i parent hidden-card zaštitu.
+- T038 manifest/lock ostaju tačno na `@google/genai` 2.24.0. Novi T039 behavior RED
+  otkrio je nevalidan usageMetadata; T040 ga sada normalizuje na unknown/null bez raw
+  persistence. Adapter ostaje bez session/engine importa i bez logovanja.
+- Završno: Vitest 505/505, Playwright 10/10, typecheck/lint/build exit 0.
+  T036–T040 su sada kompletni i čekirani; svi testovi su offline.

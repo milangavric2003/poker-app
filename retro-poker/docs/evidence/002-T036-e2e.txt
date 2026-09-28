@@ -1,0 +1,20 @@
+T036 offline browser acceptance — 2026-09-29
+
+Prvi prošireni behavior prolaz:
+npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts --workers=1
+Exit 1; 1 test failed. Browser nije video waiting status jer frontend nije poll-ovao
+server-potvrđen bot turn pre nego što je `ai.active` stigao u sledećem GET snapshot-u.
+
+Tok je zatim otkrio i da strict GameResponseSchema odbija validan terminalni showdown
+sa eliminisanim botom i otkrivenim showdown kartama (`Invalid player`). Ovo nije bio
+setup pad: raw server snapshot je imao terminalni model outcome, ali ga UI runtime
+validator nije prihvatio.
+
+Završna komanda:
+npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts --workers=1
+Exit 0; 1/1 passed (6.7 s test, 9.5 s ukupno).
+
+Pokriveni browser tok: AI toggle, vidljiv waiting, terminalni model outcome, analysis
+failure posle dva nevalidna fake odgovora, eksplicitan manual retry kao nova uspešna
+analiza, strukturisan rezultat/disclaimer, bot+analysis dashboard agregati, usage reset
+bez game mutacije i game replacement bez usage reset-a. Nema interneta ni pravog ključa.

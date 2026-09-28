@@ -95,7 +95,7 @@ const PlayerView = z.strictObject({
   streetContribution: ChipsSchema, handContribution: ChipsSchema, status: PlayerStatus,
   cards: HoleCards.nullable(),
 }).refine(p => p.streetContribution <= p.handContribution
-  && (p.status !== 'eliminated' || (p.stack === 0 && p.cards === null)), 'Invalid player');
+  && (p.status !== 'eliminated' || p.stack === 0), 'Invalid player');
 const PotView = z.strictObject({
   id: Id, amount: ChipsSchema, contributionCap: ChipsSchema, contributorIds: Ids, eligibleIds: Ids,
 }).refine(p => p.eligibleIds.every(id => p.contributorIds.includes(id)), 'Invalid pot eligibility');
