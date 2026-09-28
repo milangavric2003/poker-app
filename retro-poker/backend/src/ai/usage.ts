@@ -47,7 +47,7 @@ export class UsageStore {
     this.logical.set(logicalKey, logical);
     if (interaction.attempts.length > 1) this.retryCount++;
     if (interaction.attempts.some(attempt => attempt.relation === 'model_fallback')) this.modelFallbackCount++;
-    if (interaction.finalOutcome === 'local_fallback' || interaction.finalOutcome === 'failed') this.localFallbackCount++;
+    if (interaction.finalOutcome === 'local_fallback') this.localFallbackCount++;
     for (const attempt of interaction.attempts) this.recordAttempt(interaction.purpose, attempt);
   }
 

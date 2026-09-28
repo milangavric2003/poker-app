@@ -76,3 +76,23 @@ made live calls.
 
 No application tests were run during this documentation reconciliation. Recorded test
 results above retain their original dates and scope.
+
+## T026–T030 ponovna implementacija — 2026-09-29
+
+- `npm.cmd test -- tests/integration/ai-analysis.test.ts` — exit 0; 9/9 testova.
+  Dopunjena matrica pokriva terminal-only 202, strict success, decisionRef, odvajanje
+  tada poznatih činjenica od kasnijeg ishoda, timeout/malformed/5xx, duplicate i novi
+  interaction pri ručnom retry-ju. Poker result/version/stack/events ostaju deep-equal.
+  Prvi validni prošireni prolaz bio je zelen, pa `002-T026-red.txt` istinito beleži da
+  nema novog RED-a; T026 ostaje otvoren samo zbog istorijskog TDD/evidence kriterijuma.
+- T027 backend schema/coordinator/session/view i T029 frontend request/poll/retry tok
+  ponovo su provereni kroz integracione i UI testove. T028 sada ima App-level oracle:
+  nema automatskog analysis POST-a, retry nastaje tek klikom i `HandResult` ostaje.
+- `npm.cmd test -- tests/unit/ai-usage.test.ts` je prvo pao sa exit 1 (1 failed,
+  1 passed): analysis `failed` je pogrešno povećavao `localFallbackCount` na 2 umesto
+  1. Posle minimalne ispravke T030 matrica je zelena; RED je u `002-T030-red.txt`.
+- Fokusirano: `npm.cmd test -- tests/ui/analysis.test.tsx tests/unit/ai-usage.test.ts
+  tests/integration/ai-analysis.test.ts` — exit 0; 17/17.
+- Puna regresija: `npm.cmd test` — exit 0; 36 fajlova, 501/501 test.
+- `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build` — exit 0;
+  Vite je transformisao 119 modula. Sve provere su offline i bez stvarnog API ključa.

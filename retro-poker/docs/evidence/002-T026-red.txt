@@ -1,0 +1,19 @@
+T026 ponovna provera planiranog RED-a
+Datum: 2026-09-29
+
+Komanda:
+npm.cmd test -- tests/integration/ai-analysis.test.ts
+
+Stvarni prvi validni rezultat nakon dopune pune matrice: exit code 0.
+Test Files  1 passed (1)
+Tests       9 passed (9)
+
+Pokriveno je: non-terminal rejection, terminal 202, strict success sa lokalnim
+disclaimer-om, decisionRef semantika, gubitak koji nije sam po sebi dokaz lose
+odluke, timeout/malformed/5xx failure, duplicate pending zahtev i rucni retry kao
+nov interaction. Svaki scenario poredi result/version/stackove/events pre i posle.
+
+Ovo nije RED dokaz. Postojeca implementacija je vec zadovoljavala prosireni oracle,
+pa produkcioni kod nije namerno kvaren niti je fabrikovan pad. T026 zato ostaje
+formalno otvoren zbog istorijskog TDD/evidence kriterijuma, iako je trazeno runtime
+ponasanje sada pokriveno i zeleno.
