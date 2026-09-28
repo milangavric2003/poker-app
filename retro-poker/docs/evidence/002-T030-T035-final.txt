@@ -38,3 +38,28 @@ Poslednja implementaciona provera posle privacy/idempotency review:
 - fokusirani unit/route/bot cancellation/analysis skup: exit 0, 5 fajlova, 10 testova;
 - typecheck exit 0; lint exit 0; build exit 0, Vite 119 modula, 444 ms.
 - puna test/e2e regresija neposredno pre te poslednje idempotency izmene: 418/418 i 10/10; idempotency izmena zatim je pokrivena fokusiranim integration/unit skupom.
+
+Ponovna T031-T035 provera — 2026-09-29
+
+Smisleni RED:
+Komanda: npm.cmd test -- tests/unit/ai-usage.test.ts tests/ui/api.test.ts tests/contract/ai-routes.test.ts
+Exit: 1; 2 testa pala, 15 prošlo.
+- UsageStore je sabrao dve MAX_SAFE_INTEGER latencije u 18014398509481982, van
+  ugovorenog safe-integer opsega.
+- Frontend loadUsage je prihvatio attempt bez obaveznog privacy-safe usage agregata.
+Route test je prošao i potvrđuje da je problem bio u store/client ponašanju, ne setup-u.
+
+Minimalne korekcije:
+- svi javni usage brojači i zbirovi koriste saturating safe addition;
+- frontend koristi deljeni strict UsageResponseSchema umesto blaže duplirane šeme;
+- reset route oracle koristi stvarnu igru, tačnu staru reviziju i ponovljen isti stale reset;
+- dashboard matrica eksplicitno razlikuje known, partial i unknown usage.
+
+GREEN:
+- fokusirano: 4 fajla, 23/23 testa, exit 0;
+- npm.cmd test: 36 fajlova, 504/504 testa, exit 0;
+- npm.cmd run typecheck, npm.cmd run lint, npm.cmd run build: exit 0;
+- npm.cmd run test:e2e: 10/10 Chromium testova, exit 0, uključujući 1280x720
+  accessibility i offline dashboard/reset tok.
+
+Nije korišćena mreža ni stvarni API ključ.

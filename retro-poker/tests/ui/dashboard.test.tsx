@@ -5,6 +5,14 @@ import { UsageDashboard } from '../../frontend/src/components/UsageDashboard';
 import * as api from '../../frontend/src/api';
 
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
+const unknownUsage = (count: number) => ({
+  promptTokens: { knownCount: 0, missingCount: count, sum: 0 },
+  candidateTokens: { knownCount: 0, missingCount: count, sum: 0 },
+  thoughtTokens: { knownCount: 0, missingCount: count, sum: 0 },
+  cachedTokens: { knownCount: 0, missingCount: count, sum: 0 },
+  totalTokens: { knownCount: 0, missingCount: count, sum: 0 },
+  cost: { knownCount: 0, missingCount: count, sum: null, currency: null },
+});
 const usage: api.UsageDashboardView = {
   revision: 4,
   logical: [
@@ -12,10 +20,14 @@ const usage: api.UsageDashboardView = {
     { purpose: 'analysis', initialModel: 'model-a', finalOutcome: 'local_fallback', count: 2 },
   ],
   attempts: [
-    { purpose: 'bot', model: 'model-a', relation: 'initial', outcome: 'success', count: 3, latency: { count: 3, sumMs: 420, maxMs: 180 } },
-    { purpose: 'bot', model: 'model-a', relation: 'initial', outcome: 'timeout', count: 1, latency: { count: 1, sumMs: 1000, maxMs: 1000 } },
-    { purpose: 'analysis', model: 'model-a', relation: 'initial', outcome: 'rate_limited', count: 1, latency: { count: 1, sumMs: 20, maxMs: 20 } },
-    { purpose: 'analysis', model: 'model-a', relation: 'initial', outcome: 'server_error', count: 2, latency: { count: 2, sumMs: 60, maxMs: 40 } },
+    { purpose: 'bot', model: 'model-a', relation: 'initial', outcome: 'success', count: 3,
+      latency: { count: 3, sumMs: 420, maxMs: 180 }, usage: unknownUsage(3) },
+    { purpose: 'bot', model: 'model-a', relation: 'initial', outcome: 'timeout', count: 1,
+      latency: { count: 1, sumMs: 1000, maxMs: 1000 }, usage: unknownUsage(1) },
+    { purpose: 'analysis', model: 'model-a', relation: 'initial', outcome: 'rate_limited', count: 1,
+      latency: { count: 1, sumMs: 20, maxMs: 20 }, usage: unknownUsage(1) },
+    { purpose: 'analysis', model: 'model-a', relation: 'initial', outcome: 'server_error', count: 2,
+      latency: { count: 2, sumMs: 60, maxMs: 40 }, usage: unknownUsage(2) },
   ], retryCount: 1, modelFallbackCount: 1, localFallbackCount: 2,
 };
 describe('local usage dashboard', () => {
@@ -61,6 +73,22 @@ describe('local usage dashboard', () => {
     await screen.getByText('Attempts').click();
     expect(screen.getAllByText(/980/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Nepoznato/).length).toBeGreaterThan(0);
+  });
+  it('distinguishes fully known and completely unknown token usage', async () => {
+    const known = structuredClone(usage);
+    known.attempts = [{ ...known.attempts[0]!, count: 1, latency: { count: 1, sumMs: 8, maxMs: 8 },
+      usage: { ...unknownUsage(0), totalTokens: { knownCount: 1, missingCount: 0, sum: 42 },
+        cost: { knownCount: 0, missingCount: 1, sum: null, currency: null } } }];
+    vi.spyOn(api, 'loadUsage').mockResolvedValue(known);
+    render(<UsageDashboard />);
+    fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
+    expect(await screen.findByTestId('usage-total-tokens')).toHaveTextContent(/^42$/);
+    cleanup();
+
+    vi.mocked(api.loadUsage).mockResolvedValue({ ...usage, attempts: [usage.attempts[1]!] });
+    render(<UsageDashboard />);
+    fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
+    expect(await screen.findByTestId('usage-total-tokens')).toHaveTextContent('Nepoznato');
   });
   it('confirms reset, prevents duplicates and refreshes snapshot', async () => {
     vi.spyOn(api, 'loadUsage').mockResolvedValue(usage);

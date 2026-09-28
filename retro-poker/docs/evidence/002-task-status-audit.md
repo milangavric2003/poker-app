@@ -54,7 +54,6 @@ Evidence sources include:
 | Tasks | Current reason |
 |---|---|
 | T026 | Analysis tests/implementation exist. The recorded analysis RED covered eligibility, not the full required success/failure/retry oracle; no valid full task RED is recorded. |
-| T030 | Usage aggregation exists and is covered by green tests. The old T030 RED was an import failure, not behavior RED. A later real RED found fractional latency being recorded as 0 ms and was fixed, but that does not replace a valid RED for the complete aggregation matrix. |
 | T036, T037 | `tests/e2e/ai-offline.spec.ts` passes its representative bot/dashboard/reset flow, but it does not cover browser-level analysis success, failure and manual retry. T037 depends on closing that scope. See `002-T036-T037-status.txt`. |
 | T039 | Mocked Gemini adapter tests pass. The recorded initial RED was an adapter import/module failure rather than a valid behavior failure; do not label this TDD task complete on that basis. |
 | T043 | Full 418-test/10-E2E regression is recorded before the 2026-09-28 usage-latency change. The later change has focused regression and typecheck evidence, but no recorded complete test:e2e/lint/build run against the current HEAD. |
@@ -96,3 +95,16 @@ results above retain their original dates and scope.
 - Puna regresija: `npm.cmd test` — exit 0; 36 fajlova, 501/501 test.
 - `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build` — exit 0;
   Vite je transformisao 119 modula. Sve provere su offline i bez stvarnog API ključa.
+
+## T031–T035 ponovna implementacija — 2026-09-29
+
+- Novi behavior RED je imao exit 1, sa 2 pala i 15 prošlih testova: usage latency/token
+  zbirovi izlazili su iz safe-integer ugovora, a frontend je prihvatao attempt bez
+  obaveznog usage agregata. Stvarni izlaz i korekcije su u `002-T030-T035-final.txt`.
+- Store sada saturira javne count/sum vrednosti na `Number.MAX_SAFE_INTEGER`, a frontend
+  koristi deljeni strict `UsageResponseSchema`, čime se uklanja schema drift.
+- T032 oracle sada resetuje metrike uz stvarni nepromenjeni game snapshot, proverava
+  revision +1 i odbija ponovljen isti `expectedRevision`. T034 matrica eksplicitno
+  proverava known/partial/unknown usage i unknown cost.
+- Fokusirani skup: 23/23; puna Vitest regresija: 504/504; Playwright: 10/10;
+  typecheck/lint/build: exit 0. T031–T035 ostaju opravdano čekirani.

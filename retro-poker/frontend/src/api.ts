@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { GameErrorSchema, GameResponseSchema, type GameView } from '../../shared/contracts';
+import { GameErrorSchema, GameResponseSchema, UsageResponseSchema,
+  type GameView, type UsageDashboardView } from '../../shared/contracts';
 
 export type ActionDraft =
   | { type: 'fold' | 'check' | 'call' | 'all_in' }
@@ -69,27 +69,7 @@ export async function requestAnalysis(game: GameView): Promise<GameView> {
   return next;
 }
 
-const Count = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
-const UsageMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count, sum: Count });
-const CostMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count,
-  sum: Count.nullable(), currency: z.string().min(1).nullable() }).refine(value =>
-  (value.knownCount === 0) === (value.sum === null), 'Inconsistent cost aggregate');
-const UsageDashboardSchema = z.strictObject({
-  revision: Count,
-  logical: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']), initialModel: z.string().min(1),
-    finalOutcome: z.string().min(1), count: Count })),
-  attempts: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']), model: z.string().min(1),
-    relation: z.enum(['initial', 'same_model_retry', 'model_fallback']),
-    outcome: z.enum(['success', 'timeout', 'rate_limited', 'server_error', 'network_error', 'malformed',
-      'schema_rejected', 'semantic_rejected', 'safety_refusal', 'auth_config_error', 'cancelled', 'stale']),
-    count: Count, latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count }),
-    usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
-      thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
-      cost: CostMetricSchema }).optional() })),
-  retryCount: Count, modelFallbackCount: Count, localFallbackCount: Count,
-});
-const UsageResponseSchema = z.strictObject({ usage: UsageDashboardSchema });
-export type UsageDashboardView = z.infer<typeof UsageDashboardSchema>;
+export type { UsageDashboardView };
 
 export async function loadUsage(): Promise<UsageDashboardView> {
   const parsed = UsageResponseSchema.safeParse(await fetchJson('/api/ai/usage'));

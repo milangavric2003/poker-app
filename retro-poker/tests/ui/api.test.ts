@@ -69,4 +69,14 @@ describe('frontend API', () => {
 
     await expect(loadUsage()).rejects.toThrow(/odgovor servera/i);
   });
+
+  it('odbija attempt bez obaveznih privacy-safe usage agregata', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ usage: {
+      revision: 0, logical: [], attempts: [{ purpose: 'bot', model: 'model-a', relation: 'initial',
+        outcome: 'success', count: 1, latency: { count: 1, sumMs: 8, maxMs: 8 } }],
+      retryCount: 0, modelFallbackCount: 0, localFallbackCount: 0,
+    } }), { status: 200 })));
+
+    await expect(loadUsage()).rejects.toThrow(/odgovor servera/i);
+  });
 });

@@ -23,6 +23,9 @@ function emptyUsage(): UsageView {
 }
 function emptyMetric(): Metric { return { knownCount: 0, missingCount: 0, sum: 0 }; }
 function key(parts: readonly (string | number)[]) { return JSON.stringify(parts); }
+function safeAdd(left: number, right: number): number {
+  return Math.min(Number.MAX_SAFE_INTEGER, left + right);
+}
 
 export class UsageStore {
   private revision = 0;
@@ -43,11 +46,13 @@ export class UsageStore {
     const logicalKey = key([interaction.purpose, interaction.initialModel, interaction.finalOutcome]);
     const logical = this.logical.get(logicalKey) ?? { purpose: interaction.purpose,
       initialModel: interaction.initialModel, finalOutcome: interaction.finalOutcome, count: 0 };
-    logical.count++;
+    logical.count = safeAdd(logical.count, 1);
     this.logical.set(logicalKey, logical);
-    if (interaction.attempts.length > 1) this.retryCount++;
-    if (interaction.attempts.some(attempt => attempt.relation === 'model_fallback')) this.modelFallbackCount++;
-    if (interaction.finalOutcome === 'local_fallback') this.localFallbackCount++;
+    if (interaction.attempts.length > 1) this.retryCount = safeAdd(this.retryCount, 1);
+    if (interaction.attempts.some(attempt => attempt.relation === 'model_fallback')) {
+      this.modelFallbackCount = safeAdd(this.modelFallbackCount, 1);
+    }
+    if (interaction.finalOutcome === 'local_fallback') this.localFallbackCount = safeAdd(this.localFallbackCount, 1);
     for (const attempt of interaction.attempts) this.recordAttempt(interaction.purpose, attempt);
   }
 
@@ -56,21 +61,21 @@ export class UsageStore {
     const row = this.attempts.get(attemptKey) ?? { purpose, model: attempt.model,
       relation: attempt.relation, outcome: attempt.outcome, count: 0,
       latency: { count: 0, sumMs: 0, maxMs: 0 }, usage: emptyUsage() };
-    row.count++;
+    row.count = safeAdd(row.count, 1);
     const durationMs = Number.isFinite(attempt.durationMs)
       ? Math.min(Number.MAX_SAFE_INTEGER, Math.max(0, Math.round(attempt.durationMs))) : 0;
-    row.latency.count++;
-    row.latency.sumMs += durationMs;
+    row.latency.count = safeAdd(row.latency.count, 1);
+    row.latency.sumMs = safeAdd(row.latency.sumMs, durationMs);
     row.latency.maxMs = Math.max(row.latency.maxMs, durationMs);
     for (const field of tokenFields) {
       const value = attempt.usage?.[field];
       const metric = row.usage[field];
       if (typeof value === 'number' && Number.isSafeInteger(value) && value >= 0) {
-        metric.knownCount++;
-        metric.sum += value;
-      } else metric.missingCount++;
+        metric.knownCount = safeAdd(metric.knownCount, 1);
+        metric.sum = safeAdd(metric.sum, value);
+      } else metric.missingCount = safeAdd(metric.missingCount, 1);
     }
-    row.usage.cost.missingCount++;
+    row.usage.cost.missingCount = safeAdd(row.usage.cost.missingCount, 1);
     this.attempts.set(attemptKey, row);
   }
 
@@ -83,6 +88,7 @@ export class UsageStore {
 
   reset(expectedRevision: number): boolean {
     if (expectedRevision !== this.revision) return false;
+    if (this.revision === Number.MAX_SAFE_INTEGER) return false;
     this.revision++;
     this.epoch++;
     this.logical.clear(); this.attempts.clear();

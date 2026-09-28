@@ -78,4 +78,21 @@ describe('privacy safe AI usage aggregation', () => {
     expect(serialized).not.toContain('tokens*price');
     expect(serialized).not.toMatch(/holeCards|apiKey|rawResponse|stackTrace/);
   });
+
+  it('keeps public latency and token sums within the safe-integer contract', () => {
+    const store = new UsageStore();
+    for (let index = 0; index < 2; index++) store.record({ purpose: 'bot', initialModel: 'model-a',
+      finalOutcome: 'model_success', attempts: [{ model: 'model-a', relation: 'initial', outcome: 'success',
+        durationMs: Number.MAX_SAFE_INTEGER, usage: { promptTokens: Number.MAX_SAFE_INTEGER,
+          candidateTokens: Number.MAX_SAFE_INTEGER, thoughtTokens: Number.MAX_SAFE_INTEGER,
+          cachedTokens: Number.MAX_SAFE_INTEGER, totalTokens: Number.MAX_SAFE_INTEGER } }] });
+
+    const row = store.snapshot().attempts[0]!;
+    expect(row.latency.sumMs).toBe(Number.MAX_SAFE_INTEGER);
+    for (const metric of [row.usage.promptTokens, row.usage.candidateTokens,
+      row.usage.thoughtTokens, row.usage.cachedTokens, row.usage.totalTokens]) {
+      expect(metric.sum).toBe(Number.MAX_SAFE_INTEGER);
+      expect(Number.isSafeInteger(metric.sum)).toBe(true);
+    }
+  });
 });

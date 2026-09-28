@@ -95,19 +95,23 @@ describe('Week04 HTTP contracts (AIAC01, AIAC12–AIAC13)', () => {
 
   it('uses strict optimistic concurrency for usage reset', async () => {
     const app = makeApp();
+    const created = await app.inject({ method: 'POST', url: '/api/game',
+      headers: { 'if-none-match': '*', 'content-type': 'application/json' }, payload: { botCount: 1 } });
+    expect(created.statusCode).toBe(201);
     processUsageStore.record({ purpose: 'bot', initialModel: 'model-a', finalOutcome: 'model_success', attempts: [
       { model: 'model-a', relation: 'initial', outcome: 'success', durationMs: 12,
         usage: { promptTokens: 0 } },
     ] });
     const before = (await app.inject('/api/game')).json().game;
+    const expectedRevision = processUsageStore.snapshot().revision;
     const reset = await app.inject({ method: 'POST', url: '/api/ai/usage/reset',
-      headers: { 'content-type': 'application/json' }, payload: { expectedRevision: processUsageStore.snapshot().revision } });
+      headers: { 'content-type': 'application/json' }, payload: { expectedRevision } });
     expect(reset.statusCode).toBe(200);
     expect(reset.json().usage.logical).toEqual([]);
-    expect(reset.json().usage.revision).toBe(processUsageStore.snapshot().revision);
+    expect(reset.json().usage.revision).toBe(expectedRevision + 1);
     expect((await app.inject('/api/game')).json().game).toEqual(before);
     const duplicate = await app.inject({ method: 'POST', url: '/api/ai/usage/reset',
-      headers: { 'content-type': 'application/json' }, payload: { expectedRevision: 0 } });
+      headers: { 'content-type': 'application/json' }, payload: { expectedRevision } });
     expect(duplicate.statusCode).toBe(409);
     expect(duplicate.json().error.code).toBe('STALE_STATE');
   });
