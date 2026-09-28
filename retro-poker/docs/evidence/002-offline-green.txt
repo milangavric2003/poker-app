@@ -55,3 +55,38 @@ Scope i bezbednost
 - Fake provider je isključivo test helper i ne koristi mrežu, environment ključ ili
   production provider adapter.
 - Week04 nije kompletan: Gemini adapter, UI/dashboard i opciona ručna live provera ostaju.
+
+## T004/T006/T007/T010 korekcija — 2026-09-28
+
+1. `npm.cmd test -- tests/contract/ai-contracts.test.ts tests/contract/config.test.ts tests/contract/messages.test.ts tests/contract/view.test.ts`
+   — exit 0; 4 fajla, 118/118 testova prošlo. T004 shared strict analysis/usage
+   ugovori i postojeća Week03 contract regresija su zeleni.
+2. `npm.cmd test -- tests/unit/ai-config.test.ts`
+   — exit 0; 1 fajl, 12/12 testova prošlo posle T006 minimalnog GREEN-a za tačno dva
+   pokušaja i empty/same fallback `null`.
+3. `npm.cmd run typecheck`
+   — exit 0 posle provider-neutral `AIInteraction`, fingerprint i config dopune.
+4. `npm.cmd test -- tests/unit/ai-retry.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts`
+   — exit 0; 4 fajla, 11/11 testova prošlo. Time su fake provider/pending promise,
+   fake monotonic clock/jitter i offline success/failure/concurrency upotreba potvrđeni.
+5. `npm.cmd test -- tests/unit/ai-context.test.ts`
+   — exit 0; 1 fajl, 8/8 testova prošlo. Allowlist radi za preflop/flop/turn/river,
+   actor-only karte, poslednja 64 prethodna public event-a, hidden/runtime sentinel-i ne
+   cure, a ceo snapshot je duboko zamrznut i odvojen od `GameState`-a.
+
+Sve komande su offline; nije čitan stvarni API ključ niti napravljen mrežni poziv.
+
+Završna T001–T010 provera nad konačnim sadržajem:
+
+- `npm.cmd test -- tests/unit/ai-config.test.ts tests/unit/ai-context.test.ts tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts`
+  — exit 0; 4 fajla, 40/40 testova.
+- `npm.cmd run typecheck` — exit 0.
+- `npm.cmd run lint` — exit 0.
+- `npm.cmd test` — exit 0; 36 fajlova, 434/434 testova.
+- `npm.cmd run build` — exit 0; Vite 119 modula i server TypeScript build.
+
+Pre konačnog prolaza typecheck je jednom prijavio da `observation.phase` statički može
+biti `complete`, iako ga runtime guard odbija; builder sada koristi prethodno sužen
+lokalni `phase`. Lint je zatim jednom prijavio neiskorišćenu međuvrednost u novom route
+testu; assertion je zadržan bez nepotrebne dodele. Posle tih korekcija gore navedene
+komande su stvarno prošle.

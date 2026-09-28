@@ -3,12 +3,13 @@ import { ALLOWED_GEMINI_MODELS, loadAiConfig } from '../../backend/src/ai/config
 
 describe('AI runtime config', () => {
   it('is unavailable without a key and keeps fixed budgets', () => {
-    expect(loadAiConfig({})).toMatchObject({ apiKey: null, maxAttempts: 2,
-      botTotalMs: 12000, analysisTotalMs: 30000, botAttemptMs: 5000, analysisAttemptMs: 12000 });
+    expect(loadAiConfig({})).toMatchObject({ enabled: false, apiKey: null, maxAttempts: 2,
+      botTotalMs: 12000, botAttemptMs: 5000, botReserveMs: 500,
+      analysisTotalMs: 30000, analysisAttemptMs: 12000, analysisReserveMs: 1000 });
   });
-  it('normalizes duplicate fallback model to null', () => {
+  it.each(['gemini-3.8-flash', ''])('normalizes duplicate or empty fallback model %j to null', fallback => {
     expect(loadAiConfig({ GEMINI_API_KEY: ' test ', GEMINI_PRIMARY_MODEL: 'gemini-3.8-flash',
-      GEMINI_FALLBACK_MODEL: 'gemini-3.8-flash' })).toMatchObject({ apiKey: 'test',
+      GEMINI_FALLBACK_MODEL: fallback })).toMatchObject({ apiKey: 'test',
       primaryModel: 'gemini-3.8-flash', fallbackModel: null });
   });
   it('allows only documented stable models and supports either through configuration', () => {
@@ -27,6 +28,9 @@ describe('AI runtime config', () => {
       GEMINI_BACKOFF_MIN_MS: '300', GEMINI_BACKOFF_MAX_MS: '900' })).toMatchObject({
       enabled: false, maxAttempts: 2, botAttemptMs: 6500, analysisAttemptMs: 14000,
       backoffMinMs: 300, backoffMaxMs: 900 });
+  });
+  it.each(['1', '2', '9', 'not-a-number'])('keeps exactly two attempts for configured value %j', value => {
+    expect(loadAiConfig({ GEMINI_API_KEY: 'test', GEMINI_MAX_ATTEMPTS: value }).maxAttempts).toBe(2);
   });
   it('does not expose the key when serialized for public diagnostics', () => {
     const config = loadAiConfig({ GEMINI_API_KEY: 'super-secret' });

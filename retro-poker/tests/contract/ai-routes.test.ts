@@ -3,6 +3,7 @@ import type { FastifyInstance } from 'fastify';
 import { buildApp } from '../../backend/src/app.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
 import { processUsageStore } from '../../backend/src/ai/usage.js';
+import { GameResponseSchema, type GameView } from '../../shared/contracts.js';
 
 const apps: FastifyInstance[] = [];
 function makeApp() {
@@ -41,6 +42,42 @@ describe('Week04 HTTP contracts (AIAC01, AIAC12–AIAC13)', () => {
       expect(rejected.statusCode).toBe(400);
       expect(rejected.json().error.code).toBe('INVALID_INPUT');
     }
+  });
+
+  it('keeps additive GameView.ai and no-store through create, GET, action and next-hand', async () => {
+    const app = makeApp();
+    const assertResponse = (response: Awaited<ReturnType<typeof app.inject>>): GameView => {
+      expect(response.statusCode).toBeLessThan(300);
+      expect(response.headers['cache-control']).toBe('no-store');
+      const game = GameResponseSchema.parse(response.json()).game;
+      expect(game?.ai).toMatchObject({ mode: 'off', active: null });
+      if (!game) throw new Error('Očekivano je stanje partije.');
+      return game;
+    };
+
+    assertResponse(await app.inject({ method: 'POST', url: '/api/game',
+      headers: { 'if-none-match': '*', 'content-type': 'application/json' },
+      payload: { botCount: 1 } }));
+    let game = assertResponse(await app.inject({ method: 'GET', url: '/api/game' }));
+
+    for (let turn = 0; game.phase !== 'complete' && turn < 20; turn++) {
+      const action = game.legalActions.find(candidate => candidate.type === 'check')
+        ?? game.legalActions.find(candidate => candidate.type === 'call')
+        ?? game.legalActions.find(candidate => candidate.type === 'all_in')
+        ?? game.legalActions[0];
+      if (!action) throw new Error('Očekivana je legalna ljudska akcija.');
+      const payload = { gameId: game.gameId, handId: game.handId, expectedVersion: game.version,
+        type: action.type, ...((action.type === 'bet' || action.type === 'raise')
+          ? { amountTo: action.minAmountTo } : {}) };
+      game = assertResponse(await app.inject({ method: 'POST', url: '/api/game/actions',
+        headers: { 'content-type': 'application/json' }, payload }));
+    }
+    expect(game.phase).toBe('complete');
+
+    assertResponse(await app.inject({ method: 'POST', url: '/api/game/next-hand',
+      headers: { 'content-type': 'application/json' }, payload: {
+        gameId: game.gameId, handId: game.handId, expectedVersion: game.version,
+      } }));
   });
 
   it('offers a process-wide usage snapshot even when no game exists', async () => {

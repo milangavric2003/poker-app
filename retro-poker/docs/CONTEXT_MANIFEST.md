@@ -1,5 +1,20 @@
 # Context manifest — implementacioni blok člana A
 
+## Week04 T001–T010 korekcija — 2026-09-28
+
+Za T002 je pronađen originalni prompt u
+`specs/002-week04-ai-integration/prompt.md`, uveden commitom `e5a842b` (`T002`). Njegov
+sadržaj je neizmenjeno kopiran u obavezni `docs/BUILD_PROMPT_WEEK04_V1.md`; nije
+rekonstruisan iz kasnije implementacije. Za nastavak T003–T010 učitani su AGENTS.md,
+constitution v1.1.0, feature 002 spec/plan/tasks/research/data-model/quickstart/AI HTTP
+ugovor, requirements checklist 26/26, aktuelni shared ugovori, AI config/tipovi/fake,
+route/context kod, povezani testovi i postojeći 002 evidence. Nije korišćen live
+provider, mreža ili stvarni environment ključ.
+
+Prioritet je dependency redosled T001→T010, smisleni behavior RED pre svake nove GREEN
+izmene, strict provider-neutral ugovori i privacy-safe immutable context. Postojeće
+korisničke izmene u T009 testu/evidence-u čuvaju se i dovršavaju, ne prepisuju.
+
 ## Week04 status reconciliation — 2026-09-28
 
 Za usklađivanje task statusa pregledani su `AGENTS.md`, constitution v1.1.0,

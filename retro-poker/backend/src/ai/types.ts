@@ -13,15 +13,17 @@ export interface AiRuntimeConfig {
   configError: 'MODEL_NOT_ALLOWED' | null;
   primaryModel: string;
   fallbackModel: string | null;
-  maxAttempts: 1 | 2;
+  maxAttempts: 2;
   botTotalMs: 12000;
   analysisTotalMs: 30000;
+  botReserveMs: 500;
+  analysisReserveMs: 1000;
   botAttemptMs: number;
   analysisAttemptMs: number;
   backoffMinMs: number;
   backoffMaxMs: number;
   public: Readonly<{ enabled: boolean; primaryModel: string; fallbackModel: string | null;
-    maxAttempts: 1 | 2; botAttemptMs: number; analysisAttemptMs: number;
+    maxAttempts: 2; botAttemptMs: number; analysisAttemptMs: number;
     backoffMinMs: number; backoffMaxMs: number; configError: 'MODEL_NOT_ALLOWED' | null }>;
 }
 
@@ -71,9 +73,27 @@ export interface BotFingerprint {
   interactionId: string; purpose: 'bot'; gameId: string; handId: string;
   expectedVersion: number; actorId: string; decisionOrdinal: number;
 }
+export interface AnalysisFingerprint {
+  interactionId: string; purpose: 'analysis'; gameId: string; terminalHandId: string;
+  expectedVersion: number; factsRevision: number;
+}
+export type AiFingerprint = BotFingerprint | AnalysisFingerprint;
 export interface AIAttempt {
   ordinal: 1 | 2; model: string; relation: AttemptRelation; outcome: AttemptOutcome; durationMs: number;
   usage?: Partial<ProviderUsage>;
+}
+export type AIInteractionStatus = 'waiting' | 'retrying' | 'model_fallback' | 'completed'
+  | 'local_fallback' | 'unavailable' | 'failed' | 'stale' | 'cancelled';
+export type BoundedAIAttempts = readonly [] | readonly [AIAttempt] | readonly [AIAttempt, AIAttempt];
+export interface AIInteraction<Fingerprint extends AiFingerprint = AiFingerprint> {
+  interactionId: string;
+  purpose: AiPurpose;
+  fingerprint: Readonly<Fingerprint>;
+  status: AIInteractionStatus;
+  startedAt: number;
+  deadlineAt: number;
+  attempts: BoundedAIAttempts;
+  terminalAt: number | null;
 }
 export interface CoordinatorResult<T> {
   ok: boolean; value?: T; attempts: AIAttempt[]; finalModel: string | null;

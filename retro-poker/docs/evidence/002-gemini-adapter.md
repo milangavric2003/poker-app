@@ -38,6 +38,23 @@ GREEN:
   `invariants`, `positions`, `pots`, `actions`, `concurrency`, `hand-flow`,
   `session`) — exit 0, 13 suite-ova i 217/217 testova.
 - `npm.cmd run lint` — exit 0.
+
+## T005 dopuna — config RED, 2026-09-28
+
+Komanda: `npm.cmd test -- tests/unit/ai-config.test.ts`
+
+Stvarni rezultat: exit code 1; Vitest 5.0.1; 1 fajl, 12 testova; 2 pala i 10 prošlo.
+Oba pada su očekivani config behavior RED:
+
+- prazan `GEMINI_FALLBACK_MODEL` vraća `gemini-3.5-flash-lite` umesto `null`;
+- `GEMINI_MAX_ATTEMPTS=1` vraća 1 umesto ugovorenih tačno 2.
+
+Naknadna puna threshold provera istom komandom dala je exit code 1 sa 1 palim i 11
+prolaznih testova: runtime config nije eksplicitno sadržao ugovorene `botReserveMs=500`
+i `analysisReserveMs=1000`, iako su te vrednosti postojale u coordinator ponašanju.
+
+Test koristi isključivo eksplicitne lokalne mape sa placeholder vrednostima; ne čita,
+ne ispisuje i ne poziva stvarni environment ključ ili mrežu.
 - završni `npm.cmd run typecheck` — exit 0.
 - `npm.cmd run build` — exit 0; Vite 116 modula i server TypeScript build.
 

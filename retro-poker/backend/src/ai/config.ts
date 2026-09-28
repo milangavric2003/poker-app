@@ -12,15 +12,18 @@ function integer(value: string | undefined, fallback: number, min: number, max: 
 }
 export function loadAiConfig(env: Readonly<Record<string, string | undefined>> = process.env): AiRuntimeConfig {
   const requestedPrimary = env.GEMINI_PRIMARY_MODEL?.trim() || 'gemini-3.8-flash';
-  const requestedFallback = env.GEMINI_FALLBACK_MODEL?.trim() || 'gemini-3.5-flash-lite';
-  const invalidModel = !allowed(requestedPrimary) || !allowed(requestedFallback);
+  const requestedFallback = env.GEMINI_FALLBACK_MODEL === undefined
+    ? 'gemini-3.5-flash-lite' : env.GEMINI_FALLBACK_MODEL.trim();
+  const invalidModel = !allowed(requestedPrimary)
+    || (requestedFallback !== '' && !allowed(requestedFallback));
   const primaryModel = allowed(requestedPrimary) ? requestedPrimary : 'gemini-3.8-flash';
-  const fallbackModel = !invalidModel && requestedFallback !== primaryModel ? requestedFallback : null;
+  const fallbackModel = !invalidModel && requestedFallback !== '' && requestedFallback !== primaryModel
+    ? requestedFallback as typeof ALLOWED_GEMINI_MODELS[number] : null;
   const configuredKey = env.GEMINI_API_KEY?.trim() || null;
   const explicitlyEnabled = env.GEMINI_ENABLED?.trim().toLowerCase() !== 'false';
   const enabled = explicitlyEnabled && configuredKey !== null && !invalidModel;
   const apiKey = enabled ? configuredKey : null;
-  const maxAttempts = integer(env.GEMINI_MAX_ATTEMPTS, 2, 1, 2) as 1 | 2;
+  const maxAttempts = 2 as const;
   const botAttemptMs = integer(env.GEMINI_BOT_TIMEOUT_MS, 5000, 250, 11000);
   const analysisAttemptMs = integer(env.GEMINI_ANALYSIS_TIMEOUT_MS, 12000, 250, 29000);
   const backoffMinMs = integer(env.GEMINI_BACKOFF_MIN_MS, 250, 0, 2000);
@@ -30,6 +33,7 @@ export function loadAiConfig(env: Readonly<Record<string, string | undefined>> =
   const publicConfig = { enabled, primaryModel, fallbackModel, maxAttempts, botAttemptMs,
     analysisAttemptMs, backoffMinMs, backoffMaxMs, configError };
   return { ...publicConfig, apiKey, botTotalMs: 12000, analysisTotalMs: 30000,
+    botReserveMs: 500, analysisReserveMs: 1000,
     public: Object.freeze({ ...publicConfig }) };
 }
 

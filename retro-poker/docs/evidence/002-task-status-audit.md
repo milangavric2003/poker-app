@@ -1,5 +1,21 @@
 # Week04 task status audit — 2026-09-28
 
+## T001–T010 korekcija u aktuelnom worktree-u
+
+Naknadni dependency pregled je pronašao originalni Week04 prompt u
+`specs/002-week04-ai-integration/prompt.md`, commit `e5a842b`, pa je njegova neizmenjena
+kopija sa provenance napomenom sačuvana na obaveznoj T002 putanji
+`docs/BUILD_PROMPT_WEEK04_V1.md`. T002 zato više nije otvoren zbog navodnog odsustva
+izvora. T003/T005 su dobili nove smislene behavior RED zapise, a T004/T006–T008
+fokusirane GREEN/regresione provere.
+
+T009 sada ima task-specifičan privacy/immutability RED u
+`docs/evidence/002-T009-red.txt`; T010 minimalni GREEN zatim prolazi 8/8 context testova
+za preflop/flop/turn/river. Završni T001–T010 fokus je 40/40, puna Vitest regresija
+434/434, a typecheck/lint/build imaju exit 0. Zato su T001–T010 čekirani u aktuelnom
+`tasks.md`. Ova dopuna ne menja ni ne predstavlja ranije rezultate kao da su tada bili
+izvršeni.
+
 ## Why the earlier task list looked incomplete
 
 The original `tasks.md` left nearly every checkbox unchecked when it was generated.
@@ -18,8 +34,8 @@ gap.
 
 ## Completed task records
 
-The following tasks are checked in `tasks.md` based on the committed implementation and
-the linked grouped evidence: T001, T003–T008, T010, T012–T015, T017, T019, T021–T023,
+The following tasks are checked in `tasks.md` based on the implementation and
+the linked grouped evidence: T001–T010, T012–T015, T017, T019, T021–T023,
 T025, T027–T029, T031–T035, T038, T040–T042.
 
 Evidence sources include:
@@ -38,8 +54,7 @@ Evidence sources include:
 
 | Tasks | Current reason |
 |---|---|
-| T002 | No preserved Week04-specific initial prompt exists at `docs/BUILD_PROMPT_WEEK04_V1.md`. `BUILD_PROMPT_V1.md` is the earlier Week03 prompt; reconstructing it as if original would fabricate evidence. |
-| T009, T011 | The context/privacy and semantic test files and green tests exist, but the recorded initial RED explicitly says these tests were not present/run then. No meaningful task-specific RED is recorded. |
+| T011 | The semantic test file and green tests exist, but the recorded initial RED explicitly says this test was not present/run then. No meaningful task-specific RED is recorded. |
 | T016, T018, T020 | Retry, failure and concurrency implementation/tests exist and pass focused offline checks, but the recorded early RED says these suites were absent. The similarly named old `T016`–`T021` evidence belongs to Week03 and is not Week04 proof. |
 | T024, T026 | Match-facts and analysis tests/implementation exist. The recorded analysis RED covered eligibility, not the full required success/failure/retry oracle; no valid full task RED is recorded. |
 | T030 | Usage aggregation exists and is covered by green tests. The old T030 RED was an import failure, not behavior RED. A later real RED found fractional latency being recorded as 0 ms and was fixed, but that does not replace a valid RED for the complete aggregation matrix. |

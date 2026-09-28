@@ -1,5 +1,23 @@
 # AI usage log
 
+## Week04 T001–T010 korekcija — 2026-09-28
+
+Alat: Codex, jedan coding agent bez paralelnih agenata. Svrha: ponovo proveriti i
+dovršiti T001–T010 po dependency redosledu, počev od originalnog prompta iz commita
+`e5a842b`, zatim uraditi fokusirane offline RED/GREEN provere. Očekivanje pre rada:
+T001 ostaje governance PASS; T002 dobija verifikovanu neizmenjenu kopiju; nepotpuni
+contract/config/context oracle-i treba da pokažu konkretne behavior propuste. Nije
+izvršen live AI poziv, nije čitan stvarni API ključ, model ovog coding poziva, tokeni i
+cena nisu dostupni: nepoznato. Operativni okviri ostaju 10–15 značajnih coding
+iteracija, 20–30 live AI razvojnih poziva i do 5 demo poziva; to nisu brojevi stvarno
+izvršenih poziva.
+
+Ishod: originalni prompt je potvrđen iz commita `e5a842b`; T003 shared contract RED je
+imao 2/13 očekivana pada, T005 config RED prvo 2/12 pa dopunski threshold RED 1/12,
+a T009 privacy RED 1/4. Posle minimalnih GREEN izmena završni fokus je 40/40, puna
+Vitest regresija 434/434, typecheck/lint/build imaju exit 0. Nije pokrenut E2E niti live
+smoke jer nisu completion kriterijum T001–T010; nema novih provider poziva.
+
 ## Week04 task/status dokumentacioni pregled — 2026-09-28
 
 Alat: Codex; svrha: uporediti postojeću Week04 implementaciju i Git/evidence istoriju

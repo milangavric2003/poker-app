@@ -110,6 +110,30 @@ export const MatchAnalysisSchema = z.strictObject({
   nextSteps: z.array(z.string().min(1).max(300)).min(1).max(6),
   disclaimer: z.string().min(1).optional(),
 });
+export const AnalysisRequestSchema = z.strictObject(Identity);
+const Count = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
+export const UsageResetSchema = z.strictObject({ expectedRevision: Count });
+const UsageMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count, sum: Count });
+const CostMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count,
+  sum: Count.nullable(), currency: z.string().min(1).nullable() }).refine(value =>
+  (value.sum === null) === (value.currency === null)
+  && (value.knownCount === 0) === (value.sum === null), 'Inconsistent cost aggregate');
+const AttemptOutcomeSchema = z.enum(['success', 'timeout', 'rate_limited', 'server_error',
+  'network_error', 'malformed', 'schema_rejected', 'semantic_rejected', 'safety_refusal',
+  'auth_config_error', 'cancelled', 'stale']);
+export const UsageDashboardSchema = z.strictObject({
+  revision: Count,
+  logical: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']),
+    initialModel: z.string().min(1), finalOutcome: z.string().min(1), count: Count })),
+  attempts: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']), model: z.string().min(1),
+    relation: z.enum(['initial', 'same_model_retry', 'model_fallback']), outcome: AttemptOutcomeSchema,
+    count: Count, latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count }),
+    usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
+      thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
+      cost: CostMetricSchema }) })),
+  retryCount: Count, modelFallbackCount: Count, localFallbackCount: Count,
+});
+export const UsageResponseSchema = z.strictObject({ usage: UsageDashboardSchema });
 const AiViewSchema = z.strictObject({
   mode: z.enum(['off', 'on']),
   availability: z.enum(['configured', 'unavailable']),
@@ -188,3 +212,6 @@ export type HandResult = z.infer<typeof HandResultSchema>;
 export type PublicEvent = z.infer<typeof PublicEventSchema>;
 export type GameError = z.infer<typeof GameErrorSchema>;
 export type MatchAnalysis = z.infer<typeof MatchAnalysisSchema>;
+export type AnalysisRequest = z.infer<typeof AnalysisRequestSchema>;
+export type UsageReset = z.infer<typeof UsageResetSchema>;
+export type UsageDashboardView = z.infer<typeof UsageDashboardSchema>;
