@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+import { geminiDiagnostic } from './gemini-diagnostic.js';
 import { ProviderError, type AiProvider, type ProviderRequest, type ProviderResult,
   type ProviderUsage } from '../types.js';
 
@@ -26,13 +27,13 @@ function usage(value: GeminiResponse['usageMetadata']): ProviderUsage | undefine
 }
 function providerError(error: unknown): never {
   if (error instanceof DOMException && error.name === 'AbortError') throw error;
-  const status = typeof error === 'object' && error !== null && 'status' in error
-    && typeof error.status === 'number' ? error.status : null;
-  if (status === 408) throw new ProviderError('timeout');
-  if (status === 429) throw new ProviderError('rate_limited');
-  if (status !== null && status >= 500) throw new ProviderError('server_error');
-  if (status === 401 || status === 403) throw new ProviderError('auth_config_error');
-  if (status !== null && status >= 400) throw new ProviderError('invalid_request');
+  const diagnostic = geminiDiagnostic(error);
+  const status = diagnostic.httpStatus;
+  if (status === 408) throw new ProviderError('timeout', undefined, undefined, status, diagnostic);
+  if (status === 429) throw new ProviderError('rate_limited', undefined, undefined, status, diagnostic);
+  if (status !== null && status >= 500) throw new ProviderError('server_error', undefined, undefined, status, diagnostic);
+  if (status === 401 || status === 403) throw new ProviderError('auth_config_error', undefined, undefined, status, diagnostic);
+  if (status !== null && status >= 400) throw new ProviderError('invalid_request', undefined, undefined, status, diagnostic);
   throw new ProviderError('network_error');
 }
 

@@ -45,6 +45,22 @@ Plan i vlasnici: [tasks](specs/001-week03-retro-poker/tasks.md).
 
 ## Gemini konfiguracija (opciono)
 
+Za dijagnostiku iz `retro-poker/` pokrenuti `npm.cmd run diagnose:gemini -- --live`.
+Ovo je eksplicitni live opt-in: najviše tri generation zahteva po pokretanju,
+bez retry-ja, uz prekid na prvom neuspehu. Bez `--live` (ili
+`RUN_GEMINI_DIAGNOSTIC=1`) nema mrežnog poziva. Skripta koristi konfigurisani
+Flash-Lite iz primary/fallback podešavanja, lokalni `.env` i bezbedne kodove grešaka.
+Exit 1 znači neuspešnu probu, exit 2 neispravnu pripremu; exit 0 sa `Not run` znači
+da live provera nije izvršena. Uspeh proverava sadržaj A/B odgovora i šemu/semantiku
+bot predloga u C, ali ne dokazuje engine commit ili uspeh analize cele partije.
+
+U AI upotreba → Attempts kolona **Razlog** prikazuje HTTP status i dozvoljeni
+provider kod. `503 / UNAVAILABLE / high_demand` znači da je API prijavio
+preopterećenje; igra koristi lokalni fallback. `invalid_request` (npr. povučen model
+sa HTTP 404) odvojen je od autentikacije. Detalji važe za nove pokušaje nakon
+restarta backend-a. Nijedan od ovih ishoda nije uspešan Gemini odgovor.
+Aktuelni nalaz: [Gemini recovery evidence](docs/evidence/002-gemini-recovery.md).
+
 Kopirati `.env.example` u `.env` i lokalno upisati `GEMINI_API_KEY`. Fajl `.env` je
 ignorisan u Git-u. Backend dev komanda automatski učitava taj fajl; frontend nema
 pristup ključu. Za produkcioni start proslediti promenljive okruženja backend procesu.

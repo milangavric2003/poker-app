@@ -19,6 +19,14 @@ const usage: api.UsageDashboardView = {
   ], retryCount: 1, modelFallbackCount: 1, localFallbackCount: 2,
 };
 describe('local usage dashboard', () => {
+  it('explains a confirmed overload without exposing provider messages', async () => {
+    const overloaded = structuredClone(usage);
+    overloaded.attempts[3]!.diagnostic = { httpStatus: 503, providerCode: 'UNAVAILABLE', reason: 'high_demand' };
+    vi.spyOn(api, 'loadUsage').mockResolvedValue(overloaded);
+    render(<UsageDashboard />);
+    fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
+    expect(await screen.findByText(/HTTP 503.*UNAVAILABLE.*preopterećen/i)).toBeInTheDocument();
+  });
   it('shows loading and empty state', async () => {
     vi.spyOn(api, 'loadUsage').mockResolvedValue({ ...usage, revision: 0, logical: [], attempts: [], retryCount: 0, modelFallbackCount: 0, localFallbackCount: 0 });
     render(<UsageDashboard />);

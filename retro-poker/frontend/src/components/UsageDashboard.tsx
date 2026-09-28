@@ -2,7 +2,14 @@ import { useRef, useState } from 'react';
 import { loadUsage, resetUsage, type UsageDashboardView } from '../api';
 
 const failureOutcomes = new Set(['timeout', 'rate_limited', 'server_error', 'network_error', 'malformed',
-  'schema_rejected', 'semantic_rejected', 'safety_refusal', 'auth_config_error']);
+  'schema_rejected', 'semantic_rejected', 'safety_refusal', 'auth_config_error', 'invalid_request']);
+function diagnosticLabel(row: UsageDashboardView['attempts'][number]): string {
+  const diagnostic = row.diagnostic;
+  if (!diagnostic) return 'Nema detalja';
+  return [diagnostic.httpStatus ? `HTTP ${diagnostic.httpStatus}` : 'Bez HTTP odgovora',
+    diagnostic.providerCode, diagnostic.reason === 'high_demand'
+      ? 'Model je trenutno preopterećen; pokušaj kasnije.' : null].filter(Boolean).join(' · ');
+}
 export function UsageDashboard() {
   const [open, setOpen] = useState(false);
   const [usage, setUsage] = useState<UsageDashboardView | null>(null);
@@ -71,7 +78,7 @@ export function UsageDashboard() {
         <div className="usage-table-wrap"><table><thead><tr><th>Purpose</th><th>Initial model</th><th>Final outcome</th><th>Count</th></tr></thead><tbody>{usage.logical.map((row, i) => <tr key={`l-${i}`}><td>{row.purpose}</td><td>{row.initialModel}</td><td>{row.finalOutcome}</td><td>{row.count}</td></tr>)}</tbody></table></div>
         </details>
         <details className="usage-details"><summary>Attempts</summary>
-        <div className="usage-table-wrap"><table><thead><tr><th>Purpose</th><th>Actual model</th><th>Relation</th><th>Outcome</th><th>Count</th><th>Latency count / avg / max</th><th>Total tokens</th><th>Cost</th></tr></thead><tbody>{usage.attempts.map((row, i) => <tr key={`a-${i}`}><td>{row.purpose}</td><td>{row.model}</td><td>{row.relation}</td><td>{row.outcome}</td><td>{row.count}</td><td>{row.latency.count} / {row.latency.count ? Math.round(row.latency.sumMs / row.latency.count) : 0} / {row.latency.maxMs} ms</td><td>{usageLabel(row.usage?.totalTokens)}</td><td>{row.usage?.cost.knownCount && row.usage.cost.sum !== null ? `${row.usage.cost.sum} ${row.usage.cost.currency ?? ''}` : 'Nepoznato'}</td></tr>)}</tbody></table></div>
+        <div className="usage-table-wrap"><table><thead><tr><th>Purpose</th><th>Actual model</th><th>Relation</th><th>Outcome</th><th>Razlog</th><th>Count</th><th>Latency count / avg / max</th><th>Total tokens</th><th>Cost</th></tr></thead><tbody>{usage.attempts.map((row, i) => <tr key={`a-${i}`}><td>{row.purpose}</td><td>{row.model}</td><td>{row.relation}</td><td>{row.outcome}</td><td>{diagnosticLabel(row)}</td><td>{row.count}</td><td>{row.latency.count} / {row.latency.count ? Math.round(row.latency.sumMs / row.latency.count) : 0} / {row.latency.maxMs} ms</td><td>{usageLabel(row.usage?.totalTokens)}</td><td>{row.usage?.cost.knownCount && row.usage.cost.sum !== null ? `${row.usage.cost.sum} ${row.usage.cost.currency ?? ''}` : 'Nepoznato'}</td></tr>)}</tbody></table></div>
         </details>
         <details className="usage-details"><summary>Tokeni i trošak</summary>
       <dl className="metric-grid">

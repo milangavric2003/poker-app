@@ -1,5 +1,20 @@
 # Context manifest — implementacioni blok člana A
 
+## Gemini recovery — 2026-09-28
+
+Prioritet: aktuelni zahtev korisnika da preuzmemo dijagnostiku i popravku, AGENTS.md,
+relevantni Week04 plan/tasks/HTTP ugovor i constitution 1.1.0. Pročitani su
+speckit-implement, requirements checklist (26/26), Luna skripta/evidence, stari live
+smoke evidence, SDK adapter/config/coordinator/types/usage, frontend parser/dashboard,
+šeme i semantic validator, povezani adapter/usage/UI testovi. Pregledani su instalirani
+SDK 2.24.0 error parser, endpoint izbor, README/types i zvanični model capability,
+Interactions i troubleshooting dokumenti. Stvarni HTTP odgovori imaju prioritet
+nad pretpostavkom da katalog modela garantuje dostupnost. `.env` je učitan samo u
+procesima za probe; ključ nije izlazio u chat/evidence. Spec Kit prerequisite je
+prema grani izabrao 001; eksplicitni bugfix odnosi se na 002. Extensions nema.
+Nisu učitani svi istorijski tasks/spec dokumenti niti pokrenuti preostali feature
+taskovi. Rizik: uspešan live bot/analysis nije potvrđen zbog provider grešaka.
+
 ## T035–T036 — član B, 2026-09-23
 
 Pročitani su aktuelni zahtev; AGENTS.md; constitution1.0.0; GAME_SPEC1.0; kompletni

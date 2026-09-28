@@ -251,3 +251,15 @@ To je prvi tehnički MVP, ne kompletna Week04 isporuka.
 Ukupno: **44 taska** — setup 2, foundation 6, US1 7, US3 8, US2 6, US4 8,
 Gemini adapter 4, završno 3. Story count: US1 7, US2 6, US3 8, US4 8.
 Svi taskovi ostaju prazni dok evidence stvarno ne postoji.
+
+## Ograničeni Gemini recovery bugfix — 2026-09-28
+
+Odobreno naknadnim korisničkim zahtevom da Codex preuzme dijagnostiku i popravku.
+Dokaz: `docs/evidence/002-gemini-recovery.md`. Prethodni T001–T044 statusi nisu
+retroaktivno menjani.
+
+- [x] GR1 — Uporediti direktan HTTP i SDK; zabeležiti dozvoljene statuse i limite poziva.
+- [x] GR2 — RED/GREEN za očuvanje bezbednog provider razloga do usage dashboard-a i 404 klasifikaciju.
+- [x] GR3 — Dijagnostički CLI vraća nonzero pri grešci/praznom odgovoru; pokriven offline testom.
+- [x] GR4 — Fokusirane i pune offline provere, typecheck, lint i build; ažurirana dokumentacija.
+- [ ] GR5 — Uspešan stvarni bot engine commit i analiza. Blokirano: live API odgovori 503/UNAVAILABLE i završni timeout; lokalni fallback nije PASS.

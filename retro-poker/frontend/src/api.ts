@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AiDiagnosticSchema } from '../../shared/ai-diagnostic';
 import { GameErrorSchema, GameResponseSchema, type GameView } from '../../shared/contracts';
 
 export type ActionDraft =
@@ -81,7 +82,8 @@ const UsageDashboardSchema = z.strictObject({
   attempts: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']), model: z.string().min(1),
     relation: z.enum(['initial', 'same_model_retry', 'model_fallback']),
     outcome: z.enum(['success', 'timeout', 'rate_limited', 'server_error', 'network_error', 'malformed',
-      'schema_rejected', 'semantic_rejected', 'safety_refusal', 'auth_config_error', 'cancelled', 'stale']),
+      'schema_rejected', 'semantic_rejected', 'safety_refusal', 'auth_config_error', 'invalid_request', 'cancelled', 'stale']),
+    diagnostic: AiDiagnosticSchema.optional(),
     count: Count, latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count }),
     usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
       thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,

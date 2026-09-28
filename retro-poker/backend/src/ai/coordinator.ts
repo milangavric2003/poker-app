@@ -39,6 +39,7 @@ function outcome(error: unknown): AttemptOutcome {
     if (error.kind === 'timeout') return 'timeout';
     if (error.kind === 'safety_refusal') return 'safety_refusal';
     if (error.kind === 'malformed') return 'malformed';
+    if (error.kind === 'invalid_request') return 'invalid_request';
     return 'auth_config_error';
   }
   if (error instanceof DOMException && error.name === 'AbortError') return 'cancelled';
@@ -70,6 +71,7 @@ export async function coordinateBot(provider: AiProvider, config: AiRuntimeConfi
     if (signal.aborted || clock.now() - started >= config.botTotalMs - 500) break;
     const attemptStarted = clock.now();
     let attemptOutcome: AttemptOutcome = 'success';
+    let diagnostic: AIAttempt['diagnostic'];
     let result: ProviderResult | undefined;
     try {
       const remaining = config.botTotalMs - (clock.now() - started) - 500;
@@ -93,8 +95,12 @@ export async function coordinateBot(provider: AiProvider, config: AiRuntimeConfi
           }
         }
       }
-    } catch (error) { attemptOutcome = outcome(error); }
+    } catch (error) {
+      attemptOutcome = outcome(error);
+      if (error instanceof ProviderError) diagnostic = error.diagnostic;
+    }
     attempts.push({ ordinal, model, relation, outcome: attemptOutcome,
+      ...(diagnostic ? { diagnostic } : {}),
       durationMs: Math.max(0, clock.now() - attemptStarted), ...(result?.usage ? { usage: result.usage } : {}) });
     if (ordinal === config.maxAttempts) break;
     const maxJitter = 100;
@@ -121,6 +127,7 @@ export async function coordinateAnalysis(provider: AiProvider, config: AiRuntime
   for (let ordinal = 1 as 1 | 2; ordinal <= config.maxAttempts; ordinal = 2) {
     const attemptStarted = clock.now();
     let attemptOutcome: AttemptOutcome = 'success';
+    let diagnostic: AIAttempt['diagnostic'];
     let result: ProviderResult | undefined;
     try {
       const remaining = config.analysisTotalMs - (clock.now() - started) - 1000;
@@ -147,8 +154,12 @@ export async function coordinateAnalysis(provider: AiProvider, config: AiRuntime
           }
         }
       }
-    } catch (error) { attemptOutcome = outcome(error); }
+    } catch (error) {
+      attemptOutcome = outcome(error);
+      if (error instanceof ProviderError) diagnostic = error.diagnostic;
+    }
     attempts.push({ ordinal, model, relation, outcome: attemptOutcome,
+      ...(diagnostic ? { diagnostic } : {}),
       durationMs: Math.max(0, clock.now() - attemptStarted) });
     if (ordinal === config.maxAttempts) break;
     const decision = retryDecision(attemptOutcome, 'analysis', config, model, jitter.next(250));

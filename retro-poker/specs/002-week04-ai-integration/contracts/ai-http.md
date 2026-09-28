@@ -144,6 +144,16 @@ Bot provider failure nije HTTP greška korisničke mutacije: završava se bezbed
 lokalnim potezom i vidljivim `lastBotOutcome`. Provider status body, raw poruka, prompt,
 karte, ključ i stack trace se ne mapiraju u `message`.
 
+## Dopuna dijagnostike (2026-09-28)
+
+Usage attempt može sadržati opciono `diagnostic` polje: `httpStatus` (400–599 ili
+null), `providerCode` (zatvoreni enum iz `shared/ai-diagnostic.ts`, ili null),
+`reason` (`high_demand` ili `unknown`). Bez raw poruka, headers, request/response
+body-ja ili proizvoljnih strings. `high_demand` se izvodi samo iz prepoznate 503
+poruke; sam status 503 nije dovoljan za tu tvrdnju. Neprepoznati kod ostaje null.
+Attempt `outcome` dodatno razlikuje `invalid_request` od `auth_config_error`.
+Agregacija razdvaja statuse/razloge da kasniji 500 ne nasledi opis prethodnog 503.
+
 ## Idempotency i read-only dostupnost
 
 - Jedan active bot fingerprint; drugi schedule za isti fingerprint vraća postojeći status.

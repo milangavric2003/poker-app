@@ -65,8 +65,22 @@ describe('Gemini provider adapter', () => {
         new AbortController().signal).catch((error: unknown) => error);
       expect(caught).toBeInstanceOf(ProviderError);
       expect(caught).toMatchObject({ kind, message: 'AI provider failure' });
+      expect((caught as ProviderError).httpStatus).toBe(status);
       expect(String(caught)).not.toContain('secret');
+      expect(JSON.stringify(caught)).not.toContain('raw secret');
+      expect(JSON.stringify(caught)).not.toContain('headers');
     });
+
+  it('leaves status unknown when the SDK error has no numeric HTTP status', async () => {
+    const sdk: GeminiClient = { models: { generateContent: vi.fn().mockRejectedValue(
+      new Error('must-not-leak raw body or key=private')) } };
+    const caught = await createGeminiProvider('private', () => sdk).generate(request,
+      new AbortController().signal).catch((error: unknown) => error);
+    expect(caught).toMatchObject({ kind: 'network_error', httpStatus: null,
+      message: 'AI provider failure' });
+    expect(JSON.stringify(caught)).not.toContain('must-not-leak');
+    expect(JSON.stringify(caught)).not.toContain('private');
+  });
 
   it('preserves cancellation as AbortError and maps transport failures', async () => {
     const aborted = new DOMException('secret', 'AbortError');

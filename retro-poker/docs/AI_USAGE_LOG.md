@@ -1,5 +1,42 @@
 # AI usage log
 
+## Lite timeout proba posle slike kvota — 2026-09-28
+
+Na korisnikov predlog da proverimo Lite/Unlimited opcije izvršen je jedan novi
+generation zahtev: gemini-3.5-flash-lite, produkcioni SDK adapter/coordinator,
+privremeni timeout 11 s, bez prethodnog Flash-a i bez retry-ja. Rezultat: timeout
+11018 ms, exit 1; HTTP status, tokeni i trošak nepoznati. `.env` nije menjan.
+Ovaj poziv je dodat prethodnom zasebnom bloku od pet pokušaja; nije deo njegovog
+limita. Dopunjeni [recovery dokazi](evidence/002-gemini-recovery.md).
+
+## Gemini recovery — 2026-09-28
+
+Korisnik je zatražio da Codex preuzme dijagnostiku posle Luna nalaza. Jedan agent,
+bez paralelnih agenata. Napravljeno je pet novih generation pokušaja: 3 direktni
+generateContent REST poziva (3.5/3.1 Flash-Lite: 503; 2.5 Flash-Lite: 404), jedan
+Interactions poziv (503) i jedan produkcioni SDK/coordinator poziv (timeout).
+Dva list-models GET-a su uspela; jedan GET je prethodno blokirao sandbox.
+Nema uspešne generacije ni dokaza uspešnog bota/analize. Trošak i tokeni: nepoznati.
+Bez izmena ključa, model konfiguracije ili billing-a. Implementirano je prenošenje
+bezbedne dijagnostike do UI-ja i ispravljen CLI koji je ranije vraćao exit 0 pri
+neuspehu. RED/GREEN i 427/427 offline testova su zabeleženi uz typecheck/lint/build.
+Detalji i ograničenja: [recovery evidence](evidence/002-gemini-recovery.md).
+Coding model/token usage nije nezavisno potvrđen; ljudski review nije tvrđen.
+
+## Gemini recovery — 2026-09-28
+
+Korisnik je zatražio da Codex preuzme dijagnostiku posle Luna nalaza. Jedan agent,
+bez paralelnih agenata. Napravljeno je pet novih generation pokušaja: 3 direktni
+generateContent REST poziva (3.5/3.1 Flash-Lite: 503; 2.5 Flash-Lite: 404), jedan
+Interactions poziv (503) i jedan produkcioni SDK/coordinator poziv (timeout).
+Dva list-models GET-a su uspela; jedan GET je prethodno blokirao sandbox.
+Nema uspešne generacije ni dokaza uspešnog bota/analize. Trošak i tokeni: nepoznati.
+Bez izmena ključa, model konfiguracije ili billing-a. Implementirano je prenošenje
+bezbedne dijagnostike do UI-ja i ispravljen CLI koji je ranije vraćao exit 0 pri
+neuspehu. RED/GREEN i 427/427 offline testova su zabeleženi uz typecheck/lint/build.
+Detalji i ograničenja: [recovery evidence](evidence/002-gemini-recovery.md).
+Coding model/token usage nije nezavisno potvrđen; ljudski review nije tvrđen.
+
 ## Opciono rucno Gemini smoke testiranje - 2026-09-28
 
 Izvrsena su ukupno **2 stvarna provider zahteva** ka `gemini-3.8-flash`: jedan bot
