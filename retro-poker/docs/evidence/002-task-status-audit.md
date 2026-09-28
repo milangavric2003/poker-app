@@ -35,7 +35,7 @@ gap.
 ## Completed task records
 
 The following tasks are checked in `tasks.md` based on the implementation and
-the linked grouped evidence: T001–T015, T017, T019, T021–T023,
+the linked grouped evidence: T001–T023,
 T025, T027–T029, T031–T035, T038, T040–T042.
 
 Evidence sources include:
@@ -54,7 +54,6 @@ Evidence sources include:
 
 | Tasks | Current reason |
 |---|---|
-| T016, T018, T020 | Retry, failure and concurrency implementation/tests exist and pass focused offline checks, but the recorded early RED says these suites were absent. The similarly named old `T016`–`T021` evidence belongs to Week03 and is not Week04 proof. |
 | T024, T026 | Match-facts and analysis tests/implementation exist. The recorded analysis RED covered eligibility, not the full required success/failure/retry oracle; no valid full task RED is recorded. |
 | T030 | Usage aggregation exists and is covered by green tests. The old T030 RED was an import failure, not behavior RED. A later real RED found fractional latency being recorded as 0 ms and was fixed, but that does not replace a valid RED for the complete aggregation matrix. |
 | T036, T037 | `tests/e2e/ai-offline.spec.ts` passes its representative bot/dashboard/reset flow, but it does not cover browser-level analysis success, failure and manual retry. T037 depends on closing that scope. See `002-T036-T037-status.txt`. |

@@ -271,18 +271,31 @@ export class GameSession {
     if (!reservation || !this.dependencies.aiProvider) return;
     const result = await coordinateBot(this.dependencies.aiProvider, this.aiConfig, reservation.context,
       reservation.controller.signal, this.dependencies.aiClock ?? systemClock,
-      this.dependencies.aiJitter ?? zeroJitter);
-    recordUsageOnce(reservation.interactionId, 'bot', this.aiConfig.primaryModel, result, reservation.usageEpoch);
-    await this.serial(() => this.commitBot(reservation.interactionId, reservation.context, result));
+      this.dependencies.aiJitter ?? zeroJitter, async (status, attemptCount, model) => {
+        await this.serial(() => {
+          if (this.game?.ai.active?.interactionId === reservation.interactionId) {
+            this.game.ai.active = { ...this.game.ai.active, status, attemptCount, model };
+          }
+        });
+      });
+    const committed = await this.serial(() => this.commitBot(reservation.interactionId, reservation.context, result));
+    recordUsageOnce(reservation.interactionId, 'bot', this.aiConfig.primaryModel,
+      committed || result.failure === 'cancelled' ? result : { ...result, ok: false, value: undefined, failure: 'stale' },
+      reservation.usageEpoch);
   }
 
   private commitBot(interactionId: string, context: BotDecisionContext,
-    result: Awaited<ReturnType<typeof coordinateBot>>): void {
+    result: Awaited<ReturnType<typeof coordinateBot>>): boolean {
     const current = this.game;
-    if (!current || current.ai.active?.interactionId !== interactionId || this.activeBot?.interactionId !== interactionId
-      || current.gameId !== context.gameId || current.hand.handId !== context.handId
+    if (!current || current.ai.active?.interactionId !== interactionId
+      || this.activeBot?.interactionId !== interactionId) return false;
+    if (current.gameId !== context.gameId || current.hand.handId !== context.handId
       || current.version !== context.expectedVersion || current.hand.actorId !== context.actorId
-      || current.aiDecisionOrdinal !== context.decisionOrdinal) return;
+      || current.aiDecisionOrdinal !== context.decisionOrdinal) {
+      current.ai.active = null;
+      this.activeBot = null;
+      return false;
+    }
     const candidate = cloneGame(current);
     const observation = buildBotObservation(candidate.hand, context.actorId, candidate.history.current.events);
     const action = result.ok && result.value ? result.value : safeBotAction(observation.legalActions,
@@ -301,6 +314,7 @@ export class GameSession {
     this.game = candidate;
     this.activeBot = null;
     queueMicrotask(() => this.kickBot());
+    return true;
   }
 
   startAnalysis(input: { gameId: string; handId: string; expectedVersion: number }): GameState {
@@ -333,7 +347,14 @@ export class GameSession {
     fingerprint: { gameId: string; handId: string; expectedVersion: number; factsRevision: number },
     context: unknown, usageEpoch: number): Promise<void> {
     const result = await coordinateAnalysis(this.dependencies.aiProvider!, this.aiConfig, context,
-      controller.signal, this.dependencies.aiClock ?? systemClock, this.dependencies.aiJitter ?? zeroJitter);
+      controller.signal, this.dependencies.aiClock ?? systemClock, this.dependencies.aiJitter ?? zeroJitter,
+      async (status, attemptCount, model) => {
+        await this.serial(() => {
+          if (this.game?.ai.active?.interactionId === interactionId) {
+            this.game.ai.active = { ...this.game.ai.active, status, attemptCount, model };
+          }
+        });
+      });
     recordUsageOnce(interactionId, 'analysis', this.aiConfig.primaryModel, result, usageEpoch);
     await this.serial(() => {
       const game = this.game;

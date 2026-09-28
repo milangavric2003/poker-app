@@ -114,3 +114,23 @@ biti `complete`, iako ga runtime guard odbija; builder sada koristi prethodno su
 lokalni `phase`. Lint je zatim jednom prijavio neiskorišćenu međuvrednost u novom route
 testu; assertion je zadržan bez nepotrebne dodele. Posle tih korekcija gore navedene
 komande su stvarno prošle.
+
+## T016–T020 ponovna implementacija — 2026-09-28
+
+- `npm.cmd test -- tests/unit/ai-retry.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts`
+  — exit 0; 3 fajla, 39/39 testova.
+- `npm.cmd test` — exit 0; 36 fajlova, 480/480 testova.
+- `npm.cmd run lint`, `npm.cmd run typecheck`, `npm.cmd run build` — exit 0; Vite
+  build je transformisao 119 modula, zatim je server TypeScript build prošao.
+
+Retry matrica proverava max dva pokušaja, bot/analysis jitter i backoff, model fallback,
+corrective retry bez backoff-a, terminalne klase, `Retry-After`, total budget i commit
+rezervu. Failure integracija ima odvojene oracle redove, missing-key zero-call i
+RNG/history paritet. Concurrency proverava pending GET, cancellation signal,
+replacement/late callback, svaki fingerprint deo, dupli callback i deadline granicu.
+Session objavljuje `retrying`/`model_fallback`, zatvara istu stale interakciju i beleži
+stale usage bez engine mutacije.
+
+Stvarni behavior RED rezultati su u `002-T016-red.txt` i `002-T020-red.txt`. T018
+proširenje je bilo produkciono zeleno; `002-T018-red.txt` čuva tu činjenicu i ne
+predstavlja test-setup grešku kao RED. Sve provere su offline.

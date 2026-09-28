@@ -30,6 +30,8 @@ export const systemClock: AiClock = {
   }),
 };
 export const zeroJitter: AiJitter = { next: () => 0 };
+export type AttemptProgress = (status: 'retrying' | 'model_fallback', attemptCount: number,
+  model: string) => void | Promise<void>;
 
 function outcome(error: unknown): AttemptOutcome {
   if (error instanceof ProviderError) {
@@ -61,18 +63,19 @@ async function attemptWithTimeout(provider: AiProvider, request: Parameters<AiPr
 
 export async function coordinateBot(provider: AiProvider, config: AiRuntimeConfig,
   context: BotDecisionContext, signal: AbortSignal, clock: AiClock = systemClock,
-  jitter: AiJitter = zeroJitter): Promise<CoordinatorResult<PokerAction>> {
+  jitter: AiJitter = zeroJitter, onProgress?: AttemptProgress): Promise<CoordinatorResult<PokerAction>> {
   const started = clock.now();
   let model = config.primaryModel;
   let relation: AIAttempt['relation'] = 'initial';
   const attempts: AIAttempt[] = [];
   for (let ordinal = 1 as 1 | 2; ordinal <= config.maxAttempts; ordinal = 2) {
-    if (signal.aborted || clock.now() - started >= config.botTotalMs - 500) break;
+    if (signal.aborted || clock.now() - started >= config.botTotalMs - config.botReserveMs) break;
     const attemptStarted = clock.now();
     let attemptOutcome: AttemptOutcome = 'success';
+    let retryAfterMs: number | undefined;
     let result: ProviderResult | undefined;
     try {
-      const remaining = config.botTotalMs - (clock.now() - started) - 500;
+      const remaining = config.botTotalMs - (clock.now() - started) - config.botReserveMs;
       result = await attemptWithTimeout(provider, { purpose: 'bot', model, context,
         responseSchema: botProposalJsonSchema, attemptOrdinal: ordinal,
         ...(ordinal === 2 ? { corrective: true } : {}) }, signal, clock,
@@ -93,15 +96,20 @@ export async function coordinateBot(provider: AiProvider, config: AiRuntimeConfi
           }
         }
       }
-    } catch (error) { attemptOutcome = outcome(error); }
+    } catch (error) {
+      attemptOutcome = outcome(error);
+      if (error instanceof ProviderError) retryAfterMs = error.retryAfterMs;
+    }
     attempts.push({ ordinal, model, relation, outcome: attemptOutcome,
       durationMs: Math.max(0, clock.now() - attemptStarted), ...(result?.usage ? { usage: result.usage } : {}) });
     if (ordinal === config.maxAttempts) break;
     const maxJitter = 100;
-    const decision = retryDecision(attemptOutcome, 'bot', config, model, jitter.next(maxJitter));
+    const decision = retryDecision(attemptOutcome, 'bot', config, model, jitter.next(maxJitter), retryAfterMs);
     if (!decision.retry) break;
+    await onProgress?.(decision.relation === 'model_fallback' ? 'model_fallback' : 'retrying',
+      attempts.length, decision.model);
     if (decision.backoffMs > 0) {
-      const remaining = config.botTotalMs - (clock.now() - started) - 500;
+      const remaining = config.botTotalMs - (clock.now() - started) - config.botReserveMs;
       if (decision.backoffMs >= remaining) break;
       try { await clock.sleep(decision.backoffMs, signal); } catch { break; }
     }
@@ -113,7 +121,7 @@ export async function coordinateBot(provider: AiProvider, config: AiRuntimeConfi
 
 export async function coordinateAnalysis(provider: AiProvider, config: AiRuntimeConfig,
   context: unknown, signal: AbortSignal, clock: AiClock = systemClock,
-  jitter: AiJitter = zeroJitter): Promise<CoordinatorResult<MatchAnalysis>> {
+  jitter: AiJitter = zeroJitter, onProgress?: AttemptProgress): Promise<CoordinatorResult<MatchAnalysis>> {
   const started = clock.now();
   let model = config.primaryModel;
   let relation: AIAttempt['relation'] = 'initial';
@@ -121,9 +129,10 @@ export async function coordinateAnalysis(provider: AiProvider, config: AiRuntime
   for (let ordinal = 1 as 1 | 2; ordinal <= config.maxAttempts; ordinal = 2) {
     const attemptStarted = clock.now();
     let attemptOutcome: AttemptOutcome = 'success';
+    let retryAfterMs: number | undefined;
     let result: ProviderResult | undefined;
     try {
-      const remaining = config.analysisTotalMs - (clock.now() - started) - 1000;
+      const remaining = config.analysisTotalMs - (clock.now() - started) - config.analysisReserveMs;
       if (remaining <= 0) break;
       result = await attemptWithTimeout(provider, { purpose: 'analysis', model, context,
         responseSchema: analysisJsonSchema, attemptOrdinal: ordinal,
@@ -147,14 +156,19 @@ export async function coordinateAnalysis(provider: AiProvider, config: AiRuntime
           }
         }
       }
-    } catch (error) { attemptOutcome = outcome(error); }
+    } catch (error) {
+      attemptOutcome = outcome(error);
+      if (error instanceof ProviderError) retryAfterMs = error.retryAfterMs;
+    }
     attempts.push({ ordinal, model, relation, outcome: attemptOutcome,
       durationMs: Math.max(0, clock.now() - attemptStarted) });
     if (ordinal === config.maxAttempts) break;
-    const decision = retryDecision(attemptOutcome, 'analysis', config, model, jitter.next(250));
+    const decision = retryDecision(attemptOutcome, 'analysis', config, model, jitter.next(250), retryAfterMs);
     if (!decision.retry) break;
+    await onProgress?.(decision.relation === 'model_fallback' ? 'model_fallback' : 'retrying',
+      attempts.length, decision.model);
     if (decision.backoffMs > 0) {
-      const remaining = config.analysisTotalMs - (clock.now() - started) - 1000;
+      const remaining = config.analysisTotalMs - (clock.now() - started) - config.analysisReserveMs;
       if (decision.backoffMs >= remaining) break;
       try { await clock.sleep(decision.backoffMs, signal); } catch { break; }
     }

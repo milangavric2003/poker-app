@@ -1,7 +1,7 @@
 import { ProviderError, type AiProvider, type ProviderRequest, type ProviderResult } from '../../backend/src/ai/types.js';
 
 export type FakeAiStep = ProviderResult | { kind: 'analysis_success' } | { kind: 'malformed' | 'schema_mismatch' | 'semantic_illegal'
-  | 'timeout' | '429' | '5xx' | 'safety_refusal' | 'auth_config' | 'network' }
+  | 'timeout' | 'timeout_error' | '429' | '5xx' | 'safety_refusal' | 'auth_config' | 'network' }
   | { kind: 'pending'; id?: string };
 interface Pending { resolve: (result: ProviderResult) => void; reject: (error: unknown) => void; signal: AbortSignal; }
 
@@ -31,6 +31,7 @@ export class FakeAiProvider implements AiProvider {
       handId: '00000000-0000-4000-8000-000000000000', expectedVersion: 0, actorId: 'wrong',
       decisionOrdinal: 1, type: 'check' } };
     if (step.kind === '429') throw new ProviderError('rate_limited');
+    if (step.kind === 'timeout_error') throw new ProviderError('timeout');
     if (step.kind === '5xx') throw new ProviderError('server_error');
     if (step.kind === 'safety_refusal') throw new ProviderError('safety_refusal');
     if (step.kind === 'auth_config') throw new ProviderError('auth_config_error');
