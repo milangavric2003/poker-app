@@ -64,10 +64,12 @@ export interface BotDecisionContext {
   holeCards: readonly [Card, Card]; legalActions: readonly LegalAction[];
   history: readonly PublicEvent[];
 }
-export type BotActionProposal = { gameId: string; handId: string; expectedVersion: number;
-  actorId: string; type: 'fold' | 'check' | 'call' | 'all_in' }
-  | { gameId: string; handId: string; expectedVersion: number; actorId: string;
-    type: 'bet' | 'raise'; amountTo: number };
+type BotProposalIdentity = { gameId: string; handId: string; expectedVersion: number;
+  actorId: string; decisionOrdinal: number };
+export type BotActionProposal = BotProposalIdentity & (
+  { type: 'fold' | 'check' | 'call' | 'all_in' }
+  | { type: 'bet' | 'raise'; amountTo: number }
+);
 
 export interface BotFingerprint {
   interactionId: string; purpose: 'bot'; gameId: string; handId: string;

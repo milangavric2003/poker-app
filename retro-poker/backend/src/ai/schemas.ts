@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { MatchAnalysisSchema } from '../../../shared/contracts.js';
 
 const Identity = { gameId: z.uuid(), handId: z.uuid(), expectedVersion: z.number().int().min(0),
-  actorId: z.string().min(1) };
+  actorId: z.string().min(1), decisionOrdinal: z.number().int().min(1).max(Number.MAX_SAFE_INTEGER) };
 export const BotActionProposalSchema = z.discriminatedUnion('type', [
   z.strictObject({ ...Identity, type: z.literal('fold') }),
   z.strictObject({ ...Identity, type: z.literal('check') }),
@@ -13,12 +13,13 @@ export const BotActionProposalSchema = z.discriminatedUnion('type', [
 ]);
 const identityProperties = { gameId: { type: 'string', format: 'uuid' },
   handId: { type: 'string', format: 'uuid' }, expectedVersion: { type: 'integer', minimum: 0 },
-  actorId: { type: 'string', minLength: 1 } };
+  actorId: { type: 'string', minLength: 1 },
+  decisionOrdinal: { type: 'integer', minimum: 1, maximum: Number.MAX_SAFE_INTEGER } };
 export const botProposalJsonSchema = Object.freeze({ type: 'object', additionalProperties: false,
   properties: { ...identityProperties, type: { type: 'string',
     enum: ['fold', 'check', 'call', 'all_in', 'bet', 'raise'] },
   amountTo: { type: 'integer', minimum: 1, maximum: 6000 } },
-  required: ['gameId', 'handId', 'expectedVersion', 'actorId', 'type'] });
+  required: ['gameId', 'handId', 'expectedVersion', 'actorId', 'decisionOrdinal', 'type'] });
 const analysisItem = { type: 'object', additionalProperties: false,
   properties: { decisionRef: { type: 'string', minLength: 1 },
     explanation: { type: 'string', minLength: 1, maxLength: 600 } },

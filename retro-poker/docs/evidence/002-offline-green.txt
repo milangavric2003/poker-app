@@ -76,6 +76,30 @@ Scope i bezbednost
 
 Sve komande su offline; nije čitan stvarni API ključ niti napravljen mrežni poziv.
 
+## T011–T015 ponovna provera — 2026-09-28
+
+- `npm.cmd test -- tests/unit/ai-semantic.test.ts` — exit 0; 1 fajl, 12/12 testova.
+- `npm.cmd test -- tests/integration/ai-bots.test.ts` — exit 0; 1 fajl, 7/7 testova.
+  Legalni offline fake prolazi kroz engine za botCount 1–5; action/history/version i
+  očuvanje ukupnih čipova odgovaraju provider pozivima. AI-off i missing-key imaju
+  tačno nula provider poziva.
+- `npm.cmd test -- tests/integration/ai-bots.test.ts tests/contract/ai-routes.test.ts tests/unit/ai-semantic.test.ts`
+  — exit 0; 3 fajla, 26/26 testova.
+- `npm.cmd test` — exit 0; 36 fajlova, 446/446 testova.
+- `npm.cmd run typecheck` — exit 0. `npm.cmd run lint` — exit 0.
+- `npm.cmd run build` — exit 0; Vite 119 modula i server TypeScript build.
+
+Javni AI snapshot je eksplicitna allowlist projekcija; create/GET/action/next-hand test
+odbija prompt/proposal/API-key/raw nazive. Session commit dodatno proverava rezervisani
+`decisionOrdinal`. Sve je izvršeno bez mreže i sa placeholder test ključem koji se ne
+prosleđuje stvarnom provideru.
+
+T013 je sada čekiran na osnovu kompletnog testa i GREEN kriterijuma. Istorijski RED u
+`002-red-tests.txt` prethodio je široj integraciji, ali nije sadržao ceo naknadno
+dopunjeni action/stack/version/history/call-count oracle; prošireni test je bio zelen
+nad postojećim ponašanjem, a privremeni pogrešni test oracle-i nisu predstavljeni kao
+produkcioni RED. Ova granica dokaza je zadržana eksplicitno.
+
 Završna T001–T010 provera nad konačnim sadržajem:
 
 - `npm.cmd test -- tests/unit/ai-config.test.ts tests/unit/ai-context.test.ts tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts`

@@ -14,10 +14,11 @@ export function testDependencies(): GameDependencies {
 const offlineProvider: AiProvider = { async generate(request: ProviderRequest): Promise<ProviderResult> {
   if (request.purpose === 'bot') {
     const context = request.context as { gameId: string; handId: string; expectedVersion: number; actorId: string;
-      legalActions: Array<{ type: string }> };
+      decisionOrdinal: number; legalActions: Array<{ type: string }> };
     const action = context.legalActions.find(candidate => candidate.type === 'check') ?? context.legalActions[0]!;
     return { candidate: { gameId: context.gameId, handId: context.handId, expectedVersion: context.expectedVersion,
-      actorId: context.actorId, type: action.type }, usage: { promptTokens: 0, candidateTokens: 2, totalTokens: 2 } };
+      actorId: context.actorId, decisionOrdinal: context.decisionOrdinal,
+      type: action.type }, usage: { promptTokens: 0, candidateTokens: 2, totalTokens: 2 } };
   }
   return { candidate: { summary: 'Offline fake analiza.', goodDecisions: [], possibleMistakes: [],
     nextSteps: ['Nastavi sa proverom uloga.'] }, usage: { promptTokens: 10, candidateTokens: 4, totalTokens: 14 } };

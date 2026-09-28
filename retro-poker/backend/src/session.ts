@@ -281,7 +281,8 @@ export class GameSession {
     const current = this.game;
     if (!current || current.ai.active?.interactionId !== interactionId || this.activeBot?.interactionId !== interactionId
       || current.gameId !== context.gameId || current.hand.handId !== context.handId
-      || current.version !== context.expectedVersion || current.hand.actorId !== context.actorId) return;
+      || current.version !== context.expectedVersion || current.hand.actorId !== context.actorId
+      || current.aiDecisionOrdinal !== context.decisionOrdinal) return;
     const candidate = cloneGame(current);
     const observation = buildBotObservation(candidate.hand, context.actorId, candidate.history.current.events);
     const action = result.ok && result.value ? result.value : safeBotAction(observation.legalActions,

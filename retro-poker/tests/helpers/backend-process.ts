@@ -6,10 +6,11 @@ import { loadAiConfig } from '../../backend/src/ai/config';
 const fakeProvider: AiProvider = { async generate(request: ProviderRequest): Promise<ProviderResult> {
   if (request.purpose === 'bot') {
     const context = request.context as { gameId: string; handId: string; expectedVersion: number;
-      actorId: string; legalActions: Array<{ type: string }> };
+      actorId: string; decisionOrdinal: number; legalActions: Array<{ type: string }> };
     const action = context.legalActions.find(candidate => candidate.type === 'check') ?? context.legalActions[0]!;
     return { candidate: { gameId: context.gameId, handId: context.handId,
-      expectedVersion: context.expectedVersion, actorId: context.actorId, type: action.type },
+      expectedVersion: context.expectedVersion, actorId: context.actorId,
+      decisionOrdinal: context.decisionOrdinal, type: action.type },
       usage: { promptTokens: 0, candidateTokens: 2, totalTokens: 2 } };
   }
   return { candidate: { summary: 'Offline fake analiza.', goodDecisions: [], possibleMistakes: [],

@@ -51,6 +51,9 @@ describe('Week04 HTTP contracts (AIAC01, AIAC12–AIAC13)', () => {
       expect(response.headers['cache-control']).toBe('no-store');
       const game = GameResponseSchema.parse(response.json()).game;
       expect(game?.ai).toMatchObject({ mode: 'off', active: null });
+      const serialized = JSON.stringify(response.json()).toLowerCase();
+      for (const forbidden of ['prompt', 'proposal', 'apikey', 'api_key', 'rawresponse', 'raw_response'])
+        expect(serialized).not.toContain(forbidden);
       if (!game) throw new Error('Očekivano je stanje partije.');
       return game;
     };

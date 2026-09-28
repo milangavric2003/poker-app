@@ -28,7 +28,8 @@ export class FakeAiProvider implements AiProvider {
         possibleMistakes: [], nextSteps: ['Nastavi da proveravas velicinu pota.'] } };
     }
     if (step.kind === 'semantic_illegal') return { candidate: { gameId: '00000000-0000-4000-8000-000000000000',
-      handId: '00000000-0000-4000-8000-000000000000', expectedVersion: 0, actorId: 'wrong', type: 'check' } };
+      handId: '00000000-0000-4000-8000-000000000000', expectedVersion: 0, actorId: 'wrong',
+      decisionOrdinal: 1, type: 'check' } };
     if (step.kind === '429') throw new ProviderError('rate_limited');
     if (step.kind === '5xx') throw new ProviderError('server_error');
     if (step.kind === 'safety_refusal') throw new ProviderError('safety_refusal');
@@ -40,9 +41,11 @@ export class FakeAiProvider implements AiProvider {
 }
 
 export function legalBotProposal(context: { gameId: string; handId: string; expectedVersion: number;
-  actorId: string; legalActions: ReadonlyArray<{ type: string; minAmountTo?: number }> }): ProviderResult {
+  actorId: string; decisionOrdinal: number;
+  legalActions: ReadonlyArray<{ type: string; minAmountTo?: number }> }): ProviderResult {
   const legal = context.legalActions.find(action => action.type === 'check') ?? context.legalActions[0]!;
   return { candidate: { gameId: context.gameId, handId: context.handId,
-    expectedVersion: context.expectedVersion, actorId: context.actorId, type: legal.type,
+    expectedVersion: context.expectedVersion, actorId: context.actorId,
+    decisionOrdinal: context.decisionOrdinal, type: legal.type,
     ...((legal.type === 'bet' || legal.type === 'raise') ? { amountTo: legal.minAmountTo } : {}) } };
 }
