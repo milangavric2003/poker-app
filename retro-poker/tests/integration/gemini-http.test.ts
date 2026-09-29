@@ -1,9 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createGeminiProvider } from '../../backend/src/ai/providers/gemini.js';
+import { createGeminiProvider, geminiBotResponseSchema } from '../../backend/src/ai/providers/gemini.js';
 import { coordinateBot, coordinateAnalysis } from '../../backend/src/ai/coordinator.js';
 import { loadAiConfig } from '../../backend/src/ai/config.js';
 import { UsageStore } from '../../backend/src/ai/usage.js';
-import { botProposalJsonSchema } from '../../backend/src/ai/schemas.js';
 import type { BotDecisionContext } from '../../backend/src/ai/types.js';
 import { loadUsage } from '../../frontend/src/api.js';
 
@@ -29,7 +28,7 @@ describe('real Gemini SDK over intercepted HTTP', () => {
     const proposal = { gameId: context.gameId, handId: context.handId,
       expectedVersion: 1, actorId: 'bot-1', type: 'check' };
     const fetchMock = transport({ candidates: [{ content: { role: 'model',
-      parts: [{ text: JSON.stringify(proposal) }] }, finishReason: 'STOP' }],
+      parts: [{ text: JSON.stringify({ ...proposal, amountTo: null }) }] }, finishReason: 'STOP' }],
     modelVersion: config.primaryModel, usageMetadata: { totalTokenCount: 23 } });
     const result = await coordinateBot(createGeminiProvider('fake-secret'), config, context, signal());
     expect(result).toMatchObject({ ok: true, value: { type: 'check' },
@@ -40,7 +39,7 @@ describe('real Gemini SDK over intercepted HTTP', () => {
     expect(String(url)).not.toContain('fake-secret');
     const body = JSON.parse(init.body as string);
     expect(body.generationConfig).toMatchObject({ responseMimeType: 'application/json',
-      responseJsonSchema: botProposalJsonSchema });
+      responseJsonSchema: geminiBotResponseSchema });
   });
 
   it.each(['bot', 'analysis'] as const)('preserves safe overload evidence through %s and dashboard parsing', async purpose => {

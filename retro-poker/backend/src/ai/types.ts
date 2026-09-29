@@ -15,14 +15,14 @@ export interface AiRuntimeConfig {
   primaryModel: string;
   fallbackModel: string | null;
   maxAttempts: 1 | 2;
-  botTotalMs: 12000;
+  botTotalMs: number;
   analysisTotalMs: 30000;
   botAttemptMs: number;
   analysisAttemptMs: number;
   backoffMinMs: number;
   backoffMaxMs: number;
   public: Readonly<{ enabled: boolean; primaryModel: string; fallbackModel: string | null;
-    maxAttempts: 1 | 2; botAttemptMs: number; analysisAttemptMs: number;
+    maxAttempts: 1 | 2; botTotalMs: number; botAttemptMs: number; analysisAttemptMs: number;
     backoffMinMs: number; backoffMaxMs: number; configError: 'MODEL_NOT_ALLOWED' | null }>;
 }
 

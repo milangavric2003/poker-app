@@ -14,11 +14,16 @@ export const BotActionProposalSchema = z.discriminatedUnion('type', [
 const identityProperties = { gameId: { type: 'string', format: 'uuid' },
   handId: { type: 'string', format: 'uuid' }, expectedVersion: { type: 'integer', minimum: 0 },
   actorId: { type: 'string', minLength: 1 } };
-export const botProposalJsonSchema = Object.freeze({ type: 'object', additionalProperties: false,
-  properties: { ...identityProperties, type: { type: 'string',
-    enum: ['fold', 'check', 'call', 'all_in', 'bet', 'raise'] },
-  amountTo: { type: 'integer', minimum: 1, maximum: 6000 } },
-  required: ['gameId', 'handId', 'expectedVersion', 'actorId', 'type'] });
+const requiredIdentity = ['gameId', 'handId', 'expectedVersion', 'actorId', 'type'];
+export const botProposalJsonSchema = Object.freeze({ type: 'object', anyOf: [
+  { type: 'object', additionalProperties: false,
+    properties: { ...identityProperties, type: { type: 'string', enum: ['fold', 'check', 'call', 'all_in'] } },
+    required: requiredIdentity },
+  { type: 'object', additionalProperties: false,
+    properties: { ...identityProperties, type: { type: 'string', enum: ['bet', 'raise'] },
+      amountTo: { type: 'integer', minimum: 1, maximum: 6000 } },
+    required: [...requiredIdentity, 'amountTo'] },
+] });
 const analysisItem = { type: 'object', additionalProperties: false,
   properties: { decisionRef: { type: 'string', minLength: 1 },
     explanation: { type: 'string', minLength: 1, maxLength: 600 } },

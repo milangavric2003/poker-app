@@ -54,7 +54,8 @@ export function toGameView(game: GameState): GameView {
       id: player.id, seat: player.seat, kind: player.kind, stack: player.stack,
       streetContribution: player.streetContribution, handContribution: player.handContribution,
       status: player.status,
-      cards: player.kind === 'human' ? [player.holeCards[0]!, player.holeCards[1]!]
+      cards: player.status === 'eliminated' ? null
+        : player.kind === 'human' ? [player.holeCards[0]!, player.holeCards[1]!]
         : showdown && player.status !== 'folded' ? revealed.get(player.id) ?? null : null,
     })),
     totalPot: pots.reduce((sum, pot) => sum + pot.amount, 0), pots,

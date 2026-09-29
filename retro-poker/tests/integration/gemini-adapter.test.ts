@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ProviderError, type ProviderRequest } from '../../backend/src/ai/types.js';
-import { createGeminiProvider, type GeminiClient } from '../../backend/src/ai/providers/gemini.js';
+import { createGeminiProvider, geminiBotResponseSchema, type GeminiClient } from '../../backend/src/ai/providers/gemini.js';
 import { productionAiDependencies } from '../../backend/src/app.js';
 
 const request: ProviderRequest = {
@@ -15,8 +15,13 @@ function client(result: unknown): { sdk: GeminiClient; generate: ReturnType<type
 }
 
 describe('Gemini provider adapter', () => {
+  it('normalizes an explicit null amount without adding an amount to all_in', async () => {
+    const mocked = client({ text: '{"type":"all_in","amountTo":null}' });
+    const result = await createGeminiProvider('secret', () => mocked.sdk).generate(request, new AbortController().signal);
+    expect(JSON.parse(result.candidate as string)).toEqual({ type: 'all_in' });
+  });
   it('implements the provider-neutral contract and maps structured requests and usage', async () => {
-    const mocked = client({ text: '{"type":"check"}', modelVersion: 'gemini-3.8-flash-001',
+    const mocked = client({ text: '{"type":"check","amountTo":null}', modelVersion: 'gemini-3.8-flash-001',
       responseId: 'response-safe-id', usageMetadata: { promptTokenCount: 11,
         candidatesTokenCount: 3, thoughtsTokenCount: 2, cachedContentTokenCount: 5,
         totalTokenCount: 16 } });
@@ -31,7 +36,8 @@ describe('Gemini provider adapter', () => {
     expect(mocked.generate).toHaveBeenCalledWith({ model: 'gemini-3.8-flash',
       contents: [{ role: 'user', parts: [{ text: JSON.stringify(request.context) }] }],
       config: { abortSignal: signal, responseMimeType: 'application/json',
-        responseJsonSchema: request.responseSchema,
+        systemInstruction: expect.stringContaining('For fold, check, call and all_in set amountTo to null'),
+        responseJsonSchema: geminiBotResponseSchema,
         httpOptions: { retryOptions: { attempts: 1 } } } });
   });
 

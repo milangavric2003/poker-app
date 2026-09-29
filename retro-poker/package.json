@@ -9,6 +9,7 @@
   },
   "scripts": {
     "diagnose:gemini": "node --env-file-if-exists=.env --import tsx scripts/gemini-diagnosis.ts",
+    "smoke:gemini": "node --env-file-if-exists=.env --import tsx scripts/gemini-live-smoke.ts",
     "dev": "concurrently --kill-others --names frontend,backend \"npm:dev:frontend\" \"npm:dev:backend\"",
     "dev:frontend": "vite",
     "dev:backend": "node --env-file-if-exists=.env --import tsx --watch backend/src/server.ts",

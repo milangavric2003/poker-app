@@ -270,7 +270,11 @@ Sledeće vrednosti su merljivi predlozi, ne zaključane implementacione odluke:
   plus najviše jedan recovery pokušaj. Policy bira da li je drugi pokušaj retry istog
   modela ili fallback na drugi konfigurisan Gemini model; nije dozvoljeno oba.
 - **PROP-002**: Bot interakcija završava providerskim rezultatom ili lokalnim fallback-om
-  najkasnije 12 sekundi od početka bot poteza.
+  najkasnije 12 sekundi od početka bot poteza u podrazumevanom profilu.
+  Operativna dopuna 2026-09-29: eksplicitni `GEMINI_BOT_TOTAL_MS` može produžiti
+  budžet do 35 sekundi, radi sporih ali validnih Lite odgovora (izmereno 12,6 s
+  za bot šemu i 27,7 s za minimalni tekst). To je lokalni sporiji profil;
+  ne obećava SC-004 prag od 12 s. Validacija, otkazivanje i fallback ostaju obavezni.
 - **PROP-003**: Zahtev za analizom završava uspehom ili jasnim failure statusom najkasnije
   30 sekundi od korisničkog zahteva; ručni retry pokreće novi budžet.
 - **PROP-004**: Svaki pojedinačni attempt ima kraći konačan timeout od ukupnog budžeta;
@@ -325,7 +329,8 @@ rezultat. Dashboard beleži bezbednu kategoriju prelaza, ne sadržaj poziva.
 - **SC-003**: Za malformed, semantički ilegalan, timeout, 429, 5xx, missing-key,
   stale i dupli odgovor nijedan model predlog ne proizvodi nevalidnu ili dvostruku mutaciju.
 - **SC-004**: Po predloženim pragovima, svaki bot potez dobija modelski ili lokalni
-  konačni ishod u najviše 12 sekundi i najviše 2 provider pokušaja; nijedna partija
+  konačni ishod u najviše 12 sekundi u podrazumevanom profilu, odnosno u eksplicitno
+  podešenom budžetu do 35 sekundi u sporijem profilu, i najviše 2 provider pokušaja; nijedna partija
   ne ostaje zaglavljena zbog AI poziva.
 - **SC-005**: Po predloženim pragovima, svaki analysis zahtev dobija validiran rezultat
   ili jasan failure status u najviše 30 sekundi i najviše 2 provider pokušaja, bez
