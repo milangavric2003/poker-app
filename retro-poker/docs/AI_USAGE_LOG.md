@@ -1,5 +1,14 @@
 # AI usage log
 
+## Week04 T041–T044 završni pregled — 2026-09-29
+
+Alat: Codex, jedan coding agent bez paralelnih agenata. Svrha: ponovna provera DI
+wiring-a, dokumentacije, pune offline matrice i Spec Kit traceability gate-a. Pokrenute
+su sve quickstart fokus grupe, puna Vitest/Playwright regresija, typecheck, lint i build;
+sve su prošle. Nije izvršen novi live Gemini poziv, nije čitan stvarni ključ i nisu
+poznati tokeni/cena ovog coding rada. T043 je zatvoren; T044 ostaje otvoren isključivo
+zbog nefabrikovanog T026 istorijskog RED/evidence nedostatka.
+
 ## Week04 T001–T010 korekcija — 2026-09-28
 
 Alat: Codex, jedan coding agent bez paralelnih agenata. Svrha: ponovo proveriti i

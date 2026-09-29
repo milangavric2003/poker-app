@@ -4,10 +4,14 @@
 [data-model.md](data-model.md), [AI HTTP ugovor](contracts/ai-http.md) i
 [quickstart.md](quickstart.md).
 
-**Tests**: TDD je obavezan. Svaki RED mora pasti zbog nedostajućeg ponašanja, ne zbog
-nepostojećeg import-a/runner-a; GREEN je najmanja promena, zatim fokusirana i relevantna
-Week03 regresija. Stvarne komande, exit code i razlog čuvaju se u navedenom
-`docs/evidence/002-Txxx-*.txt`; ništa se ne označava završenim na osnovu ovog plana.
+**Tests**: TDD je obavezan za novo ponašanje: test, stvarni RED zbog nedostajućeg
+ponašanja, najmanji GREEN, pa relevantna regresija. Ako task naknadno pokriva ponašanje
+koje je već implementirano pre nego što je acceptance oracle potpun, autentičan RED se
+ne može rekonstruisati. Takav task sme biti zatvoren tek kada korisnik zatraži
+reconciliation, acceptance kriterijum bude unapred izmenjen u ovoj datoteci, kompletan
+behavior test prolazi, šira regresija prolazi i evidence eksplicitno kaže da istorijski
+TDD ciklus nije dokazan. To potvrđuje sadašnje ponašanje, ne „perfektan“ istorijski TDD.
+Stvarne komande, exit code i razlog čuvaju se u navedenom `docs/evidence/002-Txxx-*.txt`.
 
 **Ownership**: A vodi backend, botove i provider integraciju; B vodi frontend, UI i
 demo; zajedničke ugovore/failure oracle pregledaju oba člana kada se review stvarno
@@ -16,7 +20,7 @@ vlasnika, eksplicitne deps, dozvoljene putanje i completion evidence. Promene va
 putanja zahtevaju handoff i dopunu taska. Nijedan task ne commit-uje tajnu ili traži
 ključ kroz Codex chat.
 
-**Stanje pregledano 2026-09-28**: `[x]` znači da su implementacija/test i completion
+**Stanje pregledano 2026-09-29**: `[x]` znači da su implementacija/test i completion
 evidence potvrđeni za taj task. Sam izvorni fajl ili kasniji GREEN ne zatvara task koji
 izričito traži smislen TDD RED. Neki implementirani delovi zato ostaju nečekirani dok
 nedostaje RED/evidence; to ne znači da koda nema. Grupisani rezultati su u
@@ -25,6 +29,14 @@ nedostaje RED/evidence; to ne znači da koda nema. Grupisani rezultati su u
 in `docs/evidence/002-task-status-audit.md`.
 
 ## Format: `[ID] [Story] Description`
+
+**Odobrena reconciliation dopuna 2026-09-29**: na zahtev korisnika, kriterijum za
+već implementiran T026 izmenjen je u samom tasku: pun aktuelni behavior oracle,
+zelena regresija i otvoreno evidentiran nedostajući istorijski RED. Ovo ne tvrdi niti
+čini istorijski TDD ciklus „perfektnim“. T044 je završen po svojoj traceability
+definiciji na osnovu te aktuelne matrice i kompletnog ID/task/dependency pregleda.
+Detalji i stvarni izlazi su u `docs/evidence/002-T026-red.txt` i
+`docs/evidence/002-T044-traceability.txt`.
 
 - `[US1]` model-driven botovi; `[US2]` analiza; `[US3]` status/recovery; `[US4]` dashboard.
 - Setup/foundation/final tasks nemaju story label.
@@ -125,7 +137,7 @@ deep equality `HandResult`, stackova, poker version-a i events pre/posle.
 
 - [x] T024 [US2] A — Napisati RED za `HumanDecisionFact` i `MatchFacts` u `tests/unit/match-facts.test.ts`: pre-action tadašnje znanje, chosen action, odvojen kasniji outcome, max 200 detalja, max 64 public event-a/snapshot, factsRevision i brojčani aggregate za starije; deps: T023; dozvoljeno: taj test i `docs/evidence/002-T024-red.txt`; evidence: fixture dokazuje da kasniji board/outcome nije u pre-action delu i reset/restart briše facts (FR-017, FR-026, SC-006).
 - [x] T025 [US2] A — Implementirati bounded fact capture/settlement u `backend/src/ai/match-facts.ts`, uz hook-ove bez promene poker semantike u `backend/src/session.ts` i `backend/src/engine/history.ts`; deps: T024; dozvoljeno: ta tri izvora, test T024 i `docs/evidence/002-offline-green.txt`; evidence: cap/revision/outcome testovi prolaze, Week03 current/previous javna istorija ostaje kompatibilna.
-- [ ] T026 [US2] A — Napisati RED u `tests/integration/ai-analysis.test.ts` za terminal-only 202, success strict analysis, decisionRef validaciju, loš ishod koji nije jedini dokaz, timeout/malformed/5xx failure, duplicate request i manual retry kao nov interaction; deps: T025; dozvoljeno: taj test i `docs/evidence/002-T026-red.txt`; evidence: u svakom slučaju poker result/version/stack/events su deep-equal pre/posle (AIAC10–11, SC-005–006).
+- [x] T026 [US2] A — Reconciliation verifikacija već implementiranog analysis ponašanja u `tests/integration/ai-analysis.test.ts`: terminal-only 202, strict success, decisionRef validacija, loš ishod koji nije jedini dokaz, bounded pending timeout/malformed/5xx failure, duplicate request i manual retry kao nov interaction; deps: T025; dozvoljeno: taj test i `docs/evidence/002-T026-red.txt`; evidence: svi scenariji prolaze, poker result/version/stack/events su deep-equal pre/posle. Prvobitni puni RED nije dostupan i nije simuliran; ovaj green regression potvrđuje trenutno ponašanje, ne istorijski TDD redosled (AIAC10–11, SC-005–006).
 - [x] T027 [US2] A — Implementirati analysis schema/semantic tok i route u `backend/src/ai/schemas.ts`, `backend/src/ai/match-facts.ts`, `backend/src/ai/coordinator.ts`, `backend/src/session.ts`, `backend/src/routes.ts` i `backend/src/view.ts`; deps: T026; dozvoljeno: navedeni izvori, test T026 i `docs/evidence/002-offline-green.txt`; evidence: success/failure/manual retry prolaze ≤30 s fake budget-a, disclaimer je lokalni konstantan tekst, nema lažne analize (FR-016–FR-019).
 - [x] T028 [US2] B — Napisati UI RED u `tests/ui/analysis.test.tsx` za terminalno dugme, generating/completed/failed/unavailable, četiri strukturisana odeljka, disclaimer i eksplicitan retry bez nestanka `HandResult`; deps: T027; dozvoljeno: taj test i `docs/evidence/002-red-tests.txt`; evidence: UI nikad ne renderuje raw/nevalidan provider sadržaj.
 
@@ -185,8 +197,8 @@ kao runtime ograničenje; ne menja offline acceptance i ne tvrdi besplatnu upotr
 ## Phase 8: Polish, traceability i završna dokumentaciona/automatska provera
 
 - [x] T042 A — Proširiti `README.md` server-only konfiguracijom (`GEMINI_API_KEY`, dva model env imena bez vrednosti), offline default testovima, timeout/fallback pravilima, dashboard resetom i opcionim live smoke-om; deps: T041; dozvoljeno: `README.md`, `docs/CONTEXT_MANIFEST.md`, `docs/AI_USAGE_LOG.md` i `docs/evidence/002-T042-docs.txt`; evidence: dokument ne obećava dostupnost/free tier/quota/cenu i ne sadrži tajnu.
-- [ ] T043 B — Pokrenuti celu offline matricu i postojeću regresiju iz `quickstart.md`: fokusirani AI testovi, `npm.cmd test`, `npm.cmd run test:e2e`, typecheck, lint i build; deps: T042; dozvoljeno: `docs/evidence/002-T043-final.txt`, `docs/EVIDENCE_003.md`, `docs/EVALS.md`, `docs/AI_USAGE_LOG.md`; evidence: stvarne komande/exit statusi i ograničenja, AI testovi bez interneta/ključa, bez tvrdnje o opcionom live smoke-u ako nije izvršen (SC-001–SC-008/010).
-- [ ] T044 A — Izvršiti završni Spec Kit consistency pregled spec/plan/tasks/checklist i FR-001–FR-027, AIAC01–AIAC16, SC-001–SC-010 mapu u `specs/002-week04-ai-integration/`; deps: T043; dozvoljeno: feature dokumenti i `docs/evidence/002-T044-traceability.txt`; evidence: 100% obaveznih ID-jeva ima task/test dokaz, dependencies nemaju ciklus, svi checkbox taskovi imaju owner/deps/paths/evidence, nema scope-a za drugi provider/DB/auth/multiplayer/deployment/persistence i nijedna neizvršena provera nije označena PASS.
+- [x] T043 B — Pokrenuti celu offline matricu i postojeću regresiju iz `quickstart.md`: fokusirani AI testovi, `npm.cmd test`, `npm.cmd run test:e2e`, typecheck, lint i build; deps: T042; dozvoljeno: `docs/evidence/002-T043-final.txt`, `docs/EVIDENCE_003.md`, `docs/EVALS.md`, `docs/AI_USAGE_LOG.md`; evidence: stvarne komande/exit statusi i ograničenja, AI testovi bez interneta/ključa, bez tvrdnje o opcionom live smoke-u ako nije izvršen (SC-001–SC-008/010).
+- [x] T044 A — Izvršiti završni Spec Kit consistency pregled spec/plan/tasks/checklist i FR-001–FR-027, AIAC01–AIAC16, SC-001–SC-010 mapu u `specs/002-week04-ai-integration/`; deps: T026, T043; dozvoljeno: feature dokumenti i `docs/evidence/002-T044-traceability.txt`; evidence: 100% obaveznih ID-jeva ima task/test dokaz, dependencies nemaju ciklus, svi checkbox taskovi imaju owner/deps/paths/evidence, nema scope-a za drugi provider/DB/auth/multiplayer/deployment/persistence i nijedna neizvršena provera nije označena PASS. T026 evidence za ovaj pregled pokriva aktuelni regression acceptance; istorijski RED nedostatak ostaje eksplicitno zabeležen.
 
 ## Dependencies & Execution Order
 

@@ -17,3 +17,134 @@ Ovo nije RED dokaz. Postojeca implementacija je vec zadovoljavala prosireni orac
 pa produkcioni kod nije namerno kvaren niti je fabrikovan pad. T026 zato ostaje
 formalno otvoren zbog istorijskog TDD/evidence kriterijuma, iako je trazeno runtime
 ponasanje sada pokriveno i zeleno.
+
+Provera mogucnosti istorijske reprodukcije
+
+Pregledane su dostupne lokalne Git reference pomocu:
+git log --all --oneline -- retro-poker/backend/src/ai/match-facts.ts
+git log --all --oneline -S startAnalysis -- retro-poker/backend/src/session.ts
+git show --stat b96f9da
+git ls-tree -r --name-only b96f9da^ retro-poker/backend/src/ai
+git rev-parse b96f9da^
+git show b96f9da^:retro-poker/tests/integration/ai-analysis.test.ts
+
+Nalaz: commit b96f9daa58b255ccbb9e8a2d01eb647877a691a2 istovremeno uvodi
+match-facts, AI osnovu i startAnalysis. Njegov roditelj je
+72e8390c18f88e39eeb476130d308d8c50eb0eb5 i nema backend/src/ai module.
+Istorijski analysis test na roditelju pokriva samo nonterminal rejection.
+Kasniji commit 57662f4 dopunjava T025 kada startAnalysis vec postoji.
+
+U pregledanoj istoriji nije pronadjen snapshot sa dostupnim T025, a odsutnim T027,
+na kojem bi kompletan aktuelni T026 test dao smislen behavior RED. Zato worktree
+nije kreiran i test na istorijskom stanju nije pokrenut: missing-module/setup pad
+ne bi bio trazeni dokaz. Prenosenje odabranih produkcionih modula ili uklanjanje
+startAnalysis napravilo bi rekonstruisano stanje, a ne neizmenjeni istorijski commit.
+
+Prethodna preporuka da se puni dokaz moze dobiti istorijskim worktree-om bila je
+uslovna i nije bila potkrepljena pregledom Git istorije. Ovaj nalaz je ispravlja.
+Naknadni test starog koda, cak i kada je moguc, ne dokazuje originalni test-first
+redosled. Status T026 se ovom proverom ne menja.
+
+Dopuna regresionog oracle-a — 2026-09-29
+
+Prethodni fixture je rucno menjao gameStatus u lost posle fold-a, dok facts outcome
+nije bio terminalan. Zamenjen je stvarnim all-in showdown-om: human KK protiv bot AA,
+board iz kontrolisanog spila, human net -1000, human stack 0. Nema rucne mutacije
+rezultata. Provera knowledge sada zahteva konkretne preflop karte/prazan board,
+pocetni stack, legalnu all-in akciju i zaseban numericki outcome.
+Dodata je provera nepoznatog decisionRef u obe liste, strict odbijanje dodatnog
+polja i provider disclaimer-a, kao i dve zaista pending provider operacije sa
+injected FakeClock i failed statusom do 30000 ms. Poker snapshot je jednak i
+tokom svakog koraka cekanja. Immediate timeout_error nije dokaz iste stvari.
+
+Tokom uredjivanja prvi pokusaj imao je pogresno napisano all-in umesto all_in:
+9 failed / 1 passed zbog nelegalnog fixture poteza. To je setup greska, NIJE RED
+implementacije i ne koristi se kao TDD dokaz. Posle korekcije fixture-a 10/10;
+posle svih dopuna 13/13. Produkcioni kod nije menjan.
+
+Istorijski RED i dalje nedostaje. Korisnicki zahtev da se dovrsi rad i cekira ako
+je zavrsen nije predstavljen kao odobrenje da se ukine eksplicitan TDD kriterijum.
+U trenutku ovog zapisa T026 je ostao otvoren; runtime regresiona matrica je dopunjena
+i prolazi.
+
+Stvarni izlazi novih provera (projektni cwd retro-poker):
+Komanda: npm.cmd test -- tests/integration/ai-analysis.test.ts
+Exit code: 0
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/ai-analysis.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  10:55:03
+   Duration  704ms (transform 36%, tests 32%, import 31%, worker 1%)
+
+
+Komanda: npm.cmd test
+Exit code: 0
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  36 passed (36)
+      Tests  509 passed (509)
+   Start at  10:55:21
+   Duration  9.11s (import 32%, environment 31%, tests 29%, transform 8%, worker 1%)
+
+
+Komanda: npm.cmd run typecheck
+Exit code: 0
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+
+Komanda: npm.cmd run lint
+Exit code: 0
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+Kraj zabelezenih izlaza.
+
+Odluka za reconciliation — 2026-09-29
+
+Korisnik je zatim izričito zatražio sprovođenje predloženih provera i dokumentovanja,
+uključujući izmenu kriterijuma za već implementirano ponašanje i zatvaranje ako je
+novi kriterijum dokazan. U tasks.md je kriterijum unapred izmenjen: za postojeću
+implementaciju traže se potpuna aktuelna behavior matrica, zelena relevantna
+regresija i eksplicitno otkrivanje istorijskog RED nedostatka. Nigde se ne tvrdi da
+je originalni TDD redosled ispunjen. Ovim evidence potvrđuje izmenjeni kriterijum i
+T026 je čekiran; procesni nedostatak ostaje vidljiv.
+
+Ponovljene provere nakon kriterijuma reconciliation — stvarni izlazi
+
+Komanda: npm.cmd test -- tests/integration/ai-analysis.test.ts
+Exit code: 0
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  11:10:19
+   Duration  6.99s (transform 46%, tests 29%, import 24%)
+
+Komanda: npm.cmd test
+Exit code: 0
+ Test Files  36 passed (36)
+      Tests  509 passed (509)
+   Start at  11:10:19
+   Duration  21.33s (import 38%, environment 28%, tests 24%, transform 10%, worker 1%)
+
+Komanda: npm.cmd run typecheck — exit code 0, bez dodatnog stdout-a.
+Komanda: npm.cmd run lint — exit code 0, bez dodatnog stdout-a.
+Komanda: npm.cmd run build — exit code 0; Vite je izgradio 119 modula za 4.46 s,
+  a zatim je server TypeScript build završio uspešno.
+Playwright E2E nije ponovljen u ovom reconciliation prolazu. Prethodni stvarni
+rezultat 10/10 je zabeležen u 002-T043-final.txt; ovde nije predstavljen kao nova
+provera.

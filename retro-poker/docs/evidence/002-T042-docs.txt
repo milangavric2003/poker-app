@@ -19,3 +19,8 @@ evidence and the AI usage log.
 
 Result: documentation task T042 is complete. This is a documentation review, not a
 claim that the live model returned a valid analysis.
+
+Dopuna 2026-09-29: uklonjena je netačna tvrdnja da je `GEMINI_MAX_ATTEMPTS` podržan
+environment override 1–2. Runtime ugovor je tačno 2 pokušaja i config namerno ignoriše
+tu promenljivu; README, `.env.example` i quickstart sada to dosledno opisuju. Za strogo
+jedan live provider poziv potreban je zaseban adapter smoke, ne nepostojeći env override.

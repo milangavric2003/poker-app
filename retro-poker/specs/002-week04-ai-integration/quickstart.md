@@ -65,8 +65,9 @@ ponovo proveriti zvanične model stranice, capability, quota i billing za konkre
 projekat. Ne ispisivati vrednost environment promenljive.
 
 - najviše jedan AI bot potez i jedna analysis interakcija;
-- smoke serveru nametnuti `GEMINI_MAX_ATTEMPTS=1` i isti `GEMINI_FALLBACK_MODEL` kao
-  `GEMINI_PRIMARY_MODEL`, tako da retry i prelazak modela ne prekorače limit;
+- aplikacija ima zaključana najviše dva attempt-a; za strogo ograničenje na jedan
+  provider poziv koristiti zaseban ručni adapter smoke, ne menjati produkcioni retry
+  ugovor niti predstavljati nepostojeći `GEMINI_MAX_ATTEMPTS` env override;
 - potvrditi structured parse, model ID, attempt count i usage samo ako je vraćen;
 - ne snimati prompt/raw response/privatne karte;
 - failure zbog dostupnosti, quota ili billing-a dokumentovati kao runtime ograničenje,

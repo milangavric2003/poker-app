@@ -59,7 +59,8 @@ Podržane promenljive:
   samo kada postoji ključ i validna konfiguracija);
 - `GEMINI_PRIMARY_MODEL`: `gemini-3.8-flash` (default) ili `gemini-3.5-flash-lite`;
 - `GEMINI_FALLBACK_MODEL`: drugi od ta dva modela; isti model isključuje model fallback;
-- `GEMINI_MAX_ATTEMPTS`: 1–2, podrazumevano 2;
+- broj pokušaja je bezbednosno zaključan na tačno 2 (početni i najviše jedan recovery
+  pokušaj) i nije environment opcija;
 - `GEMINI_BOT_TIMEOUT_MS`: 250–11000, podrazumevano 5000;
 - `GEMINI_ANALYSIS_TIMEOUT_MS`: 250–29000, podrazumevano 12000;
 - `GEMINI_BACKOFF_MIN_MS`: 0–2000, podrazumevano 250;

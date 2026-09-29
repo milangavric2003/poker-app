@@ -8,6 +8,7 @@ import { toGameView } from '../../backend/src/view.js';
 import type { ProviderResult } from '../../backend/src/ai/types.js';
 import { FakeAiProvider, type FakeAiStep } from '../helpers/fake-ai-provider.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
+import { FakeClock } from '../helpers/fake-clock.js';
 
 const apps: FastifyInstance[] = [];
 afterEach(async () => {
@@ -31,19 +32,22 @@ function analysisResult(decisionRef: string, list: 'good' | 'mistake' = 'good'):
 
 function terminalHarness(...steps: FakeAiStep[]) {
   const provider = new FakeAiProvider(steps);
-  const session = new GameSession({ deck: ac23Deck, deckRandom: sequenceRandom([]),
+  const clock = new FakeClock();
+  // Human KK loses to bot AA on the fixed board, through real engine settlement.
+  const session = new GameSession({ deck: ['As', 'Kc', 'Ah', 'Kd', ...ac23Deck.slice(4)], deckRandom: sequenceRandom([]),
     botRandom: sequenceRandom(Array<number>(100).fill(0.9)),
-    aiProvider: provider, aiConfig: loadAiConfig({ GEMINI_API_KEY: 'offline-test-placeholder' }) });
+    aiProvider: provider, aiClock: clock, aiConfig: loadAiConfig({ GEMINI_API_KEY: 'offline-test-placeholder',
+      GEMINI_BACKOFF_MIN_MS: '0', GEMINI_BACKOFF_MAX_MS: '0' }) });
   let state = session.create(1, false);
   state = session.action({ gameId: state.gameId, handId: state.hand.handId,
-    expectedVersion: state.version, type: 'fold' });
+    expectedVersion: state.version, type: 'all_in' });
   if (!state.hand.result) throw new Error('Terminal fixture mora imati HandResult.');
-  state.hand.gameStatus = 'lost';
-  state.hand.result.gameStatus = 'lost';
+  expect(state.hand.gameStatus).toBe('lost');
+  expect(state.hand.result.gameStatus).toBe('lost');
   const app = Fastify();
   registerRoutes(app, session);
   apps.push(app);
-  return { app, session, provider, decisionRef: state.facts.decisions[0]!.decisionRef };
+  return { app, session, provider, clock, decisionRef: state.facts.decisions[0]!.decisionRef };
 }
 
 async function postAnalysis(app: FastifyInstance, suppliedGame?: ReturnType<typeof toGameView>) {
@@ -98,8 +102,8 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     expect(pokerSnapshot(after)).toEqual(pokerSnapshot(before));
   });
 
-  it('rejects unknown decisionRef twice and never publishes a fake analysis', async () => {
-    const invalid = analysisResult('unknown-decision');
+  it.each(['good', 'mistake'] as const)('rejects unknown decisionRef in %s twice and never publishes a fake analysis', async list => {
+    const invalid = analysisResult('unknown-decision', list);
     const harness = terminalHarness(invalid, invalid);
     const before = toGameView(harness.session.get()!);
     expect((await postAnalysis(harness.app, before)).statusCode).toBe(202);
@@ -119,7 +123,10 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     expect(after.ai.analysis.result.goodDecisions[0].decisionRef).toBe(harness.decisionRef);
     const sentDecision = (harness.provider.calls[0]!.context as { decisions: Array<Record<string, unknown>> }).decisions[0]!;
     expect(sentDecision).toEqual(expect.objectContaining({ decisionRef: harness.decisionRef,
-      knowledge: expect.any(Object), chosenAction: expect.any(Object), outcome: expect.any(Object) }));
+      knowledge: expect.objectContaining({ phase: 'preflop', board: [], holeCards: ['Kc', 'Kd'],
+        humanStackAtHandStart: 1000, legalActions: expect.arrayContaining([expect.objectContaining({ type: 'all_in' })]) }),
+      chosenAction: { type: 'all_in' },
+      outcome: { reason: 'showdown', gameStatus: 'lost', humanNetChange: -1000 } }));
     expect(pokerSnapshot(after)).toEqual(pokerSnapshot(before));
   });
 
@@ -127,7 +134,7 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     ['timeout', { kind: 'timeout_error' } as const, { kind: 'timeout_error' } as const],
     ['malformed', { kind: 'malformed' } as const, { kind: 'malformed' } as const],
     ['5xx', { kind: '5xx' } as const, { kind: '5xx' } as const],
-  ])('ends %s as failed within the fake budget and preserves poker state', async (_name, first, second) => {
+  ])('ends immediate %s errors as failed and preserves poker state', async (_name, first, second) => {
     const harness = terminalHarness(first, second);
     const before = toGameView(harness.session.get()!);
     expect((await postAnalysis(harness.app, before)).statusCode).toBe(202);
@@ -135,6 +142,37 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     expect(after.ai.analysis.result).toBeNull();
     expect(harness.provider.callCount).toBe(2);
     expect(pokerSnapshot(after)).toEqual(pokerSnapshot(before));
+  });
+
+  it('bounds genuinely hanging provider attempts by the 30 second interaction budget', async () => {
+    const harness = terminalHarness({ kind: 'timeout' }, { kind: 'timeout' });
+    const before = pokerSnapshot(toGameView(harness.session.get()!));
+    expect((await postAnalysis(harness.app)).statusCode).toBe(202);
+    for (let elapsed = 0; elapsed < 30000; elapsed += 250) {
+      harness.clock.advance(250);
+      await harness.app.inject('/api/game');
+      expect(pokerSnapshot(toGameView(harness.session.get()!))).toEqual(before);
+      if (harness.session.get()!.ai.analysis.status === 'failed') break;
+    }
+    const after = (await harness.app.inject('/api/game')).json().game;
+    expect(after.ai.analysis.status).toBe('failed');
+    expect(after.ai.analysis.result).toBeNull();
+    expect(harness.provider.callCount).toBe(2);
+    expect(harness.clock.now()).toBeLessThanOrEqual(30000);
+  });
+
+  it.each(['unexpected', 'disclaimer'])('rejects provider-supplied %s fields in strict analysis', async field => {
+    const harness = terminalHarness();
+    const valid = analysisResult(harness.decisionRef);
+    const invalid = { ...valid, candidate: { ...valid.candidate as object, [field]: 'untrusted' } };
+    harness.provider.enqueue(invalid);
+    harness.provider.enqueue(invalid);
+    const before = pokerSnapshot(toGameView(harness.session.get()!));
+    expect((await postAnalysis(harness.app)).statusCode).toBe(202);
+    const after = await waitForAnalysis(harness.app, 'failed');
+    expect(after.ai.analysis.result).toBeNull();
+    expect(harness.provider.callCount).toBe(2);
+    expect(pokerSnapshot(after)).toEqual(before);
   });
 
   it('rejects a duplicate request while one interaction is pending', async () => {

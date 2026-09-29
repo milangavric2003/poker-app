@@ -49,13 +49,12 @@ Evidence sources include:
 - `002-T001-governance.txt` and `002-T042-docs.txt` for the completed governance and
   documentation review tasks.
 
-## Open tasks and exact reason
+## Open tasks and exact reason — snapshot before 2026-09-29 reconciliation
 
-| Tasks | Current reason |
+| Tasks | Reason at the time of this earlier audit |
 |---|---|
 | T026 | Analysis tests/implementation exist. The recorded analysis RED covered eligibility, not the full required success/failure/retry oracle; no valid full task RED is recorded. |
-| T043 | Full 418-test/10-E2E regression is recorded before the 2026-09-28 usage-latency change. The later change has focused regression and typecheck evidence, but no recorded complete test:e2e/lint/build run against the current HEAD. |
-| T044 | Final 100% traceability cannot pass while the above items remain open; the full verification prerequisite T043 is also open. |
+| T044 | T043 je sada završen, ali finalni 100% task/evidence gate ne može proći dok T026 nema smislen istorijski RED za puni analysis oracle. Runtime ID coverage postoji; dokaz procesa nije retroaktivno fabrikovan. |
 
 ## Implementation facts versus runtime proof
 
@@ -119,3 +118,45 @@ results above retain their original dates and scope.
   persistence. Adapter ostaje bez session/engine importa i bez logovanja.
 - Završno: Vitest 505/505, Playwright 10/10, typecheck/lint/build exit 0.
   T036–T040 su sada kompletni i čekirani; svi testovi su offline.
+
+## T041–T044 završni pregled — pre-reconciliation snapshot, 2026-09-29
+
+- T041 DI wiring je ponovo potvrđen mocked adapter testom: test app ne kreira live
+  provider bez eksplicitne injekcije, missing/invalid config ostaje offline.
+- T042 dokumentacija je usklađena sa stvarnim fixed-two-attempt ugovorom; uklonjen je
+  nepostojeći `GEMINI_MAX_ATTEMPTS` env override iz README-a, `.env.example` i smoke
+  uputstva.
+- T043 quickstart fokus grupe prolaze 20/20, 48/48, 37/37, 12/12 i 35/35. Puna
+  matrica je Vitest 505/505, Playwright 10/10, typecheck/lint/build exit 0. Dokaz je
+  `002-T043-final.txt`; sve automatske provere su offline.
+- T044 consistency inventar potvrđuje checklist 26/26 i prisustvo svih FR/AIAC/SC ID-jeva,
+  ali ostaje nečekiran zbog otvorenog T026 TDD/evidence gap-a. Detalji su u
+  `002-T044-traceability.txt`.
+
+## T026/T044 dodatna provera — pre-reconciliation snapshot, 2026-09-29
+
+- T026 sada ima 13 scenarija: stvarni terminalni showdown umesto ručno promenjenog
+  statusa, konkretno tadašnje znanje/ishod, reference u obe liste, strict dodatna
+  polja/disclaimer i zaista pending timeout kroz FakeClock. Produkcioni kod nije menjan.
+- Nova regresija: 509/509 u 36 fajlova; typecheck i lint exit 0. Stvarni izlazi su
+  u `002-T026-red.txt`. E2E/build nisu ponavljani; raniji rezultat ostaje istorijski.
+- T044 sada sadrži konkretnu zahtev/task/test mapu (27 FR, 16 AIAC, 10 SC), kao i
+  izvršenu strukturnu proveru svih 44 taska: owner/deps/paths/evidence, bez ciklusa;
+  checklist 26/26. Prisustvo ID-ja samo po sebi nije dokaz funkcionalnosti.
+- T026 i T044 ostaju otvoreni. Nedostajući istorijski puni RED ne može se nadomestiti
+  naknadnim zelenim testom ni setup greškom. Čekirani zavisni taskovi označavaju
+  funkcionalni rad, uz ovo eksplicitno procesno ograničenje; ne potvrđuju originalni
+  test-first redosled. Izuzetak od tog kriterijuma nije automatski pretpostavljen.
+
+## Konačna reconciliation odluka — 2026-09-29
+
+Na korisnikov izričit zahtev kriterijum za već implementiran T026 je izmenjen:
+potpuna aktuelna behavior matrica, relevantna zelena regresija i eksplicitna napomena
+da istorijski RED nedostaje. To ne tvrdi savršen istorijski TDD. T026 je čekiran po
+izmenjenom kriterijumu.
+
+T044 je čekiran posle zahtevu/task/test mape (FR 27/27, AIAC 16/16, SC 10/10),
+strukturne provere 44 taska i dependency DAG-a, checklist 26/26 i aktuelnih test,
+typecheck, lint i build rezultata. Playwright E2E nije ponovljen; stariji 10/10 ostaje
+u T043 evidence i ovde nije pripisan novom prolazu. Konačni status je u
+`002-T026-red.txt` i `002-T044-traceability.txt`.
