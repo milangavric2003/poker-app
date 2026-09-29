@@ -1,5 +1,20 @@
 # Context manifest — implementacioni blok člana A
 
+## Merge recovery u ai-integ — 2026-09-29
+
+Prioritet ima aktuelno korisničko odobrenje sa izborom ponašanja iz obe grane,
+zatim AGENTS.md i relevantni delovi 002 specifikacije, plana, tasks, data-model,
+HTTP ugovora i quickstart-a. Pročitani su diff-ovi roditelja `c6f6bb3`/`757faed`,
+konfliktni fajlovi, Gemini/config/coordinator/schema/usage kod, zajednički ugovori,
+UI API/status, smoke/diagnosis skripte i relevantni testovi/runner konfiguracije.
+Speckit-implement je pročitan kao procesni kontekst; zadatak je ograničen na merge
+postojećih implementacija. Nisu ponavljani svi feature taskovi.
+
+Evidence oba roditelja služi kao istorijski dokaz, a nove komande i ishodi su u
+`docs/evidence/002-merge-recovery.md`. Nisu čitani ključevi iz `.env`, nije korišćena
+mreža za Gemini i nije pretpostavljen live uspeh spojenog koda. Rizici integracije
+decisionOrdinal i diagnostic ugovora provereni su offline regresijom i browserom.
+
 ## Week04 T001–T010 korekcija — 2026-09-28
 
 Za T002 je pronađen originalni prompt u
@@ -36,6 +51,21 @@ Nalaz: offline backend, Gemini adapter, UI i dashboard postoje. Otvoreni browser
 analysis acceptance, nedostajuća task-specifična RED evidencija i nezavršena finalna
 provera su sažeti u `docs/evidence/002-task-status-audit.md`. Nisu pokretani testovi,
 nisu pozivani Gemini endpoint-i i nijedan API ključ nije čitan.
+
+## Gemini recovery — 2026-09-28
+
+Prioritet: aktuelni zahtev korisnika da preuzmemo dijagnostiku i popravku, AGENTS.md,
+relevantni Week04 plan/tasks/HTTP ugovor i constitution 1.1.0. Pročitani su
+speckit-implement, requirements checklist (26/26), Luna skripta/evidence, stari live
+smoke evidence, SDK adapter/config/coordinator/types/usage, frontend parser/dashboard,
+šeme i semantic validator, povezani adapter/usage/UI testovi. Pregledani su instalirani
+SDK 2.24.0 error parser, endpoint izbor, README/types i zvanični model capability,
+Interactions i troubleshooting dokumenti. Stvarni HTTP odgovori imaju prioritet
+nad pretpostavkom da katalog modela garantuje dostupnost. `.env` je učitan samo u
+procesima za probe; ključ nije izlazio u chat/evidence. Spec Kit prerequisite je
+prema grani izabrao 001; eksplicitni bugfix odnosi se na 002. Extensions nema.
+Nisu učitani svi istorijski tasks/spec dokumenti niti pokrenuti preostali feature
+taskovi. Rizik: uspešan live bot/analysis nije potvrđen zbog provider grešaka.
 
 ## T035–T036 — član B, 2026-09-23
 
@@ -212,3 +242,15 @@ contracts/http create/get/action pravila. Suggestion, nastavni PDF, spoljni izvo
 frontend i Week04 materijali nisu korišćeni. Nisu dodate zavisnosti. Novi kontekst
 čine bot/history unit testovi, Fastify inject integration testovi i backend moduli
 app/routes/session/view. RED/GREEN/final izlazi su u docs/evidence/T016-* do T019-*.
+
+## 2026-09-29 — nastavak Gemini Lite popravke
+
+Prioritet: korisnikov odobren nastavak > AGENTS / aktivna 002 specifikacija.
+Korišćeni izvori: speckit-implement skill (već započet tok); 002 spec/plan/tasks,
+data-model i ai-http ugovor; config/types/schemas/Gemini adapter; live smoke runner;
+adapter/HTTP/schema/slow-profile/terminal-view testovi; README i .env.example.
+Lokalni .env učitan je samo u procesu za live poziv, bez ispisa ključa.
+Prethodni nalazi i RED rezultati preuzeti iz sačuvanog konteksta nastavka;
+novi GREEN i live bot rezultat direktno zabeleženi. Nisu korišćeni novi spoljni
+izvori ni subagenti. Rizik: promenljivo vreme/dostupnost API-ja i ograničen live uzorak.
+Dokaz: evidence/002-gemini-lite-success.md.

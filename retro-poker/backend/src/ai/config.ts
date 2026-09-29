@@ -23,16 +23,18 @@ export function loadAiConfig(env: Readonly<Record<string, string | undefined>> =
   const explicitlyEnabled = env.GEMINI_ENABLED?.trim().toLowerCase() !== 'false';
   const enabled = explicitlyEnabled && configuredKey !== null && !invalidModel;
   const apiKey = enabled ? configuredKey : null;
-  const maxAttempts = 2 as const;
-  const botAttemptMs = integer(env.GEMINI_BOT_TIMEOUT_MS, 5000, 250, 11000);
+  const maxAttempts = integer(env.GEMINI_MAX_ATTEMPTS, 2, 1, 2) as 1 | 2;
+  const botTotalMs = integer(env.GEMINI_BOT_TOTAL_MS, 12000, 12000, 35000);
+  const botAttemptMs = integer(env.GEMINI_BOT_TIMEOUT_MS, 5000, 250,
+    Math.min(30000, botTotalMs - 1000));
   const analysisAttemptMs = integer(env.GEMINI_ANALYSIS_TIMEOUT_MS, 12000, 250, 29000);
   const backoffMinMs = integer(env.GEMINI_BACKOFF_MIN_MS, 250, 0, 2000);
   const backoffMaxMs = Math.max(backoffMinMs,
     integer(env.GEMINI_BACKOFF_MAX_MS, 750, backoffMinMs, 5000));
   const configError = invalidModel ? 'MODEL_NOT_ALLOWED' as const : null;
-  const publicConfig = { enabled, primaryModel, fallbackModel, maxAttempts, botAttemptMs,
+  const publicConfig = { enabled, primaryModel, fallbackModel, maxAttempts, botTotalMs, botAttemptMs,
     analysisAttemptMs, backoffMinMs, backoffMaxMs, configError };
-  return { ...publicConfig, apiKey, botTotalMs: 12000, analysisTotalMs: 30000,
+  return { ...publicConfig, apiKey, analysisTotalMs: 30000,
     botReserveMs: 500, analysisReserveMs: 1000,
     public: Object.freeze({ ...publicConfig }) };
 }

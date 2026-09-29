@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ProviderError, type ProviderRequest } from '../../backend/src/ai/types.js';
-import { createGeminiProvider, type GeminiClient } from '../../backend/src/ai/providers/gemini.js';
+import { createGeminiProvider, geminiBotResponseSchema, type GeminiClient } from '../../backend/src/ai/providers/gemini.js';
 import { productionAiDependencies } from '../../backend/src/app.js';
 
 const request: ProviderRequest = {
@@ -15,8 +15,13 @@ function client(result: unknown): { sdk: GeminiClient; generate: ReturnType<type
 }
 
 describe('Gemini provider adapter', () => {
+  it('normalizes an explicit null amount without adding an amount to all_in', async () => {
+    const mocked = client({ text: '{"type":"all_in","amountTo":null}' });
+    const result = await createGeminiProvider('secret', () => mocked.sdk).generate(request, new AbortController().signal);
+    expect(JSON.parse(result.candidate as string)).toEqual({ type: 'all_in' });
+  });
   it('implements the provider-neutral contract and maps structured requests and usage', async () => {
-    const mocked = client({ text: '{"type":"check"}', modelVersion: 'gemini-3.8-flash-001',
+    const mocked = client({ text: '{"type":"check","amountTo":null}', modelVersion: 'gemini-3.8-flash-001',
       responseId: 'response-safe-id', usageMetadata: { promptTokenCount: 11,
         candidatesTokenCount: 3, thoughtsTokenCount: 2, cachedContentTokenCount: 5,
         totalTokenCount: 16 } });
@@ -31,7 +36,8 @@ describe('Gemini provider adapter', () => {
     expect(mocked.generate).toHaveBeenCalledWith({ model: 'gemini-3.8-flash',
       contents: [{ role: 'user', parts: [{ text: JSON.stringify(request.context) }] }],
       config: { abortSignal: signal, responseMimeType: 'application/json',
-        responseJsonSchema: request.responseSchema,
+        systemInstruction: expect.stringContaining('For fold, check, call and all_in set amountTo to null'),
+        responseJsonSchema: geminiBotResponseSchema,
         httpOptions: { retryOptions: { attempts: 1 } } } });
   });
 
@@ -80,8 +86,22 @@ describe('Gemini provider adapter', () => {
         new AbortController().signal).catch((error: unknown) => error);
       expect(caught).toBeInstanceOf(ProviderError);
       expect(caught).toMatchObject({ kind, message: 'AI provider failure' });
+      expect((caught as ProviderError).httpStatus).toBe(status);
       expect(String(caught)).not.toContain('secret');
+      expect(JSON.stringify(caught)).not.toContain('raw secret');
+      expect(JSON.stringify(caught)).not.toContain('headers');
     });
+
+  it('leaves status unknown when the SDK error has no numeric HTTP status', async () => {
+    const sdk: GeminiClient = { models: { generateContent: vi.fn().mockRejectedValue(
+      new Error('must-not-leak raw body or key=private')) } };
+    const caught = await createGeminiProvider('private', () => sdk).generate(request,
+      new AbortController().signal).catch((error: unknown) => error);
+    expect(caught).toMatchObject({ kind: 'network_error', httpStatus: null,
+      message: 'AI provider failure' });
+    expect(JSON.stringify(caught)).not.toContain('must-not-leak');
+    expect(JSON.stringify(caught)).not.toContain('private');
+  });
 
   it('preserves cancellation as AbortError and maps transport failures', async () => {
     const aborted = new DOMException('secret', 'AbortError');

@@ -270,3 +270,22 @@ To je prvi tehnički MVP, ne kompletna Week04 isporuka.
 
 Ukupno: **44 taska** — 2 setup, 6 foundation, 7 US1, 8 US3, 6 US2, 8 US4, 4 Gemini adapter i 3 završna taska. Statusi su ažurirani 2026-09-28; objašnjenje je u `docs/evidence/002-task-status-audit.md`.
 Story count: US1 7, US2 6, US3 8, US4 8.
+
+## Ograničeni Gemini recovery bugfix — 2026-09-28
+
+Merge dopuna 2026-09-29: T005 beleži prvobitni default ugovor od dva pokušaja.
+Na korisnikov zahtev zadržan je recovery profil sa `GEMINI_MAX_ATTEMPTS=1–2`
+i opcionim bot budžetom do 35 s; default ostaje dva pokušaja i 12 s.
+Aktuelni config test proverava taj odobreni ugovor. Zadržani su `decisionOrdinal`,
+waiting/polling UI i analiza iz `ai-integ`. Detalji spajanja i nove provere:
+`docs/evidence/002-merge-recovery.md`.
+
+Odobreno naknadnim korisničkim zahtevom da Codex preuzme dijagnostiku i popravku.
+Dokaz: `docs/evidence/002-gemini-recovery.md`. Prethodni T001–T044 statusi nisu
+retroaktivno menjani.
+
+- [x] GR1 — Uporediti direktan HTTP i SDK; zabeležiti dozvoljene statuse i limite poziva.
+- [x] GR2 — RED/GREEN za očuvanje bezbednog provider razloga do usage dashboard-a i 404 klasifikaciju.
+- [x] GR3 — Dijagnostički CLI vraća nonzero pri grešci/praznom odgovoru; pokriven offline testom.
+- [x] GR4 — Fokusirane i pune offline provere, typecheck, lint i build; ažurirana dokumentacija.
+- [x] GR5 — Uspešan stvarni bot engine commit i analiza preko Lite modela; dokaz: `docs/evidence/002-gemini-lite-success.md`. Prethodni 503/timeout ostaju istorijski nalazi, lokalni fallback nije PASS.

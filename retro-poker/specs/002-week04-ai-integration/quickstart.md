@@ -65,9 +65,9 @@ ponovo proveriti zvanične model stranice, capability, quota i billing za konkre
 projekat. Ne ispisivati vrednost environment promenljive.
 
 - najviše jedan AI bot potez i jedna analysis interakcija;
-- aplikacija ima zaključana najviše dva attempt-a; za strogo ograničenje na jedan
-  provider poziv koristiti zaseban ručni adapter smoke, ne menjati produkcioni retry
-  ugovor niti predstavljati nepostojeći `GEMINI_MAX_ATTEMPTS` env override;
+- aplikacija ima najviše dva attempt-a; `GEMINI_MAX_ATTEMPTS=1` bira jedan pokušaj
+  bez recovery-ja, kao u sporijem Lite profilu iz README-a. Za ograničenu proveru
+  bot commit-a i analize koristiti `npm.cmd run smoke:gemini -- --live`;
 - potvrditi structured parse, model ID, attempt count i usage samo ako je vraćen;
 - ne snimati prompt/raw response/privatne karte;
 - failure zbog dostupnosti, quota ili billing-a dokumentovati kao runtime ograničenje,

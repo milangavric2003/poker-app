@@ -15,11 +15,16 @@ const identityProperties = { gameId: { type: 'string', format: 'uuid' },
   handId: { type: 'string', format: 'uuid' }, expectedVersion: { type: 'integer', minimum: 0 },
   actorId: { type: 'string', minLength: 1 },
   decisionOrdinal: { type: 'integer', minimum: 1, maximum: Number.MAX_SAFE_INTEGER } };
-export const botProposalJsonSchema = Object.freeze({ type: 'object', additionalProperties: false,
-  properties: { ...identityProperties, type: { type: 'string',
-    enum: ['fold', 'check', 'call', 'all_in', 'bet', 'raise'] },
-  amountTo: { type: 'integer', minimum: 1, maximum: 6000 } },
-  required: ['gameId', 'handId', 'expectedVersion', 'actorId', 'decisionOrdinal', 'type'] });
+const requiredIdentity = ['gameId', 'handId', 'expectedVersion', 'actorId', 'decisionOrdinal', 'type'];
+export const botProposalJsonSchema = Object.freeze({ type: 'object', anyOf: [
+  { type: 'object', additionalProperties: false,
+    properties: { ...identityProperties, type: { type: 'string', enum: ['fold', 'check', 'call', 'all_in'] } },
+    required: requiredIdentity },
+  { type: 'object', additionalProperties: false,
+    properties: { ...identityProperties, type: { type: 'string', enum: ['bet', 'raise'] },
+      amountTo: { type: 'integer', minimum: 1, maximum: 6000 } },
+    required: [...requiredIdentity, 'amountTo'] },
+] });
 const analysisItem = { type: 'object', additionalProperties: false,
   properties: { decisionRef: { type: 'string', minLength: 1 },
     explanation: { type: 'string', minLength: 1, maxLength: 600 } },

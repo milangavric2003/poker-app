@@ -29,9 +29,10 @@ describe('AI runtime config', () => {
       enabled: false, maxAttempts: 2, botAttemptMs: 6500, analysisAttemptMs: 14000,
       backoffMinMs: 300, backoffMaxMs: 900 });
   });
-  it.each(['1', '2', '9', 'not-a-number'])('keeps exactly two attempts for configured value %j', value => {
-    expect(loadAiConfig({ GEMINI_API_KEY: 'test', GEMINI_MAX_ATTEMPTS: value }).maxAttempts).toBe(2);
-  });
+  it.each([['1', 1], ['2', 2], ['9', 2], ['not-a-number', 2]] as const)(
+    'bounds configured attempts for %j to %i', (value, expected) => {
+      expect(loadAiConfig({ GEMINI_API_KEY: 'test', GEMINI_MAX_ATTEMPTS: value }).maxAttempts).toBe(expected);
+    });
   it('does not expose the key when serialized for public diagnostics', () => {
     const config = loadAiConfig({ GEMINI_API_KEY: 'super-secret' });
     expect(JSON.stringify(config.public)).not.toContain('super-secret');

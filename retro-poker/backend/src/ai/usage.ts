@@ -1,6 +1,8 @@
 import type { AiPurpose, AttemptOutcome, AttemptRelation, ProviderUsage } from './types.js';
+import { AiDiagnosticSchema, type AiDiagnostic } from '../../../shared/ai-diagnostic.js';
 
 export interface UsageAttemptInput {
+  diagnostic?: AiDiagnostic;
   model: string; relation: AttemptRelation; outcome: AttemptOutcome; durationMs: number;
   usage?: Partial<ProviderUsage>;
 }
@@ -14,6 +16,7 @@ type TokenField = typeof tokenFields[number];
 type UsageView = Record<TokenField, Metric> & { cost: CostMetric };
 type LogicalRow = { purpose: AiPurpose; initialModel: string; finalOutcome: string; count: number };
 type AttemptRow = { purpose: AiPurpose; model: string; relation: AttemptRelation; outcome: AttemptOutcome;
+  diagnostic?: AiDiagnostic;
   count: number; latency: { count: number; sumMs: number; maxMs: number }; usage: UsageView };
 
 function emptyUsage(): UsageView {
@@ -57,9 +60,13 @@ export class UsageStore {
   }
 
   private recordAttempt(purpose: AiPurpose, attempt: UsageAttemptInput): void {
-    const attemptKey = key([purpose, attempt.model, attempt.relation, attempt.outcome]);
+    const parsed = AiDiagnosticSchema.safeParse(attempt.diagnostic);
+    const diagnostic = parsed.success ? parsed.data : undefined;
+    const attemptKey = key([purpose, attempt.model, attempt.relation, attempt.outcome,
+      diagnostic?.httpStatus ?? '', diagnostic?.providerCode ?? '', diagnostic?.reason ?? '']);
     const row = this.attempts.get(attemptKey) ?? { purpose, model: attempt.model,
       relation: attempt.relation, outcome: attempt.outcome, count: 0,
+      ...(diagnostic ? { diagnostic } : {}),
       latency: { count: 0, sumMs: 0, maxMs: 0 }, usage: emptyUsage() };
     row.count = safeAdd(row.count, 1);
     const durationMs = Number.isFinite(attempt.durationMs)

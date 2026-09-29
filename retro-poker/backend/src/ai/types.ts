@@ -1,11 +1,12 @@
 import type { Card, LegalAction, PokerAction } from '../engine/types.js';
 import type { PublicEvent } from '../../../shared/contracts.js';
+import type { AiDiagnostic } from '../../../shared/ai-diagnostic.js';
 
 export type AiPurpose = 'bot' | 'analysis';
 export type AttemptRelation = 'initial' | 'same_model_retry' | 'model_fallback';
 export type AttemptOutcome = 'success' | 'timeout' | 'rate_limited' | 'server_error'
   | 'network_error' | 'malformed' | 'schema_rejected' | 'semantic_rejected'
-  | 'safety_refusal' | 'auth_config_error' | 'cancelled' | 'stale';
+  | 'safety_refusal' | 'auth_config_error' | 'invalid_request' | 'cancelled' | 'stale';
 
 export interface AiRuntimeConfig {
   enabled: boolean;
@@ -13,8 +14,8 @@ export interface AiRuntimeConfig {
   configError: 'MODEL_NOT_ALLOWED' | null;
   primaryModel: string;
   fallbackModel: string | null;
-  maxAttempts: 2;
-  botTotalMs: 12000;
+  maxAttempts: 1 | 2;
+  botTotalMs: number;
   analysisTotalMs: 30000;
   botReserveMs: 500;
   analysisReserveMs: 1000;
@@ -23,7 +24,7 @@ export interface AiRuntimeConfig {
   backoffMinMs: number;
   backoffMaxMs: number;
   public: Readonly<{ enabled: boolean; primaryModel: string; fallbackModel: string | null;
-    maxAttempts: 2; botAttemptMs: number; analysisAttemptMs: number;
+    maxAttempts: 1 | 2; botTotalMs: number; botAttemptMs: number; analysisAttemptMs: number;
     backoffMinMs: number; backoffMaxMs: number; configError: 'MODEL_NOT_ALLOWED' | null }>;
 }
 
@@ -45,7 +46,8 @@ export type ProviderFailureKind = 'timeout' | 'rate_limited' | 'server_error' | 
   | 'malformed' | 'invalid_request' | 'auth_config_error' | 'safety_refusal' | 'config_error';
 export class ProviderError extends Error {
   constructor(readonly kind: ProviderFailureKind, message = 'AI provider failure',
-    readonly retryAfterMs?: number) { super(message); }
+    readonly retryAfterMs?: number, readonly httpStatus: number | null = null,
+    readonly diagnostic?: AiDiagnostic) { super(message); }
 }
 
 export interface AiClock {
@@ -82,6 +84,7 @@ export interface AnalysisFingerprint {
 export type AiFingerprint = BotFingerprint | AnalysisFingerprint;
 export interface AIAttempt {
   ordinal: 1 | 2; model: string; relation: AttemptRelation; outcome: AttemptOutcome; durationMs: number;
+  diagnostic?: AiDiagnostic;
   usage?: Partial<ProviderUsage>;
 }
 export type AIInteractionStatus = 'waiting' | 'retrying' | 'model_fallback' | 'completed'

@@ -8,7 +8,7 @@ export type AiUiStatus =
 
 const labels: Record<Exclude<AiUiStatus['kind'], 'idle' | 'requesting'>, string> = {
   success: 'AI potez je prihvaćen.',
-  fallback: 'Korišćen je bezbedan lokalni fallback; razlog nije javno dostupan.',
+  fallback: 'Korišćen je lokalni fallback jer AI nije dao validan odgovor. Detalji pokušaja su u AI upotreba.',
   timeout: 'Vreme čekanja na AI je isteklo.',
   rate_limited: 'AI provider je primio previše zahteva (429).',
   provider_error: 'AI provider nije odgovorio ili je vratio grešku.',

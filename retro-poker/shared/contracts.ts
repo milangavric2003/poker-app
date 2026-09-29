@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AiDiagnosticSchema } from './ai-diagnostic.js';
 
 export const CardSchema = z.string().regex(/^[2-9TJQKA][cdhs]$/);
 export const ChipsSchema = z.number().int().min(0).max(6000);
@@ -120,13 +121,14 @@ const CostMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count
   && (value.knownCount === 0) === (value.sum === null), 'Inconsistent cost aggregate');
 const AttemptOutcomeSchema = z.enum(['success', 'timeout', 'rate_limited', 'server_error',
   'network_error', 'malformed', 'schema_rejected', 'semantic_rejected', 'safety_refusal',
-  'auth_config_error', 'cancelled', 'stale']);
+  'auth_config_error', 'invalid_request', 'cancelled', 'stale']);
 export const UsageDashboardSchema = z.strictObject({
   revision: Count,
   logical: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']),
     initialModel: z.string().min(1), finalOutcome: z.string().min(1), count: Count })),
   attempts: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']), model: z.string().min(1),
     relation: z.enum(['initial', 'same_model_retry', 'model_fallback']), outcome: AttemptOutcomeSchema,
+    diagnostic: AiDiagnosticSchema.optional(),
     count: Count, latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count }),
     usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
       thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,

@@ -63,9 +63,12 @@ describe('strict BotActionProposal schema', () => {
   });
 
   it('publishes a strict manual provider schema with the decision ordinal', () => {
-    expect(botProposalJsonSchema).toMatchObject({ additionalProperties: false,
-      properties: { decisionOrdinal: { type: 'integer', minimum: 1 } } });
-    expect(botProposalJsonSchema.required).toContain('decisionOrdinal');
+    expect(botProposalJsonSchema.anyOf).toHaveLength(2);
+    for (const variant of botProposalJsonSchema.anyOf) {
+      expect(variant).toMatchObject({ additionalProperties: false,
+        properties: { decisionOrdinal: { type: 'integer', minimum: 1 } } });
+      expect(variant.required).toContain('decisionOrdinal');
+    }
   });
 });
 
