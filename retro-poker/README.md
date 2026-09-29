@@ -76,12 +76,14 @@ Podržane promenljive:
 - `GEMINI_PRIMARY_MODEL`: `gemini-3.8-flash` (default) ili `gemini-3.5-flash-lite`;
 - `GEMINI_FALLBACK_MODEL`: drugi od ta dva modela; isti model isključuje model fallback;
 - `GEMINI_MAX_ATTEMPTS`: 1–2, podrazumevano 2;
-- `GEMINI_BOT_TIMEOUT_MS`: 250–11000, podrazumevano 5000;
+- `GEMINI_BOT_TOTAL_MS`: 12000–35000, podrazumevano 12000;
+- `GEMINI_BOT_TIMEOUT_MS`: 250–min(30000, total − 1000), podrazumevano 5000;
 - `GEMINI_ANALYSIS_TIMEOUT_MS`: 250–29000, podrazumevano 12000;
 - `GEMINI_BACKOFF_MIN_MS`: 0–2000, podrazumevano 250;
 - `GEMINI_BACKOFF_MAX_MS`: do 5000, podrazumevano 750.
 
-Ukupan budžet ostaje 12 s za bot odluku i 30 s za analizu. SDK retry je isključen
+Podrazumevani ukupan budžet je 12 s za bot odluku i 30 s za analizu. Eksplicitni
+sporiji profil dopušta do 35 s za bot odluku. SDK retry je isključen
 (`attempts: 1`); coordinator radi najviše jedan dodatni pokušaj. 429/408/timeout/network
 ponavljaju isti model, 5xx prelazi na dozvoljeni fallback model, malformed/schema/
 semantic rezultat dobija jedan corrective pokušaj bez pauze, a auth/config/safety
@@ -90,3 +92,22 @@ greške su terminalne. Svaki neuspeli bot tok završava lokalnom strategijom.
 Opcioni live smoke nije deo automatizovanih provera. Zahteva da korisnik lokalno
 postavi ključ i izričito odobri najviše jedan bot i jedan analysis poziv; ne sme
 ispisati ključ, kontekst ili sirovi odgovor.
+
+Za Lite profil sa dužim čekanjem postaviti sledeće vrednosti u lokalni `.env`,
+pa restartovati backend:
+
+```dotenv
+GEMINI_PRIMARY_MODEL=gemini-3.5-flash-lite
+GEMINI_FALLBACK_MODEL=gemini-3.5-flash-lite
+GEMINI_MAX_ATTEMPTS=1
+GEMINI_BOT_TIMEOUT_MS=30000
+GEMINI_BOT_TOTAL_MS=35000
+GEMINI_ANALYSIS_TIMEOUT_MS=29000
+```
+
+Ovaj profil čeka do 30 s po botu i ne ponavlja generation zahtev. Ne garantuje
+dostupnost provajdera. `npm run smoke:gemini -- --live` proverava stvarni bot
+commit i read-only analizu (najviše dva poziva); `--bot-only` ograničava na jedan.
+Bez `--live` nema poziva. Offline testovi koriste presretnut HTTP i ne dokazuju
+dostupnost modela. Rezultati oporavka su u
+[evidence dokumentu](docs/evidence/002-gemini-lite-success.md).

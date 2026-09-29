@@ -262,4 +262,4 @@ retroaktivno menjani.
 - [x] GR2 — RED/GREEN za očuvanje bezbednog provider razloga do usage dashboard-a i 404 klasifikaciju.
 - [x] GR3 — Dijagnostički CLI vraća nonzero pri grešci/praznom odgovoru; pokriven offline testom.
 - [x] GR4 — Fokusirane i pune offline provere, typecheck, lint i build; ažurirana dokumentacija.
-- [ ] GR5 — Uspešan stvarni bot engine commit i analiza. Blokirano: live API odgovori 503/UNAVAILABLE i završni timeout; lokalni fallback nije PASS.
+- [x] GR5 — Uspešan stvarni bot engine commit i analiza preko Lite modela; dokaz: `docs/evidence/002-gemini-lite-success.md`. Prethodni 503/timeout ostaju istorijski nalazi, lokalni fallback nije PASS.

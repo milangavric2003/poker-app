@@ -31,10 +31,10 @@ async function main() {
   const provider = dependencies.aiProvider;
   const calls = { bot: 0, analysis: 0 };
   let failures = 0;
+  const purposes = process.argv.includes('--bot-only') ? ['bot'] as const : ['bot', 'analysis'] as const;
   console.log(JSON.stringify({ event: 'configuration', model: config.primaryModel,
     botAttemptMs: config.botAttemptMs, botTotalMs: config.botTotalMs,
-    analysisAttemptMs: config.analysisAttemptMs, maxCalls: 2 }));
-  const purposes = process.argv.includes('--bot-only') ? ['bot'] as const : ['bot', 'analysis'] as const;
+    analysisAttemptMs: config.analysisAttemptMs, maxCalls: purposes.length }));
   for (const purpose of purposes) {
     processUsageStore.reset(processUsageStore.snapshot().revision);
     const app = buildApp({ deck, deckRandom: fixedRandom(), botRandom: fixedRandom(), aiConfig: config,

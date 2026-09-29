@@ -15,7 +15,7 @@ lokalna schema i semantička/engine validacija prethode jedinom mogućem commit-
 Provider pozivi teku van session mutation lock-a; kratke rezervacije i završni commit
 su serijalizovani i vezani fingerprint-om za partiju, ruku, actor-a i reviziju.
 
-Plan potvrđuje PROP-001–PROP-004: najviše dva provider pokušaja, ukupno 12 s za bot
+Plan potvrđuje PROP-001–PROP-004: najviše dva provider pokušaja, podrazumevano 12 s za bot
 ishod i 30 s za analysis ishod, sa konačnim per-attempt timeout-om, bounded backoff-om
 i otkazivanjem. Bot posle terminalnog neuspeha koristi neizmenjenu Week03 lokalnu
 strategiju; analysis ostaje read-only i dobija samo eksplicitni ručni retry.
@@ -52,7 +52,8 @@ i desktop browser preko `127.0.0.1:5173`; postojeći 1280×720 minimum ostaje.
 **Project Type**: browser frontend + mali lokalni HTTP backend u jednom npm projektu.
 
 **Performance Goals**: najviše 2 provider pokušaja po interakciji; bot dobija model
-ili lokalni ishod za ≤12.000 ms, analysis validan rezultat ili failure za ≤30.000 ms.
+ili lokalni ishod za ≤12.000 ms u default profilu (do 35.000 ms uz eksplicitni sporiji
+profil), analysis validan rezultat ili failure za ≤30.000 ms.
 Pending provider ne sprečava nezavisan `GET /api/game` ili `GET /api/ai/usage`.
 
 **Constraints**: ključ samo u backend `GEMINI_API_KEY`; nema live poziva u testovima;
@@ -305,3 +306,11 @@ proveriti modele, capability, quota i billing. Nikada ne tražiti ili ispisati k
 Nema constitution odstupanja. Provider adapter, coordinator i usage store su najmanje
 granice potrebne za fake-first TDD, cancellation/idempotency i javnu privatnost.
 Ne uvode se dodatni provider-i, baza, auth, multiplayer, deployment ili trajno čuvanje.
+
+### Eksplicitni sporiji profil — 2026-09-29
+
+Gornja tabela vremena opisuje default profil. GEMINI_BOT_TOTAL_MS dopušta
+12.000–35.000 ms; GEMINI_BOT_TIMEOUT_MS do min(30.000, total − 1.000).
+Lokalni Lite profil ima jedan pokušaj, 30.000 ms attempt i 35.000 ms total.
+Analysis total ostaje 30.000 ms, sa lokalnim attempt 29.000 ms. Provider koristi
+ravnu nullable transport šemu za bot, uz nepromenjenu strogu domensku validaciju.

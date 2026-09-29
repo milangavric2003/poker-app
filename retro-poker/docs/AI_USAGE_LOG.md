@@ -193,3 +193,14 @@ typecheck/lint/build exit0. Prvi lint pokušaj imao je tri nekorišćena lokalna
 ispravljen je bez promene test očekivanja, a ceo završni skup ponovljen. `npm run dev`
 nije pokrenut; Fastify inject nije otvorio port. Potrošnja/tokeni/cena i ljudski review
 nisu dostupni ili potvrđeni. Detalji su u EVIDENCE_003 i docs/evidence/T016-*–T019-*.
+
+## 2026-09-29 — Gemini Lite oporavak
+
+Svrha: proveriti stvarnu komunikaciju i legalan bot commit nakon timeout-a.
+Kontekst: sanitizovan bot snapshot / facts završene partije; Gemini 3.5 Flash Lite,
+produkcioni @google/genai adapter. Osam generation poziva u ovom bloku, uključujući
+odbijene predloge; pojedinačni tokeni i trajanja u evidence dokumentu. Cena nepoznata.
+Ishod: stvarni bot model_success (1.161 ms, 808 tokena), analiza completed
+(6.914 ms, 827 tokena), bez promene poker stanja analizom. Korisnik je odobrio
+nastavak; nije izmišljena ljudska review potvrda. Detalji i ograničenja:
+[evidence](evidence/002-gemini-lite-success.md).

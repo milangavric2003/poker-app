@@ -18,3 +18,13 @@ Plan: HTTP dijagnostika → RED regresioni testovi → minimalna popravka → GR
 typecheck/lint/build → dokumentovan live nalaz i preostala prepreka.
 Week04 requirements checklist: 26/26; Spec Kit prerequisite automatski bira stari
 001 feature prema grani, zato se ovaj odobreni bugfix eksplicitno odnosi na 002.
+
+## Nastavak 2026-09-29: Lite sporiji profil i live uspeh
+
+Korisnik je odobrio nastavak implementacije nakon pregleda timeout-a i kvota.
+Scope dopunjen: eksplicitni bot profil 30 s attempt / 35 s total, Lite primarni,
+jedan pokušaj; ravna Gemini transport šema uz strogu lokalnu validaciju; popravka
+terminalnog snapshot-a; opt-in runner sa bot commit/read-only analysis uslovima.
+Dokaz: docs/evidence/002-gemini-lite-success.md. Default 5/12 s profil ostaje.
+Raniji limit pet poziva odnosio se na prethodni dijagnostički blok. U nastavku
+je izvršeno osam generation poziva; nema dodatnog automatskog ponavljanja.

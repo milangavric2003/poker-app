@@ -24,6 +24,18 @@ function transport(body: unknown, status = 200) {
 }
 
 describe('real Gemini SDK over intercepted HTTP', () => {
+  it.each([
+    { type: 'call', amountTo: 10 },
+    { type: 'bet', amountTo: null },
+    { type: 'check', amountTo: null, unexpected: true },
+  ])('rejects invalid action fields after transport normalization: %j', async fields => {
+    transport({ candidates: [{ content: { role: 'model', parts: [{ text: JSON.stringify({
+      gameId: context.gameId, handId: context.handId, expectedVersion: 1, actorId: 'bot-1', ...fields,
+    }) }] }, finishReason: 'STOP' }] });
+    const result = await coordinateBot(createGeminiProvider('fake-secret'), config, context, signal());
+    expect(result.ok).toBe(false);
+    expect(result.attempts[0]?.outcome).toBe('schema_rejected');
+  });
   it('serializes the production schema and accepts a valid bot response', async () => {
     const proposal = { gameId: context.gameId, handId: context.handId,
       expectedVersion: 1, actorId: 'bot-1', type: 'check' };

@@ -190,3 +190,15 @@ contracts/http create/get/action pravila. Suggestion, nastavni PDF, spoljni izvo
 frontend i Week04 materijali nisu korišćeni. Nisu dodate zavisnosti. Novi kontekst
 čine bot/history unit testovi, Fastify inject integration testovi i backend moduli
 app/routes/session/view. RED/GREEN/final izlazi su u docs/evidence/T016-* do T019-*.
+
+## 2026-09-29 — nastavak Gemini Lite popravke
+
+Prioritet: korisnikov odobren nastavak > AGENTS / aktivna 002 specifikacija.
+Korišćeni izvori: speckit-implement skill (već započet tok); 002 spec/plan/tasks,
+data-model i ai-http ugovor; config/types/schemas/Gemini adapter; live smoke runner;
+adapter/HTTP/schema/slow-profile/terminal-view testovi; README i .env.example.
+Lokalni .env učitan je samo u procesu za live poziv, bez ispisa ključa.
+Prethodni nalazi i RED rezultati preuzeti iz sačuvanog konteksta nastavka;
+novi GREEN i live bot rezultat direktno zabeleženi. Nisu korišćeni novi spoljni
+izvori ni subagenti. Rizik: promenljivo vreme/dostupnost API-ja i ograničen live uzorak.
+Dokaz: evidence/002-gemini-lite-success.md.

@@ -13,9 +13,9 @@ projekciju. Ograničenja dopunjuju, ne zamenjuju Week03 modele.
 | apiKey | backend-only string iz `GEMINI_API_KEY`; nikad u javnom DTO-u/logu; prazno znači unavailable |
 | primaryModel | allowlisted stable Gemini text model; default `gemini-3.8-flash` |
 | fallbackModel | drugi allowlisted stable Gemini text model ili null; default `gemini-3.5-flash-lite`; isti/prazan postaje null |
-| maxAttempts | tačno 2 za ovaj feature |
-| botTotalMs / analysisTotalMs | 12.000 / 30.000 |
-| botAttemptMs / analysisAttemptMs | 5.000 / 12.000, dodatno ograničeno preostalim total budget-om |
+| maxAttempts | 1–2, default 2 |
+| botTotalMs / analysisTotalMs | bot 12.000–35.000 (default 12.000); analysis 30.000 |
+| botAttemptMs / analysisAttemptMs | default 5.000 / 12.000; bot do min(30.000, botTotalMs − 1.000), analysis do 29.000; dodatno ograničeno preostalim total budget-om |
 
 ### Game AI Configuration
 
