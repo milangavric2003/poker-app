@@ -1,0 +1,26 @@
+Week04 implementation documentation review — 2026-09-28
+
+Reviewed README configuration, `.env.example`, the Gemini adapter evidence, live smoke
+evidence and the AI usage log.
+
+- `README.md` documents server-only `GEMINI_API_KEY`, Gemini enable/model/attempt/
+  timeout/backoff settings, offline fallback and dashboard reset behavior.
+- `.env.example` leaves the key empty and shows the two configured model IDs; no secret
+  value is present.
+- `docs/evidence/002-gemini-adapter.md` records SDK `@google/genai` 2.24.0, adapter
+  boundary and mock-only verification. `docs/evidence/002-live-smoke.md` records the
+  later two-request manual smoke outcome and its limits.
+- `docs/AI_USAGE_LOG.md` records the live interaction without key, prompt, private cards
+  or raw provider output.
+- On 2026-09-28 the official [Gemini models page](https://ai.google.dev/gemini-api/docs/models)
+  was rechecked; it lists `gemini-3.8-flash` and `gemini-3.5-flash-lite` as stable IDs.
+- Documentation does not guarantee model access, free usage, quota or price. Project-
+  specific access, billing and quota remain unverified.
+
+Result: documentation task T042 is complete. This is a documentation review, not a
+claim that the live model returned a valid analysis.
+
+Dopuna 2026-09-29: uklonjena je netačna tvrdnja da je `GEMINI_MAX_ATTEMPTS` podržan
+environment override 1–2. Runtime ugovor je tačno 2 pokušaja i config namerno ignoriše
+tu promenljivu; README, `.env.example` i quickstart sada to dosledno opisuju. Za strogo
+jedan live provider poziv potreban je zaseban adapter smoke, ne nepostojeći env override.

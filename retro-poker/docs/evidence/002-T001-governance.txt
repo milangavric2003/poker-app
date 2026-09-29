@@ -1,0 +1,19 @@
+Week04 governance gate review — 2026-09-28
+
+Result: CHK026 remains correctly checked and the pre-implementation governance gate is
+closed. This review confirms the already approved source alignment; it does not assert
+that Week04 implementation is complete.
+
+- `docs/GAME_SPEC.md`: version 1.1, dated 2026-09-26; §12 explicitly includes model-
+  proposed bot actions, validated by the backend, read-only completed-match analysis,
+  and the local in-memory AI usage dashboard.
+- `.specify/memory/constitution.md`: version 1.1.0, last amended 2026-09-26; Principle
+  VI permits those Week04 capabilities while retaining backend/engine authority,
+  deterministic local fallback, read-only analysis, and the no-database/no-persistence
+  boundary.
+- `specs/002-week04-ai-integration/checklists/requirements.md`: CHK026 is `[x]` and the
+  quality/governance review reports 26/26. The checklist marker measures requirement
+  quality/governance, not implementation completion.
+
+No source conflict was found in these three records. CHK026/SC-009 is closed; remaining
+implementation, TDD and final verification work is tracked separately in `tasks.md`.

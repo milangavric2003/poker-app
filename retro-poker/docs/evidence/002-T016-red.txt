@@ -1,0 +1,13 @@
+T016 retry/deadline behavior RED — 2026-09-28
+
+Komanda: `npm.cmd test -- tests/unit/ai-retry.test.ts`
+
+Stvarni relevantni RED: exit code 1; Vitest 5.0.1; 1 fajl; 17 testova,
+1 pao i 16 prošlo; trajanje 303 ms.
+
+`does not start attempt two when backoff would consume the 500 ms commit reserve`
+očekivao je jedan provider poziv, a coordinator je napravio dva. Drugi attempt je
+započet bez ugovorene rezerve za validaciju/fallback/commit.
+
+Raniji parse pad i pogrešna simulacija timeout-a u test clock-u nisu RED dokaz.
+Nije korišćena mreža ni stvarni API ključ.

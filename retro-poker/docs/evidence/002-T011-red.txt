@@ -1,0 +1,34 @@
+T011 BotActionProposal schema/semantic RED evidence
+Datum: 2026-09-28
+Grana: ai-integ
+
+Komanda:
+npm.cmd test -- tests/unit/ai-semantic.test.ts
+
+Stvarni rezultat:
+- exit code: 1
+- Vitest 5.0.1
+- Test Files: 1 failed (1)
+- Tests: 10 failed, 2 passed (12)
+- Trajanje: 599 ms
+
+Smisleni RED razlog:
+
+Validan predlog sa kompletnim fingerprint-om pada jer strict produkciona schema odbija
+`decisionOrdinal` kao nepoznato polje. Ručni provider JSON Schema takođe nema
+`decisionOrdinal`. Zato stale decision ordinal nije moguće semantički proveriti, iako
+T011/FR-005 zahtevaju identity/revision/actor/decision fingerprint pre legalnosti.
+
+Prvi reprezentativni pad:
+
+`requires the complete immutable decision fingerprint`
+Expected: proposal sa `decisionOrdinal: 7`
+Received: null
+
+Zod dijagnostika u ostalim redovima navodi:
+`Unrecognized key: "decisionOrdinal"`.
+
+Dve prolazne kontrole potvrđuju da se postojeći parser/validator stvarno izvršava:
+malformed JSON se odbija kao `MALFORMED_JSON`, a schema odbija unknown/type/amount
+oblike koji su već implementirani. Nema missing importa, setup greške, mrežnog poziva
+ili environment/API ključa.

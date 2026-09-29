@@ -1,0 +1,11 @@
+T020 concurrency/CAS behavior RED — 2026-09-28
+
+Komanda: `npm.cmd test -- tests/integration/ai-concurrency.test.ts`
+
+Stvarni rezultat: exit code 1; Vitest 5.0.1; 1 fajl; 8 testova,
+4 pala i 4 prošla; trajanje 1.18 s.
+
+Promenjeni version, hand, actor i decisionOrdinal pravilno su sprečili engine commit,
+ali su ostavili `game.ai.active` zauvek u `waiting` stanju. Pending GET,
+replacement/late callback, duplicate callback i deadline boundary kontrole su prolazile.
+Nije korišćena mreža ni stvarni API ključ.

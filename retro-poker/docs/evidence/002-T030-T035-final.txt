@@ -1,0 +1,65 @@
+﻿T030–T035 RED/GREEN i završna regresija — 2026-09-27
+
+T030 RED
+Komanda: npm.cmd test -- tests/unit/ai-usage.test.ts
+Exit: 1. Očekivano: suite nije mogla da učita backend/src/ai/usage.js jer modul nije postojao. Ovo je dokaz nedostajućeg agregatora.
+
+Ciljane provere posle implementacije
+Komanda: npm.cmd test -- tests/unit/ai-usage.test.ts tests/contract/ai-routes.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts tests/integration/ai-analysis.test.ts tests/ui/dashboard.test.tsx tests/contract/ai-contracts.test.ts tests/integration/gemini-adapter.test.ts
+Rezultat: exit 0; 8 fajlova, 37 testova passed.
+
+UI dashboard regresija
+Komanda: npm.cmd test -- tests/ui/dashboard.test.tsx
+Rezultat: exit 0; 1 fajl, 5 testova passed. Provereni su grupisane logical/attempt tabele, brojači, latency count/avg/max, partial token zbir i unknown cost.
+
+Puna regresija
+- npm.cmd test — exit 0; 36 fajlova, 418 testova passed.
+- npm.cmd run test:e2e — exit 0; 10/10 Playwright testova passed, uključujući offline fake-provider dashboard flow i 1280x720 accessibility.
+- npm.cmd run typecheck — exit 0.
+- npm.cmd run lint — exit 0.
+- npm.cmd run build — exit 0; Vite 119 modules; build 382 ms.
+
+Offline browser acceptance (T036 delimično)
+Komanda: npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts --workers=1
+Rezultat: exit 0; 1/1. Proveren je AI toggle, bot usage agregat, dashboard logical/attempt prikaz, usage reset uz nepromenjenu partiju i game replacement uz nepromenjenu usage revision.
+Ograničenje: browser tok ne pokriva analysis success/failure i manual retry; T036 i T037 ostaju otvoreni. Analiza, cancellation/stale, bot retry/fallback su pokriveni server integration/unit skupom; live Gemini pozivi nisu rađeni.
+
+Puna Playwright regresija pre završne UI dopune imala je 9/10, jer su expanded metričke tabele spustile akcije van 720px. Posle kompaktne/sklopive tabele i uklanjanja redundantnog idle AI statusa ponovljena je puna regresija i rezultat je 10/10.
+Završni ponovljeni prolaz posle dokumentacije — 2026-09-27
+- npm.cmd test: exit 0; 36/36 fajlova, 418/418 testova.
+- npm.cmd run test:e2e: exit 0; 10/10 Playwright testova, uključujući offline AI usage scenario i accessibility 1280x720.
+- npm.cmd run typecheck: exit 0.
+- npm.cmd run lint: exit 0.
+- npm.cmd run build: exit 0; Vite 119 modula, 435 ms.
+
+Ovi rezultati su završni i zamenjuju ranije delimične probe u ovom evidence fajlu.
+
+Poslednja implementaciona provera posle privacy/idempotency review:
+- fokusirani unit/route/bot cancellation/analysis skup: exit 0, 5 fajlova, 10 testova;
+- typecheck exit 0; lint exit 0; build exit 0, Vite 119 modula, 444 ms.
+- puna test/e2e regresija neposredno pre te poslednje idempotency izmene: 418/418 i 10/10; idempotency izmena zatim je pokrivena fokusiranim integration/unit skupom.
+
+Ponovna T031-T035 provera — 2026-09-29
+
+Smisleni RED:
+Komanda: npm.cmd test -- tests/unit/ai-usage.test.ts tests/ui/api.test.ts tests/contract/ai-routes.test.ts
+Exit: 1; 2 testa pala, 15 prošlo.
+- UsageStore je sabrao dve MAX_SAFE_INTEGER latencije u 18014398509481982, van
+  ugovorenog safe-integer opsega.
+- Frontend loadUsage je prihvatio attempt bez obaveznog privacy-safe usage agregata.
+Route test je prošao i potvrđuje da je problem bio u store/client ponašanju, ne setup-u.
+
+Minimalne korekcije:
+- svi javni usage brojači i zbirovi koriste saturating safe addition;
+- frontend koristi deljeni strict UsageResponseSchema umesto blaže duplirane šeme;
+- reset route oracle koristi stvarnu igru, tačnu staru reviziju i ponovljen isti stale reset;
+- dashboard matrica eksplicitno razlikuje known, partial i unknown usage.
+
+GREEN:
+- fokusirano: 4 fajla, 23/23 testa, exit 0;
+- npm.cmd test: 36 fajlova, 504/504 testa, exit 0;
+- npm.cmd run typecheck, npm.cmd run lint, npm.cmd run build: exit 0;
+- npm.cmd run test:e2e: 10/10 Chromium testova, exit 0, uključujući 1280x720
+  accessibility i offline dashboard/reset tok.
+
+Nije korišćena mreža ni stvarni API ključ.

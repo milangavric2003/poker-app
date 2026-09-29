@@ -1,0 +1,107 @@
+import type { Card, LegalAction, PokerAction } from '../engine/types.js';
+import type { PublicEvent } from '../../../shared/contracts.js';
+import type { AiDiagnostic } from '../../../shared/ai-diagnostic.js';
+
+export type AiPurpose = 'bot' | 'analysis';
+export type AttemptRelation = 'initial' | 'same_model_retry' | 'model_fallback';
+export type AttemptOutcome = 'success' | 'timeout' | 'rate_limited' | 'server_error'
+  | 'network_error' | 'malformed' | 'schema_rejected' | 'semantic_rejected'
+  | 'safety_refusal' | 'auth_config_error' | 'invalid_request' | 'cancelled' | 'stale';
+
+export interface AiRuntimeConfig {
+  enabled: boolean;
+  apiKey: string | null;
+  configError: 'MODEL_NOT_ALLOWED' | null;
+  primaryModel: string;
+  fallbackModel: string | null;
+  maxAttempts: 1 | 2;
+  botTotalMs: number;
+  analysisTotalMs: 30000;
+  botReserveMs: 500;
+  analysisReserveMs: 1000;
+  botAttemptMs: number;
+  analysisAttemptMs: number;
+  backoffMinMs: number;
+  backoffMaxMs: number;
+  public: Readonly<{ enabled: boolean; primaryModel: string; fallbackModel: string | null;
+    maxAttempts: 1 | 2; botTotalMs: number; botAttemptMs: number; analysisAttemptMs: number;
+    backoffMinMs: number; backoffMaxMs: number; configError: 'MODEL_NOT_ALLOWED' | null }>;
+}
+
+export interface ProviderUsage {
+  promptTokens: number | null; candidateTokens: number | null; thoughtTokens: number | null;
+  cachedTokens: number | null; totalTokens: number | null;
+}
+export interface ProviderRequest {
+  purpose: AiPurpose; model: string; context: unknown; responseSchema: Readonly<Record<string, unknown>>;
+  attemptOrdinal: 1 | 2; corrective?: boolean;
+}
+export interface ProviderResult {
+  candidate: unknown; model?: string; responseId?: string; usage?: Partial<ProviderUsage>;
+}
+export interface AiProvider {
+  generate(request: ProviderRequest, signal: AbortSignal): Promise<ProviderResult>;
+}
+export type ProviderFailureKind = 'timeout' | 'rate_limited' | 'server_error' | 'network_error'
+  | 'malformed' | 'invalid_request' | 'auth_config_error' | 'safety_refusal' | 'config_error';
+export class ProviderError extends Error {
+  constructor(readonly kind: ProviderFailureKind, message = 'AI provider failure',
+    readonly retryAfterMs?: number, readonly httpStatus: number | null = null,
+    readonly diagnostic?: AiDiagnostic) { super(message); }
+}
+
+export interface AiClock {
+  now(): number;
+  sleep(ms: number, signal?: AbortSignal): Promise<void>;
+}
+export interface AiJitter { next(maxInclusive: number): number; }
+
+export interface BotDecisionContext {
+  gameId: string; handId: string; expectedVersion: number; actorId: string; decisionOrdinal: number;
+  phase: 'preflop' | 'flop' | 'turn' | 'river'; board: readonly Card[];
+  pots: ReadonlyArray<{ id: string; amount: number; contributionCap: number;
+    contributorIds: readonly string[]; eligibleIds: readonly string[] }>;
+  players: ReadonlyArray<{ id: string; seat: number; kind: 'human' | 'bot'; stack: number;
+    streetContribution: number; handContribution: number; status: string }>;
+  holeCards: readonly [Card, Card]; legalActions: readonly LegalAction[];
+  history: readonly PublicEvent[];
+}
+type BotProposalIdentity = { gameId: string; handId: string; expectedVersion: number;
+  actorId: string; decisionOrdinal: number };
+export type BotActionProposal = BotProposalIdentity & (
+  { type: 'fold' | 'check' | 'call' | 'all_in' }
+  | { type: 'bet' | 'raise'; amountTo: number }
+);
+
+export interface BotFingerprint {
+  interactionId: string; purpose: 'bot'; gameId: string; handId: string;
+  expectedVersion: number; actorId: string; decisionOrdinal: number;
+}
+export interface AnalysisFingerprint {
+  interactionId: string; purpose: 'analysis'; gameId: string; terminalHandId: string;
+  expectedVersion: number; factsRevision: number;
+}
+export type AiFingerprint = BotFingerprint | AnalysisFingerprint;
+export interface AIAttempt {
+  ordinal: 1 | 2; model: string; relation: AttemptRelation; outcome: AttemptOutcome; durationMs: number;
+  diagnostic?: AiDiagnostic;
+  usage?: Partial<ProviderUsage>;
+}
+export type AIInteractionStatus = 'waiting' | 'retrying' | 'model_fallback' | 'completed'
+  | 'local_fallback' | 'unavailable' | 'failed' | 'stale' | 'cancelled';
+export type BoundedAIAttempts = readonly [] | readonly [AIAttempt] | readonly [AIAttempt, AIAttempt];
+export interface AIInteraction<Fingerprint extends AiFingerprint = AiFingerprint> {
+  interactionId: string;
+  purpose: AiPurpose;
+  fingerprint: Readonly<Fingerprint>;
+  status: AIInteractionStatus;
+  startedAt: number;
+  deadlineAt: number;
+  attempts: BoundedAIAttempts;
+  terminalAt: number | null;
+}
+export interface CoordinatorResult<T> {
+  ok: boolean; value?: T; attempts: AIAttempt[]; finalModel: string | null;
+  failure?: AttemptOutcome;
+}
+export interface BotCommitCandidate { action: PokerAction; proposal: BotActionProposal; }

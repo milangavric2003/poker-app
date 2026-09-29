@@ -1,5 +1,116 @@
 # AI usage log
 
+## Merge recovery u ai-integ — 2026-09-29
+
+Korisnik je odobrio merge uz bot popravke iz `fix-timeout-error` i waiting/analysis
+tokove iz `ai-integ`. Jedan Codex agent je rešio 10 konfliktnih fajlova i uskladio
+decision identitet i zajedničku dashboard dijagnostiku. Završno: 536/536 Vitest,
+10/10 Playwright, typecheck/lint/build exit 0. Nema novih Gemini poziva, promene
+`.env` ili push-a; model tokeni i trošak nisu dostupni. Dokaz i zabeleženi padovi:
+[merge evidence](evidence/002-merge-recovery.md). Ljudski doprinos je izbor
+prioriteta i odobrenje merge-a; dodatni review nije tvrđen.
+
+## Week04 T041–T044 završni pregled — 2026-09-29
+
+Alat: Codex, jedan coding agent bez paralelnih agenata. Svrha: ponovna provera DI
+wiring-a, dokumentacije, pune offline matrice i Spec Kit traceability gate-a. Pokrenute
+su sve quickstart fokus grupe, puna Vitest/Playwright regresija, typecheck, lint i build;
+sve su prošle. Nije izvršen novi live Gemini poziv, nije čitan stvarni ključ i nisu
+poznati tokeni/cena ovog coding rada. T043 je zatvoren; T044 ostaje otvoren isključivo
+zbog nefabrikovanog T026 istorijskog RED/evidence nedostatka.
+
+## Week04 T001–T010 korekcija — 2026-09-28
+
+Alat: Codex, jedan coding agent bez paralelnih agenata. Svrha: ponovo proveriti i
+dovršiti T001–T010 po dependency redosledu, počev od originalnog prompta iz commita
+`e5a842b`, zatim uraditi fokusirane offline RED/GREEN provere. Očekivanje pre rada:
+T001 ostaje governance PASS; T002 dobija verifikovanu neizmenjenu kopiju; nepotpuni
+contract/config/context oracle-i treba da pokažu konkretne behavior propuste. Nije
+izvršen live AI poziv, nije čitan stvarni API ključ, model ovog coding poziva, tokeni i
+cena nisu dostupni: nepoznato. Operativni okviri ostaju 10–15 značajnih coding
+iteracija, 20–30 live AI razvojnih poziva i do 5 demo poziva; to nisu brojevi stvarno
+izvršenih poziva.
+
+Ishod: originalni prompt je potvrđen iz commita `e5a842b`; T003 shared contract RED je
+imao 2/13 očekivana pada, T005 config RED prvo 2/12 pa dopunski threshold RED 1/12,
+a T009 privacy RED 1/4. Posle minimalnih GREEN izmena završni fokus je 40/40, puna
+Vitest regresija 434/434, typecheck/lint/build imaju exit 0. Nije pokrenut E2E niti live
+smoke jer nisu completion kriterijum T001–T010; nema novih provider poziva.
+
+## Week04 task/status dokumentacioni pregled — 2026-09-28
+
+Alat: Codex; svrha: uporediti postojeću Week04 implementaciju i Git/evidence istoriju
+sa specifikacijom, planom, taskovima i governance checklistom, zatim ispraviti
+zastarele statuse. Nisu menjani aplikacioni kod, package manifesti ili testovi; nijedan
+test nije pokrenut i nije izvršen Gemini poziv. Rezultat i otvorene stavke su u
+[`002-task-status-audit.md`](evidence/002-task-status-audit.md). Tačan model Codex,
+tokeni i cena nisu dostupni: nepoznato.
+
+## Lite timeout proba posle slike kvota — 2026-09-28
+
+Na korisnikov predlog da proverimo Lite/Unlimited opcije izvršen je jedan novi
+generation zahtev: gemini-3.5-flash-lite, produkcioni SDK adapter/coordinator,
+privremeni timeout 11 s, bez prethodnog Flash-a i bez retry-ja. Rezultat: timeout
+11018 ms, exit 1; HTTP status, tokeni i trošak nepoznati. `.env` nije menjan.
+Ovaj poziv je dodat prethodnom zasebnom bloku od pet pokušaja; nije deo njegovog
+limita. Dopunjeni [recovery dokazi](evidence/002-gemini-recovery.md).
+
+## Gemini recovery — 2026-09-28
+
+Korisnik je zatražio da Codex preuzme dijagnostiku posle Luna nalaza. Jedan agent,
+bez paralelnih agenata. Napravljeno je pet novih generation pokušaja: 3 direktni
+generateContent REST poziva (3.5/3.1 Flash-Lite: 503; 2.5 Flash-Lite: 404), jedan
+Interactions poziv (503) i jedan produkcioni SDK/coordinator poziv (timeout).
+Dva list-models GET-a su uspela; jedan GET je prethodno blokirao sandbox.
+Nema uspešne generacije ni dokaza uspešnog bota/analize. Trošak i tokeni: nepoznati.
+Bez izmena ključa, model konfiguracije ili billing-a. Implementirano je prenošenje
+bezbedne dijagnostike do UI-ja i ispravljen CLI koji je ranije vraćao exit 0 pri
+neuspehu. RED/GREEN i 427/427 offline testova su zabeleženi uz typecheck/lint/build.
+Detalji i ograničenja: [recovery evidence](evidence/002-gemini-recovery.md).
+Coding model/token usage nije nezavisno potvrđen; ljudski review nije tvrđen.
+
+## Gemini recovery — 2026-09-28
+
+Korisnik je zatražio da Codex preuzme dijagnostiku posle Luna nalaza. Jedan agent,
+bez paralelnih agenata. Napravljeno je pet novih generation pokušaja: 3 direktni
+generateContent REST poziva (3.5/3.1 Flash-Lite: 503; 2.5 Flash-Lite: 404), jedan
+Interactions poziv (503) i jedan produkcioni SDK/coordinator poziv (timeout).
+Dva list-models GET-a su uspela; jedan GET je prethodno blokirao sandbox.
+Nema uspešne generacije ni dokaza uspešnog bota/analize. Trošak i tokeni: nepoznati.
+Bez izmena ključa, model konfiguracije ili billing-a. Implementirano je prenošenje
+bezbedne dijagnostike do UI-ja i ispravljen CLI koji je ranije vraćao exit 0 pri
+neuspehu. RED/GREEN i 427/427 offline testova su zabeleženi uz typecheck/lint/build.
+Detalji i ograničenja: [recovery evidence](evidence/002-gemini-recovery.md).
+Coding model/token usage nije nezavisno potvrđen; ljudski review nije tvrđen.
+
+## Opciono rucno Gemini smoke testiranje - 2026-09-28
+
+Izvrsena su ukupno **2 stvarna provider zahteva** ka `gemini-3.8-flash`: jedan bot
+interaction i jedna analysis interakcija. Smoke runtime je nametnuo `maxAttempts=1`,
+iskljucio rezervni model i SDK retry (`attempts=1`). Nije pokrenut dodatni zahtev ni
+nakon neuspeha. Bot interakcija je zavrsena lokalnim fallback-om; analiza se zavrsila
+sa `server_error` i UI statusom `failed`. Analysis attempt usage nije sadrzao poznate
+token metapodatke; trosak je nepoznat. Sazetak i ogranicenja su u
+[live smoke evidence](evidence/002-live-smoke.md).
+
+U prvom privremenom procesu evidence runner nije ispisao bot attempt klasifikaciju,
+trajanje ni usage metapodatke, a procesni in-memory dashboard podaci su izgubljeni po
+gasenju. Za analysis je stari usage store odbacio decimalno monotono trajanje i prikazao
+0 ms; stvarno trajanje zato nije poznato. Ovo je ispravljeno i pokriveno offline testom;
+live ponavljanje nije izvrseno. Kljuc, prompt, karte i raw response nisu sacuvani.
+Billing/project podesavanja nisu menjana.
+
+## Gemini adapter - 2026-09-27
+
+Codex, jedan coding agent, bez paralelnih agenata. Svrha: test-first implementacija
+isključivo zvaničnog Gemini adaptera, server-side konfiguracije i DI wiring-a. Zvanična
+Google dokumentacija proverena je 2026-09-27; izabran je planom zaključan
+`@google/genai` 2.24.0. Live Gemini poziv nije izvršen i API ključ nije tražen niti
+učitan. Mock SDK testovi, offline AI testovi, Week03 regresija, typecheck, lint i build
+prošli su; početna puna regresija imala je 23 ranije postojeća fixture/migration pada.
+Model ovog coding poziva, tokeni i cena nisu dostupni: nepoznato. Detalji su u
+[Gemini evidence](evidence/002-gemini-adapter.md).
+
 ## B-05 — T035–T036, 2026-09-23
 
 Alat: Codex, jedan coding agent, bez paralelnih agenata; model/tokeni/cena nisu dostupni
@@ -128,3 +239,14 @@ typecheck/lint/build exit0. Prvi lint pokušaj imao je tri nekorišćena lokalna
 ispravljen je bez promene test očekivanja, a ceo završni skup ponovljen. `npm run dev`
 nije pokrenut; Fastify inject nije otvorio port. Potrošnja/tokeni/cena i ljudski review
 nisu dostupni ili potvrđeni. Detalji su u EVIDENCE_003 i docs/evidence/T016-*–T019-*.
+
+## 2026-09-29 — Gemini Lite oporavak
+
+Svrha: proveriti stvarnu komunikaciju i legalan bot commit nakon timeout-a.
+Kontekst: sanitizovan bot snapshot / facts završene partije; Gemini 3.5 Flash Lite,
+produkcioni @google/genai adapter. Osam generation poziva u ovom bloku, uključujući
+odbijene predloge; pojedinačni tokeni i trajanja u evidence dokumentu. Cena nepoznata.
+Ishod: stvarni bot model_success (1.161 ms, 808 tokena), analiza completed
+(6.914 ms, 827 tokena), bez promene poker stanja analizom. Korisnik je odobrio
+nastavak; nije izmišljena ljudska review potvrda. Detalji i ograničenja:
+[evidence](evidence/002-gemini-lite-success.md).

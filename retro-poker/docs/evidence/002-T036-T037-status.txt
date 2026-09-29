@@ -1,0 +1,17 @@
+﻿T036–T037 konačan status — 2026-09-27
+
+T036 je namerno ostavljen otvoren: browser acceptance test pokriva AI mode toggle, pravi fake-provider bot ishod, usage logical/attempt tabele, metrike i međusobnu nezavisnost game/usage reset-a. Ne pokriva analysis success/failure/manual retry kroz browser, zato se ne označava završenim.
+
+Relevantne server integration provere za bot retry/fallback, cancellation/stale, analysis eligibility/failure boundary, strict reset i privacy:
+`npm.cmd test -- tests/unit/ai-usage.test.ts tests/contract/ai-routes.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts tests/integration/ai-analysis.test.ts`
+Exit 0; 5 fajlova, 10 testova.
+
+T037 ostaje otvoren jer zavisi od punog T036 acceptance scope-a. Širi offline E2E regresioni tok ipak prolazi 10/10.
+
+Dopuna 2026-09-29 — prethodni status je prevaziđen
+
+Browser acceptance je dopunjen analysis failure/manual retry/success tokom i sada
+prolazi zajedno sa bot waiting/model outcome, dashboardom i oba nezavisna resetovanja.
+T036 i T037 su zatvoreni. Aktuelni stvarni RED/GREEN rezultati nalaze se u
+`002-T036-e2e.txt` i `002-T037-green-or-regression.txt`; ova dopuna ne prepravlja
+istorijsku činjenicu da je prvobitni tok iz 2026-09-27 bio nepotpun.

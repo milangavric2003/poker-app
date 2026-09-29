@@ -4,10 +4,36 @@ import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 import { buildApp } from '../../backend/src/app.js';
 import type { GameDependencies } from '../../backend/src/engine/types.js';
+import type { AiProvider, ProviderRequest, ProviderResult } from '../../backend/src/ai/types.js';
+import { loadAiConfig } from '../../backend/src/ai/config.js';
 import { ac23Deck, sequenceRandom } from './fixtures.js';
 export function testDependencies(): GameDependencies {
   return { deck: ac23Deck, deckRandom: sequenceRandom([0.1, 0.2, 0.3]),
     botRandom: sequenceRandom([0.9, 0.9, 0.9]) };
+}
+function createOfflineProvider(): AiProvider {
+  let analysisAttempts = 0;
+  return { async generate(request: ProviderRequest, signal: AbortSignal): Promise<ProviderResult> {
+  if (request.purpose === 'bot') {
+    await new Promise<void>((resolve, reject) => {
+      const timer = setTimeout(resolve, 1500);
+      signal.addEventListener('abort', () => { clearTimeout(timer); reject(new DOMException('Aborted', 'AbortError')); },
+        { once: true });
+    });
+    const context = request.context as { gameId: string; handId: string; expectedVersion: number; actorId: string;
+      decisionOrdinal: number; legalActions: Array<{ type: string }> };
+    const action = context.legalActions.find(candidate => candidate.type === 'call')
+      ?? context.legalActions.find(candidate => candidate.type === 'all_in')
+      ?? context.legalActions.find(candidate => candidate.type === 'check') ?? context.legalActions[0]!;
+    return { candidate: { gameId: context.gameId, handId: context.handId, expectedVersion: context.expectedVersion,
+      actorId: context.actorId, decisionOrdinal: context.decisionOrdinal,
+      type: action.type }, usage: { promptTokens: 0, candidateTokens: 2, totalTokens: 2 } };
+  }
+  analysisAttempts++;
+  if (analysisAttempts <= 2) return { candidate: { invalid: 'offline-malformed-analysis' } };
+  return { candidate: { summary: 'Offline fake analiza.', goodDecisions: [], possibleMistakes: [],
+    nextSteps: ['Nastavi sa proverom uloga.'] }, usage: { promptTokens: 10, candidateTokens: 4, totalTokens: 14 } };
+  } };
 }
 
 export interface TestServers {
@@ -17,7 +43,7 @@ export interface TestServers {
 }
 
 /** Real Fastify + Vite servers with constructor-only fixture injection. */
-export async function startTestServers(processBackend = false): Promise<TestServers> {
+export async function startTestServers(processBackend = false, fakeAi = false): Promise<TestServers> {
   if (processBackend) {
     let child: ChildProcess;
     async function start(port: number) {
@@ -43,7 +69,8 @@ export async function startTestServers(processBackend = false): Promise<TestServ
         close: async () => { await frontend?.close(); await stop(); } };
     } catch (error) { await frontend?.close(); await stop(); throw error; }
   }
-  const backend = buildApp(testDependencies());
+  const backend = buildApp({ ...testDependencies(), ...(fakeAi ? { aiProvider: createOfflineProvider(),
+    aiConfig: loadAiConfig({ GEMINI_API_KEY: 'offline-fake-only' }) } : {}) });
   await backend.listen({ host: '127.0.0.1', port: 0 });
   const backendAddress = backend.server.address();
   if (!backendAddress || typeof backendAddress === 'string') {
@@ -60,7 +87,7 @@ export async function startTestServers(processBackend = false): Promise<TestServ
         host: '127.0.0.1',
         port: 5173,
         strictPort: true,
-        proxy: { '/api': `http://127.0.0.1:${backendAddress.port}` },
+        proxy: { '/api': { target: `http://127.0.0.1:${backendAddress.port}`, changeOrigin: false } },
       },
     });
     await frontend.listen();

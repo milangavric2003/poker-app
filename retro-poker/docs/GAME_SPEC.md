@@ -1,8 +1,10 @@
 # GAME_SPEC — Retro Poker
 
-Verzija: 1.0 · Datum: 2026-09-21 · Faza: Week03
+Verzija: 1.1 · Datum: 2026-09-26 · Faza: Week03 + odobreni Week04 scope addendum
 
-Status: početna specifikacija za Spec Kit razradu; implementacija još ne postoji.
+Status: Week03 specifikacija sa odobrenim Week04 scope amandmanom. Week04 implementacija
+je u toku; detalji i otvorene provere su u [feature 002 status auditu](evidence/002-task-status-audit.md)
+i [feature task listi](../specs/002-week04-ai-integration/tasks.md).
 
 ## 1. Namera i potvrđene odluke
 
@@ -224,19 +226,49 @@ Za svaki implementacioni task čuvaj smislen RED, najmanji GREEN i relevantnu re
 
 Za Week03 demo prikažite jednu ruku, spec/prompt/manifest, isti baseline scenario pre i posle promene, runtime odbijanje i evidence. Obojica objašnjavaju svoj doprinos. Week04 tool-calling deo zajedničkog demo plana još nije uslov.
 
-## 12. Van scope-a i budući Week04
+## 12. Van scope-a i odobreni Week04 scope
 
 Van Week03: pravi novac i plaćanja; nalozi i autentifikacioni sistem; drugi ljudski igrači ili udaljeni server; baza i trajni save/replay; leaderboard; deployment; rast blindova/turnirski nivoi i više stolova; rebuy; više varijanti pokera; izbor težine; napredni solveri; mobilna optimizacija; zvuk; spoljne slike/fontovi; autonomni agenti u igri.
 
-AI rezime, procena poteza, tool calling i provider SDK ne implementiraju se sada. Week03 beleži uređenu istoriju u memoriji za aktuelnu i poslednju završenu ruku, uključujući informacije dostupne čoveku u trenutku poteza, akciju, iznose i konačne činjenice. Stariji rezultati ne zahtevaju trajnu arhivu. Istorija se gubi restartom backend-a.
+AI rezime, procena poteza, tool calling i provider SDK ne implementiraju se u Week03.
+Week03 beleži uređenu istoriju u memoriji za aktuelnu i poslednju završenu ruku,
+uključujući informacije dostupne čoveku u trenutku poteza, akciju, iznose i konačne
+činjenice. Stariji rezultati ne zahtevaju trajnu arhivu. Istorija se gubi restartom
+backend-a.
 
-Week04 će kroz poseban spec dodati jednu kontrolisanu read-only sposobnost za rezime završene ruke: ugovor alata, dozvoljen poziv, input/output validaciju, fake/mock putanju, success/negative/failure dokaze i strukturisani odgovor. Model neće upravljati botovima ni menjati stanje. Procena poteza mora razlikovati znanje u trenutku odluke od kasnijeg ishoda; pobeda sama ne dokazuje dobru odluku. Način okidanja i live provider biraju se tada.
+Odobreni Week04 scope, razrađen u feature-u
+[`002-week04-ai-integration`](../specs/002-week04-ai-integration/spec.md), proširuje
+prethodnu read-only granicu sledećim kontrolisanim sposobnostima:
+
+- igrač može uključiti AI režim za postojeću konfiguraciju od 1–5 botova; Gemini model
+  predlaže strukturisan potez, ali backend proverava privatnost, reviziju i legalnost
+  kroz postojeći poker engine pre bilo kakve standardne mutacije;
+- bot dobija samo javno stanje i sopstvene privatne karte dozvoljene u trenutku poteza;
+  tuđe skrivene karte, buduće karte, seed i interni špil ostaju nedostupni;
+- po završetku partije model može generisati strukturisan obrazovni rezime ljudskih
+  poteza, dobrih odluka, mogućih grešaka i sledećih saveta. Analiza razlikuje znanje
+  dostupno u trenutku odluke od kasnijeg ishoda; pobeda ili poraz sami ne dokazuju
+  kvalitet poteza;
+- Gemini API je prvi provider; timeout, rate limit, ograničeni retry/model fallback,
+  deterministički lokalni bot fallback, očuvanje game state-a i fake/mock test putanja
+  obavezni su delovi Week04 ugovora;
+- lokalni, in-memory AI usage dashboard prikazuje agregate poziva i pokušaja, greške,
+  fallback, latenciju i usage/trošak samo kada ih provider stvarno vrati. Ne čuva
+  prompt, privatne karte, API ključ ni raw provider odgovor.
+
+Model ni u ovom proširenom scope-u nije autoritet nad pravilima i ne izvršava akciju
+samostalno. Svaki modelski predlog je nepoverljiv input koji backend validira; samo
+potvrđeni legalni predlog može proći isti autoritativni put kao lokalni bot. Week04
+ostaje lokalni scope bez naloga, ljudskog multiplayera, baze, trajnog replay-a,
+leaderboarda, deploymenta ili drugog provider family-ja. Tačni model ID-jevi, SDK,
+endpoint-i i operativni pragovi pripadaju feature planu.
 
 ## 13. Izvori i upravljanje promenama
 
 - [Retro AI Engineering Challenge](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md): Week03 artefakti, eval i granica Week04.
 - [Week03 studentska skripta](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-studentska-skripta.pdf): kontekst, strukturisani izlazi i TDD/SDD.
 - [TDD/SDD addendum](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md): test-first i razrada u male taskove.
+- [Week04 AI API addendum](../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md): provider granica, structured output, timeout, retry i fake-first testovi.
 - Poker izvori su linkovani uz pravila; provereni 2026-09-21. Nisu zamena za sopstvene determinističke testove.
 
 Lokalni nastavni materijali nisu nužno deo Git checkout-a; ovaj dokument i projektni artefakti moraju omogućiti kolegi rad bez njih. Stariji `suggestion.md` ostaje istorijski predlog, a ovaj dokument beleži aktuelni dogovor. Promena ponašanja zahteva usklađivanje verzije ovog dokumenta, Spec Kit artefakata, acceptance scenarija i testova pre prihvatanja implementacije.

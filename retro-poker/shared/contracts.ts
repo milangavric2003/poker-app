@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AiDiagnosticSchema } from './ai-diagnostic.js';
 
 export const CardSchema = z.string().regex(/^[2-9TJQKA][cdhs]$/);
 export const ChipsSchema = z.number().int().min(0).max(6000);
@@ -6,7 +7,10 @@ export const SeatSchema = z.number().int().min(0).max(5);
 const PositiveChips = ChipsSchema.min(1);
 const Version = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
 const Identity = { gameId: z.uuid(), handId: z.uuid(), expectedVersion: Version };
-export const GameConfigSchema = z.strictObject({ botCount: z.number().int().min(1).max(5) });
+export const GameConfigSchema = z.strictObject({
+  botCount: z.number().int().min(1).max(5),
+  aiMode: z.boolean().default(false),
+});
 export const NextHandSchema = z.strictObject(Identity);
 export const PlayerActionSchema = z.discriminatedUnion('type', [
   z.strictObject({ ...Identity, type: z.literal('fold') }),
@@ -92,10 +96,64 @@ const PlayerView = z.strictObject({
   streetContribution: ChipsSchema, handContribution: ChipsSchema, status: PlayerStatus,
   cards: HoleCards.nullable(),
 }).refine(p => p.streetContribution <= p.handContribution
-  && (p.status !== 'eliminated' || (p.stack === 0 && p.cards === null)), 'Invalid player');
+  && (p.status !== 'eliminated' || p.stack === 0), 'Invalid player');
 const PotView = z.strictObject({
   id: Id, amount: ChipsSchema, contributionCap: ChipsSchema, contributorIds: Ids, eligibleIds: Ids,
 }).refine(p => p.eligibleIds.every(id => p.contributorIds.includes(id)), 'Invalid pot eligibility');
+
+const MatchAnalysisItemSchema = z.strictObject({
+  decisionRef: z.string().min(1), explanation: z.string().min(1).max(600),
+});
+export const MatchAnalysisSchema = z.strictObject({
+  summary: z.string().min(1).max(1200),
+  goodDecisions: z.array(MatchAnalysisItemSchema).max(6),
+  possibleMistakes: z.array(MatchAnalysisItemSchema).max(6),
+  nextSteps: z.array(z.string().min(1).max(300)).min(1).max(6),
+  disclaimer: z.string().min(1).optional(),
+});
+export const AnalysisRequestSchema = z.strictObject(Identity);
+const Count = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
+export const UsageResetSchema = z.strictObject({ expectedRevision: Count });
+const UsageMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count, sum: Count });
+const CostMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count,
+  sum: Count.nullable(), currency: z.string().min(1).nullable() }).refine(value =>
+  (value.sum === null) === (value.currency === null)
+  && (value.knownCount === 0) === (value.sum === null), 'Inconsistent cost aggregate');
+const AttemptOutcomeSchema = z.enum(['success', 'timeout', 'rate_limited', 'server_error',
+  'network_error', 'malformed', 'schema_rejected', 'semantic_rejected', 'safety_refusal',
+  'auth_config_error', 'invalid_request', 'cancelled', 'stale']);
+export const UsageDashboardSchema = z.strictObject({
+  revision: Count,
+  logical: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']),
+    initialModel: z.string().min(1), finalOutcome: z.string().min(1), count: Count })),
+  attempts: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']), model: z.string().min(1),
+    relation: z.enum(['initial', 'same_model_retry', 'model_fallback']), outcome: AttemptOutcomeSchema,
+    diagnostic: AiDiagnosticSchema.optional(),
+    count: Count, latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count }),
+    usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
+      thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
+      cost: CostMetricSchema }) })),
+  retryCount: Count, modelFallbackCount: Count, localFallbackCount: Count,
+});
+export const UsageResponseSchema = z.strictObject({ usage: UsageDashboardSchema });
+const AiViewSchema = z.strictObject({
+  mode: z.enum(['off', 'on']),
+  availability: z.enum(['configured', 'unavailable']),
+  active: z.strictObject({
+    interactionId: z.uuid(), purpose: z.enum(['bot', 'analysis']),
+    status: z.enum(['waiting', 'retrying', 'model_fallback']),
+    attemptCount: z.number().int().min(0).max(2), model: z.string().min(1),
+  }).nullable(),
+  lastBotOutcome: z.strictObject({
+    handId: z.uuid(), actorId: Id, decisionOrdinal: Version.min(1),
+    outcome: z.enum(['model', 'local_fallback']), attemptCount: z.number().int().min(0).max(2),
+    finalModel: z.string().min(1).nullable(),
+  }).nullable(),
+  analysis: z.strictObject({
+    status: z.enum(['idle', 'generating', 'completed', 'failed', 'unavailable']),
+    interactionId: z.uuid().nullable(), result: MatchAnalysisSchema.nullable(),
+  }),
+});
 
 export const GameViewSchema = z.strictObject({
   gameId: z.uuid(), handId: z.uuid(), version: Version,
@@ -104,7 +162,7 @@ export const GameViewSchema = z.strictObject({
   board: Cards.refine(c => [0, 3, 4, 5].includes(c.length)),
   players: z.array(PlayerView).min(2).max(6), totalPot: ChipsSchema, pots: z.array(PotView).max(6),
   legalActions: z.array(LegalActionSchema).max(6), events: z.array(PublicEventSchema),
-  result: HandResultSchema.nullable(), previousResult: HandResultSchema.nullable(),
+  result: HandResultSchema.nullable(), previousResult: HandResultSchema.nullable(), ai: AiViewSchema,
 }).refine(v => {
   const ids = v.players.map(p => p.id);
   const visibleCards = [...v.board, ...v.players.flatMap(p => p.cards ?? [])];
@@ -146,7 +204,8 @@ export const GameViewSchema = z.strictObject({
 export const GameResponseSchema = z.strictObject({ game: GameViewSchema.nullable() });
 export const GameErrorSchema = z.strictObject({ error: z.strictObject({
   code: z.enum(['INVALID_INPUT', 'GAME_NOT_FOUND', 'STALE_STATE', 'ILLEGAL_ACTION',
-    'PRECONDITION_REQUIRED', 'PAYLOAD_TOO_LARGE', 'UNSUPPORTED_MEDIA_TYPE', 'INTERNAL_ERROR']),
+    'PRECONDITION_REQUIRED', 'PAYLOAD_TOO_LARGE', 'UNSUPPORTED_MEDIA_TYPE', 'INTERNAL_ERROR',
+    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED']),
   message: z.string().min(1),
 }) });
 export type GameView = z.infer<typeof GameViewSchema>;
@@ -154,3 +213,7 @@ export type LegalAction = z.infer<typeof LegalActionSchema>;
 export type HandResult = z.infer<typeof HandResultSchema>;
 export type PublicEvent = z.infer<typeof PublicEventSchema>;
 export type GameError = z.infer<typeof GameErrorSchema>;
+export type MatchAnalysis = z.infer<typeof MatchAnalysisSchema>;
+export type AnalysisRequest = z.infer<typeof AnalysisRequestSchema>;
+export type UsageReset = z.infer<typeof UsageResetSchema>;
+export type UsageDashboardView = z.infer<typeof UsageDashboardSchema>;

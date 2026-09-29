@@ -1,5 +1,29 @@
 # Evidence Week03 — blok člana A
 
+## Week04 T041–T044 finalna offline provera — 2026-09-29
+
+Tvrdnja: produkcioni Gemini wiring ostaje server-only/DI, dokumentacija odgovara
+runtime config-u, a aktuelno stablo prolazi celu offline matricu. Signal je bio zastareo
+opis podesivog `GEMINI_MAX_ATTEMPTS`; kod je zapravo zaključan na tačno dva attempt-a.
+Najmanja promena bila je dokumentaciono usklađivanje, bez izmene retry ponašanja.
+
+Provera: quickstart grupe 20/20, 48/48, 37/37, 12/12 i 35/35; puna regresija 505/505,
+Playwright 10/10, typecheck/lint/build exit 0. Ograničenje: T044 formalni 100% gate
+ostaje otvoren zbog T026 istorijskog RED/evidence gap-a; live smoke nije ponovljen i
+model dostupnost/quota/billing nisu potvrđeni. Korisnik je zadao scope; Codex je izvršio
+audit i provere. Ljudski review nije izmišljen.
+
+## Week04 Gemini adapter — 2026-09-27
+
+Provider-neutral tok je dobio zvanični `@google/genai` 2.24.0 adapter i produkcioni
+DI wiring bez promene engine autoriteta. Adapter šalje samo već izgrađeni minimalni
+kontekst, zahteva strukturisan JSON, sanitizuje provider greške, normalizuje usage i
+isključuje SDK retry. Dozvoljeni su samo `gemini-3.8-flash` i
+`gemini-3.5-flash-lite`; bez ključa ili uz nevalidan model ostaje offline fallback.
+
+Stvarni RED/GREEN, komande, rezultati, izvori i ograničenja nalaze se u
+[002-gemini-adapter.md](evidence/002-gemini-adapter.md). Live poziv nije izvršen.
+
 ## T035–T036 — desktop pristupačnost i retro UI, član B, 2026-09-23
 
 Tvrdnja: FR-017/SC-005 tok sa 1 i 5 botova ima tastaturne kontrole, vidljiv fokus,

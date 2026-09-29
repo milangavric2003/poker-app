@@ -1,0 +1,49 @@
+T009 BotDecisionContext privacy-safe RED evidence
+Datum: 2026-09-28
+Grana: ai-integ
+
+Komanda:
+npm.cmd test -- tests/unit/ai-context.test.ts
+
+Stvarni rezultat:
+- exit code: 1
+- Vitest 5.0.1
+- Test Files: 1 failed (1)
+- Tests: 1 failed, 3 passed (4)
+- Trajanje: 771 ms
+
+RED razlog:
+
+FAIL tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist
+(AIAC02/SC-002) > vraca duboko immutable snapshot odvojen od GameState-a
+AssertionError: expected false to be true
+
+Lokacija:
+tests/unit/ai-context.test.ts:39
+expect(Object.isFrozen(value)).toBe(true)
+
+Tri prolazna oracle-a potvrđuju da se test zaista izvršava kroz postojeći builder i da
+aktuelna implementacija već zadovoljava provereni allowlist: identity/revision/actor,
+legalActions, samo actor-ove dve karte, javna player polja, poslednja 64 prethodna javna
+događaja bez naknadno dodatog događaja, kao i odsustvo opponent hole cards i ubačenih
+burn/deck/seed/RNG/environment/API-key/source/raw-log/future/GameState-spread sentinel-a.
+
+Smisleni behavior RED ostaje na ugovoru `Strict immutable snapshot` iz
+`specs/002-week04-ai-integration/data-model.md` i T010 completion opisu da sadržaj ostaje
+immutable: `buildBotDecisionContext` vraća odvojen `structuredClone`, ali rezultat i
+njegovi ugnježdeni objekti nisu zamrznuti (`Object.isFrozen(context) === false`). Nema
+missing-import, runner/setup, mrežne ili API-key greške; korišćena vrednost ključa je
+lokalni test placeholder i provider ostaje fake/pending bez poziva na mrežu.
+
+Napomena o toku:
+Pre ovog konačnog pokretanja uklonjen je lažno pozitivan substring oracle za reč `ai`,
+jer se taj niz legitimno pojavljuje u nazivu akcije `raise`. Nije oslabljen privacy
+allowlist: tačan skup root polja se proverava zasebno, a svi konkretni zabranjeni ključevi
+i sentinel vrednosti ostaju eksplicitno provereni.
+
+Naknadni T010 GREEN status (2026-09-28):
+Posle ovog sačuvanog RED-a minimalno je dopunjen builder. Komanda
+`npm.cmd test -- tests/unit/ai-context.test.ts` sada završava exit kodom 0 sa 8/8
+testova, uključujući preflop/flop/turn/river i deep immutability. GREEN detalji su u
+`docs/evidence/002-offline-green.txt`; ovaj odeljak ne menja niti retroaktivno prepisuje
+gornji stvarni RED rezultat.

@@ -1,0 +1,11 @@
+T018 failure integration evidence — 2026-09-28
+
+Komanda: `npm.cmd test -- tests/integration/ai-failures.test.ts`
+
+Oracle pokriva malformed, schema, semantic, timeout, 429, 5xx, network, safety,
+auth/config i missing-key; proverava attempt chain, usage, jedan vidljiv local fallback,
+zero-call bez ključa i paritet RNG/stack/board/history stanja posle rejection-a.
+
+Prošireni produkcioni behavior bio je zelen; jedini početni pad bio je test setup bez
+kreirane partije i nije predstavljen kao TDD RED. Završni rezultat je exit code 0,
+1 fajl i 13/13 testova. Ovo je istinit regression/completion dokaz. Bez mreže i ključa.

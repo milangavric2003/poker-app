@@ -3,7 +3,7 @@ import { GameConfigSchema, CardSchema, ChipsSchema, SeatSchema } from '../../sha
 
 describe('GameConfig / AC03', () => {
   it.each([1, 2, 3, 4, 5])('accepts botCount %i', botCount => {
-    expect(GameConfigSchema.parse({ botCount })).toEqual({ botCount });
+    expect(GameConfigSchema.parse({ botCount })).toEqual({ botCount, aiMode: false });
   });
   it.each([{}, null, [], { botCount: 0 }, { botCount: 6 }, { botCount: 2.5 },
     { botCount: '3' }, { botCount: true }, { botCount: 3, startingStack: 999999 }])('rejects invalid configuration %j', value => expect(GameConfigSchema.safeParse(value).success).toBe(false));

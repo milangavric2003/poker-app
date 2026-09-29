@@ -1,0 +1,19 @@
+T030 RED dokaz
+Datum: 2026-09-29
+
+Komanda:
+npm.cmd test -- tests/unit/ai-usage.test.ts
+
+Stvarni rezultat: exit code 1; 1 test failed, 1 passed.
+
+Ocekivani smisleni pad:
+FAIL tests/unit/ai-usage.test.ts > privacy safe AI usage aggregation > groups every dimension and counts retry and fallback semantics exactly
+AssertionError: expected localFallbackCount 2 to deeply equal 1.
+
+Implementacija je pogresno brojala terminalni `failed` analysis kao lokalni poker
+fallback. Analysis failure nema lokalni modelski rezultat i ne sme povecati
+`localFallbackCount`; samo bot interaction sa `finalOutcome=local_fallback` ga povecava.
+
+Vitest rezime:
+Test Files  1 failed (1)
+Tests       1 failed | 1 passed (2)

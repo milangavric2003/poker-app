@@ -8,9 +8,11 @@
     "npm": ">=11 <12"
   },
   "scripts": {
+    "diagnose:gemini": "node --env-file-if-exists=.env --import tsx scripts/gemini-diagnosis.ts",
+    "smoke:gemini": "node --env-file-if-exists=.env --import tsx scripts/gemini-live-smoke.ts",
     "dev": "concurrently --kill-others --names frontend,backend \"npm:dev:frontend\" \"npm:dev:backend\"",
     "dev:frontend": "vite",
-    "dev:backend": "tsx watch backend/src/server.ts",
+    "dev:backend": "node --env-file-if-exists=.env --import tsx --watch backend/src/server.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
@@ -20,6 +22,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "2.24.0",
     "fastify": "5.12.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",

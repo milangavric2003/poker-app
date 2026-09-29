@@ -1,11 +1,13 @@
 import '@testing-library/jest-dom/vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { GameViewSchema } from '../../shared/contracts';
 import { publicView } from '../helpers/public-fixtures';
 import { ActionPanel } from '../../frontend/src/components/ActionPanel';
 import { App } from '../../frontend/src/App';
 import * as api from '../../frontend/src/api';
+
+afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 describe('ActionPanel', () => {
   it('prikazuje samo kontrole koje backend označi kao legalne', () => {
@@ -55,5 +57,31 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Nova partija' }));
     expect(confirm).toHaveBeenCalled();
     expect(create).toHaveBeenCalledTimes(1);
+  });
+
+  it('prikazuje serverom potvrden AI potez kao uspeh', async () => {
+    const source = publicView();
+    const game = GameViewSchema.parse({ ...source, ai: {
+      mode: 'on', availability: 'configured', active: null,
+      lastBotOutcome: { handId: source.handId, actorId: 'p1', decisionOrdinal: 1,
+        outcome: 'model', attemptCount: 1, finalModel: 'gemini-3.8-flash' },
+      analysis: { status: 'idle', interactionId: null, result: null },
+    } });
+    vi.spyOn(api, 'loadGame').mockResolvedValue(game);
+    render(<App />);
+
+    expect(await screen.findByText(/AI potez je prihvaćen/i)).toBeVisible();
+  });
+
+  it('does not send duplicate actions before React disables the controls', async () => {
+    const game = GameViewSchema.parse(publicView());
+    vi.spyOn(api, 'loadGame').mockResolvedValue(game);
+    const send = vi.spyOn(api, 'sendAction').mockImplementation(() => new Promise(() => undefined));
+    render(<App />);
+    const call = await screen.findByRole('button', { name: 'Call 5' });
+
+    fireEvent.click(call);
+    fireEvent.click(call);
+    await waitFor(() => expect(send).toHaveBeenCalledTimes(1));
   });
 });

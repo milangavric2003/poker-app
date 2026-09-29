@@ -1,0 +1,15 @@
+T039 Gemini adapter behavior RED — 2026-09-29
+
+Komanda:
+npm.cmd test -- tests/integration/gemini-adapter.test.ts
+
+Stvarni rezultat: exit 1; 1 failed, 11 passed.
+Adapter je propustio nevalidne usageMetadata vrednosti: -1, 1.5, NaN i Infinity,
+umesto da ih normalizuje u unknown/null. Zero je ostao validna poznata vrednost.
+
+Minimalni GREEN validira svaki token count kao nenegativan safe integer. Mocked SDK
+rezultat ne čuva dodatno raw polje. Nema DNS-a, live ključa ni mrežnog poziva.
+
+Završni fokus:
+npm.cmd test -- tests/integration/gemini-adapter.test.ts tests/contract/ai-contracts.test.ts tests/contract/view.test.ts tests/ui/ai-status.test.tsx
+Exit 0; 4 fajla, 53/53 testa.

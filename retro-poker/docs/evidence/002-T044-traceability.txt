@@ -1,0 +1,119 @@
+T044 završni consistency pregled — početni nalaz pre reconciliation, 2026-09-29
+
+Rezultat: FORMALNI GATE NIJE ZATVOREN; T044 ostaje nečekiran.
+
+Provereno:
+- requirements checklist 26/26;
+- tasks.md sadrži FR-001–FR-027, AIAC01–AIAC16 i SC-001–SC-010;
+- dependency tok je linearan po fazama i nema uočen ciklus;
+- T041 DI, T042 dokumentacija i T043 puna offline matrica imaju aktuelan dokaz;
+- nema dodatog drugog provider family-ja, baze, auth-a, multiplayera, deploymenta ili
+  persistence scope-a;
+- neizvršen live smoke nije predstavljen kao PASS.
+
+Otvoreni formalni problem:
+T026 ostaje nečekiran. Njegov kompletan 9-scenario analysis oracle sada prolazi, ali
+prvi validni prošireni prolaz bio je GREEN; ne postoji smislen istorijski RED za pun
+T026 scope i kvar nije naknadno fabrikovan. Zbog projektnog pravila da finalni 100%
+consistency gate ne skriva otvoren task/evidence gap, T044 ne može legitimno biti
+označen završenim. Runtime requirement ID coverage je prisutan, ali task/evidence
+completion nije 100%.
+
+
+Dopuna consistency pregleda — 2026-09-29
+
+Mapa zahteva na konkretne taskove i izvrsive testove:
+Putanje testova su relativne na tests/. Grupisanje ne znaci da svaki test u redu
+dokazuje svaki zahtev: sledeci opis navodi koji deo je pokriven.
+
+Zahtevi | Taskovi | Testovi i oracle
+FR-001, FR-006; AIAC01; SC-001 | T003–004,T013–015 | contract/ai-contracts.test.ts, integration/ai-bots.test.ts: aiMode default i svih 1–5 botova, legalan engine commit.
+FR-002 | T005–006,T038–041 | unit/ai-config.test.ts, integration/gemini-adapter.test.ts: model allowlist, mocked SDK i dependency injection; ne dokazuje live dostupnost.
+FR-003, FR-004; AIAC02; SC-002 | T009–010 | unit/ai-context.test.ts: allowlist, actor-only cards, event cap, immutable snapshot.
+FR-005, FR-007; AIAC03, AIAC04 | T011–012,T018–019 | unit/ai-semantic.test.ts, integration/ai-failures.test.ts: schema/semantic odbijanje i nepromenjen poker state pre fallback-a.
+FR-008, FR-011, FR-019; AIAC05, AIAC14 | T020–021 | integration/ai-concurrency.test.ts: rezervacija/fingerprint, zamena partije, late/duplicate callback i commit granica.
+FR-009, FR-010; AIAC06, AIAC07; SC-003, SC-004 | T016–019 | unit/ai-retry.test.ts, integration/ai-failures.test.ts: finite attempt/total deadline, klasifikacija, retry/fallback i failure matrix.
+FR-012; AIAC08 | T018–019 | integration/ai-failures.test.ts: iscrpljeni pokusaji daju legalan lokalni fallback.
+FR-013, FR-014; AIAC09 | T005–006,T013–015,T041 | unit/ai-config.test.ts, integration/ai-bots.test.ts, integration/gemini-adapter.test.ts: missing key zero calls, safe config i server-only injection.
+FR-015 | T022–023 | ui/ai-status.test.tsx: off/waiting/retrying/model/local fallback/completed/unavailable/failed i polling.
+FR-016, FR-018; AIAC10, AIAC11; SC-005 | T026–029 | integration/ai-analysis.test.ts, ui/analysis.test.tsx: terminal-only, strict success, unknown references, failures, <=30s fake deadline, read-only result, explicit retry.
+FR-017, FR-026; SC-006 | T024–027 | unit/match-facts.test.ts, integration/ai-analysis.test.ts: pre-action knowledge odvojeno od outcome, 200 decisions/64 events, agregati; stvarni poraz ne sprecava validiranu pozitivnu procenu.
+FR-020, FR-021; AIAC12, AIAC13; SC-007 | T030–035 | unit/ai-usage.test.ts, contract/ai-routes.test.ts, ui/dashboard.test.tsx: logical/attempt agregati, safe sums, nezavisni reset i revision.
+FR-022 | T009–010,T015,T031,T035,T039–040 | unit/ai-context.test.ts, unit/ai-usage.test.ts, contract/ai-routes.test.ts, ui/dashboard.test.tsx, integration/gemini-adapter.test.ts: privacy granice i javna projekcija.
+FR-023 | T030–035,T039–040 | unit/ai-usage.test.ts, ui/dashboard.test.tsx, integration/gemini-adapter.test.ts: partial/missing usage, unknown cost bez izmisljene cene.
+FR-024, FR-025; AIAC15; SC-008 | T007–008,T013,T016–021,T036–043 | integration/ai-bots.test.ts, integration/ai-failures.test.ts, integration/ai-concurrency.test.ts, integration/ai-analysis.test.ts, integration/gemini-adapter.test.ts, e2e/ai-offline.spec.ts: fake/mock put; bez live kljuca/provider mreze.
+FR-027; AIAC16; SC-010 | T020–021 | integration/ai-concurrency.test.ts: nezavisni GET zavrsava dok provider ostaje pending.
+SC-009 | T001,T044 | Governance pregled, ne runtime test: docs/evidence/002-T001-governance.txt i checklists/requirements.md CHK026.
+
+Evidence:
+- Novi T026: docs/evidence/002-T026-red.txt — 13/13 regression, NIJE RED.
+- Nova puna unit/contract/integration/UI regresija: isti fajl — 509/509, 36 fajlova;
+  typecheck i lint exit 0.
+- Prethodne E2E/build/fokusirane provere: docs/evidence/002-T043-final.txt.
+  E2E i build nisu ponovo pokrenuti u ovoj dopuni; produkcioni kod nije promenjen.
+- Istorijski task-specific RED/GREEN dokazi: putanje navedene uz svaki task u tasks.md.
+  Ova mapa nije tvrdnja da je nedostajuci T026 RED pronadjen.
+
+Strukturni pregled svih 44 taska proverava owner, deps, dozvoljene putanje i evidence
+polja; svaka dependency referenca pokazuje na vec vidjen task, cime se proverava i
+odsustvo ciklusa. To NIJE potvrda istorijskog postovanja redosleda implementacije.
+T027 je funkcionalno zavrsen, ali njegov istorijski T026 prerequisite nije dokazan;
+isto procesno ogranicenje prenosi se kroz naredne zavisne taskove. Ne ponistava se
+postojeci runtime rad niti se checkbox-i prikazuju kao dokaz originalne hronologije.
+Nema novog provider-a, DB/auth/multiplayer/deployment/persistence scope-a.
+
+Zakljucak: mapa pokriva FR 27/27, AIAC 16/16 i SC 10/10; runtime regresija prolazi.
+T026 i finalni T044 gate ostaju otvoreni zbog istog istorijskog procesnog nedostatka.
+Za drugaciji status potreban je eksplicitno odobren, dokumentovan izuzetak za T026
+(bez tvrdnje da je test-first redosled ispunjen), ili autentican raniji RED artefakt.
+Ne moze se danas proizvesti dokaz da je nesto ranije uradjeno.
+
+Završno usaglašavanje — 2026-09-29
+
+Po korisnikovom zahtevu izmenjen je completion kriterijum za reconciliation T026:
+postojeća implementacija se proverava potpunim aktuelnim behavior oracle-om, a
+istorijski RED nedostatak ostaje eksplicitno procesno ograničenje. T026 evidence
+zadovoljava izmenjeni kriterijum; T026 je čekiran. Ovo nije tvrdnja da je istorijski
+test-first redosled ispunjen.
+
+T044 mapa 27/27 FR, 16/16 AIAC i 10/10 SC, struktura taskova, dependency DAG,
+scope provera i evidence zadovoljavaju izmenjeni T044 prerequisite; T044 je čekiran.
+Stvarni završni strukturni izlaz (exit 0):
+Tasks: 44 checked: 44 open: none
+Task metadata/dependencies: PASS
+Checklist checked: 26
+
+Ponovljene provere: T026 fokusirani test 13/13, Vitest 36 fajlova/509 testova,
+typecheck, lint i build exit 0. E2E nije ponovljen u ovom prolazu; prethodnih
+10/10 je samo navedeno u T043 evidence, ne kao nov PASS.
+
+Završno usaglašavanje — 2026-09-29
+
+Po korisnikovom zahtevu izmenjen je completion kriterijum za reconciliation T026:
+postojeća implementacija se proverava današnjim potpunim behavior oracle-om, a
+istorijski RED nedostatak se čuva kao eksplicitno procesno ograničenje. T026 evidence
+zadovoljava taj kriterijum; T026 je čekiran. Ovo nije tvrdnja o istorijskom test-first
+redosledu. Mapa 27/27 FR, 16/16 AIAC i 10/10 SC, strukturni DAG/metadata pregled,
+scope i prethodno zabeležena offline verifikacija zadovoljavaju T044; T044 je čekiran.
+Nijedna neizvršena provera nije predstavljena kao PASS.
+
+Komanda strukturne provere:
+node -e "const fs=require('fs');const s=fs.readFileSync('specs/002-week04-ai-integration/tasks.md','utf8');const rows=s.split(/\r?\n/).filter(x=>/^- \[[ xX]\] T\d{3} /.test(x));const seen=new Set();let errors=[];for(const r of rows){const id=r.match(/T\d{3}/)[0];if(seen.has(id))errors.push(id+' duplicate');const deps=r.match(/deps: ([^;]+);/);if(!deps||!r.includes('dozvoljeno:')||!r.includes('evidence:')||!/^.*?T\d{3} (?:\[US\d\] )?[AB] —/.test(r))errors.push(id+' metadata');for(const d of deps?.[1].match(/T\d{3}/g)||[])if(!seen.has(d))errors.push(id+' unordered/missing dependency '+d);seen.add(id);}console.log('Tasks: '+rows.length);console.log('Checked: '+rows.filter(r=>/^- \[[xX]\]/.test(r)).length);console.log('Open: '+rows.filter(r=>r.startsWith('- [ ]')).map(r=>r.match(/T\d{3}/)[0]).join(', '));console.log('Owner/deps/paths/evidence and strict forward DAG: '+(errors.length?errors.join('; '):'PASS'));const c=fs.readFileSync('specs/002-week04-ai-integration/checklists/requirements.md','utf8');console.log('Checklist: '+(c.match(/^- \[[xX]\]/gm)||[]).length+' checked, '+(c.match(/^- \[ \]/gm)||[]).length+' open');process.exitCode=errors.length?1:0;"
+
+Stvarni izlaz (exit 0):
+Tasks: 44
+Checked: 42
+Open: T026, T044
+Owner/deps/paths/evidence and strict forward DAG: PASS
+Checklist: 26 checked, 0 open
+
+Ponovljeni završni strukturni rezultat posle izmena task.md (komanda node -e
+koja čita tasks.md, proverava redosled dependency referenci i obavezna metadata polja):
+Exit code 0
+Tasks: 44 checked: 44 open: none
+Task metadata/dependencies: PASS
+Checklist checked: 26
+
+Ponovljene komande i izlazi: `npm.cmd test -- tests/integration/ai-analysis.test.ts`
+13/13; `npm.cmd test` 36 fajlova/509 testova; `npm.cmd run typecheck`, `npm.cmd run
+lint` i `npm.cmd run build` exit 0. E2E nije ponovljen u reconciliation.

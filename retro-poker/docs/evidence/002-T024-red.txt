@@ -1,0 +1,14 @@
+T024 bounded MatchFacts behavior RED — 2026-09-28
+
+Komanda: `npm.cmd test -- tests/unit/match-facts.test.ts`
+
+Stvarni rezultat: exit code 1; Vitest 5.0.1; 1 fajl; 6 testova,
+1 pao i 5 prošlo; trajanje 581 ms.
+
+Smisleni pad bio je `retains 200 details and reduces older decisions to numeric hand
+aggregates`. Postojeći aggregate je vraćao samo `handId`, `decisionCount` i
+`actionCounts`; nedostajali su ugovoreni hand number, početni/krajnji stack i provereni
+human net change. Ostali oracle-i su potvrdili pre-action snapshot, kasniji settlement,
+64-event cap i reset ponašanje.
+
+Test koristi kontrolisani lokalni session/deck/RNG. Nema mreže ni API ključa.

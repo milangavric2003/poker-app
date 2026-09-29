@@ -1,0 +1,25 @@
+T043 puna offline verifikacija — 2026-09-29
+
+Fokusirane quickstart grupe (sve exit 0):
+1. npm.cmd test -- tests/contract/ai-contracts.test.ts tests/contract/ai-routes.test.ts
+   2 fajla, 20/20 testova.
+2. npm.cmd test -- tests/unit/ai-context.test.ts tests/unit/ai-semantic.test.ts tests/unit/ai-retry.test.ts tests/unit/ai-usage.test.ts tests/unit/match-facts.test.ts
+   5 fajlova, 48/48 testova.
+3. npm.cmd test -- tests/integration/ai-bots.test.ts tests/integration/ai-failures.test.ts tests/integration/ai-concurrency.test.ts tests/integration/ai-analysis.test.ts
+   4 fajla, 37/37 testova.
+4. npm.cmd test -- tests/integration/gemini-adapter.test.ts
+   1 fajl, 12/12 testova.
+5. npm.cmd test -- tests/ui/ai-status.test.tsx tests/ui/analysis.test.tsx tests/ui/dashboard.test.tsx
+   3 fajla, 35/35 testova.
+
+Cela matrica sa istog aktuelnog stabla:
+- npm.cmd test — exit 0; 36 fajlova, 505/505 testova.
+- npm.cmd run test:e2e — exit 0; Chromium 10/10, 32.1 s.
+- npm.cmd run typecheck — exit 0.
+- npm.cmd run lint — exit 0.
+- npm.cmd run build — exit 0; Vite 119 modula, build 513 ms.
+
+Automatske AI provere koristile su fake/mock provider, placeholder test config i nisu
+koristile internet ili stvarni API ključ. Opcioni live smoke nije ponovljen u ovom
+tasku; istorijski smoke rezultat ne predstavlja GREEN live model success. Model access,
+quota, billing, cena i realna latencija ostaju van offline dokaza.
