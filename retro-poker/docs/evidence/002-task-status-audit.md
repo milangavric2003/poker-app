@@ -67,9 +67,8 @@ not demonstrated. It must not be described as a passing model-success check.
 
 The Gemini adapter commits (`2f00d54`, then UI/usage commits through `c8f6864`) landed
 before the full T036/T037 browser acceptance gate was closed. This violated the planned
-phase order; the implementation remains present, while T036/T037 remain open. The SDK
-and adapter are covered by mock tests, so this ordering fact does not imply that tests
-made live calls.
+phase order at the time. T036/T037 su naknadno zatvoreni proverom od 2026-09-29; SDK
+i adapter su pokriveni mock testovima, pa redosled ne implicira live pozive.
 
 No application tests were run during this documentation reconciliation. Recorded test
 results above retain their original dates and scope.
