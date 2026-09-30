@@ -250,3 +250,17 @@ Ishod: stvarni bot model_success (1.161 ms, 808 tokena), analiza completed
 (6.914 ms, 827 tokena), bez promene poker stanja analizom. Korisnik je odobrio
 nastavak; nije izmišljena ljudska review potvrda. Detalji i ograničenja:
 [evidence](evidence/002-gemini-lite-success.md).
+
+## 2026-09-29 — korisnička potvrda nakon merge-a i dokumentovanje
+
+Korisnik i kolega prijavili su uspešne Gemini poteze i završnu analizu u ručnoj
+proveri spojene igre, uključujući partije od nekoliko desetina minuta. Model ID,
+broj poziva, tokeni, cena i tačno trajanje te provere nisu dostavljeni; podaci iz
+ranije Lite dijagnostike ne pripisuju se ovoj sesiji. Odluka korisnika: refresh i
+manje UX smetnje ostaviti za Week05 jer, prema njihovom opažanju, ne utiču na igru.
+
+Svrha ovog Codex rada: preneti prijavljene rezultate i priložene automatske izlaze
+u dokumentaciju. Očekivanje i ishod: sačuvani prvi timeout, zaseban prolaz i puna
+536/536 regresija, kao i E2E 10/10 i ostale dostavljene provere. Nema novih provider
+poziva ili novih izvršenja testova od strane agenta. Trošak i tokeni coding sesije
+nisu dostupni. [Dokaz i ograničenja](evidence/002-post-merge-verification.md).

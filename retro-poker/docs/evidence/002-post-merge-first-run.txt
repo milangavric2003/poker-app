@@ -1,0 +1,211 @@
+PS D:\AIBootcamp\week3-4\retro-poker> npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+ ✓  node  tests/unit/betting.test.ts (21 tests) 55ms
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+ ✓  node  tests/unit/ai-retry.test.ts (18 tests) 43ms
+ ✓  node  tests/unit/deal.test.ts (33 tests) 367ms
+ ✓  node  tests/contract/messages.test.ts (61 tests) 179ms
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+ ✓  node  tests/unit/match-facts.test.ts (7 tests) 116ms
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+ ✓  node  tests/integration/gemini-adapter.test.ts (14 tests) 56ms
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+ ✓  node  tests/unit/ai-usage.test.ts (3 tests) 87ms
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+ ✓  node  tests/integration/ai-analysis.test.ts (13 tests) 1211ms
+   ✓ analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) (13)
+     ✓ rejects a nonterminal game and keeps poker state deeply equal 615ms
+
+ ❯  node  tests/contract/ai-routes.test.ts 2/7
+ ✓  node  tests/integration/session.test.ts (8 tests) 947ms
+   ✓ T027/T028 session lifecycle (8)
+     ✓ prenosi stackove, rotira heads-up blindove i čuva samo poslednji rezultat 642ms
+ ✓  node  tests/contract/ai-routes.test.ts (7 tests) 898ms
+   ✓ Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) (7)
+     ✓ keeps omitted aiMode backward-compatible and exposes mode off 552ms
+ ✓  node  tests/integration/ai-concurrency.test.ts (8 tests) 1026ms   ✓ AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) (8)
+     ✓ serves GET before a pending provider resolves 601ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts [queued]
+ ✓  node  tests/unit/ai-context.test.ts (8 tests) 68ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts [queued]
+
+ ❯  node  tests/contract/ai-contracts.test.ts [queued]
+ ✓  node  tests/integration/gemini-http.test.ts (9 tests) 205ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 1/13
+ ✓  node  tests/contract/ai-contracts.test.ts (13 tests) 90ms
+ ✓  node  tests/unit/pots.test.ts (6 tests) 43ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 13/13
+ ✓  node  tests/unit/evaluator.test.ts (96 tests) 160ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 13/13
+ ✓  node  tests/unit/bot.test.ts (6 tests) 33ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 13/13
+ ✓  node  tests/integration/concurrency.test.ts (9 tests) 856ms
+   ✓ create/reset uslovi i konkurentni duplikati ne brišu noviju partiju 598ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 13/13
+
+ ❯  node  tests/contract/view.test.ts [queued]
+ ✓  node  tests/unit/ai-semantic.test.ts (12 tests) 62ms
+ ✓  node  tests/unit/positions.test.ts (16 tests) 52ms
+
+ ❯  node  tests/contract/view.test.ts [queued]
+ ✓  node  tests/unit/hand.test.ts (5 tests) 35ms
+
+ ❯  node  tests/contract/view.test.ts [queued]
+ ✓  node  tests/integration/ai-failures.test.ts (13 tests) 2672ms
+   ✓ offline AI recovery (FR-012, AIAC03–AIAC09) (13)
+     ✓ malformed failure has the expected bounded chain and one visible local commit 694ms
+     ✓ 5xx failure has the expected bounded chain and one visible local commit 306ms
+     ✓ network failure has the expected bounded chain and one visible local commit 334ms
+
+ ❯  node  tests/contract/view.test.ts 1/5
+ ✓  node  tests/contract/view.test.ts (5 tests) 216ms
+
+ ❯  node  tests/contract/view.test.ts 5/5
+ ✓  node  tests/unit/ai-config.test.ts (12 tests) 26ms
+ ✓  node  tests/integration/ai-bots.test.ts (7 tests) 960ms
+   ✓ AI bot mode public integration seam (FR-001, AIAC01, AIAC09) (7)
+     ✓ commits legal fake decisions through the engine for botCount=1 750ms
+
+ ❯  node  tests/contract/view.test.ts 5/5
+ ✓  node  tests/unit/invariants.test.ts (6 tests) 37ms
+
+ ❯  node  tests/contract/view.test.ts 5/5
+ ✓  node  tests/unit/history.test.ts (3 tests) 21ms
+
+ ❯  node  tests/contract/view.test.ts 5/5
+ ✓  node  tests/unit/ai-slow-profile.test.ts (3 tests) 59ms
+
+ ❯  node  tests/integration/actions.test.ts 0/5
+
+
+ ✓  node  tests/integration/actions.test.ts (5 tests) 677ms
+   ✓ T018 create/get/action i transakcije (5)
+     ✓ GET je prazan, create pravi UUID partiju, a GET vraća javnisnapshot 526ms
+
+ ✓  node  tests/contract/config.test.ts (39 tests) 49ms
+ ✓  node  tests/integration/hand-flow.test.ts (3 tests) 727ms
+   ✓ T018 bot loop, privatnost i AC23 (3)
+     ✓ početni odgovor skriva bot karte, deck, burn, seed i observation 597ms
+ ✓  node  tests/unit/ai-provider-schema.test.ts (6 tests) 371ms
+   ✓ provider and local bot schema agreement (6)
+     ✓ permits fold only without amountTo 323ms
+ ✓  node  tests/integration/terminal-view.test.ts (2 tests) 678ms
+   ✓ terminal all-in HTTP snapshot (2)
+     ✓ validates a won game while preserving showdown evidence 644ms
+ ✓  node  tests/unit/gemini-diagnosis.test.ts (2 tests) 5074ms
+   ✓ diagnostic CLI failure exit codes (offline HTTP) (2)
+     ✓ fails on HTTP 503 without valid generation content 2791ms
+     ✓ fails on HTTP 200 without valid generation content 2278ms
+ ✓  ui  tests/ui/api.test.ts (7 tests) 175ms
+ ✓  ui  tests/ui/analysis.test.tsx (6 tests) 964ms
+   ✓ finished-game analysis (6)
+     ✓ labels loading and prevents duplicate requests 348ms
+ ✓  ui  tests/ui/dashboard.test.tsx (7 tests) 1281ms
+   ✓ local usage dashboard (7)
+     ✓ explains a confirmed overload without exposing provider messages 558ms
+ ❯  node  tests/integration/gemini-live-smoke.test.ts (2 tests | 1failed) 8602ms
+   ❯ opt-in live runner with offline HTTP (2)
+     × reports actual application outcomes with HTTP 200 5099ms
+     ✓ reports actual application outcomes with HTTP 503 3495ms
+ ✓  ui  tests/ui/table.test.tsx (2 tests) 726ms
+   ✓ Table (2)
+     ✓ prikazuje javni snapshot i događaje po redosledu koji je poslao backend 658ms
+ ✓  ui  tests/ui/actions.test.tsx (5 tests) 1056ms
+   ✓ ActionPanel (2)
+     ✓ prikazuje samo kontrole koje backend označi kao legalne 619ms
+ ✓  ui  tests/ui/results.test.tsx (5 tests) 993ms
+   ✓ T029/T030 rezultat i nastavak (5)
+     ✓ rezultat ostaje vidljiv i prikazuje neto promene 498ms
+ ✓  ui  tests/ui/ai-status.test.tsx (23 tests) 3688ms
+   ✓ AI status (23)
+     ✓ renders textual accessible state 365ms
+     ✓ polls with GET only and stops after a terminal snapshot 1661ms
+     ✓ clears polling on unmount 882ms
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+ FAIL   node  tests/integration/gemini-live-smoke.test.ts > opt-inlive runner with offline HTTP > reports actual application outcomes with HTTP 200
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/integration/gemini-live-smoke.test.ts:5:22
+      3|
+      5|   it.each([200, 503])('reports actual application outcome…       |                      ^
+      6|     const stub = `globalThis.fetch = async (_url, init) =…      7|       const body = JSON.parse(init.body);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 41 passed (42)
+      Tests  1 failed | 535 passed (536)
+   Start at  17:44:16
+   Duration  15.90s (tests 33%, import 32%, environment 29%, transform 5%, worker 1%)
+
+PS D:\AIBootcamp\week3-4\retro-poker> npm.cmd run test:e2e
+
+> retro-poker@0.1.0 test:e2e
+> playwright test
+
+Running 10 tests using 1 worker
+
+  ✓   1 …, semantika i tastatura ostaju dostupni na 1280x720 (2.6s)
+  ✓   2 …edan bot: rezultat ruke se objavljuje čitaču ekrana (1.3s)
+  ✓   4 …call 5 i check do showdown-a daje stackove 1010/990 (1.8s)
+  ✓   5 … zavrÅ¡ava ruku bez boarda i daje stackove 995/1005 (1.1s)
+  ✓   6 …ec.ts:4:1 › refresh ponovo GET-uje potvrđeno stanje (1.5s)
+  ✓   7 …snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.2s)
+  ✓   9 …snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.2s)
+  ✓  10 …backend bez memorije vraća game:null i novu partiju (2.9s)
+  10 passed (25.4s)
+PS D:\AIBootcamp\week3-4\retro-poker> npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+PS D:\AIBootcamp\week3-4\retro-poker> npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+PS D:\AIBootcamp\week3-4\retro-poker> npm.cmd run build
+
+> retro-poker@0.1.0 build
+> vite build && tsc -p tsconfig.server.json
+
+vite v8.3.0 building client environment for production...
+✓ 120 modules transformed.
+computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-mS6wAVp3.css    5.11 kB │ gzip:   1.82 kB
+dist/frontend/assets/index-BEpSbalQ.js   339.65 kB │ gzip: 102.57 kB
+
+✓ built in 525ms

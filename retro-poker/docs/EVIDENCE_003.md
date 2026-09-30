@@ -391,3 +391,24 @@ stanja. Drugi checkout je simuliran izolovanim git worktree snapshotima; istorij
 snapshot-i nemaju lockfile pa je korišćen `npm install --package-lock=false`.
 Week03 Definition of Done je tehnički ispunjen prema lokalnim proverama, uz navedena
 ograničenja ljudskog review-a, manualnog T040 screenshot-a i slepog holdout-a.
+
+## Week04 — potvrda nakon merge-a, 2026-09-29
+
+Korisnik i kolega prijavili su uspešnu zajedničku ručnu proveru spojenih izmena:
+Gemini potezi i završna analiza rade, a partije mogu trajati nekoliko desetina
+minuta. Preostale refresh/UX smetnje, prema njihovom opažanju, ne utiču na ponašanje
+igre i prenose se u Week05. Tačni koraci reprodukcije i pojedinačne A/B uloge nisu
+dostavljeni. Ovaj odeljak opisuje Week04; raniji Week03 zaključci ostaju istorijski.
+
+Dostavljeni automatski rezultati: prvi Vitest prolaz 535/536 uz jedan timeout,
+samostalni smoke test 2/2, zatim cela matrica 536/536 u 42 fajla. E2E je 10/10;
+typecheck i lint završili su bez prikazanih grešaka, build izlaz prikazuje uspešan
+Vite build bez grešaka. Numerički exit kodovi nisu dostavljeni. Smoke test u punoj
+matrici traje do 4736 ms uz limit 5000 ms, pa njegova stabilnost ostaje stavka za
+doradu; uzrok prvog timeout-a nije dokazan.
+
+Najmanja promena u ovom dokumentacionom radu je zapis korisničke potvrde i čuvanje
+izvornih izlaza. Agent nije menjao kod, ponavljao testove ni zvao provider.
+Aktuelni HEAD pri beleženju je `07f9b1f401d15e9253cbf0d38767f4aa37cee524`; prilozi
+ne vezuju izvršenja za SHA. Detalji, ograničenja, izvorni logovi i stavke za Week05:
+[post-merge evidencija](evidence/002-post-merge-verification.md).

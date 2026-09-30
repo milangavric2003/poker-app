@@ -254,3 +254,19 @@ Prethodni nalazi i RED rezultati preuzeti iz sačuvanog konteksta nastavka;
 novi GREEN i live bot rezultat direktno zabeleženi. Nisu korišćeni novi spoljni
 izvori ni subagenti. Rizik: promenljivo vreme/dostupnost API-ja i ograničen live uzorak.
 Dokaz: evidence/002-gemini-lite-success.md.
+
+## 2026-09-29 — evidencija korisničke provere nakon merge-a
+
+Prioritet: korisnikov zahtev za dokumentovanje i njegove eksplicitne potvrde >
+priloženi izlazi za brojeve i rezultate > postojeći istorijski evidence.
+Pročitani su AGENTS.md, završni odeljci EVIDENCE_003.md, AI_USAGE_LOG.md i ovog
+manifesta, T043 evidence i uvodni odeljci 002-gemini-lite-success.md; Git status,
+grana i HEAD provereni su samo čitanjem. HEAD pri radu: `07f9b1f`.
+Izvori rezultata: korisničke poruke o ručnoj igri i samostalnom smoke testu, kao i
+prilozi `75cf4265-6b7a-40e7-8ab6-1a730edbbad5/Pasted text.txt` i
+`4b4c6b2d-5638-4032-b225-9868c8cb629a/Pasted text.txt`. Kopije izlaza čuvaju se u
+docs/evidence/002-post-merge-first-run.txt i 002-post-merge-rerun.txt.
+Izostavljeni su .env, implementacioni moduli i spoljni izvori: dokumentacioni scope
+ne zahteva čitanje tajni, promenu koda ili dijagnostiku. Rizik: ljudska potvrda nema
+screenshot/telemetriju, logovi nemaju SHA ni numeričke exit kodove; ograničenja su
+izričito preneta u evidence/002-post-merge-verification.md.
