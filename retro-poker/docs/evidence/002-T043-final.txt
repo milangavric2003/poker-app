@@ -23,3 +23,14 @@ Automatske AI provere koristile su fake/mock provider, placeholder test config i
 koristile internet ili stvarni API ključ. Opcioni live smoke nije ponovljen u ovom
 tasku; istorijski smoke rezultat ne predstavlja GREEN live model success. Model access,
 quota, billing, cena i realna latencija ostaju van offline dokaza.
+
+Dopuna nakon korisničke provere spojenog koda — 2026-09-29
+
+Gornji rezultati ostaju raniji snapshot. Korisnik je kasnije dostavio 536/536 u
+42 fajla, E2E 10/10 i typecheck/lint/build izlaze bez prikazanih grešaka. Prvi puni
+test prolaz imao je 535/536 zbog timeout-a; zatim je smoke zasebno prošao 2/2 i
+ponovljeni puni prolaz 536/536. Agent nije ponavljao te komande u dokumentacionom
+radu i ne dopisuje nedostavljene numeričke exit kodove.
+Korisnik i kolega potvrdili su i uspešne stvarne Gemini poteze i završnu analizu.
+Poreklo, ograničenja, izvorni izlazi i Week05 stavke:
+docs/evidence/002-post-merge-verification.md.

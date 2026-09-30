@@ -1,0 +1,162 @@
+PS D:\AIBootcamp\week3-4\retro-poker> npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts [queued]
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 0/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 1/7
+ ✓  node  tests/integration/terminal-view.test.ts (2 tests) 779ms
+   ✓ terminal all-in HTTP snapshot (2)
+     ✓ validates a won game while preserving showdown evidence 736ms
+ ✓  node  tests/integration/hand-flow.test.ts (3 tests) 788ms
+   ✓ T018 bot loop, privatnost i AC23 (3)
+     ✓ početni odgovor skriva bot karte, deck, burn, seed i observation 616ms
+ ✓  node  tests/integration/ai-analysis.test.ts (13 tests) 1254ms
+   ✓ analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) (13)
+     ✓ rejects a nonterminal game and keeps poker state deeply equal 543ms
+
+ ❯  node  tests/contract/ai-routes.test.ts 2/7
+ ✓  node  tests/integration/ai-concurrency.test.ts (8 tests) 913ms
+   ✓ AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) (8)
+     ✓ serves GET before a pending provider resolves 606ms
+ ✓  node  tests/integration/concurrency.test.ts (9 tests) 997ms
+   ✓ create/reset uslovi i konkurentni duplikati ne brišu noviju partiju 667ms
+ ✓  node  tests/contract/ai-routes.test.ts (7 tests) 1004ms
+   ✓ Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) (7)
+     ✓ keeps omitted aiMode backward-compatible and exposes mode off 588ms
+
+ ❯  node  tests/contract/ai-routes.test.ts 7/7
+ ✓  node  tests/integration/ai-bots.test.ts (7 tests) 1058ms
+   ✓ AI bot mode public integration seam (FR-001, AIAC01, AIAC09) (7)
+     ✓ commits legal fake decisions through the engine for botCount=1 822ms
+ ✓  node  tests/integration/session.test.ts (8 tests) 969ms
+   ✓ T027/T028 session lifecycle (8)
+     ✓ prenosi stackove, rotira heads-up blindove i čuva samo poslednji rezultat 728ms
+
+ ❯  node  tests/contract/ai-routes.test.ts 7/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 7/7
+
+ ❯  node  tests/contract/ai-routes.test.ts 7/7
+
+ ❯  node  tests/contract/messages.test.ts [queued]
+
+ ❯  node  tests/contract/messages.test.ts [queued]
+ ✓  node  tests/unit/evaluator.test.ts (96 tests) 108ms
+
+ ❯  node  tests/contract/messages.test.ts [queued]
+ ✓  node  tests/unit/deal.test.ts (33 tests) 303ms
+
+ ❯  node  tests/contract/messages.test.ts 0/61
+
+ ❯  node  tests/contract/messages.test.ts 1/61
+
+ ❯  node  tests/contract/messages.test.ts 36/61
+ ✓  node  tests/contract/messages.test.ts (61 tests) 282ms
+ ✓  node  tests/integration/ai-failures.test.ts (13 tests) 2766ms
+   ✓ offline AI recovery (FR-012, AIAC03–AIAC09) (13)
+     ✓ malformed failure has the expected bounded chain and one visible local commit 818ms
+     ✓ 429 failure has the expected bounded chain and one visible local commit 331ms
+     ✓ 5xx failure has the expected bounded chain and one visible local commit 308ms
+
+ ❯  node  tests/contract/messages.test.ts 61/61
+ ✓  node  tests/contract/view.test.ts (5 tests) 160ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts [queued]
+ ✓  node  tests/unit/match-facts.test.ts (7 tests) 118ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts [queued]
+
+ ❯  node  tests/contract/ai-contracts.test.ts [queued]
+ ✓  node  tests/unit/gemini-diagnosis.test.ts (2 tests) 5538ms
+   ✓ diagnostic CLI failure exit codes (offline HTTP) (2)
+     ✓ fails on HTTP 503 without valid generation content 2810ms
+     ✓ fails on HTTP 200 without valid generation content 2722ms
+ ✓  node  tests/integration/gemini-http.test.ts (9 tests) 216ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 0/13
+ ✓  node  tests/unit/ai-usage.test.ts (3 tests) 71ms
+ ✓  node  tests/unit/ai-provider-schema.test.ts (6 tests) 385ms
+   ✓ provider and local bot schema agreement (6)
+     ✓ permits fold only without amountTo 335ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 1/13
+ ✓  node  tests/contract/ai-contracts.test.ts (13 tests) 91ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 13/13
+ ✓  node  tests/unit/ai-semantic.test.ts (12 tests) 55ms
+
+ ❯  node  tests/contract/ai-contracts.test.ts 13/13
+ ✓  node  tests/unit/betting.test.ts (21 tests) 48ms
+
+ ❯  node  tests/contract/config.test.ts [queued]
+ ✓  node  tests/unit/positions.test.ts (16 tests) 42ms
+ ✓  node  tests/unit/ai-slow-profile.test.ts (3 tests) 69ms
+ ✓  node  tests/unit/ai-context.test.ts (8 tests) 85ms
+ ✓  node  tests/integration/actions.test.ts (5 tests) 681ms
+   ✓ T018 create/get/action i transakcije (5)
+     ✓ GET je prazan, create pravi UUID partiju, a GET vraća javnisnapshot 515ms
+
+ ❯  node  tests/contract/config.test.ts [queued]
+ ✓  node  tests/unit/pots.test.ts (6 tests) 33ms
+
+ ❯  node  tests/contract/config.test.ts [queued]
+ ✓  node  tests/contract/config.test.ts (39 tests) 52ms
+
+ ❯  node  tests/contract/config.test.ts 39/39
+ ✓  node  tests/unit/ai-retry.test.ts (18 tests) 53ms
+ ✓  node  tests/unit/hand.test.ts (5 tests) 39ms
+
+ ❯  node  tests/contract/config.test.ts 39/39
+ ✓  node  tests/unit/invariants.test.ts (6 tests) 75ms
+ ✓  node  tests/unit/history.test.ts (3 tests) 23ms
+ ✓  node  tests/unit/ai-config.test.ts (12 tests) 72ms
+ ✓  node  tests/unit/bot.test.ts (6 tests) 68ms
+ ✓  node  tests/integration/gemini-adapter.test.ts (14 tests) 95ms
+ ✓  node  tests/integration/gemini-live-smoke.test.ts (2 tests) 9246ms
+   ✓ opt-in live runner with offline HTTP (2)
+     ✓ reports actual application outcomes with HTTP 200 4736ms
+     ✓ reports actual application outcomes with HTTP 503 4504ms
+ ✓  ui  tests/ui/api.test.ts (7 tests) 110ms
+ ✓  ui  tests/ui/table.test.tsx (2 tests) 770ms
+   ✓ Table (2)
+     ✓ prikazuje javni snapshot i događaje po redosledu koji je poslao backend 676ms
+ ✓  ui  tests/ui/dashboard.test.tsx (7 tests) 1299ms
+   ✓ local usage dashboard (7)
+     ✓ explains a confirmed overload without exposing provider messages 717ms
+ ✓  ui  tests/ui/actions.test.tsx (5 tests) 1231ms
+   ✓ ActionPanel (2)
+     ✓ prikazuje samo kontrole koje backend označi kao legalne 654ms
+ ✓  ui  tests/ui/analysis.test.tsx (6 tests) 1098ms
+   ✓ finished-game analysis (6)
+     ✓ labels loading and prevents duplicate requests 423ms
+ ✓  ui  tests/ui/results.test.tsx (5 tests) 1063ms
+   ✓ T029/T030 rezultat i nastavak (5)
+     ✓ rezultat ostaje vidljiv i prikazuje neto promene 477ms
+     ✓ nudi sledeću ruku samo za neterminalnu partiju 323ms
+ ✓  ui  tests/ui/ai-status.test.tsx (23 tests) 3822ms
+   ✓ AI status (23)
+     ✓ renders textual accessible state 531ms
+     ✓ polls with GET only and stops after a terminal snapshot 1695ms
+     ✓ clears polling on unmount 876ms
+
+ Test Files  42 passed (42)
+      Tests  536 passed (536)
+   Start at  17:49:39
+   Duration  17.09s (tests 36%, import 34%, environment 21%, transform 8%, worker 1%)
