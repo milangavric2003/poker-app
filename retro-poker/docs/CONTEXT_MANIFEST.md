@@ -287,3 +287,17 @@ kodu i reprodukciji. Postojeći kraj manifesta korišćen je radi formata eviden
 .env i spoljna dokumentacija nisu čitani: uzrok se reprodukuje offline; tajne,
 kvote i promena modela nisu potrebni. Rizik: nema browser/live testa niti nezavisnog
 ljudskog review-a. Rezultati i ograničenja su u EVIDENCE_003, T041/T042.
+
+## 2026-10-02 — Automatsko osvežavanje AI upotrebe
+
+Prioritet: aktuelni korisnički zahtev > AGENTS/constitution 1.1.0 > GAME_SPEC 1.1
+§12 i feature 002 US4/FR-020–FR-023 > postojeći kod. Baseline HEAD `6101a64`,
+bez lokalnih izmena. Pročitani: AGENTS, speckit-implement skill, constitution
+(principi I–V), package.json, Vitest/ESLint/.gitignore, App/api/UsageDashboard,
+dashboard UI testovi i backend usage store; relevantni delovi GAME_SPEC, 002
+spec/plan/tasks/checklist, model/research/quickstart i ai-http ugovor. Veliki
+spojeni ispisi bili su skraćeni; ne tvrdi se pregled svakog reda dokumenata.
+Krajevi postojećih evidence/manifest/AI log fajlova korišćeni su radi kontinuiteta.
+Izostavljeni .env, spoljni izvori i live provider: lokalna UI reprodukcija ne
+zahteva tajne ili mrežu. Rizik: polling ima interval 1 s plus HTTP latenciju;
+nema browser/live provere. Dokaz: EVIDENCE_003, UR1/UR2.

@@ -441,3 +441,28 @@ Korisnik je dostavio log i opis. Coding agent je uradio dijagnozu, testove i pop
 nezavisan review drugog člana nije potvrđen. Spec Kit prerequisite skripta nije
 izvršena zbog PowerShell execution policy; relevantni fajlovi provereni su čitanjem.
 Nema .specify/extensions.yml ni implement hook-ova.
+
+## 2026-10-02 — Automatsko osvežavanje AI upotrebe (UR1/UR2)
+
+Signal: korisnik vidi nove AI metrike tek nakon refresh-a stranice. Baseline: čist
+HEAD `6101a64`. Potvrđen uzrok: UsageDashboard poziva loadUsage samo pri prvom
+otvaranju, a zatim zadržava snapshot. Očekivanje: otvoren panel prikazuje nove
+agregate bot/analysis poziva bez intervencije, ponovno otvaranje učitava aktuelno stanje.
+
+Najmanja promena: postojeći lokalni GET pri otvaranju i na 1 s dok je panel otvoren.
+Pozadinski GET čuva prikazane podatke; aktivni GET sprečava gomilanje zahteva.
+Cleanup gasi interval i odbacuje kasne odgovore. Reset ima prednost nad starim GET
+odgovorom i zaustavlja polling dok traje. API, backend i model pozivi nisu menjani.
+
+- RED: `npm.cmd test -- tests/ui/dashboard.test.tsx`, exit 1; 4 nova testa padaju jer nema drugog učitavanja, 7 postojećih prolazi.
+- GREEN: ista komanda, exit 0; 11/11 testova. Kontrolisani odgovori i lažni sat proveravaju bot/analysis agregate, spori GET, ponovno otvaranje, cleanup i reset race.
+- Regresija: `npm.cmd test -- tests/ui`, exit 0; 59/59, 7 fajlova (Vitest 5.0.1).
+- `npm.cmd run typecheck` i `npm.cmd run lint`: oba exit 0.
+
+Ograničenja: ažuriranje je polling (sledeći interval + HTTP vreme), ne server push;
+backend objavljuje agregate po završetku logičke AI interakcije. E2E, build, puna
+backend regresija i live Gemini nisu pokretani za ovu frontend izmenu. PowerShell
+execution policy je blokirala Spec Kit prerequisite skriptu; feature i checklist
+su provereni direktno (26/26). Nema extensions.yml/hook-ova. Korisnik je prijavio
+problem; coding agent je izmenio kod/testove/dokumente. Ljudski review i doprinos
+drugog člana nisu potvrđeni.

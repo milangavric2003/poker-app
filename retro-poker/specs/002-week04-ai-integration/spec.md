@@ -136,6 +136,10 @@ zatim proveriti agregate i reset dashboarda bez pregledanja prompta ili privatni
    brišu se samo metrike, bez promene aktivne ili završene partije.
 4. **Given** dashboard ili javni response, **When** se pregledaju sva polja, **Then**
    nema API ključa, punog prompta, privatnih karata, raw provider odgovora ili stack trace-a.
+5. **Given** otvoren dashboard, **When** backend zabeleži završen AI poziv bota ili
+   analize, **Then** metrike se automatski učitavaju bez refresh-a stranice; ponovno
+   otvaranje panela takođe učitava aktuelne podatke. Pozadinsko učitavanje čuva
+   vidljive vrednosti, ne gomila paralelne zahteve i ne poništava reset kasnim odgovorom.
 
 ### Edge Cases
 

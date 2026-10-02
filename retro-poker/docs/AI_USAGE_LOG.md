@@ -275,3 +275,13 @@ navedeni u CONTEXT_MANIFEST. Ishod: potvrđen isti stack trace sa fake providero
 minimalna validaciona popravka, 24 ciljana i 547 regresionih testova prolaze,
 typecheck/lint/build exit 0. Ljudski doprinos: prijava i log; naknadni korisnički
 review i doprinos drugog člana nisu potvrđeni. Live Gemini pozivi: 0.
+
+## 2026-10-02 — UR1/UR2, automatsko osvežavanje metrika
+
+Alat: Codex; tačan model, tokeni i trošak sesije nisu dostupni. Svrha i očekivanje:
+ukloniti potrebu za refresh-om stranice radi aktuelne AI upotrebe. Kontekst:
+UsageDashboard/App/API, UI testovi, usage store i izvori iz CONTEXT_MANIFEST.
+Ishod: osvežavanje otvorenog panela na 1 s, ponovno učitavanje pri otvaranju,
+zaštita od sporih/kasnih odgovora i reset race-a; 4 RED → 11 GREEN testova,
+UI regresija 59/59, typecheck/lint exit 0. Ljudska odluka: korisnik traži ovu
+UX popravku sada; nezavisan review nije potvrđen. Live Gemini pozivi: 0.

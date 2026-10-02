@@ -322,3 +322,11 @@ Gornja tabela vremena opisuje default profil. GEMINI_BOT_TOTAL_MS dopušta
 Lokalni Lite profil ima jedan pokušaj, 30.000 ms attempt i 35.000 ms total.
 Analysis total ostaje 30.000 ms, sa lokalnim attempt 29.000 ms. Provider koristi
 ravnu nullable transport šemu za bot, uz nepromenjenu strogu domensku validaciju.
+
+### Automatsko osvežavanje AI upotrebe — 2026-10-02
+
+US4/5, FR-020–FR-023: UsageDashboard učitava postojeći GET pri svakom otvaranju
+i na interval od 1 s dok je otvoren. Jedan aktivan GET, zaštita od kasnih odgovora
+pri zatvaranju/resetu i zaustavljanje tajmera pri unmount-u. Pozadinsko učitavanje
+ne skriva metrike. Provera: Vitest UI sa lažnim satom i kontrolisanim odgovorima,
+zatim UI regresija, typecheck i lint. Nema novih model poziva ni API ugovora.
