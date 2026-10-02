@@ -9,10 +9,14 @@ function assertValid(state: PotSettlementState): void {
     throw new Error('Invalid pot state');
   }
   for (const player of state.players) {
+    // Seats eliminated in an earlier hand remain at the table but are not dealt in.
+    const eliminatedBeforeHand = player.status === 'eliminated' && player.holeCards.length === 0
+      && [player.stack, player.streetContribution, player.handContribution, player.stackAtHandStart]
+        .every(value => value === 0);
     if (![player.stack, player.streetContribution, player.handContribution, player.stackAtHandStart]
       .every(validChips) || player.streetContribution > player.handContribution
       || !Number.isInteger(player.seat) || player.seat < 0 || player.seat > 5
-      || player.holeCards.length !== 2) throw new Error('Invalid chips or player');
+      || (player.holeCards.length !== 2 && !eliminatedBeforeHand)) throw new Error('Invalid chips or player');
   }
 }
 

@@ -16,6 +16,35 @@ function contributed(id: string, seat: number, cards: Card[], amount: number,
 }
 
 describe('T010 potovi — unapred izračunati AC11–AC13 oracle-i', () => {
+  it('obračunava pot sa ranije eliminisanim mestom bez karata', () => {
+    const input = state([
+      contributed('A', 0, ['As', 'Ad'], 100),
+      contributed('B', 1, ['Ks', 'Kd'], 100),
+      handPlayer('C', 2, [], { status: 'eliminated', stack: 0, stackAtHandStart: 0 }),
+    ]);
+    const before = structuredClone(input);
+    const paid = settlePots(input);
+    expect(paid.players.map(p => p.stack)).toEqual([1100, 900, 0]);
+    expect(paid.pots[0]).toMatchObject({ amount: 200, eligibleIds: ['A', 'B'], winnerIds: ['A'] });
+    expect(paid.players[2]).toEqual(input.players[2]);
+    expect(settlePots(paid)).toBe(paid);
+    expect(input).toEqual(before);
+  });
+
+  it.each(['active', 'folded', 'all_in'] as const)('odbija status %s bez dve karte', status => {
+    for (const cards of [[], ['As'], ['As', 'Ad', 'Ac']] satisfies Card[][]) {
+      expect(() => settlePots(state([contributed('A', 0, cards, 10, { status })])))
+        .toThrow('Invalid chips or player');
+    }
+  });
+
+  it.each(['stack', 'stackAtHandStart', 'handContribution', 'streetContribution'] as const)(
+    'odbija eliminisano mesto bez karata sa nenultim %s', field => {
+      const eliminated = handPlayer('C', 2, [], { status: 'eliminated', stack: 0,
+        stackAtHandStart: 0, [field]: 1 });
+      expect(() => settlePots(state([eliminated]))).toThrow('Invalid chips or player');
+    });
+
   it('AC11 pravi glavni i side pot na svakom nivou doprinosa', () => {
     const settled = settlePots(state([
       contributed('A', 0, ['As', 'Ad'], 100),

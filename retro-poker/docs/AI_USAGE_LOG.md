@@ -264,3 +264,14 @@ u dokumentaciju. Očekivanje i ishod: sačuvani prvi timeout, zaseban prolaz i p
 536/536 regresija, kao i E2E 10/10 i ostale dostavljene provere. Nema novih provider
 poziva ili novih izvršenja testova od strane agenta. Trošak i tokeni coding sesije
 nisu dostupni. [Dokaz i ograničenja](evidence/002-post-merge-verification.md).
+
+## 2026-10-02 — T041/T042, dijagnoza pada posle nekoliko ruku
+
+Alat: Codex; tačan model i potrošnja/trošak nisu dostupni. Svrha: objasniti korisnikov
+log, reprodukovati grešku i ispraviti obračun sledeće ruke nakon eliminacije.
+Očekivanje: nastavak igre i očuvanje žetona, bez stvarnih provider poziva.
+Kontekst: priloženi log, engine/session, relevantni testovi i projektni dokumenti
+navedeni u CONTEXT_MANIFEST. Ishod: potvrđen isti stack trace sa fake providerom;
+minimalna validaciona popravka, 24 ciljana i 547 regresionih testova prolaze,
+typecheck/lint/build exit 0. Ljudski doprinos: prijava i log; naknadni korisnički
+review i doprinos drugog člana nisu potvrđeni. Live Gemini pozivi: 0.

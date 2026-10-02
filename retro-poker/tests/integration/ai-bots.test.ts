@@ -6,6 +6,7 @@ import type { AiProvider, BotDecisionContext, ProviderRequest, ProviderResult } 
 import { GameResponseSchema, type GameView } from '../../shared/contracts.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
 import { FakeAiProvider, legalBotProposal } from '../helpers/fake-ai-provider.js';
+import type { Card } from '../../backend/src/engine/types.js';
 
 const apps: FastifyInstance[] = [];
 afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); });
@@ -18,8 +19,8 @@ class LegalProvider implements AiProvider {
   }
 }
 
-function makeApp(provider?: AiProvider, configured = true) {
-  const value = buildApp({ deck: ac23Deck, deckRandom: sequenceRandom([]),
+function makeApp(provider?: AiProvider, configured = true, deck: readonly Card[] = ac23Deck) {
+  const value = buildApp({ deck, deckRandom: sequenceRandom([]),
     botRandom: sequenceRandom(Array<number>(200).fill(0.9)),
     ...(provider ? { aiProvider: provider } : {}),
     aiConfig: loadAiConfig(configured ? { GEMINI_API_KEY: 'offline-test-placeholder' } : {}) });
@@ -44,6 +45,45 @@ async function waitUntil(app: FastifyInstance, predicate: (game: GameView) => bo
 }
 
 describe('AI bot mode public integration seam (FR-001, AIAC01, AIAC09)', () => {
+  it('završava AI bot obračun sledeće ruke posle eliminacije', async () => {
+    let firstHandId: string | undefined;
+    const actors: Array<{ handId: string; actorId: string }> = [];
+    const provider: AiProvider = {
+      async generate(request) {
+        const context = request.context as BotDecisionContext;
+        firstHandId ??= context.handId;
+        actors.push({ handId: context.handId, actorId: context.actorId });
+        const type = context.handId === firstHandId && context.actorId !== 'player-1'
+          ? 'fold' : context.legalActions.some(action => action.type === 'check') ? 'check' : 'call';
+        return legalBotProposal({ ...context, legalActions: [{ type }] });
+      },
+    };
+    const app = makeApp(provider, true, ['Ks', 'Qs', 'Js', 'As', 'Kd', 'Qd', 'Jd', 'Ad',
+      '6c', '2c', '3d', '7h', '8c', '9s', 'Tc', '4c']);
+    const ready = (game: GameView) => game.phase === 'complete'
+      || (game.actorId === 'player-0' && game.ai.active === null);
+    await create(app, 3, true);
+    let game = await waitUntil(app, ready);
+    const send = async (url: string, type?: 'all_in' | 'fold') => {
+      const response = await app.inject({ method: 'POST', url, payload: {
+        gameId: game.gameId, handId: game.handId, expectedVersion: game.version,
+        ...(type ? { type } : {}),
+      } });
+      expect(response.statusCode).toBe(200);
+      return waitUntil(app, ready);
+    };
+    game = await send('/api/game/actions', 'all_in');
+    expect(game.players.map(p => p.stack)).toEqual([2010, 0, 990, 1000]);
+    game = await send('/api/game/next-hand');
+    game = await send('/api/game/actions', 'fold');
+    expect(game.result?.reason).toBe('showdown');
+    expect(game.players.reduce((sum, p) => sum + p.stack, 0)).toBe(4000);
+    expect(game.players[1]).toMatchObject({ stack: 0, status: 'eliminated', cards: null });
+    expect(game.ai.active).toBeNull();
+    expect(game.ai.lastBotOutcome?.outcome).toBe('model');
+    expect(actors.filter(a => a.handId === game.handId).map(a => a.actorId)).not.toContain('player-1');
+  });
+
   const expected = {
     1: { calls: 2, actions: ['check', 'check'], stacks: [990, 990], eventCount: 7 },
     2: { calls: 3, actions: ['fold', 'check', 'check'], stacks: [990, 995, 990], eventCount: 8 },

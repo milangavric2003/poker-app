@@ -412,3 +412,32 @@ izvornih izlaza. Agent nije menjao kod, ponavljao testove ni zvao provider.
 Aktuelni HEAD pri beleženju je `07f9b1f401d15e9253cbf0d38767f4aa37cee524`; prilozi
 ne vezuju izvršenja za SHA. Detalji, ograničenja, izvorni logovi i stavke za Week05:
 [post-merge evidencija](evidence/002-post-merge-verification.md).
+
+## 2026-10-02 — Ispravka obračuna posle eliminacije (T041/T042)
+
+Korisnički log: `Invalid chips or player` u pots.ts, preko settleHand/advance/act i
+asinhronog commitBot, zatim prestanak backend procesa i ECONNREFUSED na portu 3001.
+Baseline: čist Git HEAD `0dfafad`. Očekivanje pre promene: eliminisano mesto bez
+karata i bez žetona ne blokira sledeću ruku; ukupan broj žetona ostaje 4000 u
+scenariju sa tri bota. R6/R8, FR-011/AC21 i data-model.md već zahtevaju ovo ponašanje.
+
+Hipoteza potvrđena: createNextHand ostavlja eliminisano mesto bez karata, dok je
+assertValid zahtevao dve karte za svako mesto. Minimalna promena u pots.ts dozvoljava
+prazne karte samo za status eliminated kada su stack, stackAtHandStart i oba doprinosa
+nula. Učesnici ruke i dalje moraju imati dve karte; ostale chip provere ostaju.
+
+Dokazi (Node v24.20.0, npm 11.19.0):
+- RED: `npm.cmd test -- tests/unit/pots.test.ts tests/integration/elimination-settlement.test.ts`, exit 1: 3 pada / 13 prolazi; isti Invalid chips or player. Log: [elimination-red.txt](evidence/elimination-red.txt).
+- AI RED: `npm.cmd test -- tests/integration/ai-bots.test.ts -t 'posle eliminacije'`, exit 1: 1 pad / 7 filtriranih testova, unhandled rejection sa istim stack trace-om kao korisnikov log. Koristi lokalni fake provider, bez mreže. Log: [elimination-ai-red.txt](evidence/elimination-ai-red.txt). Pre konačnog scenarija, ista provera sa ljudskim završnim potezom vratila je HTTP 500; završni scenario koristi ljudski fold da bot izvrši obračun.
+- GREEN: `npm.cmd test -- tests/unit/pots.test.ts tests/integration/elimination-settlement.test.ts tests/integration/ai-bots.test.ts`, exit 0: 24/24. Log: [elimination-green.txt](evidence/elimination-green.txt).
+- Regresija: `npm.cmd test`, exit 0: 547/547 testova, 43 fajla. Log: [elimination-regression.txt](evidence/elimination-regression.txt).
+- `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`: sve exit 0.
+- `git diff --check`: exit 0; samo obaveštenja o LF/CRLF.
+
+Ograničenja: browser E2E i live Gemini nisu pokretani; korisnikova tekuća memorijska
+partija ne može biti vraćena nakon pada procesa. Nije menjan opšti mehanizam obrade
+neočekivanih asinhronih grešaka; ispravljen je konkretan uzrok ove reprodukcije.
+Korisnik je dostavio log i opis. Coding agent je uradio dijagnozu, testove i popravku;
+nezavisan review drugog člana nije potvrđen. Spec Kit prerequisite skripta nije
+izvršena zbog PowerShell execution policy; relevantni fajlovi provereni su čitanjem.
+Nema .specify/extensions.yml ni implement hook-ova.

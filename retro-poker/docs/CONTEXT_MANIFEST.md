@@ -270,3 +270,20 @@ Izostavljeni su .env, implementacioni moduli i spoljni izvori: dokumentacioni sc
 ne zahteva čitanje tajni, promenu koda ili dijagnostiku. Rizik: ljudska potvrda nema
 screenshot/telemetriju, logovi nemaju SHA ni numeričke exit kodove; ograničenja su
 izričito preneta u evidence/002-post-merge-verification.md.
+
+## 2026-10-02 — Pad obračuna posle eliminacije
+
+Prioritet: korisnički log/zahtev > AGENTS.md i constitution 1.1.0 > GAME_SPEC 1.1
+(R6/R8/AC21) > feature 001 plan/tasks/model > postojeći kod i testovi. Baseline
+HEAD 0dfafad, bez početnih lokalnih izmena. Pročitani: priloženi Pasted text.txt
+(1c17a97b-a0a0-42c0-bc3c-6a7cb0c89eeb), AGENTS.md, speckit-implement/SKILL.md,
+check-prerequisites.ps1, constitution, GAME_SPEC, feature 001 plan/tasks/checklist,
+data-model/contracts/research/quickstart i relevantni FR-011/AC20/AC21 delovi spec-a;
+engine pots/hand/cards, session/app, testovi pots/hand/hand-flow/session/ai-bots,
+fixtures/fake-ai-provider, package.json, vitest.config.ts, ESLint i .gitignore.
+Veliki spojeni ispisi nekih dokumenata bili su skraćeni; ne tvrdi se pun pregled
+svih njihovih redova. Relevantne činjenice o eliminaciji proverene su u modelu,
+kodu i reprodukciji. Postojeći kraj manifesta korišćen je radi formata evidencije.
+.env i spoljna dokumentacija nisu čitani: uzrok se reprodukuje offline; tajne,
+kvote i promena modela nisu potrebni. Rizik: nema browser/live testa niti nezavisnog
+ljudskog review-a. Rezultati i ograničenja su u EVIDENCE_003, T041/T042.
