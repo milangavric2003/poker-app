@@ -17,11 +17,11 @@ describe('Table', () => {
 
     render(<Table game={game} />);
 
-    expect(screen.getByText('As')).toBeVisible();
-    expect(screen.getByText('Ah')).toBeVisible();
-    expect(screen.getByText('2c')).toBeVisible();
-    expect(screen.getByText('3d')).toBeVisible();
-    expect(screen.getByText('4h')).toBeVisible();
+    expect(screen.getByLabelText('As pik')).toBeVisible();
+    expect(screen.getByLabelText('As herc')).toBeVisible();
+    expect(screen.getByLabelText('2 tref')).toBeVisible();
+    expect(screen.getByLabelText('3 karo')).toBeVisible();
+    expect(screen.getByLabelText('4 herc')).toBeVisible();
     expect(screen.getByText(/Pot: 15/)).toBeVisible();
     expect(screen.getByText(/Button/)).toBeVisible();
     expect(screen.getByText(/Stack: 995/)).toBeVisible();
@@ -46,5 +46,20 @@ describe('Table', () => {
     expect(table.getByLabelText('As herc')).toHaveTextContent('A♥');
     expect(table.getByText(/Mali blind: Ti, 5/)).toBeVisible();
     expect(table.getByText(/Veliki blind: Bot 1, 10/)).toBeVisible();
+  });
+
+  it('prikazuje desetku kao 10 i ne ispisuje kod karte pri dnu', () => {
+    const base = GameViewSchema.parse(publicView());
+    const game = { ...base, board: ['Ts', '6s', '5h'] } as typeof base;
+
+    const view = render(<Table game={game} />);
+    const board = within(view.container.querySelector('.board') as HTMLElement);
+
+    expect(board.getByLabelText('10 pik')).toHaveTextContent('10♠');
+    expect(board.getByLabelText('6 pik')).toHaveTextContent('6♠');
+    expect(board.getByLabelText('5 herc')).toHaveTextContent('5♥');
+    expect(board.getByLabelText('10 pik')).not.toHaveTextContent('Ts');
+    expect(board.getByLabelText('6 pik')).not.toHaveTextContent('6s');
+    expect(board.getByLabelText('5 herc')).not.toHaveTextContent('5h');
   });
 });
