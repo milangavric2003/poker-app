@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { loadUsage, resetUsage, type UsageDashboardView } from '../api';
 
 const failureOutcomes = new Set(['timeout', 'rate_limited', 'server_error', 'network_error', 'malformed',
@@ -16,23 +16,40 @@ export function UsageDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const requestId = useRef(0);
-  async function refresh() {
+  const inFlight = useRef<number | null>(null);
+  const resetting = useRef(false);
+  const refresh = useCallback(async (background = false) => {
+    if (inFlight.current !== null || resetting.current) return;
     const id = ++requestId.current;
-    setLoading(true); setError(false);
-    try { const next = await loadUsage(); if (id === requestId.current) setUsage(next); }
+    inFlight.current = id;
+    if (!background) { setLoading(true); setError(false); }
+    try {
+      const next = await loadUsage();
+      if (id === requestId.current) { setUsage(next); setError(false); }
+    }
     catch { if (id === requestId.current) setError(true); }
-    finally { if (id === requestId.current) setLoading(false); }
-  }
-  function toggle() {
-    const next = !open; setOpen(next);
-    if (next && !usage && !loading) void refresh();
-  }
+    finally {
+      if (inFlight.current === id) inFlight.current = null;
+      if (id === requestId.current) setLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    void refresh();
+    const timer = window.setInterval(() => { void refresh(true); }, 1000);
+    return () => {
+      window.clearInterval(timer);
+      ++requestId.current;
+      inFlight.current = null;
+    };
+  }, [open, refresh]);
   async function reset() {
-    if (!usage || loading || !window.confirm('Resetovati lokalne AI metrike?')) return;
+    if (!usage || loading || resetting.current || !window.confirm('Resetovati lokalne AI metrike?')) return;
+    resetting.current = true;
     const id = ++requestId.current; setLoading(true); setError(false);
     try { const next = await resetUsage(usage.revision); if (id === requestId.current) setUsage(next); }
     catch { if (id === requestId.current) setError(true); }
-    finally { if (id === requestId.current) setLoading(false); }
+    finally { resetting.current = false; if (id === requestId.current) setLoading(false); }
   }
   const total = usage?.logical.reduce((sum, row) => sum + row.count, 0) ?? 0;
   const successes = usage?.logical.filter(row => row.finalOutcome === 'model_success')
@@ -64,7 +81,7 @@ export function UsageDashboard() {
     suffix = '') => !metric || metric.knownCount === 0 ? 'Nepoznato'
       : `${metric.sum}${suffix}${metric.missingCount > 0 ? ' (delimično)' : ''}`;
   return <section className="usage-dashboard">
-    <button aria-expanded={open} aria-controls="usage-panel" onClick={toggle}>AI upotreba</button>
+    <button aria-expanded={open} aria-controls="usage-panel" onClick={() => setOpen(value => !value)}>AI upotreba</button>
     {open && <div id="usage-panel" className="usage-panel">
       <h2>Lokalne AI metrike</h2>
       {loading && <p role="status"><span className="loading-dot" aria-label="Učitavanje AI metrika" /> Učitavanje…</p>}
