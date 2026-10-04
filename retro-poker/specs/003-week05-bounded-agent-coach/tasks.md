@@ -56,29 +56,44 @@ manifest su sačuvani pre prve velike implementacije.
 
 ## Phase 1 — ugovori i read-only alat
 
-- [ ] T007 B — Napisati strict schema unit-testove za goal, model step discriminant,
+- [x] T007 B — Napisati strict schema unit-testove za goal, model step discriminant,
   tool arguments/output, run DTO/status/stop reason i final evidence; deps T005;
   allowed: `tests/unit/agent-schemas.test.ts`, `tests/contract/coach-contract.test.ts`,
   `docs/evidence/003-T007-red.txt`; evidence: smisleni RED na nedostajućem ugovoru;
   unknown fields, granice i nepoznata ref rejection su oracle-i.
-- [ ] T008 A — Definisati deljene strict coach request/result/run-state ugovore;
+- [x] T008 A — Definisati deljene strict coach request/result/run-state ugovore;
   deps T007; allowed: `shared/contracts.ts`, tests T007, evidence; evidence: schema
   testovi zeleni, Week03/Week04 contracts nepromenjeni.
-- [ ] T009 B — Napisati tool input/output/schema projection tests za
+- [x] T009 B — Napisati tool input/output/schema projection tests za
   `get_decision_evidence`; deps T008; allowed: `tests/unit/agent-tool.test.ts`;
+  dodatno allowed: `docs/evidence/003-T009-red.txt` (stvarni RED i handoff);
   evidence: enum/range/limit, prazni/agregirani facts, deterministički max bytes,
   izvorne facts ne mutiraju.
-- [ ] T010 A — Implementirati `get_decision_evidence` kao lokalni deterministic read-only
+- [x] T010 A — Implementirati `get_decision_evidence` kao lokalni deterministic read-only
   tool nad eksplicitnim terminal `MatchFacts` snapshot-om; deps T009; allowed:
   `backend/src/agent/tools.ts`, eventualni facts projection helper;
+  dodatno allowed: `docs/evidence/003-T010-green.txt` (GREEN/regresija i handoff);
   evidence: T009 green; nema import-a za provider, route, filesystem, network ili poker
   mutation; svaki ref iz izvora.
-- [ ] T011 B — Validirati tool-result semantiku/veličinu i fixture/eval skup;
+- [x] T011 B — Validirati tool-result semantiku/veličinu i fixture/eval skup;
   deps T010; allowed: agent validation module, `tests/unit/agent-tool.test.ts`,
-  `specs/003.../evals.md`; evidence: corrupted/too large/foreign refs rejected before
+  `specs/003.../evals.md`, `docs/evidence/003-T011-*.txt`; evidence: corrupted/too large/foreign refs rejected before
   model context; bar pet expected-first eval case-ova kreirano.
 
 ## Phase 2 — model adapter i bounded orchestrator
+
+Phase 1 handoff (2026-10-04): [detaljni zapis](../../docs/evidence/003-T011-handoff.txt).
+T007 [26 RED](../../docs/evidence/003-T007-red.txt) → T008
+[151 GREEN/contract](../../docs/evidence/003-T008-green.txt);
+T009 [23 RED](../../docs/evidence/003-T009-red.txt) → T010
+[53 fokus/317 unit GREEN](../../docs/evidence/003-T010-green.txt);
+T011 [8 RED + dodatni holdout](../../docs/evidence/003-T011-red.txt) →
+[65 fokus GREEN](../../docs/evidence/003-T011-green.txt), [E1–E5](evals.md),
+[610/610 regresija](../../docs/evidence/003-T011-regression.txt),
+[typecheck](../../docs/evidence/003-T011-typecheck.txt),
+[lint](../../docs/evidence/003-T011-lint.txt), [build](../../docs/evidence/003-T011-build.txt).
+Svi završni exit statusi 0; prvi lint neuspeh i holdout RED očuvani.
+T012+ ostaju otvoreni; nema lifecycle/provider/UI/E2E/live dokaza u ovom bloku.
 
 - [ ] T012 A — Dodati provider-neutral agent request/result ugovor i fake-response
   scripts; deps T008; allowed: `backend/src/ai/types.ts`, `tests/helpers/fake-ai-provider.ts`,

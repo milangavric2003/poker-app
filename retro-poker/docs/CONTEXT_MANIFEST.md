@@ -1,5 +1,22 @@
 # Context manifest — implementacioni blok člana A
 
+## Week05 Phase 1 T007–T011 — 2026-10-04
+
+Prioritet: aktuelni priloženi zahtev > AGENTS/constitution > GAME_SPEC 1.2 > feature
+003. Početni HEAD `3c4a8f40368b119a3c3e6f9e687e15ff645bd317`; početni status čist.
+Jedan agent; bez delegacije. Pročitani AGENTS, constitution 1.1.0, GAME_SPEC,
+V1 prompt, relevantni uvod manifesta, kompletni 003 spec/plan/tasks/data-model/HTTP,
+requirements checklist 12/12, baseline.md i spisak baseline logova. Prvi spojeni
+ispisi bili su skraćeni; spec/plan i relevantni ugovori ponovo izdvojeni.
+Korišćeni shared/contracts.ts, ai/match-facts.ts, match-facts test, Week04
+fake-ai-provider i fixtures helper, package/ESLint/ignore i speckit-implement skill.
+Prerequisite sa eksplicitnim feature 003: exit 0; extensions.yml ne postoji.
+T009/T010/T011 evidence putanje dopunjene pre rada radi stvarnog RED/GREEN handoff-a.
+Novi testovi/moduli/evals su kontekst nastao u ovom bloku. Nema novih biblioteka.
+Izostavljeni .env, web, provider implementacija, UI i lifecycle: nisu potrebni za
+ugovore/lokalni read-only alat. Nema live poziva, ljudski peer review nije potvrđen,
+potrošnja coding sesije nije dostupna. Handoff i stvarni izlazi: 003-T007–T011 evidence.
+
 ## Week05 priprema T002–T006 — 2026-10-04
 
 Aktuelni korisnički zahtev ima prioritet: jedan agent, redom T002→T006, proveriti

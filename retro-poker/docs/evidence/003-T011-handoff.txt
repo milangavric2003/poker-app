@@ -1,0 +1,123 @@
+Week05 Phase 1 — handoff T007–T011, 2026-10-04 (Europe/Belgrade)
+
+Cilj/obim: samo strict deljeni ugovori, lokalni read-only get_decision_evidence,
+snapshot-bound tool-result validator i expected-first eval fixtures. Jedan agent.
+Početni HEAD: 3c4a8f40368b119a3c3e6f9e687e15ff645bd317, početni worktree čist.
+
+Provera T002–T006 pre koda:
+- T002: requirements checklist 12/12 kvalitativnih kriterijuma; FR matrica 25/25.
+- T003: plan, data-model i coach-http; ownership, retry erasure, snapshot i DTO.
+- T004: originalni V1 prompt već sačuvan; stvarni manifest pripreme postoji.
+- T005: spec/plan/GAME_SPEC isti 2 steps/1 tool/4 attempts, 15s/45s,
+  1–10, tool 1s i 20480 UTF-8 bajtova; status/stop taxonomy usklađeni.
+- T006: baseline.md, snapshot/smoke/tests/typecheck logovi postoje. Pročitani
+  tests/typecheck izlazi potvrđuju istorijskih 552/552 i exit 0, typecheck exit 0.
+  git diff b0b02cab1e4491d5cdf65638d051c13d213f4eff HEAD -- backend frontend
+  shared tests package.json package-lock.json: prazan aplikacioni diff, exit 0.
+  Snapshot log ima mešovito kodiranje/NUL znakove u ranijem segmentu; nije prepisan.
+  HEAD i komande su čitljivi u baseline.md, novi HEAD i diff provereni nezavisno.
+  Istorijski dokaz nije predstavljen kao novi test ili sopstveni doprinos.
+SpecKit check-prerequisites sa feature 003, RequireTasks/IncludeTasks: exit 0;
+extensions.yml ne postoji; ignore/ESLint patterns odgovaraju projektu.
+
+Prelazi taskova:
+- T007 posle T005/document gate: samo testovi; namespace capability assertion
+  umesto neuspešnog named import-a. Stvarni 26 RED, exit 1, nema setup greške.
+  003-T007-red.txt; task završen kao test-first RED priprema za T008.
+- T008 posle pregleda T007 testova/RED/diff: shared strict runtime šeme.
+  Model unknown name ostaje parsabilan za kasniju allowlist klasifikaciju;
+  strict args se proveravaju zasebno. String bounds su Unicode code points,
+  decisionRef ASCII 1–128; limit int 1–10, evidence max10, fact codes max5.
+  Completed DTO traži result.completed=true, evidence i counters 2/1/2–4.
+  Contextual coachResultForEvidence proverava isti ref/code/kanonski finding
+  prema već validiranom tool output-u. Nije implementiran run final lifecycle.
+  151/151 schema + postojeći contract testovi, typecheck exit 0.
+- T009 posle T008 GREEN/typecheck/diff: nezavisni literalni oracle, svaki focus,
+  lower/upper/out-of-range limit, empty/aggregate, sorted latest selection,
+  frozen input, projection/privacy, byte cap, stale source i cooperative timeout.
+  Stvarni 23 RED, exit 1, zbog odsutnog lokalnog executor-a/allowlist-a.
+- T010 posle T009 RED/diff: tools.ts, trusted terminal fingerprint/snapshot,
+  explicit frozen allowlist, safe lokalne kategorije, injected monotonic clock,
+  AbortSignal, min(1000ms, remaining deadline), najviše200 detaljnih odluka.
+  Latest matching slice vraća rastuće ordinale; prevelike činjenice se izostavljaju,
+  byte cap uklanja najstarije cele odluke. Input/facts ostaju nepromenjeni.
+  53/53 fokus, 317/317 unit regresija, typecheck exit 0.
+- T011 posle T010 GREEN/unit/typecheck/diff: semantički validator ne poziva
+  executor; ponovo projektuje kanonske činjenice iz vezanog snapshot-a i proverava
+  count/order/size/ref/code/finding/focus/revision/sample flag. Prazan raspoloživi
+  uzorak daje insufficient_evidence; lažno prazan rezultat se odbija.
+  E1–E5 upisani pre testa. 23 PASS/8 RED, exit1 ->64/64 GREEN, exit0.
+  Dodatni expected-first holdout: missing terminal handId prihvaćen; 1 RED/31 PASS,
+  exit1 -> minimalna dopuna validatora ->65/65 fokus GREEN, exit0.
+
+Stvarne komande (svi logovi čuvaju output i exit):
+1. npm.cmd test -- tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts
+   T007: 26 RED/exit1. Posle lint korekcije: 26 PASS/exit0.
+2. npm.cmd test -- tests/unit/agent-schemas.test.ts tests/contract
+   T008:151 PASS/exit0.
+3. npm.cmd test -- tests/unit/agent-tool.test.ts
+   T009:23 RED/exit1; T011:23 PASS/8 RED/exit1; holdout:31 PASS/1 RED/exit1.
+4. npm.cmd test -- tests/unit/agent-tool.test.ts tests/unit/match-facts.test.ts tests/unit/agent-schemas.test.ts
+   T010:53 PASS/exit0.
+5. npm.cmd test -- tests/unit
+   T010:317 PASS/exit0.
+6. npm.cmd test -- tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts tests/unit/match-facts.test.ts
+   T011:64, zatim65 PASS/exit0.
+7. npm.cmd test
+   Prva završna regresija:609/609,46 fajlova/exit0.
+   Finalna posle holdout-a:610/610,46 fajlova/exit0 (003-T011-regression.txt).
+8. npm.cmd run typecheck
+   T008/T010 i oba T011 izvršenja:exit0.
+9. npm.cmd run lint
+   Prvo exit1 (no-control-regex), zatim ASCII refine iste semantike:exit0;
+   finalno posle holdout-a:exit0. Prvi neuspeh očuvan u 003-T011-lint.txt.
+10. npm.cmd run build
+    Oba T011 izvršenja:exit0 (frontend Vite i backend TypeScript).
+11. git diff --check
+    exit0, LF/CRLF warnings; završni review log zasebno.
+
+Izmenjeni/dodati fajlovi:
+shared/contracts.ts
+backend/src/agent/tools.ts
+backend/src/agent/validation.ts
+tests/unit/agent-schemas.test.ts
+tests/contract/coach-contract.test.ts
+tests/unit/agent-tool.test.ts
+specs/003-week05-bounded-agent-coach/tasks.md (status i evidence allowed paths)
+specs/003-week05-bounded-agent-coach/evals.md
+docs/CONTEXT_MANIFEST.md (stvarni novi kontekst)
+docs/evidence/003-T007-red.txt
+docs/evidence/003-T008-green.txt
+docs/evidence/003-T009-red.txt
+docs/evidence/003-T010-green.txt
+docs/evidence/003-T011-red.txt
+docs/evidence/003-T011-green.txt
+docs/evidence/003-T011-regression.txt
+docs/evidence/003-T011-typecheck.txt
+docs/evidence/003-T011-lint.txt
+docs/evidence/003-T011-build.txt
+docs/evidence/003-T011-review.txt
+docs/evidence/003-T011-handoff.txt
+
+Nije pokrenuto: npm ci, dev, start, preview, test:e2e, diagnose:gemini,
+smoke:gemini, live provider, ručni browser demo ili deploy/commit.
+Nema otvorenih/preskočenih Phase1 testova; kasniji lifecycle/route/UI/E2E i live
+testovi ostaju van ovog bloka. Live agent run-ovi ovog rada:0.
+
+Ograničenja i handoff za T012–T017:
+- MatchFacts sam nema terminal status/current terminal hand identity. Pozivalac
+  mora vezati TerminalFactsSnapshot za stvarni session fingerprint i frozen copy.
+  Lokalne provere nisu zamena za session stale/cancel/commit autoritet.
+- Posle CoachModelStepSchema proveriti stage, explicit name allowlist, strict args
+  i goal.focus, seen canonical key/budžete, tek zatim najviše jedan executor call.
+- ToolControls.now/deadlineAt moraju biti u istom monotonom domenu; proslediti
+  signal i zajednički deadline. Tool rezultat mora proći validateDecisionEvidence;
+  rejected -> tool_failed/tool_validation, insufficient_evidence -> stopped, bez
+  drugog model koraka. Ne čuvati candidate/raw error/chain-of-thought.
+- T012 provider-neutral coach metode/scripted fake; T013 Gemini mocked adapter;
+  T014 bounded orchestration; T015 final stage/membership/state policy (koristi
+  postojeće contextual schema factory); T016–T017 integracije/retry/deadline/
+  repeat/cancel/stale/terminal commit. Nijedan od ovih taskova nije čekiran ovde.
+- Kanonski evidence membership ne dokazuje stratešku ispravnost summary/saveta.
+- Ljudski doprinos: korisnik je zadao scope; peer review/doprinos kolege nije potvrđen.
+  Coding model token usage/trošak nije dostupan; nije izmišljen.

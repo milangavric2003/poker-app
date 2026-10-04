@@ -1,0 +1,282 @@
+﻿T009 očekivanje: nedostajući lokalni evidence executor/allowlist; assertion RED bez import/setup greške.
+Komanda: npm.cmd test -- tests/unit/agent-tool.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-tool.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-tool.test.ts (23 tests | 23 failed) 17ms
+   ❯ get_decision_evidence contract (T009) (23)
+     × registers only the explicit allowlisted name 4ms
+     × selects known decisions for betting with independent oracle 3ms
+     × selects known decisions for street with independent oracle 1ms
+     × selects known decisions for showdown with independent oracle 0ms
+     × includes each betting action but excludes check/fold 0ms
+     × E2: lower limit chooses only newest matching decision 0ms
+     × E3: upper limit keeps latest ten in increasing ordinal order 0ms
+     × rejects invalid limit 0 before projection 0ms
+     × rejects invalid limit 11 before projection 0ms
+     × rejects invalid limit 1.5 before projection 0ms
+     × rejects invalid limit "1" before projection 0ms
+     × rejects invalid limit null before projection 0ms
+     × rejects unknown fields and foreign/stale reference input {"focus":"all","limit":1} 0ms
+     × rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"gameId":"foreign"} 0ms
+     × rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"path":"/private"} 0ms
+     × rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"decisionRef":"stale:1"} 0ms
+     × E4: empty and aggregate-only snapshots cannot fabricate details 0ms
+     × is deterministic under input permutation and preserves deeply frozen snapshot 0ms
+     × projects only allowlisted fields and keeps later outcome separate from knowledge 0ms
+     × omits whole oversized facts without slicing and marks limited sample 0ms
+     × removes oldest whole decisions until JSON UTF-8 fits 20480 bytes 1ms
+     × rejects nonterminal, mismatched revision/game and corrupt detailed references 0ms
+     × cooperatively stops on abort, local 1000ms timeout and shorter run deadline 0ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯ Failed Tests 23 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > registers only the explicit allowlisted name
+AssertionError: Missing trusted allowlist: expected undefined to be defined
+ ❯ tests/unit/agent-tool.test.ts:58:58
+     56| describe('get_decision_evidence contract (T009)', () => {
+     57|   it('registers only the explicit allowlisted name', () => {
+     58|     expect(api.AGENT_TOOLS, 'Missing trusted allowlist').toBeDefined();
+       |                                                          ^
+     59|     expect(Object.keys(api.AGENT_TOOLS!)).toEqual(['get_decision_evide…
+     60|     expect(api.AGENT_TOOLS!.get_decision_evidence!.name).toBe('get_dec…
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for betting with independent oracle
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for street with independent oracle
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for showdown with independent oracle
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:71:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > includes each betting action but excludes check/fold
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:76:17
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E2: lower limit chooses only newest matching decision
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:80:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E3: upper limit keeps latest ten in increasing ordinal order
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:85:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 0 before projection
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 11 before projection
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 1.5 before projection
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit "1" before projection
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit null before projection
+AssertionError: Missing executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-tool.test.ts:89:57
+     87|   });
+     88|   it.each([0, 11, 1.5, '1', null])('rejects invalid limit %j before pr…
+     89|     expect(api.getDecisionEvidence, 'Missing executor').toBeTypeOf('fu…
+       |                                                         ^
+     90|     expect(() => execute(snapshot(), { focus: 'street', limit })).toTh…
+     91|   });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"all","limit":1}
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"gameId":"foreign"}
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"path":"/private"}
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"decisionRef":"stale:1"}
+AssertionError: Missing executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-tool.test.ts:95:59
+     93|     { focus: 'street', limit: 1, path: '/private' }, { focus: 'street'…
+     94|     'rejects unknown fields and foreign/stale reference input %j', arg…
+     95|       expect(api.getDecisionEvidence, 'Missing executor').toBeTypeOf('…
+       |                                                           ^
+     96|       expect(() => execute(snapshot(), args)).toThrow();
+     97|     });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E4: empty and aggregate-only snapshots cannot fabricate details
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:100:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > is deterministic under input permutation and preserves deeply frozen snapshot
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:108:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > projects only allowlisted fields and keeps later outcome separate from knowledge
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:119:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > omits whole oversized facts without slicing and marks limited sample
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:127:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > removes oldest whole decisions until JSON UTF-8 fits 20480 bytes
+AssertionError: Missing local read-only evidence executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ execute tests/unit/agent-tool.test.ts:18:80
+     16| });
+     17| function execute(snapshot: Snapshot, args: unknown, controls?: Control…
+     18|   expect(api.getDecisionEvidence, 'Missing local read-only evidence ex…
+       |                                                                                ^
+     19|   return api.getDecisionEvidence!(snapshot, args, controls);
+     20| }
+ ❯ tests/unit/agent-tool.test.ts:139:17
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects nonterminal, mismatched revision/game and corrupt detailed references
+AssertionError: Missing executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-tool.test.ts:145:57
+    143|   });
+    144|   it('rejects nonterminal, mismatched revision/game and corrupt detail…
+    145|     expect(api.getDecisionEvidence, 'Missing executor').toBeTypeOf('fu…
+       |                                                         ^
+    146|     for (const patch of [{ status: 'playing' }, { factsRevision: 19 },…
+    147|       expect(() => execute({ ...snapshot(), ...patch }, { focus: 'stre…
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/23]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > cooperatively stops on abort, local 1000ms timeout and shorter run deadline
+AssertionError: Missing executor: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-tool.test.ts:157:57
+    155|   });
+    156|   it('cooperatively stops on abort, local 1000ms timeout and shorter r…
+    157|     expect(api.getDecisionEvidence, 'Missing executor').toBeTypeOf('fu…
+       |                                                         ^
+    158|     const controller = new AbortController(); controller.abort();
+    159|     expect(() => execute(snapshot(), { focus: 'street', limit: 1 }, { …
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/23]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  23 failed (23)
+   Start at  18:59:08
+   Duration  362ms (import 45%, transform 44%, tests 10%, worker 2%)
+
+Exit: 1 Handoff: nezavisni literalni oracle/projekcija i granice napisani pre T010; sledeće lokalna implementacija.

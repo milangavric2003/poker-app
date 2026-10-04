@@ -1,0 +1,234 @@
+﻿T007 očekivanje: nedostajući Week05 runtime ugovori; assertion RED, bez import/setup greške.
+Komanda: npm.cmd test -- tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/contract/coach-contract.test.ts (3 tests | 3 failed) 6ms
+   ❯ coach DTO contracts (T007) (3)
+     × strict request preserves Week04 identity and bounds goal 4ms
+     × enumerates all statuses and stop reasons with consistent terminal result 1ms
+     × strict response wrapper rejects private fields 0ms
+ ❯ |node| tests/unit/agent-schemas.test.ts (23 tests | 23 failed) 14ms
+   ❯ Week05 strict runtime schemas (T007) (23)
+     × allows focus betting 4ms
+     × allows focus street 1ms
+     × allows focus showdown 0ms
+     × rejects invalid goal {"focus":"all"} 0ms
+     × rejects invalid goal {"focus":1} 0ms
+     × rejects invalid goal {} 0ms
+     × rejects invalid goal {"focus":"street","prompt":"x"} 0ms
+     × rejects invalid goal null 0ms
+     × allows integer limit 1 0ms
+     × allows integer limit 10 0ms
+     × rejects limit 0 0ms
+     × rejects limit 11 0ms
+     × rejects limit 1.5 0ms
+     × rejects limit "1" 0ms
+     × rejects limit null 0ms
+     × rejects limit null 0ms
+     × rejects limit null 0ms
+     × rejects argument scope/unknown fields 0ms
+     × discriminates strict model steps; unknown names remain classifiable by allowlist 0ms
+     × bounds final text by trimmed Unicode code points 0ms
+     × bounds/uniquifies evidence and enforces completed 0ms
+     × strictly bounds output decisions/facts, unique refs/codes and UTF-8 bytes 0ms
+     × context-bound evidence schema rejects refs/codes/findings not actually supplied 2ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯ Failed Tests 26 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > strict request preserves Week04 identity and bounds goal
+AssertionError: Missing Week05 runtime contract: CoachRequestSchema: expected undefined to be defined
+ ❯ schema tests/contract/coach-contract.test.ts:6:61
+      4| function schema(name: string): z.ZodType {
+      5|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      6|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+      7|   return value!;
+      8| }
+ ❯ tests/contract/coach-contract.test.ts:22:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > enumerates all statuses and stop reasons with consistent terminal result
+AssertionError: Missing Week05 runtime contract: CoachRunViewSchema: expected undefined to be defined
+ ❯ schema tests/contract/coach-contract.test.ts:6:61
+      4| function schema(name: string): z.ZodType {
+      5|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      6|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+      7|   return value!;
+      8| }
+ ❯ tests/contract/coach-contract.test.ts:31:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > strict response wrapper rejects private fields
+AssertionError: Missing Week05 runtime contract: CoachResponseSchema: expected undefined to be defined
+ ❯ schema tests/contract/coach-contract.test.ts:6:61
+      4| function schema(name: string): z.ZodType {
+      5|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      6|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+      7|   return value!;
+      8| }
+ ❯ tests/contract/coach-contract.test.ts:51:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus betting
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus street
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus showdown
+AssertionError: Missing Week05 runtime contract: CoachGoalSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:21:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":"all"}
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":1}
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {}
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":"street","prompt":"x"}
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal null
+AssertionError: Missing Week05 runtime contract: CoachGoalSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:25:14
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows integer limit 1
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows integer limit 10
+AssertionError: Missing Week05 runtime contract: DecisionEvidenceArgumentsSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:28:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 0
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 11
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 1.5
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit "1"
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null
+AssertionError: Missing Week05 runtime contract: DecisionEvidenceArgumentsSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:31:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects argument scope/unknown fields
+AssertionError: Missing Week05 runtime contract: DecisionEvidenceArgumentsSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:35:14
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > discriminates strict model steps; unknown names remain classifiable by allowlist
+AssertionError: Missing Week05 runtime contract: CoachModelStepSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:39:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > bounds final text by trimmed Unicode code points
+AssertionError: Missing Week05 runtime contract: CoachResultSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:56:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > bounds/uniquifies evidence and enforces completed
+AssertionError: Missing Week05 runtime contract: CoachResultSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:66:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > strictly bounds output decisions/facts, unique refs/codes and UTF-8 bytes
+AssertionError: Missing Week05 runtime contract: DecisionEvidenceResultSchema: expected undefined to be defined
+ ❯ schema tests/unit/agent-schemas.test.ts:9:61
+      7| export function schema(name: string): z.ZodType {
+      8|   const value = (contracts as unknown as Record<string, z.ZodType>)[na…
+      9|   expect(value, `Missing Week05 runtime contract: ${name}`).toBeDefine…
+       |                                                             ^
+     10|   return value!;
+     11| }
+ ❯ tests/unit/agent-schemas.test.ts:81:15
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/26]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > context-bound evidence schema rejects refs/codes/findings not actually supplied
+AssertionError: Missing context-bound evidence contract: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-schemas.test.ts:101:64
+     99|   it('context-bound evidence schema rejects refs/codes/findings not ac…
+    100|     const factory = (contracts as unknown as Record<string, (value: un…
+    101|     expect(factory, 'Missing context-bound evidence contract').toBeTyp…
+       |                                                                ^
+    102|     const s = factory!(output);
+    103|     expect(s.safeParse(result).success).toBe(true);
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/26]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  2 failed (2)
+      Tests  26 failed (26)
+   Start at  18:56:55
+   Duration  389ms (import 50%, transform 41%, tests 6%, worker 3%)
+
+Exit: 1 Handoff: testovi napisani pre shared implementacije; sledeće T008. T007 GREEN nije očekivan pre T008.
