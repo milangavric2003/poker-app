@@ -1,0 +1,111 @@
+Week05 Phase 4 — T021–T023, 2026-10-04 (Europe/Belgrade)
+
+OBIM I POLAZNO STANJE
+Samo Phase4; jedan coding agent, bez delegacije. Početni worktree čist, HEAD
+8a934fbceadf745097cfac52697f08baaf461a79; Git koren D:/AIBootcamp/week3-4.
+Node v24.20.0 / npm11.19.0, postojeće zavisnosti. Nema novih runtime dependencies,
+backend/engine/shared izmene, trajne istorije, live provider poziva ili git commit-a.
+Korisnik je dao scope; ljudski peer review/doprinos kolege nije potvrđen.
+
+PRETHODNICI T002–T020
+T002–T005: requirements FR matrica25/25 i checklist12/12, spec/plan/data-model/HTTP,
+policy2/1/4,15s/45s,1–10,20480B i original V1 prompt/manifest pregledani.
+T006: baseline.md i reference na stvarni snapshot, istorijski552/552/typecheck0.
+T007–T011: checked tasks + T011 handoff sa stvarnim RED/GREEN i šemama/tool gate-om.
+T012–T017: checked tasks + phase2 handoff, odvojeni provider/koraci/budžeti/validatori,
+stvarni RED/GREEN i ograničenje da je tada ownership bio injected fixture.
+T018–T020: tasks + phase3 handoff, stvarni T018-red/T019-green/T020-green segmenti;
+pročitani route/session javni ugovor, strict shared DTO i usage agregacija.
+Novo izvršenje pre UI: npm.cmd test -- tests/contract/coach-routes.test.ts tests/integration/coach-lifecycle.test.ts tests/unit/coach-usage.test.ts tests/ui/analysis.test.tsx tests/ui/ai-status.test.tsx tests/ui/dashboard.test.tsx tests/ui/api.test.ts
+97/97,7 fajlova,exit0;003-phase4-prerequisites.txt. Istorijski brojevi prethodnih
+faza nisu novo izvršenje ili pripisani rad; nisu ponovo pokretani svi T007–T017.
+Backend stabilan: POST /api/game/coach i GET /api/game/coach/:runId; nema druge forme.
+insufficient_evidence je stopped stopReason; result postoji samo za completed.
+
+T021
+Tipizirani prazni panel omogućio smisleni RED bez import/setup greške:
+npm.cmd test -- tests/ui/coach.test.tsx:16 assertion fail,exit1;003-T021-red.txt.
+GREEN: ista komponenta + Week04 analysis/AiStatus/dashboard56/56,4 fajla,exit0;
+003-T021-green.txt. Tri ograničena cilja, availability/terminal guard, disabled submit,
+running/completed/insufficient/stopped/failed, manual retry; strict schema i
+identity/hand/version, bounded evidence, status/alert i dostupni nazivi.
+Handoff u tasks.md: komponenta gotova, API/App tek T022.
+
+T022
+Pre behavior-a stub API + lifecycle testovi:26 assertion fail,exit1;
+003-T022-red.txt. Očuvan rejection-handled warning iz timeout assertion-a;
+handler je kasnije odmah zakačen i taj warning nije poseban behavior dokaz.
+GREEN početno55/55 (5 fajlova), zatim96/96 (8 fajlova) posle dva holdout-a,
+exit0;003-T022-green.txt. API11 + App lifecycle17 testova; T021 komponenta16.
+Typecheck: prvi exit2 zbog exactOptionalPropertyTypes signal:undefined; uslovni
+spread popravljen, ponovljenoexit0;003-T022-typecheck.txt. Nije schema workaround.
+
+RACE/CLEANUP
+App koristi postojeći request-token obrazac u zasebnoj read-only coach lane:
+coachSequence ne invalidira Week04 game/analysis snapshotSequence. Synchronous
+coachLock sprečava drugi aktivni POST; pending disabled. Najviše jedan recursive
+GET na1s po završenom prethodnom GET-u, bez interval preklapanja. Polling samo
+created/running; svi terminalni stopReason prekidaju scheduling. AbortController,
+token i runId provera odbacuju odgovor nakon unmount-a, retry-a i nove partije.
+Nova partija invalidira odmah pri prihvaćenoj nameri, pre await POST game; game
+commit dodatno invalidira na gameId/handId/version promeni. Goal/factsRevision i
+monotoni step/tool/attempt counters odbacuju foreign ili stariji snapshot.
+Terminal retry ne prihvata isti runId. Strict DTO parse + generička failure poruka
+bez raw exception/provider/server message. Coaching ne postavlja poker pending.
+Test nove partije proverava aktivnu Call kontrolu nakon kasnog starog POST/GET;
+poseban test proverava Week04 analysis polling i nezavisan analysis retry tokom run-a.
+
+T023
+Offline real Fastify/Vite server helper, constructor-only fixtures, kontrolisani
+FakeAiProvider i pravi backend validator/tool executor; nema debug endpoint-a.
+Prvi setup pad: native select Enter popup pre Tab;003-T023-setup.txt, nije RED.
+Pogrešno AI_MAX_ATTEMPTS ime ispravljeno u GEMINI_MAX_ATTEMPTS pre validnog RED-a.
+Prvi E2E RED izlaz imao je dodatni innerText/textContent harness mismatch na success;
+isto innerText pre/posle poređenje ispravljeno, bez slabljenja invarianta.
+Ponovljeno npm.cmd run test:e2e -- tests/e2e/coach.spec.ts:
+1 success PASS /2 smisleni FAIL zbog nedostajućih razumljivih stop poruka,exit1;
+003-T023-red.txt čuva oba izlaza i objašnjenja. Najmanji GREEN: enum->srpski stop
+labels u CoachPanel-u. Ista komanda3/3 PASS,exit0;003-T023-green.txt.
+Success:2 modelska koraka/2 attempts/1 tool, validated summary/recommendation/evidence,
+pre/posle poker snapshot i prikaz rezultata isti. Unknown tool i provider timeout:
+0 tool executions, bez final result-a/raw podataka, bez dodatnog POST-a ili GET-a
+2200ms nakon terminalnog stanja; keyboard retry nov UUID zatim uspeh.
+
+ACCESSIBILITY
+Pravi keyboard-only Tab/Home/ArrowDown/Escape/Tab/Enter izbor i start; retry Tab/Enter.
+Accessible combobox/start/retry names, solid focus-visible outline, role=status sa
+aria-live=polite i role=alert za stopped/failed. Status koristi tekst, ne samo boju.
+Chromium1280x720: bez horizontal overflow-a, status bounding width unutar1280,
+font16px i sadržaj dostupan skrolovanjem. Nema nepotrebnih CSS izmena.
+Component testovi dodatno proveravaju role/status/alert i disabled kontrole.
+Nije pokrenut axe, stvarni screen reader, drugi browser ili ručni korisnički review.
+Novi screenshot nije pravljen niti tvrđen; Playwright failure trace je generisani
+lokalni test-results artefakt, raw assertion izlazi ostaju u docs/evidence.
+
+FOKUSIRANA REGRESIJA POSLE T023
+npm.cmd test -- tests/ui/coach.test.tsx tests/ui/coach-api.test.ts tests/ui/coach-lifecycle.test.tsx tests/ui/analysis.test.tsx tests/ui/api.test.ts tests/ui/ai-status.test.tsx tests/ui/dashboard.test.tsx tests/ui/actions.test.tsx tests/contract/coach-routes.test.ts tests/integration/coach-lifecycle.test.ts tests/unit/coach-usage.test.ts
+146/146,11 fajlova,exit0;003-T023-regression.txt.
+npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts
+1/1 PASS,exit0;003-T023-week04-e2e.txt; bot/analysis failure+manual retry/dashboard/reset.
+npm.cmd run typecheck:exit0;003-T023-typecheck.txt.
+npm.cmd run lint:exit0;003-T023-lint.txt.
+npm.cmd run build:exit0;003-T023-build.txt (frontend bundle i server TS).
+git diff --check:exit0; bez whitespace grešaka, samo LF/CRLF warnings.
+Ovo su lokalne provere Phase4 i njegove regresije, nije finalni T024 converge.
+
+FAJLOVI
+frontend/src/components/CoachPanel.tsx (nov), frontend/src/api.ts, frontend/src/App.tsx;
+tests/ui/coach.test.tsx,coach-api.test.ts,coach-lifecycle.test.tsx;
+tests/e2e/coach.spec.ts;tests/helpers/coach-server.ts (novi testovi/helper).
+tasks.md, task evidence logovi i minimalni novi context block u CONTEXT_MANIFEST.
+AnalysisPanel/AiStatus/UsageDashboard/shared/backend/package/lockfile/CSS ne menjaju se.
+
+NIJE POKRENUTO I HANDOFF T024–T027
+Nisu pokrenuti full npm test, full E2E suite, full eval matrix, npm ci, live Gemini
+smoke/diagnose/demo, finalni security/privacy review, T026 final evidence paket,
+T027 ljudski walkthrough, deploy ili commit. Live agent run-ovi ovog rada0.
+T021,T022,T023 mogu biti checked uz navedene stvarne dokaze; T024–T027 ostaju otvoreni.
+T024 sledeći driver: pročitati ovaj handoff/tasks/diff, zatim kompletne eval/regresione
+provere sa sopstvenim stvarnim logovima. T025 odvojeno security/read-only traceability.
+T026 pomiriti finalne dokaze/usage i potvrđen ljudski doprinos; T027 tek stvarni
+walkthrough/opcioni lokalni opt-in live demo. Ne proglašavati ceo Week05 gotovim.

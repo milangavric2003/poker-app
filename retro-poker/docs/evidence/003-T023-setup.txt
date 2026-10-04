@@ -1,0 +1,139 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/coach.spec.ts
+
+
+Running 3 tests using 1 worker
+
+npm.cmd : (node:2328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:56
++ ... /config.ts; npm.cmd run test:e2e -- tests/e2e/coach.spec.ts 2>&1 | Te ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:2328) War... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+10:59:53 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+  x  1 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (8.6s)
+(node:19064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (7.5s)
+(node:19980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (7.3s)
+
+
+  1) [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Pokreni coaching' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('button', { name: 'Pokreni coaching' }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Pokreni coaching' })
+        14 × locator resolved to <button>Pokreni coaching</button>
+           - unexpected value "inactive"
+
+
+      14 |   await expect(goal).toHaveValue('street');
+      15 |   await page.keyboard.press('Tab');
+    > 16 |   await expect(page.getByRole('button', { name: 'Pokreni coaching' })).toBeFocused();
+         |                                                                        ^
+      17 |   const response = page.waitForResponse(r => r.url().endsWith('/api/game/coach') && r.request().method() === 'POST');
+      18 |   await page.keyboard.press('Enter');
+      19 |   return CoachResponseSchema.parse(await (await response).json()).run;
+        at keyboardStart (D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:16:72)
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:30:17
+
+    Error Context: test-results\coach-T023-keyboard-succes-f6087--and-preserves-poker-result-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-keyboard-succes-f6087--and-preserves-poker-result-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-keyboard-succes-f6087--and-preserves-poker-result-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Pokreni coaching' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('button', { name: 'Pokreni coaching' }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Pokreni coaching' })
+        14 × locator resolved to <button>Pokreni coaching</button>
+           - unexpected value "inactive"
+
+
+      14 |   await expect(goal).toHaveValue('street');
+      15 |   await page.keyboard.press('Tab');
+    > 16 |   await expect(page.getByRole('button', { name: 'Pokreni coaching' })).toBeFocused();
+         |                                                                        ^
+      17 |   const response = page.waitForResponse(r => r.url().endsWith('/api/game/coach') && r.request().method() === 'POST');
+      18 |   await page.keyboard.press('Enter');
+      19 |   return CoachResponseSchema.parse(await (await response).json()).run;
+        at keyboardStart (D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:16:72)
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:72:19
+
+    Error Context: test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Pokreni coaching' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('button', { name: 'Pokreni coaching' }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Pokreni coaching' })
+        14 × locator resolved to <button>Pokreni coaching</button>
+           - unexpected value "inactive"
+
+
+      14 |   await expect(goal).toHaveValue('street');
+      15 |   await page.keyboard.press('Tab');
+    > 16 |   await expect(page.getByRole('button', { name: 'Pokreni coaching' })).toBeFocused();
+         |                                                                        ^
+      17 |   const response = page.waitForResponse(r => r.url().endsWith('/api/game/coach') && r.request().method() === 'POST');
+      18 |   await page.keyboard.press('Enter');
+      19 |   return CoachResponseSchema.parse(await (await response).json()).run;
+        at keyboardStart (D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:16:72)
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:72:19
+
+    Error Context: test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result 
+    [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard 
+    [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard 
+COMMAND: npm.cmd run test:e2e -- tests/e2e/coach.spec.ts; EXIT=1
+Ovo nije behavior RED: native select Enter otvara popup pre Tab. Helper koristi Escape pre Tab; GEMINI_MAX_ATTEMPTS naziv je ispravljen pre sledeceg izvrsenja.

@@ -1,0 +1,383 @@
+
+> retro-poker@0.1.0 test
+> vitest run tests/ui/coach.test.tsx
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |ui| tests/ui/coach.test.tsx (16 tests | 16 failed) 239ms
+   ❯ T021 bounded coaching component (16)
+     × offers bounded accessible goals and submits selected focus 146ms
+     × disables unavailable coaching: playing 11ms
+     × disables unavailable coaching: unavailable 8ms
+     × announces running, selected goal and disables submit 9ms
+     × disables start while awaiting POST 10ms
+     × shows only validated completed summary, recommendation and bounded evidence 8ms
+     × announces stopped insufficient_evidence and explicit retry 6ms
+     × announces stopped unknown_tool and explicit retry 5ms
+     × announces stopped deadline and explicit retry 6ms
+     × announces failed and exposes separate coaching retry 5ms
+     × rejects invalid or foreign response without success or raw details 4ms
+     × rejects invalid or foreign response without success or raw details 4ms
+     × rejects invalid or foreign response without success or raw details 3ms
+     × rejects invalid or foreign response without success or raw details 5ms
+     × rejects invalid or foreign response without success or raw details 3ms
+     × network failure has safe alert and manual retry 5ms
+npm.cmd : 
+At line:2 char:1
++ npm.cmd test -- tests/ui/coach.test.tsx 2>&1 | Tee-Object docs/eviden ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > offers bounded accessible goals and submits 
+selected focus
+TestingLibraryElementError: Unable to find an accessible element with the role "combobox" and name "Coaching cilj"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:34:25
+     32|   it('offers bounded accessible goals and submits selected focus', () …
+     33|     const request = panel();
+     34|     const goal = screen.getByRole('combobox', { name: 'Coaching cilj' …
+       |                         ^
+     35|     expect(within(goal).getAllByRole('option')).toHaveLength(3);
+     36|     fireEvent.change(goal, { target: { value: 'showdown' } });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables unavailable coaching: playing
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables unavailable coaching: unavailable
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "Pokreni coaching"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:42:19
+     40|   it.each(['playing', 'unavailable'] as const)('disables unavailable c…
+     41|     panel({ game: state === 'playing' ? base : { ...game, ai: { ...gam…
+     42|     expect(screen.getByRole('button', { name: 'Pokreni coaching' })).t…
+       |                   ^
+     43|     expect(screen.getByRole('status')).toHaveTextContent(/završenu|dos…
+     44|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces running, selected goal and disables 
+submit
+TestingLibraryElementError: Unable to find an accessible element with the role "status"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:47:19
+     45|   it('announces running, selected goal and disables submit', () => {
+     46|     panel({ run: run() });
+     47|     expect(screen.getByRole('status')).toHaveTextContent('Coaching je …
+       |                   ^
+     48|     expect(screen.getByText('Izabrani cilj: Odluke po fazama')).toBeVi…
+     49|     expect(screen.getByRole('button', { name: 'Pokreni coaching' })).t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables start while awaiting POST
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "Pokreni coaching"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:54:19
+     52|   it('disables start while awaiting POST', () => {
+     53|     panel({ pending: true });
+     54|     expect(screen.getByRole('button', { name: 'Pokreni coaching' })).t…
+       |                   ^
+     55|     expect(screen.getByRole('status')).toHaveTextContent(/pokreće/i);
+     56|   });
+
+ Test Files  1 failed (1)
+      Tests  16 failed (16)
+   Start at  22:54:14
+   Duration  1.88s (environment 61%, import 15%, tests 15%, transform 9%)
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > shows only validated completed summary, 
+recommendation and bounded evidence
+TestingLibraryElementError: Unable to find an accessible element with the role "status"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:60:19
+     58|     const snapshot = structuredClone(game);
+     59|     panel({ run: completed() });
+     60|     expect(screen.getByRole('status')).toHaveTextContent('Coaching je …
+       |                   ^
+     61|     expect(screen.getByText('Pregled odluka.')).toBeVisible();
+     62|     expect(screen.getByText('Vežbaj veličinu uloga.')).toBeVisible();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped insufficient_evidence and 
+explicit retry
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped unknown_tool and explicit 
+retry
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped deadline and explicit retry
+TestingLibraryElementError: Unable to find an accessible element with the role "alert"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:71:19
+     69|   it.each(['insufficient_evidence', 'unknown_tool', 'deadline'] as con…
+     70|     const request = panel({ run: run({ status: 'stopped', stopReason: …
+     71|     expect(screen.getByRole('alert')).toHaveTextContent(reason === 'in…
+       |                   ^
+     72|     expect(screen.getByRole('status')).toHaveTextContent(reason === 'i…
+     73|     expect(request).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces failed and exposes separate coaching 
+retry
+TestingLibraryElementError: Unable to find an accessible element with the role "alert"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:80:19
+     78|   it('announces failed and exposes separate coaching retry', () => {
+     79|     panel({ run: run({ status: 'failed', stopReason: 'provider_failed'…
+     80|     expect(screen.getByRole('alert')).toHaveTextContent(/nije uspeo/i);
+       |                   ^
+     81|     expect(screen.getByRole('button', { name: 'Pokušaj coaching ponovo…
+     82|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without 
+success or raw details
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without 
+success or raw details
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without 
+success or raw details
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without 
+success or raw details
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without 
+success or raw details
+TestingLibraryElementError: Unable to find an accessible element with the role "alert"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:91:19
+     89|   ])('rejects invalid or foreign response without success or raw detai…
+     90|     panel({ run: invalid });
+     91|     expect(screen.getByRole('alert')).toHaveTextContent(/nije validira…
+       |                   ^
+     92|     expect(screen.queryByText('Pregled odluka.')).not.toBeInTheDocumen…
+     93|     expect(document.body).not.toHaveTextContent('PRIVATE_PROVIDER');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > network failure has safe alert and manual retry
+TestingLibraryElementError: Unable to find an accessible element with the role "alert"
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Coaching partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Coaching partije"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:97:19
+     95|   it('network failure has safe alert and manual retry', () => {
+     96|     panel({ failure: true });
+     97|     expect(screen.getByRole('alert')).toHaveTextContent(/nije uspeo/i);
+       |                   ^
+     98|     expect(screen.getByRole('button', { name: 'Pokušaj coaching ponovo…
+     99|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+COMMAND: npm.cmd test -- tests/ui/coach.test.tsx; EXIT=1

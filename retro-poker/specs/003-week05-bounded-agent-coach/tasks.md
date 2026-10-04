@@ -146,15 +146,15 @@ Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
 
 ## Phase 4 — UI i end-to-end
 
-- [ ] T021 B — UI component tests for bounded coaching goal, running, completed,
+- [x] T021 B — UI component tests for bounded coaching goal, running, completed,
   insufficient evidence, stopped/failed and explicit retry; deps T019;
   allowed: `frontend/src/components/AnalysisPanel.tsx` or new coach component,
   `tests/ui/coach.test.tsx`; evidence: result shows only validated summary/recommendation
   and bounded evidence refs.
-- [ ] T022 A — API client/App polling, duplicate-submit guard, race and status cleanup;
+- [x] T022 A — API client/App polling, duplicate-submit guard, race and status cleanup;
   deps T019,T021; allowed: `frontend/src/api.ts`, `frontend/src/App.tsx`, UI tests;
   evidence: late responses ignored, new game takes precedence, retry creates new runId.
-- [ ] T023 oba (prvi driver B) — Accessibility and E2E success + rejected-tool/provider
+- [x] T023 oba (prvi driver B) — Accessibility and E2E success + rejected-tool/provider
   failure; deps T020–T022; allowed: `tests/e2e/coach.spec.ts`, component/UI fixes;
   evidence: keyboard/readable status, game snapshot preserved, rejected action shows
   safe reason, no provider prompt/reasoning leak.
@@ -215,3 +215,34 @@ T019 handoff T020: 64/64 route/lifecycle/Week04 fokus exit0, typecheck exit0. Pr
 
 
 Phase 3 završeno: T018–T020 dokaz je docs/evidence/003-phase3-handoff.txt. Finalno758/758 testova (54 fajla), typecheck/lint/build exit0; svi RED/početni neuspehi sačuvani. T019 lock holdout popravljen queued reservation barijerom; provider/tool await van lock-a. T020 odvojeni coach brojači/validation/stop/epoch, Week04 semantika očuvana. T021–T023 ostaju otvoreni; UI/E2E/live nisu pokrenuti niti implementirani. Phase3 dokumentacija/evidence/manifest/usage-log su dozvoljene prateće putanje.
+
+Phase4 T021 handoff: 16 assertion RED (prazan tipizirani panel, bez import/setup greške)
+→ 56/56 GREEN sa Week04 analysis/AiStatus/dashboard regresijom, exit0.
+Dokazi: docs/evidence/003-T021-red.txt i 003-T021-green.txt.
+Panel runtime-validira CoachRunView i game/hand/version, bez raw polja;
+status/alert, bounded tri cilja, manual retry. API/polling još nisu povezani.
+Phase4 allowed dopuna pre T022: api/component/App, tests/ui/coach-api.test.ts,
+tests/ui/coach-lifecycle.test.tsx i eventualni UI helper; task evidence/handoff
+logovi i ovaj tasks.md. T023 sme dodati deterministički fake coach server helper
+u tests/helpers i minimalni CSS za keyboard/readability acceptance.
+
+T022 handoff T023: strict CoachResponse parse i bezbedna HTTP greška; App poseban
+read-only request token uz postojeći snapshotSequence obrazac. Sinhroni POST lock,
+jedan recursive 1s GET, AbortController i token cleanup na unmount/new-game intent
+ili game/hand/version commit. Goal/fingerprint/runId i monotoni counters guard;
+terminalni response zaustavlja timer, eksplicitni retry traži novi runId.
+Dokazi 003-T022-red.txt (26 assertion failure; timeout assertion rejection warning
+je sačuvan i test handler kasnije popravljen), 003-T022-green.txt,
+003-T022-typecheck.txt (prvi TS optional-signal neuspeh i korekcija).
+T023 sledeće: pravi lokalni Fastify/Vite + fake agent, keyboard/1280x720,
+success i unknown-tool/provider-timeout; bez live poziva.
+
+Phase4 prateće dozvoljene putanje: docs/CONTEXT_MANIFEST.md samo novi stvarno
+korišćeni kontekst ovog bloka i docs/evidence/003-phase4-handoff.txt. Ovo nije
+T026 finalni evidence paket; EVIDENCE_W05/AI_USAGE_LOG/README nisu menjani.
+
+Phase4 završeno: T021–T023 imaju stvarne RED/GREEN/accessibility/regresione dokaze
+u [handoff-u](../../docs/evidence/003-phase4-handoff.txt). Završni fokus146/146,
+coach E2E3/3, Week04 fake E2E1/1 i typecheck/lint/build exit0. Setup greške i prvi
+TS neuspeh sačuvani odvojeno od smislenog RED-a. T024–T027 ostaju otvoreni;
+nema finalnog security/evidence paketa ili live demo-a.

@@ -1,0 +1,21 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/coach.spec.ts
+
+
+Running 3 tests using 1 worker
+
+npm.cmd : (node:15140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:1
++ npm.cmd run test:e2e -- tests/e2e/coach.spec.ts 2>&1 | Tee-Object doc ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:15140) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (3.8s)
+  ok 2 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (6.8s)
+  ok 3 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (7.8s)
+
+  3 passed (21.8s)
+COMMAND: npm.cmd run test:e2e -- tests/e2e/coach.spec.ts; EXIT=0

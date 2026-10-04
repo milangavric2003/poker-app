@@ -1,0 +1,19 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/ai-offline.spec.ts
+
+
+Running 1 test using 1 worker
+
+npm.cmd : (node:20104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:1
++ npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts 2>&1 | Tee-Objec ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:20104) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\e2e\ai-offline.spec.ts:5:1 › offline fake provider covers bot, analysis retry, dashboard and independent resets (8.2s)
+
+  1 passed (12.3s)
+COMMAND: npm.cmd run test:e2e -- tests/e2e/ai-offline.spec.ts; EXIT=0

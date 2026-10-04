@@ -404,3 +404,35 @@ Izostavljeni .env, mreža/live, novi UI i E2E jer task ima offline backend scope
 Nema subagenata. Rizik: final evidence membership ne dokazuje stratešku tačnost
 saveta; monetarni cost ne postoji u provider ugovoru i ostaje unknown. Stvarni
 rezultati/ograničenja/komande: docs/evidence/003-phase3-handoff.txt i raw logovi.
+
+## 2026-10-04 — Week05 Phase 4 T021–T023
+
+Prioritet: korisnikov attachment af5b6403 Phase4 scope > AGENTS/constitution1.1.0 >
+GAME_SPEC1.2 > feature003 spec/plan/tasks/HTTP/data-model > postojeći kod.
+Početni worktree čist; HEAD 8a934fbceadf745097cfac52697f08baaf461a79, Git koren
+roditeljski. Jedan coding agent, bez subagenata i bez pripisivanja peer review-a.
+Korišćen projektni speckit-implement skill; checklist12/12, prerequisite uspešan
+u posebnom PowerShell Bypass procesu sa feature003 override posle execution-policy
+setup greške. Extensions.yml ne postoji pre/posle; ignore/ESLint postoje i provereni.
+
+Pročitani: korisnikov zahtev, AGENTS, constitution, V1 prompt, ovaj manifest,
+GAME_SPEC (posebno §12–15), feature003 spec/plan/tasks/checklist/data-model/coach-http;
+003 baseline, T011/phase2/phase3 handoff i stvarni T018 RED/T019 GREEN/T020 GREEN
+izlazi. Veliki kombinovani ispisi bili su skraćeni: relevantni ugovori, operativni
+odeljci i handoff-i ponovo su izdvojeni; ne tvrdi se čitanje svakog istorijskog reda
+svih raw logova. Dokumentaciona matrica/policy/baseline i fazni evidence potvrđuju
+raniji rad, a novo prerequisite izvršenje97/97 proverava T018–T020 + Week04 UI.
+
+Kod/konfiguracija: App/api/AnalysisPanel/AiStatus/ActionPanel/styles/UsageDashboard
+preko postojećih UI testova, shared CoachResponse/Run/Usage šeme, routes/session/app,
+ai usage/config/types, fake provider/fixtures/public fixtures, Vitest/Playwright,
+server/backend-process helper i postojeći analysis/API/dashboard/status/action,
+coach route/lifecycle/usage, ai-offline/accessibility/play-hand E2E testovi.
+Novi component/API/App lifecycle testovi i coach E2E/helper nastali su tokom rada.
+Nije korišćen web, .env, live provider, nove zavisnosti ili browser storage.
+
+Granica: ovo je zapis korišćenog konteksta T021–T023; nema finalnog T026 evidence
+paketa, T025 security review-a ili T027 live demo-a. Provereno keyboard-only,
+status/alert, focus outline, širina1280 i font16px u Chromiumu; nije izvršen stvarni
+screen reader, axe, drugi browser ili ljudski review. Stvarni rezultati i ograničenja
+u docs/evidence/003-phase4-handoff.txt i task logovima. Savet nije dokaz optimalnosti.
