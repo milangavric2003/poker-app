@@ -1,0 +1,181 @@
+﻿# Plan implementacije: Week05 bounded agent coach
+
+Feature: `003-week05-bounded-agent-coach` · Datum: 2026-10-04.
+Izvori: [spec](spec.md), [GAME_SPEC](../../docs/GAME_SPEC.md),
+[tehnički ugovor](data-model.md), [HTTP ugovor](contracts/coach-http.md).
+Ovo je plan; Week05 kod i testovi nisu implementirani ovim pregledom.
+
+## Cilj i tok
+
+Nadograditi analizu jedne završene partije: ograničen cilj, modelski predlog jednog
+read-only alata, provera predloga, izvršenje, provera tool rezultata, novi modelski
+korak i validirani final. Week04 bot/analysis put ostaje funkcionalan.
+
+```mermaid
+flowchart TD
+  A[Cilj i terminalna partija] --> B[Preflight i run snapshot]
+  B --> C[Modelski korak 1]
+  C --> D[Forma, allowlist, argumenti, scope i budžet]
+  D --> E[get_decision_evidence]
+  E --> F[Validacija oblika, veličine i činjenica]
+  F --> G[Modelski korak 2]
+  G --> H[Finalna šema i članstvo dokaza]
+  H --> I[Session commit i UI]
+  B & C & D & E & F & G & H --> J[Bezbedan stop: greška, limit, rok ili stale]
+```
+
+## Constitution i tehnički kontekst
+
+| Princip | Planirana provera |
+|---|---|
+| I Spec pre koda | T002–T006 dokumenti prethode T007 testovima. |
+| II TDD | Behavior task prvo smisleni RED; dokumentacija samo sadržaj/link provere. |
+| III Ispravnost domena | Pre/posle deep-equal poker state, RNG, istorija, facts. |
+| IV Autoritet | Server veže snapshot i jedini bira executor. |
+| V Ugovori | Strict runtime šeme i zasebna semantička provera. |
+| VI Lokalni scope | Završena partija, postojeći provider, bez upisa ili infrastrukture. |
+| VII Istiniti dokazi | Fake-first, stvarne komande; nepoznat doprinos/usage ostaje nepoznat. |
+
+Postojeći package.json: TypeScript 6.0.3, Node 24, React 19.3.0, Fastify 5.12.5,
+Zod 4.6.5, Vitest 5.0.1, Playwright 1.63.0, @google/genai 2.24.0.
+Ne dodavati framework, biblioteku ili provider. Verzije su lokalni manifest,
+ne tvrdnja o najnovijim verzijama na mreži.
+
+Orchestrator je novi `backend/src/agent/` koordinator bez UI/HTTP/SDK/engine mutation
+logike. Injektovati provider, monotoni sat, read-only executor i AbortSignal.
+GameSession poseduje slot i serijski start/commit; await ne drži session lock.
+Posebni coach POST/GET i DTO iz HTTP ugovora; bez coach polja u poker GameView-u.
+UI koristi poseban coach prikaz ili proširen terminalni AnalysisPanel; lifecycle je
+isti ugovor nezavisno od komponente. MatchFacts snapshot se projektuje/validira,
+ne prosleđuje se ceo GameState ili repository.
+
+## Zaključana politika T005
+
+Status: početne vrednosti potvrđene 2026-10-04 nakon T004 provere. Ne menjaju se
+poker pravila ni Week04 config/coordinator limiti. Brojke su dokumentacioni ugovor,
+ne dokaz da runtime već poštuje limite.
+
+| Granica | Vrednost i semantika |
+|---|---|
+| maxSteps | 2; stepCount raste neposredno pre prvog provider attempt-a novog logičkog koraka; retry ga ne povećava. |
+| maxToolCalls | 1; toolCallCount raste neposredno pre ulaska u executor, i kada executor zatim padne. Odbijeni predlog ne povećava ga. |
+| maxProviderAttempts | 4 ukupno za run, uključujući fallback i neuspeh; brojač raste neposredno pre slanja provider zahteva. |
+| maxAttemptsPerStep | 2, najviše jedan retry ili fallback; postojeći config.maxAttempts=1 dodatno sužava na 1. |
+| maxProviderFallbacks | Najviše 1 po koraku, ukupno 2; samo konfigurisani Week04 Gemini fallback model, nikad novi provider. |
+| providerAttemptTimeoutMs | 15000 ili preostali run deadline, šta je manje; skriveni SDK retry isključen. |
+| totalDeadlineMs | 45000 od prihvatanja preflight-a; obuhvata alat, validaciju, retry/backoff i commit. Monotoni sat je autoritet. |
+| toolTimeoutMs | 1000 ili preostali rok; bounded kooperativni lokalni rad, bez ponovnog izvršenja. |
+| tool input limit | Safe integer 1–10, focus mora odgovarati cilju. |
+| maxToolResultBytes | 20480 bajtova JSON UTF-8 (20 KiB); broj odluka ≤argument ≤10. |
+| Ostale veličine | HTTP input 1024 bajta; model context/candidate 32768 bajtova; final string/evidence granice iz data-model-a. |
+| Retention | Jedan tekući/poslednji run po session-u, najviše 2 step/4 attempt/1 tool zapisa i 1 action key; cleanup na zamenu/restart. |
+
+Dva koraka su minimalni korisni Core tok; jedan alat uklanja petlju izvršenja.
+Četiri attempt-a daju po jednu priliku za recovery u oba koraka. 15 s / 45 s
+omogućava drugi korak uz konačan rok: 4×15 s nije obećanje 60 s rada, zajednički rok
+uvek pobedi. 20 KiB pokriva malu projekciju deset odluka; cap se proverava UTF-8
+merenjem, ne brojem JS znakova. Nijedna početna vrednost nije promenjena.
+
+### Retry i otklanjanje Week04 budžetnog nasleđivanja
+
+Ne pozivati coordinateAnalysis dva puta sa novim lokalnim deadline-om/budžetom.
+Coach ima jedan run-wide sat i attempt brojač, i provider-neutral poziv za svaki
+attempt. Week04 klasifikacija i routing pravila su osnova, njegov 30 s analysisTotalMs
+nije Week05 rok. Pre svakog attempt-a/retry/backoff-a proveriti signal, fingerprint,
+step/attempt cap i remainingMs. Backoff koji ne staje u rok ne pokreće novi poziv:
+wait/abort do ukupnog roka pa stopped/deadline. Deadline se ne obnavlja između koraka.
+
+Auth/config, invalid_request, safety_refusal i poznata iscrpljena kvota ne retry-uju:
+failed/provider_failed. Timeout, prolazni 429, transport/5xx: najviše jedan retry;
+5xx može preći na unapred konfigurisani fallback. Backoff prati postojeću analysis
+retry politiku (konfigurisani min/max, jitter 0–250 ms, Retry-After može ga produžiti),
+uvek u zajedničkom roku. Ako 429 nema dovoljno podataka da razlikuje kvotu,
+zabeležiti rate_limited bez pretpostavke. Malformed/schema/semantic predlog se
+zaustavlja, bez korektivnog retry-ja; addendum dozvoljava stop. Posle izvršenog
+alata retry koraka 2 koristi isti validirani tool result, nikada ne ponavlja korak 1
+ili alat. Primer: step1 timeout+success, tool1, step2 success = 2 steps/3 attempts/1 tool.
+
+### Stop ugovor i prioritet
+
+| Razlog | Status / okidač |
+|---|---|
+| completed | completed; validan final sa completed=true i ≥1 proverljivom činjenicom |
+| insufficient_evidence | stopped; prazan uzorak/rezultat, insufficient_context ili completed=false |
+| invalid_input | stopped; nevažeći početni kontekst; HTTP preflight ga odbija bez provider/tool poziva |
+| invalid_model_proposal | stopped; pogrešna vrsta koraka/rani final ili cannot_complete |
+| unknown_tool | stopped; ime van allowlist-a, bez izvršenja |
+| invalid_tool_arguments | stopped; strict args/focus/range/scope odbijeni |
+| repeated_action | stopped; viđen canonical tool+args+factsRevision ključ, bez ponovnog izvršenja |
+| tool_call_limit | stopped; nov tool request posle potrošenog tool budžeta |
+| step_limit | stopped; novi modelski korak preko maxSteps |
+| call_budget | stopped; pokušaj preko ukupnog attempt budžeta |
+| deadline | stopped; monotoni zajednički rok istekao, abort svih čekanja |
+| cancelled | stopped; reset/nova partija ili eksplicitni server abort |
+| stale_state | stopped; fingerprint se promenio bez eksplicitnog cancellation-a |
+| provider_failed | failed; terminalna provider greška ili iscrpljena 2 attempt-a koraka |
+| tool_failed | failed; exception, timeout ili nevalidan rezultat alata |
+| malformed_output | failed; JSON/strict schema/veličina ili final evidence validacija pada |
+
+StopReason nije dodatni status; insufficient_evidence je razlog stopped statusa.
+Bezbedna failureCategory dodatno razlikuje authentication_configuration,
+quota_exhausted, rate_limit, provider_timeout, provider_unavailable,
+provider_transport, provider_refusal, tool_timeout, tool_error, tool_validation,
+invalid_structured_response, evidence_rejected, forbidden_scope; null za uspeh.
+Nema sirovog tela ili exception-a. Time taxonomy razlikuje timeout od drugog kvara
+bez promene osnovnih enum razloga.
+
+Na async granici: već terminalno → bez promene; explicit abort → cancelled;
+fingerprint mismatch → stale_state; istekao rok → deadline; tek onda rezultat/greška.
+Za tool proposal: forma → allowlist → strict args/scope → repeated key → tool cap.
+Repeated key ima prednost nad tool_call_limit u koraku 2, iako je maxToolCalls=1;
+novi key tada daje tool_call_limit. Ne pokreće se korak 3 za proveru petlje:
+step_limit testira koordinatorov guard pre pokušaja prelaska preko 2.
+Canonical key: tool name + sortirani parsed JSON args + factsRevision; seen se upisuje
+pre executor-a. Session i UI odbacuju late odgovor uz runId/gameId/handId/version/
+factsRevision/request token; terminalni commit najviše jednom.
+
+## Test i dokumentaciona strategija
+
+T007/T008: unknown fields, diskriminanti, enum/range/string/byte granice i DTO.
+T009–T011: svaki focus, deterministički izbor, 1/10 granice, UTF-8 cap, empty/aggregate,
+foreign refs/factCode/canonical finding i nepromenjene činjenice.
+T012–T017: scripted FakeAiProvider, kontrolisani sat/executor; success 2/1,
+unknown/invalid args sa toolCallCount=0, invalid output, auth/429/5xx/timeout,
+ponavljanje/step/tool/attempt cap, ukupni deadline kroz retry i drugi korak,
+cancellation/stale/new-game, terminal commit najviše jednom, prompt injection podatak.
+T018–T023: preflight 0 poziva, no-store, duplicate POST, dostupni GET tokom await-a,
+UI status/retry/late response, tastatura i fake E2E uspeh + kontrolisan neuspeh.
+T024–T027: najmanje 5 expected-first eval-a, postojeća Week04 regresija,
+security/read-only review, stvarni evidence i doprinos oba člana.
+
+Postojeće lokalne komande: `npm.cmd test`, `npm.cmd run typecheck`,
+`npm.cmd run lint`, `npm.cmd run build`, `npm.cmd run test:e2e`.
+Za baseline fokus izabrati postojeće AI analysis/adapter/http/smoke/concurrency,
+contract/retry/context/usage testove i analysis/dashboard UI. Nije novi Week05 RED.
+Live pozivi tek posle offline zelenog i eksplicitnog lokalnog opt-in-a; smernica do
+15 razvojnih run-ova i 3 demo run-a. Offline DoD sledi GAME_SPEC §14; assignment §31
+navodi limited live demo, pa bez stvarnog demo-a ne tvrditi taj nastavni dokaz.
+
+## Putanje, artefakti i handoff
+
+T002: spec/checklist; T003: plan/data-model/contracts; T004: originalni prompt i
+CONTEXT_MANIFEST; T005: spec/plan/checklist/GAME_SPEC; T006: baseline i stvarni logovi.
+Statusna izmena tasks.md je eksplicitno odobrena korisničkim zahtevom posle dokaza.
+Za behavior sledećim članovima važe tačne task putanje T007+; ovaj razgovor ih ne menja.
+
+Assignment §34 dozvoljava izbegavanje duplikata: spec.md pokriva feature spec,
+ovaj dijagram agent flow, data-model.md tool contracts, budući evals.md eval-e.
+EVIDENCE_W05.md i AI_USAGE_LOG se popunjavaju stvarnim runtime rezultatima u T026.
+
+Jedan agent/urednik. A/B su predloženi driver-i; oba čoveka mogu nastaviti isti task.
+Pre predaje pročitati task, deps, diff i dokaz prethodnog taska; zabeležiti stvarni
+status, komande/exit, neizvršene provere i sledeći korak. Ne pripisivati review odsutnom
+članu. Završeni dokumenti ne potvrđuju ljudsko razumevanje toka ili runtime kvalitet.
+
+## T003 handoff
+
+T002 provereno: matrica 25/25 i checklist semantika; neodređenosti su sada razrešene
+u ovom planu/data-model/HTTP ugovoru. Pregled postojećih types/coordinator/retry-policy,
+routes/session/MatchFacts i fake test helper-a određuje API ownership i granicu.
+Komande: Get-Content, rg, git diff/status; npm provere nisu pokrenute za T003.
+Sledeće: T004 prompt+manifest, zatim T005 sadržinski potvrditi ovu policy tabelu.

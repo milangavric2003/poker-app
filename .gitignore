@@ -7,3 +7,5 @@ coverage/
 *.log
 /report.md
 /.agents/
+/week-05-bounded-agentic-workflows-reliable-integration-addendum.md
+/weekly-assignment.md

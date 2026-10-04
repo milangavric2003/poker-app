@@ -1,10 +1,11 @@
 # GAME_SPEC — Retro Poker
 
-Verzija: 1.1 · Datum: 2026-09-26 · Faza: Week03 + odobreni Week04 scope addendum
+Verzija: 1.2 · Datum: 2026-10-04 · Faza: Week03 + Week04 + odobreni Week05 scope addendum
 
-Status: Week03 specifikacija sa odobrenim Week04 scope amandmanom. Week04 implementacija
-je u toku; detalji i otvorene provere su u [feature 002 status auditu](evidence/002-task-status-audit.md)
-i [feature task listi](../specs/002-week04-ai-integration/tasks.md).
+Status: Week03 specifikacija sa Week04 i Week05 scope amandmanima. Week04 implementacija
+je zabeležena u [evidence](EVIDENCE_003.md) i [feature 002 task listi](../specs/002-week04-ai-integration/tasks.md).
+Week05 zahtev je razrađen u [feature 003](../specs/003-week05-bounded-agent-coach/spec.md);
+njegova implementacija i provere nisu ovim amandmanom proglašene završenim.
 
 ## 1. Namera i potvrđene odluke
 
@@ -19,7 +20,7 @@ Potvrđeno od vlasnika projekta:
 - Aplikacija se pokreće samo lokalno; nema pravog novca, naloga, ljudskog multiplayera, baze, leaderboarda ili deploymenta.
 - Kontinuirana partija završava kada čovek ispadne ili ostane jedini igrač.
 
-Projektni podrazumevani izbori za v1: pet botova, 1.000 žetona po učesniku, small/big blind 5/10 bez rasta i bez ante-a; jedan žeton je najmanja jedinica. To su parametri demo igre, ne univerzalni poker standard. Korisnik bira samo broj botova pri novoj partiji. Nema rebuy-a, dopune stacka ili menjanja parametara usred partije.
+Projektni podrazumevani izbori za v1: pet botova, 1.000 žetona po učesniku, small/big blind 5/10 bez rasta i bez ante-a; jedan žeton je najmanja jedinica. To su parametri demo igre, ne univerzalni poker standard. Korisnik bira samo broj botova pri novoj partiji. Nema rebuy-a, dopune stacka ili menjanja parametara usred partije. Odobreni Week05 agentski tok radi posle završetka partije i ne menja parametre igre.
 
 `6-max` znači najviše šest mesta, ne obavezno šest aktivnih igrača u svakoj ruci. Prilikom početka učesnici zauzimaju uzastopna mesta, čovek mesto 0; prazna mesta ne učestvuju. Prvi button je na čoveku. Odabrana mesta ostaju stabilna do kraja partije.
 
@@ -207,7 +208,7 @@ Minimalni eval: E1 puna tipična ruka; E2 granični broj botova (1 i 5); E3 neva
 
 Za kontrolisanu promenu zapiši: tvrdnju, signal, hipotezu, najmanju promenu, nepromenjene uslove, komandu, rezultat i ograničenje. Sačuvaj baseline pre popravke i ponovi isti skup posle nje; ne menjaj istovremeno prompt, kontekst, šemu i kriterijume. Dodaj holdout koji nije korišćen za doradu.
 
-Za svaki implementacioni task čuvaj smislen RED, najmanji GREEN i relevantnu regresiju. Oba člana treba da mogu da ponove tuđi dokaz i objasne svoju promenu. Član A vodi engine/backend/botove; član B UI/evaluator/demo. Zajednički ugovori prethode nezavisnom radu, uz redovnu zamenu driver/reviewer uloga i jedan coding agent.
+Za svaki implementacioni task čuvaj smislen RED, najmanji GREEN i relevantnu regresiju. Oba člana treba da mogu da ponove tuđi dokaz i objasne svoju promenu. Zajednički ugovori prethode nezavisnom radu, uz redovnu zamenu driver/reviewer uloga i jedan aktivni coding agent. U Week05 članovi rade naizmenično kada imaju raspoložive tokene; svako može nastaviti otvoreni task uz handoff belešku. Nema istovremenog menjanja istih fajlova.
 
 ## 11. Definition of Done za Week03
 
@@ -263,12 +264,80 @@ ostaje lokalni scope bez naloga, ljudskog multiplayera, baze, trajnog replay-a,
 leaderboarda, deploymenta ili drugog provider family-ja. Tačni model ID-jevi, SDK,
 endpoint-i i operativni pragovi pripadaju feature planu.
 
-## 13. Izvori i upravljanje promenama
+## 13. Odobreni Week05 scope — bounded agent za analizu
+
+Week05 nastavlja postojeću završnu analizu i uvodi ograničen agentski tok za obrazovni
+pregled **jedne završene partije**. Korisnik zadaje cilj analize. Model predlaže sledeći
+dozvoljeni korak, backend proverava predlog, izvršava jedan allowlist-ovan lokalni
+read-only alat, proverava rezultat i vraća ga modelu za strukturisani konačni odgovor.
+
+- Core alat `get_decision_evidence` bira ograničen skup odluka iz već raspoloživih
+  `MatchFacts`, prema dozvoljenom fokusu i malom limitu. Backend veže alat za snapshot
+  završene partije; klijent/model ne može proslediti proizvoljan `GameState` ili
+  identifikator kojim bi čitao drugu partiju.
+- Uspešan agentski run sadrži najmanje dva odvojena modelska koraka i makar jedno
+  stvarno izvršenje alata između njih. Week04 retry/fallback attempt nije dodatni
+  modelski korak. Postojeća analiza ostaje prepoznatljiv Week04 put dok nova funkcija
+  ne prođe svoje acceptance provere.
+- Predlog, argumenti, dozvola, budžet, scope partije, rezultat alata i konačni odgovor
+  validiraju se serverski. Evidence reference moraju pripadati snapshot-u, a tvrdnja
+  `completed` ne sme se prihvatiti uz nevažeće ili nedovoljne dokaze.
+- Potvrđeni budžet T005 (2026-10-04): najviše 2 modelska koraka, 1 izvršenje alata,
+  4 provider pokušaja ukupno, 45 sekundi za run i 15 sekundi po provider pokušaju,
+  pri čemu svaki pokušaj koristi samo preostali ukupni rok. Retry nije novi korak;
+  najviše dva pokušaja po koraku, tool limit 1–10 i rezultat najviše 20480 UTF-8
+  bajtova. Lokalni tool rok je do 1 s u okviru ukupnog roka. Konačne semantike,
+  retention i stop taxonomy su u feature 003 plan/data-model ugovoru; runtime
+  testovi tek slede, potvrda dokumentacije nije dokaz izvršenja.
+- Ponavljanje istog alata i normalizovanih argumenata u istoj facts reviziji zaustavlja
+  run pre drugog izvršenja. Nepoznat alat, loši argumenti i prekoračenje budžeta ne
+  izvršavaju alat. Greške provajdera, alata ili finalne validacije završavaju kontrolisano.
+- Run je vezan za identitet i reviziju partije. Reset/nova partija ili zastareli
+  snapshot sprečavaju da kasan agentski rezultat bude prikazan kao važeći.
+- UI prikazuje korisnički cilj, status, strukturisanu preporuku, raspoložive dokaze i
+  bezbedan stop razlog; ne prikazuje sirove promptove, chain-of-thought, tajne ili
+  interne stack trace-ove.
+- Core agent je read-only. Nema promene poker state-a, pokretanja sledeće ruke,
+  alata za upis, proizvoljnih URL-ova, shell-a, filesystem-a ili SQL-a. Nema trajne
+  istorije ni novih servisa/baze; koristi se postojeći provider i memorijski podaci.
+- Partija može imati do 200 detaljnih ljudskih odluka pre agregacije. UI/odgovor mora
+  navesti da analiza koristi dostupni uzorak, a ne obećavati pregled arhive ili svih
+  ranijih partija. Kvalitet odluke ne izvodi se iz samog kasnijeg ishoda.
+
+Granica između faza je jasna: Week03 isporučuje igru, Week04 pojedinačne AI bot/analiza
+interakcije i provider pouzdanost, Week05 kontrolisani višekoračni tok nad analizom.
+Feature 003 ne menja poker pravila niti ranije acceptance oracle-e.
+
+## 14. Week05 Definition of Done
+
+- [ ] Feature 003 ima usaglašene spec, plan, taskove i sačuvan početni implementacioni
+  prompt; ova specifikacija čuva obavezne proizvodne granice.
+- [ ] Cilj korisnika, jedan alat i njegove strict ulazne/izlazne šeme su dokumentovani.
+- [ ] Uspešan run ima najmanje dva modelska koraka i jedno validirano izvršenje alata.
+- [ ] Stroga runtime validacija pokriva preflight, model predlog, rezultate alata,
+  evidence i finalni odgovor.
+- [ ] Run ima eksplicitno stanje, limite koraka/alata/poziva, pojedinačni timeout,
+  ukupan rok, zaštitu od otkazivanja/zastarevanja i ponovljene akcije.
+- [ ] Read-only invariant dokazuje da poker stanje i činjenice nisu promenjeni agentom.
+- [ ] Fake testovi pokrivaju uspeh, nevalidan ulaz, nepoznat alat, loše argumente,
+  grešku alata/provajdera, neispravan izlaz, ponavljanje, rok/limit koraka i lažne
+  evidence reference; nedozvoljen predlog daje nula tool izvršenja.
+- [ ] UI prikazuje bezbedne statuse, rezultat i dokaze; postoje E2E/ručni zapisi.
+- [ ] Evidence i AI usage log razlikuju logičko pokretanje, modelske korake, provider
+  pokušaje i pozive alata; nema tajni ni chain-of-thought-a.
+- [ ] Obe osobe u paru mogu da objasne tok, allowlist, validaciju i stop uslove; njihov
+  stvarni naizmenični doprinos dokumentovan je bez izmišljene potvrde.
+- [ ] Sve relevantne aplikacione provere su izvršene i zapisane sa stvarnim rezultatima;
+  live demo je ograničen i opcion u odnosu na offline fake matrix.
+
+## 15. Izvori i upravljanje promenama
 
 - [Retro AI Engineering Challenge](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md): Week03 artefakti, eval i granica Week04.
 - [Week03 studentska skripta](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-studentska-skripta.pdf): kontekst, strukturisani izlazi i TDD/SDD.
 - [TDD/SDD addendum](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md): test-first i razrada u male taskove.
 - [Week04 AI API addendum](../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md): provider granica, structured output, timeout, retry i fake-first testovi.
+- [Week05 assignment](../../weekly-assignment.md) i [Week05 reliability addendum](../../week-05-bounded-agentic-workflows-reliable-integration-addendum.md): bounded agentic flow, tools, budžeti, stop razlozi, fake-first testovi i evidence.
+- [Week05 feature 003](../specs/003-week05-bounded-agent-coach/spec.md): implementacioni ugovor i acceptance scenarios.
 - Poker izvori su linkovani uz pravila; provereni 2026-09-21. Nisu zamena za sopstvene determinističke testove.
 
 Lokalni nastavni materijali nisu nužno deo Git checkout-a; ovaj dokument i projektni artefakti moraju omogućiti kolegi rad bez njih. Stariji `suggestion.md` ostaje istorijski predlog, a ovaj dokument beleži aktuelni dogovor. Promena ponašanja zahteva usklađivanje verzije ovog dokumenta, Spec Kit artefakata, acceptance scenarija i testova pre prihvatanja implementacije.

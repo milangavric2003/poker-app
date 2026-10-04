@@ -1,5 +1,40 @@
 # Context manifest — implementacioni blok člana A
 
+## Week05 priprema T002–T006 — 2026-10-04
+
+Aktuelni korisnički zahtev ima prioritet: jedan agent, redom T002→T006, proveriti
+prethodni task i sačuvati diff; bez aplikacionog koda, bez izmišljenih rezultata.
+Polazni HEAD b0b02cab1e4491d5cdf65638d051c13d213f4eff, Git koren roditeljski.
+Zatečene korisničke izmene: roditeljski .gitignore, AGENTS.md i GAME_SPEC.md;
+untracked Week05 V1 prompt i feature 003. AGENTS/.gitignore nisu menjani ovim radom.
+Git status/diff proveravani na prelazima; nema ljudskog review potpisa.
+
+| Stvarno korišćen izvor | Verzija / prioritet / razlog | Rizik i obim čitanja |
+|---|---|---|
+| Korisnikov Pasted text.txt | Zahtev ovog razgovora, najviši | T002–T006; ne pripisivati kolegi doprinos |
+| AGENTS.md; GAME_SPEC.md | Radna verzija 2026-10-04; GAME_SPEC 1.2 | Pravila procesa, scope, §13–15; GAME_SPEC dodatno pročitan §6–12 nakon skraćenog prvog ispisa |
+| constitution | 1.1.0, 2026-09-26 | Pročitani principi/governance; Week03 zabrana ne predstavlja zabranu odobrenog Week05 scope-a |
+| Feature 003 spec/plan/tasks | Radna verzija 2026-10-04 | Celokupan spec/plan/tasks u zasebnim ispisima; requirements review i task granice |
+| Week05 V1 prompt | Untracked zatečen V1; 2026-10-04 | Pročitan; dopuna pre koda čuva original; nema Git provenance dokaza starijeg snimanja |
+| ../weekly-assignment.md | Lokalni W05 tekst 2026-10-04 | Relevantni §5–33, §34–41 i budžet/artefakt indeks; prvi veliki ispis skraćen, ne tvrdi se čitanje svakog reda |
+| ../week-05-bounded-agentic-workflows-reliable-integration-addendum.md | Lokalni W05 addendum | Fokus §4–5, §7–15, §17–18; indeks ostalih odeljaka; bez tvrdnje punog čitanja skraćenog ispisa |
+| speckit-checklist/SKILL.md; checklist-template | Projektne lokalne verzije | Kvalitet zahteva, ownership; primenjeno na korisnikov eksplicitni review, bez automatskog behavior rada |
+| check-prerequisites.ps1; common.ps1 | Lokalni skript i feature override deo common-a | Prvi poziv execution-policy pad; drugi poseban proces Bypass i feature 003 uspeo; extensions.yml ne postoji |
+| backend ai/types, coordinator, retry-policy, match-facts | Kod iz početnog HEAD-a; fokusirani izvodi | Week04 retry/attempt tipovi, 200 detaljnih odluka, read-only projekcija; ne tvrdi se review svakog reda backend-a |
+| backend routes/session; fake-ai-provider | Početni HEAD; relevantni analysis/version/revision izvodi | HTTP obrazac, serijski commit i async fingerprint; stari coordinator nije Week05 run budžet |
+| package.json; vitest.config.ts; gemini-live-smoke.test.ts | Manifest 0.1.0; lokalni runner | Tačne postojeće komande, offline stub i podproces timeout; bez novih zavisnosti |
+| EVIDENCE_003; AI_USAGE_LOG; CONTEXT_MANIFEST | Istorija do 2026-10-02 | Relevantni merge/UX/elimination odeljci i reference; veliki ispisi skraćeni, kasniji relevantni delovi posebno čitani |
+| 002-post-merge-verification; 002-task-status-audit; feature 002 tasks | Istorija i reconciliation 2026-09-29/10-02 | Opšti UX opis nema reprodukciju; kasniji task status ima prednost nad starim audit snapshot-om |
+| Novi 003 requirements/data-model/coach-http i policy | Nastali u ovom bloku | Dokumentacioni dokaz; novi testovi u matrici su planirani, ne postojeći runtime dokaz |
+
+Izostavljeni: .env/tajne, spoljni web/poker izvori, suggestion.md, nastavni PDF-ovi,
+celi Week03/Week04 feature planovi i nepovezani engine/UI kod. Razlog: pripremni
+scope ne menja igru/provider verzije; lokalni ugovori/evidence dovoljni. Rizik:
+nema nove browser/live potvrde, niti nezavisne reprodukcije neprecizne UX prijave.
+Baseline komande/rezultati biće u `docs/evidence/003-baseline.md`;
+fajl nastaje tek u T006. Trošak/tokeni coding sesije
+nisu dostupni; nema live agent run-ova. Handoff svakog taska je u njegovom dokumentu.
+
 ## Merge recovery u ai-integ — 2026-09-29
 
 Prioritet ima aktuelno korisničko odobrenje sa izborom ponašanja iz obe grane,
