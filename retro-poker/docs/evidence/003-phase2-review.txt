@@ -1,0 +1,81 @@
+﻿Komanda: git diff --check
+warning: in the working copy of 'retro-poker/backend/src/agent/validation.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/backend/src/ai/providers/gemini.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/backend/src/ai/types.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/helpers/fake-ai-provider.ts', LF will be replaced by CRLF the next time Git touches it
+Exit: 0
+Komanda: git status --short
+ M backend/src/agent/validation.ts
+ M backend/src/ai/providers/gemini.ts
+ M backend/src/ai/types.ts
+ M docs/CONTEXT_MANIFEST.md
+ M specs/003-week05-bounded-agent-coach/tasks.md
+ M tests/helpers/fake-ai-provider.ts
+?? backend/src/agent/orchestrator.ts
+?? backend/src/agent/types.ts
+?? docs/evidence/003-T012-green.txt
+?? docs/evidence/003-T012-red.txt
+?? docs/evidence/003-T013-green.txt
+?? docs/evidence/003-T013-red.txt
+?? docs/evidence/003-T014-green.txt
+?? docs/evidence/003-T014-red.txt
+?? docs/evidence/003-T015-green.txt
+?? docs/evidence/003-T015-red.txt
+?? docs/evidence/003-T016-green.txt
+?? docs/evidence/003-T016-red.txt
+?? docs/evidence/003-T017-green.txt
+?? docs/evidence/003-T017-red.txt
+?? docs/evidence/003-phase2-build.txt
+?? docs/evidence/003-phase2-handoff.txt
+?? docs/evidence/003-phase2-lint.txt
+?? docs/evidence/003-phase2-prerequisites.txt
+?? docs/evidence/003-phase2-regression.txt
+?? docs/evidence/003-phase2-typecheck.txt
+?? tests/integration/agent-run.test.ts
+?? tests/integration/gemini-agent.test.ts
+?? tests/unit/agent-final.test.ts
+?? tests/unit/agent-orchestrator.test.ts
+?? tests/unit/agent-provider.test.ts
+Komanda: git diff --numstat
+warning: in the working copy of 'retro-poker/backend/src/agent/validation.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/backend/src/ai/providers/gemini.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/backend/src/ai/types.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/helpers/fake-ai-provider.ts', LF will be replaced by CRLF the next time Git touches it
+21	1	retro-poker/backend/src/agent/validation.ts
+41	3	retro-poker/backend/src/ai/providers/gemini.ts
+19	1	retro-poker/backend/src/ai/types.ts
+32	0	retro-poker/docs/CONTEXT_MANIFEST.md
+15	9	retro-poker/specs/003-week05-bounded-agent-coach/tasks.md
+33	4	retro-poker/tests/helpers/fake-ai-provider.ts
+Task/evidence audit:
+T012 checked=True RED=True GREEN=True
+T013 checked=True RED=True GREEN=True
+T014 checked=True RED=True GREEN=True
+T015 checked=True RED=True GREEN=True
+T016 checked=True RED=True GREEN=True
+T017 checked=True RED=True GREEN=True
+Phase3 checked count: 0
+Extensions before/after: False
+Runtime import audit:
+backend/src/ai/providers/gemini.ts:import { GoogleGenAI } from '@google/genai';
+backend/src/ai/providers/gemini.ts:import { CoachModelStepSchema, jsonUtf8Bytes } from '../../../../shared/contracts.js';
+backend/src/ai/providers/gemini.ts:import { geminiDiagnostic } from './gemini-diagnostic.js';
+backend/src/ai/providers/gemini.ts:import { ProviderError, type AiProvider, type AgentProvider, type AgentStepRequest, type ProviderRequest, type ProviderResult,
+backend/src/agent\validation.ts:import { DecisionEvidenceArgumentsSchema, DecisionEvidenceResultSchema, MAX_TOOL_RESULT_BYTES,
+backend/src/agent\validation.ts:import { projectDecisionFacts, type TerminalFactsSnapshot } from './tools.js';
+backend/src/agent\types.ts:import { z } from 'zod';
+backend/src/agent\types.ts:import { CoachModelStepSchema, type CoachGoal, type CoachRunView, type DecisionEvidenceResult } from '../../../shared/contracts.js';
+backend/src/agent\types.ts:import type { AgentProvider, AiClock, AiJitter, AttemptOutcome, AttemptRelation, ProviderUsage } from '../ai/types.js';
+backend/src/agent\types.ts:import type { TerminalFactsSnapshot, ToolControls } from './tools.js';
+backend/src/agent\orchestrator.ts:import { CoachGoalSchema, CoachModelStepSchema, CoachRequestSchema,
+backend/src/agent\orchestrator.ts:import { ProviderError, type AgentStepContext, type AgentStepResult, type ProviderUsage } from '../ai/types.js';
+backend/src/agent\orchestrator.ts:import { getDecisionEvidence } from './tools.js';
+backend/src/agent\orchestrator.ts:import { validateDecisionEvidence, validateFinalOutput } from './validation.js';
+backend/src/agent\orchestrator.ts:import { CORE_AGENT_LIMITS, agentResponseJsonSchema, type AgentLimits, type AgentRunOptions,
+backend/src/agent\tools.ts:import { CoachFactSchema, DecisionEvidenceArgumentsSchema, DecisionEvidenceResultSchema,
+backend/src/agent\tools.ts:import type { HumanDecisionFact, MatchFacts } from '../ai/match-facts.js';
+Evidence commands/results present; late/current owner production binding remains T019.

@@ -1,5 +1,37 @@
 # Context manifest — implementacioni blok člana A
 
+## Week05 Phase 2 T012–T017 — 2026-10-04
+
+Prioritet: aktuelni priloženi zahtev (attachment 3f3fbea7) > AGENTS/constitution 1.1.0 >
+GAME_SPEC 1.2 > feature 003 spec/plan/tasks/data-model/HTTP. Početni status čist;
+HEAD `31f13fd18296473ec1c6715f20fa8df06a9f77e2`, Git koren roditeljski. Jedan agent,
+bez delegacije. Pročitani projektni speckit-implement skill, prerequisite skript,
+checklist 12/12 i ignore/ESLint/package/TypeScript konfiguracija. Prvi skript blokiran
+execution policy-jem; poseban PowerShell Bypass sa feature override uspeo. Extensions
+ne postoji pre/posle rada; nema hook-ova.
+
+Učitani V1 prompt, manifest, relevantni GAME_SPEC §12–15, constitution, kompletni
+feature spec/plan/task i data-model/HTTP ugovori. Veliki spojeni ispisi su bili
+skraćeni; relevantni ugovori/odeljci ponovo izdvojeni. Ne tvrdi se čitanje svakog
+istorijskog reda manifesta ili svih poker pravila. T002–T006: requirements matrica,
+policy/handoff, baseline i evidence indeksi; T007–T011 stvarni RED/GREEN logovi,
+review/handoff i finalna regresija. Novi fokusirani prerequisite rezultat: 65/65.
+
+Korišćeni Week04 ai/types, coordinator (retry/timeout/attempt granica), retry-policy,
+Gemini adapter/diagnostic, MatchFacts, shared strict coach šeme/contextual membership,
+fake provider/clock i poker fixture helper; T009–T011 tools/validation i testovi.
+Gemini adapter test i AI analysis test čitani za mock transport i stvarni terminalni
+engine fixture. GameSession se koristi samo kao postojeći test fixture, bez izmene.
+Novi provider/final/orchestrator/integration testovi i runtime moduli su kontekst
+nastao u ovom radu. Sve komande i ograničenja su u 003-phase2-handoff i task logovima.
+
+Izostavljeni .env, web, live provider, HTTP implementacija, frontend/polling/E2E:
+offline Phase 2 ne zahteva tajne ili mrežu. Nove zavisnosti nisu dodate. Stale/reset/
+konkurentni run dokazi koriste trusted owner/signal/fingerprint fixture; session
+start/commit autoritet tek T019. Summary/preporuka nemaju dokaz strateške optimalnosti.
+Ljudski peer review/doprinos kolege nije potvrđen; coding usage/trošak nije dostupan.
+Live agent run-ovi ovog bloka: 0.
+
 ## Week05 Phase 1 T007–T011 — 2026-10-04
 
 Prioritet: aktuelni priloženi zahtev > AGENTS/constitution > GAME_SPEC 1.2 > feature

@@ -1,0 +1,63 @@
+﻿Komanda: npm.cmd test -- tests/integration/agent-run.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/agent-run.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/agent-run.test.ts (16 tests | 2 failed) 5062ms
+   ❯ direct offline agent integration T016 (16)
+     × 429 and 5xx recover within steps, with configured fallback and shared budget 5019ms
+     × rejects negative facts revision before provider or tool calls 8ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > 429 and 5xx recover within steps, with configured fallback and shared budget
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/integration/agent-run.test.ts:82:3
+     80|     safeFailure(result); h.unchanged();
+     81|   });
+     82|   it('429 and 5xx recover within steps, with configured fallback and s…
+       |   ^
+     83|     const h = harness([{ kind: '429' }, { kind: 'agent_tool' }, { kind…
+     84|     const result = await settle(h.run, h.clock);
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects negative facts revision before provider or tool calls
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 14 passed (16)
+   Start at  22:19:41
+   Duration  5.55s (tests 93%, transform 4%, import 2%)
+
+AssertionError: expected { …(20) } to match object { status: 'stopped', …(3) }
+(17 matching properties omitted from actual)
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+  {
+-   "providerAttemptCount": 0,
+-   "status": "stopped",
+-   "stopReason": "invalid_input",
+-   "toolCallCount": 0,
++   "providerAttemptCount": 1,
++   "status": "failed",
++   "stopReason": "tool_failed",
++   "toolCallCount": 1,
+  }
+System.Management.Automation.RemoteException
+ ❯ tests/integration/agent-run.test.ts:95:20
+     93|     const run = new BoundedAgentRun({ ...h.options, snapshot: { ...inp…
+     94|     const result = await settle(run, h.clock);
+     95|     expect(result).toMatchObject({ status: 'stopped', stopReason: 'inv…
+       |                    ^
+     96|     expect(h.provider.agentCalls).toHaveLength(0); h.unchanged();
+     97|   });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+System.Management.Automation.RemoteException
+Exit: 1

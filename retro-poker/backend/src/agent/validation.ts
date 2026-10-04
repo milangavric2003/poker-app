@@ -1,6 +1,26 @@
 import { DecisionEvidenceArgumentsSchema, DecisionEvidenceResultSchema, MAX_TOOL_RESULT_BYTES,
-  jsonUtf8Bytes, type DecisionEvidenceResult } from '../../../shared/contracts.js';
+  CoachFinalStepSchema, coachResultForEvidence, jsonUtf8Bytes, type CoachResult, type DecisionEvidenceResult } from '../../../shared/contracts.js';
 import { projectDecisionFacts, type TerminalFactsSnapshot } from './tools.js';
+
+export type FinalOutputValidation = { status: 'valid'; result: CoachResult }
+  | { status: 'insufficient_evidence' } | { status: 'rejected'; category: 'evidence_rejected' };
+
+/** Pure final-stage policy. evidence must already have passed validateDecisionEvidence. */
+export function validateFinalOutput(candidate: unknown, evidence: DecisionEvidenceResult): FinalOutputValidation {
+  const rejected = { status: 'rejected', category: 'evidence_rejected' } as const;
+  try {
+    const bytes = typeof candidate === 'string' ? new TextEncoder().encode(candidate).byteLength : jsonUtf8Bytes(candidate);
+    if (bytes > 32768) return rejected;
+    const parsed = CoachFinalStepSchema.safeParse(typeof candidate === 'string' ? JSON.parse(candidate) : candidate);
+    if (!parsed.success) return rejected;
+    const value = { summary: parsed.data.summary, recommendation: parsed.data.recommendation,
+      evidence: parsed.data.evidence, confidence: parsed.data.confidence, completed: parsed.data.completed };
+    const result = coachResultForEvidence(evidence).safeParse(value);
+    if (!result.success) return rejected;
+    if (!result.data.completed || evidence.decisions.length === 0) return { status: 'insufficient_evidence' };
+    return { status: 'valid', result: result.data };
+  } catch { return rejected; }
+}
 
 export type ToolResultValidation =
   | { status: 'valid' | 'insufficient_evidence'; result: DecisionEvidenceResult }

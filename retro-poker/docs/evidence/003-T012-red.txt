@@ -1,0 +1,175 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-provider.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-provider.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-provider.test.ts (13 tests | 13 failed) 12ms
+   ❯ provider-neutral coach fake (13)
+     × scripts agent_tool without network 5ms
+     × scripts agent_refusal without network 1ms
+     × scripts agent_final without network 0ms
+     × scripts unknown_tool without network 0ms
+     × scripts invalid_arguments without network 0ms
+     × scripts invalid_final without network 0ms
+     × scripts malformed without network 0ms
+     × classifies timeout_error 0ms
+     × classifies 429 0ms
+     × classifies 5xx 0ms
+     × classifies auth_config 0ms
+     × classifies network 1ms
+     × keeps retries in one step, repeats proposals and supports late pending replies 0ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_tool without network
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_refusal without network
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_final without network
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts unknown_tool without network
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts invalid_arguments without network
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts invalid_final without network
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts malformed without network
+AssertionError: Missing agent-step provider behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-provider.test.ts:13:72
+     11|     'invalid_final', 'malformed'] as const)('scripts %s without networ…
+     12|     const fake = new FakeAiProvider([{ kind }]);
+     13|     expect(fake.generateAgent, 'Missing agent-step provider behavior')…
+       |                                                                        ^
+     14|     const signal = new AbortController().signal;
+     15|     const result = await fake.generateAgent(request, signal);
+
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies timeout_error
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies 429
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies 5xx
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies auth_config
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies network
+AssertionError: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-provider.test.ts:28:32
+     26|   ('classifies %s', async (kind, expected) => {
+     27|     const fake = new FakeAiProvider([{ kind }]);
+     28|     expect(fake.generateAgent).toBeTypeOf('function');
+       |                                ^
+     29|     await expect(fake.generateAgent(request, new AbortController().sig…
+     30|   });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps retries in one step, repeats proposals and supports late pending replies
+AssertionError: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-provider.test.ts:33:32
+     31|   it('keeps retries in one step, repeats proposals and supports late p…
+     32|     const fake = new FakeAiProvider([{ kind: 'agent_tool' }, { kind: '…
+     33|     expect(fake.generateAgent).toBeTypeOf('function');
+       |                                ^
+     34|     const controller = new AbortController();
+     35|     const first = await fake.generateAgent(request, controller.signal);
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/13]⎯
+System.Management.Automation.RemoteException
+ Test Files  1 failed (1)
+      Tests  13 failed (13)
+   Start at  22:14:11
+   Duration  245ms (transform 61%, import 20%, tests 14%, worker 4%)
+
+Exit: 1
+T012 pending identity holdout; komanda: npm.cmd test -- tests/unit/agent-provider.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-provider.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-provider.test.ts (14 tests | 1 failed) 13ms
+   ❯ provider-neutral coach fake (14)
+     × keeps automatically named pending agent responses independently resolvable 5ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps automatically named pending agent responses independently resolvable
+AssertionError: expected [ 'pending-0', 'timeout-0' ] to deeply equal [ 'pending-1', 'timeout-2' ]
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+  [
+-   "pending-1",
+-   "timeout-2",
++   "pending-0",
++   "timeout-0",
+  ]
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-provider.test.ts:50:38
+     48|     const first = fake.generateAgent(request, signal);
+     49|     const second = fake.generateAgent({ ...request, attemptOrdinal: 2,…
+     50|     expect([...fake.pending.keys()]).toEqual(['pending-1', 'timeout-2'…
+       |                                      ^
+     51|     fake.resolve('pending-1', { candidate: 'first' }); fake.resolve('t…
+     52|     expect(await Promise.all([first, second])).toEqual([{ candidate: '…
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  22:24:08
+   Duration  210ms (transform 66%, import 17%, tests 14%, worker 3%)
+
+Exit: 1
+T012 collision oracle: pending.size=3; komanda: npm.cmd test -- tests/unit/agent-provider.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-provider.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-provider.test.ts (14 tests | 1 failed) 14ms
+   ❯ provider-neutral coach fake (14)
+     × keeps automatically named pending agent responses independently resolvable 4ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps automatically named pending agent responses independently resolvable
+AssertionError: Pending agent requests must not overwrite one another: expected 2 to be 3 // Object.is equality
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+- 3
++ 2
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-provider.test.ts:51:88
+     49|     const second = fake.generateAgent({ ...request, attemptOrdinal: 2,…
+     50|     const third = fake.generateAgent({ ...request, stepOrdinal: 2, run…
+     51|     expect(fake.pending.size, 'Pending agent requests must not overwri…
+       |                                                                                        ^
+     52|     expect([...fake.pending.keys()]).toEqual(['pending-1', 'pending-2'…
+     53|     fake.resolve('pending-1', { candidate: 'first' }); fake.resolve('p…
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  22:24:27
+   Duration  218ms (transform 56%, import 21%, tests 15%, worker 8%)
+
+Exit: 1

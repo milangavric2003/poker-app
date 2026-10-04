@@ -95,34 +95,40 @@ T011 [8 RED + dodatni holdout](../../docs/evidence/003-T011-red.txt) →
 Svi završni exit statusi 0; prvi lint neuspeh i holdout RED očuvani.
 T012+ ostaju otvoreni; nema lifecycle/provider/UI/E2E/live dokaza u ovom bloku.
 
-- [ ] T012 A — Dodati provider-neutral agent request/result ugovor i fake-response
+- [x] T012 A — Dodati provider-neutral agent request/result ugovor i fake-response
   scripts; deps T008; allowed: `backend/src/ai/types.ts`, `tests/helpers/fake-ai-provider.ts`,
   unit tests; evidence: fake vraća tool request/refusal/final, hvata deadline/signal,
   ostali bot/analysis tests unchanged.
-- [ ] T013 B — Napisati Gemini adapter testove i mapiranje strukturisanih agent koraka;
+- [x] T013 B — Napisati Gemini adapter testove i mapiranje strukturisanih agent koraka;
   deps T012; allowed: `backend/src/ai/providers/gemini.ts`, provider tests;
   evidence: mocked HTTP only, provider details ostaju adapteru, SDK retries disabled
   or accounted; nema live poziva.
-- [ ] T014 A — Implementirati step orchestration, explicit run states, budgets/deadline,
+- [x] T014 A — Implementirati step orchestration, explicit run states, budgets/deadline,
   cancellation, repeat-action key i stop reasons; deps T010–T012; allowed:
   `backend/src/agent/orchestrator.ts`, `backend/src/agent/types.ts`,
   `tests/unit/agent-orchestrator.test.ts`; evidence: scripted fake + fake clock proves
   2 separate steps/1 tool, no extra call after every limit, bounded run-wide retries.
-- [ ] T015 B — Dodati final output schema, evidence membership validator i insufficient
+- [x] T015 B — Dodati final output schema, evidence membership validator i insufficient
   evidence policy; deps T011,T014; allowed: `backend/src/agent/validation.ts`, schemas,
-  tests; evidence: fake refs/fact codes/inadequate context cannot complete successfully.
-- [ ] T016 A — Integration RED/GREEN: success, unknown tool/invalid args (0 tool calls),
+  tests; dodatno allowed: `backend/src/agent/orchestrator.ts` samo za povezivanje novog final validatora (bez toga runtime ne koristi T015); evidence: fake refs/fact codes/inadequate context cannot complete successfully.
+- [x] T016 A — Integration RED/GREEN: success, unknown tool/invalid args (0 tool calls),
   tool failure, malformed output, provider auth/timeout/429/5xx; deps T013–T015;
-  allowed: `tests/integration/agent-run.test.ts`, fake helper, evidence;
+  allowed: `tests/integration/agent-run.test.ts`, fake helper, evidence; dodatno allowed: `backend/src/agent/orchestrator.ts` za preflight reviziju (T016 RED pokazuje provider/tool pozive za negativnu reviziju);
   evidence: normal success has two accepted model steps and one execution; all failures
   end with correct safe status/reason and no false final result.
-- [ ] T017 B — Integration RED/GREEN: repeat, attempt/tool/step limit, total deadline
+- [x] T017 B — Integration RED/GREEN: repeat, attempt/tool/step limit, total deadline
   across retry + second step, cancel, stale revision, reset/new-game, concurrency;
-  deps T016; allowed: integration tests, `GameSession` only where tests prove need;
+  deps T016; allowed: integration tests; dodatno allowed: `backend/src/agent/orchestrator.ts` za terminal attempt finalizaciju i dispatch guard (T017 RED: cancellation menja attempts ili dispatch-uje poziv posle terminalnog prelaza), kao i preflight sampleLimited holdout; `GameSession` nije potreban jer signal/fingerprint/owner fixture izoluje stale/reset/concurrency;
   evidence: tool never called twice for same key; late result never commits; terminal
   state changes once.
 
 ## Phase 3 — backend lifecycle and API
+
+Phase 2 handoff (2026-10-04): [status, komande, scope i ograničenja](../../docs/evidence/003-phase2-handoff.txt).
+T012–T017 imaju stvarne RED/GREEN zapise `docs/evidence/003-T012-*.txt` do `003-T017-*.txt`.
+Finalna offline regresija: 708/708 u 51 fajlu; typecheck/lint/build exit 0.
+T017 ownership je injected fixture; produkcioni session slot/start/commit ostaje T019.
+Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
 
 - [ ] T018 A — Route contract RED for preflight, start/status, strict body/response,
   no-store, duplicate POST, invalid game, nonterminal, stale/new game and safe errors;

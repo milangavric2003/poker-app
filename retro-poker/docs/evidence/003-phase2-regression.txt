@@ -1,0 +1,30 @@
+﻿Komanda: npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  51 passed (51)
+      Tests  705 passed (705)
+   Start at  22:22:27
+   Duration  12.48s (tests 35%, import 32%, environment 26%, transform 7%, worker 1%)
+
+Exit: 0
+Finalno ponavljanje posle holdout/stilskih korekcija; komanda: npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  51 passed (51)
+      Tests  708 passed (708)
+   Start at  22:25:11
+   Duration  12.88s (tests 37%, import 36%, environment 20%, transform 6%, worker 1%)
+
+Exit: 0

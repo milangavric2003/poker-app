@@ -1,11 +1,15 @@
-import { ProviderError, type AiProvider, type ProviderRequest, type ProviderResult } from '../../backend/src/ai/types.js';
+import { ProviderError, type AiProvider, type AgentProvider, type AgentStepRequest,
+  type ProviderRequest, type ProviderResult } from '../../backend/src/ai/types.js';
 
 export type FakeAiStep = ProviderResult | { kind: 'analysis_success' } | { kind: 'malformed' | 'schema_mismatch' | 'semantic_illegal'
-  | 'timeout' | 'timeout_error' | '429' | '5xx' | 'safety_refusal' | 'auth_config' | 'network' }
+  | 'timeout' | 'timeout_error' | '429' | '5xx' | 'safety_refusal' | 'auth_config' | 'network'
+  | 'agent_tool' | 'agent_refusal' | 'agent_final' | 'unknown_tool' | 'invalid_arguments' | 'invalid_final' }
   | { kind: 'pending'; id?: string };
 interface Pending { resolve: (result: ProviderResult) => void; reject: (error: unknown) => void; signal: AbortSignal; }
 
-export class FakeAiProvider implements AiProvider {
+export class FakeAiProvider implements AiProvider, AgentProvider {
+  readonly agentCalls: Array<{ request: AgentStepRequest; signal: AbortSignal; model: string;
+    stepOrdinal: number; attemptOrdinal: number; runAttemptOrdinal: number; context: unknown; deadlineAt: number }> = [];
   readonly calls: Array<{ request: ProviderRequest; signal: AbortSignal; attemptOrdinal: number;
     model: string; context: unknown }> = [];
   readonly pending = new Map<string, Pending>();
@@ -15,14 +19,39 @@ export class FakeAiProvider implements AiProvider {
   async generate(request: ProviderRequest, signal: AbortSignal): Promise<ProviderResult> {
     this.calls.push({ request: structuredClone(request), signal, attemptOrdinal: request.attemptOrdinal,
       model: request.model, context: structuredClone(request.context) });
+    return this.respond(signal, request.context);
+  }
+  async generateAgent(request: AgentStepRequest, signal: AbortSignal): Promise<ProviderResult> {
+    this.agentCalls.push({ request: structuredClone(request), signal, model: request.model,
+      stepOrdinal: request.stepOrdinal, attemptOrdinal: request.attemptOrdinal,
+      runAttemptOrdinal: request.runAttemptOrdinal, context: structuredClone(request.context), deadlineAt: request.deadlineAt });
+    return this.respond(signal, request.context);
+  }
+  private async respond(signal: AbortSignal, context: unknown): Promise<ProviderResult> {
     const step = this.steps.shift() ?? { kind: 'schema_mismatch' as const };
     if (!('kind' in step)) return structuredClone(step);
     if (step.kind === 'pending' || step.kind === 'timeout') {
-      const id = step.kind === 'pending' ? step.id ?? `pending-${this.calls.length}` : `timeout-${this.calls.length}`;
+      const ordinal = this.calls.length + this.agentCalls.length;
+      const id = step.kind === 'pending' ? step.id ?? `pending-${ordinal}` : `timeout-${ordinal}`;
       return await new Promise<ProviderResult>((resolve, reject) => { this.pending.set(id, { resolve, reject, signal }); });
     }
     if (step.kind === 'malformed') return { candidate: '{not-json' };
     if (step.kind === 'schema_mismatch') return { candidate: { answer: 'check' } };
+    if (['agent_tool', 'unknown_tool', 'invalid_arguments'].includes(step.kind)) {
+      const goal = (context as { goal?: { focus?: string } }).goal;
+      return { candidate: { kind: 'tool_request', name: step.kind === 'unknown_tool' ? 'shell' : 'get_decision_evidence',
+        arguments: { focus: goal?.focus ?? 'street', limit: step.kind === 'invalid_arguments' ? 0 : 10 } } };
+    }
+    if (step.kind === 'agent_refusal') return { candidate: { kind: 'refusal', reason: 'insufficient_context' } };
+    if (step.kind === 'agent_final' || step.kind === 'invalid_final') {
+      const result = (context as { toolResult?: { decisions: Array<{ decisionRef: string;
+        facts: Array<{ factCode: string; finding: string }> }> } }).toolResult;
+      const decision = result?.decisions[0]; const fact = decision?.facts[0];
+      return { candidate: { kind: 'final', summary: 'Pregled dostupnih odluka.',
+        recommendation: 'Proveri legalne opcije pre odluke.', confidence: 'low', completed: true,
+        evidence: [{ decisionRef: step.kind === 'invalid_final' ? 'foreign:1' : decision?.decisionRef ?? 'fixture:1',
+          factCode: fact?.factCode ?? 'action', finding: fact?.finding ?? '{"type":"call"}' }] } };
+    }
     if (step.kind === 'analysis_success') {
       return { candidate: { summary: 'Analiza fake uspesno zavrsena.', goodDecisions: [],
         possibleMistakes: [], nextSteps: ['Nastavi da proveravas velicinu pota.'] } };

@@ -1,0 +1,30 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-provider.test.ts tests/unit/ai-retry.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-provider.test.ts tests/unit/ai-retry.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  52 passed (52)
+   Start at  22:14:41
+   Duration  865ms (import 48%, transform 30%, tests 22%, worker 1%)
+
+Exit: 0 Handoff: T012 ugovor/fake spremni za mocked Gemini T013. Nema mreze; Week04 regresija u istom izvrsenju.
+T012 pending identity GREEN/regresija; komanda: npm.cmd test -- tests/unit/agent-provider.test.ts tests/unit/ai-retry.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-concurrency.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-provider.test.ts tests/unit/ai-retry.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-concurrency.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  5 passed (5)
+      Tests  61 passed (61)
+   Start at  22:24:29
+   Duration  1.04s (import 45%, tests 28%, transform 27%, worker 1%)
+
+Exit: 0
