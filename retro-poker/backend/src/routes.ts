@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { GameConfigSchema, NextHandSchema, PlayerActionSchema } from '../../shared/contracts.js';
+import { CoachRequestSchema, CoachResponseSchema, GameConfigSchema, NextHandSchema, PlayerActionSchema } from '../../shared/contracts.js';
 import { SessionError, type GameSession } from './session.js';
 import { toGameView } from './view.js';
 import { z } from 'zod';
@@ -20,6 +20,25 @@ export function registerRoutes(app: FastifyInstance, session: GameSession): void
   });
   app.get('/api/game', async () => ({
     game: session.get() ? toGameView(session.get()!) : null,
+  }));
+  const coachError = (reply: FastifyReply, caught: unknown) => caught instanceof SessionError
+    ? error(reply, ['GAME_NOT_FOUND', 'RUN_NOT_FOUND'].includes(caught.code) ? 404 : 409, caught.code, caught.message)
+    : error(reply, 500, 'INTERNAL_ERROR', 'Interna greška pri coaching obradi.');
+  app.post('/api/game/coach', { bodyLimit: 1024 }, async (request, reply) => session.serial(() => {
+    const parsed = CoachRequestSchema.safeParse(request.body);
+    if (!parsed.success) return error(reply, 400, 'INVALID_INPUT', 'Nevalidan coaching zahtev.');
+    try {
+      const run = session.startCoach(parsed.data);
+      return reply.code(run.stopReason ? 200 : 202).send(CoachResponseSchema.parse({ run }));
+    } catch (caught) { return coachError(reply, caught); }
+  }));
+  app.get('/api/game/coach/:runId', async (request, reply) => session.serial(() => {
+    const params = z.strictObject({ runId: z.uuid() }).safeParse(request.params);
+    if (!params.success || !z.strictObject({}).safeParse(request.query).success) {
+      return error(reply, 400, 'INVALID_INPUT', 'Nevalidan coaching identitet.');
+    }
+    try { return CoachResponseSchema.parse({ run: session.coachStatus(params.data.runId) }); }
+    catch (caught) { return coachError(reply, caught); }
   }));
   app.get('/api/ai/usage', async () => ({ usage: processUsageStore.snapshot() }));
   app.post('/api/ai/usage/reset', async (request, reply) => {

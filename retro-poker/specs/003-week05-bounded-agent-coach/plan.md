@@ -45,6 +45,10 @@ Orchestrator je novi `backend/src/agent/` koordinator bez UI/HTTP/SDK/engine mut
 logike. Injektovati provider, monotoni sat, read-only executor i AbortSignal.
 GameSession poseduje slot i serijski start/commit; await ne drži session lock.
 Posebni coach POST/GET i DTO iz HTTP ugovora; bez coach polja u poker GameView-u.
+Phase 3 izbor po korisničkom zahtevu: POST `/api/game/coach` i GET
+`/api/game/coach/:runId`; nema konkurentnog query endpoint-a. T018–T020 backend
+ne uvodi UI. Usage dobija additive strict `coach` agregat; stariji Week04 DTO bez
+tog polja ostaje prihvaćen, ali backend ga uvek šalje.
 UI koristi poseban coach prikaz ili proširen terminalni AnalysisPanel; lifecycle je
 isti ugovor nezavisno od komponente. MatchFacts snapshot se projektuje/validira,
 ne prosleđuje se ceo GameState ili repository.

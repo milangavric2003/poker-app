@@ -20,6 +20,8 @@ export interface AgentRunState extends AgentFingerprint {
   stopReason: StopReason | null; failureCategory: FailureCategory | null;
   result: CoachRunView['result']; sampleLimited: boolean; terminalTransitionCount: number;
   attempts: AgentAttempt[];
+  toolAttemptCount: number; toolRejectionCount: number;
+  validationCount: number; validationRejectedCount: number; finishedAt: number | null;
 }
 export interface AgentLimits {
   maxSteps: number; maxToolCalls: number; maxProviderAttempts: number;

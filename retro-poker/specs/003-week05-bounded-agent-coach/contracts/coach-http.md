@@ -1,6 +1,6 @@
 # Coach HTTP ugovor v1
 
-Datum: 2026-10-04, T003; budući ugovor, rute još nisu implementirane.
+Datum: 2026-10-04, T003 ugovor; T018–T020 backend implementiran i offline proveren.
 Provider, alat i run state: [data model](../data-model.md).
 
 ## Start
@@ -23,7 +23,7 @@ preflight/start; asinhroni provider/tool tok počinje posle njegovog oslobađanj
 
 ## Status i vlasništvo
 
-GET `/api/game/coach?runId=<UUID>`: strict query, bez drugih polja; 200
+GET `/api/game/coach/:runId`: UUID path parametar, strict prazni query; 200
 `{ run: CoachRunView }` samo za zadržani run tekuće partije; malformed query 400,
 nepoznat/zamenjen/uklonjen run 404/RUN_NOT_FOUND. Nema implicitnog start-a ili poziva.
 CoachRunView: runId, gameId, handId, expectedVersion, factsRevision, goal, status,
@@ -44,5 +44,7 @@ UI bira focus, blokira dupli submit, prikazuje stanje, provereni rezultat i uzor
 retry samo eksplicitnim klikom. Nema nove cancel rute: reset/nova partija i serverski
 AbortSignal su Core cancellation tok. Provider/tool await nikad ne blokira GET.
 
-Planirani dokazi: T018 strict/preflight/no-store/idempotency testovi, T019 async
-ownership, T021/T022 UI retry/poll/race, T023 E2E; nisu pokrenuti u ovom tasku.
+Dokazi: T018 strict/preflight/no-store/idempotency testovi, T019 async
+ownership su provereni; T021/T022 UI retry/poll/race i T023 E2E ostaju otvoreni.
+
+T018 odluka: korisnikov Phase 3 zahtev bira path parametar; nema druge GET forme.

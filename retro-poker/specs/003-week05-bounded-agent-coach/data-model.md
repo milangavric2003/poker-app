@@ -95,6 +95,19 @@ epoch; kasni run ne sme dopisati stare metrike u novu epoch-u.
 
 ## T003 handoff
 
+T020 additive agregat `UsageDashboard.coach`: runCount, stepCount,
+providerAttemptCount, toolAttemptCount (validni tool_request proposals uključujući
+odbijene), toolExecutionCount (ulazak u executor, uključujući njegovo bacanje),
+toolRejectionCount, validationCount/validationRejectedCount, retryCount (samo
+same_model_retry), modelFallbackCount, stopReasons, run latency i attempts grupisani
+po stepOrdinal/model/relation/outcome. Validacije broje model shape, tool args,
+tool rezultat i final evidence gate; uspešan 2/1 tok ima pet validacija.
+Week04 retryCount/logical/attempts ostaju zasebni. Terminalni zapis jednom po runId
+i usage epoha; cancelled/stale/zamenjeni slot nema kasnog upisa. Nema raw trace-a,
+proposal-a, tool output-a, prompta ili privatnih karata u agregatu. Latency max je
+45 s/run, 15 s/attempt, bez negativnih/nebezbednih brojeva. Provider ugovor nema
+monetarni cost; missingCount i null sum/currency čuvaju unknown bez procene.
+
 Provereno: T002 matrica 25/25; postojeći provider types/coordinator/retry policy,
 MatchFacts cap 200, routes i session async fingerprint obrazac. Plan i ovaj ugovor
 razrešavaju prethodne otvorene izbore; HTTP je u [coach-http](contracts/coach-http.md).

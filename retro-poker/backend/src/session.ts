@@ -11,11 +11,15 @@ import type { AiClock, AiJitter, AiProvider, AiRuntimeConfig, BotDecisionContext
 import { attachHandOutcome, createMatchFacts, recordHumanDecision, type MatchFacts } from './ai/match-facts.js';
 import { processUsageStore } from './ai/usage.js';
 import { analysisContext } from './ai/match-facts.js';
-import type { MatchAnalysis } from '../../shared/contracts.js';
+import { CoachRunViewSchema, type CoachRequest, type CoachRunView, type MatchAnalysis } from '../../shared/contracts.js';
+import { BoundedAgentRun } from './agent/orchestrator.js';
+import type { AgentFingerprint, AgentRunOptions } from './agent/types.js';
+import type { AgentProvider } from './ai/types.js';
 
 export class SessionError extends Error {
   constructor(readonly code: 'GAME_NOT_FOUND' | 'STALE_STATE' | 'ILLEGAL_ACTION' | 'INTERNAL_ERROR'
-    | 'AI_UNAVAILABLE' | 'AI_ALREADY_PENDING' | 'ANALYSIS_NOT_ALLOWED',
+    | 'AI_UNAVAILABLE' | 'AI_ALREADY_PENDING' | 'ANALYSIS_NOT_ALLOWED'
+    | 'GAME_NOT_TERMINAL' | 'COACH_ALREADY_PENDING' | 'RUN_NOT_FOUND',
     message: string) { super(message); }
 }
 
@@ -50,6 +54,8 @@ export interface SessionDependencies extends GameDependencies {
   aiConfig?: AiRuntimeConfig;
   aiClock?: AiClock;
   aiJitter?: AiJitter;
+  /** Trusted offline injection; never selected by HTTP/model input. */
+  coachExecuteTool?: AgentRunOptions['executeTool'];
 }
 
 function recordInitial(hand: ActiveHand, handNumber = 1,
@@ -133,6 +139,7 @@ export class GameSession {
   private game: GameState | null = null;
   private queue: Promise<void> = Promise.resolve();
   private activeBot: { interactionId: string; controller: AbortController } | null = null;
+  private coach: { run: BoundedAgentRun; controller: AbortController; committed: boolean } | null = null;
   private readonly aiConfig: AiRuntimeConfig;
   constructor(private readonly dependencies: SessionDependencies) {
     this.aiConfig = dependencies.aiConfig ?? loadAiConfig();
@@ -148,7 +155,73 @@ export class GameSession {
 
   get(): GameState | null { return this.game; }
 
+  private coachCurrent(identity: AgentFingerprint): boolean {
+    const game = this.game;
+    return !!game && this.coach?.run.state.runId === identity.runId
+      && game.gameId === identity.gameId && game.hand.handId === identity.handId
+      && game.version === identity.expectedVersion && game.facts.revision === identity.factsRevision;
+  }
+
+  coachStatus(runId: string): CoachRunView {
+    const state = this.coach?.run.state;
+    if (!state || state.runId !== runId || !this.coachCurrent(state)) {
+      throw new SessionError('RUN_NOT_FOUND', 'Coaching run nije pronađen.');
+    }
+    return CoachRunViewSchema.parse({ runId: state.runId, gameId: state.gameId,
+      handId: state.handId, expectedVersion: state.expectedVersion, factsRevision: state.factsRevision,
+      goal: state.goal, status: state.status, startedAt: new Date(state.startedAt).toISOString(),
+      deadlineAt: new Date(state.deadlineAt).toISOString(), stepCount: state.stepCount,
+      toolCallCount: state.toolCallCount, providerAttemptCount: state.providerAttemptCount,
+      stopReason: state.stopReason, failureCategory: state.failureCategory, result: state.result,
+      sampleLimited: state.sampleLimited });
+  }
+
+  startCoach(input: CoachRequest): CoachRunView {
+    const game = this.game;
+    if (!game || game.gameId !== input.gameId) throw new SessionError('GAME_NOT_FOUND', 'Partija nije pronađena.');
+    if (game.hand.handId !== input.handId || game.version !== input.expectedVersion) {
+      throw new SessionError('STALE_STATE', 'Stanje partije je zastarelo.');
+    }
+    if (game.hand.phase !== 'complete' || game.hand.gameStatus === 'playing') {
+      throw new SessionError('GAME_NOT_TERMINAL', 'Coaching zahteva završenu partiju.');
+    }
+    const provider = this.dependencies.aiProvider;
+    if (!dependenciesConfigured(this.dependencies, this.aiConfig) || !provider || !('generateAgent' in provider)
+      || typeof provider.generateAgent !== 'function') throw new SessionError('AI_UNAVAILABLE', 'AI coaching nije dostupan.');
+    if (this.coach && !this.coach.run.state.stopReason) {
+      if (this.coach.run.state.goal.focus !== input.goal.focus) throw new SessionError('COACH_ALREADY_PENDING', 'Coaching je već u toku.');
+      return this.coachStatus(this.coach.run.state.runId);
+    }
+    const controller = new AbortController();
+    const run = new BoundedAgentRun({ runId: randomUUID(), goal: input.goal,
+      snapshot: { gameId: game.gameId, handId: game.hand.handId, expectedVersion: game.version,
+        factsRevision: game.facts.revision, status: game.hand.gameStatus, facts: structuredClone(game.facts) },
+      provider: provider as AiProvider & AgentProvider, clock: this.dependencies.aiClock ?? systemClock,
+      model: this.aiConfig.primaryModel, fallbackModel: this.aiConfig.fallbackModel,
+      limits: { maxAttemptsPerStep: this.aiConfig.maxAttempts },
+      backoffMinMs: this.aiConfig.backoffMinMs, backoffMaxMs: this.aiConfig.backoffMaxMs,
+      jitter: this.dependencies.aiJitter ?? zeroJitter, signal: controller.signal,
+      isCurrent: identity => this.coachCurrent(identity),
+      ...(this.dependencies.coachExecuteTool ? { executeTool: this.dependencies.coachExecuteTool } : {}) });
+    const slot = { run, controller, committed: false };
+    this.coach = slot;
+    const usageEpoch = processUsageStore.currentEpoch();
+    run.stopIfNoEvidence();
+    // A queued reservation ensures dispatch starts after the caller releases serial.
+    // Only reservation/commit are queued; provider/tool awaits remain outside.
+    void this.serial(() => undefined).then(() => run.execute()).then(state => this.serial(() => {
+      if (this.coach !== slot || slot.committed || !this.coachCurrent(state)) return;
+      slot.committed = true;
+      processUsageStore.recordCoach(state, usageEpoch);
+    }));
+    return this.coachStatus(run.state.runId);
+  }
+
   create(botCount: number, aiMode = false): GameState {
+    const oldCoach = this.coach;
+    this.coach = null;
+    oldCoach?.controller.abort();
+    oldCoach?.run.cancel();
     this.activeBot?.controller.abort();
     this.activeBot = null;
     const deckRandom = (this.game?.deckRandom ?? this.dependencies.deckRandom).clone();

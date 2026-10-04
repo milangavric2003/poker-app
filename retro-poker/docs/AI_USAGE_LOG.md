@@ -285,3 +285,15 @@ Ishod: osvežavanje otvorenog panela na 1 s, ponovno učitavanje pri otvaranju,
 zaštita od sporih/kasnih odgovora i reset race-a; 4 RED → 11 GREEN testova,
 UI regresija 59/59, typecheck/lint exit 0. Ljudska odluka: korisnik traži ovu
 UX popravku sada; nezavisan review nije potvrđen. Live Gemini pozivi: 0.
+
+## 2026-10-04 — Codex, Week05 Phase 3 T018–T020
+
+Korisnik je tražio backend lifecycle/API i usage; frontend i live smoke van scope-a.
+Alat: Codex coding agent; kontekst iz CONTEXT_MANIFEST Phase3 unosa. Očekivanje:
+strict preflight sa0 poziva, bounded session slot, await van lock-a, odvojeni coach
+usage. Ishod: route/lifecycle/usage implementacija, stvarni RED/GREEN logovi,
+758/758 offline regresija, typecheck/lint/build exit0. Lock-dispatch i malformed
+validation holdout-i otkrili konkretne propuste i proverili korekcije. Ljudska odluka:
+korisnikov zahtev autorizuje T018–T020; doprinos/review drugog člana nije potvrđen.
+Live Gemini pozivi:0. Tačan model build, Codex tokeni i trošak nisu dostupni;
+fake testovi nisu live potrošnja. Dokaz: docs/evidence/003-phase3-handoff.txt.

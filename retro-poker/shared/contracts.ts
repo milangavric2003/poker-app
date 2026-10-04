@@ -122,6 +122,24 @@ const CostMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count
 const AttemptOutcomeSchema = z.enum(['success', 'timeout', 'rate_limited', 'server_error',
   'network_error', 'malformed', 'schema_rejected', 'semantic_rejected', 'safety_refusal',
   'auth_config_error', 'invalid_request', 'cancelled', 'stale']);
+export const CoachStopReasonSchema = z.enum(['completed', 'insufficient_evidence', 'invalid_input',
+  'invalid_model_proposal', 'unknown_tool', 'invalid_tool_arguments', 'repeated_action',
+  'tool_call_limit', 'step_limit', 'call_budget', 'deadline', 'cancelled', 'stale_state',
+  'provider_failed', 'tool_failed', 'malformed_output']);
+export const CoachUsageSchema = z.strictObject({
+  runCount: Count, stepCount: Count, providerAttemptCount: Count,
+  toolAttemptCount: Count, toolExecutionCount: Count, toolRejectionCount: Count,
+  validationCount: Count, validationRejectedCount: Count, retryCount: Count, modelFallbackCount: Count,
+  stopReasons: z.array(z.strictObject({ reason: CoachStopReasonSchema, count: Count })).max(17),
+  latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count.max(45000) }),
+  attempts: z.array(z.strictObject({ stepOrdinal: z.number().int().min(1).max(2),
+    model: z.string().min(1).max(128), relation: z.enum(['initial', 'same_model_retry', 'model_fallback']),
+    outcome: AttemptOutcomeSchema, count: Count,
+    latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count.max(15000) }),
+    usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
+      thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
+      cost: CostMetricSchema }) })),
+});
 export const UsageDashboardSchema = z.strictObject({
   revision: Count,
   logical: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']),
@@ -134,6 +152,7 @@ export const UsageDashboardSchema = z.strictObject({
       thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
       cost: CostMetricSchema }) })),
   retryCount: Count, modelFallbackCount: Count, localFallbackCount: Count,
+  coach: CoachUsageSchema.optional(),
 });
 export const UsageResponseSchema = z.strictObject({ usage: UsageDashboardSchema });
 const AiViewSchema = z.strictObject({
@@ -205,7 +224,8 @@ export const GameResponseSchema = z.strictObject({ game: GameViewSchema.nullable
 export const GameErrorSchema = z.strictObject({ error: z.strictObject({
   code: z.enum(['INVALID_INPUT', 'GAME_NOT_FOUND', 'STALE_STATE', 'ILLEGAL_ACTION',
     'PRECONDITION_REQUIRED', 'PAYLOAD_TOO_LARGE', 'UNSUPPORTED_MEDIA_TYPE', 'INTERNAL_ERROR',
-    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED']),
+    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED',
+    'GAME_NOT_TERMINAL', 'COACH_ALREADY_PENDING', 'RUN_NOT_FOUND']),
   message: z.string().min(1),
 }) });
 export type GameView = z.infer<typeof GameViewSchema>;
@@ -274,10 +294,6 @@ export const CoachModelStepSchema = z.discriminatedUnion('kind', [
   CoachToolProposalSchema, CoachRefusalSchema, CoachFinalStepSchema,
 ]).refine(value => jsonUtf8Bytes(value) <= 32768, 'Model step exceeds UTF-8 cap');
 export const CoachRunStatusSchema = z.enum(['created', 'running', 'completed', 'stopped', 'failed']);
-export const CoachStopReasonSchema = z.enum(['completed', 'insufficient_evidence', 'invalid_input',
-  'invalid_model_proposal', 'unknown_tool', 'invalid_tool_arguments', 'repeated_action',
-  'tool_call_limit', 'step_limit', 'call_budget', 'deadline', 'cancelled', 'stale_state',
-  'provider_failed', 'tool_failed', 'malformed_output']);
 export const CoachFailureCategorySchema = z.enum(['authentication_configuration', 'quota_exhausted',
   'rate_limit', 'provider_timeout', 'provider_unavailable', 'provider_transport', 'provider_refusal',
   'tool_timeout', 'tool_error', 'tool_validation', 'invalid_structured_response', 'evidence_rejected',

@@ -267,6 +267,10 @@ stringova, jedinstvenost, izbor focus-a i projekcija su u data-model ugovoru.
 
 ## 9. Zavisan rad i handoff
 
+Phase 3 HTTP forma: POST `/api/game/coach`, GET `/api/game/coach/:runId`.
+Run/facts reviziju poseduje server; javni body ne prima factsRevision ni runId.
+Backend DTO ostaje odvojen od Week04 GameView-a. Frontend dolazi kroz T021–T023.
+
 Dva člana rade naizmenično na istom feature-u prema raspoloživim Codex tokenima.
 Spec/task status i kratka predaja stanja su source of truth; ne planira se paralelan
 rad na istim fajlovima. Svaki task označava predloženog trenutnog driver-a (`A`, `B`

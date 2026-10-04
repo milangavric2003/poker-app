@@ -385,3 +385,22 @@ Krajevi postojećih evidence/manifest/AI log fajlova korišćeni su radi kontinu
 Izostavljeni .env, spoljni izvori i live provider: lokalna UI reprodukcija ne
 zahteva tajne ili mrežu. Rizik: polling ima interval 1 s plus HTTP latenciju;
 nema browser/live provere. Dokaz: EVIDENCE_003, UR1/UR2.
+
+## 2026-10-04 — Week05 Phase 3 T018–T020
+
+Prioritet: korisnikov attachment Phase3 scope > AGENTS/constitution > GAME_SPEC
+Week05 > feature003 spec/plan/tasks/HTTP/data-model > postojeći kod. HEAD
+86d1225ee8f70a4942ab53112d244aecd0219371, početni worktree čist; jedan coding agent.
+Pročitani: attachment, AGENTS, speckit-implement skill, GAME_SPEC (posebno §12–15),
+constitution, V1 prompt i ovaj manifest, feature003 spec/plan/tasks/checklist,
+data-model/coach-http, T011/phase2 handoff i T012–T017 RED evidence; routes/session/
+app, shared contracts, agent/types/orchestrator/tools/validation, ai/types/config/
+usage, fake provider/clock/fixtures i relevantni provider/agent/Week04 route/usage
+analysis/bot/concurrency testovi. Veliki kombinovani ispisi bili su skraćeni;
+relevantni ugovori/kod ponovo pročitani ciljano, ne tvrdi se pregled svakog reda
+istorijskih dokumenata ili svakog prethodnog raw loga. Čitanje evidence-a i novo
+133/133 prerequisite izvršenje zajedno potvrđuju zavisnosti; finalna regresija758.
+Izostavljeni .env, mreža/live, novi UI i E2E jer task ima offline backend scope.
+Nema subagenata. Rizik: final evidence membership ne dokazuje stratešku tačnost
+saveta; monetarni cost ne postoji u provider ugovoru i ostaje unknown. Stvarni
+rezultati/ograničenja/komande: docs/evidence/003-phase3-handoff.txt i raw logovi.

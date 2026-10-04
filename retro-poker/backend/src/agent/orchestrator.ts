@@ -46,7 +46,8 @@ export class BoundedAgentRun {
       goal: structuredClone(options.goal), status: 'created', startedAt: start, deadlineAt: start + this.limits.totalDeadlineMs,
       stepCount: 0, providerAttemptCount: 0, toolCallCount: 0, recentActionKeys: [], validatedToolResult: null,
       stopReason: null, failureCategory: null, result: null, sampleLimited: options.snapshot.facts.aggregates.length > 0,
-      terminalTransitionCount: 0, attempts: [] };
+      terminalTransitionCount: 0, attempts: [], toolAttemptCount: 0, toolRejectionCount: 0,
+      validationCount: 0, validationRejectedCount: 0, finishedAt: null };
   }
   get state(): AgentRunState { return structuredClone(this.current); }
   private get terminal(): boolean { return ['completed', 'stopped', 'failed'].includes(this.current.status); }
@@ -61,6 +62,7 @@ export class BoundedAgentRun {
     this.current.status = reason === 'completed' ? 'completed'
       : ['provider_failed', 'tool_failed', 'malformed_output'].includes(reason) ? 'failed' : 'stopped';
     this.current.stopReason = reason; this.current.failureCategory = category;
+    this.current.finishedAt = this.options.clock.now();
     if (reason !== 'completed') this.current.result = null;
     this.current.terminalTransitionCount++;
     this.controller.abort();
@@ -68,6 +70,10 @@ export class BoundedAgentRun {
     try { this.options.onTerminal?.(this.state); } catch { /* terminal state remains committed */ }
   }
   cancel(): void { if (!this.terminal) { this.controller.abort(); this.finish('cancelled'); } }
+  /** Trusted session preflight, before dispatch; no external calls. */
+  stopIfNoEvidence(): void {
+    if (!this.context().availableDecisionCount) this.finish('insufficient_evidence');
+  }
   private checkpoint(): boolean {
     if (this.terminal) return false;
     if (this.controller.signal.aborted || this.options.signal?.aborted) { this.finish('cancelled'); return false; }
@@ -146,13 +152,14 @@ export class BoundedAgentRun {
       this.activeAttempt = undefined;
       if (!this.checkpoint()) return undefined;
       if (!failure) {
+        this.current.validationCount++;
         try {
           const candidate = result!.candidate;
           if ((typeof candidate === 'string' ? new TextEncoder().encode(candidate).byteLength : jsonUtf8Bytes(candidate)) > 32768) throw new Error();
           const parsed = CoachModelStepSchema.safeParse(typeof candidate === 'string' ? JSON.parse(candidate) : candidate);
           if (!parsed.success) throw new Error();
           return parsed.data;
-        } catch { this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
+        } catch { this.current.validationRejectedCount++; this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
       }
       if (failure.kind === 'malformed') { this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
       const transient = ['timeout', 'rate_limited', 'server_error', 'network_error'].includes(failure.kind);
@@ -179,13 +186,17 @@ export class BoundedAgentRun {
       this.finish(proposal.reason === 'insufficient_context' ? 'insufficient_evidence' : 'invalid_model_proposal'); return false;
     }
     if (proposal.kind === 'tool_request') {
-      if (proposal.name !== 'get_decision_evidence') { this.finish('unknown_tool'); return false; }
+      this.current.toolAttemptCount++;
+      if (proposal.name !== 'get_decision_evidence') { this.current.toolRejectionCount++; this.finish('unknown_tool'); return false; }
       const args = DecisionEvidenceArgumentsSchema.safeParse(proposal.arguments);
-      if (!args.success || args.data.focus !== this.options.goal.focus) { this.finish('invalid_tool_arguments'); return false; }
+      this.current.validationCount++;
+      if (!args.success || args.data.focus !== this.options.goal.focus) {
+        this.current.validationRejectedCount++; this.current.toolRejectionCount++; this.finish('invalid_tool_arguments'); return false;
+      }
       const key = JSON.stringify([proposal.name, { focus: args.data.focus, limit: args.data.limit }, this.current.factsRevision]);
-      if (this.current.recentActionKeys.includes(key)) { this.finish('repeated_action'); return false; }
-      if (this.current.toolCallCount >= this.limits.maxToolCalls) { this.finish('tool_call_limit'); return false; }
-      if (stage !== 1) { this.finish('invalid_model_proposal'); return false; }
+      if (this.current.recentActionKeys.includes(key)) { this.current.toolRejectionCount++; this.finish('repeated_action'); return false; }
+      if (this.current.toolCallCount >= this.limits.maxToolCalls) { this.current.toolRejectionCount++; this.finish('tool_call_limit'); return false; }
+      if (stage !== 1) { this.current.toolRejectionCount++; this.finish('invalid_model_proposal'); return false; }
       const toolMs = Math.min(this.limits.toolTimeoutMs, this.current.deadlineAt - this.options.clock.now());
       const toolDeadlineAt = this.options.clock.now() + toolMs;
       try {
@@ -197,7 +208,8 @@ export class BoundedAgentRun {
         }, toolMs);
         if (!this.checkpoint()) return false;
         const validation = validateDecisionEvidence(output, this.options.snapshot, args.data);
-        if (validation.status === 'rejected') { this.finish('tool_failed', 'tool_validation'); return false; }
+        this.current.validationCount++;
+        if (validation.status === 'rejected') { this.current.validationRejectedCount++; this.finish('tool_failed', 'tool_validation'); return false; }
         this.current.validatedToolResult = structuredClone(validation.result);
         this.current.sampleLimited = validation.result.sampleLimited;
         if (validation.status === 'insufficient_evidence') { this.finish('insufficient_evidence'); return false; }
@@ -210,7 +222,8 @@ export class BoundedAgentRun {
     }
     if (stage !== 2 || !this.current.validatedToolResult) { this.finish('invalid_model_proposal'); return false; }
     const validated = validateFinalOutput(proposal, this.current.validatedToolResult);
-    if (validated.status === 'rejected') { this.finish('malformed_output', 'evidence_rejected'); return false; }
+    this.current.validationCount++;
+    if (validated.status === 'rejected') { this.current.validationRejectedCount++; this.finish('malformed_output', 'evidence_rejected'); return false; }
     if (validated.status === 'insufficient_evidence') { this.finish('insufficient_evidence'); return false; }
     if (this.checkpoint()) { this.current.result = validated.result; this.finish('completed'); }
     return false;

@@ -130,15 +130,15 @@ Finalna offline regresija: 708/708 u 51 fajlu; typecheck/lint/build exit 0.
 T017 ownership je injected fixture; produkcioni session slot/start/commit ostaje T019.
 Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
 
-- [ ] T018 A — Route contract RED for preflight, start/status, strict body/response,
+- [x] T018 A — Route contract RED for preflight, start/status, strict body/response,
   no-store, duplicate POST, invalid game, nonterminal, stale/new game and safe errors;
   deps T008,T016; allowed: `tests/contract/coach-routes.test.ts`;
   evidence: invalid preflight has zero provider/tool calls.
-- [ ] T019 A — Wire session run lifecycle, in-memory ownership, GET status and
+- [x] T019 A — Wire session run lifecycle, in-memory ownership, GET status and
   abort/stale fingerprint checks; deps T017,T018; allowed: `backend/src/session.ts`,
   `backend/src/routes.ts`, `backend/src/app.ts`, shared DTO/tests;
   evidence: route tests pass and Week04 bot/analysis flows remain stable.
-- [ ] T020 B — Usage/evidence aggregation distinguishes logical run, model step,
+- [x] T020 B — Usage/evidence aggregation distinguishes logical run, model step,
   provider attempts, tools, latency, usage and stop reason; deps T019;
   allowed: `backend/src/ai/usage.ts`, `shared/contracts.ts`, usage tests;
   evidence: step 2 is not retry; one tool is not provider call; unknown cost remains
@@ -207,3 +207,11 @@ bez pripisivanja ranijeg rada sebi ili drugom članu.
 
 Dokaz link/FR/putanja provere i stvarni setup neuspehi su u baseline logovima;
 nema izmišljenog dokumentacionog RED/GREEN ili review-a drugog člana.
+
+Phase 3 allowed dopuna: T018/T019 evidence i lifecycle integration test; T020 minimalni session wiring i agent counter tipovi/orchestrator radi brojanja odbijenih tool proposals. HTTP ugovor usklađen na /:runId po korisničkom zahtevu. T018 RED 21 assertion failure, 003-T018-red.txt; handoff T019: rute nedostaju, prethodni fokus 133/133 exit0.
+
+
+T019 handoff T020: 64/64 route/lifecycle/Week04 fokus exit0, typecheck exit0. Prvi GREEN 62/64: insufficient HTTP status behavior i pogrešan fake helper naziv; helper/setup neuspeh nije RED. Allowed orchestrator dopuna: synchroni no-evidence preflight za HTTP 200 bez dispatch-a. Network await van serial; jedan bounded slot, UUID/current fingerprint/abort/terminal guard.
+
+
+Phase 3 završeno: T018–T020 dokaz je docs/evidence/003-phase3-handoff.txt. Finalno758/758 testova (54 fajla), typecheck/lint/build exit0; svi RED/početni neuspehi sačuvani. T019 lock holdout popravljen queued reservation barijerom; provider/tool await van lock-a. T020 odvojeni coach brojači/validation/stop/epoch, Week04 semantika očuvana. T021–T023 ostaju otvoreni; UI/E2E/live nisu pokrenuti niti implementirani. Phase3 dokumentacija/evidence/manifest/usage-log su dozvoljene prateće putanje.
