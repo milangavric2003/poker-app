@@ -6,8 +6,9 @@ import { ProviderError, type AgentProvider } from '../backend/src/ai/types.js';
 import { processUsageStore } from '../backend/src/ai/usage.js';
 import { getDecisionEvidence } from '../backend/src/agent/tools.js';
 import { CORE_AGENT_LIMITS } from '../backend/src/agent/types.js';
-import type { RandomSource } from '../backend/src/engine/types.js';
-import { CoachResponseSchema, GameResponseSchema, UsageResponseSchema, type CoachRunView,
+import { parseProviderCandidate } from '../backend/src/ai/schemas.js';
+import type { RandomSource, PokerAction } from '../backend/src/engine/types.js';
+import { CoachModelStepSchema, CoachResponseSchema, GameResponseSchema, UsageResponseSchema, type CoachRunView,
   type GameView, type UsageDashboardView } from '../shared/contracts.js';
 
 export type CoachSmokeDependencies = Pick<SessionDependencies, 'aiConfig' | 'aiProvider'>;
@@ -27,6 +28,20 @@ function skipped(reason: string, exitCode: number): CoachSmokeResult {
   return { exitCode, report: { event: 'coach-smoke', executed: false, passed: false,
     reason, providerCallCount: 0, toolCallCount: 0 } };
 }
+type SmokeStep = { stepOrdinal: 1 | 2; kind: 'tool_request' | 'refusal' | 'final' | 'invalid';
+  refusalReason?: 'insufficient_context' | 'cannot_complete'; completed?: boolean; evidenceCount?: number };
+function stepMetadata(stepOrdinal: 1 | 2, candidate: unknown): SmokeStep {
+  try {
+    const parsed = CoachModelStepSchema.safeParse(parseProviderCandidate(candidate));
+    if (parsed.success) {
+      const value = parsed.data;
+      return { stepOrdinal, kind: value.kind,
+        ...(value.kind === 'refusal' ? { refusalReason: value.reason } : {}),
+        ...(value.kind === 'final' ? { completed: value.completed, evidenceCount: value.evidence.length } : {}) };
+    }
+  } catch { /* Keep unvalidated fields and raw parse exceptions out of the report. */ }
+  return { stepOrdinal, kind: 'invalid' };
+}
 
 /** One run only; no retry/fallback and no raw provider/game data in the report. */
 export async function runCoachSmoke(
@@ -34,6 +49,11 @@ export async function runCoachSmoke(
   dependencies: () => CoachSmokeDependencies = () => productionAiDependencies(),
 ): Promise<CoachSmokeResult> {
   if (!args.includes('--live')) return skipped('opt_in_required', 0);
+  const scenarioFlags = args.filter(arg => arg === '--scenario' || arg.startsWith('--scenario='));
+  const scenario = scenarioFlags.length === 0 ? 'single-all-in' : scenarioFlags[0]?.slice('--scenario='.length);
+  if (scenarioFlags.length > 1 || (scenario !== 'single-all-in' && scenario !== 'street-review')) {
+    return skipped('invalid_scenario', 2);
+  }
   let resolved: CoachSmokeDependencies;
   try { resolved = dependencies(); } catch { return skipped('configuration_unavailable', 2); }
   const { aiConfig, aiProvider } = resolved;
@@ -44,6 +64,8 @@ export async function runCoachSmoke(
     public: { ...aiConfig.public, maxAttempts: 1 as const, fallbackModel: null } };
   processUsageStore.reset(processUsageStore.snapshot().revision);
   let providerCalls = 0, toolCalls = 0, toolSnapshotPreserved = true;
+  let availableDecisionCount = 0, toolDecisionCount = 0, fixtureVerified = false;
+  const modelSteps: SmokeStep[] = [];
   const app = buildApp({ deck, deckRandom: fixedRandom(), botRandom: fixedRandom(), aiConfig: config,
     aiProvider: {
       async generate() { throw new ProviderError('config_error'); },
@@ -53,15 +75,22 @@ export async function runCoachSmoke(
           || request.runAttemptOrdinal !== providerCalls + 1 || request.model !== config.primaryModel) {
           throw new ProviderError('config_error');
         }
+        if (request.stepOrdinal === 1) availableDecisionCount = request.context.availableDecisionCount;
         providerCalls++;
-        return provider.generateAgent(request, signal);
+        const result = await provider.generateAgent(request, signal);
+        modelSteps.push(stepMetadata(request.stepOrdinal, result.candidate));
+        return result;
       },
     } as typeof aiProvider & AgentProvider,
     coachExecuteTool: (snapshot, args, controls) => {
       if (toolCalls >= 1) throw new Error('Tool budget exhausted');
       toolCalls++;
       const before = JSON.stringify(snapshot);
-      try { return getDecisionEvidence(snapshot, args, controls); }
+      try {
+        const result = getDecisionEvidence(snapshot, args, controls);
+        toolDecisionCount = result.decisions.length;
+        return result;
+      }
       finally { toolSnapshotPreserved = toolSnapshotPreserved && JSON.stringify(snapshot) === before; }
     },
   });
@@ -74,13 +103,26 @@ export async function runCoachSmoke(
     const created = await app.inject({ method: 'POST', url: '/api/game',
       headers: { 'if-none-match': '*' }, payload: { botCount: 1, aiMode: false } });
     assert.equal(created.statusCode, 201);
-    const initial = gameFrom(created.json());
+    let fixture = gameFrom(created.json());
     stage = 'finish-synthetic-game';
-    const moved = await app.inject({ method: 'POST', url: '/api/game/actions',
-      payload: { ...identity(initial), type: 'all_in' } });
-    assert.equal(moved.statusCode, 200);
-    terminal = gameFrom(moved.json());
+    const actions: PokerAction[] = scenario === 'street-review'
+      ? [{ type: 'call' }, { type: 'check' }, { type: 'check' }, { type: 'all_in' }] : [{ type: 'all_in' }];
+    const phases = ['preflop', 'flop', 'turn', 'river'] as const;
+    for (const [index, action] of actions.entries()) {
+      if (scenario === 'street-review') assert.equal(fixture.phase, phases[index]);
+      const moved = await app.inject({ method: 'POST', url: '/api/game/actions',
+        payload: { ...identity(fixture), ...action } });
+      assert.equal(moved.statusCode, 200);
+      fixture = gameFrom(moved.json());
+      assert.equal(providerCalls, 0);
+    }
+    terminal = fixture;
     assert.equal(terminal.phase, 'complete'); assert.notEqual(terminal.status, 'playing');
+    // Dealing starts after button seat 0: bot AA beats human KK on the fixed board.
+    assert.equal(terminal.status, 'lost');
+    assert.equal(terminal.players.find(player => player.kind === 'human')?.stack, 0);
+    assert.equal(terminal.players.find(player => player.kind === 'bot')?.stack, 2000);
+    fixtureVerified = true;
     assert.equal(providerCalls, 0);
     stage = 'start-coach';
     const response = await app.inject({ method: 'POST', url: '/api/game/coach',
@@ -125,6 +167,7 @@ export async function runCoachSmoke(
   return { exitCode: passed ? 0 : 1, report: {
     event: 'coach-smoke', executed: providerCalls > 0, passed, stage,
     reason: passed ? null : 'verification_failed', model: config.primaryModel, runId: run?.runId ?? null,
+    scenario, fixtureVerified, availableDecisionCount, toolDecisionCount, modelSteps,
     goal: { focus: 'street' }, maxRuns: 1, maxProviderCalls: 2,
     providerAttemptTimeoutMs: CORE_AGENT_LIMITS.providerAttemptTimeoutMs, totalDeadlineMs: CORE_AGENT_LIMITS.totalDeadlineMs,
     status: run?.status ?? null, stopReason: run?.stopReason ?? null, failureCategory: run?.failureCategory ?? null,

@@ -5,8 +5,9 @@ Datum:2026-10-05,Europe/Belgrade. Polazni HEAD:
 T024/T025/T026 završeni; [T026 handoff](evidence/003-T026-handoff.txt).
 **T027 walkthrough/doprinos oba člana korisnik je ostavio za kasnije.**
 T030 runner i jedan live ishod su dodati na HEAD `57198a7`; live završava
-`insufficient_evidence`, pa validirani live final ostaje T031. Detalji su u novom
-T030 odeljku i [handoff-u](evidence/003-T030-handoff.md).
+`insufficient_evidence`; T031 na commitovanom T030 HEAD-u `bdf33c3` sada ima uspešan
+odobreni live #2 sa validiranim finalom. Detalji u T030/T031 odeljcima i
+[aktuelnom handoff-u](evidence/003-T031-handoff.md).
 Brojke/logovi T024–T027 ispod opisuju prvobitni Phase 5 rad (live 0), nisu
 prepisani novim izvršenjima. Week05 puna predaja još nije potvrđena.
 
@@ -291,3 +292,45 @@ istorijska Week03/Week04 materijala u ovom checkout-u. GAME_SPEC čuva njihove p
 kao poreklo, bez nevažećih klikabilnih linkova; usvojeni zahtevi nisu uklonjeni.
 Naknadni link/status/scope/diff rezultat je u istom logu. Jedan dokumentacioni patch
 sa pogrešnim završnim kontekstom odbijen je pre izmene i potom ispravljen; nije RED.
+
+## T031 — validirani live #2, 2026-10-05
+
+Polazni čist HEAD bdf33c3f132b0d2003e9eddf26778fcb74db2f6a, grana week05/implementation.
+Korisnik traži posebno pitanje i redni broj pre svakog live run-a; izričito odgovorio
+„Odobravam live run #2“ nakon zelenih offline provera. Jedan coding agent.
+
+Runner scenario street-review daje četiri stvarne ljudske odluke preko action ruta
+(call/check/check/all_in), bez promene engine-a, adaptera, UI-ja ili dependencies.
+Default single-all-in ostaje. Metadata iz strict step schema ne čuva raw sadržaj.
+Final validator i budžet ostaju 1run/2provider calls/1tool, retry0/fallback0,15s/45s.
+
+| Provera | Stvarni rezultat |
+|---|---|
+| Baseline | [106/106, exit0](evidence/003-T031-prerequisites.txt) |
+| Test-first | [RED9FAIL/15PASS](evidence/003-T031-red-final.txt) → [GREEN24/24](evidence/003-T031-green-final.txt) |
+| Priprema korekcije | [prvi RED](evidence/003-T031-red.txt) imao array table setup; [prvi GREEN](evidence/003-T031-green.txt) otkrio pogrešno očekivanog pobednika; ispravljen oracle po dealing ugovoru, špil nije menjan |
+| Puna regresija | [827/827, 58fajlova, exit0](evidence/003-T031-tests.txt) |
+| Coach + Week04 Chromium | [4/4, exit0](evidence/003-T031-e2e.txt) |
+| Typecheck / lint / build | [exit0](evidence/003-T031-typecheck.txt) / [exit0](evidence/003-T031-lint.txt) / [exit0](evidence/003-T031-build.txt) |
+| Odobreni live #2 | [completed, exit0](evidence/003-T031-live-02.txt), 2steps/2calls/1tool, finalValidated/readOnly=true |
+
+Model gemini-3.5-flash-lite; runId3c613f27-4d49-4bb1-90e2-f0bb92a0f795.
+4available/4tool decisions, step1 tool_request, step2 final completed=true/4evidence
+references; validation5/rejected0, retry/fallback0. Runner3254ms/run3182ms;
+step1 latency1169ms, step2 2007ms. Prompt1010/candidate476/total1486tokena;
+thought/cached usage i cenaunknown. Javna poker projekcija i trusted tool snapshot
+nepromenjeni; privatni RNG/history/facts invariant pokriva raniji lifecycle dokaz.
+
+Potvrđeni Week05 zbir ovog razgovora: 2run-a/4provider calls/2tools/1950total tokena,
+jedan insufficient stop i jedan validirani final. Drugi razgovori nisu prebrojani.
+Nema #3; budući live zahteva novo pitanje sa rednim brojem. Mali uzorak nije dokazan
+uzrok #1 stop-a; uspeh #2 ne dokazuje stratešku optimalnost ili buduću dostupnost.
+
+T031 i live gate zatvoreni; T027 doprinos/walkthrough ostaju korisnički odloženi.
+Nisu ponavljeni npmci/puni13E2E/screen reader/axe/drugi browser/ljudski review.
+Nema našeg commit/push/deployment-a; baseline screenshot-i i build/cache nisu u diff-u.
+Raniji tool ispisi delom skraćeni, logovi zadržavaju dostupni izlaz; to nije raw-output
+ili security audit celog repo-a. Dva dokumentaciona patch-a odbijena zbog netačnog
+line konteksta pre izmene, potom ispravljena; PowerShell bash brace syntax zamenjen
+navedenim putanjama. To nisu runtime RED dokazi.
+[Handoff](evidence/003-T031-handoff.md), [završni audit](evidence/003-T031-audit.txt).

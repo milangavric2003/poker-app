@@ -10,7 +10,8 @@ Istorijska objašnjenja buduće implementacije ispod čuvaju ugovor; stvarni sta
 u [taskovima](tasks.md) i [T024 handoff-u](../../docs/evidence/003-T024-handoff.txt).
 T027 ljudska potvrda ostaje otvorena.
 T030 dodaje smoke runner i stvarni live ishod; njegov insufficient_evidence stop
-ne zatvara T031 uspešnog live finala. [Novi handoff](../../docs/evidence/003-T030-handoff.md).
+sam nije zatvorio live gate. T031 live #2 ga zatvara validiranim finalom 2/2/1,
+read-only=true. [Aktuelni handoff](../../docs/evidence/003-T031-handoff.md).
 
 ## Cilj i tok
 
@@ -189,6 +190,19 @@ T030 jedan live run je stvarno završen insufficient_evidence. T031: dogovoriti
 informativniji sintetički scenario, dokazati ga offline, pa tek uz novo odobrenje
 pokrenuti mali live demo. Iz sanitizovanog stop-a ne izvodi se da je mali uzorak
 dokazan uzrok; to je hipoteza za sledeći scenario, bez slabljenja validatora.
+
+T031 slice: `--scenario=street-review` bira lokalni fiksni driver call/check/check/
+all_in kroz create/action HTTP rute, 4 odluke iz jedne ruke. Constructor fixture i
+deck ostaju lokalni, bez produkcionog debug API-ja; expected stack oracle0/2000.
+Default scenario je `single-all-in`; nepoznat/prazan/dupli scenario flag odbija se
+pre dependencies factory-ja. Provider wrapper čuva samo count-e i projekciju
+`CoachModelStepSchema` (kind, refusal enum ili final completed/evidenceCount), zatim
+prosleđuje originalni nepoverljivi candidate postojećem orchestrator validatoru.
+Tool wrapper beleži broj stvarnih decisions bez sadržaja. Metadata ne popravlja
+predlog, ne prisiljava model na final i ne zamenjuje final membership proveru.
+Test-first proveriti oracle/count/context/budget/read-only/privacy, pa relevantne
+regresije/typecheck/lint/build. Tek zatim zatražiti korisnikov odgovor za live#2;
+svaki naredni run takođe zahteva zasebno pitanje i redni broj.
 
 ## Putanje, artefakti i handoff
 

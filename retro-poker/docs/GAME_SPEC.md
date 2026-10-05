@@ -333,16 +333,23 @@ Ljudski gate ispod ostaje otvoren; tehnički checkbox nije potvrda obe osobe.
   stvarni naizmenični doprinos dokumentovan je bez izmišljene potvrde.
 - [x] Sve relevantne aplikacione provere su izvršene i zapisane sa stvarnim rezultatima;
   redovni testovi ostaju offline fake matrix.
-- [ ] Uspešan ograničen Week05 live demo kroz postojeći provider, dva model koraka,
+- [x] Uspešan ograničen Week05 live demo kroz postojeći provider, dva model koraka,
   stvarni alat i validirani final ima zabeležen ishod. Assignment §31 traži limited
   live demo; Week04 live smoke i
   fake run ga ne zamenjuju. Neuspeh se beleži kao neuspeh, bez tvrdnje da je live
-  success potvrđen. Korisnik je 2026-10-05 odobrio najviše jedan run ovog rada.
+  success potvrđen. T030 odobrenje važilo je za jedan run. Za nastavak T031 korisnik
+  odobrava više malih run-ova uz izričito pitanje i redni broj pre svakog novog run-a;
+  dispatch čeka odgovor. Smernice ≤15 razvojnih/≤3 demo run-a nisu cilj potrošnje.
 
 T030 runner/testovi i stvarni ishod su zabeleženi u
 [handoff-u](evidence/003-T030-handoff.md): 1 live run, 2 model koraka/2 provider
-poziva/1 alat, stopped/insufficient_evidence. Gate uspešnog live finala ostaje T031;
+poziva/1 alat, stopped/insufficient_evidence. T031 odobreni #2 sada zatvara live gate;
 ljudski T027 korisnik je izričito ostavio za kasnije. Ne menjaju se poker pravila.
+
+T031 offline priprema dodaje scenario sa četiri odluke i bezbednu projekciju vrste
+modelskih koraka; ista ograničenja 2/2/1 i final validator ostaju. Odobreni live #2
+ima completed, 4 evidence reference i read-only=true, retry/fallback0.
+[Stvarni dokaz](evidence/003-T031-live-02.txt), [aktuelni handoff](evidence/003-T031-handoff.md).
 
 ## 15. Izvori i upravljanje promenama
 

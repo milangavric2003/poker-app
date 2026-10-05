@@ -154,6 +154,8 @@ npm.cmd run build
 npm.cmd run smoke:coach
 # Samo uz odobren live budžet i lokalnu server-side .env konfiguraciju:
 npm.cmd run smoke:coach -- --live
+# T031, uz zasebno odobrenje pre svakog run-a:
+npm.cmd run smoke:coach -- --live --scenario=street-review
 ```
 
 Bez `--live`: exit 0 i nula provider/tool poziva. Bez validne konfiguracije: exit 2
@@ -165,8 +167,16 @@ ili sirovih promptova/odgovora.
 T030, 2026-10-05: jedan odobren live run sa Gemini 3.5 Flash Lite imao je 2 koraka,
 2 provider poziva i 1 tool execution, pa je završio `stopped/insufficient_evidence`.
 Read-only provera je prošla, retry/fallback 0, ukupno 464 tokena; cena unknown.
-Validirani live savet nije dobijen. Nema ponavljanja u ovoj sesiji; uspešan live
-final ostaje T031. [Stvarni izlaz](docs/evidence/003-T030-live.txt).
+T030 nije dobio validirani live savet. [Stvarni izlaz](docs/evidence/003-T030-live.txt).
+
+T031 priprema: `street-review` prikuplja četiri stvarne odluke iz jedne sintetičke
+ruke (call/check/check/all_in). Originalni `single-all-in` ostaje default.
+Report dodaje broj dostupnih/tool odluka i validiranu vrstu modelskog koraka,
+bez sadržaja odluka. Offline827/827 i relevantni E2E4/4 prolaze. Odobreni live run #2
+završio je completed, 2steps/2calls/1tool, 4 reference i read-only=true, retry/fallback0.
+[Stvarni live #2](docs/evidence/003-T031-live-02.txt), 1486 tokena, cenaunknown.
+Nema run-a #3; svaki budući run zahteva novo pitanje sa brojem.
+[Priprema i handoff](docs/evidence/003-T031-handoff.md).
 
 Storage je samo memorijski: restart gubi partiju, facts, run i usage; nova partija
 uklanja coach slot. MatchFacts zadržava do 200 detaljnih odluka, starije agregira.

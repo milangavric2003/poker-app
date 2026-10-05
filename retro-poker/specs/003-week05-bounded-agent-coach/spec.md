@@ -3,7 +3,7 @@
 **Feature**: `003-week05-bounded-agent-coach`  
 **Status**: T002–T026 implementirani/provereni; T028/T029 male korekcije imaju dokaz.
 Ljudski walkthrough T027 nije potvrđen. Specifikacija sama nije runtime dokaz.
-T030 runner i jedan live ishod su zabeleženi; uspešan live final ostaje T031.
+T030 runner/stop su zabeleženi; T031 odobreni live #2 završio je validiranim finalom.
 **Datum**: 2026-10-04  
 **Ulaz**: proširenje Week04 analize završene partije u mali, proverljiv agentski tok.
 
@@ -306,3 +306,24 @@ Stvarni T030 rezultat: 1 run sa Gemini 3.5 Flash Lite, 2 steps/2 attempts/1 exec
 stopped/insufficient_evidence, bez finala; read-only prolazi. Safe izlaz ne omogućava
 zaključak o konkretnom razlogu nedovoljnosti ili strateškom kvalitetu saveta.
 T031 vodi preostali live success dokaz; T027/doprinos korisnik ostavlja za kasnije.
+
+### T031 scenario i live odobrenje — 2026-10-05
+
+Novi eksplicitni smoke scenario `street-review` pribavlja četiri stvarne ljudske
+odluke kroz produkcione action rute jedne sintetičke terminalne ruke: call preflop,
+check flop, check turn, all_in river. Ne menja poker pravila niti tool/final gates.
+Pre coach start-a svi potezi su legalni, partija lost, čovek0/bot2000 i nula provider
+poziva. Default T030 single-all-in ostaje za reprodukciju prvog dokaza.
+Report dodaje samo scenario, available/tool decision count i runtime-validiranu
+vrstu modelskog koraka/refusal reason enum. Kandidat i slobodan tekst se ne čuvaju.
+Nevažeći scenario flag daje exit2 pre AI konfiguracije/poziva. Success i dalje 2/2/1
+sa validiranim finalom, read-only i bez retry/fallback-a; refusal ostaje bezbedan stop.
+
+Korisnik dopušta više live run-ova uz pitanje i navođenje rednog broja pre svakog.
+Za ovaj nastavak cilj je jedan novi run, #2 u potvrđenom Week05 brojanju razgovora.
+Pitanje/odgovor se čeka pre dispatch-a; preselected opcija nije odobrenje. Sledeći
+run nije autorizovan samo prethodnim sandbox command prefix-om.
+
+T031 stvarni ishod: korisnik izričito odobrio #2, street-review; completed, 2/2/1,
+4 evidence reference, read-only=true, retry0/fallback0. [Live dokaz](../../docs/evidence/003-T031-live-02.txt).
+Nije dokaz optimalnosti saveta niti ljudskog walkthrough-a. T027 ostaje otvoren.

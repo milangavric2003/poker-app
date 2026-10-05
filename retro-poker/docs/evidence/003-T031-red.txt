@@ -1,0 +1,384 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts --reporter=verbose
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts --reporter=verbose
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > without the exact --live flag does not load configuration or create a provider 8ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects disabled configuration before any call 2ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_key configuration before any call 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_agent configuration before any call 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final 270ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports unknown_tool rejection with zero executor calls 46ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports invalid_arguments rejection with zero executor calls 41ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops timeout_error after one attempt with no retry or fallback 48ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 429 after one attempt with no retry or fallback 45ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 5xx after one attempt with no retry or fallback 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops auth_config after one attempt with no retry or fallback 46ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > a step-two failure keeps the executed tool count and does not restart the workflow 48ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects invented evidence as a failed smoke, even after two successful provider responses 45ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports insufficient evidence after the tool as an incomplete live outcome, without another call 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > never prints exception text or provider content, including configuration factory failures 46ms
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > collects four real decisions over four streets before one bounded coach run 53ms
+   → expected { event: 'coach-smoke', …(22) } to match object { scenario: 'street-review', …(8) }
+(33 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario=unknown" before AI configuration 1ms
+   → expected { event: 'coach-smoke', …(5) } to match object { executed: false, …(3) }
+(2 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario=" before AI configuration 1ms
+   → expected { event: 'coach-smoke', …(5) } to match object { executed: false, …(3) }
+(2 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario" before AI configuration 0ms
+   → expected { event: 'coach-smoke', …(5) } to match object { executed: false, …(3) }
+(2 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario=street-review" before AI configuration 1ms
+   → expected { event: 'coach-smoke', …(5) } to match object { executed: false, …(3) }
+(2 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > preserves the original one-decision scenario and reports its actual sample size 40ms
+   → expected { event: 'coach-smoke', …(22) } to match object { scenario: 'single-all-in', …(2) }
+(37 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > reports a valid refusal enum, keeps the stop and spends no additional attempt 46ms
+   → expected { event: 'coach-smoke', …(22) } to match object { status: 'stopped', …(5) }
+(34 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > never echoes an unvalidated refusal reason into diagnostics 47ms
+   → expected { event: 'coach-smoke', …(22) } to match object { status: 'failed', …(2) }
+(35 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > lets the model narrow the legal tool sample instead of silently expanding its arguments 47ms
+   → expected { event: 'coach-smoke', …(22) } to match object { availableDecisionCount: 4, …(2) }
+(36 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > collects four real decisions over four streets before one bounded coach run
+AssertionError: expected { event: 'coach-smoke', …(22) } to match object { scenario: 'street-review', …(8) }
+(33 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "availableDecisionCount": 4,
+-   "fixtureVerified": true,
+-   "modelSteps": [
+-     {
+-       "kind": "tool_request",
+-       "stepOrdinal": 1,
+-     },
+-     {
+-       "completed": true,
+-       "evidenceCount": 1,
+-       "kind": "final",
+-       "stepOrdinal": 2,
+-     },
+-   ],
+    "providerCallCount": 2,
+    "readOnlySnapshotPreserved": true,
+-   "scenario": "street-review",
+    "status": "completed",
+    "toolCallCount": 1,
+-   "toolDecisionCount": 4,
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:129:27
+    127|     const result = await work();
+    128|     expect(result.exitCode).toBe(0);
+    129|     expect(result.report).toMatchObject({ scenario: 'street-review', f…
+       |                           ^
+    130|       availableDecisionCount: 4, toolDecisionCount: 4, status: 'comple…
+    131|       toolCallCount: 1, readOnlySnapshotPreserved: true,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario=unknown" before AI configuration
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario=" before AI configuration
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario" before AI configuration
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags "--scenario=street-review" before AI configuration
+AssertionError: expected { event: 'coach-smoke', …(5) } to match object { executed: false, …(3) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "executed": false,
+    "providerCallCount": 0,
+-   "reason": "invalid_scenario",
++   "reason": "configuration_unavailable",
+    "toolCallCount": 0,
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:153:27
+    151|     const result = await runCoachSmoke(['--live', ...flags], factory);
+    152|     expect(result.exitCode).toBe(2);
+    153|     expect(result.report).toMatchObject({ executed: false, reason: 'in…
+       |                           ^
+    154|     expect(factory).not.toHaveBeenCalled();
+    155|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > preserves the original one-decision scenario and reports its actual sample size
+AssertionError: expected { event: 'coach-smoke', …(22) } to match object { scenario: 'single-all-in', …(2) }
+(37 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "availableDecisionCount": 1,
+-   "scenario": "single-all-in",
+-   "toolDecisionCount": 1,
++   "durationMs": 37,
++   "event": "coach-smoke",
++   "evidenceCount": 1,
++   "executed": true,
++   "failureCategory": null,
++   "finalValidated": true,
++   "goal": {
++     "focus": "street",
++   },
++   "maxProviderCalls": 2,
++   "maxRuns": 1,
++   "model": "gemini-3.8-flash",
++   "passed": true,
++   "providerAttemptTimeoutMs": 15000,
++   "providerCallCount": 2,
++   "readOnlySnapshotPreserved": true,
++   "reason": null,
++   "runId": "c95b57a4-d67f-42f6-8617-03202acf6acc",
++   "stage": "completed",
++   "status": "completed",
++   "stepCount": 2,
++   "stopReason": "completed",
++   "toolCallCount": 1,
++   "totalDeadlineMs": 45000,
++   "usage": {
++     "attempts": [
++       {
++         "count": 1,
++         "latency": {
++           "count": 1,
++           "maxMs": 0,
++           "sumMs": 0,
++         },
++         "model": "gemini-3.8-flash",
++         "outcome": "success",
++         "relation": "initial",
++         "stepOrdinal": 1,
++         "usage": {
++           "cachedTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "candidateTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "cost": {
++             "currency": null,
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": null,
++           },
++           "promptTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "thoughtTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "totalTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++         },
++       },
++       {
++         "count": 1,
++         "latency": {
++           "count": 1,
++           "maxMs": 0,
++           "sumMs": 0,
++         },
++         "model": "gemini-3.8-flash",
++         "outcome": "success",
++         "relation": "initial",
++         "stepOrdinal": 2,
++         "usage": {
++           "cachedTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "candidateTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "cost": {
++             "currency": null,
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": null,
++           },
++           "promptTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "thoughtTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++           "totalTokens": {
++             "knownCount": 0,
++             "missingCount": 1,
++             "sum": 0,
++           },
++         },
++       },
++     ],
++     "latency": {
++       "count": 1,
++       "maxMs": 1,
++       "sumMs": 1,
++     },
++     "modelFallbackCount": 0,
++     "providerAttemptCount": 2,
++     "retryCount": 0,
++     "runCount": 1,
++     "stepCount": 2,
++     "stopReasons": [
++       {
++         "count": 1,
++         "reason": "completed",
++       },
++     ],
++     "toolAttemptCount": 1,
++     "toolExecutionCount": 1,
++     "toolRejectionCount": 0,
++     "validationCount": 5,
++     "validationRejectedCount": 0,
++   },
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:160:27
+    158|     const { work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'agent_f…
+    159|     const result = await work();
+    160|     expect(result.report).toMatchObject({ scenario: 'single-all-in', a…
+       |                           ^
+    161|   });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > reports a valid refusal enum, keeps the stop and spends no additional attempt
+AssertionError: expected { event: 'coach-smoke', …(22) } to match object { status: 'stopped', …(5) }
+(34 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "availableDecisionCount": 4,
+    "finalValidated": false,
+-   "modelSteps": [
+-     {
+-       "kind": "tool_request",
+-       "stepOrdinal": 1,
+-     },
+-     {
+-       "kind": "refusal",
+-       "refusalReason": "insufficient_context",
+-       "stepOrdinal": 2,
+-     },
+-   ],
+    "status": "stopped",
+    "stopReason": "insufficient_evidence",
+-   "toolDecisionCount": 4,
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:167:27
+    165|     const result = await work();
+    166|     expect(result.exitCode).toBe(1);
+    167|     expect(result.report).toMatchObject({ status: 'stopped', stopReaso…
+       |                           ^
+    168|       availableDecisionCount: 4, toolDecisionCount: 4, finalValidated:…
+    169|       modelSteps: [{ stepOrdinal: 1, kind: 'tool_request' },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > never echoes an unvalidated refusal reason into diagnostics
+AssertionError: expected { event: 'coach-smoke', …(22) } to match object { status: 'failed', …(2) }
+(35 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "modelSteps": [
+-     {
+-       "kind": "tool_request",
+-       "stepOrdinal": 1,
+-     },
+-     {
+-       "kind": "invalid",
+-       "stepOrdinal": 2,
+-     },
+-   ],
+    "status": "failed",
+    "stopReason": "malformed_output",
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:179:27
+    177|     const result = await work();
+    178|     expect(result.exitCode).toBe(1);
+    179|     expect(result.report).toMatchObject({ status: 'failed', stopReason…
+       |                           ^
+    180|       modelSteps: [{ stepOrdinal: 1, kind: 'tool_request' }, { stepOrd…
+    181|     expect(JSON.stringify(result)).not.toContain('PRIVATE_RAW_REASON');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > lets the model narrow the legal tool sample instead of silently expanding its arguments
+AssertionError: expected { event: 'coach-smoke', …(22) } to match object { availableDecisionCount: 4, …(2) }
+(36 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "availableDecisionCount": 4,
+    "finalValidated": true,
+-   "toolDecisionCount": 1,
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:189:27
+    187|     const result = await work();
+    188|     expect(result.exitCode).toBe(0);
+    189|     expect(result.report).toMatchObject({ availableDecisionCount: 4, t…
+       |                           ^
+    190|     expect(provider.agentCalls[1]!.request.context.toolResult!.sampleL…
+    191|     expect(provider.agentCalls[1]!.request.context.toolResult!.decisio…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 15 passed (24)
+   Start at  20:10:07
+   Duration  2.32s (tests 47%, import 30%, transform 23%)
+
+
+Exit status: 1
+

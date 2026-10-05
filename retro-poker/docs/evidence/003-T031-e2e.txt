@@ -1,0 +1,19 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run test:e2e -- tests/e2e/coach.spec.ts tests/e2e/ai-offline.spec.ts
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/coach.spec.ts tests/e2e/ai-offline.spec.ts
+
+Running 4 tests using 1 worker
+
+(node:16456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\e2e\ai-offline.spec.ts:5:1 › offline fake provider covers bot, analysis retry, dashboard and independent resets (5.6s)
+  ok 2 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (2.3s)
+  ok 3 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (5.8s)
+  ok 4 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (5.8s)
+
+  4 passed (21.9s)
+
+Exit status: 0
+Fake provider, novi live pozivi0.

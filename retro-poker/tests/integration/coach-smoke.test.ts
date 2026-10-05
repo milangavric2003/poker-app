@@ -5,9 +5,9 @@ import { ProviderError, type AiProvider, type AgentProvider } from '../../backen
 import { FakeAiProvider, type FakeAiStep } from '../helpers/fake-ai-provider.js';
 
 const configured = () => loadAiConfig({ GEMINI_API_KEY: 'SMOKE_SECRET_KEY', GEMINI_MAX_ATTEMPTS: '2' });
-function fakeRun(steps: FakeAiStep[]) {
+function fakeRun(steps: FakeAiStep[], args: readonly string[] = ['--live']) {
   const provider = new FakeAiProvider(steps);
-  return { provider, work: () => runCoachSmoke(['--live'], () => ({ aiConfig: configured(), aiProvider: provider })) };
+  return { provider, work: () => runCoachSmoke(args, () => ({ aiConfig: configured(), aiProvider: provider })) };
 }
 
 describe('T030 bounded Week05 smoke through HTTP/session/orchestrator', () => {
@@ -116,5 +116,78 @@ describe('T030 bounded Week05 smoke through HTTP/session/orchestrator', () => {
     const result = await runCoachSmoke(['--live'], () => ({ aiConfig: configured(), aiProvider: provider }));
     expect(result.exitCode).toBe(1);
     for (const secret of ['SMOKE_SECRET_KEY', 'SECRET_BOT', 'SECRET_PROVIDER_RESPONSE']) expect(JSON.stringify(result)).not.toContain(secret);
+  });
+});
+
+describe('T031 informative synthetic street review and safe step metadata', () => {
+  const args = ['--live', '--scenario=street-review'];
+
+  it('collects four real decisions over four streets before one bounded coach run', async () => {
+    const { provider, work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'agent_final' }], args);
+    const result = await work();
+    expect(result.exitCode).toBe(0);
+    expect(result.report).toMatchObject({ scenario: 'street-review', fixtureVerified: true,
+      availableDecisionCount: 4, toolDecisionCount: 4, status: 'completed', providerCallCount: 2,
+      toolCallCount: 1, readOnlySnapshotPreserved: true,
+      modelSteps: [{ stepOrdinal: 1, kind: 'tool_request' },
+        { stepOrdinal: 2, kind: 'final', completed: true, evidenceCount: 1 }] });
+    const context = provider.agentCalls[1]!.request.context;
+    expect(context.availableDecisionCount).toBe(4);
+    expect(context.toolResult!.decisions).toHaveLength(4);
+    expect(context.toolResult!.decisions.map(d => d.facts.find(f => f.factCode === 'phase')!.finding))
+      .toEqual(['"preflop"', '"flop"', '"turn"', '"river"']);
+    expect(context.toolResult!.decisions.map(d => d.facts.find(f => f.factCode === 'action')!.finding))
+      .toEqual(['{"type":"call"}', '{"type":"check"}', '{"type":"check"}', '{"type":"all_in"}']);
+    expect(provider.calls).toHaveLength(0);
+    expect(provider.agentCalls.map(c => [c.stepOrdinal, c.attemptOrdinal])).toEqual([[1, 1], [2, 1]]);
+    for (const marker of ['SMOKE_SECRET_KEY', 'holeCards', 'finding', 'Pregled dostupnih odluka.', '"candidate":']) {
+      expect(JSON.stringify(result)).not.toContain(marker);
+    }
+  });
+
+  it.each([{ flags: ['--scenario=unknown'] }, { flags: ['--scenario='] }, { flags: ['--scenario'] },
+    { flags: ['--scenario=street-review', '--scenario=single-all-in'] }])('rejects invalid scenario flags $flags before AI configuration', async ({ flags }) => {
+    const factory = vi.fn(() => { throw new Error('must not load secrets'); });
+    const result = await runCoachSmoke(['--live', ...flags], factory);
+    expect(result.exitCode).toBe(2);
+    expect(result.report).toMatchObject({ executed: false, reason: 'invalid_scenario', providerCallCount: 0, toolCallCount: 0 });
+    expect(factory).not.toHaveBeenCalled();
+  });
+
+  it('preserves the original one-decision scenario and reports its actual sample size', async () => {
+    const { work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'agent_final' }]);
+    const result = await work();
+    expect(result.report).toMatchObject({ scenario: 'single-all-in', availableDecisionCount: 1, toolDecisionCount: 1 });
+  });
+
+  it('reports a valid refusal enum, keeps the stop and spends no additional attempt', async () => {
+    const { provider, work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'agent_refusal' }], args);
+    const result = await work();
+    expect(result.exitCode).toBe(1);
+    expect(result.report).toMatchObject({ status: 'stopped', stopReason: 'insufficient_evidence',
+      availableDecisionCount: 4, toolDecisionCount: 4, finalValidated: false,
+      modelSteps: [{ stepOrdinal: 1, kind: 'tool_request' },
+        { stepOrdinal: 2, kind: 'refusal', refusalReason: 'insufficient_context' }] });
+    expect(provider.agentCalls).toHaveLength(2);
+  });
+
+  it('never echoes an unvalidated refusal reason into diagnostics', async () => {
+    const { work } = fakeRun([{ kind: 'agent_tool' },
+      { candidate: { kind: 'refusal', reason: 'PRIVATE_RAW_REASON' } }], args);
+    const result = await work();
+    expect(result.exitCode).toBe(1);
+    expect(result.report).toMatchObject({ status: 'failed', stopReason: 'malformed_output',
+      modelSteps: [{ stepOrdinal: 1, kind: 'tool_request' }, { stepOrdinal: 2, kind: 'invalid' }] });
+    expect(JSON.stringify(result)).not.toContain('PRIVATE_RAW_REASON');
+  });
+
+  it('lets the model narrow the legal tool sample instead of silently expanding its arguments', async () => {
+    const { provider, work } = fakeRun([{ candidate: { kind: 'tool_request', name: 'get_decision_evidence',
+      arguments: { focus: 'street', limit: 1 } } }, { kind: 'agent_final' }], args);
+    const result = await work();
+    expect(result.exitCode).toBe(0);
+    expect(result.report).toMatchObject({ availableDecisionCount: 4, toolDecisionCount: 1, finalValidated: true });
+    expect(provider.agentCalls[1]!.request.context.toolResult!.sampleLimited).toBe(true);
+    expect(provider.agentCalls[1]!.request.context.toolResult!.decisions).toHaveLength(1);
   });
 });

@@ -334,11 +334,38 @@ Fokus105/105 pre holdout-a; coach/Week04 E2E4/4; typecheck/lint/build0.
 1live run/2provider calls/1tool,insufficient_evidence,464tokena,cenaunknown.
 T027 ostaje otvoren: korisnik je izričito odložio doprinos/walkthrough podatke.
 
-- [ ] T031 (oba člana; sledeći driver po dogovoru) — Dopuniti dokaz uspešnog live
-  Week05 finala; deps T030; allowed: smoke fixture i njegovi offline testovi, feature
-  plan/tasks/spec, README i evidence/usage/manifest. Pre live-a dogovoriti mali
+- [x] T031 (oba člana; sledeći driver po dogovoru) — Dopuniti dokaz uspešnog live
+  Week05 finala; deps T030; allowed: `scripts/coach-smoke.ts`,
+  `tests/integration/coach-smoke.test.ts`, feature `plan.md`/`tasks.md`/`spec.md`,
+  `docs/GAME_SPEC.md`, `README.md`, `docs/EVIDENCE_W05.md`, `docs/AI_USAGE_LOG.md`,
+  `docs/CONTEXT_MANIFEST.md`, `docs/evidence/003-T031-*`,
+  `docs/evidence/003-T027-demo.md`. Pre live-a dogovoriti mali
   informativniji sintetički scenario i njegovo očekivanje, pa proveriti offline.
   Zatim tražiti novi mali live budžet: T030 jedno odobrenje je potrošeno i ne prenosi
   se na ovaj task. Evidence: stvarni completed sa validiranim finalom, dva model
   koraka/jedan alat/read-only; ili iskreno otvoren gate sa failure razlogom.
   Ne popunjavati lažan savet i ne slabiti final/insufficient validaciju radi demo-a.
+
+T031 početak, 2026-10-05: HEAD `bdf33c3f132b0d2003e9eddf26778fcb74db2f6a`,
+grana `week05/implementation`, čist worktree. Korisnik odobrio nastavak i više
+malih live run-ova, uz izričito pitanje i redni broj pre SVAKOG novog run-a.
+Brojimo potvrđene Week05 run-ove ovog razgovora: T030=#1, sledeći=#2.
+Istorijski ukupni Week05 zbir drugih sesija ostaje unknown. Nema automatskog retry-ja.
+Prvi cilj je samo jedan novi run posle offline pripreme; dodatni tek ako je potreban
+i zasebno odobren. Nastavne smernice ≤15development/≤3demo ostaju.
+
+Slice: zadržati T030 default single-all-in radi reprodukcije i dodati eksplicitni
+`--scenario=street-review`: jedna terminalna ruka sa ljudskim call/check/check/all_in
+na preflop/flop/turn/river, bot random0.9, isti sintetički AA-vs-KK deck. Oracle:
+4detaljne odluke, čovek0/bot2000, lost; provider0 dok fixture ne bude terminalan.
+Sačuvati count-e dostupnih/tool odluka i validirani kind/refusal enum po modelskom
+koraku, bez raw teksta/karata/finding-a. Zelen offline scenario prethodi pitanju
+za live#2; fixture uzorak nije dokazan uzrok ranijeg insufficient stop-a.
+
+T031 završeno: korisnik izričito odobrio live #2; [stvarni completed dokaz](../../docs/evidence/003-T031-live-02.txt)
+ima 2steps/2provider calls/1tool, 4 dostupne/tool odluke, finalValidated=true,
+4 evidence reference, readOnly=true, retry0/fallback0, validation5/rejected0.
+Model Gemini3.5FlashLite; runId3c613f27-4d49-4bb1-90e2-f0bb92a0f795;
+runner3254ms/run3182ms, prompt1010/candidate476/total1486tokena, cenaunknown.
+Offline24/24 runner, puna827/827, E2E4/4, typecheck/lint/build0.
+Nema #3. [Handoff](../../docs/evidence/003-T031-handoff.md). T027 ostaje otvoren.

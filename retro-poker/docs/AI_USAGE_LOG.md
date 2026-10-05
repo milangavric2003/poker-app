@@ -365,3 +365,29 @@ final, ne ponavljati live run i ne slabiti validaciju. T030runner/ishod je gotov
 prati nedostajući live success sa novim budućim budžetom. T027ljudski doprinos nije
 pretpostavljen niti potpisan. [Live log](evidence/003-T030-live.txt),
 [handoff](evidence/003-T030-handoff.md), [evidence](EVIDENCE_W05.md).
+
+## 2026-10-05 — T031, odobreni live run #2
+
+Alat: jedan Codex coding agent; model build/coding tokeni/cenaunknown.
+Korisnik odobrio nastavak na commitovanom bdf33c3 i više malih live run-ova uz
+pitanje/redni broj pre svakog. Za #2 izričito odgovorio „Odobravam live run #2“.
+T027 doprinos/walkthrough ostaju odloženi. Kontekst u novom CONTEXT_MANIFEST unosu.
+Očekivanje: četiri stvarne sintetičke odluke, strict step metadata, isti final
+validator i read-only tok sa 2model steps/1tool, bez retry/fallback-a.
+
+Ishod offline: RED9FAIL/15PASS → GREEN24/24, puna827/827, E2E4/4 i
+ typecheck/lint/build0. Fake suite nije live potrošnja, njen broj poziva nije meren.
+Priprema oracle-a ispravljena prema dealing ugovoru (bot AA, čovek KK, lost0/2000).
+
+Stvarni #2: Gemini gemini-3.5-flash-lite, runId3c613f27-4d49-4bb1-90e2-f0bb92a0f795;
+1run/2steps/2provider calls/1tool, completed/finalValidated=true,4evidence references,
+read-only=true,5validation/0rejected,0retry/0fallback. Runner3254ms/run3182ms.
+Step1: prompt75/candidate49/total124, latency1169ms.
+Step2: prompt935/candidate427/total1362, latency2007ms.
+Zbirprompt1010/candidate476/total1486; thought/cached/cenaunknown.
+
+Potvrđeni Week05 zbir ovog razgovora: 2run-a/4calls/2tools/1950total tokena;
+#1insufficient_evidence, #2completed. Broj drugih sesija unknown. Nema #3.
+Raw prompt/response, karte/finding/model text/chain-of-thought nisu sačuvani.
+Uspeh potvrđuje ovaj bounded tok, ne kvalitet/optimalnost saveta ili dostupnost.
+[Live log](evidence/003-T031-live-02.txt), [handoff](evidence/003-T031-handoff.md).

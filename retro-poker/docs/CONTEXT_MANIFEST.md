@@ -520,3 +520,33 @@ T030runner/ishod završen; live successT031 i odloženi ljudskiT027 ostaju otvor
 Završni audit je našao četiri nedostajuća roditeljska Week03/Week04 materijala;
 njihov sadržaj nije korišćen u ovom radu. GAME_SPEC čuva istorijske putanje bez
 nevažećih klikabilnih linkova. Lokalni izvori zahteva i dalje su autoritativni.
+
+## 2026-10-05 — T031 scenario i live #2
+
+Prioritet: korisnikov nastavak/per-run pitanje i ordinal/T027 odlaganje > AGENTS/
+constitution1.1.0 > GAME_SPEC > feature003 > postojeći kod. Polazni čist bdf33c3,
+jedan coding agent, bez subagenata. Projektni speckit-implement; prerequisite sa
+apsolutnim feature override-om, checklist12/12 read-only, extensions.yml absent.
+
+Stvarno korišćen kontekst: korisnikov raniji Week05 sažetak, nastavak i izričito #2
+odobrenje; prethodno pročitani assignment/addendum, AGENTS/skill/constitution;
+GAME_SPEC/spec/plan/tasks i T030handoff/live/evidence/demo. Pregledani smoke modul,
+CLI/testovi/fake provider, app/session/tool/strict step schema/provider metadata;
+engine hand.ts/positions.ts radi stvarnog dealing oracle-a. Nisu rekonstruisani
+odsutni istorijski izvori. Kombinovani ispisi delom skraćeni; relevantne početke/
+krajeve/linije pročitano ciljano, bez tvrdnje potpunog ponovnog audita svih izvora.
+
+Spec/plan/tasks uređeni pre ponašanja: street-review četiri legalne odluke,
+strict step metadata; model može suziti sample. Dealing oracle ispravljen na
+lost0/2000 (bot AA) bez promene špila/engine-a ili validatora. Promena je u runner-u
+ i offline testovima; nema novog provider-a, HTTP API-ja, UI-ja ili dependencies.
+
+.env nije čitan/ispisan alatima; Node env-file ga učitao u proces samo za odobreni #2.
+Novi provider calls2, steps2, tool1,1486tokena, completed/readOnly=true. Zbir ovog
+razgovora2run-a/4calls/2tools/1950tokena; drugi razgovori unknown. Cena/coding usageunknown.
+Nema #3. Lokalni kod/ugovori dovoljni; web izvori nisu korišćeni u ovom tasku.
+
+Novi dokaz: baseline106, RED9FAIL/15PASS→GREEN24, full827/827,E2E4/4,
+typecheck/lint/build0. Live #2 log i T031handoff čuvaju actual status/budget;
+raw kandidat/tekst/finding/karte se ne beleže. Uspešan final ne potvrđuje strateški
+kvalitet. T031/live gate zatvoreni, T027 stvarni doprinos/walkthrough ostaju otvoreni.
