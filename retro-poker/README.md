@@ -111,3 +111,42 @@ commit i read-only analizu (najviše dva poziva); `--bot-only` ograničava na je
 Bez `--live` nema poziva. Offline testovi koriste presretnut HTTP i ne dokazuju
 dostupnost modela. Rezultati oporavka su u
 [evidence dokumentu](docs/evidence/002-gemini-lite-success.md).
+
+## Week05 coaching završene partije
+
+Posle završetka **partije** (Pobeda/Poraz), u panelu „Coaching partije” izabrati
+Ulaganje, Odluke po fazama ili Showdown i „Pokreni coaching”. Backend mora imati
+validnu server-side AI konfiguraciju. Bez nje coaching je nedostupan; offline igra
+i bot fallback i dalje rade. Panel prikazuje bezbedan status, validirani savet i
+reference, ili razlog zaustavljanja. Novi pokušaj je eksplicitan; nova partija
+otkazuje prethodni run. Week04 analiza ostaje poseban tok.
+
+Frontend ostaje `http://127.0.0.1:5173/`, backend `http://127.0.0.1:3001/`.
+Week05 endpoint-i: `POST /api/game/coach` za start i
+`GET /api/game/coach/:runId` za status. Agent je read-only i ne menja igru.
+Jedan run ima najviše 2 modelska koraka, 1 tool execution i 4 provider attempts,
+rok 45 s i timeout do 15 s po attempt-u.
+
+Proverene fokusirane offline komande:
+
+```powershell
+npm.cmd test -- tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+npm.cmd run test:e2e -- tests/e2e/coach.spec.ts tests/e2e/ai-offline.spec.ts
+node --require ./tests/helpers/process-user-shim.cjs --import tsx tests/helpers/coach-evidence.ts
+```
+
+Poslednja komanda daje osam bezbednih fake tragova bez UI-ja ili stvarnog ključa.
+Shim rešava poznati Windows tsx `os.userInfo` setup problem. Coach E2E koristi pravi
+lokalni Fastify/Vite sa constructor-only fixture/fake providerom; redovni testovi
+su offline, bez live Gemini potrošnje.
+
+Live coaching je opcion i traži eksplicitan lokalni opt-in nakon zelenih offline
+provera: najviše 15 razvojnih run-ova i 3 finalna demo run-a, mali run bez privatnih
+podataka. Postojeći Week04 smoke/diagnose nije Week05 live coaching dokaz.
+U ovom Phase 5 radu live coaching nije pokrenut.
+
+Storage je samo memorijski: restart gubi partiju, facts, run i usage; nova partija
+uklanja coach slot. MatchFacts zadržava do 200 detaljnih odluka, starije agregira.
+Coaching koristi raspoloživi uzorak, ne arhivu više partija.
+Rezultati i ograničenja: [EVIDENCE_W05](docs/EVIDENCE_W05.md).
+T027 walkthrough i pojedinačni Week05 doprinos oba člana ostaju nepotvrđeni.

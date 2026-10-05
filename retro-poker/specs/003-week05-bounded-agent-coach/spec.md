@@ -1,7 +1,8 @@
 # Feature Specification: Week05 bounded agent coach
 
 **Feature**: `003-week05-bounded-agent-coach`  
-**Status**: zahtev razrađen; implementacija nije započeta ovom specifikacijom  
+**Status**: T002–T026 implementirani/provereni; T028/T029 male korekcije imaju dokaz.
+Ljudski walkthrough T027 nije potvrđen. Specifikacija sama nije runtime dokaz.
 **Datum**: 2026-10-04  
 **Ulaz**: proširenje Week04 analize završene partije u mali, proverljiv agentski tok.
 

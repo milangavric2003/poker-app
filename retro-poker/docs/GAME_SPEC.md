@@ -310,24 +310,28 @@ Feature 003 ne menja poker pravila niti ranije acceptance oracle-e.
 
 ## 14. Week05 Definition of Done
 
-- [ ] Feature 003 ima usaglašene spec, plan, taskove i sačuvan početni implementacioni
+Status proverljivih stavki osvežen 2026-10-05 prema
+[Week05 evidence-u](EVIDENCE_W05.md) i [T025 mapi](evidence/003-T025-review.txt).
+Ljudski gate ispod ostaje otvoren; tehnički checkbox nije potvrda obe osobe.
+
+- [x] Feature 003 ima usaglašene spec, plan, taskove i sačuvan početni implementacioni
   prompt; ova specifikacija čuva obavezne proizvodne granice.
-- [ ] Cilj korisnika, jedan alat i njegove strict ulazne/izlazne šeme su dokumentovani.
-- [ ] Uspešan run ima najmanje dva modelska koraka i jedno validirano izvršenje alata.
-- [ ] Stroga runtime validacija pokriva preflight, model predlog, rezultate alata,
+- [x] Cilj korisnika, jedan alat i njegove strict ulazne/izlazne šeme su dokumentovani.
+- [x] Uspešan run ima najmanje dva modelska koraka i jedno validirano izvršenje alata.
+- [x] Stroga runtime validacija pokriva preflight, model predlog, rezultate alata,
   evidence i finalni odgovor.
-- [ ] Run ima eksplicitno stanje, limite koraka/alata/poziva, pojedinačni timeout,
+- [x] Run ima eksplicitno stanje, limite koraka/alata/poziva, pojedinačni timeout,
   ukupan rok, zaštitu od otkazivanja/zastarevanja i ponovljene akcije.
-- [ ] Read-only invariant dokazuje da poker stanje i činjenice nisu promenjeni agentom.
-- [ ] Fake testovi pokrivaju uspeh, nevalidan ulaz, nepoznat alat, loše argumente,
+- [x] Read-only invariant dokazuje da poker stanje i činjenice nisu promenjeni agentom.
+- [x] Fake testovi pokrivaju uspeh, nevalidan ulaz, nepoznat alat, loše argumente,
   grešku alata/provajdera, neispravan izlaz, ponavljanje, rok/limit koraka i lažne
   evidence reference; nedozvoljen predlog daje nula tool izvršenja.
-- [ ] UI prikazuje bezbedne statuse, rezultat i dokaze; postoje E2E/ručni zapisi.
-- [ ] Evidence i AI usage log razlikuju logičko pokretanje, modelske korake, provider
+- [x] UI prikazuje bezbedne statuse, rezultat i dokaze; postoje E2E/ručni zapisi.
+- [x] Evidence i AI usage log razlikuju logičko pokretanje, modelske korake, provider
   pokušaje i pozive alata; nema tajni ni chain-of-thought-a.
 - [ ] Obe osobe u paru mogu da objasne tok, allowlist, validaciju i stop uslove; njihov
   stvarni naizmenični doprinos dokumentovan je bez izmišljene potvrde.
-- [ ] Sve relevantne aplikacione provere su izvršene i zapisane sa stvarnim rezultatima;
+- [x] Sve relevantne aplikacione provere su izvršene i zapisane sa stvarnim rezultatima;
   live demo je ograničen i opcion u odnosu na offline fake matrix.
 
 ## 15. Izvori i upravljanje promenama

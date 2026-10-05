@@ -1,0 +1,26 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+Exit status: 0
+
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run lint (posle T028 i trace runner-a)
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+Exit status: 0
+
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run lint (trace fixture type correction)
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+Exit status: 0

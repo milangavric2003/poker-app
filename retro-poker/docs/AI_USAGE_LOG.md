@@ -1,5 +1,41 @@
 # AI usage log
 
+## 2026-10-05 — Week05 Phase 5
+
+Alat: Codex, jedan coding agent, bez subagenata. Svrha: proveriti T002–T023,
+izvršiti expected-first eval/regresiju, security/privacy/traceability review i
+pripremiti finalne dokaze/demo. Model porodica prema session instrukciji: GPT-6;
+tačan runtime model/build nije potvrđen telemetrijom. Coding tokeni/cena: `unknown`.
+Korisnička odluka: precizan Phase 5 scope; nema odobrenog live run-a ili peer potpisa.
+
+Očekivanje: read-only 2-step/1-tool tok, rejected proposal sa 0 executions,
+bounded retry/deadline i nepromenjen poker snapshot. Ishod: 250/250 fokus,
+802/802 regresija, prvi E2E 12/13 zbog starog card lokatora; T028 test fix pa 13/13.
+T025 otkrio stvarni 1970 ISO metadata bug; T029 RED 12PASS/1FAIL → GREEN 91/91,
+final 803/803 i coach/Week04 E2E 4/4, typecheck/lint/build 0.
+Dokumentacionim izmenama nije pripisan RED/GREEN. Setup ENOMEM i fixture TS
+neuspehi ostaju zapisani. [Rezultati/komande](EVIDENCE_W05.md).
+
+| Upotreba | Stvarno poznato u ovom radu | Šta ostaje nepoznato |
+|---|---|---|
+| Coding-agent sesija | Jedan aktivni Codex, review/test/korekcije/docs | Broj internih modelskih poziva, tokeni, cena: unknown |
+| Fake-provider suite | Scripted FakeAiProvider, mocked Gemini; bez mrežnog generation poziva | Ukupan zbir fake runs/attempts/retries/tools nije instrumentiran; broj testova nije broj poziva |
+| Safe trace runner | 3 uspešna pokretanja × 8 runs = 24 runs, 30 attempts, 21 tool proposals, 12 executions, retry 0, fallback 0 | Nema live tokena/cene; `offline-fake` nije Gemini model |
+| Live Week05 agent | 0 ove sesije; smoke/diagnose/demo NOT RUN | Raniji Week05 live zbir nije nezavisno izmeren |
+| Provider config | Postojeći Gemini primary/fallback iz Week04; SDK retry disabled | Live dostupnost/quota/billing nije proverena |
+
+Trace runner je pokrenut sa postojećim Windows shim-om; prvi poziv bez shim-a
+pao pre dispatch-a. Dva typecheck neuspeha fixture-a ispravljena bez promene
+oracle-a; sva tri shim izvršenja imaju osam safe projekcija. Fake success ima
+2 steps/2 attempts/1 tool; invalid refs/proposals stvarne validacione ishode.
+Recovery testovi razlikuju same-model retry i fallback unutar step-a;
+step 2 nije Week04 retry. Monetarni cost se ne procenjuje.
+
+Ljudski doprinos: korisnik odredio scope; identitet/podela Week05 A/B, peer review
+i walkthrough drugog člana nisu potvrđeni. Week04 potpis nije prenet na Week05.
+Nema key-a, raw prompta, privatnih karata ili reasoning-a u novim safe tragovima.
+Limit 15 development/3 demo je budžet, ne potrošnja.
+
 ## Merge recovery u ai-integ — 2026-09-29
 
 Korisnik je odobrio merge uz bot popravke iz `fix-timeout-error` i waiting/analysis

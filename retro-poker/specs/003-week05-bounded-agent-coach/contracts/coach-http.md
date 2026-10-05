@@ -44,7 +44,10 @@ UI bira focus, blokira dupli submit, prikazuje stanje, provereni rezultat i uzor
 retry samo eksplicitnim klikom. Nema nove cancel rute: reset/nova partija i serverski
 AbortSignal su Core cancellation tok. Provider/tool await nikad ne blokira GET.
 
-Dokazi: T018 strict/preflight/no-store/idempotency testovi, T019 async
-ownership su provereni; T021/T022 UI retry/poll/race i T023 E2E ostaju otvoreni.
+Dokazi: T018 strict/preflight/no-store/idempotency, T019 async ownership,
+T021/T022 UI retry/poll/race i T023 E2E su provereni; T024 finalna offline matrica
+je u [handoff-u](../../../docs/evidence/003-T024-handoff.txt). T029 razdvaja
+kalendarske startedAt/deadlineAt ISO datume od internog monotonog deadline-a;
+jedan stabilan wall-clock početak vezan je za session slot. Ljudski T027 ostaje otvoren.
 
 T018 odluka: korisnikov Phase 3 zahtev bira path parametar; nema druge GET forme.

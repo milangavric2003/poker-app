@@ -161,14 +161,14 @@ Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
 
 ## Phase 5 — converge, evidence i demo
 
-- [ ] T024 A/B naizmenično — Run eval group and existing AI regressions, typecheck,
+- [x] T024 A/B naizmenično — Run eval group and existing AI regressions, typecheck,
   lint/build, E2E; deps T023; allowed: relevant tests/scripts/log evidence only;
   evidence: exact commands/version/exit status, no claim for checks not run.
-- [ ] T025 oba — Security/privacy/read-only/governance traceability review; deps T024;
+- [x] T025 oba — Security/privacy/read-only/governance traceability review; deps T024;
   allowed: feature artifacts, code/test, `docs/GAME_SPEC.md`, `AGENTS.md`;
   evidence: tool allowlist, strict validators, provider boundary, cancellation/deadline,
   no mutation, all FR link to tests.
-- [ ] T026 B/A — Add and reconcile `docs/EVIDENCE_W05.md`, `docs/AI_USAGE_LOG.md`,
+- [x] T026 B/A — Add and reconcile `docs/EVIDENCE_W05.md`, `docs/AI_USAGE_LOG.md`,
   `docs/CONTEXT_MANIFEST.md`, README only where necessary; deps T024,T025;
   allowed: named docs/evidence files; evidence: real success/rejected/failure traces,
   stop reason, actual live/fake counts and real member contributions; unknown remains
@@ -246,3 +246,60 @@ u [handoff-u](../../docs/evidence/003-phase4-handoff.txt). Završni fokus146/146
 coach E2E3/3, Week04 fake E2E1/1 i typecheck/lint/build exit0. Setup greške i prvi
 TS neuspeh sačuvani odvojeno od smislenog RED-a. T024–T027 ostaju otvoreni;
 nema finalnog security/evidence paketa ili live demo-a.
+
+## T024 korektivni podtask — 2026-10-05
+
+- [x] T028 (trenutni coding agent; ljudski owner nije potvrđen) — Uskladiti stare
+  AC23/AC16 card lokatore sa već postojećim pristupačnim nazivima karata;
+  deps: T023, prvi T024 E2E rezultat; allowed: `tests/e2e/play-hand.spec.ts`,
+  `docs/evidence/003-T024-*.txt`, ova statusna evidencija. Dokaz:
+  `003-T024-e2e.txt`, 12/13, exit 1, `getByText('As')` ne nalazi `A♠`.
+  Poker oracle (iste karte, skriveni protivnici, 1010/990 i 1015/985) ostaje isti.
+  Ovo je korekcija zastarelog test harness-a, nije novi behavior RED/GREEN.
+  Produkcioni kod se ne menja; T024 ostaje otvoren do ponovljene regresije.
+
+T024/T028 handoff, 2026-10-05: [zapis](../../docs/evidence/003-T024-handoff.txt),
+[expected-first eval-i](../../docs/evidence/003-evals.md).
+250/250 fokus (14 fajlova), 802/802 puna regresija (57), E2E prvo12/13 exit1
+zbog starog card lokatora, posle T02813/13 exit0. Typecheck/lint/build završnoexit0;
+trace runner8 kontrolisanih fake run-ova, bez privatnih podataka. Setup ENOMEM i
+dva TS fixture neuspeha ostaju u logovima, nisu behavior RED. Live0.
+Sledeće T025: nezavisni read-only pregled granica, lokalnih linkova i FR mape;
+ljudski peer review i oba člana nisu ovim tehničkim dokazom potvrđeni.
+
+## T025 korektivni podtask — ISO vreme
+
+- [x] T029 (coding agent; ljudski owner nije potvrđen) — Razdvojiti monotoni run
+  sat od kalendarskog ISO vremena javnog DTO-a prema FR-002/data-model ugovoru;
+  deps: T019,T024; allowed: `backend/src/session.ts`,
+  `tests/integration/coach-lifecycle.test.ts`, `docs/evidence/003-T025-*.txt`,
+  status u tasks.md. Nalaz: `new Date(performance.now())` daje1970, ne datum run-a.
+  Očekivanje pre testa: startedAt je između Date.now pre/posle start-a,
+  deadlineAt-startedAt=45000 i identični timestamp-i na kasnijem GET-u.
+  Monotoni deadline/retry semantika se ne menja. Test-first RED→minimalni GREEN.
+
+T025/T029 handoff 2026-10-05: [review i25FR mapa](../../docs/evidence/003-T025-review.txt).
+Stvarni ISO RED12/13 exit1→GREEN91/91 exit0; završno803/803(57fajlova),
+coach+Week04 E2E4/4,typecheck/lint/build0.67 lokalnih linkova/0grešaka;
+tri spoljna linka čitljiva, TDA rules URL unverified zbog web Internal Error.
+Secret-pattern scan nema matches(exit1), uz opisano ograničenje. Nema nerešenog
+security/privacy nalaza u pregledanom Core toku; review je coding-agent, ne ljudski.
+T026 sledeće: stvarni bezbedni tragovi, rezultati/ograničenja i nepoznat ljudski doprinos.
+
+T026 handoff 2026-10-05: [paket](../../docs/EVIDENCE_W05.md),
+[stvarni doc-check/handoff](../../docs/evidence/003-T026-handoff.txt).
+16dokumenata/185lokalnih links/anchors,exit0;usage i manifest odvajaju stvarno od
+unknown. READMEdopunjen jer Week05uputstva nisu postojala. Ljudski doprinos/potvrda
+oba člana nije izmišljena;paket beleži nepoznato,T027ostaje otvoren.
+
+T027 priprema 2026-10-05: [7min offline demo i handoff](../../docs/evidence/003-T027-demo.md).
+Redosled,source/test/evidence mapa i proverene reprodukcione komande postoje.
+**T027 checkbox ostaje otvoren:** nije dostavljena stvarna potvrda da oba člana
+samostalno objašnjavaju tok,ni individualni Week05doprinos/primanje handoff-a.
+Nema live demo-a,peer potpisa ili izmišljenih screenshot-ova.
+
+Finalni gate: [stvarni izlaz i lista fajlova](../../docs/evidence/003-T027-final-gate.txt),
+17 dokumenata/216 lokalnih linkova,25/25FR,allowed-path/secret-pattern audit0;
+git diff --check prvi2 zbog novog Markdown hard-break-a,zatim0 po uklanjanju.
+Legacy screenshot-i vraćeni na polazne HEAD bajtove;nema generated build/cache
+u diff-u. T027 i ljudski GAME_SPEC DoD ostaju otvoreni do stvarnih potvrda.

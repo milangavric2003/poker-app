@@ -1,0 +1,39 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+
+Exit status: 0
+
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run typecheck (posle T028 i trace runner-a)
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+tests/helpers/coach-evidence.ts(14,46): error TS2322: Type '[]' is not assignable to type 'readonly ["As" | "Ah" | "Kc" | "Kd" | "2c" | "2d" | "2h" | "2s" | "3c" | "3d" | "3h" | "3s" | "4c" | "4d" | "4h" | "4s" | "5c" | "5d" | "5h" | "5s" | "6c" | "6d" | "6h" | "6s" | "7c" | "7d" | "7h" | ... 24 more ... | "Ad", "As" | ... 50 more ... | "Ad"]'.
+  Source has 0 element(s) but target requires 2.
+tests/helpers/coach-evidence.ts(32,30): error TS2540: Cannot assign to 'facts' because it is a read-only property.
+
+Exit status: 2
+
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run typecheck (trace fixture type correction)
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+tests/helpers/coach-evidence.ts(12,33): error TS2741: Property 'outcome' is missing in type '{ gameId: string; handId: string; expectedVersion: number; decisionRef: string; decisionOrdinal: number; handNumber: number; knowledge: { phase: string; board: never[]; holeCards: ["As", "Kd"]; humanStackAtHandStart: number; players: never[]; pots: never[]; events: never[]; legalActions: { ...; }[]; }; chosenAction:...' but required in type 'DeepReadonly<HumanDecisionFact>'.
+
+Exit status: 2
+
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run typecheck (outcome:null fixture correction)
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+
+Exit status: 0

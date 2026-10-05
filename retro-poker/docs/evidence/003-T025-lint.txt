@@ -1,0 +1,9 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run lint
+Očekivanje posle T029: runtime budgets i Week04 regresija očuvani; ISO vreme stvarno i stabilno.
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+Exit status: 0

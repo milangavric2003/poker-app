@@ -139,7 +139,7 @@ export class GameSession {
   private game: GameState | null = null;
   private queue: Promise<void> = Promise.resolve();
   private activeBot: { interactionId: string; controller: AbortController } | null = null;
-  private coach: { run: BoundedAgentRun; controller: AbortController; committed: boolean } | null = null;
+  private coach: { run: BoundedAgentRun; controller: AbortController; committed: boolean; wallStartedAt: number } | null = null;
   private readonly aiConfig: AiRuntimeConfig;
   constructor(private readonly dependencies: SessionDependencies) {
     this.aiConfig = dependencies.aiConfig ?? loadAiConfig();
@@ -169,8 +169,8 @@ export class GameSession {
     }
     return CoachRunViewSchema.parse({ runId: state.runId, gameId: state.gameId,
       handId: state.handId, expectedVersion: state.expectedVersion, factsRevision: state.factsRevision,
-      goal: state.goal, status: state.status, startedAt: new Date(state.startedAt).toISOString(),
-      deadlineAt: new Date(state.deadlineAt).toISOString(), stepCount: state.stepCount,
+      goal: state.goal, status: state.status, startedAt: new Date(this.coach!.wallStartedAt).toISOString(),
+      deadlineAt: new Date(this.coach!.wallStartedAt + state.deadlineAt - state.startedAt).toISOString(), stepCount: state.stepCount,
       toolCallCount: state.toolCallCount, providerAttemptCount: state.providerAttemptCount,
       stopReason: state.stopReason, failureCategory: state.failureCategory, result: state.result,
       sampleLimited: state.sampleLimited });
@@ -203,7 +203,8 @@ export class GameSession {
       jitter: this.dependencies.aiJitter ?? zeroJitter, signal: controller.signal,
       isCurrent: identity => this.coachCurrent(identity),
       ...(this.dependencies.coachExecuteTool ? { executeTool: this.dependencies.coachExecuteTool } : {}) });
-    const slot = { run, controller, committed: false };
+    // Calendar time is display metadata; the run's injected monotonic clock owns all budgets.
+    const slot = { run, controller, committed: false, wallStartedAt: Date.now() };
     this.coach = slot;
     const usageEpoch = processUsageStore.currentEpoch();
     run.stopIfNoEvidence();

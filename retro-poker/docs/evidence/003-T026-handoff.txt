@@ -1,0 +1,32 @@
+T026 — 2026-10-05 Europe/Belgrade
+
+Pre taska: T024/T025/T029 completion evidence i relevantni diff provereni.
+Očekivanje: finalni paket prenosi isključivo zabeležene safe traces,komande,
+rezultate,known/unknown usage i stvarni status ljudskog gate-a.
+Promene: docs/EVIDENCE_W05.md (nov),AI_USAGE_LOG,CONTEXT_MANIFEST;
+README dopunjen samo jer nije imao Week05 goal/endpoints/offline/focus/storage opis.
+V1 prompt i istorijski evidence nisu prepisani. Nema dokumentacionog RED/GREEN.
+
+Komanda: node .verification/w05-doc-audit.cjs sa proširenjem na16imenovanih docs
+uključujući EVIDENCE_003;185lokalnih links/anchors,0issues,exit0.
+Tačan script i izlaz:003-T026-doc-check.txt. Pregled git diff -- README.md
+docs/AI_USAGE_LOG.md docs/CONTEXT_MANIFEST.md; početni produkcioni diff je samo
+zasebni T029 ISO correction. Rani apply_patch context mismatch nije promenio fajlove;
+naknadni verified patch uspeo. Nema novog runtime behavior-a,pa nema nove suite.
+
+Proverene sadržinske tvrdnje: safe success2steps/2attempts/1proposal/1execution/
+5validations; unknown i invalid0executions; final evidence membership;
+stopReason/failure/limit/stale/cancel/duplicate testovi imaju stvarni T024/T025dokaz.
+Trace runner3×8fake runs=24/30attempts/21proposals/12executions;live0 ovog rada,
+ukupna suite potrošnja unknown,coding tokeni/cena unknown. Ne rekonstruiše se istorija.
+T024802/802 i13/13E2E; final T029803/803 i4/4relevantni E2E jasno razdvojeni.
+Screen reader/axe/live/clean install/manual review nisu lažno PASS.
+
+Članovi: korisnik zadao scope; A/B identiteti,raniji individualni Week05doprinos i
+review/razumevanje kolege nisu dostavljeni. Dokument ima eksplicitno nepotvrđen
+status oba člana,bez izmišljenog potpisa. T026 paket zatvoren kao truthful evidence;
+ljudski doprinos/walkthrough gate ostaje T027,ne tvrdi se puna Week05predaja.
+
+Handoff T027: pripremiti7min offline demo i checklist za samostalno objašnjenje
+svakog člana. Pitanje za stvarni doprinos i walkthrough poslato korisniku;dok nema
+odgovora,pripremljeni dokument nije ljudska potvrda. Live nije tražen ni pokrenut.

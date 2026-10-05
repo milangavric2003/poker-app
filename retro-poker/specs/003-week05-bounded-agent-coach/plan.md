@@ -5,6 +5,11 @@ Izvori: [spec](spec.md), [GAME_SPEC](../../docs/GAME_SPEC.md),
 [tehnički ugovor](data-model.md), [HTTP ugovor](contracts/coach-http.md).
 Ovo je plan; Week05 kod i testovi nisu implementirani ovim pregledom.
 
+Aktuelni status 2026-10-05: plan je realizovan kroz T007–T023 i T024 offline provere.
+Istorijska objašnjenja buduće implementacije ispod čuvaju ugovor; stvarni status je
+u [taskovima](tasks.md) i [T024 handoff-u](../../docs/evidence/003-T024-handoff.txt).
+T027 ljudska potvrda ostaje otvorena.
+
 ## Cilj i tok
 
 Nadograditi analizu jedne završene partije: ograničen cilj, modelski predlog jednog

@@ -1,0 +1,58 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: node .verification/w05-doc-audit.cjs
+Tačan audit source:
+const fs = require('node:fs');
+const path = require('node:path');
+const root = process.cwd();
+const feature = 'specs/003-week05-bounded-agent-coach';
+const files = ['AGENTS.md','docs/GAME_SPEC.md','README.md','docs/BUILD_PROMPT_WEEK05_V1.md', `${feature}/spec.md`, `${feature}/plan.md`, `${feature}/tasks.md`, `${feature}/data-model.md`, `${feature}/contracts/coach-http.md`, `${feature}/checklists/requirements.md`, `${feature}/evals.md`, 'docs/evidence/003-evals.md'];
+const slug = s => s.toLowerCase().replace(/[^\p{L}\p{N}_\- ]/gu,'').replace(/ /g,'-');
+let checked=0; const issues=[]; const external=new Set();
+for (const file of files) {
+ const content=fs.readFileSync(file,'utf8');
+ for(const match of content.matchAll(/\[[^\]\n]+\]\(([^)\n]+)\)/g)) {
+  const target=match[1];
+  if (/^https?:/.test(target)) {external.add(target);continue;}
+  if (/^app:/.test(target)) continue;
+  const [relative, anchor] = target.split('#');
+  const destination=path.resolve(path.dirname(path.join(root,file)),decodeURIComponent(relative));
+  checked++;
+  if(!fs.existsSync(destination)) {issues.push({file,target,issue:'missing local destination'});continue;}
+  if(anchor && fs.statSync(destination).isFile()) {
+   const text=fs.readFileSync(destination,'utf8');
+   const headings=[...text.matchAll(/^#{1,6} (.+)$/gm)].map(h=>slug(h[1].trim()));
+   if(!headings.includes(decodeURIComponent(anchor))) issues.push({file,target,issue:'missing heading anchor'});
+  }
+ }
+}
+console.log(JSON.stringify({files:files.length,checkedLocalLinks:checked,issues,external:[...external]},null,2));
+process.exitCode=issues.length?1:0;
+Stvarni izlaz:
+{
+  "files": 12,
+  "checkedLocalLinks": 64,
+  "issues": [],
+  "external": [
+    "https://www.pokerstars.com/poker/games/texas-holdem/",
+    "https://www.pokertda.com/forum/index.php?topic=279.0",
+    "https://www.pokertda.com/forum/index.php?topic=746.0",
+    "https://www.pokertda.com/view-poker-tda-rules/"
+  ]
+}
+
+Exit status: 0
+
+Ponovljena ista komanda posle status/contract dopuna:
+{
+  "files": 12,
+  "checkedLocalLinks": 67,
+  "issues": [],
+  "external": [
+    "https://www.pokerstars.com/poker/games/texas-holdem/",
+    "https://www.pokertda.com/forum/index.php?topic=279.0",
+    "https://www.pokertda.com/forum/index.php?topic=746.0",
+    "https://www.pokertda.com/view-poker-tda-rules/"
+  ]
+}
+
+Exit status: 0

@@ -1,0 +1,332 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: node .verification/w05-doc-audit.cjs (final T027/DoD docs gate)
+Tačan source:
+const fs = require('node:fs');
+const path = require('node:path');
+const root = process.cwd();
+const feature = 'specs/003-week05-bounded-agent-coach';
+const files = ['AGENTS.md','docs/GAME_SPEC.md','README.md','docs/BUILD_PROMPT_WEEK05_V1.md', `${feature}/spec.md`, `${feature}/plan.md`, `${feature}/tasks.md`, `${feature}/data-model.md`, `${feature}/contracts/coach-http.md`, `${feature}/checklists/requirements.md`, `${feature}/evals.md`, 'docs/evidence/003-evals.md','docs/EVIDENCE_W05.md','docs/AI_USAGE_LOG.md','docs/CONTEXT_MANIFEST.md','docs/EVIDENCE_003.md','docs/evidence/003-T027-demo.md'];
+const slug = s => s.toLowerCase().replace(/[^\p{L}\p{N}_\- ]/gu,'').replace(/ /g,'-');
+let checked=0; const issues=[]; const external=new Set();
+for (const file of files) {
+ const content=fs.readFileSync(file,'utf8');
+ for(const match of content.matchAll(/\[[^\]\n]+\]\(([^)\n]+)\)/g)) {
+  const target=match[1];
+  if (/^https?:/.test(target)) {external.add(target);continue;}
+  if (/^app:/.test(target)) continue;
+  const [relative, anchor] = target.split('#');
+  const destination=path.resolve(path.dirname(path.join(root,file)),decodeURIComponent(relative));
+  checked++;
+  if(!fs.existsSync(destination)) {issues.push({file,target,issue:'missing local destination'});continue;}
+  if(anchor && fs.statSync(destination).isFile()) {
+   const text=fs.readFileSync(destination,'utf8');
+   const headings=[...text.matchAll(/^#{1,6} (.+)$/gm)].map(h=>slug(h[1].trim()));
+   if(!headings.includes(decodeURIComponent(anchor))) issues.push({file,target,issue:'missing heading anchor'});
+  }
+ }
+}
+console.log(JSON.stringify({files:files.length,checkedLocalLinks:checked,issues,external:[...external]},null,2));
+process.exitCode=issues.length?1:0;
+
+Stvarni izlaz:
+{
+  "files": 17,
+  "checkedLocalLinks": 216,
+  "issues": [],
+  "external": [
+    "https://www.pokerstars.com/poker/games/texas-holdem/",
+    "https://www.pokertda.com/forum/index.php?topic=279.0",
+    "https://www.pokertda.com/forum/index.php?topic=746.0",
+    "https://www.pokertda.com/view-poker-tda-rules/",
+    "https://ai.google.dev/gemini-api/docs/models",
+    "https://vitest.dev/config/",
+    "https://zod.dev/api",
+    "https://vite.dev/config/server-options.html"
+  ]
+}
+
+Exit status: 0
+
+Komanda: git diff --check
+git : warning: in the working copy of 'retro-poker/README.md', LF will be replaced by CRLF the next time Git touches it
+At line:2 char:690
++ ... te.txt; Write-Output $output; $output = git diff --check 2>&1 | Out-S ...
++                                             ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'retro-poker/backend/src/session.ts', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/AI_USAGE_LOG.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/GAME_SPEC.md', LF will be replaced by CRLF the next time Git touches 
+it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/contracts/coach-http.md', LF will be 
+replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/data-model.md', LF will be replaced 
+by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/plan.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/spec.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/e2e/play-hand.spec.ts', LF will be replaced by CRLF the next time 
+Git touches it
+warning: in the working copy of 'retro-poker/tests/integration/coach-lifecycle.test.ts', LF will be replaced by CRLF 
+the next time Git touches it
+retro-poker/specs/003-week05-bounded-agent-coach/spec.md:5: trailing whitespace.
++Ljudski walkthrough T027 nije potvrđen. Specifikacija sama nije runtime dokaz.  
+
+Exit status: 2
+
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: node .verification/w05-final-gate.cjs
+Tačan source:
+const fs=require('node:fs');const cp=require('node:child_process');
+const files=cp.execFileSync('git',['ls-files','--modified','--others','--exclude-standard','--','.'],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean);
+const named=new Set(['README.md','backend/src/session.ts','docs/AI_USAGE_LOG.md','docs/CONTEXT_MANIFEST.md','docs/GAME_SPEC.md','docs/EVIDENCE_W05.md','tests/e2e/play-hand.spec.ts','tests/integration/coach-lifecycle.test.ts','tests/helpers/coach-evidence.ts']);
+const unexpected=files.filter(f=>!named.has(f)&&!/^specs\/003-week05-bounded-agent-coach\/(spec|plan|tasks|data-model)\.md$/.test(f)&&f!=='specs/003-week05-bounded-agent-coach/contracts/coach-http.md'&&!/^docs\/evidence\/003-(T02[4-7]-[^/]+\.(txt|md)|evals\.md)$/.test(f));
+const secretPattern=/(AIza[0-9A-Za-z_-]{30,}|sk-[0-9A-Za-z_-]{24,}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)/;
+const suspectedSecrets=files.filter(f=>secretPattern.test(fs.readFileSync(f,'utf8')));
+const taskText=fs.readFileSync('specs/003-week05-bounded-agent-coach/tasks.md','utf8');
+const rows=[...taskText.matchAll(/^- \[([ x])\] (T\d{3}) /gm)].map(m=>({id:m[2],checked:m[1]==='x'}));
+const missingStatus=[];for(let i=2;i<=26;i++){const id='T'+String(i).padStart(3,'0');if(!rows.find(r=>r.id===id)?.checked)missingStatus.push(id);}
+if(rows.find(r=>r.id==='T027')?.checked)missingStatus.push('T027 incorrectly checked without human evidence');
+const map=fs.readFileSync('docs/evidence/003-T025-review.txt','utf8');
+const requirements=[...map.matchAll(/^FR-(\d{3}) \|/gm)].map(m=>m[1]);
+const mdWhitespace=files.filter(f=>f.endsWith('.md')&&!f.startsWith('specs/')).filter(f=>/[\t ]+\r?$/m.test(fs.readFileSync(f,'utf8')));
+console.log(JSON.stringify({changedFiles:files,unexpectedPaths:unexpected,suspectedSecretFiles:suspectedSecrets,missingStatus,FRrows:requirements.length,openTasks:rows.filter(r=>!r.checked).map(r=>r.id),newNamedMarkdownWhitespace:mdWhitespace,baselineScreenshotsUnchanged:!files.some(f=>f.endsWith('.png'))},null,2));
+process.exitCode=unexpected.length||suspectedSecrets.length||missingStatus.length||requirements.length!==25||mdWhitespace.length?1:0;
+Izlaz:
+{
+  "changedFiles": [
+    "docs/EVIDENCE_W05.md",
+    "docs/evidence/003-T024-build.txt",
+    "docs/evidence/003-T024-e2e-rerun.txt",
+    "docs/evidence/003-T024-e2e.txt",
+    "docs/evidence/003-T024-focus.txt",
+    "docs/evidence/003-T024-handoff.txt",
+    "docs/evidence/003-T024-lint.txt",
+    "docs/evidence/003-T024-prerequisites.txt",
+    "docs/evidence/003-T024-regression.txt",
+    "docs/evidence/003-T024-traces.txt",
+    "docs/evidence/003-T024-typecheck.txt",
+    "docs/evidence/003-T025-build.txt",
+    "docs/evidence/003-T025-e2e.txt",
+    "docs/evidence/003-T025-links.txt",
+    "docs/evidence/003-T025-lint.txt",
+    "docs/evidence/003-T025-regression.txt",
+    "docs/evidence/003-T025-review.txt",
+    "docs/evidence/003-T025-secret-scan.txt",
+    "docs/evidence/003-T025-timestamp-green.txt",
+    "docs/evidence/003-T025-timestamp-red.txt",
+    "docs/evidence/003-T025-typecheck.txt",
+    "docs/evidence/003-T026-doc-check.txt",
+    "docs/evidence/003-T026-handoff.txt",
+    "docs/evidence/003-T027-demo.md",
+    "docs/evidence/003-T027-final-gate.txt",
+    "docs/evidence/003-evals.md",
+    "tests/helpers/coach-evidence.ts",
+    "README.md",
+    "backend/src/session.ts",
+    "docs/AI_USAGE_LOG.md",
+    "docs/CONTEXT_MANIFEST.md",
+    "docs/GAME_SPEC.md",
+    "specs/003-week05-bounded-agent-coach/contracts/coach-http.md",
+    "specs/003-week05-bounded-agent-coach/data-model.md",
+    "specs/003-week05-bounded-agent-coach/plan.md",
+    "specs/003-week05-bounded-agent-coach/spec.md",
+    "specs/003-week05-bounded-agent-coach/tasks.md",
+    "tests/e2e/play-hand.spec.ts",
+    "tests/integration/coach-lifecycle.test.ts"
+  ],
+  "unexpectedPaths": [],
+  "suspectedSecretFiles": [],
+  "missingStatus": [],
+  "FRrows": 25,
+  "openTasks": [
+    "T027"
+  ],
+  "newNamedMarkdownWhitespace": [],
+  "baselineScreenshotsUnchanged": true
+}
+
+Exit status: 0
+
+Komanda: git diff --check (posle uklanjanja novog spec hard-break whitespace-a)
+git : warning: in the working copy of 'retro-poker/README.md', LF will be replaced by CRLF the next time Git touches it
+At line:18 char:429
++ ... te.txt; Write-Output $output; $output = git diff --check 2>&1 | Out-S ...
++                                             ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'retro-poker/backend/src/session.ts', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/AI_USAGE_LOG.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/GAME_SPEC.md', LF will be replaced by CRLF the next time Git touches 
+it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/contracts/coach-http.md', LF will be 
+replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/data-model.md', LF will be replaced 
+by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/plan.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/spec.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/e2e/play-hand.spec.ts', LF will be replaced by CRLF the next time 
+Git touches it
+warning: in the working copy of 'retro-poker/tests/integration/coach-lifecycle.test.ts', LF will be replaced by CRLF 
+the next time Git touches it
+
+Exit status: 0
+
+Komanda: node .verification/w05-doc-audit.cjs (posle finalnih evidence linkova)
+{
+  "files": 17,
+  "checkedLocalLinks": 218,
+  "issues": [],
+  "external": [
+    "https://www.pokerstars.com/poker/games/texas-holdem/",
+    "https://www.pokertda.com/forum/index.php?topic=279.0",
+    "https://www.pokertda.com/forum/index.php?topic=746.0",
+    "https://www.pokertda.com/view-poker-tda-rules/",
+    "https://ai.google.dev/gemini-api/docs/models",
+    "https://vitest.dev/config/",
+    "https://zod.dev/api",
+    "https://vite.dev/config/server-options.html"
+  ]
+}
+
+Exit status: 0
+
+Komanda: node .verification/w05-final-gate.cjs (final)
+{
+  "changedFiles": [
+    "docs/EVIDENCE_W05.md",
+    "docs/evidence/003-T024-build.txt",
+    "docs/evidence/003-T024-e2e-rerun.txt",
+    "docs/evidence/003-T024-e2e.txt",
+    "docs/evidence/003-T024-focus.txt",
+    "docs/evidence/003-T024-handoff.txt",
+    "docs/evidence/003-T024-lint.txt",
+    "docs/evidence/003-T024-prerequisites.txt",
+    "docs/evidence/003-T024-regression.txt",
+    "docs/evidence/003-T024-traces.txt",
+    "docs/evidence/003-T024-typecheck.txt",
+    "docs/evidence/003-T025-build.txt",
+    "docs/evidence/003-T025-e2e.txt",
+    "docs/evidence/003-T025-links.txt",
+    "docs/evidence/003-T025-lint.txt",
+    "docs/evidence/003-T025-regression.txt",
+    "docs/evidence/003-T025-review.txt",
+    "docs/evidence/003-T025-secret-scan.txt",
+    "docs/evidence/003-T025-timestamp-green.txt",
+    "docs/evidence/003-T025-timestamp-red.txt",
+    "docs/evidence/003-T025-typecheck.txt",
+    "docs/evidence/003-T026-doc-check.txt",
+    "docs/evidence/003-T026-handoff.txt",
+    "docs/evidence/003-T027-demo.md",
+    "docs/evidence/003-T027-final-gate.txt",
+    "docs/evidence/003-evals.md",
+    "tests/helpers/coach-evidence.ts",
+    "README.md",
+    "backend/src/session.ts",
+    "docs/AI_USAGE_LOG.md",
+    "docs/CONTEXT_MANIFEST.md",
+    "docs/GAME_SPEC.md",
+    "specs/003-week05-bounded-agent-coach/contracts/coach-http.md",
+    "specs/003-week05-bounded-agent-coach/data-model.md",
+    "specs/003-week05-bounded-agent-coach/plan.md",
+    "specs/003-week05-bounded-agent-coach/spec.md",
+    "specs/003-week05-bounded-agent-coach/tasks.md",
+    "tests/e2e/play-hand.spec.ts",
+    "tests/integration/coach-lifecycle.test.ts"
+  ],
+  "unexpectedPaths": [],
+  "suspectedSecretFiles": [],
+  "missingStatus": [],
+  "FRrows": 25,
+  "openTasks": [
+    "T027"
+  ],
+  "newNamedMarkdownWhitespace": [],
+  "baselineScreenshotsUnchanged": true
+}
+
+Exit status: 0
+
+Komanda: git diff --check (final)
+git : warning: in the working copy of 'retro-poker/README.md', LF will be replaced by CRLF the next time Git touches it
+At line:2 char:609
++ ... status final exit $taskExit"; $output = git diff --check 2>&1 | Out-S ...
++                                             ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'retro-poker/backend/src/session.ts', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/AI_USAGE_LOG.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/GAME_SPEC.md', LF will be replaced by CRLF the next time Git touches 
+it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/contracts/coach-http.md', LF will be 
+replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/data-model.md', LF will be replaced 
+by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/plan.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/spec.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/e2e/play-hand.spec.ts', LF will be replaced by CRLF the next time 
+Git touches it
+warning: in the working copy of 'retro-poker/tests/integration/coach-lifecycle.test.ts', LF will be replaced by CRLF 
+the next time Git touches it
+
+Exit status: 0
+Handoff: pripremljen, ljudska potvrda NOT PROVIDED. Live0. Extensions.yml ne postoji; nema post-implement hooks.
+
+Komanda: git diff --check (posle upisa stvarnog218link rezultata)
+git : warning: in the working copy of 'retro-poker/README.md', LF will be replaced by CRLF the next time Git touches it
+At line:2 char:11
++ $output = git diff --check 2>&1 | Out-String; $taskExit = $LASTEXITCO ...
++           ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'retro-poker/backend/src/session.ts', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/AI_USAGE_LOG.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'retro-poker/docs/GAME_SPEC.md', LF will be replaced by CRLF the next time Git touches 
+it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/contracts/coach-http.md', LF will be 
+replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/data-model.md', LF will be replaced 
+by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/plan.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/spec.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by 
+CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/e2e/play-hand.spec.ts', LF will be replaced by CRLF the next time 
+Git touches it
+warning: in the working copy of 'retro-poker/tests/integration/coach-lifecycle.test.ts', LF will be replaced by CRLF 
+the next time Git touches it
+
+Exit status: 0

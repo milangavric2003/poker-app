@@ -1,5 +1,45 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-05 — Week05 Phase 5
+
+Prioritet: korisnikov priloženi Phase 5 zahtev > AGENTS/constitution 1.1.0 >
+GAME_SPEC 1.2 > feature 003 spec/plan/tasks/model/HTTP > stvarni kod/test/evidence.
+Polazni HEAD `83cb2c2531934f2dd6fc5da1d0e4ab921b57309d`, worktree čist;
+Git koren roditeljski. Jedan coding agent; nema delegacije.
+
+| Stvarno korišćeni izvori | Verzija/razlog | Obim i rizik |
+|---|---|---|
+| Attachment `6c778785-a550-407b-aa3c-caf23c6ffec0/Pasted text.txt` | Aktuelni zahtev, 2026-10-05 | T024→T025→T026→T027; bez fabrikovanja human/live dokaza |
+| AGENTS, GAME_SPEC, constitution | GAME_SPEC 1.2/2026-10-04; constitution 1.1.0/2026-09-26 | Read-only/local/single-agent, istiniti dokazi; GAME_SPEC posebno §12–15 |
+| V1 prompt, spec/plan/tasks, requirements, data-model, coach-http, evals | Feature 003, 2026-10-04 | Ugovor/budžeti/deps/allowed paths; originalni prompt nije prepisan |
+| Svi 003 evidence zapisi i fazni handoff-i | Postojeći T002–T023 rad | Indeks, polazni/završni segmenti i relevantni RED assertion-i; veliki kombinovani ispisi skraćeni, ne tvrdi se pregled svakog bajta svih raw logova |
+| EVIDENCE_003, AI_USAGE_LOG, ovaj manifest, README, EVALS | Istorija do 2026-10-04 | Week04 regression/live i stvarni Week03 oracle-i; relevantni odeljci/segmenti, ne cela istorija |
+| 002-post-merge-verification, 002-T044-traceability | 2026-09-29 | Razlika ljudske Week04 potvrde i Week05; reconciliation RED ograničenje ne prenosi se kao nepopravljen task |
+| backend/agent sva 4 modula, routes/session | Polazni HEAD + minimalni T029 | Proposal/tool/final/ownership/clock pregled; nema engine pravila izmena |
+| ai/types/config/coordinator/usage/Gemini, shared/contracts | Polazni HEAD, ciljani izvodi | Server key, minimalni context, SDK retry, metrics i strict DTO; ne tvrdi se pregled svakog nepovezanog AI reda |
+| frontend App/api/CoachPanel/Table; relevantni unit/contract/integration/UI/E2E/fake helperi | Polazni HEAD | Poll/race/keyboard, stvarni card label i oracle; kompletna regresija proverava ostali kod |
+| package.json, Playwright, .gitignore/ESLint, SpecKit implement i prerequisite | Postojeće lokalne verzije | Tačne komande, ignorisani artefakti; checklist 12/12, extensions nema |
+| speckit-converge skill | Pročitan radi procene | Append-only workflow nije pokrenut; direktni korisnički taskovi i mali corrective scope imaju prednost |
+| PokerStars/TDA postojeći web linkovi | Dostupnost proverena 2026-10-05 | Samo link check: 3 sadržaja, TDA rules Internal Error; nije novi poker-rule review |
+| Google models, Vitest config, Zod API, Vite server options linkovi | Dostupnost proverena 2026-10-05 | Istorijski manifest link check: sva 4 vraćaju sadržaj; nije nova provider/config odluka |
+
+Novi stvarni kontekst: T024/T025 raw logovi, expected-first10eval-a, safe trace
+runner, T028 card-locator korekcija, T029 ISO RED/GREEN, EVIDENCE_W05 i handoff.
+SpecKit implement korišćen za task/dependency/checklist/dokumentacioni gate;
+prerequisite uspeo u posebnom PowerShell Bypass procesu sa feature 003 override.
+
+Namerno izostavljeno: `.env`, tajne, privatni podaci, raw model prompt/response,
+hidden reasoning, live provider, nova biblioteka/provider, deployment i PDF/istorijski
+suggestion. Roditeljski nastavni materijali provereni kao lokalne link putanje;
+nisu ponovo čitani kao nezavisni zahtev. Fake/default je dovoljan za autorizovani scope.
+
+Stvarni status: T024 250/250 fokus, 802/802, E2E prvo 12/13 pa 13/13;
+T025/T029 91/91 fokus, 803/803, relevantni E2E 4/4, typecheck/lint/build 0.
+T026 evidence paket dokumentuje known/unknown, T027 samo priprema do ljudske potvrde.
+Rizici: strategija nije solver dokaz, memory-only/ograničeni uzorak, live uspeh nije
+proveren, doprinos i razumevanje oba člana nisu potvrđeni. Veliki istorijski ispisi
+delom skraćeni; nova runtime matrica i konkretni handoff/assertion-i dopunjuju audit.
+
 ## Week05 Phase 2 T012–T017 — 2026-10-04
 
 Prioritet: aktuelni priloženi zahtev (attachment 3f3fbea7) > AGENTS/constitution 1.1.0 >

@@ -1,6 +1,7 @@
 # Week05 — tehnički ugovor v1
 
-Datum: 2026-10-04; dokumentaciona odluka T003. Runtime šeme tek T007/T008.
+Datum: 2026-10-04; dokumentaciona odluka T003. Runtime šeme uvedene T007/T008;
+aktuelne offline provere 2026-10-05 su u T024/T025 evidence-u.
 Politika limita i terminalnih razloga je u [planu](plan.md#zaključana-politika-t005).
 
 ## Run i provider granica
@@ -18,7 +19,8 @@ Provider/tool čekanje nikada ne drži session serial lock; samo start i commit 
 Novi interni provider metod/ugovor za coach korak prima purpose=coach, runId,
 stepOrdinal 1/2, attemptOrdinal 1/2, runAttemptOrdinal 1–4, serverski model iz postojeće
 konfiguracije, ograničen goal/context, allowlist descriptor, responseSchema,
-remainingMs i AbortSignal. Vraća candidate: unknown, normalizovani model/usage i
+remainingMs i AbortSignal. Descriptor jedinog alata je trusted instrukcija u
+Gemini adapteru, ne proizvoljan executor iz modela. Vraća candidate: unknown, normalizovani model/usage i
 bezbednu kategoriju greške; candidate se validira u aplikaciji. SDK retry je isključen.
 Nema Gemini importa u orchestrator-u, nema raw SDK odgovora u DTO-u. Week04 AiPurpose,
 AIAttempt ordinal 1|2 i coordinator nisu ugovor za ceo Week05 run: novi ugovor se
@@ -83,8 +85,11 @@ prekida sinhroni rad, pa kooperativne provere moraju biti testirane.
 
 ## Kontekst i dokaz
 
-Korak 1 dobija goal, bezbedne run brojače/status, tool descriptor i broj raspoloživih
-detaljnih odluka/sampleLimited. Korak 2 dodatno samo poslednji validirani tool result.
+Model-visible JSON koraka 1 ima goal, broj raspoloživih detaljnih odluka i
+sampleLimited. Trusted adapter dodaje fazu i descriptor alata kroz svoje instrukcije;
+runId, step/attempt ordinali, remainingMs i deadline su u provider-neutral request
+envelope-u, a potpuni brojači/status ostaju u aplikacionom run state-u.
+Korak 2 dodatno dobija samo poslednji validirani tool result.
 Context JSON ≤32768 UTF-8 bajtova, bez promptova drugih koraka, repo-a ili raw logova.
 Model output candidate ≤32768 UTF-8 bajtova pre parsiranja. Nevalidan/oversize context
 zaustavlja invalid_input, output malformed_output. Kontekst tretirati kao podatke,

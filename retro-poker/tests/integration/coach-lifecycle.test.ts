@@ -19,6 +19,22 @@ function harness(steps: FakeAiStep[]) {
 }
 async function flush() { for (let i = 0; i < 100; i++) await Promise.resolve(); }
 describe('T019 session coach ownership', () => {
+  it('publishes stable wall-clock ISO timestamps while the run keeps its monotonic deadline', async () => {
+    const h = harness([{ kind: 'pending', id: 'timestamp' }]);
+    const before = Date.now();
+    const started = await h.session.serial(() => h.session.startCoach(h.input));
+    const after = Date.now();
+    // Release the fixture even on assertion failure; no live provider is involved.
+    try {
+      expect(Date.parse(started.startedAt)).toBeGreaterThanOrEqual(before);
+      expect(Date.parse(started.startedAt)).toBeLessThanOrEqual(after);
+      expect(Date.parse(started.deadlineAt) - Date.parse(started.startedAt)).toBe(45000);
+      await flush();
+      expect(h.session.coachStatus(started.runId)).toMatchObject({
+        startedAt: started.startedAt, deadlineAt: started.deadlineAt,
+      });
+    } finally { h.session.create(1); await flush(); }
+  });
   it('dispatches only after the start mutation lock has been released', async () => {
     const h = harness([{ kind: 'pending', id: 'lock' }]);
     let release!: () => void; const barrier = new Promise<void>(resolve => { release = resolve; });

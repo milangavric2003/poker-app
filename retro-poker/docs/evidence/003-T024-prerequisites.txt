@@ -1,0 +1,5 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: SPECIFY_FEATURE_DIRECTORY=feature003; powershell -NoProfile -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks
+{"FEATURE_DIR":"D:\\AIBootcamp\\week3-4\\retro-poker\\specs\\003-week05-bounded-agent-coach","AVAILABLE_DOCS":["data-model.md","contracts/","tasks.md"]}
+
+Exit status: 0

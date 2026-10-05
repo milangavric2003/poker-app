@@ -1,0 +1,85 @@
+T024/T028 — 2026-10-05 Europe/Belgrade
+
+Pre taska: T023 handoff i stvarni RED/GREEN/E2E logovi pregledani; početni git
+status/diff prazni. HEAD83cb2c2531934f2dd6fc5da1d0e4ab921b57309d. Nodev24.20.0,
+npm11.19.0. Vitest5.0.1/Playwright1.63.0 iz package.json i izlaza runner-a.
+Očekivanja pre izvršenja: docs/evidence/003-evals.md, svih10 obaveznih scenarija.
+
+T002–T023 audit (postojeći dokazi, ne novi istorijski rezultati):
+T002: requirements.md svih25 FR→US→test redova; T005 checklist12/12.
+T003: plan/data-model/coach-http budžeti, statusi, retry i ownership.
+T004: očuvan V1 prompt i vremenski odvojene manifest dopune pre koda.
+T005: iste2/1/4,15s/45s,1–10,20480B brojke; nije runtime dokaz sam za sebe.
+T006: baseline.md/snapshot/tests/typecheck; stvarni552/552 i snapshot, ograničenja.
+T007/T008: red26 schema assertion failures → green151 schema/contracts.
+T009/T010: red23 tool assertions → green53 fokus/317 unit.
+T011: validator RED/holdout, green65 fokus i610 regresija; Phase1 handoff.
+T012: red13 nedostajući generateAgent + pending collision holdout → green61 fokus.
+T013: red16 adapter assertions → green52 mock/fake fokus; SDK attempts1.
+T014: red4 nedostajuća state machine → green53 fokus, retry i duplicate guards.
+T015: red20 final validator assertions → green86; membership i insufficient policy.
+T016: negative revision RED sa1 provider/1 tool umesto0/0; GREEN81.
+Recovery test setup timeout nije behavior RED, izričito razdvojen u evidence-u.
+T017: terminal attempt promena posle cancellation-a i dispatch holdout RED →
+GREEN; Phase2 final708/708. Injected ownership nije produkcioni session dokaz.
+T018/T019: routes RED21, GREEN64 fokus, lock holdout i reservation korekcija;
+T020: usage/validation RED/GREEN, Phase3 final758/758; stvarni lifecycle slot.
+T021: RED16 component assertions → GREEN56 fokus; stvarni runtime-safe panel.
+T022: RED26 API/lifecycle assertions → GREEN96; prvi TS signal setup ispravljen.
+T023: setup greške odvojene, validni1PASS/2FAIL zbog poruka → coach3/3 GREEN;
+Week04 E2E1/1 i fokus146/146. Phase4 handoff i pojedinačni logovi postoje.
+Pročitan indeks/polazni i završni segmenti svih003 evidence zapisa, relevantni RED
+assertion-i i fazni handoff-i; ogromni istorijski ispisi delom skraćeni. Ne tvrdi se
+nezavisan audit svakog bajta originalnih logova ili ljudske istorije rada.
+Novo izvršenje250/250 i802/802 proverava sadašnji kod svih tih runtime taskova.
+Nije nađen odsutan completion artefakt T002–T023. Checkbox sam nije korišćen kao dokaz.
+Nije potvrđen stvarni pojedinačni doprinos/review oba ljudska člana za Week05.
+
+Tačne izvršene komande i rezultati (svaka sa datiranim raw logom):
+1. Fokusirani npm.cmd test -- [14 eksplicitnih putanja] --reporter=verbose:
+   puna komanda u003-T024-focus.txt;250/250,14 fajlova,exit0.
+   Dokazuje Week05 unit/contract/integration/UI i10 eval scenarija; ne live Gemini.
+2. npm.cmd test:802/802,57 fajlova,exit0;003-T024-regression.txt.
+   Week04 AI/engine/game regresija uključena; ne browser ponašanje ili live dostupnost.
+3. npm.cmd run test:e2e: prvo12/13,exit1;003-T024-e2e.txt.
+   AC23 traži As umesto postojećeg A♠/As pik. T028 menja samo8 card lokatora;
+   iste karte, sakrivanje protivnika i stackovi1010/990,1015/985 ostaju oracle.
+   Puna ista komanda ponovljena13/13,exit0;003-T024-e2e-rerun.txt.
+   Coach3/3,Week04 fake1/1,game/accessibility/recovery9/9; samo Chromium1280x720.
+4. npm.cmd run typecheck: inicijalno0; novi trace fixture dva putaexit2
+   (tuple/readonly i outcome:null), posle korekcijeexit0;003-T024-typecheck.txt.
+5. npm.cmd run lint: svi zabeleženi prolaziexit0;003-T024-lint.txt.
+6. npm.cmd run build:exit0,Vite121 modula i server TS;003-T024-build.txt.
+   Tipovi/lint/build nisu dokaz semantike ili live provajdera.
+7. node --import tsx tests/helpers/coach-evidence.ts:exit1,Windows
+   uv_os_get_passwd ENOMEM setup, bez provider poziva.
+   node --require ./tests/helpers/process-user-shim.cjs --import tsx tests/helpers/coach-evidence.ts:
+   exit0;8 fake scenario projekcija po uspešnom pokretanju. Pokrenuto3 puta sa
+   shim-om radi korekcije fixture tipova; ukupno24 fake logical runs/30 attempts/
+   21 tool proposals/12 executions u trace runner-u. To nije live potrošnja.
+   Precizne projekcije i prethodni setup neuspeh:003-T024-traces.txt.
+8. SpecKit prerequisite: puna komanda/env u003-T024-prerequisites.txt;exit0,
+   FEATURE_DIR003; requirements12/12,0 otvorenih. Extensions.yml ne postoji.
+9. Read-only priprema: Get-Content/rg/rg --files,git status --short,
+   git diff --stat,git diff -- [relevantne putanje],git rev-parse HEAD,
+   node --version,npm.cmd --version. Kompozitni read izlazi ne potvrđuju pojedinačni
+   exit svakog Get-Content-a. Jedno prerano čitanje još nenastalog E2E loga nije uspelo;
+   kasnije pročitan stvarni log. Nije test ili behavior neuspeh.
+
+Trace runner je synthetic fixture bez privatnih podataka u logu. Success:
+2 steps/2 attempts/1 proposal/1 execution/5 validations/1 terminal transition.
+Unknown tool i invalid args: model proposal rejected before executor;
+toolCallCount=0 i executor counter0; final=null. Repeated:2 proposals/1execution;
+invalid final:evidence_rejected; empty:0/0; svi snapshot-i ostaju isti.
+Deadline/stale/duplicate proof je u verbose integracionim assertion testovima,
+ne u osam projektovanih trace scenario redova.
+
+NIJE POKRENUTO: npm ci (postojeće dependencies), live smoke/diagnose/Gemini demo,
+spoljni provider, stvarni screen reader/axe/drugi browser, ljudski walkthrough,
+deployment/push/commit. Nema novog behavior RED/GREEN ciklusa.
+Prethodni Week04 live dokazi nisu Week05 live dokaz. Live ovog rada0;
+coding tokeni/cena unknown; zbir svih fake calls kompletne suite nije instrumentiran.
+
+Handoff: T024 i korektivni T028 tehnički dokaz potpuni; sledeće T025 security/privacy
+review i FR→US→task→test→evidence mapa. T026 tek nakon tog review-a; T027 oba
+člana moraju stvarno potvrditi razumevanje. Jedan coding agent, nema delegacije.
