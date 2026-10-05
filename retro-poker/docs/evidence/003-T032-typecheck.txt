@@ -1,0 +1,9 @@
+Datum:2026-10-05 Europe/Belgrade
+Komanda:npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+
+Exit status:0
+Offline, bez novih live poziva.

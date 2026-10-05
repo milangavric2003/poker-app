@@ -1,0 +1,181 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/ui/coach.test.tsx
+
+> retro-poker@0.1.0 test
+> vitest run tests/ui/coach.test.tsx
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ❯ |ui| tests/ui/coach.test.tsx (19 tests | 6 failed) 221ms
+   ❯ T021 bounded coaching component (19)
+     × announces stopped insufficient_evidence and explicit retry 10ms
+     × announces stopped unknown_tool and explicit retry 5ms
+     × announces stopped deadline and explicit retry 6ms
+     × shows the screenshot failure once, with a safe explanation of invalid output 5ms
+     × distinguishes rejected evidence from invalid structure without displaying a final 5ms
+     × explains the selected goal using the actual tool filters without dispatching a run 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped insufficient_evidence and explicit retry
+Error: expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <p
+  aria-live="polite"
+  role="status"
+>
+  Nema dovoljno dokaza za ovaj cilj.
+</p> instead
+ ❯ tests/ui/coach.test.tsx:72:46
+     70|     const request = panel({ run: run({ status: 'stopped', stopReason: …
+     71|     expect(screen.getByRole('alert')).toHaveTextContent(reason === 'in…
+     72|     expect(screen.queryByRole('status')).not.toBeInTheDocument();
+       |                                              ^
+     73|     expect(request).not.toHaveBeenCalled();
+     74|     fireEvent.click(screen.getByRole('button', { name: 'Pokušaj coachi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped unknown_tool and explicit retry
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped deadline and explicit retry
+Error: expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <p
+  aria-live="polite"
+  role="status"
+>
+  Coaching je zaustavljen. Rezultat partije nije promenjen.
+</p> instead
+ ❯ tests/ui/coach.test.tsx:72:46
+     70|     const request = panel({ run: run({ status: 'stopped', stopReason: …
+     71|     expect(screen.getByRole('alert')).toHaveTextContent(reason === 'in…
+     72|     expect(screen.queryByRole('status')).not.toBeInTheDocument();
+       |                                              ^
+     73|     expect(request).not.toHaveBeenCalled();
+     74|     fireEvent.click(screen.getByRole('button', { name: 'Pokušaj coachi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > shows the screenshot failure once, with a safe explanation of invalid output
+AssertionError: expected [ <p role="status" …(1)></p>, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/ui/coach.test.tsx:104:90
+    102|     panel({ run: run({ status: 'failed', stopReason: 'malformed_output…
+    103|       failureCategory: 'invalid_structured_response', stepCount: 2, pr…
+    104|     expect(screen.getAllByText('Coaching nije uspeo. Rezultat partije …
+       |                                                                                          ^
+    105|     expect(screen.getByRole('alert')).toHaveTextContent(/nije uspeo/i);
+    106|     expect(screen.getByText(/AI odgovor nema očekivanu strukturu/i)).t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > distinguishes rejected evidence from invalid structure without displaying a final
+TestingLibraryElementError: Unable to find an element with the text: /reference ili činjenice koje se ne poklapaju/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Coaching partije"[39m
+      [33mclass[39m=[32m"analysis-panel"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mCoaching partije[0m
+      [36m</h2>[39m
+      [36m<label[39m
+        [33mfor[39m=[32m"_r_h_"[39m
+      [36m>[39m
+        [0mCoaching cilj[0m
+      [36m</label>[39m
+      [0m [0m
+      [36m<select[39m
+        [33mid[39m=[32m"_r_h_"[39m
+      [36m>[39m
+        [36m<option[39m
+          [33mvalue[39m=[32m"betting"[39m
+        [36m>[39m
+          [0mUlaganje[0m
+        [36m</option>[39m
+        [36m<option[39m
+          [33mvalue[39m=[32m"street"[39m
+        [36m>[39m
+          [0mOdluke po fazama[0m
+        [36m</option>[39m
+        [36m<option[39m
+          [33mvalue[39m=[32m"showdown"[39m
+        [36m>[39m
+          [0mShowdown[0m
+        [36m</option>[39m
+      [36m</select>[39m
+      [36m<p>[39m
+        [0mIzabrani cilj: [0m
+        [0mOdluke po fazama[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mCoaching nije uspeo. Rezultat partije nije promenjen.[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mrole[39m=[32m"alert"[39m
+      [36m>[39m
+        [0mCoaching nije uspeo. Rezultat partije nije promenjen.[0m
+      [36m</p>[39m
+      [36m<p>[39m
+        [0mRazlog zaustavljanja: [0m
+        [0mOdgovor nije prošao validaciju.[0m
+      [36m</p>[39m
+      [36m<button>[39m
+        [0mPokušaj coaching ponovo[0m
+      [36m</button>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/coach.test.tsx:112:19
+    110|   it('distinguishes rejected evidence from invalid structure without d…
+    111|     panel({ run: run({ status: 'failed', stopReason: 'malformed_output…
+    112|     expect(screen.getByText(/reference ili činjenice koje se ne poklap…
+       |                   ^
+    113|     expect(screen.queryByText('Coaching sažetak')).not.toBeInTheDocume…
+    114|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > explains the selected goal using the actual tool filters without dispatching a run
+Error: expect(element).toHaveAccessibleDescription()
+
+Expected element to have accessible description:
+  /bet, raise, call i all-in/i
+Received:
+
+ ❯ tests/ui/coach.test.tsx:119:20
+    117|     const request = panel();
+    118|     const select = screen.getByRole('combobox', { name: 'Coaching cilj…
+    119|     expect(select).toHaveAccessibleDescription(/bet, raise, call i all…
+       |                    ^
+    120|     fireEvent.change(select, { target: { value: 'street' } });
+    121|     expect(select).toHaveAccessibleDescription(/preflop, flop, turn i …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 13 passed (19)
+   Start at  20:48:21
+   Duration  1.41s (environment 57%, import 18%, tests 18%, transform 7%)
+
+
+Exit status:1
+Stvarni screenshot duplikat2 umesto1; nedostaju razdvojena safe objašnjenja i goal description. Promena ranijeg stopped testa iz oba live region-a u jedan alert prati novu spec: alert ostaje, uklanja se redundantni status. Bez live poziva.

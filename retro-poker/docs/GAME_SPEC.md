@@ -327,6 +327,8 @@ Ljudski gate ispod ostaje otvoren; tehnički checkbox nije potvrda obe osobe.
   grešku alata/provajdera, neispravan izlaz, ponavljanje, rok/limit koraka i lažne
   evidence reference; nedozvoljen predlog daje nula tool izvršenja.
 - [x] UI prikazuje bezbedne statuse, rezultat i dokaze; postoje E2E/ručni zapisi.
+- UI status se prikazuje jednom; safe failureCategory razjašnjava odbijanje forme
+  ili nepoklapanje evidence-a. Opis coaching cilja prati postojeće filtere alata.
 - [x] Evidence i AI usage log razlikuju logičko pokretanje, modelske korake, provider
   pokušaje i pozive alata; nema tajni ni chain-of-thought-a.
 - [ ] Obe osobe u paru mogu da objasne tok, allowlist, validaciju i stop uslove; njihov

@@ -550,3 +550,24 @@ Novi dokaz: baseline106, RED9FAIL/15PASS→GREEN24, full827/827,E2E4/4,
 typecheck/lint/build0. Live #2 log i T031handoff čuvaju actual status/budget;
 raw kandidat/tekst/finding/karte se ne beleže. Uspešan final ne potvrđuje strateški
 kvalitet. T031/live gate zatvoreni, T027 stvarni doprinos/walkthrough ostaju otvoreni.
+
+## 2026-10-05 — T032 coaching screenshot
+
+Prioritet: korisnik/screenshot i kasniji port incident > AGENTS > GAME_SPEC >
+feature003. Polazni čist HEAD2496770. Jedan agent, speckit-implement; feature003
+prerequisite0, requirements12/12 read-only, extensions.yml absent. Read relevantnih
+plan/spec/task/constitution odeljaka i ignore/ESLint pravila; kombinovani ispisi
+delom skraćeni, ne tvrdi se ponovni kompletan audit istorijskih logova.
+
+Izvori: CoachPanel/App, coach UI/API/lifecycle/E2E, engine-neutral tool projection/
+validation/orchestrator/strict shared contracts, Gemini adapter i integration test.
+Read-only lokalni GETusage:10run-a,3completed/7malformed,6step2malformed/1evidence.
+Nema raw prompta/response-a/.env čitanja ni novih live model calls. Screenshot ne
+otkriva invalid field; korisnik ne može izvući GET zbog port incident-a. Coach E2E
+helper/Playwright/Vite config pročitani, netstat i HTTP provere, dev server vraćen.
+Frontend200/backendreachable,hasGame=false. Ne pokretati5173testove uz korisnikovUI.
+
+Spec/plan/task/GAME_SPEC pre koda: jedan alert/status, safe kategorija i goal help.
+Backend validator/adapter/engine nisu menjani; nema tvrdnje popravke modelskih
+odgovora. RED6FAIL/13PASS→GREEN47/47 (prviGREEN lifecycle stale locator),
+E2E3/3,typecheck/lint/build0. T032UX gotov; T027 ostaje otvoren.

@@ -391,3 +391,16 @@ Potvrđeni Week05 zbir ovog razgovora: 2run-a/4calls/2tools/1950total tokena;
 Raw prompt/response, karte/finding/model text/chain-of-thought nisu sačuvani.
 Uspeh potvrđuje ovaj bounded tok, ne kvalitet/optimalnost saveta ili dostupnost.
 [Live log](evidence/003-T031-live-02.txt), [handoff](evidence/003-T031-handoff.md).
+
+## 2026-10-05 — T032 screenshot dijagnoza i UI korekcija
+
+Jedan Codex coding agent, coding tokeni/model build/cenaunknown. Korisnik pita
+razlog failure screenshot-a/popravku i razliku tri cilja. Read-only lokalni GETusage
+pokazuje10run-a:3completed/7malformed, šest adapter/forme i jedan evidence failure.
+Novi live pozivi0; zbir tekućeg procesa nije naše #3 odobrenje ili datum drugih run-ova.
+Očekivanje: jedna statusna poruka i jasna safe dijagnostika/cilj bez raw izlaza.
+Ishod: RED6FAIL→GREEN47/47,E2E3/3,typecheck/lint/build0; backend ne menja se.
+Korisnik nije mogao izvući stari run jer smo koristili frontend port u E2E-u;
+testovi zatvoreni, vraćen normalni dev server. Nema stare memorijske partije u
+novom procesu. Tačan invalid field nije potvrđen, ne tvrdi se model reliability fix.
+[Handoff](evidence/003-T032-handoff.md). T027 doprinos ostaje odložen.

@@ -51,7 +51,11 @@ describe('T022 coaching App lifecycle', () => {
     vi.mocked(api.loadCoach).mockResolvedValue(terminal);
     await mount(); start(); await flush(); await tick(); await tick(5000);
     expect(api.loadCoach).toHaveBeenCalledTimes(1);
-    expect(panel().getByRole('status')).not.toHaveTextContent('u toku');
+    const announcement = panel().getByRole(terminal.status === 'completed' ? 'status' : 'alert');
+    expect(announcement).not.toHaveTextContent('u toku');
+    expect(announcement).toHaveTextContent(terminal.status === 'completed' ? 'Coaching je završen.'
+      : terminal.stopReason === 'insufficient_evidence' ? 'Nema dovoljno dokaza'
+        : terminal.status === 'failed' ? 'Coaching nije uspeo.' : 'Coaching je zaustavljen.');
   });
   it('does not poll a terminal POST response', async () => {
     vi.mocked(api.startCoach).mockResolvedValue(failed());

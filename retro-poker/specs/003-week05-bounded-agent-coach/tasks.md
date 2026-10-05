@@ -369,3 +369,19 @@ Model Gemini3.5FlashLite; runId3c613f27-4d49-4bb1-90e2-f0bb92a0f795;
 runner3254ms/run3182ms, prompt1010/candidate476/total1486tokena, cenaunknown.
 Offline24/24 runner, puna827/827, E2E4/4, typecheck/lint/build0.
 Nema #3. [Handoff](../../docs/evidence/003-T031-handoff.md). T027 ostaje otvoren.
+
+- [x] T032 jedan coding agent — Screenshot coaching greške: ukloniti duplu poruku,
+  objasniti kategorije odbijanja i izabrani cilj; deps T031; allowed:
+  frontend/src/components/CoachPanel.tsx, tests/ui/coach.test.tsx,
+  tests/ui/coach-lifecycle.test.tsx (terminal announcement locator za jedan alert),
+  feature spec/plan/tasks, docs/GAME_SPEC.md, docs/EVIDENCE_W05.md,
+  docs/AI_USAGE_LOG.md, docs/CONTEXT_MANIFEST.md, docs/evidence/003-T032-*.
+  Evidence: jedan dostupan alert, tačna safe dijagnostika, stvarni goal filteri,
+  zeleni relevantni testovi i typecheck/lint/build; ne menjati validator/poker/adapter.
+  Lokalni read-only GET usage:10run-a,3completed,7malformed_output;
+  6step2 malformed provider outcome,1final evidence rejection. Ovo nisu naši
+  novi live run-ovi niti dokaz tačnog run-a sa screenshot-a. Novi live pozivi0.
+
+T032 dokaz: [handoff](../../docs/evidence/003-T032-handoff.md), RED6FAIL/13PASS→
+GREEN47/47, coachE2E3/3, typecheck/lint/build0. Rešen UI duplikat i safe objašnjenja;
+uzrok konkretnog malformed model polja nije poznat. Generisanje nije menjano.

@@ -334,3 +334,25 @@ ili security audit celog repo-a. Dva dokumentaciona patch-a odbijena zbog netač
 line konteksta pre izmene, potom ispravljena; PowerShell bash brace syntax zamenjen
 navedenim putanjama. To nisu runtime RED dokazi.
 [Handoff](evidence/003-T031-handoff.md), [završni audit](evidence/003-T031-audit.txt).
+
+## T032 — coaching UI objašnjenja, 2026-10-05
+
+Screenshot malformed_output: dupli status/alert tekst popravljen jednim live region-om.
+Safe failureCategory razlikuje neispravnu strukturu/granice od nepoklapanja dokaza.
+Opis ciljeva prati stvarne betting/street/showdown filtere bez promene alata.
+Read-only usage snapshot:10run-a,3completed,7malformed_output; step2 ima6malformed
+provider outcomes i1final evidence rejection. Nisu naši novi live pozivi.
+Tačno neispravno polje screenshot run-a nije dostupno; ne tvrdi se backend popravka.
+
+[RED6FAIL/13PASS](evidence/003-T032-red.txt) → [GREEN47/47](evidence/003-T032-green-final.txt),
+[prvi44/47](evidence/003-T032-green-initial.txt) zahtevao je lifecycle locator za
+jedan terminalni alert prema novoj spec, uz očuvani polling oracle.
+[CoachChromium3/3](evidence/003-T032-e2e.txt), [typecheck0](evidence/003-T032-typecheck.txt),
+[lint0](evidence/003-T032-lint.txt), [build0](evidence/003-T032-build.txt).
+Puna827suite nije ponavljana; validator/adapter/engine/retry ne menjaju se.
+
+Korisnik prijavio zauzet frontend port: helper je koristio5173, potom se zatvorio.
+Nakon završetka netstat nema LISTENING na5173/3001; vraćen normalni npm run dev.
+FrontendHTTP200, backendreachable=true/hasGame=false; stara memorijska partija/run
+nisu dostupni. Nije pokrenut novi coaching/retry/live. T027 ostaje odložen.
+[Handoff](evidence/003-T032-handoff.md), [audit](evidence/003-T032-audit.txt).

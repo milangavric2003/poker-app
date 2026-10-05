@@ -69,7 +69,7 @@ describe('T021 bounded coaching component', () => {
   it.each(['insufficient_evidence', 'unknown_tool', 'deadline'] as const)('announces stopped %s and explicit retry', reason => {
     const request = panel({ run: run({ status: 'stopped', stopReason: reason }) });
     expect(screen.getByRole('alert')).toHaveTextContent(reason === 'insufficient_evidence' ? /dovoljno dokaza/i : /zaustavljen/i);
-    expect(screen.getByRole('status')).toHaveTextContent(reason === 'insufficient_evidence' ? /dovoljno dokaza/i : /zaustavljen/i);
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
     expect(request).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole('button', { name: 'Pokušaj coaching ponovo' }));
     expect(request).toHaveBeenCalledTimes(1);
@@ -96,5 +96,31 @@ describe('T021 bounded coaching component', () => {
     panel({ failure: true });
     expect(screen.getByRole('alert')).toHaveTextContent(/nije uspeo/i);
     expect(screen.getByRole('button', { name: 'Pokušaj coaching ponovo' })).toBeEnabled();
+  });
+
+  it('shows the screenshot failure once, with a safe explanation of invalid output', () => {
+    panel({ run: run({ status: 'failed', stopReason: 'malformed_output',
+      failureCategory: 'invalid_structured_response', stepCount: 2, providerAttemptCount: 2, toolCallCount: 1 }) });
+    expect(screen.getAllByText('Coaching nije uspeo. Rezultat partije nije promenjen.')).toHaveLength(1);
+    expect(screen.getByRole('alert')).toHaveTextContent(/nije uspeo/i);
+    expect(screen.getByText(/AI odgovor nema očekivanu strukturu/i)).toBeVisible();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('distinguishes rejected evidence from invalid structure without displaying a final', () => {
+    panel({ run: run({ status: 'failed', stopReason: 'malformed_output', failureCategory: 'evidence_rejected' }) });
+    expect(screen.getByText(/reference ili činjenice koje se ne poklapaju/i)).toBeVisible();
+    expect(screen.queryByText('Coaching sažetak')).not.toBeInTheDocument();
+  });
+
+  it('explains the selected goal using the actual tool filters without dispatching a run', () => {
+    const request = panel();
+    const select = screen.getByRole('combobox', { name: 'Coaching cilj' });
+    expect(select).toHaveAccessibleDescription(/bet, raise, call i all-in/i);
+    fireEvent.change(select, { target: { value: 'street' } });
+    expect(select).toHaveAccessibleDescription(/preflop, flop, turn i river/i);
+    fireEvent.change(select, { target: { value: 'showdown' } });
+    expect(select).toHaveAccessibleDescription(/otkrivanjem karata/i);
+    expect(request).not.toHaveBeenCalled();
   });
 });

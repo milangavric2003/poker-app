@@ -327,3 +327,13 @@ run nije autorizovan samo prethodnim sandbox command prefix-om.
 T031 stvarni ishod: korisnik izričito odobrio #2, street-review; completed, 2/2/1,
 4 evidence reference, read-only=true, retry0/fallback0. [Live dokaz](../../docs/evidence/003-T031-live-02.txt).
 Nije dokaz optimalnosti saveta niti ljudskog walkthrough-a. T027 ostaje otvoren.
+
+### T032 — jasnoća coaching izbora i greške
+
+Screenshot pokazuje duplu failure poruku i malformed_output stop. UI prikazuje
+jednu statusnu poruku: alert za retry/failure, status za ostala stanja. Za malformed
+koristi validiranu failureCategory: invalid_structured_response znači neispravnu
+strukturu/granice, evidence_rejected nepoklapanje sa dokazima. Bez raw izlaza.
+Opis izabranog cilja objašnjava stvarne filtere: betting bet/raise/call/all_in,
+street sve raspoložive odluke, showdown odluke iz ruku završenih showdown-om.
+Ne menja validator ili retry policy, niti tvrdi da je live pouzdanost popravljena.

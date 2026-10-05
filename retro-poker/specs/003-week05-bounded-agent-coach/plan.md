@@ -227,3 +227,9 @@ u ovom planu/data-model/HTTP ugovoru. Pregled postojećih types/coordinator/retr
 routes/session/MatchFacts i fake test helper-a određuje API ownership i granicu.
 Komande: Get-Content, rg, git diff/status; npm provere nisu pokrenute za T003.
 Sledeće: T004 prompt+manifest, zatim T005 sadržinski potvrditi ovu policy tabelu.
+
+T032: samo CoachPanel, postojeći UI acceptance test i dokumenti/evidence. Jedan
+live-region paragraph menja role status/alert prema stanju; bez duplog teksta.
+Mapirati dve malformed failureCategory vrednosti u jasna objašnjenja, uz bezbedan
+generički fallback. Opis selekcije prati focus, ne menja payload ili filtriranje.
+RED→GREEN i coach UI/API/lifecycle, typecheck/lint/build. Bez novih live poziva.
