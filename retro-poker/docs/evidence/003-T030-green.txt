@@ -1,0 +1,53 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts --reporter=verbose
+Offline fake provider; bez stvarnih Gemini poziva.
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts --reporter=verbose
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > without the exact --live flag does not load configuration or create a provider 3ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects disabled configuration before any call 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_key configuration before any call 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_agent configuration before any call 0ms
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final 155ms
+   → expected '{"exitCode":0,"report":{"event":"coac…' not to contain 'candidate'
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports unknown_tool rejection with zero executor calls 40ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports invalid_arguments rejection with zero executor calls 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops timeout_error after one attempt with no retry or fallback 48ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 429 after one attempt with no retry or fallback 32ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 5xx after one attempt with no retry or fallback 32ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops auth_config after one attempt with no retry or fallback 45ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > a step-two failure keeps the executed tool count and does not restart the workflow 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects invented evidence as a failed smoke, even after two successful provider responses 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > never prints exception text or provider content, including configuration factory failures 46ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final
+AssertionError: expected '{"exitCode":0,"report":{"event":"coac…' not to contain 'candidate'
+
+Expected: "candidate"
+Received: "{"exitCode":0,"report":{"event":"coach-smoke","executed":true,"passed":true,"stage":"completed","reason":null,"model":"gemini-3.8-flash","runId":"dc071743-d6fc-48a9-ac7a-ee57462ee3ab","goal":{"focus":"street"},"maxRuns":1,"maxProviderCalls":2,"providerAttemptTimeoutMs":15000,"totalDeadlineMs":45000,"status":"completed","stopReason":"completed","failureCategory":null,"stepCount":2,"providerCallCount":2,"toolCallCount":1,"finalValidated":true,"evidenceCount":1,"readOnlySnapshotPreserved":true,"durationMs":93,"usage":{"runCount":1,"stepCount":2,"providerAttemptCount":2,"toolAttemptCount":1,"toolExecutionCount":1,"toolRejectionCount":0,"validationCount":5,"validationRejectedCount":0,"retryCount":0,"modelFallbackCount":0,"stopReasons":[{"reason":"completed","count":1}],"latency":{"count":1,"sumMs":8,"maxMs":8},"attempts":[{"stepOrdinal":1,"model":"gemini-3.8-flash","relation":"initial","outcome":"success","count":1,"latency":{"count":1,"sumMs":1,"maxMs":1},"usage":{"promptTokens":{"knownCount":0,"missingCount":1,"sum":0},"candidateTokens":{"knownCount":0,"missingCount":1,"sum":0},"thoughtTokens":{"knownCount":0,"missingCount":1,"sum":0},"cachedTokens":{"knownCount":0,"missingCount":1,"sum":0},"totalTokens":{"knownCount":0,"missingCount":1,"sum":0},"cost":{"knownCount":0,"missingCount":1,"sum":null,"currency":null}}},{"stepOrdinal":2,"model":"gemini-3.8-flash","relation":"initial","outcome":"success","count":1,"latency":{"count":1,"sumMs":0,"maxMs":0},"usage":{"promptTokens":{"knownCount":0,"missingCount":1,"sum":0},"candidateTokens":{"knownCount":0,"missingCount":1,"sum":0},"thoughtTokens":{"knownCount":0,"missingCount":1,"sum":0},"cachedTokens":{"knownCount":0,"missingCount":1,"sum":0},"totalTokens":{"knownCount":0,"missingCount":1,"sum":0},"cost":{"knownCount":0,"missingCount":1,"sum":null,"currency":null}}}]}}}"
+
+ ❯ tests/integration/coach-smoke.test.ts:56:26
+     54|     for (const marker of ['SMOKE_SECRET_KEY', 'Pregled dostupnih odluk…
+     55|       'holeCards', 'finding', 'systemInstruction', 'responseSchema', '…
+     56|       expect(output).not.toContain(marker);
+       |                          ^
+     57|     }
+     58|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  19:45:20
+   Duration  1.15s (tests 53%, transform 25%, import 22%)
+
+
+Exit status: 1
+

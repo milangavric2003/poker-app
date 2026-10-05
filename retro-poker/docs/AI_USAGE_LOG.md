@@ -333,3 +333,35 @@ validation holdout-i otkrili konkretne propuste i proverili korekcije. Ljudska o
 korisnikov zahtev autorizuje T018–T020; doprinos/review drugog člana nije potvrđen.
 Live Gemini pozivi:0. Tačan model build, Codex tokeni i trošak nisu dostupni;
 fake testovi nisu live potrošnja. Dokaz: docs/evidence/003-phase3-handoff.txt.
+
+## 2026-10-05 — T030, jedan bounded Week05 live run
+
+Korisnik odobrio nastavak na week05/implementation i najviše jedan live run;
+kasnije ostavio individualni doprinos/walkthrough oba člana za kasnije.
+Alat: jedan Codex coding agent, model build/coding tokeni/cena unknown.
+Kontekst: novi CONTEXT_MANIFEST unos, GAME_SPEC1.2.1 i feature003; role/scope/limits
+sačuvani u T030task/spec pre koda. Očekivanje: produkcioni HTTP/session/orchestrator
+tok, dve odvojene modelske odluke i jedan read-only alat; success tek uz validirani
+final. Default i negativni testovi offline, ne zahtevaju tajnu/mrežu.
+
+Ishod coding rada: smoke modul/CLI/npm komanda,15offline acceptance testova,
+RED13FAIL/1PASS→GREEN14/14, pa dodatni insufficient holdout u final818regresiji;
+E2E4/4,typecheck/lint/build0. Trace runner ovog bloka:1pokretanje×8fake run-ova,
+10provider attempts/7tool proposals/4executions,retry0/fallback0. Ukupna fake suite
+potrošnja nije instrumentirana; broj testova nije broj modelskih poziva.
+
+Jedini live run: Gemini`gemini-3.5-flash-lite`,runId
+`6cd5015f-f878-4266-9187-c6c2aefca15b`; modelu prosleđen ograničen sintetički cilj,
+a u step2 samo validirani tool rezultat. Provider key ostaje u backend konfiguraciji;
+raw prompt/response, karte, model tekst ili reasoning nisu sačuvani.
+Stvarno:1agent run,2model steps,2provider attempts,1tool execution,0retry/0fallback;
+stop=`insufficient_evidence`,result=null,smoke exit1. Oba provider odgovora imaju
+transport success; to nije validirani savet. Run latency2091ms,runner2157ms.
+Tokeni step1:prompt75/candidate49/total124; step2:prompt327/candidate13/total340;
+zbirprompt402/candidate62/total464. Thought/cached usage i cena unknown.
+
+Odobreni budžet je jedan run: bezbedan stop ostaje stvarni rezultat; ne popunjavati
+final, ne ponavljati live run i ne slabiti validaciju. T030runner/ishod je gotov; T031
+prati nedostajući live success sa novim budućim budžetom. T027ljudski doprinos nije
+pretpostavljen niti potpisan. [Live log](evidence/003-T030-live.txt),
+[handoff](evidence/003-T030-handoff.md), [evidence](EVIDENCE_W05.md).

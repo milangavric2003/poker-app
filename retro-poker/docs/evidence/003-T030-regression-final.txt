@@ -1,0 +1,18 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  58 passed (58)
+      Tests  818 passed (818)
+   Start at  19:49:59
+   Duration  12.64s (tests 31%, import 28%, environment 25%, transform 15%, worker 1%)
+
+
+Exit status: 0
+

@@ -3,12 +3,13 @@
 **Feature**: `003-week05-bounded-agent-coach`  
 **Status**: T002–T026 implementirani/provereni; T028/T029 male korekcije imaju dokaz.
 Ljudski walkthrough T027 nije potvrđen. Specifikacija sama nije runtime dokaz.
+T030 runner i jedan live ishod su zabeleženi; uspešan live final ostaje T031.
 **Datum**: 2026-10-04  
 **Ulaz**: proširenje Week04 analize završene partije u mali, proverljiv agentski tok.
 
 ## 1. Izvori i prioritet
 
-Autoritativni izvori za ponašanje igre i scope su [GAME_SPEC v1.2](../../docs/GAME_SPEC.md),
+Autoritativni izvori za ponašanje igre i scope su [GAME_SPEC v1.2.1](../../docs/GAME_SPEC.md),
 [AGENTS.md](../../AGENTS.md) i [constitution](../../.specify/memory/constitution.md).
 Week05 obrazac i minimumi dolaze iz roditeljskog
 [weekly assignment](../../../weekly-assignment.md) i
@@ -193,7 +194,8 @@ evidence; accessibility/E2E pokriva uspeh i kontrolisani neuspeh.
   tool attempt i stop reason; ne zapisuje se key, sirovi prompt, neograničen output
   niti hidden reasoning.
 - **FR-023**: Default/fake testovi MUST biti offline i ne smeju zahtevati tajnu ili
-  mrežu. Live demo je eksplicitan, ručni i bounded.
+  mrežu. Live demo za predaju MUST biti eksplicitan, ručni i bounded; zaseban
+  uspešan live final i njegov dokaz prate T031 nakon T030 kontrolisanog prekida.
 - **FR-024**: Novu partiju/reset tokom run-a MUST tretirati kao cancellation/stale;
   kasni provider odgovor ne može promeniti stanje ni prikaz aktuelne partije.
 - **FR-025**: Bounded facts moraju transparentno označiti da starije odluke koje su
@@ -284,3 +286,23 @@ Implementacija počinje tek kada spec, plan i taskovi imaju dogovorene ugovore i
 je pre prve velike implementacije sačuvan `docs/BUILD_PROMPT_WEEK05_V1.md`.
 Feature je završen po GAME_SPEC §14 kada su kod, offline acceptance testovi, evidence,
 UI, status/usage i dokumentovani rezultati usklađeni. Sam plan ne predstavlja dokaz.
+
+### Dopuna za predaju — T030, 2026-10-05
+
+Po korisnikovom odobrenju razrešena je ranija razlika između opcionog projektnog
+live-a i assignment §31 MUST HAVE limited live demo. Predaja zahteva zaseban,
+ograničen Week05 live dokaz i stvarni walkthrough/doprinos oba člana (T027).
+Live nije deo CI: poseban `--live` opt-in, najviše jedan run ovog rada, dva koraka,
+jedan alat, bez retry-ja/fallback-a; postojeći 15 s/attempt i 45 s/run rokovi važe.
+Runner koristi sintetičku terminalnu partiju i produkcioni HTTP/session/orchestrator/
+Gemini tok. Očekivanje uspeha: completed, 2 steps/2 attempts/1 execution, validan
+final i nepromenjen poker rezultat. Bez opt-in-a ili konfiguracije: nula poziva.
+Neuspeh mora imati stvarni safe razlog i exit status, bez dodatnog live pokušaja.
+Privacy oracle razlikuje sirovi JSON ključ `candidate` od dozvoljene brojčane
+metrike `candidateTokens`; token usage ostaje deo sanitizovanog dokaza.
+Zabeležen neuspeh ne zatvara gate uspešnog live toka; T027 se ne zatvara runner-om.
+
+Stvarni T030 rezultat: 1 run sa Gemini 3.5 Flash Lite, 2 steps/2 attempts/1 execution,
+stopped/insufficient_evidence, bez finala; read-only prolazi. Safe izlaz ne omogućava
+zaključak o konkretnom razlogu nedovoljnosti ili strateškom kvalitetu saveta.
+T031 vodi preostali live success dokaz; T027/doprinos korisnik ostavlja za kasnije.

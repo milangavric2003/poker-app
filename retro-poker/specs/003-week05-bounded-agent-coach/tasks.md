@@ -176,7 +176,8 @@ Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
 - [ ] T027 oba — Final handoff/demo walkthrough; deps T026; allowed: evidence and
   feature task list; evidence: each member independently explains goal, tool contract,
   proposal validation, budgets, stop condition and zero tool execution on rejection;
-  optional live demo stays within approved local budget and records actual outcome.
+  live dokaz je zaseban T030 prema assignment §31 i korisnikovom odobrenju;
+  runner ne potvrđuje ljudski walkthrough ni prihvatanje handoff-a.
 
 ## Coverage index
 
@@ -303,3 +304,41 @@ Finalni gate: [stvarni izlaz i lista fajlova](../../docs/evidence/003-T027-final
 git diff --check prvi2 zbog novog Markdown hard-break-a,zatim0 po uklanjanju.
 Legacy screenshot-i vraćeni na polazne HEAD bajtove;nema generated build/cache
 u diff-u. T027 i ljudski GAME_SPEC DoD ostaju otvoreni do stvarnih potvrda.
+
+## Phase 6 — live dokaz i završetak predaje, 2026-10-05
+
+- [x] T030 (jedan coding agent; korisnik odobrio scope, ljudski owner nije izveden)
+  — Uskladiti limited live demo zahtev i napraviti bounded Week05 smoke runner;
+  deps: T024–T026; allowed: `docs/GAME_SPEC.md`, feature `spec.md`/`plan.md`/`tasks.md`,
+  `scripts/coach-smoke.ts`, `scripts/gemini-coach-live-smoke.ts`,
+  `tests/integration/coach-smoke.test.ts`, `package.json`, `README.md`,
+  `docs/EVIDENCE_W05.md`, `docs/AI_USAGE_LOG.md`, `docs/CONTEXT_MANIFEST.md`,
+  `docs/evidence/003-T030-*`, `docs/evidence/003-T027-demo.md`;
+  evidence: novi offline prerequisite i trace, smisleni RED→GREEN za CLI opt-in,
+  config preflight, success 2/2/1, read-only i safe failure bez retry/fallback-a;
+  typecheck/lint/build i relevantna regresija; najviše jedan stvarni live run sa
+  sanitizovanim rezultatom. Live neuspeh nije success. T027 ostaje otvoren do oba
+  ljudska walkthrough-a, stvarnog individualnog doprinosa i prihvatanja handoff-a.
+
+Odobrenje: korisnikov „moze kreni” prihvata predloženi paket i najviše jedan live
+Gemini coach run na grani `week05/implementation`. Početni HEAD:
+`57198a70cc179e3b7e6f1e36cc0fae6099a3234d`, radno stablo čisto pre novog evidence-a.
+Checklist kvaliteta zahteva je read-only (12/12); istorijski T002/T005 zapis razlike
+live kriterijuma se ne prepisuje. Ova dopuna razrešava tu razliku unapred.
+
+T030 završeno kao runner + stvarno zabeležen ishod, ne kao live success:
+[handoff](../../docs/evidence/003-T030-handoff.md),
+[live stop](../../docs/evidence/003-T030-live.txt). RED13FAIL/1PASS→GREEN14/14;
+naknadni insufficient holdout pokriven završnom regresijom818/818(58fajlova).
+Fokus105/105 pre holdout-a; coach/Week04 E2E4/4; typecheck/lint/build0.
+1live run/2provider calls/1tool,insufficient_evidence,464tokena,cenaunknown.
+T027 ostaje otvoren: korisnik je izričito odložio doprinos/walkthrough podatke.
+
+- [ ] T031 (oba člana; sledeći driver po dogovoru) — Dopuniti dokaz uspešnog live
+  Week05 finala; deps T030; allowed: smoke fixture i njegovi offline testovi, feature
+  plan/tasks/spec, README i evidence/usage/manifest. Pre live-a dogovoriti mali
+  informativniji sintetički scenario i njegovo očekivanje, pa proveriti offline.
+  Zatim tražiti novi mali live budžet: T030 jedno odobrenje je potrošeno i ne prenosi
+  se na ovaj task. Evidence: stvarni completed sa validiranim finalom, dva model
+  koraka/jedan alat/read-only; ili iskreno otvoren gate sa failure razlogom.
+  Ne popunjavati lažan savet i ne slabiti final/insufficient validaciju radi demo-a.

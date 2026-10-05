@@ -1,0 +1,18 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  5 passed (5)
+      Tests  105 passed (105)
+   Start at  19:48:13
+   Duration  1.22s (tests 38%, import 35%, transform 26%, worker 1%)
+
+
+Exit status: 0
+

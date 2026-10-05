@@ -1,6 +1,6 @@
 # GAME_SPEC — Retro Poker
 
-Verzija: 1.2 · Datum: 2026-10-04 · Faza: Week03 + Week04 + odobreni Week05 scope addendum
+Verzija: 1.2.1 · Datum: 2026-10-05 · Faza: Week03 + Week04 + odobreni Week05 scope addendum
 
 Status: Week03 specifikacija sa Week04 i Week05 scope amandmanima. Week04 implementacija
 je zabeležena u [evidence](EVIDENCE_003.md) i [feature 002 task listi](../specs/002-week04-ai-integration/tasks.md).
@@ -332,16 +332,34 @@ Ljudski gate ispod ostaje otvoren; tehnički checkbox nije potvrda obe osobe.
 - [ ] Obe osobe u paru mogu da objasne tok, allowlist, validaciju i stop uslove; njihov
   stvarni naizmenični doprinos dokumentovan je bez izmišljene potvrde.
 - [x] Sve relevantne aplikacione provere su izvršene i zapisane sa stvarnim rezultatima;
-  live demo je ograničen i opcion u odnosu na offline fake matrix.
+  redovni testovi ostaju offline fake matrix.
+- [ ] Uspešan ograničen Week05 live demo kroz postojeći provider, dva model koraka,
+  stvarni alat i validirani final ima zabeležen ishod. Assignment §31 traži limited
+  live demo; Week04 live smoke i
+  fake run ga ne zamenjuju. Neuspeh se beleži kao neuspeh, bez tvrdnje da je live
+  success potvrđen. Korisnik je 2026-10-05 odobrio najviše jedan run ovog rada.
+
+T030 runner/testovi i stvarni ishod su zabeleženi u
+[handoff-u](evidence/003-T030-handoff.md): 1 live run, 2 model koraka/2 provider
+poziva/1 alat, stopped/insufficient_evidence. Gate uspešnog live finala ostaje T031;
+ljudski T027 korisnik je izričito ostavio za kasnije. Ne menjaju se poker pravila.
 
 ## 15. Izvori i upravljanje promenama
 
-- [Retro AI Engineering Challenge](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md): Week03 artefakti, eval i granica Week04.
-- [Week03 studentska skripta](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-studentska-skripta.pdf): kontekst, strukturisani izlazi i TDD/SDD.
-- [TDD/SDD addendum](../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md): test-first i razrada u male taskove.
-- [Week04 AI API addendum](../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md): provider granica, structured output, timeout, retry i fake-first testovi.
+- Retro AI Engineering Challenge — istorijski izvor za Week03 artefakte, eval i
+  Week04 granicu: `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md`.
+- Week03 studentska skripta — kontekst, strukturisani izlazi i TDD/SDD:
+  `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-studentska-skripta.pdf`.
+- TDD/SDD addendum — test-first i razrada u male taskove:
+  `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md`.
+- Week04 AI API addendum — provider granica, structured output, timeout, retry i
+  fake-first testovi: `../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md`.
 - [Week05 assignment](../../weekly-assignment.md) i [Week05 reliability addendum](../../week-05-bounded-agentic-workflows-reliable-integration-addendum.md): bounded agentic flow, tools, budžeti, stop razlozi, fake-first testovi i evidence.
 - [Week05 feature 003](../specs/003-week05-bounded-agent-coach/spec.md): implementacioni ugovor i acceptance scenarios.
 - Poker izvori su linkovani uz pravila; provereni 2026-09-21. Nisu zamena za sopstvene determinističke testove.
 
 Lokalni nastavni materijali nisu nužno deo Git checkout-a; ovaj dokument i projektni artefakti moraju omogućiti kolegi rad bez njih. Stariji `suggestion.md` ostaje istorijski predlog, a ovaj dokument beleži aktuelni dogovor. Promena ponašanja zahteva usklađivanje verzije ovog dokumenta, Spec Kit artefakata, acceptance scenarija i testova pre prihvatanja implementacije.
+
+T030 audit potvrđuje da četiri navedena istorijska Week03/Week04 materijala nedostaju
+u ovom checkout-u; putanje su sačuvane kao poreklo, bez nevažećih klikabilnih linkova.
+Usvojeni zahtevi ostaju u ovom GAME_SPEC-u i verzionisanim feature001/002 artefaktima.

@@ -3,8 +3,12 @@
 Datum:2026-10-05,Europe/Belgrade. Polazni HEAD:
 `83cb2c2531934f2dd6fc5da1d0e4ab921b57309d`,čist worktree. Node24.20.0/npm11.19.0.
 T024/T025/T026 završeni; [T026 handoff](evidence/003-T026-handoff.txt).
-**T027 walkthrough oba člana nije
-potvrđen; Week05 još nema pun ljudski gate za predaju.** Live ovog rada:0.
+**T027 walkthrough/doprinos oba člana korisnik je ostavio za kasnije.**
+T030 runner i jedan live ishod su dodati na HEAD `57198a7`; live završava
+`insufficient_evidence`, pa validirani live final ostaje T031. Detalji su u novom
+T030 odeljku i [handoff-u](evidence/003-T030-handoff.md).
+Brojke/logovi T024–T027 ispod opisuju prvobitni Phase 5 rad (live 0), nisu
+prepisani novim izvršenjima. Week05 puna predaja još nije potvrđena.
 
 ## Funkcija i korisnička vrednost
 
@@ -175,7 +179,7 @@ T029 minimalno ispravlja session ISO metadata,sa stvarnim RED/GREEN.
 Allowed paths oba korektivna taska upisane pre korekcije. Nema nove funkcionalne
 faze,engine pravila,dependency-ja,UI funkcije ili provider porodice.
 
-## Ograničenja i nepokrenute provere
+## Ograničenja i nepokrenute provere T024–T027
 
 - Live Gemini coaching/smoke/diagnose/demo:NOT RUN,0run-ova ove sesije. Prethodni
   Week05live zbir nije nezavisno instrumentiran.≤15development/≤3demo su caps.
@@ -221,3 +225,69 @@ Dodatni istorijski spoljni linkovi iz manifesta (Google models, Vitest, Zod,
 Vite server options) otvoreni su web alatom 2026-10-05 i vratili sadržaj.
 Ukupno 7 od 8 spoljnih dokumentacionih linkova ima sadržaj; TDA rules ostaje
 unverified zbog Internal Error. Ovo nije API generation ili live model provera.
+
+## T030 — bounded live runner i stvarni prekid, 2026-10-05
+
+Polazni HEAD `57198a70cc179e3b7e6f1e36cc0fae6099a3234d`, grana
+`week05/implementation`, radno stablo čisto. Node24.20.0/npm11.19.0.
+Korisnik odobrio predloženi paket i najviše jedan live run. Jedan coding agent;
+bez novih zavisnosti, provider-a, HTTP debug ruta ili promene poker pravila.
+GAME_SPEC1.2.1/spec/plan/tasks usklađuju assignment §31 limited live demo.
+
+[Runner](../scripts/coach-smoke.ts) koristi produkcione create/action/coach/status/
+usage rute u lokalnom Fastify inject-u. Sintetička terminalna partija ostaje
+constructor-only. Prvi model predlaže read-only alat, drugi dobija njegov stvarni
+validirani rezultat. Pozivi su dodatno ograničeni: jedan run, najviše dva attempts,
+jedan attempt/step, bez retry/fallback-a, postojeći 15s/45s rokovi. Default CLI nema
+pozive; config preflight bez validnog ključa/agent adaptera daje exit2. Report ne
+čuva prompt/model tekst/karte/finding/exception, samo allowlist metrike.
+
+| Nova provera | Stvarni rezultat |
+|---|---|
+| Raniji lifecycle/HTTP/agent/usage prerequisite | [91/91, exit0](evidence/003-T030-prerequisites.txt) |
+| Novi test-first runner | [13FAIL/1PASS, exit1](evidence/003-T030-red.txt) → [14/14, exit0](evidence/003-T030-green-final.txt) |
+| Prvi GREEN pokušaj | [13/14, exit1](evidence/003-T030-green.txt); privacy substring `candidate` pogrešno hvata `candidateTokens`, ispravljen na tačan JSON ključ uz isto očekivanje |
+| Završni fokus pre dodatnog insufficient holdout-a | [105/105, 5 fajlova, exit0](evidence/003-T030-focus.txt) |
+| Puna regresija | [817/817, 58 fajlova](evidence/003-T030-regression.txt), zatim [818/818, exit0](evidence/003-T030-regression-final.txt) sa holdout-om |
+| Coach + Week04 Chromium E2E | [4/4, exit0](evidence/003-T030-e2e.txt) |
+| Typecheck | [prvi exit1](evidence/003-T030-typecheck-initial.txt) zbog optional usage/TS7022; [završno exit0](evidence/003-T030-typecheck-final.txt) |
+| Lint / build | [lint exit0](evidence/003-T030-lint-final.txt); [prvi build exit1](evidence/003-T030-build-initial.txt), [završno exit0](evidence/003-T030-build.txt) posle istih TS anotacija |
+| Offline trace | [8 scenarija, exit0](evidence/003-T030-traces.txt), rejected tool execution0 |
+| Opt-in default | [kompajlirani CLI](evidence/003-T030-optin.txt) i [npm smoke:coach](evidence/003-T030-npm-optin.txt): exit0, provider0/tool0 |
+| Jedini live run | [exit1, stopped/insufficient_evidence](evidence/003-T030-live.txt), 2steps/2attempts/1execution, readOnly=true |
+
+Live model: `gemini-3.5-flash-lite`; runId `6cd5015f-f878-4266-9187-c6c2aefca15b`.
+Runner trajanje2157ms; run latency2091ms. Provider step1=1158ms,step2=927ms;
+retry0/fallback0. Prompt402,candidate62,total464tokena; thought/cached usage i cena
+unknown. Dva transport odgovora imaju success kategoriju, ali run nema validirani
+final i `passed=false`: transport uspeh nije uspeh korisničkog cilja.
+
+Iz safe loga ne tvrdi se da je mali uzorak uzrok stop-a; informativniji sintetički
+scenario je hipoteza za T031. Naknadni scripted step2 refusal test pokriva jednu
+putanju do iste kategorije, nije rekonstrukcija sirovog live odgovora. Ne slabe se
+insufficient/final validatori i nema drugog live pokušaja. Novi test je pokriven
+završnom818regresijom; završni15runner testovi su offline.
+
+Read-only live provera poredi javni poker pogled i trusted tool snapshot pre/posle.
+Privatni RNG/history/facts invariant pokrivaju offline lifecycle testovi; live runner
+ne introspektuje privatni session state. `npm ci`, puni13E2E, ručni browser demo,
+screen reader/axe/drugi browser nisu ponavljeni u T030. Novi screenshot nije tvrđen.
+Build/cache je ignorisan; commit/push/deploy nisu izvršeni. Coding tokeni/cena unknown.
+
+Setup: direktni PowerShell prerequisite blokiran execution policy-jem; Bypass pokušaj
+sa kratkim feature override-om nije našao direktorijum. Ponovljeno sa apsolutnim
+`SPECIFY_FEATURE_DIRECTORY` daje feature003 JSON i checklist12/12. Extensions.yml
+ne postoji; checklist nije menjan. Nekoliko sandbox PowerShell procesa ostalo bez
+izlaza/Node start-a i prekinuto; fokus/trace uspešno izvršeni izvan sandbox-a.
+Get-CimInstance odbijen (Access denied); nije runtime RED. Neuspeli rani pokušaj
+čitanja još nenastalog trace loga ispravljen stvarnim kasnijim logom.
+
+T030 završava runner i istinito zabeležen live ishod. T031 ostaje otvoren za
+validirani uspešan live final uz novi dogovor i budžet. T027/doprinos/walkthrough
+korisnik izričito odlaže: nisu potpisani, čekirani ili izvedeni iz owner oznaka.
+
+[Završni audit](evidence/003-T030-audit.txt) čuva prvi nalaz četiri nedostajuća
+istorijska Week03/Week04 materijala u ovom checkout-u. GAME_SPEC čuva njihove putanje
+kao poreklo, bez nevažećih klikabilnih linkova; usvojeni zahtevi nisu uklonjeni.
+Naknadni link/status/scope/diff rezultat je u istom logu. Jedan dokumentacioni patch
+sa pogrešnim završnim kontekstom odbijen je pre izmene i potom ispravljen; nije RED.

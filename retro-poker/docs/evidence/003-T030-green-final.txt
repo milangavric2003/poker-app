@@ -1,0 +1,33 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts --reporter=verbose
+Prvi GREEN pokušaj sačuvan u 003-T030-green.txt: 13/14 prolaze; substring candidate pogrešno hvata dozvoljenu candidateTokens metriku. Oracle sada traži tačan JSON ključ candidate, uz isto privacy očekivanje u spec-u.
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts --reporter=verbose
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > without the exact --live flag does not load configuration or create a provider 3ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects disabled configuration before any call 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_key configuration before any call 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_agent configuration before any call 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final 155ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports unknown_tool rejection with zero executor calls 38ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports invalid_arguments rejection with zero executor calls 46ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops timeout_error after one attempt with no retry or fallback 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 429 after one attempt with no retry or fallback 33ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 5xx after one attempt with no retry or fallback 47ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops auth_config after one attempt with no retry or fallback 32ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > a step-two failure keeps the executed tool count and does not restart the workflow 33ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects invented evidence as a failed smoke, even after two successful provider responses 33ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > never prints exception text or provider content, including configuration factory failures 47ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  19:45:48
+   Duration  1.16s (tests 50%, transform 26%, import 23%)
+
+
+Exit status: 0
+

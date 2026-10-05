@@ -1,0 +1,176 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda oba izvršenja: node -e <tačan JavaScript ispod, PowerShell single-quote escaping>
+Izvor:
+const fs = require('node:fs'); const path = require('node:path'); const cp = require('node:child_process');
+const feature = 'specs/003-week05-bounded-agent-coach';
+const docs = ['AGENTS.md','docs/GAME_SPEC.md','README.md','docs/BUILD_PROMPT_WEEK05_V1.md',feature+'/spec.md',feature+'/plan.md',feature+'/tasks.md',feature+'/data-model.md',feature+'/contracts/coach-http.md',feature+'/checklists/requirements.md',feature+'/evals.md','docs/evidence/003-evals.md','docs/EVIDENCE_W05.md','docs/AI_USAGE_LOG.md','docs/CONTEXT_MANIFEST.md','docs/EVIDENCE_003.md','docs/evidence/003-T027-demo.md','docs/evidence/003-T030-handoff.md'];
+const slug = s => s.toLowerCase().replace(/[^\p{L}\p{N}_\- ]/gu,'').replace(/ /g,'-');
+let checked = 0; const issues = [];
+for (const file of docs) {
+ for (const match of fs.readFileSync(file,'utf8').matchAll(/\[[^\]\n]+\]\(([^)\n]+)\)/g)) {
+  const target=match[1]; if (/^(https?:|app:)/.test(target)) continue;
+  const [relative,anchor]=target.split('#');
+  const destination=path.resolve(path.dirname(file),decodeURIComponent(relative)); checked++;
+  if (!fs.existsSync(destination)) {issues.push({file,target,reason:'missing destination'});continue;}
+  if (anchor && fs.statSync(destination).isFile()) {
+   const headings=[...fs.readFileSync(destination,'utf8').matchAll(/^#{1,6} (.+)$/gm)].map(h=>slug(h[1].trim()));
+   if (!headings.includes(decodeURIComponent(anchor))) issues.push({file,target,reason:'missing anchor'});
+  }
+ }
+}
+const changed = cp.execFileSync('git',['ls-files','--modified','--others','--exclude-standard','--','.'],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean);
+const allowed = new Set(['README.md','package.json','docs/GAME_SPEC.md','docs/EVIDENCE_W05.md','docs/AI_USAGE_LOG.md','docs/CONTEXT_MANIFEST.md','docs/evidence/003-T027-demo.md','scripts/coach-smoke.ts','scripts/gemini-coach-live-smoke.ts','tests/integration/coach-smoke.test.ts']);
+const unexpected = changed.filter(f=>!allowed.has(f)&&!/^specs\/003-week05-bounded-agent-coach\/(spec|plan|tasks)\.md$/.test(f)&&!/^docs\/evidence\/003-T030-[^/]+\.(txt|md)$/.test(f));
+const secretPattern = /(AIza[0-9A-Za-z_-]{30,}|sk-[0-9A-Za-z_-]{24,}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)/;
+const secretFiles = changed.filter(f=>secretPattern.test(fs.readFileSync(f,'utf8')));
+const tasks = [...fs.readFileSync(feature+'/tasks.md','utf8').matchAll(/^- \[([ x])\] (T\d{3}) /gm)].map(m=>({id:m[2],checked:m[1]==='x'}));
+const openTasks = tasks.filter(t=>!t.checked).map(t=>t.id);
+const statusCorrect = tasks.some(t=>t.id==='T030'&&t.checked)&&JSON.stringify(openTasks)===JSON.stringify(['T027','T031']);
+const checklist=fs.readFileSync(feature+'/checklists/requirements.md','utf8');
+const checklistCounts={total:[...checklist.matchAll(/^- \[[ xX]\]/gm)].length,checked:[...checklist.matchAll(/^- \[[xX]\]/gm)].length};
+const diff = cp.spawnSync('git',['diff','--check'],{encoding:'utf8'});
+const result={documents:docs.length,checkedLocalLinks:checked,issues,changedFiles:changed,unexpectedPaths:unexpected,suspectedSecretFiles:secretFiles,openTasks,statusCorrect,checklistCounts,extensionsPresent:fs.existsSync('.specify/extensions.yml'),baselineScreenshotsUnchanged:!changed.some(f=>f.endsWith('.png')),generatedFilesAbsent:!changed.some(f=>/^(dist|node_modules|test-results|playwright-report|\.verification)\//.test(f)),gitDiffCheckExit:diff.status};
+console.log(JSON.stringify(result,null,2)); process.exitCode=issues.length||unexpected.length||secretFiles.length||!statusCorrect||diff.status!==0?1:0;
+Prvi stvarni izlaz (4 istorijska izvora nedostaju u checkout-u):
+{
+  "documents": 18,
+  "checkedLocalLinks": 266,
+  "issues": [
+    {
+      "file": "docs/GAME_SPEC.md",
+      "target": "../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md",
+      "reason": "missing destination"
+    },
+    {
+      "file": "docs/GAME_SPEC.md",
+      "target": "../../week-03-week-04-pdf-review/materijali-za-studente/week-03-studentska-skripta.pdf",
+      "reason": "missing destination"
+    },
+    {
+      "file": "docs/GAME_SPEC.md",
+      "target": "../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md",
+      "reason": "missing destination"
+    },
+    {
+      "file": "docs/GAME_SPEC.md",
+      "target": "../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md",
+      "reason": "missing destination"
+    }
+  ],
+  "changedFiles": [
+    "docs/evidence/003-T030-audit.txt",
+    "docs/evidence/003-T030-build-initial.txt",
+    "docs/evidence/003-T030-build.txt",
+    "docs/evidence/003-T030-e2e.txt",
+    "docs/evidence/003-T030-focus.txt",
+    "docs/evidence/003-T030-green-final.txt",
+    "docs/evidence/003-T030-green.txt",
+    "docs/evidence/003-T030-handoff.md",
+    "docs/evidence/003-T030-lint-final.txt",
+    "docs/evidence/003-T030-lint-initial.txt",
+    "docs/evidence/003-T030-lint.txt",
+    "docs/evidence/003-T030-live.txt",
+    "docs/evidence/003-T030-npm-optin.txt",
+    "docs/evidence/003-T030-optin.txt",
+    "docs/evidence/003-T030-prerequisites.txt",
+    "docs/evidence/003-T030-red.txt",
+    "docs/evidence/003-T030-regression-final.txt",
+    "docs/evidence/003-T030-regression.txt",
+    "docs/evidence/003-T030-traces.txt",
+    "docs/evidence/003-T030-typecheck-final.txt",
+    "docs/evidence/003-T030-typecheck-initial.txt",
+    "docs/evidence/003-T030-typecheck.txt",
+    "scripts/coach-smoke.ts",
+    "scripts/gemini-coach-live-smoke.ts",
+    "tests/integration/coach-smoke.test.ts",
+    "README.md",
+    "docs/AI_USAGE_LOG.md",
+    "docs/CONTEXT_MANIFEST.md",
+    "docs/EVIDENCE_W05.md",
+    "docs/GAME_SPEC.md",
+    "docs/evidence/003-T027-demo.md",
+    "package.json",
+    "specs/003-week05-bounded-agent-coach/plan.md",
+    "specs/003-week05-bounded-agent-coach/spec.md",
+    "specs/003-week05-bounded-agent-coach/tasks.md"
+  ],
+  "unexpectedPaths": [],
+  "suspectedSecretFiles": [],
+  "openTasks": [
+    "T027",
+    "T031"
+  ],
+  "statusCorrect": true,
+  "checklistCounts": {
+    "total": 12,
+    "checked": 12
+  },
+  "extensionsPresent": false,
+  "baselineScreenshotsUnchanged": true,
+  "generatedFilesAbsent": true,
+  "gitDiffCheckExit": 0
+}
+
+Prvi exit status: 1
+Korekcija: GAME_SPEC čuva četiri nedostupne istorijske putanje kao inline code, bez nevažećih klikabilnih linkova; zahtevi i poreklo ostaju sačuvani.
+Završni stvarni izlaz:
+{
+  "documents": 18,
+  "checkedLocalLinks": 264,
+  "issues": [],
+  "changedFiles": [
+    "docs/evidence/003-T030-audit.txt",
+    "docs/evidence/003-T030-build-initial.txt",
+    "docs/evidence/003-T030-build.txt",
+    "docs/evidence/003-T030-e2e.txt",
+    "docs/evidence/003-T030-focus.txt",
+    "docs/evidence/003-T030-green-final.txt",
+    "docs/evidence/003-T030-green.txt",
+    "docs/evidence/003-T030-handoff.md",
+    "docs/evidence/003-T030-lint-final.txt",
+    "docs/evidence/003-T030-lint-initial.txt",
+    "docs/evidence/003-T030-lint.txt",
+    "docs/evidence/003-T030-live.txt",
+    "docs/evidence/003-T030-npm-optin.txt",
+    "docs/evidence/003-T030-optin.txt",
+    "docs/evidence/003-T030-prerequisites.txt",
+    "docs/evidence/003-T030-red.txt",
+    "docs/evidence/003-T030-regression-final.txt",
+    "docs/evidence/003-T030-regression.txt",
+    "docs/evidence/003-T030-traces.txt",
+    "docs/evidence/003-T030-typecheck-final.txt",
+    "docs/evidence/003-T030-typecheck-initial.txt",
+    "docs/evidence/003-T030-typecheck.txt",
+    "scripts/coach-smoke.ts",
+    "scripts/gemini-coach-live-smoke.ts",
+    "tests/integration/coach-smoke.test.ts",
+    "README.md",
+    "docs/AI_USAGE_LOG.md",
+    "docs/CONTEXT_MANIFEST.md",
+    "docs/EVIDENCE_W05.md",
+    "docs/GAME_SPEC.md",
+    "docs/evidence/003-T027-demo.md",
+    "package.json",
+    "specs/003-week05-bounded-agent-coach/plan.md",
+    "specs/003-week05-bounded-agent-coach/spec.md",
+    "specs/003-week05-bounded-agent-coach/tasks.md"
+  ],
+  "unexpectedPaths": [],
+  "suspectedSecretFiles": [],
+  "openTasks": [
+    "T027",
+    "T031"
+  ],
+  "statusCorrect": true,
+  "checklistCounts": {
+    "total": 12,
+    "checked": 12
+  },
+  "extensionsPresent": false,
+  "baselineScreenshotsUnchanged": true,
+  "generatedFilesAbsent": true,
+  "gitDiffCheckExit": 0
+}
+
+Završni exit status: 0
+Pattern scan ograničen na nove/izmenjene tracked/untracked neignorisane fajlove; nije čitan .env i nije dokaz odsustva svake moguće tajne. Spoljni linkovi nisu ponovo proveravani.

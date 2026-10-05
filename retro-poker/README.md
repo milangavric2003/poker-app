@@ -140,13 +140,37 @@ Shim rešava poznati Windows tsx `os.userInfo` setup problem. Coach E2E koristi 
 lokalni Fastify/Vite sa constructor-only fixture/fake providerom; redovni testovi
 su offline, bez live Gemini potrošnje.
 
-Live coaching je opcion i traži eksplicitan lokalni opt-in nakon zelenih offline
-provera: najviše 15 razvojnih run-ova i 3 finalna demo run-a, mali run bez privatnih
-podataka. Postojeći Week04 smoke/diagnose nije Week05 live coaching dokaz.
-U ovom Phase 5 radu live coaching nije pokrenut.
+Week05 predaja traži ograničen live dokaz prema assignment §31, uz eksplicitan
+lokalni opt-in nakon zelenih offline provera. Smernice: najviše 15 razvojnih run-ova
+i 3 demo run-a. Postojeći Week04 smoke/diagnose nije Week05 coaching dokaz.
+
+Poseban runner koristi sintetičku terminalnu partiju, postojeće HTTP/session/
+orchestrator gate-ove i pravi Gemini adapter. Jedno pokretanje: najviše jedan run,
+dva generation poziva, jedan alat, bez retry-ja/fallback-a, 15 s/attempt i 45 s/run.
+Koristi kompajlirani entrypoint radi ponovljivog pokretanja i bez tsx IPC setup-a:
+
+```powershell
+npm.cmd run build
+npm.cmd run smoke:coach
+# Samo uz odobren live budžet i lokalnu server-side .env konfiguraciju:
+npm.cmd run smoke:coach -- --live
+```
+
+Bez `--live`: exit 0 i nula provider/tool poziva. Bez validne konfiguracije: exit 2
+i nula poziva. Uspeh traži completed, 2 steps/2 attempts/1 tool, validan final i
+nepromenjen javni poker pogled/tool snapshot. Neuspeh: exit 1, safe status/stopReason.
+Izlaz sadrži samo brojače, trajanje, validacije i usage; nema model teksta, karata
+ili sirovih promptova/odgovora.
+
+T030, 2026-10-05: jedan odobren live run sa Gemini 3.5 Flash Lite imao je 2 koraka,
+2 provider poziva i 1 tool execution, pa je završio `stopped/insufficient_evidence`.
+Read-only provera je prošla, retry/fallback 0, ukupno 464 tokena; cena unknown.
+Validirani live savet nije dobijen. Nema ponavljanja u ovoj sesiji; uspešan live
+final ostaje T031. [Stvarni izlaz](docs/evidence/003-T030-live.txt).
 
 Storage je samo memorijski: restart gubi partiju, facts, run i usage; nova partija
 uklanja coach slot. MatchFacts zadržava do 200 detaljnih odluka, starije agregira.
 Coaching koristi raspoloživi uzorak, ne arhivu više partija.
 Rezultati i ograničenja: [EVIDENCE_W05](docs/EVIDENCE_W05.md).
-T027 walkthrough i pojedinačni Week05 doprinos oba člana ostaju nepotvrđeni.
+T027 walkthrough i pojedinačni Week05 doprinos oba člana korisnik je ostavio za
+kasnije; nisu potvrđeni. [T030 handoff](docs/evidence/003-T030-handoff.md).

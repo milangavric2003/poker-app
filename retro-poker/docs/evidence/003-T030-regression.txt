@@ -1,0 +1,19 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  58 passed (58)
+      Tests  817 passed (817)
+   Start at  19:46:19
+   Duration  13.94s (environment 36%, tests 27%, import 25%, transform 11%, worker 1%)
+
+
+Exit status: 0
+Posle ovog izvršenja promenjena je samo TypeScript anotacija optional usage-a i lokalni nepromenljiv runId za TS7022; završni fokus proverava tu verziju.
+

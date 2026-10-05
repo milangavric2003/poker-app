@@ -9,6 +9,8 @@ Aktuelni status 2026-10-05: plan je realizovan kroz T007–T023 i T024 offline p
 Istorijska objašnjenja buduće implementacije ispod čuvaju ugovor; stvarni status je
 u [taskovima](tasks.md) i [T024 handoff-u](../../docs/evidence/003-T024-handoff.txt).
 T027 ljudska potvrda ostaje otvorena.
+T030 dodaje smoke runner i stvarni live ishod; njegov insufficient_evidence stop
+ne zatvara T031 uspešnog live finala. [Novi handoff](../../docs/evidence/003-T030-handoff.md).
 
 ## Cilj i tok
 
@@ -162,8 +164,31 @@ Postojeće lokalne komande: `npm.cmd test`, `npm.cmd run typecheck`,
 Za baseline fokus izabrati postojeće AI analysis/adapter/http/smoke/concurrency,
 contract/retry/context/usage testove i analysis/dashboard UI. Nije novi Week05 RED.
 Live pozivi tek posle offline zelenog i eksplicitnog lokalnog opt-in-a; smernica do
-15 razvojnih run-ova i 3 demo run-a. Offline DoD sledi GAME_SPEC §14; assignment §31
-navodi limited live demo, pa bez stvarnog demo-a ne tvrditi taj nastavni dokaz.
+15 razvojnih run-ova i 3 demo run-a. GAME_SPEC v1.2.1 usklađuje predaju sa assignment
+§31: limited live demo je zaseban obavezni dokaz, van redovnih offline testova.
+
+T030 (odobren 2026-10-05): `scripts/coach-smoke.ts` izvršava jedan sintetički terminalni
+scenario kroz produkcione HTTP/session/orchestrator gate-ove. CLI
+`scripts/gemini-coach-live-smoke.ts` bez `--live` ne učitava konfiguraciju niti pravi
+provider; sa opt-in-om najviše jedan run, jedan attempt/step, bez fallback-a i najviše
+dva generation poziva. CLI testovi koriste injected factory i fake provider.
+Izlaz je allowlist projekcija: runId, goal, konfiguracioni model, status/stop reason,
+step/attempt/tool brojači, latency, validacije i token metrics/unknown cost; nema
+prompta, sirovog odgovora, karata, finding-a ili slobodnog model teksta.
+Success traži 2/2/1, final validation, nepromenjen javni poker pogled i tool facts
+snapshot. Potpun RNG/history/facts invariant dodatno pokriva prerequisite lifecycle
+regresija; runner ne tvrdi pristup privatnom session stanju.
+Neuspeh ostaje vidljiv uz exit 1; bez konfiguracije exit 2 i nula poziva; bez opt-in-a
+exit 0 i nula poziva. Posle jednog live run-a nema automatskog ili ručnog ponavljanja
+u ovom radu. Ljudski T027 i dalje zahteva zasebne potvrde.
+
+`npm.cmd run smoke:coach` koristi kompajlirani `dist/server/scripts/` entrypoint
+posle `npm.cmd run build`, bez tsx IPC zavisnosti. Node može učitati lokalni `.env`
+u proces; bez flag-a nema resolve-a AI konfiguracije, provider konstrukcije/poziva.
+T030 jedan live run je stvarno završen insufficient_evidence. T031: dogovoriti
+informativniji sintetički scenario, dokazati ga offline, pa tek uz novo odobrenje
+pokrenuti mali live demo. Iz sanitizovanog stop-a ne izvodi se da je mali uzorak
+dokazan uzrok; to je hipoteza za sledeći scenario, bez slabljenja validatora.
 
 ## Putanje, artefakti i handoff
 

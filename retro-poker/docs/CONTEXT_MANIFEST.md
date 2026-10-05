@@ -476,3 +476,47 @@ paketa, T025 security review-a ili T027 live demo-a. Provereno keyboard-only,
 status/alert, focus outline, širina1280 i font16px u Chromiumu; nije izvršen stvarni
 screen reader, axe, drugi browser ili ljudski review. Stvarni rezultati i ograničenja
 u docs/evidence/003-phase4-handoff.txt i task logovima. Savet nije dokaz optimalnosti.
+
+## 2026-10-05 — T030 live runner i odloženi ljudski T027
+
+Prioritet: korisnikov zahtev/predloženi paket/„moze kreni” i kasnija odluka da se
+doprinos ostavi za kasnije > AGENTS/constitution1.1.0 > GAME_SPEC > feature003 >
+postojeći kod. Assignment §31 limited live demo razlika razrešena po odobrenju u
+GAME_SPEC1.2.1/spec/plan/tasks pre koda. Početni HEAD57198a7, worktree čist;
+jedan coding agent, bez subagenata. Korišćen projektni speckit-implement skill;
+speckit-converge pročitano radi scope-a, nije izvršeno kao append-only workflow.
+
+Stvarno korišćeni izvori: korisnikov attachment03886adc istorijskog razgovora
+(velik/skraćen ispis, ne tvrdnja čitanja svakog reda), lokalni weekly-assignment i
+Week05 reliability addendum (relevantni Core, tools, validation, tests, live,
+evidence i demo odeljci); AGENTS, constitution, V1 prompt, GAME_SPEC§13–15,
+feature003spec/plan/tasks/checklist/data-model/coach-http i prethodni evidence/
+T024/T025/T026/T027paket. Veliki kombinovani ispisi bili su skraćeni; relevantni
+ugovori i krajevi izvora pročitani ciljano, bez tvrdnje potpunog raw-log audita.
+12/12checklist je read-only; prerequisite sa apsolutnim feature override-om uspešan;
+extensions.yml ne postoji pre/posle. Ignore/ESLint pravila pregledana.
+
+Kod/konfiguracija: package/tsconfig/Vitest/ESLint/gitignore, app/routes/session,
+ai/types/config/usage/Gemini adapter, agent/types/orchestrator/tools, shared coach/
+usage šeme; postojeći gemini-live-smoke, coach-server/evidence, fake provider/clock,
+fixtures i coach-usage testovi. Novi smoke modul/CLI i acceptance testovi nastali
+test-first u ovom radu; dokumentacioni linkovi ne tvrde da su svi linkovani fajlovi
+u celosti ponovo pregledani. Nisu menjani engine, UI, provider adapter ili dependencies.
+
+`.env` sadržaj nije čitan niti ispisan alatima; Node env-file učitao je lokalnu
+konfiguraciju za jedini odobreni live run i npm default smoke. Provider dobija ključ
+samo server-side; model/config/log projekcije ga izostavljaju. Web izvori nisu
+korišćeni: postojeći lokalni adapter i ugovori su dovoljni za ovaj runner.
+
+Novi dokaz: prerequisite91, fokus105, RED13FAIL/1PASS→GREEN14/14, naknadni
+insufficient holdout i final818/818; E2E4/4,typecheck/lint/build0; trace8; npm
+default0calls. Live1run/2provider calls/1tool/464tokena,stopped/insufficient_evidence;
+cenaunknown, bez live ponavljanja. Safe log ne dokazuje konkretan razlog nedovoljnosti
+ili kvalitet saveta. RNG/history/facts invariant je offline lifecycle dokaz; live
+runner poredi javni poker pogled i trusted tool snapshot. Ograničenja i svi stvarni
+izlazi: EVIDENCE_W05 i docs/evidence/003-T030-*.
+T030runner/ishod završen; live successT031 i odloženi ljudskiT027 ostaju otvoreni.
+
+Završni audit je našao četiri nedostajuća roditeljska Week03/Week04 materijala;
+njihov sadržaj nije korišćen u ovom radu. GAME_SPEC čuva istorijske putanje bez
+nevažećih klikabilnih linkova. Lokalni izvori zahteva i dalje su autoritativni.
