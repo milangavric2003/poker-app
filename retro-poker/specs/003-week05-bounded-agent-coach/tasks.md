@@ -192,6 +192,13 @@ Raniji datirani zapisi o otvorenom T027 ostaju istorija pre ove potvrde.
 [Doprinos](../../docs/evidence/003-T027-contributions.md).
 [Aktuelni ljudski zapis i finalni paket](../../docs/evidence/003-T027-human-handoff.md).
 
+Završna tehnička provera posle T032 je zabeležena u
+[`docs/evidence/003-final-verification-2026-10-05.txt`](../../docs/evidence/003-final-verification-2026-10-05.txt):
+830/830 unit/contract/integration/UI testova, 13/13 Playwright testova, typecheck,
+lint, build i `git diff --check` bez prikazane greške. Ovaj zapis dopunjuje T024–T026
+evidence; sama nije dokaz ljudskog walkthrough-a. T027 je naknadno zatvoren
+korisničkom potvrdom navedenom iznad; istorijski rezultati ostaju odvojeni od T035.
+
 ## Coverage index
 
 | Requirement group | Tasks/tests |

@@ -1,0 +1,37 @@
+Week05 završna tehnička provera posle T032 — 2026-10-05
+
+Izvor rezultata: korisnik je ručno pokrenuo komande iz `retro-poker/` i dostavio
+stvarni terminalski izlaz u razgovoru. Coding agent ove komande nije ponavljao.
+
+Komanda: `npm.cmd test`
+Rezultat: 58 test fajlova prošlo; 830 testova prošlo; trajanje 18.81 s.
+Exit status: korisnik nije dostavio numeričku vrednost; izlaz se završio bez
+prikazane greške i prompt se vratio.
+
+Komanda: `npm.cmd run test:e2e`
+Rezultat: Playwright je pokrenuo 13 testova sa 1 worker-om; svih 13 je prošlo.
+Exit status: korisnik nije dostavio numeričku vrednost; izlaz prikazuje 13 uspešnih
+testova i bez prikazanog pada.
+
+Komanda: `npm.cmd run typecheck`
+Rezultat: izvršeni su `tsc --noEmit` i serverski TypeScript check; u dostavljenom
+izlazu nema greške i prompt se vratio.
+Exit status: nije numerički dostavljen.
+
+Komanda: `npm.cmd run lint`
+Rezultat: ESLint je pokrenut; u dostavljenom izlazu nema greške i prompt se vratio.
+Exit status: nije numerički dostavljen.
+
+Komanda: `npm.cmd run build`
+Rezultat: Vite je transformisao 121 modul i izgradio frontend; serverski TypeScript
+build je deo iste npm skripte. U dostavljenom izlazu nema greške i prompt se vratio.
+Exit status: nije numerički dostavljen.
+
+Komanda: `git diff --check`
+Rezultat: nije ispisana greška u dostavljenom izlazu.
+Exit status: nije numerički dostavljen.
+
+Domet: ovo je završna ručna tehnička provera posle T032 i potvrđuje da je trenutni
+test/build skup prošao u korisničkom okruženju prema dostavljenom izlazu. Ne dokazuje
+novi live provider poziv, screen-reader/axe proveru, clean `npm ci` instalaciju ili
+ljudski T027 walkthrough i doprinos oba člana.
