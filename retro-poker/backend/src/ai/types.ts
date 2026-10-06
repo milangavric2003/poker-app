@@ -1,5 +1,5 @@
 import type { Card, LegalAction, PokerAction } from '../engine/types.js';
-import type { PublicEvent } from '../../../shared/contracts.js';
+import type { PublicEvent, CoachGoal, CoachOutputIssue, DecisionEvidenceResult } from '../../../shared/contracts.js';
 import type { AiDiagnostic } from '../../../shared/ai-diagnostic.js';
 
 export type AiPurpose = 'bot' | 'analysis';
@@ -42,12 +42,30 @@ export interface ProviderResult {
 export interface AiProvider {
   generate(request: ProviderRequest, signal: AbortSignal): Promise<ProviderResult>;
 }
+/** One logical run owns two steps; a retry changes attempt ordinals only. */
+export interface AgentStepContext {
+  goal: CoachGoal;
+  availableDecisionCount: number;
+  sampleLimited: boolean;
+  toolResult?: DecisionEvidenceResult;
+}
+export interface AgentStepRequest {
+  purpose: 'coach'; runId: string; stepOrdinal: 1 | 2; attemptOrdinal: 1 | 2;
+  runAttemptOrdinal: 1 | 2 | 3 | 4; model: string;
+  context: AgentStepContext; responseSchema: Readonly<Record<string, unknown>>;
+  deadlineAt: number; remainingMs: number;
+}
+/** candidate is untrusted: tool_request, refusal or final require runtime validation. */
+export interface AgentStepResult extends ProviderResult { candidate: unknown; }
+export interface AgentProvider {
+  generateAgent(request: AgentStepRequest, signal: AbortSignal): Promise<AgentStepResult>;
+}
 export type ProviderFailureKind = 'timeout' | 'rate_limited' | 'server_error' | 'network_error'
   | 'malformed' | 'invalid_request' | 'auth_config_error' | 'safety_refusal' | 'config_error';
 export class ProviderError extends Error {
   constructor(readonly kind: ProviderFailureKind, message = 'AI provider failure',
     readonly retryAfterMs?: number, readonly httpStatus: number | null = null,
-    readonly diagnostic?: AiDiagnostic) { super(message); }
+    readonly diagnostic?: AiDiagnostic, readonly outputIssue?: CoachOutputIssue) { super(message); }
 }
 
 export interface AiClock {

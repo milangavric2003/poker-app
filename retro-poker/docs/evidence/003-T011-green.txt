@@ -1,0 +1,45 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts tests/unit/match-facts.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts tests/unit/match-facts.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  64 passed (64)
+   Start at  19:01:52
+   Duration  580ms (import 47%, transform 39%, tests 11%, worker 2%)
+
+Exit: 0
+Regresija posle lint korekcije; komanda: npm.cmd test -- tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  2 passed (2)
+      Tests  26 passed (26)
+   Start at  19:02:30
+   Duration  299ms (import 48%, transform 41%, tests 8%, worker 2%)
+
+Exit: 0
+Finalna korekcija: obavezan terminal handId u validatoru; komanda: npm.cmd test -- tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts tests/unit/match-facts.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts tests/unit/match-facts.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  65 passed (65)
+   Start at  19:03:28
+   Duration  843ms (import 49%, transform 38%, tests 11%, worker 2%)
+
+Exit: 0

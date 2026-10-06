@@ -1,0 +1,7 @@
+Datum (Europe/Belgrade): 2026-10-04
+Komanda: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit status: 0

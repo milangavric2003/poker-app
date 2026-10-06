@@ -35,14 +35,14 @@ export function buildApp(dependencies: Partial<SessionDependencies> = {}) {
       return reply.code(400).send({ error: { code: 'INVALID_INPUT', message: 'Poreklo zahteva nije dozvoljeno.' } });
     }
     if (request.method === 'POST' && ['/api/game', '/api/game/actions', '/api/game/next-hand',
-      '/api/game/analysis', '/api/ai/usage/reset'].includes(request.url)
+      '/api/game/analysis', '/api/game/coach', '/api/ai/usage/reset'].includes(request.url.split('?')[0]!)
       && request.headers['content-type']?.split(';')[0]?.trim().toLowerCase() !== 'application/json') {
       return reply.code(415).send({ error: { code: 'UNSUPPORTED_MEDIA_TYPE', message: 'Zahtev mora biti JSON.' } });
     }
   });
-  app.setErrorHandler((caught, _request, reply) => {
+  app.setErrorHandler((caught, request, reply) => {
     const status = (caught as { statusCode?: number }).statusCode;
-    const [http, code, message] = status === 413 ? [413, 'PAYLOAD_TOO_LARGE', 'Zahtev je prevelik.']
+    const [http, code, message] = status === 413 ? [413, request.url.split('?')[0] === '/api/game/coach' ? 'INVALID_INPUT' : 'PAYLOAD_TOO_LARGE', 'Zahtev je prevelik.']
       : status === 415 ? [415, 'UNSUPPORTED_MEDIA_TYPE', 'Zahtev mora biti JSON.']
       : status === 400 ? [400, 'INVALID_INPUT', 'Nevalidan JSON zahtev.']
       : [500, 'INTERNAL_ERROR', 'Interna greška servera.'];

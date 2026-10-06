@@ -1,0 +1,143 @@
+﻿Komanda: npm.cmd test -- tests/integration/agent-run.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/agent-run.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/agent-run.test.ts (38 tests | 1 failed) 67ms
+   ❯ limits, races and ownership injection T017 (22)
+     × cancellation settles a pending provider and freezes the terminal state immediately 7ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > cancellation settles a pending provider and freezes the terminal state immediately
+AssertionError: expected { …(20) } to deeply equal { …(20) }
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+@@ -1,7 +1,17 @@
+  {
+-   "attempts": [],
++   "attempts": [
++     {
++       "attemptOrdinal": 1,
++       "durationMs": 0,
++       "model": "test-primary",
++       "outcome": "network_error",
++       "relation": "initial",
++       "runAttemptOrdinal": 1,
++       "stepOrdinal": 1,
++     },
++   ],
+    "deadlineAt": 45000,
+    "expectedVersion": 2,
+    "factsRevision": 2,
+
+    "failureCategory": null,
+    "gameId": "b7be483e-903a-456d-80a2-978be166aa5e",
+System.Management.Automation.RemoteException
+ Test Files  1 failed (1)
+      Tests  1 failed | 37 passed (38)
+   Start at  22:21:28
+   Duration  570ms (transform 56%, import 27%, tests 15%, worker 1%)
+
+ ❯ tests/integration/agent-run.test.ts:182:24
+    180|     const terminal = h.run.state;
+    181|     expect(terminal).toMatchObject({ status: 'stopped', stopReason: 'c…
+    182|     expect(await work).toEqual(terminal);
+       |                        ^
+    183|     h.provider.resolve('cancelled', { candidate: { kind: 'refusal', re…
+    184|     await flush(); expect(h.run.state).toEqual(terminal); expect(h.onT…
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+System.Management.Automation.RemoteException
+Exit: 1
+Dodatni dispatch-race holdout; komanda: npm.cmd test -- tests/integration/agent-run.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/agent-run.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/agent-run.test.ts (39 tests | 1 failed) 68ms
+   ❯ limits, races and ownership injection T017 (23)
+     × does not dispatch a deferred provider operation after cancellation 6ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > does not dispatch a deferred provider operation after cancellation
+AssertionError: expected [ { request: { …(10) }, …(7) } ] to have a length of +0 but got 1
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+- 0
++ 1
+System.Management.Automation.RemoteException
+ ❯ tests/integration/agent-run.test.ts:194:35
+    192|     const work = h.run.execute(); await Promise.resolve(); controller.…
+    193|     expect(await work).toMatchObject({ stopReason: 'cancelled' });
+    194|     expect(h.provider.agentCalls).toHaveLength(0); h.unchanged();
+       |                                   ^
+    195|   });
+    196|   it.each(['runId', 'gameId', 'handId', 'expectedVersion', 'factsRevis…
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 38 passed (39)
+   Start at  22:23:07
+   Duration  574ms (transform 57%, import 28%, tests 15%, worker 1%)
+
+Exit: 1
+T017 preflight transparency holdout; komanda: npm.cmd test -- tests/integration/agent-run.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/agent-run.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/agent-run.test.ts (40 tests | 1 failed) 71ms
+   ❯ limits, races and ownership injection T017 (24)
+     × aggregate-only preflight exposes limited sample and makes zero model/tool calls 8ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > aggregate-only preflight exposes limited sample and makes zero model/tool calls
+AssertionError: expected { …(20) } to match object { …(4) }
+(17 matching properties omitted from actual)
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+  {
+    "providerAttemptCount": 0,
+-   "sampleLimited": true,
++   "sampleLimited": false,
+    "stopReason": "insufficient_evidence",
+    "toolCallCount": 0,
+  }
+System.Management.Automation.RemoteException
+ ❯ tests/integration/agent-run.test.ts:143:33
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 39 passed (40)
+   Start at  22:24:58
+    141|       startingStack: 1000, endingStack: 0, humanNetChange: -1000 }] } …
+    142|     const run = new BoundedAgentRun({ ...h.options, snapshot });
+    143|     expect(await run.execute()).toMatchObject({ stopReason: 'insuffici…
+       |                                 ^
+    144|       providerAttemptCount: 0, toolCallCount: 0 });
+    145|     expect(h.provider.agentCalls).toHaveLength(0); h.unchanged();
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+System.Management.Automation.RemoteException
+   Duration  602ms (transform 55%, import 28%, tests 16%, worker 1%)
+
+Exit: 1

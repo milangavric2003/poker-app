@@ -1,0 +1,137 @@
+Week05 Phase 2 T012–T017, 2026-10-04 (Europe/Belgrade)
+Jedan coding agent; korisnik zadao scope. Nema potvrđenog peer review-a/doprinosa
+drugog člana. Coding usage/trošak nepoznat. Live agent run-ovi: 0.
+Početni HEAD: 31f13fd18296473ec1c6715f20fa8df06a9f77e2; radno stablo bilo čisto.
+Node v24.20.0 / npm 11.19.0 / lokalni Vitest 5.0.1; postojeće node_modules.
+
+PROVERA T002–T011
+T002: requirements matrica 25/25 FR i 12/12 checklist kvalitet zahteva.
+T003/T005: plan/data-model/HTTP/GAME_SPEC isti 2 steps / 1 tool / 4 attempts,
+15s attempt / 45s run / 1s tool; stop prioritet i strict evidence ugovor pregledani.
+T004: postojeći original V1 prompt i manifest pre koda, original nije prepisan.
+T006: baseline.md i pripadajući stvarni logovi, istorijski 552/552/exit0;
+istorijski baseline nije današnji rezultat i nije novi live dokaz.
+T007: pregled 26 assertion RED; T008: 151 GREEN/contract, checkbox + šeme prisutni.
+T009: pregled 23 assertion RED; T010: 53 fokus/317 unit GREEN, alat prisutan.
+T011: 8 RED + snapshot holdout, 65 fokus GREEN, 610 regresija exit0,
+review/handoff/evals postoje; validator proverava kanonsku projekciju.
+Ne zasniva se samo na checkbox-u: kod/test/evidence pregled + novo izvršenje:
+npm.cmd test -- tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts tests/unit/match-facts.test.ts
+65/65, 4 fajla, exit0; 003-phase2-prerequisites.txt.
+SpecKit prerequisite: prvi direktni PowerShell poziv odbijen execution policy-jem;
+poseban -ExecutionPolicy Bypass sa SPECIFY_FEATURE_DIRECTORY izabrao feature003,
+exit0. Setup neuspeh nije TDD RED. Extensions.yml ne postoji pre/posle rada.
+
+STATUS I STVARNI RED/GREEN
+Svi T012–T017 kompletni u ovom obimu; kasniji taskovi ostaju otvoreni.
+Puni izlazi/tačne komande/exit statusi: 003-T012-red/green.txt do 003-T017-red/green.txt.
+Komande ispod su stvarno izvršene; GREEN brojevi obuhvataju i postojeću regresiju.
+
+T012 RED:
+npm.cmd test -- tests/unit/agent-provider.test.ts
+13/13 assertion fail: nedostaje generateAgent, exit1. Dodatni pending holdout:
+1 fail/13 pass, pending map prepisuje zahtev (očekivano3, stvarno2), exit1.
+T012 prvi GREEN/regresija:
+npm.cmd test -- tests/unit/agent-provider.test.ts tests/unit/ai-retry.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts
+52/52, exit0. Posle pending korekcije isti skup + tests/integration/ai-concurrency.test.ts:
+61/61, exit0. Handoff: neutralni odvojeni agent contract i deterministički fake.
+
+T013 RED:
+npm.cmd test -- tests/integration/gemini-agent.test.ts
+16 fail: nedostaje Gemini generateAgent, exit1.
+GREEN/regresija:
+npm.cmd test -- tests/integration/gemini-agent.test.ts tests/integration/gemini-adapter.test.ts tests/integration/gemini-http.test.ts tests/unit/agent-provider.test.ts
+52/52, exit0. Mocked SDK only, SDK attempts=1, bez ključa ili live mreže.
+Handoff: Gemini mapira strict structured candidate + usage, Week04 generate nepromenjen.
+
+T014 RED:
+npm.cmd test -- tests/unit/agent-orchestrator.test.ts
+4 assertion fail: nedostaje bounded run state machine, exit1 (bez import/setup greške).
+GREEN/regresija:
+npm.cmd test -- tests/unit/agent-orchestrator.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts
+49/49, zatim 53/53 uz guards/repeat testove; exit0 oba puta.
+Handoff: created/running/terminal, zajednički deadline/attempt budget, T011 gate;
+postojeća contextual membership provera privremeno inline, T015 je izdvaja/povezuje.
+
+T015 RED:
+npm.cmd test -- tests/unit/agent-final.test.ts
+20 assertion fail: nedostaje pure final lifecycle validator, exit1.
+GREEN/regresija:
+npm.cmd test -- tests/unit/agent-final.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-schemas.test.ts tests/contract/coach-contract.test.ts
+86/86, exit0. Handoff: strict final + canonical finding/ref/code membership;
+completed=false daje insufficient_evidence bez final result-a; validator bez mutacije.
+
+T016 RED:
+npm.cmd test -- tests/integration/agent-run.test.ts
+14 pass/2 fail, exit1. Behavior RED: negativna revizija je pozvala provider/tool,
+umesto invalid_input sa oba brojača0. Drugi pad bio je recovery helper timeout
+(nije oslobodio drugo zero-backoff čekanje); to nije validan behavior RED.
+GREEN/regresija:
+npm.cmd test -- tests/integration/agent-run.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/integration/gemini-agent.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts
+81/81, exit0. Prvi typecheck nakon toga prijavio dva TS2540 readonly fixture
+assignment-a; zamenjeni object spread-om, ponovljeni npm.cmd run typecheck exit0.
+Handoff: direktni success/failure testovi nad realnim terminalnim engine/facts snapshotom.
+
+T017 RED:
+npm.cmd test -- tests/integration/agent-run.test.ts
+37 pass/1 fail, exit1: cancelled run naknadno dobija network_error attempt.
+Dodatni dispatch holdout 38 pass/1 fail, exit1: provider poziv posle cancellation-a.
+Dodatni aggregate-only holdout 39 pass/1 fail, exit1: sampleLimited netačno false.
+GREEN/regresija:
+npm.cmd test -- tests/integration/agent-run.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/unit/agent-tool.test.ts tests/integration/ai-concurrency.test.ts tests/unit/ai-retry.test.ts
+124/124, exit0. Dispatch GREEN sa provider/Gemini fokusom 96/96, exit0;
+poslednji tool/final/orchestrator/integration skup 100/100, exit0.
+Handoff: terminal metadata se finalizuje jednom, dispatch ima abort/current guard;
+provider i tool counters rastu neposredno pre poziva, ne za odbačeni scheduled poziv.
+Late rezultat se ignoriše, tool nije ponovljen, stanje/facts deep-equal.
+
+FINALNE PROVERE (puni izlazi u 003-phase2-*.txt)
+npm.cmd test: finalno 708/708, 51 fajl, exit0.
+npm.cmd run typecheck: oba TS projekta exit0.
+npm.cmd run lint: prvo exit1 sa 7 stilskih grešaka, ispravljeno; finalno exit0.
+npm.cmd run build: finalno Vite + server TypeScript exit0.
+git diff --check: exit0; normalna Git LF/CRLF upozorenja.
+Prvi finalni test skup 705/705 očuvan u istom logu, finalni 708/708 posle holdout-a.
+Ne tvrdi se instalacija iz čistog checkout-a niti browser/live demo.
+
+FAJLOVI / SCOPE
+Izmenjeni runtime: backend/src/ai/types.ts, backend/src/ai/providers/gemini.ts,
+backend/src/agent/validation.ts.
+Novi runtime: backend/src/agent/types.ts, backend/src/agent/orchestrator.ts.
+Izmenjen helper: tests/helpers/fake-ai-provider.ts.
+Novi testovi: tests/unit/agent-provider.test.ts, tests/unit/agent-orchestrator.test.ts,
+tests/unit/agent-final.test.ts, tests/integration/gemini-agent.test.ts,
+tests/integration/agent-run.test.ts.
+Dokumentacija: specs/003-week05-bounded-agent-coach/tasks.md,
+docs/CONTEXT_MANIFEST.md, novi 003-T012–T017 i 003-phase2 evidence logovi.
+Allowed paths dopunjene obrazloženjem: T015 povezivanje validatora u orchestrator;
+T016 preflight revizija; T017 terminal attempt/dispatch guard i sampleLimited holdout.
+Povezivanje/preflight/terminal dopune upisane pre odgovarajuće runtime korekcije;
+završni dispatch/sampleLimited holdout razlog dopunjen pri reconciliation-u.
+Nema promene GameSession-a, routes/app, frontend-a, shared contract-a, package/lock,
+engine-a ili novih runtime dependencies. Build je osvežio ignorisani dist.
+
+OGRANIČENJA / PHASE3 T018–T020
+T017 dokazuje trusted owner/signal/fingerprint injection, ne produkcioni session slot.
+Bez isCurrent/signal, samostalan run nema saznanje da je session resetovan. To je DI
+ugovor koji T019 mora obavezno povezati; orchestrator ne poseduje globalni session lock.
+Counter/attempt evidencija je lokalna i bounded; usage store/epoch agregacija tek T020.
+Članstvo evidence ne dokazuje stratešku ispravnost sažetka/preporuke.
+Sinhroni tool ima T010 kooperativni timeout; Promise race ne može prekinuti
+proizvoljan blokirajući sinhroni injected executor. Produkcija koristi jedini lokalni alat.
+Factory model/fallback/caps dobija od trusted server config-a; T019 prenosi postojeći
+config.maxAttempts i backoff u options, proverava unavailable preflight.
+Neprecizan 429 ostaje rate_limit, bez izmišljene procene kvote.
+Terminal observer onTerminal dobija kopiju internog state-a; za HTTP T019 pravi strict
+CoachRunView i proverava current fingerprint/runId pre svog jednokratnog commit-a.
+
+T018: prvo strict start/status/no-store/preflight/duplicate route RED testovi.
+T019: session poseduje jedan slot i AbortController, start/commit serijski,
+await van lock-a; bind snapshot/current identity i reset abort, strict DTO.
+T020: bounded lokalne attempts podatke mapirati u usage uz reset epoch zaštitu;
+run/step/attempt/tool razlikovati. Week04 put ostaje zaseban.
+
+NIJE POKRENUTO
+npm ci, test:e2e, dev/start/preview, diagnose:gemini, smoke:gemini, live Gemini,
+ručni browser/UI demo, deploy, commit ili ljudski peer review. Postojeći UI unit
+testovi jesu deo npm test. HTTP/E2E/live taskovi kasnijih faza nisu implementirani.

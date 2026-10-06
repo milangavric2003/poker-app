@@ -289,3 +289,8 @@ retroaktivno menjani.
 - [x] GR3 — Dijagnostički CLI vraća nonzero pri grešci/praznom odgovoru; pokriven offline testom.
 - [x] GR4 — Fokusirane i pune offline provere, typecheck, lint i build; ažurirana dokumentacija.
 - [x] GR5 — Uspešan stvarni bot engine commit i analiza preko Lite modela; dokaz: `docs/evidence/002-gemini-lite-success.md`. Prethodni 503/timeout ostaju istorijski nalazi, lokalni fallback nije PASS.
+
+## Automatsko osvežavanje AI upotrebe — 2026-10-02
+
+- [x] UR1 — Vlasnik: coding agent; zavisnost: US4/5, postojeći T030–T035. RED/GREEN za automatsko osvežavanje, ponovno otvaranje, spore/kasne odgovore, reset i cleanup. Putanje: `frontend/src/components/UsageDashboard.tsx`, `tests/ui/dashboard.test.tsx`. Dokaz: EVIDENCE_003, UR1/UR2 (4 očekivana pada → 11/11).
+- [x] UR2 — Vlasnik: coding agent; zavisnost: UR1. UI regresija, typecheck/lint i evidence. Putanje: aktivni 002 spec/plan/tasks i `docs/{EVIDENCE_003,CONTEXT_MANIFEST,AI_USAGE_LOG}.md`. Dokaz: 59/59 UI testova, typecheck/lint exit 0.

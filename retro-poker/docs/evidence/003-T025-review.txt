@@ -1,0 +1,125 @@
+T025 security/privacy/read-only/traceability review — 2026-10-05 Europe/Belgrade
+
+Deps: stvarni T024/T028 handoff,250/250 fokus,802/802 regresija,13/13 ponovljeni
+E2E,typecheck/lint/build0; provereni git diff i status pre review-a.
+Očekivanje pre pregleda: server-only ključ, jedan fiksni executor, strict gates,
+nepromenjen poker/RNG/history/facts, bounded retry/cancel i samo bezbedni javni DTO.
+Jedan coding agent; ovo nije ljudski nezavisni security review ili penetration test.
+
+Granica → kod / dokaz → rezultat i ograničenje:
+API key: backend ai/config.ts/app.ts/provider factory. rg za GEMINI_API_KEY/apiKey/
+process.env ufrontend/src nije našao secret transport/import; server-only DI.
+Missing-key ai-config/adapter testovi u punoj T024 regresiji; stvarni ključ nije čitan.
+Allowlist/executor: orchestrator.consume poredi name sa literalnim
+get_decision_evidence; executeTool je trusted constructor dependency, nije model polje.
+Unknown/invalid: oblik→name→strict args/focus→canonical key→cap→executor.
+agent-run reject testovi i003-T024-traces.txt: model proposal rejected before executor;
+toolCallCount=0. DTO/key/code testovi ne dokazuju svaki mogući prompt injection.
+Filesystem/shell/SQL/URL/network: tools.ts runtime imports samo shared schemas;
+MatchFacts type-only. Pure projekcija i bounded loop, bez mutation ili I/O primitive.
+Read-only: orchestrator structuredClone+deep freeze snapshot-a; tool projection;
+agent-run unchanged i coach-lifecycle complete entire poker snapshot, E2E pre/posle.
+State snapshot uključuje RNG/history/stack/facts; kontrolisana igra ostaje ista.
+Final: validateDecisionEvidence re-projectuje canonical snapshot, strict shape/bytes/
+scope/refs/count/order/sample. validateFinalOutput i coachResultForEvidence zahtevaju
+tačan ref+factCode+finding iz stvarnog tool result-a, ne samo validan JSON.
+Prazno/completed=false: insufficient_evidence,result=null; foreign evidence rejected.
+Budžeti:2steps/1execution/4attempts,2attempts/step,15s/attempt,45s/run,1s/tool.
+bounded Promise race+AbortSignal i cooperative tool checks. SDK attempts1.
+Repeated key=name+parsed stable focus/limit+factsRevision; upis pre executor-a.
+step2 retry ne ponavlja tool; agent-run recovery/limit/deadline assertion testovi.
+Stale/late/cancel: checkpoint terminal/abort/fingerprint/deadline; finish guard1.
+session coachCurrent proverava run/game/hand/version/revision; slot+committed guard;
+create uklanja slot i abortuje; queued reservation ostavlja await van serial lock-a.
+App ima coach token/controller/run identity i monotone response counters;
+nova partija invalidira odmah, polling najviše1GET i prekida na terminalnom statusu.
+UI leak: strict CoachRunView/CoachResponse, final-only JSX tekst (bez HTML eval-a),
+generic API greška, enum stop labels. Nema raw prompt/reasoning/candidate/exception
+polja u DTO/usage; component/lifecycle/E2E marker rejection testovi prošli.
+Ne tvrdi se da schema može matematički prepoznati sav tekst koji model generiše;
+provider nikad ne dobija server key u model context-u ili protivničke skrivene karte.
+Usage: toolAttemptCount=predlozi,toolCallCount=ulazak u executor uključujući failure;
+run/step/attempt/retry/fallback odvojeni; recordCoach unique runId+epoch,
+stale/cancelled/zamenjeni run nema upis. Week04 retryCount ostaje poseban.
+Cost je unknown/null; fake usage je synthetic, nije Gemini račun.
+
+Nalazi i korekcije:
+1. Stvarni mali FR-002 bug: session coachStatus koristio monotoni timestamp kao
+   Unix epoch, pa datum1970. T029 upisan pre koda; novi independent Date.now oracle
+   RED12PASS/1FAIL,exit1 (696<1791189836484). Minimalni GREEN čuva wallStartedAt u
+   session slot-u i računa ISO deadline iz monotonog intervala; run sat ne menja.
+   003-T025-timestamp-red.txt i003-T025-timestamp-green.txt (91/91,4fajla,exit0).
+   Završni naknadni regression/typecheck/lint/build/E2E logovi003-T025-*.txt.
+2. Zastareli aktuelni statusi spec/plan/data-model/coach-http dopunjeni; originalni
+   V1 prompt i istorijski evidence ne prepisuju se. Clarification context ugovora
+   navodi stvarni minimalni JSON, trusted adapter descriptor i request metadata.
+3. Allowed paths: početni diff čist; T028 samo postojeći E2E test; T024 novi offline
+   evidence runner utests/helpers je korisnikov relevant tests/scripts scope;
+   T029 session i lifecycle test eksplicitno navedeni pre behavior korekcije.
+   Ostalo samo Phase5 docs/feature/evidence; nema engine/AI mutation/UI/package scope-a.
+4. GAME_SPEC/AGENTS/constitution/feature: iste poker/read-only/local/2-1-4 granice.
+   Constitution VI opisuje Week03/Week04; odobreni W05 read-only scope nije zabrana.
+   Nastavni assignment limited live zahtev naspram lokalnog optional-live DoD je
+   postojeće dokumentovano ograničenje; offline matrica nije live nastavna potvrda.
+5. Ljudski doprinos: korisnik zadao scope i navodi postojeći T021–T023; coding agent
+   izvršio ovaj review/provere/korekcije. Identiteti/pojedinačni Week05 A/B doprinos
+   i peer review nisu potvrđeni; ne izvode se iz owner oznaka ili Week04 potvrde.
+
+Lokalni links: node .verification/w05-doc-audit.cjs; tačan source/izlaz u
+003-T025-links.txt. Pre dopuna12 dokumenata/64linka,0grešaka,exit0. Ponoviti posle docs.
+Spoljni links web.open 2026-10-05: PokerStars texas-holdem i TDA forum topic279/746
+vraćaju sadržaj; https://www.pokertda.com/view-poker-tda-rules/ alat vraća Internal
+Error. Taj link nije proglašen ispravnim ili mrtvim; nije izmenjen na nagađanu adresu.
+Čitanje spoljnih linkova nije novi review poker pravila ni provider poziv.
+
+Komande pregleda: Get-Content/rg za navedene fajlove,git diff --stat,git diff --
+backend frontend shared package.json package-lock.json,git status --short,
+node .verification/w05-doc-audit.cjs. Numerički exit pojedinačnog manual read-a
+nije uvek dostupan; code review nalazi nisu test PASS tvrdnje.
+Secret scan i final diff gate biće zasebno zabeleženi; placeholder test key vrednosti
+su fake, nisu live tajne. Ne tvrdi se skeniranje privatnog.env ili svih Git objekata.
+
+Traceability: svi test paths relativni na tests/; runtime evidence003-T024-focus.txt
+za fokus,003-T024-regression.txt za Week04/game,003-T024-e2e-rerun.txt za browser,
+003-T024-traces.txt za safe traces. T029 naknadni dokazi imaju prednost za final kod.
+
+FR | US/acceptance | implementacioni task | test/scenario | evidence
+FR-001 | US1.1/5/6,US2.4 | T018–T019,T021 | contract/coach-routes.test.ts: preflight active/completed-hand/empty; ui/coach.test.tsx | T024-focus
+FR-002 | US1.1,US3.1/6 | T008,T014,T019,T029 | contract/coach-contract.test.ts; integration/coach-lifecycle.test.ts: stable wall-clock ISO | T024-focus,T025-timestamp-red/green
+FR-003 | US1.2/3 | T014,T016,T019 | integration/agent-run.test.ts: completes two accepted steps; coach-lifecycle complete | T024-focus/traces
+FR-004 | US2.1/5 | T010,T014 | unit/agent-tool.test.ts: registers only explicit name; integration/agent-run rejects unknown | T024-focus/traces; manual executor review above
+FR-005 | US1.2,US3.4 | T008,T014 | unit/agent-schemas.test.ts; unit/agent-final.test.ts: early/malformed final | T024-focus
+FR-006 | US2.2 | T008,T010,T014 | unit/agent-schemas.test.ts; agent-tool invalid limits/fields; agent-run invalid_arguments | T024-focus/traces
+FR-007 | US2.3 | T010,T019 | unit/agent-tool.test.ts: foreign/stale snapshot; contract/coach-routes: server-side revision | T024-focus
+FR-008 | US1.2,US3.3 | T010,T014 | unit/agent-tool.test.ts: frozen snapshot/cooperative timeout; integration/agent-run unchanged | T024-focus; manual imports review above
+FR-009 | US1.3,US3.4 | T011 | unit/agent-tool.test.ts: E5 corrupt/foreign/UTF8; unit/agent-orchestrator corrupted output | T024-focus
+FR-010 | US2.5 | T012,T013,T014 | unit/agent-orchestrator: context; integration/gemini-agent: maps structured/data instruction | T024-focus; manual no arbitrary executor/context review above
+FR-011 | US1.3,US3.4 | T008,T015 | unit/agent-schemas.test.ts; unit/agent-final.test.ts: strict JSON/fields/limits | T024-focus
+FR-012 | US1.4/5 | T015 | unit/agent-final.test.ts: canonical membership; integration/agent-run invalid_final | T024-focus/traces
+FR-013 | US3.1 | T014,T017 | integration/agent-run.test.ts: narrowed limits,hard caps,four attempts | T024-focus
+FR-014 | US3.3 | T013,T014,T017 | integration/gemini-agent: AbortSignal,SDK1; agent-run shared deadline/late timeout | T024-focus
+FR-015 | US3.2 | T014,T017 | integration/agent-run.test.ts: same canonical proposal | T024-focus/traces
+FR-016 | US3.1/4 | T008,T014,T016–T017 | contract/coach-contract.test.ts; integration/agent-run failure/limit matrix | T024-focus/traces
+FR-017 | US3.1/4 | T014,T016–T017 | integration/agent-run.test.ts:429/5xx recovery; unit/coach-usage.test.ts retry/fallback | T024-focus
+FR-018 | US3.5/6 | T017,T019,T022 | integration/coach-lifecycle.test.ts: dedup/late; agent-run duplicate commit; ui/coach-lifecycle races | T024-focus
+FR-019 | US2.3/4,US3.6 | T018–T019 | contract/coach-routes.test.ts: strict input,size,no-store,duplicate POST | T024-focus
+FR-020 | US1.2/3,US2.5 | T010,T014,T019 | integration/agent-run unchanged; coach-lifecycle entire snapshot; e2e/coach.spec.ts preserved result | T024-focus/e2e-rerun
+FR-021 | US4.1/2/3 | T021–T023 | ui/coach.test.tsx; ui/coach-api.test.ts; ui/coach-lifecycle.test.tsx; e2e/coach.spec.ts | T024-focus/e2e-rerun
+FR-022 | US4.4 | T020 | unit/coach-usage.test.ts: one run/two steps,separate retry,epoch,privacy | T024-focus/traces
+FR-023 | US3.4,US4.4 | T012–T017,T023–T024 | fake provider/mock Gemini; e2e/coach.spec.ts constructor-only fixtures | T024-handoff; live NOT RUN
+FR-024 | US3.5 | T017,T019,T022 | integration/coach-lifecycle new game; ui/coach-lifecycle late POST/GET | T024-focus
+FR-025 | US1.5,US4.1 | T010–T011,T021 | unit/agent-tool.test.ts aggregate-only/sampleLimited; ui/coach.test.tsx limited sample | T024-focus
+
+US2.5 manual proof: model ne dobija proizvoljni goal tekst/repo/events/secret;
+poznate karte samo actor-owned public projection; činjenice su canonical JSON data.
+Fiksna name/args kontrola i trusted executor onemogućavaju širenje ovlašćenja čak i
+ako model posluša instrukciju u podatku. Nije izveden zaseban live adversarial run;
+ovaj opis označen je manual code proof, nije izmišljeni injection test.
+US4.3 keyboard/readability: e2e/coach3/3; stvarni screen reader/axe nije pokrenut.
+Mapa pokriva25/25FR i21 acceptance scenarija(US1:6,US2:5,US3:6,US4:4);
+objašnjenje oba člana je poseban ljudski DoD/T027, nije pokriveno testovima.
+
+Handoff: nema nađenog nerešenog security/privacy propusta u pregledanom Core toku.
+T029 mala datumska korekcija zahteva sve naknadne zapisane provere da budu zelene.
+Spoljni TDA rules link ostaje unverified. T026 zatim spaja stvarne dokaze/ograničenja,
+T027 priprema walkthrough; potpisi i individualni doprinosi ostaju otvoreni.

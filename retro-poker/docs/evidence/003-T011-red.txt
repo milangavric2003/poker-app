@@ -1,0 +1,241 @@
+﻿T011 očekivanje: T010 testovi zeleni, novi validator testovi RED zbog nedostajuće snapshot-bound validacije. E1–E5 zapisani unapred u evals.md.
+Komanda: npm.cmd test -- tests/unit/agent-tool.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-tool.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-tool.test.ts (31 tests | 8 failed) 46ms
+   ❯ snapshot-bound result validation and expected-first evals (T011) (8)
+     × E1: accepts sufficient canonical betting evidence 6ms
+     × E2: accepts newest evidence at lower limit 1ms
+     × E3: accepts latest ten at upper limit 1ms
+     × E4: empty/aggregate-only source returns safe insufficient_evidence signal 1ms
+     × E5: rejects foreign/stale evidence and oversized output 1ms
+     × rejects malformed/unknown fields/types, codes, findings, omitted facts and false empty output 1ms
+     × rejects valid-looking output from a different run snapshot, stale source, wrong limit/order/sample flag 1ms
+     × accepts deterministic byte-truncated output and whole oversized-fact omissions without mutation 5ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E1: accepts sufficient canonical betting evidence
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:30:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E2: accepts newest evidence at lower limit
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:35:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E3: accepts latest ten at upper limit
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:41:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E4: empty/aggregate-only source returns safe insufficient_evidence signal
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:46:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E5: rejects foreign/stale evidence and oversized output
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:60:14
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects malformed/unknown fields/types, codes, findings, omitted facts and false empty output
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:76:39
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects valid-looking output from a different run snapshot, stale source, wrong limit/order/sample flag
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:93:14
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > accepts deterministic byte-truncated output and whole oversized-fact omissions without mutation
+AssertionError: Missing snapshot-bound tool result validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-tool.test.ts:24:69
+     22|
+     23| function validate(candidate: unknown, input: Snapshot, args: unknown):…
+     24|   expect(validator, 'Missing snapshot-bound tool result validator').to…
+       |                                                                     ^
+     25|   return validator!(candidate, input, args);
+     26| }
+ ❯ tests/unit/agent-tool.test.ts:101:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 23 passed (31)
+   Start at  19:01:24
+   Duration  411ms (transform 41%, import 37%, tests 20%, worker 2%)
+
+Exit: 1
+Dodatni expected-first holdout: prazan terminal handId i corrupt source refs moraju biti rejected.
+Komanda: npm.cmd test -- tests/unit/agent-tool.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-tool.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-tool.test.ts (32 tests | 1 failed) 58ms
+   ❯ snapshot-bound result validation and expected-first evals (T011) (9)
+     × rejects incomplete fingerprint and corrupt source refs even for otherwise canonical output 8ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects incomplete fingerprint and corrupt source refs even for otherwise canonical output
+AssertionError: expected { status: 'valid', result: { …(4) } } to deeply equal { status: 'rejected', …(1) }
+System.Management.Automation.RemoteException
+- Expected
++ Received
+System.Management.Automation.RemoteException
+  {
+-   "category": "tool_validation",
+-   "status": "rejected",
++   "result": {
++     "decisions": [
++       {
++         "decisionRef": "00000000-0000-4000-8000-000000000002:1",
++         "facts": [
++           {
++             "factCode": "action",
++             "finding": "{\"type\":\"call\"}",
++           },
++           {
++             "factCode": "phase",
++             "finding": "\"flop\"",
++           },
++           {
++             "factCode": "legal_options",
++             "finding": "[{\"type\":\"fold\"},{\"type\":\"call\",\"payAmount\":10,\"isAllIn\":false}]",
++           },
++           {
++             "factCode": "known_cards",
++             "finding": "{\"board\":[\"2c\",\"3d\",\"4h\"],\"holeCards\":[\"As\",\"Kd\"]}",
++           },
++           {
++             "factCode": "hand_outcome",
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 31 passed (32)
+   Start at  19:03:16
++             "finding": "{\"reason\":\"showdown\",\"gameStatus\":\"lost\",\"humanNetChange\":-10}",
++           },
++         ],
++       },
++     ],
++     "factsRevision": 20,
++     "focus": "street",
++     "sampleLimited": false,
++   },
++   "status": "valid",
+  }
+   Duration  347ms (transform 38%, import 35%, tests 25%, worker 1%)
+System.Management.Automation.RemoteException
+ ❯ tests/unit/agent-tool.test.ts:120:10
+    118|       if (index === 4) input.facts.decisions.push(decision(1));
+    119|       expect(validate(candidate, input, { focus: 'street', limit: 1 }))
+    120|         .toEqual({ status: 'rejected', category: 'tool_validation' });
+       |          ^
+    121|     }
+    122|   });
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+System.Management.Automation.RemoteException
+
+Exit: 1

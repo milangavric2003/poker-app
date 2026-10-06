@@ -1,0 +1,20 @@
+Datum: 2026-10-05 Europe/Belgrade
+HEAD:bdf33c3f132b0d2003e9eddf26778fcb74db2f6a
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  5 passed (5)
+      Tests  106 passed (106)
+   Start at  20:09:21
+   Duration  1.06s (tests 36%, import 35%, transform 28%, worker 1%)
+
+
+Exit status: 0
+SpecKit prerequisite sa apsolutnim feature override-om uspešan; requirements checklist12/12 read-only; extensions.yml absent. Novi live run još nije odobren pojedinačnim odgovorom niti izvršen.
+

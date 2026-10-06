@@ -1,0 +1,266 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/unit/agent-schemas.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/unit/coach-usage.test.ts tests/contract/coach-contract.test.ts tests/contract/coach-routes.test.ts tests/integration/gemini-agent.test.ts tests/integration/agent-run.test.ts tests/integration/coach-lifecycle.test.ts tests/ui/coach.test.tsx tests/ui/coach-api.test.ts tests/ui/coach-lifecycle.test.tsx --reporter=verbose
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-schemas.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/unit/coach-usage.test.ts tests/contract/coach-contract.test.ts tests/contract/coach-routes.test.ts tests/integration/gemini-agent.test.ts tests/integration/agent-run.test.ts tests/integration/coach-lifecycle.test.ts tests/ui/coach.test.tsx tests/ui/coach-api.test.ts tests/ui/coach-lifecycle.test.tsx --reporter=verbose
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_tool without network 9ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_refusal without network 2ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_final without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts unknown_tool without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts invalid_arguments without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts invalid_final without network 3ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts malformed without network 2ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies timeout_error 4ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies 429 2ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies 5xx 2ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies auth_config 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps retries in one step, repeats proposals and supports late pending replies 7ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps automatically named pending agent responses independently resolvable 1ms
+ ✓ |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > strict request preserves Week04 identity and bounds goal 17ms
+ ✓ |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > enumerates all statuses and stop reasons with consistent terminal result 21ms
+ ✓ |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > strict response wrapper rejects private fields 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > accepts canonical supporting facts and does not mutate inputs 31ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"foreign:1","factCode":"phase","finding":"\"flop\""}]} 5ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"action","finding":"\"flop\""}]} 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"secret","finding":"\"flop\""}]} 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"invented"}]} 6ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""},{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"certain","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}],"raw":"provider-payload"} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\"","raw":"x"}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final null 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final "{bad" 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"tool_request","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects fabricated completion on empty evidence 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > withholds a recommendation when the model declares insufficient evidence 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > parses bounded JSON and trims text 3ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus betting 12ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus street 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus showdown 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":"all"} 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":1} 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {} 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":"street","prompt":"x"} 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal null 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows integer limit 1 3ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows integer limit 10 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 0 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 11 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 1.5 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit "1" 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects argument scope/unknown fields 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > discriminates strict model steps; unknown names remain classifiable by allowlist 14ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > bounds final text by trimmed Unicode code points 10ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > bounds/uniquifies evidence and enforces completed 6ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > strictly bounds output decisions/facts, unique refs/codes and UTF-8 bytes 19ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > context-bound evidence schema rejects refs/codes/findings not actually supplied 4ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > runs two distinct steps and one validated read-only tool 88ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E1: accepts sufficient canonical betting evidence 25ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E2: accepts newest evidence at lower limit 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E3: accepts latest ten at upper limit 5ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E4: empty/aggregate-only source returns safe insufficient_evidence signal 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E5: rejects foreign/stale evidence and oversized output 6ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects malformed/unknown fields/types, codes, findings, omitted facts and false empty output 9ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects valid-looking output from a different run snapshot, stale source, wrong limit/order/sample flag 6ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > accepts deterministic byte-truncated output and whole oversized-fact omissions without mutation 54ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > does not forward corrupted tool results into step two 6ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > counts retry as attempt and retains one deadline 20ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > deduplicates concurrent execution and terminal transition 11ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > stops at narrowed step_limit without an extra call 6ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > stops at narrowed tool_call_limit without an extra call 3ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > stops at narrowed call_budget without an extra call 5ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > rejects repeated canonical action before a second executor call 7ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects incomplete fingerprint and corrupt source refs even for otherwise canonical output 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > registers only the explicit allowlisted name 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for betting with independent oracle 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for street with independent oracle 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for showdown with independent oracle 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > includes each betting action but excludes check/fold 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E2: lower limit chooses only newest matching decision 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E3: upper limit keeps latest ten in increasing ordinal order 27ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 0 before projection 14ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 11 before projection 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 1.5 before projection 4ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit "1" before projection 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit null before projection 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"all","limit":1} 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"gameId":"foreign"} 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"path":"/private"} 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"decisionRef":"stale:1"} 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E4: empty and aggregate-only snapshots cannot fabricate details 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > is deterministic under input permutation and preserves deeply frozen snapshot 10ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > projects only allowlisted fields and keeps later outcome separate from knowledge 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > omits whole oversized facts without slicing and marks limited sample 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > removes oldest whole decisions until JSON UTF-8 fits 20480 bytes 13ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects nonterminal, mismatched revision/game and corrupt detailed references 5ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > cooperatively stops on abort, local 1000ms timeout and shorter run deadline 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > completes two accepted steps around one canonical executor without poker/facts mutation 78ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects unknown_tool before executor 8ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects invalid_arguments before executor 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure invalid_structured_response / malformed_output 8ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > dispatches only after the start mutation lock has been released 57ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > does not record late evidence after epoch invalidation 33ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > does not record late evidence after replacement invalidation 11ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > counts one run, two steps, two attempts, one tool and separate validation; no retry 130ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure invalid_structured_response / malformed_output 11ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure authentication_configuration / provider_failed 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_timeout / provider_failed 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure rate_limit / provider_failed 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_unavailable / provider_failed 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_transport / provider_failed 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_refusal / provider_failed 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure evidence_rejected / malformed_output 12ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > tool exception cannot expose secrets or replay the executor 11ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > model refusal withholds success 9ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > 429 and 5xx recover within steps, with configured fallback and shared budget 12ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects negative facts revision before provider or tool calls 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > same canonical proposal stops before second tool execution 7ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > does not record late evidence after revision invalidation 7ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > completes only validated final output and preserves the entire poker snapshot 24ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates unknown_tool and explicit retry gets a new ID 64ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates invalid_arguments and explicit retry gets a new ID 16ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records 429 recovery within a step, fallback separately 18ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records 5xx recovery within a step, fallback separately 11ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records rejected unknown_tool but zero executions 5ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records rejected invalid_arguments but zero executions 5ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > rejects late epoch and invalidated run records without affecting Week04 14ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > bounds unsafe latency and stores only projected counters and metadata 14ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > rejects unknown aggregate fields and invalid counts while preserving old DTOs 12ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records malformed candidate and final evidence rejection as validation failures 16ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"tool_request","name":"get_decision_evidence","arguments":{"focus":"street","limit":10}} 25ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":true,"evidence":[{"decisionRef":"h:1","factCode":"phase","finding":"\"flop\""}]} 8ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"refusal","reason":"insufficient_context"} 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 4ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies safety 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 408 4ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 429 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 503 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 401 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 403 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 400 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies transport and honors pre-abort without a call 3ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates auth_config and explicit retry gets a new ID 18ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates invalid_final and explicit retry gets a new ID 23ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > releases serial lock, deduplicates, aborts replacement and ignores a late provider 8ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > rejects stale versions with no provider/tool or poker mutation 6ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > contains a raw tool exception inside safe terminal DTO and records one terminal outcome 9ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > new proposal after the tool cap stops without executing twice 8ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > narrowed step_limit guard prevents extra calls 10ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > narrowed call_budget guard prevents extra calls 11ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > narrowed tool_call_limit guard prevents extra calls 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > uses all four attempts across steps, never sends a fifth after failures 13ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > retry cannot send an attempt after narrowed run budget is exhausted 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > cannot raise hard Core caps through injected configuration 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > aggregate-only preflight exposes limited sample and makes zero model/tool calls 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > shares deadline across timeout/retry/tool and step two, shortening the last timeout 14ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > does not start retry when backoff consumes the remaining deadline 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > times out a noncooperative provider, aborts it and ignores late success 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > cancellation settles a pending provider and freezes the terminal state immediately 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > pre-aborted run has zero provider/tool calls 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > does not dispatch a deferred provider operation after cancellation 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale runId cannot publish a final result 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale gameId cannot publish a final result 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale handId cannot publish a final result 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale expectedVersion cannot publish a final result 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale factsRevision cannot publish a final result 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > controlled reset/new-game owner aborts old run without changing its poker snapshot 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > trusted owner rejects a concurrent second run without replacing the active one 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > duplicate starts, cancellation and late replies cannot commit terminal status twice 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > bounds a pending tool and never enters step two after timeout 3ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > starts a strict run and serves the same status with no-store 479ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {} before provider/tool calls 14ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"extra":true} before provider/tool calls 9ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"gameId":"bad"} before provider/tool calls 9ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"handId":"bad"} before provider/tool calls 18ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":-1} before provider/tool calls 8ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":1.2} before provider/tool calls 8ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":"2"} before provider/tool calls 7ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":9007199254740992} before provider/tool calls 10ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"goal":{"focus":"shell"}} before provider/tool calls 8ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"goal":{"focus":"street","extra":true}} before provider/tool calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"goal":null} before provider/tool calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects game preflight without calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects hand preflight without calls 9ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects version preflight without calls 5ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects active preflight without calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects completed-hand preflight without calls 5ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > returns insufficient evidence without provider or tool calls 9ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires gameId without provider or tool calls 5ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires handId without provider or tool calls 4ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires expectedVersion without provider or tool calls 4ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires goal without provider or tool calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > keeps facts revision server-side and rejects client overrides 8ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects a missing session safely 22ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects unavailable AI before provider and tool calls 5ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > exposes a safe terminal failure and explicit POST retry creates another run 66ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > deduplicates active starts and rejects a competing goal 9ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires a valid retained run identity and rejects query alternatives 11ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > enforces JSON and 1024 byte cap with safe errors in the production app 9ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > sends one POST with exact public identity and goal 15ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > GET uses the path runId and disables caching 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 400 4ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 409 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 429 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 500 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO 3ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects invalid JSON and network exception safely 3ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > times out without retrying POST 6ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > offers bounded accessible goals and submits selected focus 278ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables unavailable coaching: playing 22ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables unavailable coaching: unavailable 15ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces running, selected goal and disables submit 21ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables start while awaiting POST 13ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > shows only validated completed summary, recommendation and bounded evidence 29ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped insufficient_evidence and explicit retry 19ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped unknown_tool and explicit retry 14ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped deadline and explicit retry 15ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces failed and exposes separate coaching retry 11ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 10ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 9ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 8ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 9ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 9ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > network failure has safe alert and manual retry 11ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > guards duplicate POST and polls only after accepted start 384ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal completed/completed 98ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal failed/provider_failed 67ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal stopped/unknown_tool 53ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal stopped/insufficient_evidence 47ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > does not poll a terminal POST response 33ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > allows only one GET in flight and unmount aborts/ignores late GET 39ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > ignores late POST after unmount 33ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > new game takes precedence over delayed POST 70ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > new game takes precedence over delayed GET 81ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > manual retry starts new runId and polls only that run 55ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > ignores old runId and foreign/reversed snapshots without overwriting current run 59ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > safe failure for POST exception stops polling and never leaks details 41ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > safe failure for GET exception stops polling and never leaks details 45ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > does not accept a different goal from start response 46ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > keeps Week04 analysis polling and retry independent during coaching 78ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > rejects same runId on terminal retry 63ms
+
+ Test Files  14 passed (14)
+      Tests  250 passed (250)
+   Start at  10:35:27
+   Duration  8.26s (environment 37%, import 34%, transform 15%, tests 14%, worker 1%)
+
+Exit status: 0

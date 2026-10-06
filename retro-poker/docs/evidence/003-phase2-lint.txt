@@ -1,0 +1,30 @@
+﻿Komanda: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+D:\AIBootcamp\week3-4\retro-poker\backend\src\agent\validation.ts
+  16:19  error  '_kind' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\AIBootcamp\week3-4\retro-poker\tests\integration\agent-run.test.ts
+   51:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+   67:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+  118:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+  194:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+
+D:\AIBootcamp\week3-4\retro-poker\tests\unit\agent-orchestrator.test.ts
+  71:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+
+D:\AIBootcamp\week3-4\retro-poker\tests\unit\agent-provider.test.ts
+  26:3  error  Unexpected newline between function and ( of function call  no-unexpected-multiline
+
+✖ 7 problems (7 errors, 0 warnings)
+
+Exit: 1
+Finalno ponavljanje posle holdout/stilskih korekcija; komanda: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+Exit: 0

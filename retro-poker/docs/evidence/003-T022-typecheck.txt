@@ -1,0 +1,18 @@
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+frontend/src/api.ts(48,42): error TS2379: Argument of type '{ method: string; headers: { 'Content-Type': string; }; signal: AbortSignal | undefined; body: string; }' is not assignable to parameter of type 'RequestInit' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'signal' are incompatible.
+    Type 'AbortSignal | undefined' is not assignable to type 'AbortSignal | null'.
+      Type 'undefined' is not assignable to type 'AbortSignal | null'.
+frontend/src/api.ts(52,71): error TS2379: Argument of type '{ signal: AbortSignal | undefined; }' is not assignable to parameter of type 'RequestInit' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'signal' are incompatible.
+    Type 'AbortSignal | undefined' is not assignable to type 'AbortSignal | null'.
+      Type 'undefined' is not assignable to type 'AbortSignal | null'.
+COMMAND: npm.cmd run typecheck; EXIT=2
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+COMMAND: npm.cmd run typecheck; EXIT=0

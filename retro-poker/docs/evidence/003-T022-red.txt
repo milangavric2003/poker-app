@@ -1,0 +1,5124 @@
+
+> retro-poker@0.1.0 test
+> vitest run tests/ui/coach-api.test.ts tests/ui/coach-lifecycle.test.tsx
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+npm.cmd : (node:19492) PromiseRejectionHandledWarning: Promise rejection was handled asynchronously (rejection id: 33)
+At line:2 char:1
++ npm.cmd test -- tests/ui/coach-api.test.ts tests/ui/coach-lifecycle.t ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:19492) Pr...jection id: 33):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ❯ |ui| tests/ui/coach-api.test.ts (11 tests | 11 failed) 46ms
+   ❯ T022 strict coach API (11)
+     × sends one POST with exact public identity and goal 16ms
+     × GET uses the path runId and disables caching 1ms
+     × never exposes server/provider message for HTTP 400 9ms
+     × never exposes server/provider message for HTTP 409 2ms
+     × never exposes server/provider message for HTTP 429 2ms
+     × never exposes server/provider message for HTTP 500 1ms
+     × rejects malformed strict DTO 2ms
+     × rejects malformed strict DTO 1ms
+     × rejects malformed strict DTO 2ms
+     × rejects invalid JSON and network exception safely 2ms
+     × times out without retrying POST 5ms
+ ❯ |ui| tests/ui/coach-lifecycle.test.tsx (15 tests | 15 failed) 1534ms
+   ❯ T022 coaching App lifecycle (15)
+     × guards duplicate POST and polls only after accepted start 273ms
+     × stops polling at terminal completed/completed 77ms
+     × stops polling at terminal failed/provider_failed 75ms
+     × stops polling at terminal stopped/unknown_tool 64ms
+     × stops polling at terminal stopped/insufficient_evidence 68ms
+     × does not poll a terminal POST response 50ms
+     × allows only one GET in flight and unmount aborts/ignores late GET 51ms
+     × ignores late POST after unmount 56ms
+     × new game takes precedence over delayed POST 154ms
+     × new game takes precedence over delayed GET 190ms
+     × manual retry starts new runId and polls only that run 178ms
+     × ignores old runId and foreign/reversed snapshots without overwriting current run 84ms
+     × safe failure for POST exception stops polling and never leaks details 71ms
+     × safe failure for GET exception stops polling and never leaks details 73ms
+     × does not accept a different goal from start response 68ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 26 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > sends one POST with exact public identity and goal
+Error: Coaching nije implementiran.
+ ❯ startCoach frontend/src/api.ts:41:9
+     39| const jsonHeaders = { 'Content-Type': 'application/json' };
+     40| export async function startCoach(_game: GameView, _goal: CoachGoal): P…
+     41|   throw new ApiError('Coaching nije implementiran.');
+       |         ^
+     42| }
+     43| export async function loadCoach(_runId: string): Promise<CoachRunView>…
+ ❯ tests/ui/coach-api.test.ts:17:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/26]⎯
+
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > GET uses the path runId and disables caching
+Error: Coaching nije implementiran.
+ ❯ loadCoach frontend/src/api.ts:44:9
+     42| }
+     43| export async function loadCoach(_runId: string): Promise<CoachRunView>…
+     44|   throw new ApiError('Coaching nije implementiran.');
+       |         ^
+     45| }
+     46| export async function loadGame(): Promise<GameView | null> { return re…
+ ❯ tests/ui/coach-api.test.ts:26:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/26]⎯
+
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 400
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 409
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 429
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 500
+AssertionError: expected [Function] to throw error including 'Coaching zahtev nije prihvaćen.' but got 'Coaching nije 
+implementiran.'
+
+Expected: "Coaching zahtev nije prihvaćen."
+Received: "Coaching nije implementiran."
+
+ ❯ tests/ui/coach-api.test.ts:33:57
+     31|       error: { code: 'INTERNAL_ERROR', message: 'PRIVATE_PROVIDER stac…
+     32|     }), { status })));
+     33|     await expect(startCoach(game, { focus: 'betting' })).rejects.toThr…
+       |                                                         ^
+     34|   });
+     35|   it.each([{ run: { ...run, prompt: 'PRIVATE' } }, { run: { ...run, st…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/26]⎯
+
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO
+AssertionError: expected [Function] to throw error including 'Nevažeći coaching odgovor servera.' but got 'Coaching 
+nije implementiran.'
+
+Expected: "Nevažeći coaching odgovor servera."
+Received: "Coaching nije implementiran."
+
+ ❯ tests/ui/coach-api.test.ts:38:39
+     36|     { run: { ...run, result: { summary: 'unvalidated' } } }])('rejects…
+     37|     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON…
+     38|     await expect(loadCoach(run.runId)).rejects.toThrow('Nevažeći coach…
+       |                                       ^
+     39|   });
+     40|   it('rejects invalid JSON and network exception safely', async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/26]⎯
+
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects invalid JSON and network exception safely
+AssertionError: expected [Function] to throw error including 'Nevažeći odgovor servera.' but got 'Coaching nije 
+implementiran.'
+
+Expected: "Nevažeći odgovor servera."
+Received: "Coaching nije implementiran."
+
+ ❯ tests/ui/coach-api.test.ts:44:39
+     42|       .mockRejectedValueOnce(new Error('PRIVATE stack trace'));
+     43|     vi.stubGlobal('fetch', fetch);
+     44|     await expect(loadCoach(run.runId)).rejects.toThrow('Nevažeći odgov…
+       |                                       ^
+     45|     await expect(loadCoach(run.runId)).rejects.toThrow(/Veza sa server…
+     46|     expect(fetch).toHaveBeenCalledTimes(2);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/26]⎯
+
+ FAIL  |ui| tests/ui/coach-api.test.ts > T022 strict coach API > times out without retrying POST
+AssertionError: expected [Function] to throw error matching /isteklo/ but got 'Coaching nije implementiran.'
+
+- Expected:
+/isteklo/
+
++ Received:
+"Coaching nije implementiran."
+
+ ❯ tests/ui/coach-api.test.ts:54:69
+     52|     }));
+     53|     vi.stubGlobal('fetch', fetch);
+     54|     const assertion = expect(startCoach(game, { focus: 'betting' })).r…
+       |                                                                     ^
+     55|     await vi.advanceTimersByTimeAsync(10000); await assertion;
+     56|     expect(fetch).toHaveBeenCalledTimes(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > guards duplicate POST and polls only 
+after accepted start
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:42:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal 
+completed/completed
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal 
+failed/provider_failed
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal 
+stopped/unknown_tool
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal 
+stopped/insufficient_evidence
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:52:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > does not poll a terminal POST response
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:58:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > allows only one GET in flight and 
+unmount aborts/ignores late GET
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:63:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > ignores late POST after unmount
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:72:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > new game takes precedence over delayed 
+POST
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > new game takes precedence over delayed 
+GET
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:80:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > manual retry starts new runId and polls 
+only that run
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:90:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > ignores old runId and foreign/reversed 
+snapshots without overwriting current run
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:101:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > safe failure for POST exception stops 
+polling and never leaks details
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > safe failure for GET exception stops 
+polling and never leaks details
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:108:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/26]⎯
+
+ FAIL  |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > does not accept a different goal from 
+start response
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "Coaching partije"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"titlebar"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<header />[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "RETRO POKER":
+  [36m<h1 />[39m
+
+  Name "Ti":
+  [36m<h3 />[39m
+
+  Name "Bot 1":
+  [36m<h3 />[39m
+
+  Name "Istorija":
+  [36m<h2 />[39m
+
+  Name "Rezultat ruke":
+  [36m<h2 />[39m
+
+  Name "AI analiza partije":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "Nova partija":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Nova partija"[39m
+    [33mclass[39m=[32m"new-game"[39m
+  [36m/>[39m
+
+  Name "Poker sto":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Poker sto"[39m
+    [33mclass[39m=[32m"poker-table"[39m
+  [36m/>[39m
+
+  Name "Rezultat ruke":
+  [36m<section[39m
+    [33maria-atomic[39m=[32m"true"[39m
+    [33maria-label[39m=[32m"Rezultat ruke"[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"result"[39m
+  [36m/>[39m
+
+  Name "AI analiza partije":
+  [36m<section[39m
+    [33maria-label[39m=[32m"AI analiza partije"[39m
+    [33mclass[39m=[32m"analysis-panel"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Broj botova":
+  [36m<select[39m
+    [33mid[39m=[32m"bot-count"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "1":
+  [36m<option />[39m
+
+  Name "2":
+  [36m<option />[39m
+
+  Name "3":
+  [36m<option />[39m
+
+  Name "4":
+  [36m<option />[39m
+
+  Name "5":
+  [36m<option />[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "AI režim":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Nova partija":
+  [36m<button />[39m
+
+  Name "AI upotreba":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"usage-panel"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+  [36m/>[39m
+
+  Name "Zatraži analizu":
+  [36m<button />[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"blind-summary"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"seat-marker"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "Ti, mesto 1":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Ti, mesto 1"[39m
+    [33mclass[39m=[32m"seat seat-0"[39m
+  [36m/>[39m
+
+  Name "Bot 1, mesto 2":
+  [36m<article[39m
+    [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+    [33mclass[39m=[32m"seat seat-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  complementary:
+
+  Name "Istorija":
+  [36m<aside[39m
+    [33maria-label[39m=[32m"Istorija"[39m
+    [33mclass[39m=[32m"history"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Istorija ruke":
+  [36m<ol[39m
+    [33maria-label[39m=[32m"Istorija ruke"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<ul />[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-layout"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Poker sto"[39m
+          [33mclass[39m=[32m"poker-table"[39m
+        [36m>[39m
+          [36m<header>[39m
+            [36m<span>[39m
+              [0mRuka [0m
+              [0m1[0m
+              [0m · [0m
+              [0mcomplete[0m
+            [36m</span>[39m
+            [36m<strong>[39m
+              [0mPot: [0m
+              [0m15[0m
+            [36m</strong>[39m
+          [36m</header>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"blind-summary"[39m
+          [36m>[39m
+            [0mMali blind: [0m
+            [0mTi[0m
+            [0m, [0m
+            [0m5[0m
+            [0m · Veliki blind: [0m
+            [0mBot 1[0m
+            [0m, [0m
+            [0m10[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Board"[39m
+            [33mclass[39m=[32m"board"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mBoard čeka flop[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"seats"[39m
+          [36m>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Ti, mesto 1"[39m
+              [33mclass[39m=[32m"seat seat-0"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mTi[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m995[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m5[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mButton[0m
+              [36m</p>[39m
+              [36m<div>[39m
+                [36m<strong>[39m
+                  [0mTvoje karte[0m
+                [36m</strong>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"cards"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As pik"[39m
+                    [33mclass[39m=[32m"card card-black"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♠[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                  [36m<span[39m
+                    [33maria-label[39m=[32m"As herc"[39m
+
+ Test Files  2 failed (2)
+      Tests  26 failed (26)
+     Errors  1 error
+   Start at  22:56:15
+   Duration  3.70s (environment 50%, tests 31%, import 11%, transform 8%)
+
+                    [33mclass[39m=[32m"card card-red"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                    [36m>[39m
+                      [0mA[0m
+                      [0m♥[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</article>[39m
+            [36m<article[39m
+              [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+              [33mclass[39m=[32m"seat seat-1"[39m
+            [36m>[39m
+              [36m<h3>[39m
+                [0mBot 1[0m
+              [36m</h3>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"seat-stats"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mStack: [0m
+                  [0m990[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0mUlog: [0m
+                  [0m10[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"seat-marker"[39m
+              [36m>[39m
+                [0mMesto 2[0m
+              [36m</p>[39m
+            [36m</article>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Potovi"[39m
+            [33mclass[39m=[32m"pots"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mmain[0m
+              [0m: [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0muncalled[0m
+              [0m: [0m
+              [0m5[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+        [36m<aside[39m
+          [33maria-label[39m=[32m"Istorija"[39m
+          [33mclass[39m=[32m"history"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mIstorija[0m
+          [36m</h2>[39m
+          [36m<ol[39m
+            [33maria-label[39m=[32m"Istorija ruke"[39m
+          [36m>[39m
+            [36m<li>[39m
+              [0mPočetak ruke 1[0m
+            [36m</li>[39m
+          [36m</ol>[39m
+        [36m</aside>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mAnaliza je dostupna za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mZatraži analizu[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ panel tests/ui/coach-lifecycle.test.tsx:27:35
+     25| async function flush() { await act(async () => { await Promise.resolve…
+     26| async function tick(ms = 1000) { await act(async () => { await vi.adva…
+     27| const panel = () => within(screen.getByRole('region', { name: 'Coachin…
+       |                                   ^
+     28| async function mount() { const view = render(<App />); await flush(); …
+     29| function start() { fireEvent.click(panel().getByRole('button', { name:…
+ ❯ start tests/ui/coach-lifecycle.test.tsx:29:36
+ ❯ tests/ui/coach-lifecycle.test.tsx:116:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/26]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+AssertionError: expected [Function] to throw error matching /isteklo/ but got 'Coaching nije implementiran.'
+ ❯ _Assertion.__VITEST_REJECTS__ node_modules/vitest/dist/chunks/index.m3L2HgmY.js:2453:33
+ ❯ _Assertion.propertyGetter node_modules/chai/index.js:1570:27
+ ❯ Object.proxyGetter [as get] node_modules/chai/index.js:1659:22
+ ❯ tests/ui/coach-api.test.ts:54:69
+     52|     }));
+     53|     vi.stubGlobal('fetch', fetch);
+     54|     const assertion = expect(startCoach(game, { focus: 'betting' })).r…
+       |                                                                     ^
+     55|     await vi.advanceTimersByTimeAsync(10000); await assertion;
+     56|     expect(fetch).toHaveBeenCalledTimes(1);
+ ❯ node_modules/vitest/dist/chunks/run.C5UmxDPh.js:1628:35
+ ❯ node_modules/vitest/dist/chunks/run.C5UmxDPh.js:2783:26
+ ❯ node_modules/vitest/dist/chunks/run.C5UmxDPh.js:3319:20
+ ❯ runWithCancel node_modules/vitest/dist/chunks/run.C5UmxDPh.js:3314:10
+
+This error originated in "tests/ui/coach-api.test.ts" test file. It doesn't mean the error was thrown inside the file 
+itself, but while it was running.
+The last test to run before this error was "times out without retrying POST". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+COMMAND: npm.cmd test -- tests/ui/coach-api.test.ts tests/ui/coach-lifecycle.test.tsx; EXIT=1

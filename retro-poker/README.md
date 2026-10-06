@@ -111,3 +111,78 @@ commit i read-only analizu (najviše dva poziva); `--bot-only` ograničava na je
 Bez `--live` nema poziva. Offline testovi koriste presretnut HTTP i ne dokazuju
 dostupnost modela. Rezultati oporavka su u
 [evidence dokumentu](docs/evidence/002-gemini-lite-success.md).
+
+## Week05 coaching završene partije
+
+Posle završetka **partije** (Pobeda/Poraz), u panelu „Coaching partije” izabrati
+Ulaganje, Odluke po fazama ili Showdown i „Pokreni coaching”. Backend mora imati
+validnu server-side AI konfiguraciju. Bez nje coaching je nedostupan; offline igra
+i bot fallback i dalje rade. Panel prikazuje bezbedan status, validirani savet i
+reference, ili razlog zaustavljanja. Novi pokušaj je eksplicitan; nova partija
+otkazuje prethodni run. Week04 analiza ostaje poseban tok.
+
+Frontend ostaje `http://127.0.0.1:5173/`, backend `http://127.0.0.1:3001/`.
+Week05 endpoint-i: `POST /api/game/coach` za start i
+`GET /api/game/coach/:runId` za status. Agent je read-only i ne menja igru.
+Jedan run ima najviše 2 modelska koraka, 1 tool execution i 4 provider attempts,
+rok 45 s i timeout do 15 s po attempt-u.
+
+Proverene fokusirane offline komande:
+
+```powershell
+npm.cmd test -- tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+npm.cmd run test:e2e -- tests/e2e/coach.spec.ts tests/e2e/ai-offline.spec.ts
+node --require ./tests/helpers/process-user-shim.cjs --import tsx tests/helpers/coach-evidence.ts
+```
+
+Poslednja komanda daje osam bezbednih fake tragova bez UI-ja ili stvarnog ključa.
+Shim rešava poznati Windows tsx `os.userInfo` setup problem. Coach E2E koristi pravi
+lokalni Fastify/Vite sa constructor-only fixture/fake providerom; redovni testovi
+su offline, bez live Gemini potrošnje.
+
+Week05 predaja traži ograničen live dokaz prema assignment §31, uz eksplicitan
+lokalni opt-in nakon zelenih offline provera. Smernice: najviše 15 razvojnih run-ova
+i 3 demo run-a. Postojeći Week04 smoke/diagnose nije Week05 coaching dokaz.
+
+Poseban runner koristi sintetičku terminalnu partiju, postojeće HTTP/session/
+orchestrator gate-ove i pravi Gemini adapter. Jedno pokretanje: najviše jedan run,
+dva generation poziva, jedan alat, bez retry-ja/fallback-a, 15 s/attempt i 45 s/run.
+Koristi kompajlirani entrypoint radi ponovljivog pokretanja i bez tsx IPC setup-a:
+
+```powershell
+npm.cmd run build
+npm.cmd run smoke:coach
+# Samo uz odobren live budžet i lokalnu server-side .env konfiguraciju:
+npm.cmd run smoke:coach -- --live
+# T031, uz zasebno odobrenje pre svakog run-a:
+npm.cmd run smoke:coach -- --live --scenario=street-review
+```
+
+Bez `--live`: exit 0 i nula provider/tool poziva. Bez validne konfiguracije: exit 2
+i nula poziva. Uspeh traži completed, 2 steps/2 attempts/1 tool, validan final i
+nepromenjen javni poker pogled/tool snapshot. Neuspeh: exit 1, safe status/stopReason.
+Izlaz sadrži samo brojače, trajanje, validacije i usage; nema model teksta, karata
+ili sirovih promptova/odgovora.
+
+T030, 2026-10-05: jedan odobren live run sa Gemini 3.5 Flash Lite imao je 2 koraka,
+2 provider poziva i 1 tool execution, pa je završio `stopped/insufficient_evidence`.
+Read-only provera je prošla, retry/fallback 0, ukupno 464 tokena; cena unknown.
+T030 nije dobio validirani live savet. [Stvarni izlaz](docs/evidence/003-T030-live.txt).
+
+T031 priprema: `street-review` prikuplja četiri stvarne odluke iz jedne sintetičke
+ruke (call/check/check/all_in). Originalni `single-all-in` ostaje default.
+Report dodaje broj dostupnih/tool odluka i validiranu vrstu modelskog koraka,
+bez sadržaja odluka. Offline827/827 i relevantni E2E4/4 prolaze. Odobreni live run #2
+završio je completed, 2steps/2calls/1tool, 4 reference i read-only=true, retry/fallback0.
+[Stvarni live #2](docs/evidence/003-T031-live-02.txt), 1486 tokena, cenaunknown.
+Nema run-a #3; svaki budući run zahteva novo pitanje sa brojem.
+[Priprema i handoff](docs/evidence/003-T031-handoff.md).
+
+Storage je samo memorijski: restart gubi partiju, facts, run i usage; nova partija
+uklanja coach slot. MatchFacts zadržava do 200 detaljnih odluka, starije agregira.
+Coaching koristi raspoloživi uzorak, ne arhivu više partija.
+Rezultati i ograničenja: [EVIDENCE_W05](docs/EVIDENCE_W05.md).
+T027 walkthrough završen je prema korisničkoj potvrdi2026-10-06. Doprinos oba
+člana dokumentovan je author podacima i izmenjenim fajlovima na dve razvojne grane.
+[Završni ljudski handoff](docs/evidence/003-T027-human-handoff.md),
+[doprinos po commitovima](docs/evidence/003-T027-contributions.md).

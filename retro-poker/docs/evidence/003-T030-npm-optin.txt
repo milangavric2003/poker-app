@@ -1,0 +1,10 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run smoke:coach
+
+> retro-poker@0.1.0 smoke:coach
+> node --env-file-if-exists=.env dist/server/scripts/gemini-coach-live-smoke.js
+
+{"event":"coach-smoke","executed":false,"passed":false,"reason":"opt_in_required","providerCallCount":0,"toolCallCount":0}
+
+Exit status: 0
+

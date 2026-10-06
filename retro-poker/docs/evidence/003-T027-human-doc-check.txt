@@ -1,0 +1,5 @@
+T027 documentaciona provera, 2026-10-06, Europe/Belgrade
+Aktuelni human handoff: 6 lokalnih linkova, svi postoje
+Jedina otvorena feature003 stavka: T027
+Korisnička zajednička proba zabeležena; samostalno objašnjenje nije pretpostavljeno
+Nema novih code testova ili Gemini poziva u ovom dokumentacionom koraku

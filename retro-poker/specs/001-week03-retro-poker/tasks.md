@@ -169,3 +169,15 @@ Svaka može sadržati više malih TDD ciklusa. Broj taskova nije broj AI poziva.
 
 Ukupno40 taskova: setup2, foundation3, US2 8, US1 11, US3 6, US4 6, završni4.
 Svi checkbox-i ostaju prazni dok se task stvarno ne izvrši.
+
+## 2026-10-02 — T041/T042: obračun posle eliminacije (R6, R8, FR-011, AC21)
+
+Plan: reprodukovati Invalid chips or player bez mreže; dozvoliti prazne karte samo
+ranije eliminisanom mestu sa svim chip poljima nula. Učesnici ruke zadržavaju dve
+karte. Proveriti showdown, fold završetak, očuvanje žetona i AI bot commit.
+Checklist requirements.md: 16 ukupno, 16 označeno, 0 otvoreno (PASS).
+Spec Kit prerequisite skripta blokirana je lokalnom PowerShell execution policy;
+plan/tasks/model/checklist provereni su direktnim čitanjem, bez promene politike.
+
+- [x] T041 A / coding agent — RED; deps T028; tests/unit/pots.test.ts i tests/integration/elimination-settlement.test.ts; dokaz docs/evidence/elimination-red.txt.
+- [x] T042 A / coding agent — GREEN; deps T041; backend/src/engine/pots.ts, navedeni testovi, tests/integration/ai-bots.test.ts i docs evidence/manifest/usage; dokaz fokusirani testovi, regresija, typecheck/lint/build.

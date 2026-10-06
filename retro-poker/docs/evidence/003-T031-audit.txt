@@ -1,0 +1,57 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: rekonstrukcija tačnog T030 audit izvora i T031 promena ispod; stari log nepromenjen.
+$t031AuditLog = Get-Content docs/evidence/003-T030-audit.txt -Raw -Encoding UTF8
+$t031AuditSource = ($t031AuditLog -split '\r?\nPrvi stvarni izlaz')[0] -replace '(?s)^.*?Izvor:\r?\n',''
+$t031AuditSource = $t031AuditSource.Replace("'docs/evidence/003-T030-handoff.md'", "'docs/evidence/003-T030-handoff.md','docs/evidence/003-T031-handoff.md'").Replace('003-T030-[^/]+','003-T031-[^/]+').Replace("['T027','T031']", "['T027']").Replace("'package.json',",'').Replace("'scripts/gemini-coach-live-smoke.ts',",'')
+node -e $t031AuditSource
+
+Završni stvarni izlaz:
+{
+  "documents": 19,
+  "checkedLocalLinks": 303,
+  "issues": [],
+  "changedFiles": [
+    "docs/evidence/003-T031-audit.txt",
+    "docs/evidence/003-T031-build.txt",
+    "docs/evidence/003-T031-e2e.txt",
+    "docs/evidence/003-T031-green-final.txt",
+    "docs/evidence/003-T031-green.txt",
+    "docs/evidence/003-T031-handoff.md",
+    "docs/evidence/003-T031-lint.txt",
+    "docs/evidence/003-T031-live-02.txt",
+    "docs/evidence/003-T031-optin.txt",
+    "docs/evidence/003-T031-prerequisites.txt",
+    "docs/evidence/003-T031-red-final.txt",
+    "docs/evidence/003-T031-red.txt",
+    "docs/evidence/003-T031-tests.txt",
+    "docs/evidence/003-T031-typecheck.txt",
+    "README.md",
+    "docs/AI_USAGE_LOG.md",
+    "docs/CONTEXT_MANIFEST.md",
+    "docs/EVIDENCE_W05.md",
+    "docs/GAME_SPEC.md",
+    "docs/evidence/003-T027-demo.md",
+    "scripts/coach-smoke.ts",
+    "specs/003-week05-bounded-agent-coach/plan.md",
+    "specs/003-week05-bounded-agent-coach/spec.md",
+    "specs/003-week05-bounded-agent-coach/tasks.md",
+    "tests/integration/coach-smoke.test.ts"
+  ],
+  "unexpectedPaths": [],
+  "suspectedSecretFiles": [],
+  "openTasks": [
+    "T027"
+  ],
+  "statusCorrect": true,
+  "checklistCounts": {
+    "total": 12,
+    "checked": 12
+  },
+  "extensionsPresent": false,
+  "baselineScreenshotsUnchanged": true,
+  "generatedFilesAbsent": true,
+  "gitDiffCheckExit": 0
+}
+
+Exit status: 0
+Prva provera pre poslednjeg opt-in linka:19dokumenata/302linka/0issues,exit0. Zbir nakon poslednjeg linka je gore. Status checker proverava T030[x] i openTasks=[T027]; T031[x] je eksplicitno potvrđen u završnom task diff-u. Scan samo odabrane secret pattern-e u izmenjenim/neignorisanim fajlovima; ne dokazuje odsustvo svake tajne. .env nije čitan. Nema generisanih/build/cache/screenshot izmena u Git diff-u. Novi live pozivi ove provere0, budući run #3 nije odobren niti izvršen.

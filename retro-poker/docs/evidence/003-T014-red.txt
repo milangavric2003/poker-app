@@ -1,0 +1,92 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-orchestrator.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-orchestrator.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-orchestrator.test.ts (4 tests | 4 failed) 10ms
+   ❯ bounded coach state machine T014 (4)
+     × runs two distinct steps and one validated read-only tool 5ms
+     × does not forward corrupted tool results into step two 1ms
+     × counts retry as attempt and retains one deadline 1ms
+     × deduplicates concurrent execution and terminal transition 1ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > runs two distinct steps and one validated read-only tool
+AssertionError: Missing bounded run state machine behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ make tests/unit/agent-orchestrator.test.ts:25:61
+     23| }
+     24| function make(overrides: Partial<AgentRunOptions> = {}) {
+     25|   expect(Run, 'Missing bounded run state machine behavior').toBeTypeOf…
+       |                                                             ^
+     26|   const provider = new FakeAiProvider([{ kind: 'agent_tool' }, { kind:…
+     27|   const clock = new FakeClock(); const executeTool = vi.fn(getDecision…
+ ❯ tests/unit/agent-orchestrator.test.ts:34:44
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > does not forward corrupted tool results into step two
+AssertionError: Missing bounded run state machine behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  22:16:15
+   Duration  330ms (transform 51%, import 42%, tests 5%, worker 2%)
+
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ make tests/unit/agent-orchestrator.test.ts:25:61
+     23| }
+     24| function make(overrides: Partial<AgentRunOptions> = {}) {
+     25|   expect(Run, 'Missing bounded run state machine behavior').toBeTypeOf…
+       |                                                             ^
+     26|   const provider = new FakeAiProvider([{ kind: 'agent_tool' }, { kind:…
+     27|   const clock = new FakeClock(); const executeTool = vi.fn(getDecision…
+ ❯ tests/unit/agent-orchestrator.test.ts:48:31
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > counts retry as attempt and retains one deadline
+AssertionError: Missing bounded run state machine behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ make tests/unit/agent-orchestrator.test.ts:25:61
+     23| }
+     24| function make(overrides: Partial<AgentRunOptions> = {}) {
+     25|   expect(Run, 'Missing bounded run state machine behavior').toBeTypeOf…
+       |                                                             ^
+     26|   const provider = new FakeAiProvider([{ kind: 'agent_tool' }, { kind:…
+     27|   const clock = new FakeClock(); const executeTool = vi.fn(getDecision…
+ ❯ tests/unit/agent-orchestrator.test.ts:54:28
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > deduplicates concurrent execution and terminal transition
+AssertionError: Missing bounded run state machine behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ make tests/unit/agent-orchestrator.test.ts:25:61
+     23| }
+     24| function make(overrides: Partial<AgentRunOptions> = {}) {
+     25|   expect(Run, 'Missing bounded run state machine behavior').toBeTypeOf…
+       |                                                             ^
+     26|   const provider = new FakeAiProvider([{ kind: 'agent_tool' }, { kind:…
+     27|   const clock = new FakeClock(); const executeTool = vi.fn(getDecision…
+ ❯ tests/unit/agent-orchestrator.test.ts:63:59
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+System.Management.Automation.RemoteException
+Exit: 1

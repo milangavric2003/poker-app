@@ -13,7 +13,7 @@ function Card({ card }: { card: string }) {
   const suit = suits[card[1] as keyof typeof suits];
   const label = `${rankNames[rank] ?? rank} ${suit?.name ?? ''}`.trim();
   return <span className={`card card-${suit?.tone ?? 'black'}`} aria-label={label}>
-    <span aria-hidden="true">{rank}{suit?.symbol}</span><small aria-hidden="true">{card}</small>
+    <span aria-hidden="true">{rank === 'T' ? '10' : rank}{suit?.symbol}</span>
   </span>;
 }
 

@@ -1,0 +1,43 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-lifecycle.test.ts
+Očekivanje: novi ISO timestamp test RED zbog1970; ostali lifecycle testovi ostaju zeleni.
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-lifecycle.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/coach-lifecycle.test.ts (13 tests | 1 failed) 73ms
+   ❯ T019 session coach ownership (13)
+     × publishes stable wall-clock ISO timestamps while the run keeps its monotonic deadline 16ms
+npm.cmd : 
+At line:2 char:11
++ $output = npm.cmd test -- tests/integration/coach-lifecycle.test.ts 2 ...
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > publishes stable wall-clock 
+ISO timestamps while the run keeps its monotonic deadline
+AssertionError: expected 696 to be greater than or equal to 1791189836484
+ ❯ tests/integration/coach-lifecycle.test.ts:29:45
+     27|     // Release the fixture even on assertion failure; no live provider…
+     28|     try {
+     29|       expect(Date.parse(started.startedAt)).toBeGreaterThanOrEqual(bef…
+       |                                             ^
+     30|       expect(Date.parse(started.startedAt)).toBeLessThanOrEqual(after);
+     31|       expect(Date.parse(started.deadlineAt) - Date.parse(started.start…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  10:43:55
+   Duration  806ms (transform 59%, import 29%, tests 11%, worker 1%)
+
+
+Exit status: 1

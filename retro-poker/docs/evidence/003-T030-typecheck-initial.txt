@@ -1,0 +1,13 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+scripts/coach-smoke.ts(72,7): error TS2322: Type 'undefined' is not assignable to type '{ attempts: { stepOrdinal: number; model: string; relation: AttemptRelation; outcome: AttemptOutcome; count: number; latency: { count: number; sumMs: number; maxMs: number; }; usage: UsageView; }[]; ... 11 more ...; latency: { ...; }; }'.
+scripts/coach-smoke.ts(96,13): error TS7022: 'status' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+scripts/coach-smoke.ts(99,7): error TS2322: Type '{ runCount: number; stepCount: number; providerAttemptCount: number; toolAttemptCount: number; toolExecutionCount: number; toolRejectionCount: number; validationCount: number; validationRejectedCount: number; ... 4 more ...; attempts: { ...; }[]; } | undefined' is not assignable to type '{ attempts: { stepOrdinal: number; model: string; relation: AttemptRelation; outcome: AttemptOutcome; count: number; latency: { count: number; sumMs: number; maxMs: number; }; usage: UsageView; }[]; ... 11 more ...; latency: { ...; }; }'.
+  Type 'undefined' is not assignable to type '{ attempts: { stepOrdinal: number; model: string; relation: AttemptRelation; outcome: AttemptOutcome; count: number; latency: { count: number; sumMs: number; maxMs: number; }; usage: UsageView; }[]; ... 11 more ...; latency: { ...; }; }'.
+
+Exit status: 1
+

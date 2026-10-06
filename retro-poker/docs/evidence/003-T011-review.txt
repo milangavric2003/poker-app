@@ -1,0 +1,37 @@
+﻿Phase1 završni review, 2026-10-04; jedan coding agent, bez ljudskog peer potpisa.
+Komanda: git diff --check
+warning: in the working copy of 'retro-poker/docs/CONTEXT_MANIFEST.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/shared/contracts.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/specs/003-week05-bounded-agent-coach/tasks.md', LF will be replaced by CRLF the next time Git touches it
+Exit: 0
+Komanda: git diff --relative --name-only; git ls-files --others --exclude-standard
+docs/CONTEXT_MANIFEST.md
+shared/contracts.ts
+specs/003-week05-bounded-agent-coach/tasks.md
+backend/src/agent/tools.ts
+backend/src/agent/validation.ts
+docs/evidence/003-T007-red.txt
+docs/evidence/003-T008-green.txt
+docs/evidence/003-T009-red.txt
+docs/evidence/003-T010-green.txt
+docs/evidence/003-T011-build.txt
+docs/evidence/003-T011-green.txt
+docs/evidence/003-T011-handoff.txt
+docs/evidence/003-T011-lint.txt
+docs/evidence/003-T011-red.txt
+docs/evidence/003-T011-regression.txt
+docs/evidence/003-T011-typecheck.txt
+specs/003-week05-bounded-agent-coach/evals.md
+tests/contract/coach-contract.test.ts
+tests/unit/agent-schemas.test.ts
+tests/unit/agent-tool.test.ts
+Allowed paths audit: PASS
+T007–T011 checkbox audit: 5/5, evidence postoje
+Import audit (rg ^import backend/src/agent):
+backend/src/agent\tools.ts:import { CoachFactSchema, DecisionEvidenceArgumentsSchema, DecisionEvidenceResultSchema,
+backend/src/agent\tools.ts:import type { HumanDecisionFact, MatchFacts } from '../ai/match-facts.js';
+backend/src/agent\validation.ts:import { DecisionEvidenceArgumentsSchema, DecisionEvidenceResultSchema, MAX_TOOL_RESULT_BYTES,
+backend/src/agent\validation.ts:import { projectDecisionFacts, type TerminalFactsSnapshot } from './tools.js';
+Pregled: tools shared runtime schemas + type-only facts; validation shared + lokalna projekcija. Nema provider/HTTP/FS/shell/SQL/network/engine mutation import-a.
+Tasks/evals lokalne link putanje: PASS
+extensions.yml provera (pre/posle): ne postoji, nema hook-ova.

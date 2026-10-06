@@ -1,0 +1,30 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-orchestrator.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-orchestrator.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  3 passed (3)
+      Tests  49 passed (49)
+   Start at  22:17:38
+   Duration  380ms (transform 42%, import 36%, tests 19%, worker 3%)
+
+Exit: 0
+Komanda: npm.cmd test -- tests/unit/agent-orchestrator.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-orchestrator.test.ts tests/unit/agent-tool.test.ts tests/unit/agent-provider.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  3 passed (3)
+      Tests  53 passed (53)
+   Start at  22:18:17
+   Duration  404ms (transform 38%, import 37%, tests 23%, worker 2%)
+
+Exit: 0 Handoff: T014 zeleni 2/1 tok, run-wide attempts, canonical repeat i guards. T015 izdvaja cist final lifecycle validator iz vec postojece shared membership provere.

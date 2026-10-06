@@ -1,5 +1,5 @@
-import { GameErrorSchema, GameResponseSchema, UsageResponseSchema,
-  type GameView, type UsageDashboardView } from '../../shared/contracts';
+import { CoachResponseSchema, GameErrorSchema, GameResponseSchema, UsageResponseSchema,
+  type CoachGoal, type CoachRunView, type GameView, type UsageDashboardView } from '../../shared/contracts';
 
 export type ActionDraft =
   | { type: 'fold' | 'check' | 'call' | 'all_in' }
@@ -9,13 +9,14 @@ export class ApiError extends Error {
   constructor(message: string, readonly code: string | null = null) { super(message); }
 }
 
-async function fetchJson(path: string, init?: RequestInit): Promise<unknown> {
+async function fetchJson(path: string, init?: RequestInit, safeCoachError = false): Promise<unknown> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 10000);
   try {
     let response: Response;
     const apiOrigin = (import.meta as ImportMeta & { env?: { VITE_API_ORIGIN?: string } }).env?.VITE_API_ORIGIN;
-    try { response = await fetch(apiOrigin ? new URL(path, apiOrigin).toString() : path, { ...init, signal: controller.signal }); }
+    try { response = await fetch(apiOrigin ? new URL(path, apiOrigin).toString() : path, { ...init,
+      signal: init?.signal ? AbortSignal.any([init.signal, controller.signal]) : controller.signal }); }
     catch { throw new ApiError(controller.signal.aborted
       ? 'Vreme čekanja je isteklo. Učitaj stanje pre nastavka.'
       : 'Veza sa serverom je prekinuta. Učitaj stanje pre nastavka.'); }
@@ -23,6 +24,7 @@ async function fetchJson(path: string, init?: RequestInit): Promise<unknown> {
     try { payload = await response.json(); } catch { throw new ApiError('Nevažeći odgovor servera.'); }
     if (!response.ok) {
       const parsed = GameErrorSchema.safeParse(payload);
+      if (safeCoachError) throw new ApiError('Coaching zahtev nije prihvaćen.', parsed.success ? parsed.data.error.code : null);
       throw new ApiError(parsed.success ? parsed.data.error.message : 'Nevažeći odgovor servera.',
         parsed.success ? parsed.data.error.code : null);
     }
@@ -37,6 +39,18 @@ async function requestGame(path: string, init?: RequestInit): Promise<GameView |
 }
 
 const jsonHeaders = { 'Content-Type': 'application/json' };
+async function requestCoach(path: string, init: RequestInit): Promise<CoachRunView> {
+  const parsed = CoachResponseSchema.safeParse(await fetchJson(path, { ...init, cache: 'no-store' }, true));
+  if (!parsed.success) throw new ApiError('Nevažeći coaching odgovor servera.');
+  return parsed.data.run;
+}
+export async function startCoach(game: GameView, goal: CoachGoal, signal?: AbortSignal): Promise<CoachRunView> {
+  return requestCoach('/api/game/coach', { method: 'POST', headers: jsonHeaders, ...(signal ? { signal } : {}),
+    body: JSON.stringify({ gameId: game.gameId, handId: game.handId, expectedVersion: game.version, goal }) });
+}
+export async function loadCoach(runId: string, signal?: AbortSignal): Promise<CoachRunView> {
+  return requestCoach(`/api/game/coach/${encodeURIComponent(runId)}`, signal ? { signal } : {});
+}
 export async function loadGame(): Promise<GameView | null> { return requestGame('/api/game'); }
 
 export async function createGame(botCount: number, current: GameView | null, aiMode?: boolean): Promise<GameView> {

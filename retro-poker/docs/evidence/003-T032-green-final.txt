@@ -1,0 +1,18 @@
+Datum:2026-10-05 Europe/Belgrade
+Komanda:npm.cmd test -- tests/ui/coach.test.tsx tests/ui/coach-lifecycle.test.tsx tests/ui/coach-api.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/ui/coach.test.tsx tests/ui/coach-lifecycle.test.tsx tests/ui/coach-api.test.ts
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  3 passed (3)
+      Tests  47 passed (47)
+   Start at  20:49:20
+   Duration  2.99s (environment 59%, tests 20%, import 14%, transform 6%)
+
+
+Exit status:0
+Offline, bez novih live poziva.

@@ -122,6 +122,24 @@ const CostMetricSchema = z.strictObject({ knownCount: Count, missingCount: Count
 const AttemptOutcomeSchema = z.enum(['success', 'timeout', 'rate_limited', 'server_error',
   'network_error', 'malformed', 'schema_rejected', 'semantic_rejected', 'safety_refusal',
   'auth_config_error', 'invalid_request', 'cancelled', 'stale']);
+export const CoachStopReasonSchema = z.enum(['completed', 'insufficient_evidence', 'invalid_input',
+  'invalid_model_proposal', 'unknown_tool', 'invalid_tool_arguments', 'repeated_action',
+  'tool_call_limit', 'step_limit', 'call_budget', 'deadline', 'cancelled', 'stale_state',
+  'provider_failed', 'tool_failed', 'malformed_output']);
+export const CoachUsageSchema = z.strictObject({
+  runCount: Count, stepCount: Count, providerAttemptCount: Count,
+  toolAttemptCount: Count, toolExecutionCount: Count, toolRejectionCount: Count,
+  validationCount: Count, validationRejectedCount: Count, retryCount: Count, modelFallbackCount: Count,
+  stopReasons: z.array(z.strictObject({ reason: CoachStopReasonSchema, count: Count })).max(17),
+  latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count.max(45000) }),
+  attempts: z.array(z.strictObject({ stepOrdinal: z.number().int().min(1).max(2),
+    model: z.string().min(1).max(128), relation: z.enum(['initial', 'same_model_retry', 'model_fallback']),
+    outcome: AttemptOutcomeSchema, count: Count,
+    latency: z.strictObject({ count: Count, sumMs: Count, maxMs: Count.max(15000) }),
+    usage: z.strictObject({ promptTokens: UsageMetricSchema, candidateTokens: UsageMetricSchema,
+      thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
+      cost: CostMetricSchema }) })),
+});
 export const UsageDashboardSchema = z.strictObject({
   revision: Count,
   logical: z.array(z.strictObject({ purpose: z.enum(['bot', 'analysis']),
@@ -134,6 +152,7 @@ export const UsageDashboardSchema = z.strictObject({
       thoughtTokens: UsageMetricSchema, cachedTokens: UsageMetricSchema, totalTokens: UsageMetricSchema,
       cost: CostMetricSchema }) })),
   retryCount: Count, modelFallbackCount: Count, localFallbackCount: Count,
+  coach: CoachUsageSchema.optional(),
 });
 export const UsageResponseSchema = z.strictObject({ usage: UsageDashboardSchema });
 const AiViewSchema = z.strictObject({
@@ -205,7 +224,8 @@ export const GameResponseSchema = z.strictObject({ game: GameViewSchema.nullable
 export const GameErrorSchema = z.strictObject({ error: z.strictObject({
   code: z.enum(['INVALID_INPUT', 'GAME_NOT_FOUND', 'STALE_STATE', 'ILLEGAL_ACTION',
     'PRECONDITION_REQUIRED', 'PAYLOAD_TOO_LARGE', 'UNSUPPORTED_MEDIA_TYPE', 'INTERNAL_ERROR',
-    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED']),
+    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED',
+    'GAME_NOT_TERMINAL', 'COACH_ALREADY_PENDING', 'RUN_NOT_FOUND']),
   message: z.string().min(1),
 }) });
 export type GameView = z.infer<typeof GameViewSchema>;
@@ -217,3 +237,113 @@ export type MatchAnalysis = z.infer<typeof MatchAnalysisSchema>;
 export type AnalysisRequest = z.infer<typeof AnalysisRequestSchema>;
 export type UsageReset = z.infer<typeof UsageResetSchema>;
 export type UsageDashboardView = z.infer<typeof UsageDashboardSchema>;
+
+// Week05 contracts are separate from GameView and the Week04 analysis DTO.
+export const MAX_TOOL_RESULT_BYTES = 20480;
+export function jsonUtf8Bytes(value: unknown): number {
+  try {
+    const json = JSON.stringify(value);
+    return json === undefined ? Infinity : new TextEncoder().encode(json).byteLength;
+  } catch { return Infinity; }
+}
+const boundedText = (max: number, trim = false) => {
+  const text = trim ? z.string().trim() : z.string();
+  return text.refine(value => {
+    const length = Array.from(value).length;
+    return length >= 1 && length <= max;
+  }, `Expected 1–${max} Unicode code points`);
+};
+export const CoachFocusSchema = z.enum(['betting', 'street', 'showdown']);
+export const CoachGoalSchema = z.strictObject({ focus: CoachFocusSchema });
+export const CoachRequestSchema = z.strictObject({ ...Identity, goal: CoachGoalSchema });
+export const DecisionEvidenceArgumentsSchema = z.strictObject({
+  focus: CoachFocusSchema, limit: z.number().int().min(1).max(10),
+});
+export const CoachFactCodeSchema = z.enum(['action', 'phase', 'legal_options', 'known_cards', 'hand_outcome']);
+const DecisionRefSchema = z.string().min(1).max(128)
+  .refine(value => Array.from(value).every(char => char.charCodeAt(0) <= 127), 'Expected ASCII decisionRef');
+export const CoachFactSchema = z.strictObject({ factCode: CoachFactCodeSchema, finding: boundedText(500) });
+export const CoachEvidenceSchema = z.strictObject({ decisionRef: DecisionRefSchema, ...CoachFactSchema.shape });
+export const DecisionEvidenceResultSchema = z.strictObject({
+  factsRevision: Count, focus: CoachFocusSchema, sampleLimited: z.boolean(),
+  decisions: z.array(z.strictObject({ decisionRef: DecisionRefSchema,
+    facts: z.array(CoachFactSchema).min(1).max(5)
+      .refine(facts => unique(facts.map(f => f.factCode)), 'Duplicate fact codes'),
+  })).max(10).refine(decisions => unique(decisions.map(d => d.decisionRef)), 'Duplicate decision refs'),
+}).refine(value => jsonUtf8Bytes(value) <= MAX_TOOL_RESULT_BYTES, 'Tool result exceeds UTF-8 cap');
+const CoachResultFields = {
+  summary: boundedText(1000, true), recommendation: boundedText(500, true),
+  evidence: z.array(CoachEvidenceSchema).max(10).refine(items =>
+    unique(items.map(item => JSON.stringify([item.decisionRef, item.factCode]))), 'Duplicate evidence'),
+  confidence: z.enum(['low', 'medium', 'high']), completed: z.boolean(),
+};
+const hasCompletionEvidence = (value: { completed: boolean; evidence: unknown[] }) =>
+  !value.completed || value.evidence.length > 0;
+export const CoachResultSchema = z.strictObject(CoachResultFields)
+  .refine(hasCompletionEvidence, 'Completed result requires evidence');
+export const CoachToolProposalSchema = z.strictObject({ kind: z.literal('tool_request'),
+  name: boundedText(128), arguments: z.unknown(),
+}).refine(value => Object.hasOwn(value, 'arguments'), 'Arguments are required');
+export const CoachRefusalSchema = z.strictObject({ kind: z.literal('refusal'),
+  reason: z.enum(['insufficient_context', 'cannot_complete']),
+});
+export const CoachFinalStepSchema = z.strictObject({ kind: z.literal('final'), ...CoachResultFields })
+  .refine(hasCompletionEvidence, 'Completed final requires evidence');
+// Stage ordering and name allowlist are application checks, not union parsing.
+export const CoachModelStepSchema = z.discriminatedUnion('kind', [
+  CoachToolProposalSchema, CoachRefusalSchema, CoachFinalStepSchema,
+]).refine(value => jsonUtf8Bytes(value) <= 32768, 'Model step exceeds UTF-8 cap');
+export const CoachRunStatusSchema = z.enum(['created', 'running', 'completed', 'stopped', 'failed']);
+export const CoachOutputIssueSchema = z.enum(['missing_output', 'output_too_large', 'invalid_json',
+  'transport_shape', 'invalid_evidence_index', 'duplicate_evidence', 'missing_completion_evidence',
+  'summary_bounds', 'recommendation_bounds', 'final_shape', 'unexpected_fields', 'invalid_kind',
+  'invalid_confidence', 'invalid_completion', 'invalid_text_type', 'invalid_evidence_list']);
+export type CoachOutputIssue = z.infer<typeof CoachOutputIssueSchema>;
+export const CoachFailureCategorySchema = z.enum(['authentication_configuration', 'quota_exhausted',
+  'rate_limit', 'provider_timeout', 'provider_unavailable', 'provider_transport', 'provider_refusal',
+  'tool_timeout', 'tool_error', 'tool_validation', 'invalid_structured_response', 'evidence_rejected',
+  'forbidden_scope']);
+export const CoachRunViewSchema = z.strictObject({ ...Identity, runId: z.uuid(), factsRevision: Count,
+  goal: CoachGoalSchema, status: CoachRunStatusSchema,
+  startedAt: z.iso.datetime(), deadlineAt: z.iso.datetime(),
+  stepCount: z.number().int().min(0).max(2), toolCallCount: z.number().int().min(0).max(1),
+  providerAttemptCount: z.number().int().min(0).max(4),
+  stopReason: CoachStopReasonSchema.nullable(), failureCategory: CoachFailureCategorySchema.nullable(),
+  result: CoachResultSchema.nullable(), sampleLimited: z.boolean(),
+  outputIssue: CoachOutputIssueSchema.optional(),
+}).refine(run => {
+  if (run.outputIssue && (run.status !== 'failed' || run.stopReason !== 'malformed_output'
+    || run.failureCategory !== 'invalid_structured_response')) return false;
+  if (Date.parse(run.deadlineAt) < Date.parse(run.startedAt)
+    || run.providerAttemptCount < run.stepCount || run.providerAttemptCount > run.stepCount * 2
+    || run.toolCallCount > run.stepCount) return false;
+  if (run.status === 'completed') return run.stopReason === 'completed'
+    && run.result?.completed === true && run.stepCount === 2 && run.toolCallCount === 1
+    && run.failureCategory === null;
+  if (run.result !== null) return false;
+  if (run.status === 'created' || run.status === 'running') return run.stopReason === null
+    && run.failureCategory === null;
+  const failed = ['provider_failed', 'tool_failed', 'malformed_output'];
+  if (run.status === 'failed') return failed.includes(run.stopReason ?? '') && run.failureCategory !== null;
+  return run.stopReason !== null && run.stopReason !== 'completed' && !failed.includes(run.stopReason);
+}, 'Inconsistent run status, counters or completion');
+export const CoachResponseSchema = z.strictObject({ run: CoachRunViewSchema });
+
+// Pure contextual contract only. The backend must first validate this tool output
+// against the trusted snapshot (T011); final lifecycle validation belongs to T015.
+export function coachResultForEvidence(output: DecisionEvidenceResult) {
+  const parsed = DecisionEvidenceResultSchema.parse(output);
+  return CoachResultSchema.refine(result => result.evidence.every(item =>
+    parsed.decisions.some(decision => decision.decisionRef === item.decisionRef
+      && decision.facts.some(fact => fact.factCode === item.factCode && fact.finding === item.finding))),
+  'Evidence was not supplied by this tool result');
+}
+export type CoachGoal = z.infer<typeof CoachGoalSchema>;
+export type CoachRequest = z.infer<typeof CoachRequestSchema>;
+export type DecisionEvidenceArguments = z.infer<typeof DecisionEvidenceArgumentsSchema>;
+export type DecisionEvidenceResult = z.infer<typeof DecisionEvidenceResultSchema>;
+export type CoachFact = z.infer<typeof CoachFactSchema>;
+export type CoachEvidence = z.infer<typeof CoachEvidenceSchema>;
+export type CoachResult = z.infer<typeof CoachResultSchema>;
+export type CoachModelStep = z.infer<typeof CoachModelStepSchema>;
+export type CoachRunView = z.infer<typeof CoachRunViewSchema>;

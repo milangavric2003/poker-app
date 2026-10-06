@@ -1,0 +1,214 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts --reporter=verbose
+Izvršeno izvan sandbox-a nakon zaglavljenog PowerShell startup-a; offline fake provider.
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts --reporter=verbose
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > without the exact --live flag does not load configuration or create a provider 3ms
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects disabled configuration before any call 4ms
+   → expected +0 to be 2 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_key configuration before any call 0ms
+   → expected +0 to be 2 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_agent configuration before any call 0ms
+   → expected +0 to be 2 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final 3ms
+   → expected { event: 'coach-smoke', …(5) } to match object { executed: true, passed: true, …(10) }
+(2 matching properties omitted from actual)
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports unknown_tool rejection with zero executor calls 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports invalid_arguments rejection with zero executor calls 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops timeout_error after one attempt with no retry or fallback 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 429 after one attempt with no retry or fallback 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 5xx after one attempt with no retry or fallback 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops auth_config after one attempt with no retry or fallback 1ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > a step-two failure keeps the executed tool count and does not restart the workflow 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects invented evidence as a failed smoke, even after two successful provider responses 0ms
+   → expected +0 to be 1 // Object.is equality
+ × |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > never prints exception text or provider content, including configuration factory failures 0ms
+   → expected +0 to be 2 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects disabled configuration before any call
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_key configuration before any call
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_agent configuration before any call
+AssertionError: expected +0 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ tests/integration/coach-smoke.test.ts:30:29
+     28|     aiProvider: kind === 'missing_agent' ? { generate: provider.genera…
+     29|     const result = await runCoachSmoke(['--live'], dependencies);
+     30|     expect(result.exitCode).toBe(2);
+       |                             ^
+     31|     expect(result.report).toMatchObject({ executed: false, reason: 'co…
+     32|     expect(provider.calls).toHaveLength(0); expect(provider.agentCalls…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final
+AssertionError: expected { event: 'coach-smoke', …(5) } to match object { executed: true, passed: true, …(10) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "executed": true,
+-   "finalValidated": true,
+-   "maxProviderCalls": 2,
+-   "maxRuns": 1,
+-   "passed": true,
+-   "providerCallCount": 2,
+-   "readOnlySnapshotPreserved": true,
+-   "status": "completed",
+-   "stepCount": 2,
+-   "stopReason": "completed",
+-   "toolCallCount": 1,
+-   "usage": {
+-     "modelFallbackCount": 0,
+-     "providerAttemptCount": 2,
+-     "retryCount": 0,
+-     "runCount": 1,
+-     "stepCount": 2,
+-     "toolExecutionCount": 1,
+-     "validationCount": 5,
+-   },
++   "executed": false,
++   "passed": false,
++   "providerCallCount": 0,
++   "toolCallCount": 0,
+  }
+
+ ❯ tests/integration/coach-smoke.test.ts:40:27
+     38|     const result = await work();
+     39|     expect(result.exitCode).toBe(0);
+     40|     expect(result.report).toMatchObject({ executed: true, passed: true…
+       |                           ^
+     41|       stepCount: 2, providerCallCount: 2, toolCallCount: 1, finalValid…
+     42|       maxRuns: 1, maxProviderCalls: 2, usage: { runCount: 1, stepCount…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports unknown_tool rejection with zero executor calls
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports invalid_arguments rejection with zero executor calls
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/integration/coach-smoke.test.ts:63:29
+     61|     const { provider, work } = fakeRun([{ kind }]);
+     62|     const result = await work();
+     63|     expect(result.exitCode).toBe(1);
+       |                             ^
+     64|     expect(result.report).toMatchObject({ executed: true, passed: fals…
+     65|       stopReason: kind === 'unknown_tool' ? 'unknown_tool' : 'invalid_…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/13]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops timeout_error after one attempt with no retry or fallback
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 429 after one attempt with no retry or fallback
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 5xx after one attempt with no retry or fallback
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops auth_config after one attempt with no retry or fallback
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/integration/coach-smoke.test.ts:74:29
+     72|     const { provider, work } = fakeRun([{ kind }, { kind: 'agent_tool'…
+     73|     const result = await work();
+     74|     expect(result.exitCode).toBe(1);
+       |                             ^
+     75|     expect(result.report).toMatchObject({ status: 'failed', stopReason…
+     76|       toolCallCount: 0, finalValidated: false, usage: { retryCount: 0,…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/13]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > a step-two failure keeps the executed tool count and does not restart the workflow
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/integration/coach-smoke.test.ts:83:29
+     81|     const { provider, work } = fakeRun([{ kind: 'agent_tool' }, { kind…
+     82|     const result = await work();
+     83|     expect(result.exitCode).toBe(1);
+       |                             ^
+     84|     expect(result.report).toMatchObject({ stepCount: 2, providerCallCo…
+     85|       status: 'failed', finalValidated: false, readOnlySnapshotPreserv…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/13]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects invented evidence as a failed smoke, even after two successful provider responses
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/integration/coach-smoke.test.ts:92:29
+     90|     const { work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'invalid…
+     91|     const result = await work();
+     92|     expect(result.exitCode).toBe(1);
+       |                             ^
+     93|     expect(result.report).toMatchObject({ status: 'failed', stopReason…
+     94|       failureCategory: 'evidence_rejected', providerCallCount: 2, tool…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/13]⎯
+
+ FAIL  |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > never prints exception text or provider content, including configuration factory failures
+AssertionError: expected +0 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ tests/integration/coach-smoke.test.ts:99:36
+     97|   it('never prints exception text or provider content, including confi…
+     98|     const factoryResult = await runCoachSmoke(['--live'], () => { thro…
+     99|     expect(factoryResult.exitCode).toBe(2); expect(JSON.stringify(fact…
+       |                                    ^
+    100|     const provider: AiProvider & AgentProvider = {
+    101|       generate: async () => { throw new Error('SECRET_BOT'); },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/13]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  13 failed | 1 passed (14)
+   Start at  19:44:07
+   Duration  193ms (transform 60%, tests 19%, import 17%, worker 4%)
+
+
+Exit status: 1
+

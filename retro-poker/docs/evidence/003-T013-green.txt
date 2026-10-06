@@ -1,0 +1,15 @@
+﻿Komanda: npm.cmd test -- tests/integration/gemini-agent.test.ts tests/integration/gemini-adapter.test.ts tests/integration/gemini-http.test.ts tests/unit/agent-provider.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/gemini-agent.test.ts tests/integration/gemini-adapter.test.ts tests/integration/gemini-http.test.ts tests/unit/agent-provider.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  52 passed (52)
+   Start at  22:15:36
+   Duration  674ms (import 57%, transform 35%, tests 6%, worker 2%)
+
+Exit: 0 Handoff: T013 offline adapter spreman; SDK attempts=1. T014 moze koristiti generateAgent bez SDK detalja.

@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom/vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { UsageDashboard } from '../../frontend/src/components/UsageDashboard';
 import * as api from '../../frontend/src/api';
 
-afterEach(() => { cleanup(); vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); vi.useRealTimers(); vi.restoreAllMocks(); });
 const unknownUsage = (count: number) => ({
   promptTokens: { knownCount: 0, missingCount: count, sum: 0 },
   candidateTokens: { knownCount: 0, missingCount: count, sum: 0 },
@@ -31,6 +31,80 @@ const usage: api.UsageDashboardView = {
   ], retryCount: 1, modelFallbackCount: 1, localFallbackCount: 2,
 };
 describe('local usage dashboard', () => {
+  it('automatically displays completed bot and analysis calls without hiding existing metrics', async () => {
+    vi.useFakeTimers();
+    const updated = structuredClone(usage);
+    updated.logical[0]!.count++;
+    updated.logical[1]!.count++;
+    let finish!: (value: api.UsageDashboardView) => void;
+    const load = vi.spyOn(api, 'loadUsage').mockResolvedValueOnce(usage)
+      .mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
+    render(<UsageDashboard />);
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i })); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    expect(load).toHaveBeenCalledTimes(2);
+    expect(screen.getByTestId('total-requests')).toHaveTextContent('7');
+    await act(async () => { await vi.advanceTimersByTimeAsync(3000); });
+    expect(load).toHaveBeenCalledTimes(2);
+    await act(async () => { finish(updated); });
+    expect(screen.getByTestId('total-requests')).toHaveTextContent('9');
+    expect(screen.getByTestId('successful-requests')).toHaveTextContent('6');
+    expect(screen.getByTestId('analysis-count')).toHaveTextContent('3');
+  });
+  it('reloads on reopening and stops polling when closed or unmounted', async () => {
+    vi.useFakeTimers();
+    const load = vi.spyOn(api, 'loadUsage').mockResolvedValue(usage);
+    const { unmount } = render(<UsageDashboard />);
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(load).not.toHaveBeenCalled();
+    const toggle = screen.getByRole('button', { name: /AI upotreba/i });
+    await act(async () => { fireEvent.click(toggle); });
+    fireEvent.click(toggle);
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(load).toHaveBeenCalledTimes(1);
+    await act(async () => { fireEvent.click(toggle); });
+    expect(load).toHaveBeenCalledTimes(2);
+    unmount();
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(load).toHaveBeenCalledTimes(2);
+  });
+  it('ignores a late response from before the panel was reopened', async () => {
+    let finish!: (value: api.UsageDashboardView) => void;
+    const load = vi.spyOn(api, 'loadUsage')
+      .mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }))
+      .mockResolvedValue(usage);
+    render(<UsageDashboard />);
+    const toggle = screen.getByRole('button', { name: /AI upotreba/i });
+    fireEvent.click(toggle);
+    fireEvent.click(toggle);
+    await act(async () => { fireEvent.click(toggle); });
+    expect(load).toHaveBeenCalledTimes(2);
+    await act(async () => { finish({ ...usage, logical: [] }); });
+    expect(screen.getByTestId('total-requests')).toHaveTextContent('7');
+  });
+  it('does not let a background response undo a reset and resumes refreshing afterwards', async () => {
+    vi.useFakeTimers();
+    let finish!: (value: api.UsageDashboardView) => void;
+    let finishReset!: (value: api.UsageDashboardView) => void;
+    const empty = { ...usage, revision: 5, logical: [], attempts: [] };
+    const load = vi.spyOn(api, 'loadUsage').mockResolvedValueOnce(usage)
+      .mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }))
+      .mockResolvedValue(empty);
+    vi.spyOn(api, 'resetUsage').mockImplementation(() => new Promise(resolve => { finishReset = resolve; }));
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    render(<UsageDashboard />);
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i })); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    expect(load).toHaveBeenCalledTimes(2);
+    fireEvent.click(screen.getByRole('button', { name: /resetuj metrike/i }));
+    await act(async () => { await vi.advanceTimersByTimeAsync(2000); });
+    expect(load).toHaveBeenCalledTimes(2);
+    await act(async () => { finishReset(empty); });
+    await act(async () => { finish(usage); });
+    expect(screen.getByText(/nema zabeleženih AI zahteva/i)).toBeVisible();
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    expect(load).toHaveBeenCalledTimes(3);
+  });
   it('explains a confirmed overload without exposing provider messages', async () => {
     const overloaded = structuredClone(usage);
     overloaded.attempts[3]!.diagnostic = { httpStatus: 503, providerCode: 'UNAVAILABLE', reason: 'high_demand' };

@@ -1,0 +1,236 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/coach.spec.ts
+
+
+Running 3 tests using 1 worker
+
+npm.cmd : (node:14416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:325
++ ... zvrsenja.'; npm.cmd run test:e2e -- tests/e2e/coach.spec.ts 2>&1 | Te ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:14416) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (9.4s)
+(node:1980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (9.6s)
+(node:14804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (9.3s)
+
+
+  1) [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('region', { name: 'Rezultat ruke' })
+    Timeout: 5000ms
+    - Expected  - 10
+    + Received  +  1
+
+    - Rezultat ruke
+    -
+    - Showdown
+    -
+    - Poraz u partiji
+    -
+    - Pot 2000: player-1 +2000
+    -
+    - player-0: -1000
+    - player-1: +1000
+    + Rezultat rukeShowdownPoraz u partijiPot 2000: player-1 +2000player-0: -1000player-1: +1000
+
+    Call log:
+      - Expect "toHaveText" getByRole('region', { name: 'Rezultat ruke' }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Rezultat ruke' })
+        14 × locator resolved to <section class="result" aria-live="polite" aria-atomic="true" aria-label="Rezultat ruke">…</section>
+           - unexpected value "Rezultat rukeShowdownPoraz u partijiPot 2000: player-1 +2000player-0: -1000player-1: +1000"
+
+
+      49 |     }
+      50 |     expect(await servers.snapshot()).toEqual(before);
+    > 51 |     await expect(page.getByRole('region', { name: 'Rezultat ruke' })).toHaveText(resultText);
+         |                                                                       ^
+      52 |     noPrivateData(await page.locator('body').innerText());
+      53 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      54 |     await coach.scrollIntoViewIfNeeded();
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:51:71
+
+    Error Context: test-results\coach-T023-keyboard-succes-f6087--and-preserves-poker-result-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-keyboard-succes-f6087--and-preserves-poker-result-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-keyboard-succes-f6087--and-preserves-poker-result-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: Predloženi alat nije dozvoljen.')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: Predloženi alat nije dozvoljen.') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: Predloženi alat nije dozvoljen.')
+
+
+      80 |       await expect(coach.getByText(scenario === 'unknown_tool'
+      81 |         ? 'Razlog zaustavljanja: Predloženi alat nije dozvoljen.'
+    > 82 |         : 'Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')).toBeVisible();
+         |                                                                            ^
+      83 |       const terminal = await servers.status(run.runId);
+      84 |       expect(terminal).toMatchObject({ status: scenario === 'unknown_tool' ? 'stopped' : 'failed', result: null, toolCallCount: 0 });
+      85 |       expect(servers.toolCount()).toBe(0);
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:82:76
+
+    Error Context: test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')
+
+
+      80 |       await expect(coach.getByText(scenario === 'unknown_tool'
+      81 |         ? 'Razlog zaustavljanja: Predloženi alat nije dozvoljen.'
+    > 82 |         : 'Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')).toBeVisible();
+         |                                                                            ^
+      83 |       const terminal = await servers.status(run.runId);
+      84 |       expect(terminal).toMatchObject({ status: scenario === 'unknown_tool' ? 'stopped' : 'failed', result: null, toolCallCount: 0 });
+      85 |       expect(servers.toolCount()).toBe(0);
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:82:76
+
+    Error Context: test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result 
+    [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard 
+    [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard 
+COMMAND: npm.cmd run test:e2e -- tests/e2e/coach.spec.ts; EXIT=1
+Prvi success assertion uporedjuje innerText sa textContent normalizacijom; to je test harness greska, ne behavior RED. Ispravljeno isto innerText poredenje pre/posle bez slabljenja invarianta. Sledeci izlaz izoluje dva stvarna RED pada na nedostajucoj razumljivoj stop poruci.
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/coach.spec.ts
+
+
+Running 3 tests using 1 worker
+
+npm.cmd : (node:4252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:339
++ ... p poruci.'; npm.cmd run test:e2e -- tests/e2e/coach.spec.ts 2>&1 | Te ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:4252) War... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (4.0s)
+  x  2 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (7.8s)
+(node:18552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (8.4s)
+
+
+  1) [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: Predloženi alat nije dozvoljen.')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: Predloženi alat nije dozvoljen.') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: Predloženi alat nije dozvoljen.')
+
+
+      80 |       await expect(coach.getByText(scenario === 'unknown_tool'
+      81 |         ? 'Razlog zaustavljanja: Predloženi alat nije dozvoljen.'
+    > 82 |         : 'Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')).toBeVisible();
+         |                                                                            ^
+      83 |       const terminal = await servers.status(run.runId);
+      84 |       expect(terminal).toMatchObject({ status: scenario === 'unknown_tool' ? 'stopped' : 'failed', result: null, toolCallCount: 0 });
+      85 |       expect(servers.toolCount()).toBe(0);
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:82:76
+
+    Error Context: test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-unknown-tool-is-29f73-nd-retries-only-by-keyboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Coaching partije' }).getByText('Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')
+
+
+      80 |       await expect(coach.getByText(scenario === 'unknown_tool'
+      81 |         ? 'Razlog zaustavljanja: Predloženi alat nije dozvoljen.'
+    > 82 |         : 'Razlog zaustavljanja: AI servis nije uspeo da završi zahtev.')).toBeVisible();
+         |                                                                            ^
+      83 |       const terminal = await servers.status(run.runId);
+      84 |       expect(terminal).toMatchObject({ status: scenario === 'unknown_tool' ? 'stopped' : 'failed', result: null, toolCallCount: 0 });
+      85 |       expect(servers.toolCount()).toBe(0);
+        at D:\AIBootcamp\week3-4\retro-poker\tests\e2e\coach.spec.ts:82:76
+
+    Error Context: test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\coach-T023-provider-timeou-a17c7-nd-retries-only-by-keyboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard 
+    [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard 
+  1 passed (25.6s)
+COMMAND: npm.cmd run test:e2e -- tests/e2e/coach.spec.ts; EXIT=1

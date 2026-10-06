@@ -1,0 +1,132 @@
+﻿Komanda: npm.cmd test -- tests/integration/gemini-agent.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/gemini-agent.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/gemini-agent.test.ts (16 tests | 16 failed) 13ms
+   ❯ offline Gemini coach adapter (16)
+     × maps structured {"kind":"tool_request","name":"get_decision_evidence","arguments":{"focus":"street","limit":10}} 6ms
+     × maps structured {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":true,"evidence":[{"decisionRef":"h:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+     × maps structured {"kind":"refusal","reason":"insufficient_context"} 0ms
+     × rejects malformed/schema/unsupported output 1ms
+     × rejects malformed/schema/unsupported output 1ms
+     × rejects malformed/schema/unsupported output 0ms
+     × rejects malformed/schema/unsupported output 0ms
+     × rejects malformed/schema/unsupported output 0ms
+     × classifies safety 0ms
+     × classifies HTTP 408 0ms
+     × classifies HTTP 429 0ms
+     × classifies HTTP 503 0ms
+     × classifies HTTP 401 0ms
+     × classifies HTTP 403 0ms
+     × classifies HTTP 400 0ms
+     × classifies transport and honors pre-abort without a call 0ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"tool_request","name":"get_decision_evidence","arguments":{"focus":"street","limit":10}}
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":true,"evidence":[{"decisionRef":"h:1","factCode":"phase","finding":"\"flop\""}]}
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"refusal","reason":"insufficient_context"}
+AssertionError: Missing Gemini agent adapter behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ setup tests/integration/gemini-agent.test.ts:15:75
+     13|   const client: GeminiClient = { models: { generateContent: generate }…
+     14|   const provider = createGeminiProvider('offline-secret', () => client…
+     15|   expect(provider.generateAgent, 'Missing Gemini agent adapter behavio…
+       |                                                                           ^
+     16|   return { provider, generate };
+     17| }
+ ❯ tests/integration/gemini-agent.test.ts:20:36
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output
+AssertionError: Missing Gemini agent adapter behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ setup tests/integration/gemini-agent.test.ts:15:75
+     13|   const client: GeminiClient = { models: { generateContent: generate }…
+     14|   const provider = createGeminiProvider('offline-secret', () => client…
+     15|   expect(provider.generateAgent, 'Missing Gemini agent adapter behavio…
+       |                                                                           ^
+     16|   return { provider, generate };
+     17| }
+ ❯ tests/integration/gemini-agent.test.ts:32:26
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies safety
+AssertionError: Missing Gemini agent adapter behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ setup tests/integration/gemini-agent.test.ts:15:75
+     13|   const client: GeminiClient = { models: { generateContent: generate }…
+     14|   const provider = createGeminiProvider('offline-secret', () => client…
+     15|   expect(provider.generateAgent, 'Missing Gemini agent adapter behavio…
+       |                                                                           ^
+     16|   return { provider, generate };
+     17| }
+ ❯ tests/integration/gemini-agent.test.ts:36:26
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 408
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 429
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 503
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 401
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 403
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 400
+AssertionError: Missing Gemini agent adapter behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ setup tests/integration/gemini-agent.test.ts:15:75
+     13|   const client: GeminiClient = { models: { generateContent: generate }…
+     14|   const provider = createGeminiProvider('offline-secret', () => client…
+     15|   expect(provider.generateAgent, 'Missing Gemini agent adapter behavio…
+       |                                                                           ^
+     16|   return { provider, generate };
+     17| }
+ ❯ tests/integration/gemini-agent.test.ts:41:26
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies transport and honors pre-abort without a call
+AssertionError: Missing Gemini agent adapter behavior: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ setup tests/integration/gemini-agent.test.ts:15:75
+     13|   const client: GeminiClient = { models: { generateContent: generate }…
+     14|   const provider = createGeminiProvider('offline-secret', () => client…
+     15|   expect(provider.generateAgent, 'Missing Gemini agent adapter behavio…
+       |                                                                           ^
+     16|   return { provider, generate };
+     17| }
+ ❯ tests/integration/gemini-agent.test.ts:45:36
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  16 failed (16)
+   Start at  22:15:11
+   Duration  430ms (import 61%, transform 33%, tests 5%, worker 1%)
+
+Exit: 1

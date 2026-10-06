@@ -1,0 +1,18 @@
+﻿Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+Očekivanje posle T029: runtime budgets i Week04 regresija očuvani; ISO vreme stvarno i stabilno.
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts tests/integration/agent-run.test.ts tests/unit/coach-usage.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  91 passed (91)
+   Start at  10:44:15
+   Duration  1.53s (import 45%, transform 35%, tests 19%, worker 1%)
+
+
+Exit status: 0

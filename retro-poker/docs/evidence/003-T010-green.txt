@@ -1,0 +1,37 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-tool.test.ts tests/unit/match-facts.test.ts tests/unit/agent-schemas.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-tool.test.ts tests/unit/match-facts.test.ts tests/unit/agent-schemas.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  3 passed (3)
+      Tests  53 passed (53)
+   Start at  18:59:53
+   Duration  547ms (transform 45%, import 42%, tests 11%, worker 2%)
+
+Exit: 0
+Komanda: npm.cmd test -- tests/unit
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  20 passed (20)
+      Tests  317 passed (317)
+   Start at  19:00:24
+   Duration  1.73s (import 42%, tests 30%, transform 25%, worker 2%)
+
+Exit: 0
+Komanda: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit: 0
+Handoff T010: fokus 53/53, unit regresija 317/317, typecheck exit 0. Import review: samo shared runtime ugovori i type-only MatchFacts; bez provider/HTTP/FS/shell/network/engine mutation. Sledeće T011 validacija/evals.

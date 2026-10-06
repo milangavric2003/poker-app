@@ -1,0 +1,25 @@
+﻿Komanda: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+D:\AIBootcamp\week3-4\retro-poker\shared\contracts.ts
+  243:60  error  Unexpected control character(s) in regular expression: \x00  no-control-regex
+
+✖ 1 problem (1 error, 0 warnings)
+
+Exit: 1
+Korekcija: ASCII provera bez control-character regex-a; ista semantika.
+Komanda: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+Exit: 0
+Finalna korekcija: obavezan terminal handId u validatoru; komanda: npm.cmd run lint
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+Exit: 0

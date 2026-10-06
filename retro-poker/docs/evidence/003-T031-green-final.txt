@@ -1,0 +1,19 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: npm.cmd test -- tests/integration/coach-smoke.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/coach-smoke.test.ts
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  20:14:02
+   Duration  1.34s (tests 61%, transform 20%, import 18%)
+
+
+Exit status: 0
+Korekcija pripreme: prvi GREEN pokušaj (003-T031-green.txt) nije prošao zbog pogrešno očekivanog pobednika. createHand deli clockwiseAfter(buttonSeat=0): bot seat1 dobija As/Ah, čovek seat0 Kc/Kd. Fiksni board nema par/straight/flush; bot AA pobedi KK, čovek0/bot2000, status lost. Špil i engine nisu menjani. Spec/plan/tasks i eksplicitni oracle usklađeni pre ponovne provere. Ovo nije promena poker pravila niti prisiljavanje modela da završi.
+RED tabela u prvom logu je takođe korigovana na object rows; 003-T031-red-final.txt ostaje stvarni RED9/24. Završni GREEN24/24. Svi pozivi u testovima su FakeAiProvider; novi live pozivi0.

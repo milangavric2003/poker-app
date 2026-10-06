@@ -1,0 +1,122 @@
+Week05 Phase 3 — T018/T019/T020, 2026-10-04 Europe/Belgrade
+
+Početni HEAD 86d1225ee8f70a4942ab53112d244aecd0219371; worktree je bio čist.
+Git koren D:/AIBootcamp/week3-4, projekat retro-poker. Node v24.20.0,
+npm 11.19.0. Jedan coding agent; ljudski peer review nije potvrđen.
+
+PROVERA PRETHODNOG RADA
+T002–T006: tasks checkbox nije jedini dokaz. Pregledani requirements matrica 25 FR
+i checklist 12/12, spec/plan/data-model/HTTP, V1 prompt/manifest i istorijski
+003-baseline.md sa snapshotom i ograničenjima. T007–T011: deljene šeme, tool/final
+validation i testovi prisutni; 003-T011-handoff potvrđuje stvarne istorijske cikluse.
+T012–T017: pregled stvarnih 003-T012–T017 RED logova, phase2 handoff-a i koda
+ai/types, fake, Gemini testova, agent/types/orchestrator/validation/tools,
+agent-run testova; početni diff nije skrivao lokalne izmene. Novo offline izvršenje:
+npm.cmd test -- tests/unit/agent-provider.test.ts tests/integration/gemini-agent.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/integration/agent-run.test.ts tests/unit/agent-tool.test.ts tests/contract/coach-contract.test.ts
+133/133 u 7 fajlova, exit0; 003-phase3-prerequisites.txt. Istorijski baseline i
+708 testova nisu predstavljeni kao današnji rezultat. Finalna regresija ponovo
+uključuje prethodne testove. Nema tvrdnje da su UI/live taskovi završeni.
+SpecKit prerequisite: prvi direktni poziv blokiran execution policy-jem; zaseban
+powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks
+uz SPECIFY_FEATURE_DIRECTORY=specs/003-week05-bounded-agent-coach vraća feature003,
+exit0. Extensions.yml ne postoji. Setup neuspeh nije behavior RED.
+
+STATUS I STVARNI CIKLUSI
+T018 kompletan kao contract RED: 21 assertion failure zbog nedostajućih ruta,
+exit1. Komanda npm.cmd test -- tests/contract/coach-routes.test.ts;
+003-T018-red.txt. Input field/goal/identity/version, nonterminal/hand-complete,
+insufficient facts, duplicate, no-store, JSON/1024-byte cap, status/retry/retention
+i safe DTO sada zeleni kroz T019/T020 i finalnu regresiju.
+
+T019 kompletan: npm.cmd test -- tests/integration/coach-lifecycle.test.ts
+RED 6 fail/1 pass, exit1: nedostaje startCoach/coachStatus, ne import greška.
+Stale rejection assertion u tom prvom RED-u prolazi zbog throw-a nedostajućeg
+metoda; kasniji GREEN proverava stvarni stale guard i nula poziva/mutacije.
+Prvi GREEN 62/64 imao je no-evidence HTTP202 umesto200 i pogrešno ime fake helper-a;
+helper greška nije behavior RED. Korekcija: pravi pending.resolve + sync preflight.
+npm.cmd test -- tests/contract/coach-routes.test.ts tests/integration/coach-lifecycle.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts tests/integration/ai-concurrency.test.ts tests/contract/ai-routes.test.ts
+64/64, exit0; 003-T019-green.txt. Dodatni holdout:
+npm.cmd test -- tests/integration/coach-lifecycle.test.ts
+1 fail/10 pass exit1: dispatch pre oslobađanja start lock-a. Sačuvan u
+003-T019-lock-holdout-red.txt; queued serial barijera ga popravlja, završni fokus
+50/50 i puna regresija uključuju taj assertion.
+
+T020 kompletan: npm.cmd test -- tests/unit/coach-usage.test.ts
+RED 7 fail exit1, nedostaje recordCoach. Dodatni validation holdout 1 fail/8 pass
+exit1: malformed candidate nije brojao validation rejection. Oba RED-a sačuvana.
+GREEN/regresija:
+npm.cmd test -- tests/unit/coach-usage.test.ts tests/unit/ai-usage.test.ts tests/contract/ai-contracts.test.ts tests/contract/coach-routes.test.ts tests/integration/coach-lifecycle.test.ts tests/integration/agent-run.test.ts
+104/104 u 6 fajlova, exit0. Završni novi test fokus:
+npm.cmd test -- tests/contract/coach-routes.test.ts tests/integration/coach-lifecycle.test.ts tests/unit/coach-usage.test.ts
+50/50 u 3 fajla, exit0. Puni izlazi u 003-T020-green.txt.
+Prvi T020 fokus koristio je pogrešno singular ime ai-contract.test.ts (ne postoji);
+Vitest je izvršio ostalih 5 fajlova, 78/78. Stvarna contract regresija je potom
+pokrenuta sa postojećim ai-contracts.test.ts (95/95, pa104/104); ne tvrdi se da je
+nepostojeći fajl testiran.
+
+FINALNE PROVERE
+npm.cmd test: 758/758, 54 fajla, exit0; 003-phase3-regression.txt.
+Pre dodavanja završna dva holdout-a: 756/756 takođe sačuvano.
+npm.cmd run typecheck: exit0, oba TS projekta; 003-phase3-typecheck.txt.
+npm.cmd run lint: prvi exit1 unused _coach u testu, finalno exit0;
+003-phase3-lint.txt čuva oba izlaza.
+npm.cmd run build: exit0; 003-phase3-build.txt. Runtime kod posle toga nije menjan.
+git diff --check: prvo extra blank EOF u dokumentima; nakon normalizacije exit0.
+
+STVARNI API I DTO
+POST /api/game/coach: strict JSON <=1024 UTF-8 bytes, body
+{gameId,handId,expectedVersion,goal:{focus:'betting'|'street'|'showdown'}}.
+202 created/running;200 stopped/insufficient_evidence bez provider/tool poziva.
+Aktivni isti goal/fingerprint vraća isti runId; drugi goal409.
+GET /api/game/coach/:runId: UUID path, prazni strict query;200 isti zadržani run.
+Unknown/zamenjen run404, malformed400. Jedna forma, bez query endpoint-a.
+Response CoachResponseSchema={run:CoachRunViewSchema}; run ima UUID identity,
+factsRevision, goal, status, ISO startedAt/deadlineAt, step/tool/provider counters,
+stopReason/failureCategory, sampleLimited i result=null osim validiranog completed.
+Svi odgovori imaju no-store. GameErrorSchema additive codes:
+GAME_NOT_TERMINAL,COACH_ALREADY_PENDING,RUN_NOT_FOUND. Week04 GameView ne menja se.
+UsageResponseSchema na postojećem GET /api/ai/usage dobija strict coach agregat;
+legacy DTO bez coach ostaje prihvaćen. Backend uvek šalje coach.
+
+LOCK, ASYNC I PRIVATNOST
+Session poseduje jedan in-memory run slot i AbortController. Start/status/commit
+koriste postojeći serial. Provider/tool await je izvan lock-a; queued reservation
+garantuje dispatch posle oslobađanja start lock-a. GET i nova partija ne čekaju mrežu.
+Orchestrator pravi deep-cloned/frozen server-side terminal MatchFacts snapshot.
+isCurrent i commit porede runId/gameId/handId/version/factsRevision. Nova partija
+uklanja slot pre abort-a, provider može ignorisati signal ali race/checkpoint odbaci
+rezultat. Dupli POST aktivnog run-a ne dispatch-uje novi rad; terminalni eksplicitni
+POST pravi novi UUID i zamenjuje prethodni slot. Orchestrator terminal guard i
+session committed flag sprečavaju duplu finalizaciju/upis usage-a. T015 validator
+stoji pre completed; public whitelist projection nikad ne šalje proposal/tool output,
+prompt, exception, API key ili interno stanje. Poker/RNG/history/facts ne menjaju se.
+
+USAGE
+coach.runCount,stepCount,providerAttemptCount,toolAttemptCount,toolExecutionCount
+su odvojeni. Tool proposal rejection ima attempt/rejection, executor count0.
+Validation shape/args/tool-result/final-evidence broji se zasebno; success ima5.
+Step2 je nov step, relation initial; same_model_retry i model_fallback se grupišu
+po stepOrdinal. Coach ne menja Week04 retryCount/logical/attempts.
+Jedan terminal stop reason upisuje se jednom; zapis proverava slot/current i usage
+epoch. Reset/late/stale/cancelled run nema kasnog upisa. Latency safe integer i
+bounded45s/15s. Token missingCount označava unknown; cost sum/currency=null jer
+provider-neutral ugovor ne vraća monetarni cost. Nema procene ili sirovih trace-ova.
+
+IZMENJENI FAJLOVI
+backend/src/session.ts,routes.ts,app.ts; backend/src/agent/orchestrator.ts,types.ts;
+backend/src/ai/usage.ts; shared/contracts.ts;
+tests/contract/coach-routes.test.ts; tests/integration/coach-lifecycle.test.ts;
+tests/unit/coach-usage.test.ts;
+specs/003-week05-bounded-agent-coach/{tasks,plan,spec,data-model}.md,
+contracts/coach-http.md; docs/CONTEXT_MANIFEST.md,docs/AI_USAGE_LOG.md;
+novi docs/evidence/003-T018*,003-T019*,003-T020*,003-phase3* fajlovi.
+Nema frontend/engine/package/lockfile izmene, novih dependencies, baze ili servisa.
+
+NIJE POKRENUTO / HANDOFF
+npm ci, test:e2e, dev/start/preview, live Gemini smoke/diagnose, browser demo,
+deploy, commit ili ljudski peer review nisu pokrenuti. Live Gemini pozivi0.
+Postojeći UI unit testovi jesu deo npm test; novi UI nije implementiran.
+T021–T023 ostaju otvoreni: strict DTO parse, focus/status/result/retry komponenta;
+GET /:runId polling sa lokalnim request-token/current-game cleanup; keyboard i
+fake E2E success/rejected tool/provider failure. Ne uvoditi drugi endpoint ili
+implicitni retry. Nema javne cancel rute; nova partija je postojeći cancellation tok.

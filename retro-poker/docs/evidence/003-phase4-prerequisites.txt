@@ -1,0 +1,14 @@
+
+> retro-poker@0.1.0 test
+> vitest run tests/contract/coach-routes.test.ts tests/integration/coach-lifecycle.test.ts tests/unit/coach-usage.test.ts tests/ui/analysis.test.tsx tests/ui/ai-status.test.tsx tests/ui/dashboard.test.tsx tests/ui/api.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  7 passed (7)
+      Tests  97 passed (97)
+   Start at  22:53:24
+   Duration  7.88s (environment 49%, tests 24%, import 19%, transform 8%)
+
+COMMAND: npm.cmd test -- coach-routes coach-lifecycle coach-usage analysis ai-status dashboard api; EXIT=0

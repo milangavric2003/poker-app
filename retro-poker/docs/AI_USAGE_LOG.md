@@ -1,5 +1,100 @@
 # AI usage log
 
+## 2026-10-06 — integracija paralelnog rada, f457762
+
+Korisnik tražio pregled i push lokalnog f457762 uz očuvanje koleginog rada.
+Jedan agent proverio remote/upstream, preuzeo origin i uporedio commitove/fajlove.
+Veki dopune01623db/935b797 su samo evidence/screenshot/task lista; spojene sa
+korisnikovim T027 dokumentacionim commitom. Jedan task-list konflikt rešen
+čuvanjem oba doprinosa. [Dokaz integracije](evidence/003-T027-merge-verification.txt).
+Nema novih live Gemini poziva ili code testova; potrošnja coding sesije unknown.
+Istorijski Git snapshot i pojedinačni test rezultati nisu prepisani.
+
+## 2026-10-06 — T027 ljudska proba i finalni handoff
+
+Završna dopuna: korisnik potvrdio objašnjenje toka od oba člana. Pregledana commit
+istorija fix/game-stability-and-polish i week05/implementation i stvarni fajlovi:
+10Week05commitova (Veki6/milangavric2003 4),3ranije fix promene odvojeno. Identiteti
+su korisnička prijava, autorstvo Git metapodatak; ne tvrdi se da je sav kod ručno
+napisan ili da nema značajne agentske pomoći. T027 zatvoren, dokaz/README/DoD
+usklađeni, formalna predaja predavaču nije izvršena. [Doprinos](evidence/003-T027-contributions.md).
+Dalji tekst opisuje pripremu pre korisničke dopune.
+
+Jedan coding agent; korisnik prijavio da su on i kolega zajedno probali aplikaciju
+i smatraju da sve radi. Stvarni zajednički testing doprinos zabeležen bez
+izmišljanja pojedinačnog razvoja/review-a ili nezavisnog objašnjenja. T027 traži
+objašnjenje toka/limita od oba člana; poslato kratko pitanje za završni zapis.
+Pripremljen aktuelni handoff sa povezanim tehničkim dokazima i kratkim walkthrough-om.
+
+Samo dokumentacija, proveriti lokalne linkove/diff; novi live Gemini zahtevi0,
+ukupna prethodna agentska serija48/50 ostaje istorijski izmerena. Korisničke live
+probe nisu instrumentirane i ne dodaju se tom broju. Nema novih code testova,
+runtime promene, commit/push/deploy ili subagenata. Coding tokeni/cena unknown.
+[Aktuelni zapis i paket](evidence/003-T027-human-handoff.md).
+
+## 2026-10-06 — T034/T035, autonomna live dijagnoza i popravka
+
+Korisnik odobrio do50pojedinačnih Gemini zahteva, RPM15, samo gemini-3.5-flash-lite;
+novo odobrenje zamenjuje stari zahtev za pitanjem pre svakog run-a u ovom tasku.
+Jedan Codex coding agent bez subagenata; model/tokens/cena coding sesije unknown.
+Primena T034, runner/gate i popravke izvršeni u odobrenom opsegu. Bez novih zavisnosti.
+
+Očekivanje: isti scenariji pre/posle, reject nevalidne strukture/dokaza, read-only
+game snapshot, svi API pokušaji broje se pre dispatch-a. Stvarno: baseline6run-ova/
+12zahteva4/6, diagnosis9/187/9 (2invalid_kind), enum-retest9/189/9. Ukupno24run-a/
+48zahteva; preostala2nisu korišćena. Samo FlashLite, retries/fallback0, rate/timeouts0.
+Minimum zabeleženog dispatch razmaka6000ms (ordinal12–48;1–11timestampsunknown).
+Poznati totalTokens22927za44pokušaja;4missing, ukupno/cenaunknown bez procene.
+
+Kontekst: adapter/neutralne šeme/orchestrator/session, novi safe enum DTO, smoke
+fixture-i i testovi, SpecKit artefakti, SDK2.24.0 i zvanična Gemini schema dokumentacija.
+Defekt: neutralni const literal u provider schema, popravljeno ekvivalentnim enum-om
+u adapteru oba koraka. Live veza je zaključak iz invalid_kind signala/retesta;
+raw model vrednost nije sačuvana. Nisu čitani/sačuvani ključ, prompt, raw final,
+privatne karte ili chain-of-thought. .env se učitava samo u live Node procesu.
+
+Smisleni RED za gate/focus, issue klasifikaciju, long-match i SDK schema; GREEN137
+fokus,888regresija, typecheck/lint/build0. Početni test setup/TS problemi sačuvani
+kao neuspešni pokušaji, ne očekivani behavior RED. Browser E2E nije ponovljen;
+UI testovi prolaze. Nema commit/push/deploy ili ljudskog peer potpisa.
+[Izveštaj](evidence/003-T035-handoff.md), [safe potrošnja/run-ovi](evidence/003-T035-live.json).
+
+## 2026-10-05 — Week05 Phase 5
+
+Alat: Codex, jedan coding agent, bez subagenata. Svrha: proveriti T002–T023,
+izvršiti expected-first eval/regresiju, security/privacy/traceability review i
+pripremiti finalne dokaze/demo. Model porodica prema session instrukciji: GPT-6;
+tačan runtime model/build nije potvrđen telemetrijom. Coding tokeni/cena: `unknown`.
+Korisnička odluka: precizan Phase 5 scope; nema odobrenog live run-a ili peer potpisa.
+
+Očekivanje: read-only 2-step/1-tool tok, rejected proposal sa 0 executions,
+bounded retry/deadline i nepromenjen poker snapshot. Ishod: 250/250 fokus,
+802/802 regresija, prvi E2E 12/13 zbog starog card lokatora; T028 test fix pa 13/13.
+T025 otkrio stvarni 1970 ISO metadata bug; T029 RED 12PASS/1FAIL → GREEN 91/91,
+final 803/803 i coach/Week04 E2E 4/4, typecheck/lint/build 0.
+Dokumentacionim izmenama nije pripisan RED/GREEN. Setup ENOMEM i fixture TS
+neuspehi ostaju zapisani. [Rezultati/komande](EVIDENCE_W05.md).
+
+| Upotreba | Stvarno poznato u ovom radu | Šta ostaje nepoznato |
+|---|---|---|
+| Coding-agent sesija | Jedan aktivni Codex, review/test/korekcije/docs | Broj internih modelskih poziva, tokeni, cena: unknown |
+| Fake-provider suite | Scripted FakeAiProvider, mocked Gemini; bez mrežnog generation poziva | Ukupan zbir fake runs/attempts/retries/tools nije instrumentiran; broj testova nije broj poziva |
+| Safe trace runner | 3 uspešna pokretanja × 8 runs = 24 runs, 30 attempts, 21 tool proposals, 12 executions, retry 0, fallback 0 | Nema live tokena/cene; `offline-fake` nije Gemini model |
+| Live Week05 agent | 0 ove sesije; smoke/diagnose/demo NOT RUN | Raniji Week05 live zbir nije nezavisno izmeren |
+| Provider config | Postojeći Gemini primary/fallback iz Week04; SDK retry disabled | Live dostupnost/quota/billing nije proverena |
+
+Trace runner je pokrenut sa postojećim Windows shim-om; prvi poziv bez shim-a
+pao pre dispatch-a. Dva typecheck neuspeha fixture-a ispravljena bez promene
+oracle-a; sva tri shim izvršenja imaju osam safe projekcija. Fake success ima
+2 steps/2 attempts/1 tool; invalid refs/proposals stvarne validacione ishode.
+Recovery testovi razlikuju same-model retry i fallback unutar step-a;
+step 2 nije Week04 retry. Monetarni cost se ne procenjuje.
+
+Ljudski doprinos: korisnik odredio scope; identitet/podela Week05 A/B, peer review
+i walkthrough drugog člana nisu potvrđeni. Week04 potpis nije prenet na Week05.
+Nema key-a, raw prompta, privatnih karata ili reasoning-a u novim safe tragovima.
+Limit 15 development/3 demo je budžet, ne potrošnja.
+
 ## Merge recovery u ai-integ — 2026-09-29
 
 Korisnik je odobrio merge uz bot popravke iz `fix-timeout-error` i waiting/analysis
@@ -264,3 +359,135 @@ u dokumentaciju. Očekivanje i ishod: sačuvani prvi timeout, zaseban prolaz i p
 536/536 regresija, kao i E2E 10/10 i ostale dostavljene provere. Nema novih provider
 poziva ili novih izvršenja testova od strane agenta. Trošak i tokeni coding sesije
 nisu dostupni. [Dokaz i ograničenja](evidence/002-post-merge-verification.md).
+
+## 2026-10-02 — T041/T042, dijagnoza pada posle nekoliko ruku
+
+Alat: Codex; tačan model i potrošnja/trošak nisu dostupni. Svrha: objasniti korisnikov
+log, reprodukovati grešku i ispraviti obračun sledeće ruke nakon eliminacije.
+Očekivanje: nastavak igre i očuvanje žetona, bez stvarnih provider poziva.
+Kontekst: priloženi log, engine/session, relevantni testovi i projektni dokumenti
+navedeni u CONTEXT_MANIFEST. Ishod: potvrđen isti stack trace sa fake providerom;
+minimalna validaciona popravka, 24 ciljana i 547 regresionih testova prolaze,
+typecheck/lint/build exit 0. Ljudski doprinos: prijava i log; naknadni korisnički
+review i doprinos drugog člana nisu potvrđeni. Live Gemini pozivi: 0.
+
+## 2026-10-02 — UR1/UR2, automatsko osvežavanje metrika
+
+Alat: Codex; tačan model, tokeni i trošak sesije nisu dostupni. Svrha i očekivanje:
+ukloniti potrebu za refresh-om stranice radi aktuelne AI upotrebe. Kontekst:
+UsageDashboard/App/API, UI testovi, usage store i izvori iz CONTEXT_MANIFEST.
+Ishod: osvežavanje otvorenog panela na 1 s, ponovno učitavanje pri otvaranju,
+zaštita od sporih/kasnih odgovora i reset race-a; 4 RED → 11 GREEN testova,
+UI regresija 59/59, typecheck/lint exit 0. Ljudska odluka: korisnik traži ovu
+UX popravku sada; nezavisan review nije potvrđen. Live Gemini pozivi: 0.
+
+## 2026-10-04 — Codex, Week05 Phase 3 T018–T020
+
+Korisnik je tražio backend lifecycle/API i usage; frontend i live smoke van scope-a.
+Alat: Codex coding agent; kontekst iz CONTEXT_MANIFEST Phase3 unosa. Očekivanje:
+strict preflight sa0 poziva, bounded session slot, await van lock-a, odvojeni coach
+usage. Ishod: route/lifecycle/usage implementacija, stvarni RED/GREEN logovi,
+758/758 offline regresija, typecheck/lint/build exit0. Lock-dispatch i malformed
+validation holdout-i otkrili konkretne propuste i proverili korekcije. Ljudska odluka:
+korisnikov zahtev autorizuje T018–T020; doprinos/review drugog člana nije potvrđen.
+Live Gemini pozivi:0. Tačan model build, Codex tokeni i trošak nisu dostupni;
+fake testovi nisu live potrošnja. Dokaz: docs/evidence/003-phase3-handoff.txt.
+
+## 2026-10-05 — T030, jedan bounded Week05 live run
+
+Korisnik odobrio nastavak na week05/implementation i najviše jedan live run;
+kasnije ostavio individualni doprinos/walkthrough oba člana za kasnije.
+Alat: jedan Codex coding agent, model build/coding tokeni/cena unknown.
+Kontekst: novi CONTEXT_MANIFEST unos, GAME_SPEC1.2.1 i feature003; role/scope/limits
+sačuvani u T030task/spec pre koda. Očekivanje: produkcioni HTTP/session/orchestrator
+tok, dve odvojene modelske odluke i jedan read-only alat; success tek uz validirani
+final. Default i negativni testovi offline, ne zahtevaju tajnu/mrežu.
+
+Ishod coding rada: smoke modul/CLI/npm komanda,15offline acceptance testova,
+RED13FAIL/1PASS→GREEN14/14, pa dodatni insufficient holdout u final818regresiji;
+E2E4/4,typecheck/lint/build0. Trace runner ovog bloka:1pokretanje×8fake run-ova,
+10provider attempts/7tool proposals/4executions,retry0/fallback0. Ukupna fake suite
+potrošnja nije instrumentirana; broj testova nije broj modelskih poziva.
+
+Jedini live run: Gemini`gemini-3.5-flash-lite`,runId
+`6cd5015f-f878-4266-9187-c6c2aefca15b`; modelu prosleđen ograničen sintetički cilj,
+a u step2 samo validirani tool rezultat. Provider key ostaje u backend konfiguraciji;
+raw prompt/response, karte, model tekst ili reasoning nisu sačuvani.
+Stvarno:1agent run,2model steps,2provider attempts,1tool execution,0retry/0fallback;
+stop=`insufficient_evidence`,result=null,smoke exit1. Oba provider odgovora imaju
+transport success; to nije validirani savet. Run latency2091ms,runner2157ms.
+Tokeni step1:prompt75/candidate49/total124; step2:prompt327/candidate13/total340;
+zbirprompt402/candidate62/total464. Thought/cached usage i cena unknown.
+
+Odobreni budžet je jedan run: bezbedan stop ostaje stvarni rezultat; ne popunjavati
+final, ne ponavljati live run i ne slabiti validaciju. T030runner/ishod je gotov; T031
+prati nedostajući live success sa novim budućim budžetom. T027ljudski doprinos nije
+pretpostavljen niti potpisan. [Live log](evidence/003-T030-live.txt),
+[handoff](evidence/003-T030-handoff.md), [evidence](EVIDENCE_W05.md).
+
+## 2026-10-05 — T031, odobreni live run #2
+
+Alat: jedan Codex coding agent; model build/coding tokeni/cenaunknown.
+Korisnik odobrio nastavak na commitovanom bdf33c3 i više malih live run-ova uz
+pitanje/redni broj pre svakog. Za #2 izričito odgovorio „Odobravam live run #2“.
+T027 doprinos/walkthrough ostaju odloženi. Kontekst u novom CONTEXT_MANIFEST unosu.
+Očekivanje: četiri stvarne sintetičke odluke, strict step metadata, isti final
+validator i read-only tok sa 2model steps/1tool, bez retry/fallback-a.
+
+Ishod offline: RED9FAIL/15PASS → GREEN24/24, puna827/827, E2E4/4 i
+ typecheck/lint/build0. Fake suite nije live potrošnja, njen broj poziva nije meren.
+Priprema oracle-a ispravljena prema dealing ugovoru (bot AA, čovek KK, lost0/2000).
+
+Stvarni #2: Gemini gemini-3.5-flash-lite, runId3c613f27-4d49-4bb1-90e2-f0bb92a0f795;
+1run/2steps/2provider calls/1tool, completed/finalValidated=true,4evidence references,
+read-only=true,5validation/0rejected,0retry/0fallback. Runner3254ms/run3182ms.
+Step1: prompt75/candidate49/total124, latency1169ms.
+Step2: prompt935/candidate427/total1362, latency2007ms.
+Zbirprompt1010/candidate476/total1486; thought/cached/cenaunknown.
+
+Potvrđeni Week05 zbir ovog razgovora: 2run-a/4calls/2tools/1950total tokena;
+#1insufficient_evidence, #2completed. Broj drugih sesija unknown. Nema #3.
+Raw prompt/response, karte/finding/model text/chain-of-thought nisu sačuvani.
+Uspeh potvrđuje ovaj bounded tok, ne kvalitet/optimalnost saveta ili dostupnost.
+[Live log](evidence/003-T031-live-02.txt), [handoff](evidence/003-T031-handoff.md).
+
+## 2026-10-05 — T032 screenshot dijagnoza i UI korekcija
+
+Jedan Codex coding agent, coding tokeni/model build/cenaunknown. Korisnik pita
+razlog failure screenshot-a/popravku i razliku tri cilja. Read-only lokalni GETusage
+pokazuje10run-a:3completed/7malformed, šest adapter/forme i jedan evidence failure.
+Novi live pozivi0; zbir tekućeg procesa nije naše #3 odobrenje ili datum drugih run-ova.
+Očekivanje: jedna statusna poruka i jasna safe dijagnostika/cilj bez raw izlaza.
+Ishod: RED6FAIL→GREEN47/47,E2E3/3,typecheck/lint/build0; backend ne menja se.
+Korisnik nije mogao izvući stari run jer smo koristili frontend port u E2E-u;
+testovi zatvoreni, vraćen normalni dev server. Nema stare memorijske partije u
+novom procesu. Tačan invalid field nije potvrđen, ne tvrdi se model reliability fix.
+[Handoff](evidence/003-T032-handoff.md). T027 doprinos ostaje odložen.
+## 2026-10-06 — T033, kanonski izbor dokaza
+
+Alat: jedan Codex coding agent, model/coding tokeni/cena unknown. Korisnik traži
+objašnjenje povremenog/uzastopnog coaching neuspeha i ciljanu popravku sa testom.
+Read-only GET potvrđuje run0ecf2080-64a7-4aaa-98ef-e5e15ed1831a failed/
+malformed_output/evidence_rejected, 2steps/2attempts/1tool; nije novi modelski poziv.
+Raw final nije dostupan, tačno polje nije utvrđeno. Ljudski review/doprinos unknown.
+Očekivanje: Gemini bira numerisane činjenice; adapter prenosi originalne vrednosti,
+bez proizvoljnog finding-a, uz nepromenjenu završnu validaciju i budžete.
+Stvarno: RED3FAIL/68PASS → prvi GREEN91/91 → završni fokus98/98; puna suite852/852,
+typecheck/lint/build exit0. Početne lint/typecheck greške u novim testovima sačuvane.
+Novi live run-ovi/provider pozivi0, nema čitanja ključa ili troška live testa.
+Broj offline provider stub poziva cele suite nije meren; broj testova nije broj
+modelskih poziva. Izmerena live stopa uspeha posle popravke unknown.
+[Handoff i granice](evidence/003-T033-handoff.md). T027 ostaje odložen.
+## 2026-10-06 — T034, pregled postojećeg run-a bez live ponavljanja
+
+Jedan coding agent; model/coding tokeni/cena unknown. Read-only GET i usage:
+4zabeležena coaching runs,3completed/1step2malformed; ovo su korisnikovi postojeći
+pozivi tekućeg procesa, nisu novi agentski live run-ovi ili naš odobreni demo budžet.
+Novi live pozivi0. Raw final nije dostupan; tačno polje unknown.
+Očekivanje: sačuvati aktivnu memorijsku partiju, pripremiti precizan safe enum uzrok
+narednog failure-a, bez popravke/nevalidnog prikaza model output-a.
+StagedRED12FAIL→GREEN119/119, full864/864, typecheck/lint/build0, apply-check0.
+Runtime izmena NIJE primenjena; ista partija/run potvrđeni završnim GET-om.
+Fake suite pozivi nisu instrumentirani; broj testova nije broj modelskih poziva.
+Nema tvrdnje da je novi live problem generisanja rešen, nema ljudskog review-a.
+[Konkretan patch/handoff](evidence/003-T034-prepared.md).

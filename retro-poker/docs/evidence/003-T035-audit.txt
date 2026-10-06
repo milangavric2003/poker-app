@@ -1,0 +1,10 @@
+T034/T035 final evidence audit, 2026-10-06
+Matched diagnosis/enum-retest matrix: 9 scenarios, PASS
+Requests: 48, reports: 24, read-only preserved: 24, PASS
+All recorded attempts use gemini-3.5-flash-lite, PASS
+Final live batch: 9/9, PASS
+Recorded dispatch interval >=6000ms, PASS
+No raw/model prompt/key/card/reasoning keys in safe live artifact, PASS
+Handoff local links: 8 exist, PASS
+Read-only HTTP probes: frontend 127.0.0.1:5173 and GET backend /api/game 3001 returned 200
+No additional Gemini calls during artifact audit

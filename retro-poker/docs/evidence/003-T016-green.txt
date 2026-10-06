@@ -1,0 +1,21 @@
+﻿Komanda: npm.cmd test -- tests/integration/agent-run.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/integration/gemini-agent.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/agent-run.test.ts tests/unit/agent-orchestrator.test.ts tests/unit/agent-final.test.ts tests/integration/gemini-agent.test.ts tests/integration/ai-analysis.test.ts tests/integration/ai-bots.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  6 passed (6)
+      Tests  81 passed (81)
+   Start at  22:20:06
+   Duration  895ms (import 54%, transform 27%, tests 18%, worker 1%)
+
+Exit: 0 RED ogranicenje: prvi recovery timeout bio je test helper koji nije oslobodio drugi zero-backoff; nije behavior RED. Negativna revizija je smisleni RED i ispravljena je preflight provera. Handoff: T016 uspeh/failure offline integracije nad stvarnim terminalnim engine snapshotom. T017 proverava race/limits/stale bez session izmene.
+Komanda: npm.cmd run typecheck; nakon test fixture readonly spread korekcije
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit: 0

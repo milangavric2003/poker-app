@@ -1,0 +1,140 @@
+﻿Komanda: npm.cmd test -- tests/unit/agent-final.test.ts
+
+> retro-poker@0.1.0 test
+> vitest run tests/unit/agent-final.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/unit/agent-final.test.ts (20 tests | 20 failed) 13ms
+   ❯ strict snapshot-bound final lifecycle (20)
+     × accepts canonical supporting facts and does not mutate inputs 6ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"foreign:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"action","finding":"\"flop\""}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"secret","finding":"\"flop\""}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"invented"}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""},{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"certain","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"}]} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}],"raw":"provider-payload"} 0ms
+     × rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\"","raw":"x"}]} 0ms
+     × rejects invalid final null 0ms
+     × rejects invalid final "{bad" 0ms
+     × rejects invalid final {} 0ms
+     × rejects invalid final {"kind":"tool_request","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 0ms
+     × rejects fabricated completion on empty evidence 0ms
+     × withholds a recommendation when the model declares insufficient evidence 0ms
+     × parses bounded JSON and trims text 0ms
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > accepts canonical supporting facts and does not mutate inputs
+AssertionError: Missing pure final lifecycle validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-final.test.ts:10:84
+      8|   evidence: [{ decisionRef: 'hand:1', factCode: 'phase', finding: '"fl…
+      9| function validate(candidate: unknown, evidence = output): FinalOutputV…
+     10|   expect(validation.validateFinalOutput, 'Missing pure final lifecycle…
+       |                                                                                    ^
+     11|   return validation.validateFinalOutput(candidate, evidence);
+     12| }
+ ❯ tests/unit/agent-final.test.ts:16:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"foreign:1","factCode":"phase","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"action","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"secret","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"invented"}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""},{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"certain","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}],"raw":"provider-payload"}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\"","raw":"x"}]}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final null
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final "{bad"
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {}
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"tool_request","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]}
+AssertionError: Missing pure final lifecycle validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-final.test.ts:10:84
+      8|   evidence: [{ decisionRef: 'hand:1', factCode: 'phase', finding: '"fl…
+      9| function validate(candidate: unknown, evidence = output): FinalOutputV…
+     10|   expect(validation.validateFinalOutput, 'Missing pure final lifecycle…
+       |                                                                                    ^
+     11|   return validation.validateFinalOutput(candidate, evidence);
+     12| }
+ ❯ tests/unit/agent-final.test.ts:30:54
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects fabricated completion on empty evidence
+AssertionError: Missing pure final lifecycle validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-final.test.ts:10:84
+      8|   evidence: [{ decisionRef: 'hand:1', factCode: 'phase', finding: '"fl…
+      9| function validate(candidate: unknown, evidence = output): FinalOutputV…
+     10|   expect(validation.validateFinalOutput, 'Missing pure final lifecycle…
+       |                                                                                    ^
+     11|   return validation.validateFinalOutput(candidate, evidence);
+     12| }
+ ❯ tests/unit/agent-final.test.ts:32:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > withholds a recommendation when the model declares insufficient evidence
+AssertionError: Missing pure final lifecycle validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-final.test.ts:10:84
+      8|   evidence: [{ decisionRef: 'hand:1', factCode: 'phase', finding: '"fl…
+      9| function validate(candidate: unknown, evidence = output): FinalOutputV…
+     10|   expect(validation.validateFinalOutput, 'Missing pure final lifecycle…
+       |                                                                                    ^
+     11|   return validation.validateFinalOutput(candidate, evidence);
+     12| }
+ ❯ tests/unit/agent-final.test.ts:35:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+System.Management.Automation.RemoteException
+ FAIL  |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > parses bounded JSON and trims text
+AssertionError: Missing pure final lifecycle validator: expected undefined to be type of 'function'
+System.Management.Automation.RemoteException
+Expected: "function"
+Received: "undefined"
+System.Management.Automation.RemoteException
+ ❯ validate tests/unit/agent-final.test.ts:10:84
+      8|   evidence: [{ decisionRef: 'hand:1', factCode: 'phase', finding: '"fl…
+      9| function validate(candidate: unknown, evidence = output): FinalOutputV…
+     10|   expect(validation.validateFinalOutput, 'Missing pure final lifecycle…
+       |                                                                                    ^
+     11|   return validation.validateFinalOutput(candidate, evidence);
+     12| }
+ ❯ tests/unit/agent-final.test.ts:38:12
+System.Management.Automation.RemoteException
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+System.Management.Automation.RemoteException
+
+ Test Files  1 failed (1)
+      Tests  20 failed (20)
+   Start at  22:18:20
+   Duration  370ms (import 47%, transform 43%, tests 7%, worker 2%)
+
+Exit: 1

@@ -1,0 +1,12 @@
+﻿Komanda: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit: 0
+Finalno ponavljanje posle holdout/stilskih korekcija; komanda: npm.cmd run typecheck
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+Exit: 0

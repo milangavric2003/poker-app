@@ -1,0 +1,6 @@
+Datum: 2026-10-05 Europe/Belgrade
+Komanda: node dist/server/scripts/gemini-coach-live-smoke.js
+{"event":"coach-smoke","executed":false,"passed":false,"reason":"opt_in_required","providerCallCount":0,"toolCallCount":0}
+
+Exit status: 0
+
