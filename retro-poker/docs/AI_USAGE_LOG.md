@@ -1,5 +1,32 @@
 # AI usage log
 
+## 2026-10-06 — T034/T035, autonomna live dijagnoza i popravka
+
+Korisnik odobrio do50pojedinačnih Gemini zahteva, RPM15, samo gemini-3.5-flash-lite;
+novo odobrenje zamenjuje stari zahtev za pitanjem pre svakog run-a u ovom tasku.
+Jedan Codex coding agent bez subagenata; model/tokens/cena coding sesije unknown.
+Primena T034, runner/gate i popravke izvršeni u odobrenom opsegu. Bez novih zavisnosti.
+
+Očekivanje: isti scenariji pre/posle, reject nevalidne strukture/dokaza, read-only
+game snapshot, svi API pokušaji broje se pre dispatch-a. Stvarno: baseline6run-ova/
+12zahteva4/6, diagnosis9/187/9 (2invalid_kind), enum-retest9/189/9. Ukupno24run-a/
+48zahteva; preostala2nisu korišćena. Samo FlashLite, retries/fallback0, rate/timeouts0.
+Minimum zabeleženog dispatch razmaka6000ms (ordinal12–48;1–11timestampsunknown).
+Poznati totalTokens22927za44pokušaja;4missing, ukupno/cenaunknown bez procene.
+
+Kontekst: adapter/neutralne šeme/orchestrator/session, novi safe enum DTO, smoke
+fixture-i i testovi, SpecKit artefakti, SDK2.24.0 i zvanična Gemini schema dokumentacija.
+Defekt: neutralni const literal u provider schema, popravljeno ekvivalentnim enum-om
+u adapteru oba koraka. Live veza je zaključak iz invalid_kind signala/retesta;
+raw model vrednost nije sačuvana. Nisu čitani/sačuvani ključ, prompt, raw final,
+privatne karte ili chain-of-thought. .env se učitava samo u live Node procesu.
+
+Smisleni RED za gate/focus, issue klasifikaciju, long-match i SDK schema; GREEN137
+fokus,888regresija, typecheck/lint/build0. Početni test setup/TS problemi sačuvani
+kao neuspešni pokušaji, ne očekivani behavior RED. Browser E2E nije ponovljen;
+UI testovi prolaze. Nema commit/push/deploy ili ljudskog peer potpisa.
+[Izveštaj](evidence/003-T035-handoff.md), [safe potrošnja/run-ovi](evidence/003-T035-live.json).
+
 ## 2026-10-05 — Week05 Phase 5
 
 Alat: Codex, jedan coding agent, bez subagenata. Svrha: proveriti T002–T023,
@@ -404,3 +431,31 @@ Korisnik nije mogao izvući stari run jer smo koristili frontend port u E2E-u;
 testovi zatvoreni, vraćen normalni dev server. Nema stare memorijske partije u
 novom procesu. Tačan invalid field nije potvrđen, ne tvrdi se model reliability fix.
 [Handoff](evidence/003-T032-handoff.md). T027 doprinos ostaje odložen.
+## 2026-10-06 — T033, kanonski izbor dokaza
+
+Alat: jedan Codex coding agent, model/coding tokeni/cena unknown. Korisnik traži
+objašnjenje povremenog/uzastopnog coaching neuspeha i ciljanu popravku sa testom.
+Read-only GET potvrđuje run0ecf2080-64a7-4aaa-98ef-e5e15ed1831a failed/
+malformed_output/evidence_rejected, 2steps/2attempts/1tool; nije novi modelski poziv.
+Raw final nije dostupan, tačno polje nije utvrđeno. Ljudski review/doprinos unknown.
+Očekivanje: Gemini bira numerisane činjenice; adapter prenosi originalne vrednosti,
+bez proizvoljnog finding-a, uz nepromenjenu završnu validaciju i budžete.
+Stvarno: RED3FAIL/68PASS → prvi GREEN91/91 → završni fokus98/98; puna suite852/852,
+typecheck/lint/build exit0. Početne lint/typecheck greške u novim testovima sačuvane.
+Novi live run-ovi/provider pozivi0, nema čitanja ključa ili troška live testa.
+Broj offline provider stub poziva cele suite nije meren; broj testova nije broj
+modelskih poziva. Izmerena live stopa uspeha posle popravke unknown.
+[Handoff i granice](evidence/003-T033-handoff.md). T027 ostaje odložen.
+## 2026-10-06 — T034, pregled postojećeg run-a bez live ponavljanja
+
+Jedan coding agent; model/coding tokeni/cena unknown. Read-only GET i usage:
+4zabeležena coaching runs,3completed/1step2malformed; ovo su korisnikovi postojeći
+pozivi tekućeg procesa, nisu novi agentski live run-ovi ili naš odobreni demo budžet.
+Novi live pozivi0. Raw final nije dostupan; tačno polje unknown.
+Očekivanje: sačuvati aktivnu memorijsku partiju, pripremiti precizan safe enum uzrok
+narednog failure-a, bez popravke/nevalidnog prikaza model output-a.
+StagedRED12FAIL→GREEN119/119, full864/864, typecheck/lint/build0, apply-check0.
+Runtime izmena NIJE primenjena; ista partija/run potvrđeni završnim GET-om.
+Fake suite pozivi nisu instrumentirani; broj testova nije broj modelskih poziva.
+Nema tvrdnje da je novi live problem generisanja rešen, nema ljudskog review-a.
+[Konkretan patch/handoff](evidence/003-T034-prepared.md).

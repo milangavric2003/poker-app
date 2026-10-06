@@ -173,7 +173,8 @@ export class GameSession {
       deadlineAt: new Date(this.coach!.wallStartedAt + state.deadlineAt - state.startedAt).toISOString(), stepCount: state.stepCount,
       toolCallCount: state.toolCallCount, providerAttemptCount: state.providerAttemptCount,
       stopReason: state.stopReason, failureCategory: state.failureCategory, result: state.result,
-      sampleLimited: state.sampleLimited });
+      sampleLimited: state.sampleLimited,
+      ...(state.outputIssue ? { outputIssue: state.outputIssue } : {}) });
   }
 
   startCoach(input: CoachRequest): CoachRunView {

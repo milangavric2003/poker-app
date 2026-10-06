@@ -391,3 +391,57 @@ Nema #3. [Handoff](../../docs/evidence/003-T031-handoff.md). T027 ostaje otvoren
 T032 dokaz: [handoff](../../docs/evidence/003-T032-handoff.md), RED6FAIL/13PASS→
 GREEN47/47, coachE2E3/3, typecheck/lint/build0. Rešen UI duplikat i safe objašnjenja;
 uzrok konkretnog malformed model polja nije poznat. Generisanje nije menjano.
+## T033 — pouzdanost kanonskog evidence izbora
+
+- [x] T033 (trenutni coding agent; ljudski driver/reviewer unknown) — per
+  FR-011/012/020 i korisnički zahtev 2026-10-06, promeniti Gemini final transport
+  na numerisani izbor validiranih činjenica; deps T013/T015/T032; allowed:
+  `backend/src/ai/providers/gemini.ts`, `tests/integration/gemini-agent.test.ts`,
+  `tests/integration/agent-run.test.ts`, feature spec/plan/tasks/data-model/evals,
+  `docs/GAME_SPEC.md`, `docs/CONTEXT_MANIFEST.md`, `docs/AI_USAGE_LOG.md`,
+  `docs/EVIDENCE_W05.md`, `docs/evidence/003-T033-*`; dokaz: smisleni RED→GREEN,
+  identične kanonske vrednosti, reject unknown/duplicate indices i malicious fields,
+  2 koraka/1 alat/read-only, relevantna regresija/typecheck/lint/build.
+  Završni DTO run-a potvrđuje evidence_rejected, ali ne otkriva tačno polje.
+  Bez novih live poziva i bez tvrdnje da je stopa Gemini uspeha izmerena.
+
+T033 handoff: [dijagnoza, implementacija i ograničenja](../../docs/evidence/003-T033-handoff.md).
+RED 3/71 pada, GREEN 98/98, puna offline regresija 852/852 (58 fajlova),
+typecheck/lint/build exit 0. Početne lint/typecheck greške u novim testovima
+sačuvane odvojeno; T027 ljudski walkthrough ostaje otvoren.
+
+## T034 — dijagnostika formata, pripremljena van aktivne aplikacije
+
+- [x] T034 (trenutni coding agent) — per FR-011/016/021 i nastavak korisničkog
+  debugging zahteva2026-10-06, dopuniti safe dijagnostiku malformed output-a;
+  depsT033; allowed: Gemini provider/ai types/agent types/orchestrator/session,
+  shared coach DTO, tests/integration/coach-output-diagnostics.test.ts,
+  feature spec/plan/data-model/contracts/tasks, GAME_SPEC/CONTEXT_MANIFEST/
+  AI_USAGE_LOG/EVIDENCE_W05 i docs/evidence/003-T034-*.
+  [Pripremljen patch i dokazi](../../docs/evidence/003-T034-prepared.md):
+  stagedRED12→GREEN119, full864, typecheck/lint/build0, apply-check0.
+  Prvobitna priprema nije menjala runtime zbog aktivne memorijske partije.
+  Primenjeno po novom odobrenju2026-10-06:119/119fokus testova potvrđuje stvarne
+  runtime izmene; videti003-T034-applied.txt. Raniji apply-check0 bez Git prefiksa
+  nije dokaz primene; ispravljena komanda koristi --directory=retro-poker iz Git korena.
+## T035 — autonomni live eval, odobreno do50zahteva
+
+- [x] T035 (trenutni coding agent) — odobren korisnički zahtev2026-10-06: testirati
+  gemini-3.5-flash-lite, tri cilja/tri sintetička scenarija, otkriti i TDD-popraviti
+  stvarne greške; depsT034; allowed: scripts/coach-smoke.ts, novi scripts/coach-live-eval.ts,
+  scripts/coach-request-gate.ts, backend AI/agent provider boundary po konkretnom
+  otkrivenom defektu, shared coach ugovori, relevantni unit/integration/contract/UI
+  testovi, feature spec/plan/tasks/data-model/contracts/evals, GAME_SPEC,
+  CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05, docs/evidence/003-T035-*.
+  Evidence: offline gate/opt-in/budget/cancel/flags RED→GREEN pre mreže; hard cap50
+  pojedinačnih zahteva kroz persistirani ledger,≥6000msdispatch, početni60scooldown,
+  429cooldown≥60s; final plain status/counters/enum/usage, bez raw prompta/response-a.
+  Svaki novi defekt ima smislen RED i final retest; zaključak ograničen uzorkom.
+
+T035 završeno:48/50pojedinačnih zahteva,24run-a (baseline4/6, diagnosis7/9,
+enum-retest9/9). Reprodukovano invalid_kind; Gemini transport oba koraka koristi
+ekvivalentni singleton enum umesto const, neutralni/runtime validatori ostaju strogi.
+GREEN137/137fokus; puna regresija888/888u61fajlu, typecheck/lint/build0.
+Nema browser E2E ponavljanja u ovoj sesiji; UI testovi uključeni u regresiju.
+[Izveštaj i ograničenja](../../docs/evidence/003-T035-handoff.md),
+[safe live dokaz](../../docs/evidence/003-T035-live.json). T027 ljudski walkthrough ostaje otvoren.

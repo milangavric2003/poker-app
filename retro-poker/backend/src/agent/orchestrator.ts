@@ -1,4 +1,4 @@
-import { CoachGoalSchema, CoachModelStepSchema, CoachRequestSchema,
+import { CoachGoalSchema, CoachModelStepSchema, CoachOutputIssueSchema, CoachRequestSchema,
   jsonUtf8Bytes, DecisionEvidenceArgumentsSchema } from '../../../shared/contracts.js';
 import { ProviderError, type AgentStepContext, type AgentStepResult, type ProviderUsage } from '../ai/types.js';
 import { getDecisionEvidence } from './tools.js';
@@ -161,7 +161,11 @@ export class BoundedAgentRun {
           return parsed.data;
         } catch { this.current.validationRejectedCount++; this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
       }
-      if (failure.kind === 'malformed') { this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
+      if (failure.kind === 'malformed') {
+        const issue = CoachOutputIssueSchema.safeParse(failure.outputIssue);
+        if (issue.success) this.current.outputIssue = issue.data;
+        this.finish('malformed_output', 'invalid_structured_response'); return undefined;
+      }
       const transient = ['timeout', 'rate_limited', 'server_error', 'network_error'].includes(failure.kind);
       if (!transient || ordinal >= this.limits.maxAttemptsPerStep) {
         this.finish('provider_failed', categories[failure.kind] ?? 'provider_transport'); return undefined;

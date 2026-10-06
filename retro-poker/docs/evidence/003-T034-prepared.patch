@@ -1,0 +1,260 @@
+diff --git a/shared/contracts.ts b/shared/contracts.ts
+--- a/shared/contracts.ts
++++ b/shared/contracts.ts
+@@ -294,6 +294,10 @@
+   CoachToolProposalSchema, CoachRefusalSchema, CoachFinalStepSchema,
+ ]).refine(value => jsonUtf8Bytes(value) <= 32768, 'Model step exceeds UTF-8 cap');
+ export const CoachRunStatusSchema = z.enum(['created', 'running', 'completed', 'stopped', 'failed']);
++export const CoachOutputIssueSchema = z.enum(['missing_output', 'output_too_large', 'invalid_json',
++  'transport_shape', 'invalid_evidence_index', 'duplicate_evidence', 'missing_completion_evidence',
++  'summary_bounds', 'recommendation_bounds', 'final_shape']);
++export type CoachOutputIssue = z.infer<typeof CoachOutputIssueSchema>;
+ export const CoachFailureCategorySchema = z.enum(['authentication_configuration', 'quota_exhausted',
+   'rate_limit', 'provider_timeout', 'provider_unavailable', 'provider_transport', 'provider_refusal',
+   'tool_timeout', 'tool_error', 'tool_validation', 'invalid_structured_response', 'evidence_rejected',
+@@ -305,7 +309,10 @@
+   providerAttemptCount: z.number().int().min(0).max(4),
+   stopReason: CoachStopReasonSchema.nullable(), failureCategory: CoachFailureCategorySchema.nullable(),
+   result: CoachResultSchema.nullable(), sampleLimited: z.boolean(),
++  outputIssue: CoachOutputIssueSchema.optional(),
+ }).refine(run => {
++  if (run.outputIssue && (run.status !== 'failed' || run.stopReason !== 'malformed_output'
++    || run.failureCategory !== 'invalid_structured_response')) return false;
+   if (Date.parse(run.deadlineAt) < Date.parse(run.startedAt)
+     || run.providerAttemptCount < run.stepCount || run.providerAttemptCount > run.stepCount * 2
+     || run.toolCallCount > run.stepCount) return false;
+diff --git a/backend/src/ai/types.ts b/backend/src/ai/types.ts
+--- a/backend/src/ai/types.ts
++++ b/backend/src/ai/types.ts
+@@ -1,5 +1,5 @@
+ import type { Card, LegalAction, PokerAction } from '../engine/types.js';
+-import type { PublicEvent, CoachGoal, DecisionEvidenceResult } from '../../../shared/contracts.js';
++import type { PublicEvent, CoachGoal, CoachOutputIssue, DecisionEvidenceResult } from '../../../shared/contracts.js';
+ import type { AiDiagnostic } from '../../../shared/ai-diagnostic.js';
+ 
+ export type AiPurpose = 'bot' | 'analysis';
+@@ -65,7 +65,7 @@
+ export class ProviderError extends Error {
+   constructor(readonly kind: ProviderFailureKind, message = 'AI provider failure',
+     readonly retryAfterMs?: number, readonly httpStatus: number | null = null,
+-    readonly diagnostic?: AiDiagnostic) { super(message); }
++    readonly diagnostic?: AiDiagnostic, readonly outputIssue?: CoachOutputIssue) { super(message); }
+ }
+ 
+ export interface AiClock {
+diff --git a/backend/src/agent/types.ts b/backend/src/agent/types.ts
+--- a/backend/src/agent/types.ts
++++ b/backend/src/agent/types.ts
+@@ -1,5 +1,6 @@
+ import { z } from 'zod';
+-import { CoachModelStepSchema, type CoachGoal, type CoachRunView, type DecisionEvidenceResult } from '../../../shared/contracts.js';
++import { CoachModelStepSchema, type CoachGoal, type CoachRunView, type CoachOutputIssue,
++  type DecisionEvidenceResult } from '../../../shared/contracts.js';
+ import type { AgentProvider, AiClock, AiJitter, AttemptOutcome, AttemptRelation, ProviderUsage } from '../ai/types.js';
+ import type { TerminalFactsSnapshot, ToolControls } from './tools.js';
+ 
+@@ -22,6 +23,7 @@
+   attempts: AgentAttempt[];
+   toolAttemptCount: number; toolRejectionCount: number;
+   validationCount: number; validationRejectedCount: number; finishedAt: number | null;
++  outputIssue?: CoachOutputIssue;
+ }
+ export interface AgentLimits {
+   maxSteps: number; maxToolCalls: number; maxProviderAttempts: number;
+diff --git a/backend/src/agent/orchestrator.ts b/backend/src/agent/orchestrator.ts
+--- a/backend/src/agent/orchestrator.ts
++++ b/backend/src/agent/orchestrator.ts
+@@ -1,4 +1,4 @@
+-import { CoachGoalSchema, CoachModelStepSchema, CoachRequestSchema,
++import { CoachGoalSchema, CoachModelStepSchema, CoachOutputIssueSchema, CoachRequestSchema,
+   jsonUtf8Bytes, DecisionEvidenceArgumentsSchema } from '../../../shared/contracts.js';
+ import { ProviderError, type AgentStepContext, type AgentStepResult, type ProviderUsage } from '../ai/types.js';
+ import { getDecisionEvidence } from './tools.js';
+@@ -161,7 +161,11 @@
+           return parsed.data;
+         } catch { this.current.validationRejectedCount++; this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
+       }
+-      if (failure.kind === 'malformed') { this.finish('malformed_output', 'invalid_structured_response'); return undefined; }
++      if (failure.kind === 'malformed') {
++        const issue = CoachOutputIssueSchema.safeParse(failure.outputIssue);
++        if (issue.success) this.current.outputIssue = issue.data;
++        this.finish('malformed_output', 'invalid_structured_response'); return undefined;
++      }
+       const transient = ['timeout', 'rate_limited', 'server_error', 'network_error'].includes(failure.kind);
+       if (!transient || ordinal >= this.limits.maxAttemptsPerStep) {
+         this.finish('provider_failed', categories[failure.kind] ?? 'provider_transport'); return undefined;
+diff --git a/backend/src/session.ts b/backend/src/session.ts
+--- a/backend/src/session.ts
++++ b/backend/src/session.ts
+@@ -173,7 +173,8 @@
+       deadlineAt: new Date(this.coach!.wallStartedAt + state.deadlineAt - state.startedAt).toISOString(), stepCount: state.stepCount,
+       toolCallCount: state.toolCallCount, providerAttemptCount: state.providerAttemptCount,
+       stopReason: state.stopReason, failureCategory: state.failureCategory, result: state.result,
+-      sampleLimited: state.sampleLimited });
++      sampleLimited: state.sampleLimited,
++      ...(state.outputIssue ? { outputIssue: state.outputIssue } : {}) });
+   }
+ 
+   startCoach(input: CoachRequest): CoachRunView {
+diff --git a/backend/src/ai/providers/gemini.ts b/backend/src/ai/providers/gemini.ts
+--- a/backend/src/ai/providers/gemini.ts
++++ b/backend/src/ai/providers/gemini.ts
+@@ -1,7 +1,7 @@
+ import { GoogleGenAI } from '@google/genai';
+ import { z } from 'zod';
+ import { CoachFinalStepSchema, CoachModelStepSchema, CoachRefusalSchema, DecisionEvidenceResultSchema,
+-  jsonUtf8Bytes, type CoachEvidence } from '../../../../shared/contracts.js';
++  jsonUtf8Bytes, type CoachEvidence, type CoachOutputIssue } from '../../../../shared/contracts.js';
+ import { geminiDiagnostic } from './gemini-diagnostic.js';
+ import { ProviderError, type AiProvider, type AgentProvider, type AgentStepRequest, type ProviderRequest, type ProviderResult,
+   type ProviderUsage } from '../types.js';
+@@ -63,6 +63,18 @@
+   throw new ProviderError('network_error');
+ }
+ 
++function malformedAgentOutput(issue: CoachOutputIssue): never {
++  // Only a fixed enum survives the adapter: no rejected values, paths or messages.
++  throw new ProviderError('malformed', undefined, undefined, null, undefined, issue);
++}
++function shapeIssue(error: z.ZodError, fallback: 'transport_shape' | 'final_shape'): CoachOutputIssue {
++  const issues = error.issues;
++  if (issues.some(issue => issue.code === 'custom' && issue.path[0] === 'summary')) return 'summary_bounds';
++  if (issues.some(issue => issue.code === 'custom' && issue.path[0] === 'recommendation')) return 'recommendation_bounds';
++  if (issues.some(issue => issue.path[0] === 'evidence' && typeof issue.path[1] === 'number')) return 'invalid_evidence_index';
++  return fallback;
++}
++
+ export function createGeminiProvider(apiKey: string,
+   clientFactory: ClientFactory = key => new GoogleGenAI({ apiKey: key }) as GeminiClient): AiProvider & AgentProvider {
+   const client = clientFactory(apiKey);
+@@ -87,7 +99,10 @@
+       }
+       const finalTransportSchema = z.discriminatedUnion('kind', [
+         z.strictObject({ ...CoachFinalStepSchema.shape,
+-          evidence: z.array(z.number().int().min(0).max(Math.max(0, evidence.length - 1))).max(10),
++          summary: CoachFinalStepSchema.shape.summary.describe('Use 1 to 1000 Unicode characters after trimming.'),
++          recommendation: CoachFinalStepSchema.shape.recommendation.describe('Use 1 to 500 Unicode characters after trimming.'),
++          evidence: z.array(z.number().int().min(0).max(Math.max(0, evidence.length - 1))).max(10)
++            .describe('Select up to 10 distinct evidenceIndex integers. Never repeat an index. completed=true needs at least one.'),
+         }), CoachRefusalSchema,
+       ]);
+       // Copy only the neutral allowlist, even if a caller supplies extra runtime fields.
+@@ -117,20 +132,23 @@
+       if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
+       if (response.promptFeedback?.blockReason === 'SAFETY'
+         || response.candidates?.some(c => c.finishReason === 'SAFETY')) throw new ProviderError('safety_refusal');
+-      if (typeof response.text !== 'string' || new TextEncoder().encode(response.text).byteLength > 32768) {
+-        throw new ProviderError('malformed');
+-      }
++      if (typeof response.text !== 'string') malformedAgentOutput('missing_output');
++      if (new TextEncoder().encode(response.text).byteLength > 32768) malformedAgentOutput('output_too_large');
+       let candidate: unknown;
+-      try { candidate = JSON.parse(response.text); } catch { throw new ProviderError('malformed'); }
++      try { candidate = JSON.parse(response.text); } catch { malformedAgentOutput('invalid_json'); }
+       if (request.stepOrdinal === 2) {
+         const selected = finalTransportSchema.safeParse(candidate);
+-        if (!selected.success) throw new ProviderError('malformed');
++        if (!selected.success) malformedAgentOutput(shapeIssue(selected.error, 'transport_shape'));
++        if (selected.data.kind === 'final') {
++          if (new Set(selected.data.evidence).size !== selected.data.evidence.length) malformedAgentOutput('duplicate_evidence');
++          if (selected.data.completed && selected.data.evidence.length === 0) malformedAgentOutput('missing_completion_evidence');
++        }
+         candidate = selected.data.kind === 'final' ? { ...selected.data,
+           evidence: selected.data.evidence.map(index => evidence[index]!),
+         } : selected.data;
+       }
+       const parsed = CoachModelStepSchema.safeParse(candidate);
+-      if (!parsed.success) throw new ProviderError('malformed');
++      if (!parsed.success) malformedAgentOutput(shapeIssue(parsed.error, 'final_shape'));
+       const normalizedUsage = usage(response.usageMetadata);
+       return { candidate: parsed.data,
+         ...(response.modelVersion ? { model: response.modelVersion } : {}),
+diff --git a/tests/integration/coach-output-diagnostics.test.ts b/tests/integration/coach-output-diagnostics.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/integration/coach-output-diagnostics.test.ts
+@@ -0,0 +1,84 @@
++import { afterEach, describe, expect, it, vi } from 'vitest';
++import { createGeminiProvider } from '../../backend/src/ai/providers/gemini.js';
++import type { AgentStepRequest } from '../../backend/src/ai/types.js';
++import { GameSession } from '../../backend/src/session.js';
++import { loadAiConfig } from '../../backend/src/ai/config.js';
++import { registerRoutes } from '../../backend/src/routes.js';
++import { CoachResponseSchema } from '../../shared/contracts.js';
++import Fastify from 'fastify';
++import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
++
++const final = { kind: 'final', summary: 'S', recommendation: 'R', completed: true,
++  confidence: 'low', evidence: [0] };
++const request: AgentStepRequest = { purpose: 'coach', runId: 'run', model: 'test',
++  stepOrdinal: 2, attemptOrdinal: 1, runAttemptOrdinal: 2, deadlineAt: 45000, remainingMs: 45000,
++  responseSchema: {}, context: { goal: { focus: 'betting' }, availableDecisionCount: 1,
++    sampleLimited: true, toolResult: { factsRevision: 34, focus: 'betting', sampleLimited: true,
++      decisions: [{ decisionRef: 'h:1', facts: [{ factCode: 'phase', finding: '"flop"' }] }] } } };
++const failures = [
++  { text: '{bad private-model-output', issue: 'invalid_json' },
++  { text: JSON.stringify({ ...final, evidence: [0, 0] }), issue: 'duplicate_evidence' },
++  { text: JSON.stringify({ ...final, evidence: [9] }), issue: 'invalid_evidence_index' },
++  { text: JSON.stringify({ ...final, evidence: ['0'] }), issue: 'invalid_evidence_index' },
++  { text: JSON.stringify({ ...final, evidence: [] }), issue: 'missing_completion_evidence' },
++  { text: JSON.stringify({ ...final, summary: 's'.repeat(1001) }), issue: 'summary_bounds' },
++  { text: JSON.stringify({ ...final, recommendation: 'r'.repeat(501) }), issue: 'recommendation_bounds' },
++  { text: JSON.stringify({ ...final, raw: 'private-model-output' }), issue: 'transport_shape' },
++  { text: 'x'.repeat(32769), issue: 'output_too_large' },
++];
++const apps: ReturnType<typeof Fastify>[] = [];
++afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); });
++
++describe('safe coach output diagnostics T034', () => {
++  it.each(failures)('identifies $issue without storing the rejected output', async ({ text, issue }) => {
++    const generateContent = vi.fn().mockResolvedValue({ text });
++    const provider = createGeminiProvider('offline-key', () => ({ models: { generateContent } }));
++    const error = await provider.generateAgent(request, new AbortController().signal).catch(error => error);
++    expect(error).toMatchObject({ kind: 'malformed', outputIssue: issue, message: 'AI provider failure' });
++    expect(JSON.stringify(error)).not.toContain('private-model-output');
++    expect(JSON.stringify(error)).not.toContain('offline-key');
++    expect(generateContent).toHaveBeenCalledTimes(1);
++  });
++  it('identifies a missing text output', async () => {
++    const provider = createGeminiProvider('offline-key', () => ({ models: { generateContent: vi.fn().mockResolvedValue({}) } }));
++    await expect(provider.generateAgent(request, new AbortController().signal))
++      .rejects.toMatchObject({ kind: 'malformed', outputIssue: 'missing_output' });
++  });
++  it('describes runtime bounds and distinct selection in the provider schema', async () => {
++    const generateContent = vi.fn().mockResolvedValue({ text: JSON.stringify(final) });
++    const provider = createGeminiProvider('offline-key', () => ({ models: { generateContent } }));
++    await provider.generateAgent(request, new AbortController().signal);
++    const branch = generateContent.mock.calls[0]![0].config.responseJsonSchema.oneOf[0];
++    expect(branch.properties.summary.description).toContain('1000');
++    expect(branch.properties.recommendation.description).toContain('500');
++    expect(branch.properties.evidence.description).toContain('distinct');
++  });
++  it('exposes only a known diagnostic enum through the real session and GET route', async () => {
++    const generateContent = vi.fn().mockResolvedValueOnce({ text: JSON.stringify({ kind: 'tool_request',
++      name: 'get_decision_evidence', arguments: { focus: 'betting', limit: 10 } }) })
++      .mockResolvedValueOnce({ text: JSON.stringify({ ...final, evidence: [0, 0] }) });
++    const provider = createGeminiProvider('offline-key', () => ({ models: { generateContent } }));
++    const session = new GameSession({ aiProvider: provider,
++      aiConfig: loadAiConfig({ GEMINI_ENABLED: 'true', GEMINI_API_KEY: 'offline-key' }),
++      deck: ['As', 'Kc', 'Ah', 'Kd', ...ac23Deck.slice(4)], deckRandom: sequenceRandom([]),
++      botRandom: sequenceRandom(Array<number>(100).fill(0.9)) });
++    let game = session.create(1);
++    game = session.action({ gameId: game.gameId, handId: game.hand.handId, expectedVersion: game.version, type: 'all_in' });
++    const before = JSON.stringify(game);
++    const app = Fastify({ logger: false }); registerRoutes(app, session); apps.push(app);
++    const started = await app.inject({ method: 'POST', url: '/api/game/coach', payload: {
++      gameId: game.gameId, handId: game.hand.handId, expectedVersion: game.version, goal: { focus: 'betting' } } });
++    for (let i = 0; i < 100; i++) await Promise.resolve();
++    const response = await app.inject(`/api/game/coach/${started.json().run.runId}`);
++    expect(response.statusCode).toBe(200);
++    const parsed = CoachResponseSchema.parse(response.json());
++    expect(parsed.run).toMatchObject({ status: 'failed', failureCategory: 'invalid_structured_response',
++      outputIssue: 'duplicate_evidence', stepCount: 2, providerAttemptCount: 2, toolCallCount: 1, result: null });
++    expect(response.body).not.toContain('offline-key');
++    expect(response.body).not.toContain('finding');
++    expect(JSON.stringify(game)).toBe(before);
++    expect(generateContent).toHaveBeenCalledTimes(2);
++    expect(CoachResponseSchema.safeParse({ run: { ...parsed.run, outputIssue: 'private-model-output' } }).success).toBe(false);
++    expect(CoachResponseSchema.safeParse({ run: { ...parsed.run, failureCategory: 'evidence_rejected' } }).success).toBe(false);
++  });
++});

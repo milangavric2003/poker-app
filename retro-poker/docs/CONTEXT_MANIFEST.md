@@ -1,5 +1,32 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-06 — završni T034/T035 audit
+
+Prioritet: korisničko odobrenje50APIrequests/RPM15/modelFlashLite > istorijsko
+per-run pitanje > AGENTS/constitution/SpecKit artefakti. Jedan agent, bez delegacije.
+GAME_SPEC1.2.2 i feature003 spec/plan/tasks/data-model/HTTP ažurirani stvarnim
+rezultatima. Pre implementacije upisana očekivanja; kasnije dopunjen long-match holdout.
+
+Korišćeni izvori: AGENTS/već pročitani implement skill; staged T034patch/dokazi;
+Gemini adapter, ProviderError, orchestrator/types/session/shared contracts; smoke
+CLI/fixture i novi eval/gate; relevantni agent/Gemini/diagnostic/smoke/gate testovi;
+package/TS/lint/Vitest; lokalni @google/genai2.24.0 responseJsonSchema type opis;
+[zvanična Gemini dokumentacija](https://ai.google.dev/gemini-api/docs/structured-output)
+(proverena2026-10-06, stranica updated2026-09-23). Razlog: proveriti schema podržani
+subset i enum umesto const. Zaključak ograničen dokumentacijom i live uzorkom.
+
+Čitani su safe ledger/run statusi i test/build logovi; .env sadržaj/key/raw odgovori
+nisu pregledani niti sačuvani. Node --env-file učitao je konfiguraciju za48live
+zahteva samo FlashLite, bez model-list poziva, retries ili fallback-a. Ledger
+persistira count među serijskim procesima; nema inter-process lock. Dokaz vremena
+ima ordinale12–48, bez fabrikovanja ranijih11. Poznati tokeni su parcijalni.
+
+Izostavljeno: browser E2E ponavljanje dok postojeći dev frontend koristi isti port,
+novi UI/deploy, spoljni poker izvori, nove zavisnosti i subagenti. Puna offline
+regresija888/888 uključuje UI; live in-process HTTP/adapter/read-only24/24. Puna
+buduća pouzdanost/strateška optimalnost i istorijski raw kind nisu potvrđeni.
+[Komande, rezultati i ograničenja](evidence/003-T035-handoff.md).
+
 ## 2026-10-05 — Week05 Phase 5
 
 Prioritet: korisnikov priloženi Phase 5 zahtev > AGENTS/constitution 1.1.0 >
@@ -571,3 +598,43 @@ Spec/plan/task/GAME_SPEC pre koda: jedan alert/status, safe kategorija i goal he
 Backend validator/adapter/engine nisu menjani; nema tvrdnje popravke modelskih
 odgovora. RED6FAIL/13PASS→GREEN47/47 (prviGREEN lifecycle stale locator),
 E2E3/3,typecheck/lint/build0. T032UX gotov; T027 ostaje otvoren.
+## 2026-10-06 — T033, ponovljeno evidence odbijanje
+
+Prioritet: aktuelni korisnički zahtev > AGENTS/constitution > GAME_SPEC > feature003
+spec/plan/tasks/data-model/HTTP > stvarni kod i testovi > raniji T032 handoff.
+Korišćeni izvori: korisnički pasted chat i dva DTO-a (created i failed), read-only
+GET zadržanog run-a, AGENTS, speckit-implement i speckit-converge instrukcije;
+constitution1.1.0, GAME_SPEC1.2.1 i relevantni FR-011/012/020, feature003 spec/plan/
+tasks/data-model/contracts i checklist12/12, backend Gemini/types/orchestrator/
+validation/tools, shared coach šeme, agent-final/run/Gemini provider testovi,
+fake provider/fixtures, package/ignore/lint i prethodni T032 handoff/AI log.
+Duži kombinovani ispisi su bili skraćeni; ne tvrdi se čitanje svakog bajta svih
+istorijskih logova. research/quickstart ne postoje; prerequisite uspešan nakon
+process-local ExecutionPolicy Bypass i apsolutnog SPECIFY_FEATURE_DIRECTORY.
+extensions.yml ne postoji. Nema subagenata, izmene checklist-a ili novih biblioteka.
+Ključevi/.env, raw model odgovor/prompt, skriveni poker podaci nisu čitani ni čuvani.
+Tačno polje starog odbijanja unknown. Test quote-copy varijante reprodukuje moguć
+mehanizam, ne dokazuje istorijski raw sadržaj. Nova numerisana transportna projekcija
+ostaje samo adapteru; neutralni context/final i final validator ne menjaju se.
+Svi rezultati i ograničenja: [T033 handoff](evidence/003-T033-handoff.md).
+## 2026-10-06 — T034, sačuvana aktivna partija
+
+Korisnički nastavak traži pregled neuspeha bez gubitka partije. Korišćeni AGENTS,
+postojeći implement workflow, terminalni DTO/read-only GET i safe usage agregat,
+Gemini adapter/ProviderError/orchestrator/session/app/routes, shared coach šeme,
+package/scripts, Vitest/TS/Vite/lint konfiguracija, provider i route testovi/fixtures,
+feature tasks i prethodni T033 kontekst. SDK2.24.0 lokalni type documentation
+za responseJsonSchema pročitana radi podržanih keywords. Nema novih zavisnosti
+ili pretraživanja web-a; .env/key/raw model output nisu čitani.
+Testirana zasebna kopija samo relevantnih source/test/config direktorijuma.
+Nema izmene runtime fajlova, browser/live poziva ili subagenata. Future outputIssue
+je enum bez raw payload-a. Tačno polje starog malformed-a unknown; ne pripisuje se
+hipoteza kao potvrđen uzrok. [Priprema i ograničenja](evidence/003-T034-prepared.md).
+## 2026-10-06 — T034 primena / T035 live budžet
+
+Aktuelno odobrenje korisnika: do50individualrequests, RPM15, modelFlashLite; screenshot
+pokazuje18/15 trenutnihRPM. To ima prioritet nad ranijim per-runapproval pravilom.
+Pre rada pročitani AGENTS, prethodni T034review/patch, coach-smoke/live CLI, config
+allowlist; postojeći SpecKitimplement/constitution/gate ostaju iz istog razgovora.
+Novi plan/spec/tasks/GAME_SPEC zapisani pre runner koda. Kontekst dopunjavati samo
+stvarnim rezultatima; nema subagenata, key/raw vrednosti ili privatnog chain-of-thought.

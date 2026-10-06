@@ -1,0 +1,4026 @@
+{
+  "summary": {
+    "model": "gemini-3.5-flash-lite",
+    "authorizedRequests": 50,
+    "requests": 48,
+    "runs": 24,
+    "batches": {
+      "baseline": {
+        "runs": 6,
+        "completed": 4,
+        "requests": 12,
+        "failures": {
+          "transport_shape": 2
+        }
+      },
+      "diagnosis": {
+        "runs": 9,
+        "completed": 7,
+        "requests": 18,
+        "failures": {
+          "invalid_kind": 2
+        }
+      },
+      "enum-retest": {
+        "runs": 9,
+        "completed": 9,
+        "requests": 18,
+        "failures": {}
+      }
+    },
+    "readOnlyPreservedRuns": 24,
+    "retryCount": 0,
+    "fallbackCount": 0,
+    "rateLimitedAttempts": 0,
+    "timeoutAttempts": 0,
+    "tokens": {
+      "knownTotalTokens": 22927,
+      "knownAttempts": 44,
+      "missingAttempts": 4,
+      "completeTotal": null,
+      "cost": null
+    },
+    "rateEvidence": {
+      "recordedOrdinals": [
+        12,
+        48
+      ],
+      "recordedDispatches": 37,
+      "minimumIntervalMs": 6000,
+      "maximumDispatchesInRolling60Seconds": 10,
+      "limitation": "Dispatch timestamps for ordinals 1-11 were not recorded; spacing for them is enforced by the tested gate."
+    }
+  },
+  "reports": [
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "a2927858-580c-4138-a3ee-c7d25028c0e8",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 17909,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 17846,
+          "maxMs": 17846
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 9490,
+              "maxMs": 9490
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 75
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 49
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 124
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 8349,
+              "maxMs": 8349
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 436
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 191
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 627
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "baseline",
+      "batchRun": 1,
+      "budgetUsed": 2
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "c365ca7c-741a-4846-ba7d-37534c4846a5",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 16860,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 16821,
+          "maxMs": 16821
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 11839,
+              "maxMs": 11839
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 4980,
+              "maxMs": 4980
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 440
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 181
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 621
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "baseline",
+      "batchRun": 2,
+      "budgetUsed": 4
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "4e27ccdf-292f-49ce-abce-83dc7a0e4f64",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 4
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 4,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 10515,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 10476,
+          "maxMs": 10476
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1689,
+              "maxMs": 1689
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 8785,
+              "maxMs": 8785
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 438
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 173
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 611
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "baseline",
+      "batchRun": 3,
+      "budgetUsed": 6
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": false,
+      "stage": "verify-final",
+      "reason": "verification_failed",
+      "model": "gemini-3.5-flash-lite",
+      "runId": "ff094221-e83d-42d9-988b-c49a14c50350",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 4,
+      "toolDecisionCount": 4,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "failed",
+      "stopReason": "malformed_output",
+      "failureCategory": "invalid_structured_response",
+      "outputIssue": "transport_shape",
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": false,
+      "evidenceCount": 0,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7959,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 3,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "malformed_output",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7917,
+          "maxMs": 7917
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 985,
+              "maxMs": 985
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 75
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 49
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 124
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "malformed",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6931,
+              "maxMs": 6931
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "candidateTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "baseline",
+      "batchRun": 4,
+      "budgetUsed": 8
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "a8f47d8b-1c72-4bde-b566-333d3024e05c",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 2,
+      "toolDecisionCount": 2,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 7
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 7,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 11025,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 10991,
+          "maxMs": 10991
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 3909,
+              "maxMs": 3909
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 7079,
+              "maxMs": 7079
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 673
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 215
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 888
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "baseline",
+      "batchRun": 5,
+      "budgetUsed": 10
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": false,
+      "stage": "verify-final",
+      "reason": "verification_failed",
+      "model": "gemini-3.5-flash-lite",
+      "runId": "2f0c592d-ddb1-4c76-819d-2a36c06cbecc",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 4,
+      "toolDecisionCount": 4,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "failed",
+      "stopReason": "malformed_output",
+      "failureCategory": "invalid_structured_response",
+      "outputIssue": "transport_shape",
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": false,
+      "evidenceCount": 0,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7524,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 3,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "malformed_output",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7509,
+          "maxMs": 7509
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 4174,
+              "maxMs": 4174
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "malformed",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 3334,
+              "maxMs": 3334
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "candidateTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "baseline",
+      "batchRun": 6,
+      "budgetUsed": 12
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "e1b48ddb-dbae-42e1-9a02-0796ea356515",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 4
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 4,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7586,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7530,
+          "maxMs": 7530
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1221,
+              "maxMs": 1221
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 75
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 25
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 100
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6301,
+              "maxMs": 6301
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 434
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 173
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 607
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 1,
+      "budgetUsed": 14
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "b0c66f12-60e0-45f0-9e28-613ba73a425a",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7502,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7484,
+          "maxMs": 7484
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 934,
+              "maxMs": 934
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 26
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 102
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6548,
+              "maxMs": 6548
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 439
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 179
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 618
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 2,
+      "budgetUsed": 16
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": false,
+      "stage": "verify-final",
+      "reason": "verification_failed",
+      "model": "gemini-3.5-flash-lite",
+      "runId": "b53dfc15-4352-4f9d-9bf0-f143f7a1dba1",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "failed",
+      "stopReason": "malformed_output",
+      "failureCategory": "invalid_structured_response",
+      "outputIssue": "invalid_kind",
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": false,
+      "evidenceCount": 0,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7540,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 3,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "malformed_output",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7517,
+          "maxMs": 7517
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 978,
+              "maxMs": 978
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "malformed",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6537,
+              "maxMs": 6537
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "candidateTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 3,
+      "budgetUsed": 18
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": false,
+      "stage": "verify-final",
+      "reason": "verification_failed",
+      "model": "gemini-3.5-flash-lite",
+      "runId": "f7a7c35d-d0f7-4ea6-99ee-3a654dba21fa",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 4,
+      "toolDecisionCount": 4,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "failed",
+      "stopReason": "malformed_output",
+      "failureCategory": "invalid_structured_response",
+      "outputIssue": "invalid_kind",
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": false,
+      "evidenceCount": 0,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7649,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 3,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "malformed_output",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7638,
+          "maxMs": 7638
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1538,
+              "maxMs": 1538
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 75
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 49
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 124
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "malformed",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6098,
+              "maxMs": 6098
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "candidateTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 4,
+      "budgetUsed": 20
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "e2abdd36-335c-476b-b281-62a0fd52719b",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 2,
+      "toolDecisionCount": 2,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 3
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 3,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7627,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7588,
+          "maxMs": 7588
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 911,
+              "maxMs": 911
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6675,
+              "maxMs": 6675
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 675
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 231
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 906
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 5,
+      "budgetUsed": 22
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "ca859f93-97af-44d1-998d-a2b5183ddf07",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 4,
+      "toolDecisionCount": 4,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 8
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 8,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7629,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7600,
+          "maxMs": 7600
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1002,
+              "maxMs": 1002
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6597,
+              "maxMs": 6597
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1134
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 226
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1360
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 6,
+      "budgetUsed": 24
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "5774703b-ca58-44f2-8d9f-0d69f1bc025b",
+      "scenario": "long-match",
+      "fixtureVerified": true,
+      "availableDecisionCount": 12,
+      "toolDecisionCount": 5,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7605,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7548,
+          "maxMs": 7548
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1144,
+              "maxMs": 1144
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 49
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 125
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6402,
+              "maxMs": 6402
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1384
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 200
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1584
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 7,
+      "budgetUsed": 26
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "499a5887-376a-4af2-9b9a-c0550aba1864",
+      "scenario": "long-match",
+      "fixtureVerified": true,
+      "availableDecisionCount": 3,
+      "toolDecisionCount": 3,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 6
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 6,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7578,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7543,
+          "maxMs": 7543
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1006,
+              "maxMs": 1006
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6535,
+              "maxMs": 6535
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 914
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 169
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1083
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 8,
+      "budgetUsed": 28
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "abf75a15-dd91-4ccd-b689-951bf9a194cd",
+      "scenario": "long-match",
+      "fixtureVerified": true,
+      "availableDecisionCount": 12,
+      "toolDecisionCount": 5,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 7
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 7,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7632,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7590,
+          "maxMs": 7590
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 895,
+              "maxMs": 895
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 77
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 26
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 103
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6693,
+              "maxMs": 6693
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1390
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 229
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1619
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "diagnosis",
+      "batchRun": 9,
+      "budgetUsed": 30
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "9aa13e82-fd31-4981-9dea-6e71779615d7",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7593,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7528,
+          "maxMs": 7528
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 993,
+              "maxMs": 993
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 75
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 25
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 100
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6529,
+              "maxMs": 6529
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 438
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 164
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 602
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 1,
+      "budgetUsed": 32
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "2040449c-6c53-4da4-bd2a-34400be1aa2c",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 4
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 4,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7454,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7419,
+          "maxMs": 7419
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 996,
+              "maxMs": 996
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6420,
+              "maxMs": 6420
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 440
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 158
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 598
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 2,
+      "budgetUsed": 34
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "ae8bbfe8-646c-40ac-a3b1-d81c0463b933",
+      "scenario": "single-all-in",
+      "fixtureVerified": true,
+      "availableDecisionCount": 1,
+      "toolDecisionCount": 1,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 4
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 4,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7268,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7236,
+          "maxMs": 7236
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1001,
+              "maxMs": 1001
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6233,
+              "maxMs": 6233
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 437
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 140
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 577
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 3,
+      "budgetUsed": 36
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "1a5978c3-dc88-40b5-80df-a50c2363f434",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 4,
+      "toolDecisionCount": 4,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 4
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 4,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7572,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7536,
+          "maxMs": 7536
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 1000,
+              "maxMs": 1000
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 75
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 33
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 108
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6534,
+              "maxMs": 6534
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1140
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 207
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1347
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 4,
+      "budgetUsed": 38
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "55591a2a-10a0-4651-a9e7-d8dee069fe77",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 2,
+      "toolDecisionCount": 2,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 3
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 3,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7666,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7635,
+          "maxMs": 7635
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 954,
+              "maxMs": 954
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6680,
+              "maxMs": 6680
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 673
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 195
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 868
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 5,
+      "budgetUsed": 40
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "105cd29d-91bd-4067-8e77-05fd633b3230",
+      "scenario": "street-review",
+      "fixtureVerified": true,
+      "availableDecisionCount": 4,
+      "toolDecisionCount": 4,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 4
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 4,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7683,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7658,
+          "maxMs": 7658
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 993,
+              "maxMs": 993
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 50
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 126
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6664,
+              "maxMs": 6664
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1134
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 199
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1333
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 6,
+      "budgetUsed": 42
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "1e39e9c8-6030-4167-a751-f3a191ff7e4c",
+      "scenario": "long-match",
+      "fixtureVerified": true,
+      "availableDecisionCount": 12,
+      "toolDecisionCount": 5,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "street"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7443,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7391,
+          "maxMs": 7391
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 924,
+              "maxMs": 924
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 25
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 101
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6464,
+              "maxMs": 6464
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1380
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 201
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1581
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 7,
+      "budgetUsed": 44
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "b13d2f56-6ab5-465a-b763-25d7e204992a",
+      "scenario": "long-match",
+      "fixtureVerified": true,
+      "availableDecisionCount": 3,
+      "toolDecisionCount": 3,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 9
+        }
+      ],
+      "goal": {
+        "focus": "betting"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 9,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7579,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7558,
+          "maxMs": 7558
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 964,
+              "maxMs": 964
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 76
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 34
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 110
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6592,
+              "maxMs": 6592
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 905
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 198
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1103
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 8,
+      "budgetUsed": 46
+    },
+    {
+      "event": "coach-smoke",
+      "executed": true,
+      "passed": true,
+      "stage": "completed",
+      "reason": null,
+      "model": "gemini-3.5-flash-lite",
+      "runId": "e2451f6a-9c93-4ae1-b1e8-d76483e78bd7",
+      "scenario": "long-match",
+      "fixtureVerified": true,
+      "availableDecisionCount": 12,
+      "toolDecisionCount": 5,
+      "modelSteps": [
+        {
+          "stepOrdinal": 1,
+          "kind": "tool_request"
+        },
+        {
+          "stepOrdinal": 2,
+          "kind": "final",
+          "completed": true,
+          "evidenceCount": 5
+        }
+      ],
+      "goal": {
+        "focus": "showdown"
+      },
+      "maxRuns": 1,
+      "maxProviderCalls": 2,
+      "providerAttemptTimeoutMs": 15000,
+      "totalDeadlineMs": 45000,
+      "status": "completed",
+      "stopReason": "completed",
+      "failureCategory": null,
+      "stepCount": 2,
+      "providerCallCount": 2,
+      "toolCallCount": 1,
+      "finalValidated": true,
+      "evidenceCount": 5,
+      "readOnlySnapshotPreserved": true,
+      "durationMs": 7669,
+      "usage": {
+        "runCount": 1,
+        "stepCount": 2,
+        "providerAttemptCount": 2,
+        "toolAttemptCount": 1,
+        "toolExecutionCount": 1,
+        "toolRejectionCount": 0,
+        "validationCount": 5,
+        "validationRejectedCount": 0,
+        "retryCount": 0,
+        "modelFallbackCount": 0,
+        "stopReasons": [
+          {
+            "reason": "completed",
+            "count": 1
+          }
+        ],
+        "latency": {
+          "count": 1,
+          "sumMs": 7646,
+          "maxMs": 7646
+        },
+        "attempts": [
+          {
+            "stepOrdinal": 1,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 868,
+              "maxMs": 868
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 77
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 26
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 103
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          },
+          {
+            "stepOrdinal": 2,
+            "model": "gemini-3.5-flash-lite",
+            "relation": "initial",
+            "outcome": "success",
+            "count": 1,
+            "latency": {
+              "count": 1,
+              "sumMs": 6776,
+              "maxMs": 6776
+            },
+            "usage": {
+              "promptTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1380
+              },
+              "candidateTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 178
+              },
+              "thoughtTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "cachedTokens": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": 0
+              },
+              "totalTokens": {
+                "knownCount": 1,
+                "missingCount": 0,
+                "sum": 1558
+              },
+              "cost": {
+                "knownCount": 0,
+                "missingCount": 1,
+                "sum": null,
+                "currency": null
+              }
+            }
+          }
+        ]
+      },
+      "label": "enum-retest",
+      "batchRun": 9,
+      "budgetUsed": 48
+    }
+  ],
+  "dispatches": [
+    {
+      "ordinal": 12,
+      "at": 1791245415209
+    },
+    {
+      "ordinal": 13,
+      "at": 1791245523442
+    },
+    {
+      "ordinal": 14,
+      "at": 1791245529445
+    },
+    {
+      "ordinal": 15,
+      "at": 1791245535452
+    },
+    {
+      "ordinal": 16,
+      "at": 1791245541464
+    },
+    {
+      "ordinal": 17,
+      "at": 1791245547480
+    },
+    {
+      "ordinal": 18,
+      "at": 1791245553485
+    },
+    {
+      "ordinal": 19,
+      "at": 1791245559507
+    },
+    {
+      "ordinal": 20,
+      "at": 1791245565514
+    },
+    {
+      "ordinal": 21,
+      "at": 1791245571537
+    },
+    {
+      "ordinal": 22,
+      "at": 1791245577548
+    },
+    {
+      "ordinal": 23,
+      "at": 1791245583562
+    },
+    {
+      "ordinal": 24,
+      "at": 1791245589573
+    },
+    {
+      "ordinal": 25,
+      "at": 1791245595604
+    },
+    {
+      "ordinal": 26,
+      "at": 1791245601608
+    },
+    {
+      "ordinal": 27,
+      "at": 1791245607628
+    },
+    {
+      "ordinal": 28,
+      "at": 1791245613628
+    },
+    {
+      "ordinal": 29,
+      "at": 1791245619656
+    },
+    {
+      "ordinal": 30,
+      "at": 1791245625663
+    },
+    {
+      "ordinal": 31,
+      "at": 1791245665223
+    },
+    {
+      "ordinal": 32,
+      "at": 1791245671226
+    },
+    {
+      "ordinal": 33,
+      "at": 1791245677245
+    },
+    {
+      "ordinal": 34,
+      "at": 1791245683252
+    },
+    {
+      "ordinal": 35,
+      "at": 1791245689265
+    },
+    {
+      "ordinal": 36,
+      "at": 1791245695274
+    },
+    {
+      "ordinal": 37,
+      "at": 1791245701286
+    },
+    {
+      "ordinal": 38,
+      "at": 1791245707288
+    },
+    {
+      "ordinal": 39,
+      "at": 1791245713297
+    },
+    {
+      "ordinal": 40,
+      "at": 1791245719303
+    },
+    {
+      "ordinal": 41,
+      "at": 1791245725323
+    },
+    {
+      "ordinal": 42,
+      "at": 1791245731336
+    },
+    {
+      "ordinal": 43,
+      "at": 1791245737365
+    },
+    {
+      "ordinal": 44,
+      "at": 1791245743365
+    },
+    {
+      "ordinal": 45,
+      "at": 1791245749387
+    },
+    {
+      "ordinal": 46,
+      "at": 1791245755392
+    },
+    {
+      "ordinal": 47,
+      "at": 1791245761408
+    },
+    {
+      "ordinal": 48,
+      "at": 1791245767420
+    }
+  ]
+}

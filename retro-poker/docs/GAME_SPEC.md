@@ -1,6 +1,6 @@
 # GAME_SPEC — Retro Poker
 
-Verzija: 1.2.1 · Datum: 2026-10-05 · Faza: Week03 + Week04 + odobreni Week05 scope addendum
+Verzija: 1.2.2 · Datum: 2026-10-06 · Faza: Week03 + Week04 + odobreni Week05 scope addendum
 
 Status: Week03 specifikacija sa Week04 i Week05 scope amandmanima. Week04 implementacija
 je zabeležena u [evidence](EVIDENCE_003.md) i [feature 002 task listi](../specs/002-week04-ai-integration/tasks.md).
@@ -372,3 +372,25 @@ Lokalni nastavni materijali nisu nužno deo Git checkout-a; ovaj dokument i proj
 T030 audit potvrđuje da četiri navedena istorijska Week03/Week04 materijala nedostaju
 u ovom checkout-u; putanje su sačuvane kao poreklo, bez nevažećih klikabilnih linkova.
 Usvojeni zahtevi ostaju u ovom GAME_SPEC-u i verzionisanim feature001/002 artefaktima.
+## Coaching transport — T033, 2026-10-06
+
+Gemini bira dokaze iz validiranog read-only alata preko numerisanih činjenica;
+backend prenosi originalne reference i finding tekst u postojeći final ugovor.
+Strict provera i tačno članstvo dokaza ostaju obavezni. Model ne može proizvoljno
+prepisati finding u ovom transportu; nepoznati/dupli izbori i nevalidna completion
+se odbijaju. Budžeti, terminalni statusi, UI/API i poker pravila ostaju isti.
+## T034/T035 — precizna dijagnostika i odobrena live provera
+
+Opcioni outputIssue je safe enum za invalid_structured_response, bez model teksta.
+Korisnik2026-10-06odobrio samostalne popravke i do50pojedinačnih Gemini zahteva,
+isključivo gemini-3.5-flash-lite. To zamenjuje stariju obavezu pojedinačnog pitanja
+pre svakog live run-a u okviru ovog rada. Lokalni gate je serijski,≥6000ms između
+dispatch-a, hard cap50 kroz isti ledger; kvota korisnika RPM15, SDK retries/fallback
+isključeni. Sintetički eval ne dodaje produkciono debug API, ne menja igru, ne slabi
+tool/final validaciju i ne dokazuje stratešku optimalnost ili odsustvo svih grešaka.
+
+Gemini šema u oba coaching koraka izražava string/number literale singleton enum-om;
+neutralni ugovor i runtime provere ostaju nepromenjeni. Nevalidan kind se odbija,
+uz safe outputIssue dijagnozu. Primenjeni T034/T035:48zahteva/24run-a, poslednja
+matrica3cilja×3scenarija9/9completed; read-only24/24. Ovo je ograničen dokaz,
+ne garancija budućih generacija. [Rezultati](evidence/003-T035-handoff.md).

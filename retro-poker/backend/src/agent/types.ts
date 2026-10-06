@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { CoachModelStepSchema, type CoachGoal, type CoachRunView, type DecisionEvidenceResult } from '../../../shared/contracts.js';
+import { CoachModelStepSchema, type CoachGoal, type CoachRunView, type CoachOutputIssue,
+  type DecisionEvidenceResult } from '../../../shared/contracts.js';
 import type { AgentProvider, AiClock, AiJitter, AttemptOutcome, AttemptRelation, ProviderUsage } from '../ai/types.js';
 import type { TerminalFactsSnapshot, ToolControls } from './tools.js';
 
@@ -22,6 +23,7 @@ export interface AgentRunState extends AgentFingerprint {
   attempts: AgentAttempt[];
   toolAttemptCount: number; toolRejectionCount: number;
   validationCount: number; validationRejectedCount: number; finishedAt: number | null;
+  outputIssue?: CoachOutputIssue;
 }
 export interface AgentLimits {
   maxSteps: number; maxToolCalls: number; maxProviderAttempts: number;
