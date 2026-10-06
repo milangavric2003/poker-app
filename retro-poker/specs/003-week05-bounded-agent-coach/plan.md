@@ -264,3 +264,24 @@ validaciju. Ista matrica9run-ova pre/posle:7/9→9/9. Ukupno48zahteva; gate
 6000ms,0retry/fallback,0rate/timeouts. Long-match3ruke/12odluka nezavisan je holdout.
 Puna regresija888/888, typecheck/lint/build0. Browser E2E nije ponovljen; korisnički
 dev port je zauzet. [Konačni handoff](../../docs/evidence/003-T035-handoff.md).
+
+## T036 — plan stabilizacije Vitest-a, 2026-10-07
+
+Korisnik odobrava samo tačku 1 na zajedničkoj grani za buduće review popravke.
+Signal nezavisnog pregleda: 877 prolaza uz worker-start grešku, uključujući
+single-worker pokušaj. Uzrok još nije poznat. Lokalni prethodni dokaz je 888/888.
+Prvo zabeležiti neizmenjenu punu proveru i okruženje, zatim po nalazu proveriti
+projekat/pool/startup i cleanup. Test ponašanja proizvoda se ne menja radi runner-a.
+Ako se menja samo konfiguracija, postojeća puna suite je pre/posle oracle;
+infrastrukturni neuspeh nije izmišljeni behavior RED. Završni kriterijum su tri
+uzastopna puna exit-0 run-a bez grešaka runner-a, isti obuhvat i statičke provere.
+Istorijski kvar koji nije reprodukovan ostaje jasno ograničenje. E2E i CI su van
+ovog taska; nema provider poziva, novih dependencies ili automatskog Git publish-a.
+
+T036 dijagnostika: neizmenjeni full888/888, Node781/781 i UI107/107 prolaze.
+Instalirani Vitest5.0.1 resolveMaxWorkers bez konfiguracije koristi CPU-1,
+ovde15; worker-start rok je poseban interni90s, nije testTimeout. CLI proba
+maxWorkers=4 daje888/888. Minimalna izmena je zajednički cap
+Math.min(4, availableParallelism()) u vitest.config.ts. Pool/fajl izolacija,
+timeout-i, retry i skup testova ostaju isti. Ovo je preventivno ograničenje
+resursa, ne potvrđen uzrok istorijskog pada (single-worker nalaz ga ne dokazuje).

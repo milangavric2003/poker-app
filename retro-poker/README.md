@@ -30,6 +30,15 @@ npm.cmd run lint
 npm.cmd run build
 ```
 
+Vitest deli najviše 4 worker-a između Node i UI projekata (ili manje, prema
+dostupnom broju CPU). Ograničenje smanjuje istovremeno pokretanje procesa i jsdom
+okruženja; izolacija test fajlova i postojeći timeout-i ostaju podrazumevani.
+Worker/unhandled greška znači neuspešnu proveru čak i kada pojedinačni testovi
+prođu. Nema automatskog ponavljanja neuspele suite.
+Za dijagnostiku: `npm.cmd test -- --project=node`,
+`npm.cmd test -- --project=ui` ili `npm.cmd test -- --maxWorkers=1 --reporter=verbose`.
+[T036 rezultati i ograničenja](docs/evidence/003-T036-handoff.md).
+
 Fokusirane provere:
 ```powershell
 npm.cmd test -- tests/integration/session.test.ts

@@ -459,3 +459,25 @@ GREEN137/137fokus; puna regresija888/888u61fajlu, typecheck/lint/build0.
 Nema browser E2E ponavljanja u ovoj sesiji; UI testovi uključeni u regresiju.
 [Izveštaj i ograničenja](../../docs/evidence/003-T035-handoff.md),
 [safe live dokaz](../../docs/evidence/003-T035-live.json). T027 ljudski walkthrough je zatvoren potvrđenim handoff-om.
+
+## T036 — stabilnost pune Vitest provere, 2026-10-07
+
+- [x] T036 (trenutni coding agent; korisnik pregleda pre commit-a) — tačka 1
+  korisnikovog plana poboljšanja ocene, FR-023 i GAME_SPEC §14 ponovljivost;
+  deps T035. Baseline: main c73ae8c, grana fix/week05-review-improvements.
+  Allowed: vitest.config.ts, test setup/helper samo po dokazanom uzroku,
+  README.md, feature plan/tasks, CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05,
+  docs/evidence/003-T036-*.
+  Prvo sačuvati postojeći puni run, verzije, stderr i exit status; razdvojiti
+  Node/UI dijagnostiku po potrebi. Najmanja opravdana izmena bez preskakanja
+  testova, automatskog retry-ja ili slabijih assertion-a. Kriterijum: tri
+  uzastopna puna prolaza, bez worker/unhandled grešaka, i relevantne statičke
+  provere. Ako istorijski worker kvar nije reprodukovan, to izričito navesti;
+  konfiguracionu prevenciju ne predstavljati kao dokaz njegovog uzroka.
+  E2E/recovery, CI, opšti dokumentacioni audit i quality eval ostaju naredne
+  tačke. Bez live poziva, commit-a ili push-a pre korisnikove potvrde.
+
+T036 lokalni kriterijum ispunjen: zajednički cap do4worker-a; tri uzastopna
+run-a888/888u61fajlu, exit0, typecheck/lint0. Istorijski worker-start kvar nije
+reprodukovan ni pre izmene; cap je preventivna mera, ne potvrđen root cause fix.
+[Dijagnostika, logovi i ograničenja](../../docs/evidence/003-T036-handoff.md).

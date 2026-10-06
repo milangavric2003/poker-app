@@ -681,3 +681,21 @@ Pre rada pročitani AGENTS, prethodni T034review/patch, coach-smoke/live CLI, co
 allowlist; postojeći SpecKitimplement/constitution/gate ostaju iz istog razgovora.
 Novi plan/spec/tasks/GAME_SPEC zapisani pre runner koda. Kontekst dopunjavati samo
 stvarnim rezultatima; nema subagenata, key/raw vrednosti ili privatnog chain-of-thought.
+
+## 2026-10-07 — T036 Vitest stabilnost
+
+Prioritet: korisnikov zahtev za samo tačku 1, AGENTS, constitution, GAME_SPEC §14,
+feature 003 plan/tasks i FR-023. Pročitani lokalni speckit-implement workflow,
+requirements checklist (12/12), prerequisite script, Vitest/package/lockfile
+metapodaci, README i ignore/lint konfiguracija. Prethodni pregled obuhvatio je
+assignment/addendum i T035 evidence. Baseline c73ae8c; Node24.20.0/npm11.19.0,
+Windows x64, 16 dostupnih CPU, oko32GiB RAM. Nema extensions.yml; prerequisites
+prolaze uz eksplicitni feature direktorijum. Zadatak ne zahteva ponovni pregled
+poker engine-a, API ugovora ili live modela. Rizik: nezavisni worker-start nalaz
+može zavisiti od drugog okruženja; bez reprodukcije ne tvrditi potvrđen uzrok.
+
+Za dijagnozu dodatno pročitani instalirani Vitest5.0.1 resolveMaxWorkers,
+worker-start limit i CLI/type deklaracije; relevantni delovi test helper-a i
+smoke/live-eval offline testova, tsconfig. Lokalni izvor potvrđuje defaultCPU-1
+i odvojeni90sstartup limit; nije menjana zavisnost. Puna suite proverava oba
+projekta zajedno. Rezultati, konkretna promena i granice su u T036 handoff-u.

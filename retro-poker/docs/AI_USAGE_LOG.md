@@ -491,3 +491,16 @@ Runtime izmena NIJE primenjena; ista partija/run potvrđeni završnim GET-om.
 Fake suite pozivi nisu instrumentirani; broj testova nije broj modelskih poziva.
 Nema tvrdnje da je novi live problem generisanja rešen, nema ljudskog review-a.
 [Konkretan patch/handoff](evidence/003-T034-prepared.md).
+
+## 2026-10-07 — T036 Vitest stabilnost
+
+Korisnik odobrio zajedničku granu i samo tačku1, uz pregled pre commit/push-a.
+Jedan coding agent, bez subagenata; coding model/tokeni/cena nisu zasebno mereni.
+Očekivanje: dijagnoza worker-start nalaza i tri puna prolaza bez slabijih testova.
+Neizmenjeni baseline888/888 i oba projekta prolaze, pa istorijski kvar nije
+reprodukovan. Agent predložio preventivni zajednički cap do4worker-a na osnovu
+lokalnog VitestCPU-1default-a; CLI proba i tri finalna888/888run-a prolaze,
+typecheck/lint0. Nema dokaza da je to uzrok/fix istorijskog single-worker kvara.
+Novi live provider pozivi0; offline fake pozivi nisu prebrojani. Korisnikov
+review još nije potvrđen; commit/push i tačke2–5 nisu izvršeni.
+[Rezultati i ograničenja](evidence/003-T036-handoff.md).

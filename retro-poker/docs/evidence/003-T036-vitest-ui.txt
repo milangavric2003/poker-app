@@ -1,0 +1,15 @@
+
+> retro-poker@0.1.0 test
+> vitest run --project=ui
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+
+ Test Files  10 passed (10)
+      Tests  107 passed (107)
+   Start at  00:02:12
+   Duration  4.77s (environment 53%, tests 29%, import 14%, transform 3%)
+
+
+EXIT_CODE=0

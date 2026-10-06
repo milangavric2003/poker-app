@@ -1,5 +1,13 @@
 # Week05 — bounded read-only coach
 
+## T036 — lokalna Vitest ponovljivost, 2026-10-07
+
+Na grani `fix/week05-review-improvements` uveden je zajednički cap do 4 worker-a.
+Tri uzastopna puna run-a daju 888/888 u 61 fajlu, exit 0, bez worker/unhandled
+grešaka; typecheck i lint prolaze. Neizmenjeni baseline takođe prolazi: istorijski
+worker-start nalaz nije reprodukovan, pa uzrok ostaje nepotvrđen. E2E i clean CI
+provera ostaju zasebne naredne tačke. [Logovi i ograničenja](evidence/003-T036-handoff.md).
+
 ## Ljudska proba i walkthrough — završeno 2026-10-06
 
 Korisnik je potvrdio da su on i kolega zajedno probali aplikaciju i obojica prošli
