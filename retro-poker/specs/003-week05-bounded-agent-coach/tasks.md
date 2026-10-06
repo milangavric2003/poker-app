@@ -179,6 +179,12 @@ Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
   live dokaz je zaseban T030 prema assignment §31 i korisnikovom odobrenju;
   runner ne potvrđuje ljudski walkthrough ni prihvatanje handoff-a.
 
+Završna tehnička provera posle T032 je zabeležena u
+[`docs/evidence/003-final-verification-2026-10-05.txt`](../../docs/evidence/003-final-verification-2026-10-05.txt):
+830/830 unit/contract/integration/UI testova, 13/13 Playwright testova, typecheck,
+lint, build i `git diff --check` bez prikazane greške. Ovaj zapis dopunjuje T024–T026
+evidence; ne zatvara T027 jer ne dokazuje ljudski walkthrough i doprinose oba člana.
+
 ## Coverage index
 
 | Requirement group | Tasks/tests |

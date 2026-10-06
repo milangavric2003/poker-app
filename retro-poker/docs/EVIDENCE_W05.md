@@ -356,3 +356,20 @@ Nakon završetka netstat nema LISTENING na5173/3001; vraćen normalni npm run de
 FrontendHTTP200, backendreachable=true/hasGame=false; stara memorijska partija/run
 nisu dostupni. Nije pokrenut novi coaching/retry/live. T027 ostaje odložen.
 [Handoff](evidence/003-T032-handoff.md), [audit](evidence/003-T032-audit.txt).
+
+## Završna tehnička provera posle T032 — 2026-10-05
+
+Korisnik je ručno ponovio završni tehnički gate. Stvarni izlaz i ograničenja su u
+[003-final-verification-2026-10-05.txt](evidence/003-final-verification-2026-10-05.txt).
+
+- `npm.cmd test`: 58 test fajlova i 830 testova prošlo; trajanje 18.81 s.
+- `npm.cmd run test:e2e`: 13/13 Playwright testova prošlo sa jednim worker-om.
+- `npm.cmd run typecheck`: komanda se završila bez prikazane greške.
+- `npm.cmd run lint`: ESLint se završio bez prikazane greške.
+- `npm.cmd run build`: Vite je transformisao 121 modul, bez prikazane greške.
+- `git diff --check`: bez prikazane greške.
+
+Za typecheck, lint, build i `git diff --check` korisnik nije dostavio numerički exit
+status; zapis zato ne pretvara povratak PowerShell prompta u eksplicitnu exit-0 tvrdnju.
+Ova provera ne zatvara T027: nema novog live poziva, clean `npm ci`, screen-reader/axe
+provere niti potvrđenog ljudskog walkthrough-a i doprinosa oba člana.
