@@ -36,8 +36,8 @@ T030 runner i jedan live ishod su dodati na HEAD `57198a7`; live završava
 `insufficient_evidence`; T031 na commitovanom T030 HEAD-u `bdf33c3` sada ima uspešan
 odobreni live #2 sa validiranim finalom. Detalji u T030/T031 odeljcima i
 [aktuelnom handoff-u](evidence/003-T031-handoff.md).
-Brojke/logovi T024–T027 ispod opisuju prvobitni Phase 5 rad (live 0), nisu
-prepisani novim izvršenjima. Week05 puna predaja još nije potvrđena.
+Brojke/logovi T024–T027 ispod opisuju prvobitni Phase 5 rad; aktuelni status i
+završna potvrda nalaze se u uvodnim odeljcima ovog dokumenta.
 
 ## Funkcija i korisnička vrednost
 
@@ -233,7 +233,7 @@ faze,engine pravila,dependency-ja,UI funkcije ili provider porodice.
 | Codex,jedan coding agent | Audit,kod/test review,T024/T025komande,T028/T029male korekcije,ovaj paket | Ljudski doprinos/razumevanje,peer potpis ili live uspeh |
 
 Owner A/B checkbox nije dokaz rada te osobe. Nedostaju stvarni Week05izveštaji oba
-člana i nezavisno objašnjenje toka; to ostaje otvoreno T027. Source/test/evidence
+člana i nezavisno objašnjenje toka; to je naknadno potvrđeno u završnom T027 handoff-u. Source/test/evidence
 putanje omogućavaju ponavljanje offline dokaza. Stvarna ljudska predaja/primanje
 nisu potvrđeni; prepared handoff nije potpis.
 
@@ -242,7 +242,7 @@ drugom članu isti offline dokaz. T027 i dalje zahteva stvarnu ljudsku potvrdu.
 
 Završni [gate i potpuna lista 39 izmenjenih/novih fajlova](evidence/003-T027-final-gate.txt):
 17 dokumenata, 216 lokalnih links/anchors, 0 grešaka; mapa 25/25 FR;
-allowed-path i secret-pattern audit exit 0, jedini otvoreni task T027.
+allowed-path i secret-pattern audit exit 0; tada je T027 još čekao ljudsku potvrdu.
 Posle dodavanja finalnih evidence linkova isti link audit ima 218 lokalnih linkova,
 0 grešaka, exit 0; poslednji scope/status i `git diff --check` takođe exit 0.
 Prvi `git diff --check` exit 2 zbog novog Markdown hard-break whitespace-a;
@@ -311,7 +311,7 @@ izlaza/Node start-a i prekinuto; fokus/trace uspešno izvršeni izvan sandbox-a.
 Get-CimInstance odbijen (Access denied); nije runtime RED. Neuspeli rani pokušaj
 čitanja još nenastalog trace loga ispravljen stvarnim kasnijim logom.
 
-T030 završava runner i istinito zabeležen live ishod. T031 ostaje otvoren za
+T030 završava runner i istinito zabeležen live ishod. T031 je u tom trenutku ostao otvoren za
 validirani uspešan live final uz novi dogovor i budžet. T027/doprinos/walkthrough
 korisnik izričito odlaže: nisu potpisani, čekirani ili izvedeni iz owner oznaka.
 
@@ -354,7 +354,7 @@ jedan insufficient stop i jedan validirani final. Drugi razgovori nisu prebrojan
 Nema #3; budući live zahteva novo pitanje sa rednim brojem. Mali uzorak nije dokazan
 uzrok #1 stop-a; uspeh #2 ne dokazuje stratešku optimalnost ili buduću dostupnost.
 
-T031 i live gate zatvoreni; T027 doprinos/walkthrough ostaju korisnički odloženi.
+T031 i live gate zatvoreni; T027 doprinos/walkthrough su naknadno potvrđeni u završnom handoff-u.
 Nisu ponavljeni npmci/puni13E2E/screen reader/axe/drugi browser/ljudski review.
 Nema našeg commit/push/deployment-a; baseline screenshot-i i build/cache nisu u diff-u.
 Raniji tool ispisi delom skraćeni, logovi zadržavaju dostupni izlaz; to nije raw-output
@@ -382,7 +382,7 @@ Puna827suite nije ponavljana; validator/adapter/engine/retry ne menjaju se.
 Korisnik prijavio zauzet frontend port: helper je koristio5173, potom se zatvorio.
 Nakon završetka netstat nema LISTENING na5173/3001; vraćen normalni npm run dev.
 FrontendHTTP200, backendreachable=true/hasGame=false; stara memorijska partija/run
-nisu dostupni. Nije pokrenut novi coaching/retry/live. T027 ostaje odložen.
+nisu dostupni. Nije pokrenut novi coaching/retry/live u toj proveri; T027 je zatvoren naknadnim handoff-om.
 [Handoff](evidence/003-T032-handoff.md), [audit](evidence/003-T032-audit.txt).
 
 ## Završna tehnička provera posle T032 — 2026-10-05
@@ -413,4 +413,4 @@ RED3/71, završni fokus98/98, puna offline suite852/852, typecheck/lint/build0.
 Novi live pozivi0; live poboljšanje pouzdanosti još nije izmereno. Browser E2E
 nije ponavljan: korisnikov dev server/partija koriste iste lokalne portove, UI se
 ne menja, produkcioni adapter→orchestrator tok pokriven offline integration testom.
-[Detaljan dokaz](evidence/003-T033-handoff.md). Ljudski T027 ostaje otvoren.
+[Detaljan dokaz](evidence/003-T033-handoff.md). Ljudski T027 je zatvoren završnim handoff-om.

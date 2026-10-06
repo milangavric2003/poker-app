@@ -265,7 +265,7 @@ T026 finalni evidence paket; EVIDENCE_W05/AI_USAGE_LOG/README nisu menjani.
 Phase4 završeno: T021–T023 imaju stvarne RED/GREEN/accessibility/regresione dokaze
 u [handoff-u](../../docs/evidence/003-phase4-handoff.txt). Završni fokus146/146,
 coach E2E3/3, Week04 fake E2E1/1 i typecheck/lint/build exit0. Setup greške i prvi
-TS neuspeh sačuvani odvojeno od smislenog RED-a. T024–T027 ostaju otvoreni;
+TS neuspeh sačuvani odvojeno od smislenog RED-a. T024–T027 su u tom istorijskom preseku bili otvoreni;
 nema finalnog security/evidence paketa ili live demo-a.
 
 ## T024 korektivni podtask — 2026-10-05
@@ -311,11 +311,11 @@ T026 handoff 2026-10-05: [paket](../../docs/EVIDENCE_W05.md),
 [stvarni doc-check/handoff](../../docs/evidence/003-T026-handoff.txt).
 16dokumenata/185lokalnih links/anchors,exit0;usage i manifest odvajaju stvarno od
 unknown. READMEdopunjen jer Week05uputstva nisu postojala. Ljudski doprinos/potvrda
-oba člana nije izmišljena;paket beleži nepoznato,T027ostaje otvoren.
+oba člana nije izmišljena; paket beleži stanje pre naknadnog zatvaranja T027.
 
 T027 priprema 2026-10-05: [7min offline demo i handoff](../../docs/evidence/003-T027-demo.md).
 Redosled,source/test/evidence mapa i proverene reprodukcione komande postoje.
-**T027 checkbox ostaje otvoren:** nije dostavljena stvarna potvrda da oba člana
+**Istorijska napomena:** u tom trenutku nije bila dostavljena potvrda da oba člana
 samostalno objašnjavaju tok,ni individualni Week05doprinos/primanje handoff-a.
 Nema live demo-a,peer potpisa ili izmišljenih screenshot-ova.
 
@@ -323,7 +323,7 @@ Finalni gate: [stvarni izlaz i lista fajlova](../../docs/evidence/003-T027-final
 17 dokumenata/216 lokalnih linkova,25/25FR,allowed-path/secret-pattern audit0;
 git diff --check prvi2 zbog novog Markdown hard-break-a,zatim0 po uklanjanju.
 Legacy screenshot-i vraćeni na polazne HEAD bajtove;nema generated build/cache
-u diff-u. T027 i ljudski GAME_SPEC DoD ostaju otvoreni do stvarnih potvrda.
+u diff-u. T027 i ljudski GAME_SPEC DoD su naknadno zatvoreni potvrđenim handoff-om.
 
 ## Phase 6 — live dokaz i završetak predaje, 2026-10-05
 
@@ -337,7 +337,7 @@ u diff-u. T027 i ljudski GAME_SPEC DoD ostaju otvoreni do stvarnih potvrda.
   evidence: novi offline prerequisite i trace, smisleni RED→GREEN za CLI opt-in,
   config preflight, success 2/2/1, read-only i safe failure bez retry/fallback-a;
   typecheck/lint/build i relevantna regresija; najviše jedan stvarni live run sa
-  sanitizovanim rezultatom. Live neuspeh nije success. T027 ostaje otvoren do oba
+  sanitizovanim rezultatom. Live neuspeh nije success. T027 je tada čekao oba
   ljudska walkthrough-a, stvarnog individualnog doprinosa i prihvatanja handoff-a.
 
 Odobrenje: korisnikov „moze kreni” prihvata predloženi paket i najviše jedan live
@@ -352,7 +352,7 @@ T030 završeno kao runner + stvarno zabeležen ishod, ne kao live success:
 naknadni insufficient holdout pokriven završnom regresijom818/818(58fajlova).
 Fokus105/105 pre holdout-a; coach/Week04 E2E4/4; typecheck/lint/build0.
 1live run/2provider calls/1tool,insufficient_evidence,464tokena,cenaunknown.
-T027 ostaje otvoren: korisnik je izričito odložio doprinos/walkthrough podatke.
+T027 je u tom ranijem preseku bio otvoren; doprinos/walkthrough su naknadno potvrđeni.
 
 - [x] T031 (oba člana; sledeći driver po dogovoru) — Dopuniti dokaz uspešnog live
   Week05 finala; deps T030; allowed: `scripts/coach-smoke.ts`,
@@ -388,7 +388,7 @@ ima 2steps/2provider calls/1tool, 4 dostupne/tool odluke, finalValidated=true,
 Model Gemini3.5FlashLite; runId3c613f27-4d49-4bb1-90e2-f0bb92a0f795;
 runner3254ms/run3182ms, prompt1010/candidate476/total1486tokena, cenaunknown.
 Offline24/24 runner, puna827/827, E2E4/4, typecheck/lint/build0.
-Nema #3. [Handoff](../../docs/evidence/003-T031-handoff.md). T027 ostaje otvoren.
+Nema #3. [Handoff](../../docs/evidence/003-T031-handoff.md). T027 je zatvoren naknadnim ljudskim handoff-om.
 
 - [x] T032 jedan coding agent — Screenshot coaching greške: ukloniti duplu poruku,
   objasniti kategorije odbijanja i izabrani cilj; deps T031; allowed:
@@ -422,7 +422,7 @@ uzrok konkretnog malformed model polja nije poznat. Generisanje nije menjano.
 T033 handoff: [dijagnoza, implementacija i ograničenja](../../docs/evidence/003-T033-handoff.md).
 RED 3/71 pada, GREEN 98/98, puna offline regresija 852/852 (58 fajlova),
 typecheck/lint/build exit 0. Početne lint/typecheck greške u novim testovima
-sačuvane odvojeno; T027 ljudski walkthrough ostaje otvoren.
+sačuvane odvojeno; T027 ljudski walkthrough je naknadno zatvoren potvrđenim handoff-om.
 
 ## T034 — dijagnostika formata, pripremljena van aktivne aplikacije
 
@@ -458,4 +458,4 @@ ekvivalentni singleton enum umesto const, neutralni/runtime validatori ostaju st
 GREEN137/137fokus; puna regresija888/888u61fajlu, typecheck/lint/build0.
 Nema browser E2E ponavljanja u ovoj sesiji; UI testovi uključeni u regresiju.
 [Izveštaj i ograničenja](../../docs/evidence/003-T035-handoff.md),
-[safe live dokaz](../../docs/evidence/003-T035-live.json). T027 ljudski walkthrough ostaje otvoren.
+[safe live dokaz](../../docs/evidence/003-T035-live.json). T027 ljudski walkthrough je zatvoren potvrđenim handoff-om.
