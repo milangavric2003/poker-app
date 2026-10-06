@@ -1,5 +1,10 @@
 # Tasks: Week05 bounded agent coach
 
+Aktuelni status2026-10-06: svi taskovi označeni završenim, uključujući T027 nakon
+korisničke potvrde walkthrough-a i pregleda doprinosa. Raniji datirani handoff
+zapisi o otvorenom T027 prikazuju istoriju pre ove potvrde.
+[Završni paket](../../docs/evidence/003-T027-human-handoff.md).
+
 **Input**: [spec.md](spec.md), [plan.md](plan.md), eventual [data model](data-model.md),
 HTTP contract and eval checklist.  
 **Feature**: `003-week05-bounded-agent-coach`  
@@ -173,11 +178,19 @@ Nema novih HTTP/session/UI/live implementacija ili live dokaza u Phase 2.
   allowed: named docs/evidence files; evidence: real success/rejected/failure traces,
   stop reason, actual live/fake counts and real member contributions; unknown remains
   explicitly unknown.
-- [ ] T027 oba — Final handoff/demo walkthrough; deps T026; allowed: evidence and
+- [x] T027 oba — Final handoff/demo walkthrough; deps T026; allowed: evidence and
   feature task list; evidence: each member independently explains goal, tool contract,
   proposal validation, budgets, stop condition and zero tool execution on rejection;
   live dokaz je zaseban T030 prema assignment §31 i korisnikovom odobrenju;
   runner ne potvrđuje ljudski walkthrough ni prihvatanje handoff-a.
+
+T027 završen2026-10-06: korisnik potvrdio zajedničku probu i da su obojica prošli
+objašnjenje cilja, alata, validacije, limita i razloga zaustavljanja. Doprinos
+milangavric2003 i Veki dokumentovan pregledom author podataka/izmenjenih fajlova
+na fix/game-stability-and-polish i week05/implementation, uz razdvojenu Codex pomoć.
+Raniji datirani zapisi o otvorenom T027 ostaju istorija pre ove potvrde.
+[Doprinos](../../docs/evidence/003-T027-contributions.md).
+[Aktuelni ljudski zapis i finalni paket](../../docs/evidence/003-T027-human-handoff.md).
 
 ## Coverage index
 

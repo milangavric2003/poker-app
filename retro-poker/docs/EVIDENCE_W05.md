@@ -1,5 +1,17 @@
 # Week05 — bounded read-only coach
 
+## Ljudska proba i walkthrough — završeno 2026-10-06
+
+Korisnik je potvrdio da su on i kolega zajedno probali aplikaciju i obojica prošli
+objašnjenje cilja, alata, validacije, limita i razloga zaustavljanja. T027 zatvoren.
+Veki:6Week05commitova za početni scope/agent/API/UI/evidence; milangavric2003:
+4Week05commita za live smoke i kasnije coaching/Gemini popravke. Tri ranije fix
+promene evidentirane su kao nasleđena osnova. Autorstvo commitova nije broj ručno
+napisanih linija; Codex pomoć ostaje u usage log-u.
+[Doprinos i Git dokaz](evidence/003-T027-contributions.md),
+[završni handoff](evidence/003-T027-human-handoff.md).
+Stariji datirani zapisi o nepotvrđenoj probi/walkthrough-u predstavljaju istoriju.
+
 ## Aktuelni T034/T035 rezultat — 2026-10-06
 
 T034 runtime primenjen po korisničkom odobrenju; opcioni safe outputIssue otkriva
@@ -18,7 +30,8 @@ Raniji odeljci ispod su istorija, a ne ograničenje aktuelnog odobrenja.
 Datum:2026-10-05,Europe/Belgrade. Polazni HEAD:
 `83cb2c2531934f2dd6fc5da1d0e4ab921b57309d`,čist worktree. Node24.20.0/npm11.19.0.
 T024/T025/T026 završeni; [T026 handoff](evidence/003-T026-handoff.txt).
-**T027 walkthrough/doprinos oba člana korisnik je ostavio za kasnije.**
+**T027 završen:** zajednička proba, walkthrough oba člana i doprinos po commitovima
+dokumentovani su u aktuelnom ljudskom handoff-u iznad.
 T030 runner i jedan live ishod su dodati na HEAD `57198a7`; live završava
 `insufficient_evidence`; T031 na commitovanom T030 HEAD-u `bdf33c3` sada ima uspešan
 odobreni live #2 sa validiranim finalom. Detalji u T030/T031 odeljcima i

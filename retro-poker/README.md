@@ -182,5 +182,7 @@ Storage je samo memorijski: restart gubi partiju, facts, run i usage; nova parti
 uklanja coach slot. MatchFacts zadržava do 200 detaljnih odluka, starije agregira.
 Coaching koristi raspoloživi uzorak, ne arhivu više partija.
 Rezultati i ograničenja: [EVIDENCE_W05](docs/EVIDENCE_W05.md).
-T027 walkthrough i pojedinačni Week05 doprinos oba člana korisnik je ostavio za
-kasnije; nisu potvrđeni. [T030 handoff](docs/evidence/003-T030-handoff.md).
+T027 walkthrough završen je prema korisničkoj potvrdi2026-10-06. Doprinos oba
+člana dokumentovan je author podacima i izmenjenim fajlovima na dve razvojne grane.
+[Završni ljudski handoff](docs/evidence/003-T027-human-handoff.md),
+[doprinos po commitovima](docs/evidence/003-T027-contributions.md).

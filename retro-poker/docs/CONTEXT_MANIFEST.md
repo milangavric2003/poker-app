@@ -1,5 +1,31 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-06 — T027 ljudska prijava i završni paket
+
+Završna dopuna: korisnik potvrdio walkthrough oba člana i naveo identitete
+milangavric2003/Veki i dve grane za doprinos. Pregledani git log, author/committer
+metadata, show stat/name-only, merge-base, lokalni branch/origin SHA-ovi. Fix tip
+b0b02ca je predak Week05 tip-a a483ffc; origin reference lokalno iste, bez fetch-a.
+Week05razlika10commitova (Veki6/Milan4), ranija fix osnova3commita; pregledani
+stvarni promenjeni fajlovi, ne samo naslovi. T027 i ljudski DoD označeni završenim,
+README/demo/evidence usklađeni. [Poreklo i doprinos](evidence/003-T027-contributions.md).
+Nema code promena ili novih test/live poziva; izvršena dokumentaciona provera.
+Tekst ispod opisuje prvobitnu prijavu pre dopune.
+
+Aktuelni korisnički zahtev: oba člana probala aplikaciju, prelazak na sledeći korak;
+korisnik pita da li zajednička igra znači završen walkthrough. Korišćeni AGENTS,
+feature003 tasks, relevantni GAME_SPEC DoD, T027 demo/T026/T035 handoff, README,
+EVIDENCE_W05/AI_USAGE_LOG i governance deo constitution1.1.0. Git HEAD a483ffc,
+polazno radno stablo čisto. Potvrđena proba je odvojena od nepotvrđenog samostalnog
+objašnjenja/detaljnog individualnog rada; poslato kratko pitanje za stvarni zapis.
+
+Pročitan je speckit-converge skill radi izbora sledećeg koraka; nije primenjen
+njegov full code audit niti dodat Convergence phase, jer trenutni zahtev zatvara
+ljudski handoff i ne navodi novi buildable defekt. Dokumentacioni korak ne zahteva
+implement skill ili nove code testove. Nema web-a, .env/key čitanja, subagenata,
+novih API poziva ili runtime izmene. Lokalni linkovi i diff proveravaju se stvarno.
+[Aktuelni zapis](evidence/003-T027-human-handoff.md).
+
 ## 2026-10-06 — završni T034/T035 audit
 
 Prioritet: korisničko odobrenje50APIrequests/RPM15/modelFlashLite > istorijsko

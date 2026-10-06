@@ -1,5 +1,27 @@
 # AI usage log
 
+## 2026-10-06 — T027 ljudska proba i finalni handoff
+
+Završna dopuna: korisnik potvrdio objašnjenje toka od oba člana. Pregledana commit
+istorija fix/game-stability-and-polish i week05/implementation i stvarni fajlovi:
+10Week05commitova (Veki6/milangavric2003 4),3ranije fix promene odvojeno. Identiteti
+su korisnička prijava, autorstvo Git metapodatak; ne tvrdi se da je sav kod ručno
+napisan ili da nema značajne agentske pomoći. T027 zatvoren, dokaz/README/DoD
+usklađeni, formalna predaja predavaču nije izvršena. [Doprinos](evidence/003-T027-contributions.md).
+Dalji tekst opisuje pripremu pre korisničke dopune.
+
+Jedan coding agent; korisnik prijavio da su on i kolega zajedno probali aplikaciju
+i smatraju da sve radi. Stvarni zajednički testing doprinos zabeležen bez
+izmišljanja pojedinačnog razvoja/review-a ili nezavisnog objašnjenja. T027 traži
+objašnjenje toka/limita od oba člana; poslato kratko pitanje za završni zapis.
+Pripremljen aktuelni handoff sa povezanim tehničkim dokazima i kratkim walkthrough-om.
+
+Samo dokumentacija, proveriti lokalne linkove/diff; novi live Gemini zahtevi0,
+ukupna prethodna agentska serija48/50 ostaje istorijski izmerena. Korisničke live
+probe nisu instrumentirane i ne dodaju se tom broju. Nema novih code testova,
+runtime promene, commit/push/deploy ili subagenata. Coding tokeni/cena unknown.
+[Aktuelni zapis i paket](evidence/003-T027-human-handoff.md).
+
 ## 2026-10-06 — T034/T035, autonomna live dijagnoza i popravka
 
 Korisnik odobrio do50pojedinačnih Gemini zahteva, RPM15, samo gemini-3.5-flash-lite;
