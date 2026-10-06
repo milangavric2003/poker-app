@@ -49,9 +49,12 @@ export async function runCoachSmoke(
   dependencies: () => CoachSmokeDependencies = () => productionAiDependencies(),
 ): Promise<CoachSmokeResult> {
   if (!args.includes('--live')) return skipped('opt_in_required', 0);
+  const focusFlags = args.filter(arg => arg === '--focus' || arg.startsWith('--focus='));
+  const focus = focusFlags.length === 0 ? 'street' : focusFlags[0]?.slice('--focus='.length);
+  if (focusFlags.length > 1 || (focus !== 'street' && focus !== 'betting' && focus !== 'showdown')) return skipped('invalid_focus', 2);
   const scenarioFlags = args.filter(arg => arg === '--scenario' || arg.startsWith('--scenario='));
   const scenario = scenarioFlags.length === 0 ? 'single-all-in' : scenarioFlags[0]?.slice('--scenario='.length);
-  if (scenarioFlags.length > 1 || (scenario !== 'single-all-in' && scenario !== 'street-review')) {
+  if (scenarioFlags.length > 1 || (scenario !== 'single-all-in' && scenario !== 'street-review' && scenario !== 'long-match')) {
     return skipped('invalid_scenario', 2);
   }
   let resolved: CoachSmokeDependencies;
@@ -105,16 +108,26 @@ export async function runCoachSmoke(
     assert.equal(created.statusCode, 201);
     let fixture = gameFrom(created.json());
     stage = 'finish-synthetic-game';
-    const actions: PokerAction[] = scenario === 'street-review'
+    const actions: PokerAction[] = scenario !== 'single-all-in'
       ? [{ type: 'call' }, { type: 'check' }, { type: 'check' }, { type: 'all_in' }] : [{ type: 'all_in' }];
     const phases = ['preflop', 'flop', 'turn', 'river'] as const;
-    for (const [index, action] of actions.entries()) {
-      if (scenario === 'street-review') assert.equal(fixture.phase, phases[index]);
-      const moved = await app.inject({ method: 'POST', url: '/api/game/actions',
-        payload: { ...identity(fixture), ...action } });
-      assert.equal(moved.statusCode, 200);
-      fixture = gameFrom(moved.json());
-      assert.equal(providerCalls, 0);
+    const handCount = scenario === 'long-match' ? 3 : 1;
+    for (let hand = 0; hand < handCount; hand++) {
+      for (const [index, scripted] of actions.entries()) {
+        if (scenario !== 'single-all-in') assert.equal(fixture.phase, phases[index]);
+        const action: PokerAction = scenario === 'long-match' && (hand < handCount - 1 || index < 3)
+          ? { type: fixture.legalActions.some(option => option.type === 'check') ? 'check' : 'call' } : scripted;
+        const moved: { statusCode: number; json(): unknown } = await app.inject({ method: 'POST', url: '/api/game/actions',
+          payload: { ...identity(fixture), ...action } });
+        assert.equal(moved.statusCode, 200);
+        fixture = gameFrom(moved.json());
+        assert.equal(providerCalls, 0);
+      }
+      if (hand < handCount - 1) {
+        assert.equal(fixture.status, 'playing'); assert.equal(fixture.phase, 'complete');
+        const next: { statusCode: number; json(): unknown } = await app.inject({ method: 'POST', url: '/api/game/next-hand', payload: identity(fixture) });
+        assert.equal(next.statusCode, 200); fixture = gameFrom(next.json());
+      }
     }
     terminal = fixture;
     assert.equal(terminal.phase, 'complete'); assert.notEqual(terminal.status, 'playing');
@@ -126,7 +139,7 @@ export async function runCoachSmoke(
     assert.equal(providerCalls, 0);
     stage = 'start-coach';
     const response = await app.inject({ method: 'POST', url: '/api/game/coach',
-      payload: { ...identity(terminal), goal: { focus: 'street' } } });
+      payload: { ...identity(terminal), goal: { focus } } });
     assert.equal(response.statusCode, 202);
     assert.equal(response.headers['cache-control'], 'no-store');
     run = CoachResponseSchema.parse(response.json()).run;
@@ -168,9 +181,10 @@ export async function runCoachSmoke(
     event: 'coach-smoke', executed: providerCalls > 0, passed, stage,
     reason: passed ? null : 'verification_failed', model: config.primaryModel, runId: run?.runId ?? null,
     scenario, fixtureVerified, availableDecisionCount, toolDecisionCount, modelSteps,
-    goal: { focus: 'street' }, maxRuns: 1, maxProviderCalls: 2,
+    goal: { focus }, maxRuns: 1, maxProviderCalls: 2,
     providerAttemptTimeoutMs: CORE_AGENT_LIMITS.providerAttemptTimeoutMs, totalDeadlineMs: CORE_AGENT_LIMITS.totalDeadlineMs,
     status: run?.status ?? null, stopReason: run?.stopReason ?? null, failureCategory: run?.failureCategory ?? null,
+    ...(run?.outputIssue ? { outputIssue: run.outputIssue } : {}),
     stepCount: run?.stepCount ?? 0, providerCallCount: providerCalls, toolCallCount: toolCalls,
     finalValidated: run?.status === 'completed' && run.result?.completed === true,
     evidenceCount: run?.result?.evidence.length ?? 0, readOnlySnapshotPreserved,

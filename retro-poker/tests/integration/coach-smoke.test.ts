@@ -11,6 +11,30 @@ function fakeRun(steps: FakeAiStep[], args: readonly string[] = ['--live']) {
 }
 
 describe('T030 bounded Week05 smoke through HTTP/session/orchestrator', () => {
+  it.each(['street', 'betting', 'showdown'])('T035 long-match holdout covers three hands for %s', async focus => {
+    const { provider, work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'agent_final' }],
+      ['--live', '--scenario=long-match', `--focus=${focus}`]);
+    const result = await work();
+    expect(result.report).toMatchObject({ passed: true, scenario: 'long-match', fixtureVerified: true,
+      goal: { focus }, providerCallCount: 2, toolCallCount: 1, readOnlySnapshotPreserved: true });
+    expect(provider.agentCalls[0]!.request.context.availableDecisionCount).toBe(focus === 'betting' ? 3 : 12);
+    expect(provider.agentCalls[1]!.request.context.toolResult?.sampleLimited).toBe(focus !== 'betting');
+  });
+  it.each(['betting', 'street', 'showdown'])('T035 accepts focus %s through the production tool', async focus => {
+    const { provider, work } = fakeRun([{ kind: 'agent_tool' }, { kind: 'agent_final' }],
+      ['--live', '--scenario=street-review', `--focus=${focus}`]);
+    const result = await work();
+    expect(result.report).toMatchObject({ passed: true, goal: { focus }, providerCallCount: 2,
+      toolCallCount: 1, readOnlySnapshotPreserved: true });
+    expect(provider.agentCalls[0]!.request.context.goal.focus).toBe(focus);
+  });
+  it.each([['--focus=all'], ['--focus='], ['--focus=street', '--focus=betting']].map(flags => ({ flags })))(
+    'T035 rejects invalid focus flags before provider construction $flags', async ({ flags }) => {
+      const factory = vi.fn(() => { throw new Error('must not construct'); });
+      const result = await runCoachSmoke(['--live', ...flags], factory);
+      expect(result.report).toMatchObject({ executed: false, providerCallCount: 0, reason: 'invalid_focus' });
+      expect(factory).not.toHaveBeenCalled();
+    });
   it('without the exact --live flag does not load configuration or create a provider', async () => {
     const factory = vi.fn(() => { throw new Error('must not load secrets'); });
     for (const args of [[], ['--live=false'], ['--offline']]) {

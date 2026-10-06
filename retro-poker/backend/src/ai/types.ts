@@ -1,5 +1,5 @@
 import type { Card, LegalAction, PokerAction } from '../engine/types.js';
-import type { PublicEvent, CoachGoal, DecisionEvidenceResult } from '../../../shared/contracts.js';
+import type { PublicEvent, CoachGoal, CoachOutputIssue, DecisionEvidenceResult } from '../../../shared/contracts.js';
 import type { AiDiagnostic } from '../../../shared/ai-diagnostic.js';
 
 export type AiPurpose = 'bot' | 'analysis';
@@ -65,7 +65,7 @@ export type ProviderFailureKind = 'timeout' | 'rate_limited' | 'server_error' | 
 export class ProviderError extends Error {
   constructor(readonly kind: ProviderFailureKind, message = 'AI provider failure',
     readonly retryAfterMs?: number, readonly httpStatus: number | null = null,
-    readonly diagnostic?: AiDiagnostic) { super(message); }
+    readonly diagnostic?: AiDiagnostic, readonly outputIssue?: CoachOutputIssue) { super(message); }
 }
 
 export interface AiClock {

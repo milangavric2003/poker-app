@@ -6,6 +6,7 @@ import type { AgentRunOptions } from '../../backend/src/agent/types.js';
 import { FakeAiProvider, type FakeAiStep } from '../helpers/fake-ai-provider.js';
 import { FakeClock } from '../helpers/fake-clock.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
+import { createGeminiProvider } from '../../backend/src/ai/providers/gemini.js';
 
 function harness(steps: FakeAiStep[] = [{ kind: 'agent_tool' }, { kind: 'agent_final' }], overrides: Partial<AgentRunOptions> = {}) {
   const session = new GameSession({ deck: ['As', 'Kc', 'Ah', 'Kd', ...ac23Deck.slice(4)],
@@ -38,6 +39,23 @@ function safeFailure(result: Awaited<ReturnType<BoundedAgentRun['execute']>>) {
   expect(result.terminalTransitionCount).toBe(1);
 }
 describe('direct offline agent integration T016', () => {
+  it('completes the real Gemini adapter flow using selected canonical facts without poker mutation T033', async () => {
+    const generateContent = vi.fn().mockResolvedValueOnce({ text: JSON.stringify({ kind: 'tool_request',
+      name: 'get_decision_evidence', arguments: { focus: 'street', limit: 10 } }) })
+      .mockResolvedValueOnce({ text: JSON.stringify({ kind: 'final', summary: 'Pregled odluke.',
+        recommendation: 'Razmotri dostupne opcije.', confidence: 'low', completed: true, evidence: [1, 0] }) });
+    const provider = createGeminiProvider('offline-key', () => ({ models: { generateContent } }));
+    const h = harness(undefined, { provider });
+    const result = await settle(h.run, h.clock);
+    expect(result).toMatchObject({ status: 'completed', stepCount: 2, toolCallCount: 1,
+      providerAttemptCount: 2, validationRejectedCount: 0, terminalTransitionCount: 1 });
+    const decision = result.validatedToolResult!.decisions[0]!;
+    expect(result.result!.evidence).toEqual([1, 0].map(index => ({ decisionRef: decision.decisionRef,
+      ...decision.facts[index]! })));
+    expect(generateContent).toHaveBeenCalledTimes(2);
+    expect(h.executeTool).toHaveBeenCalledTimes(1);
+    h.unchanged();
+  });
   it('completes two accepted steps around one canonical executor without poker/facts mutation', async () => {
     const h = harness(); const result = await settle(h.run, h.clock);
     expect(result).toMatchObject({ status: 'completed', stopReason: 'completed', stepCount: 2,
@@ -47,6 +65,19 @@ describe('direct offline agent integration T016', () => {
     expect(h.provider.agentCalls[0]!.request.context).not.toHaveProperty('facts');
     h.unchanged();
   });
+  it.each([[999], [0, 0], ['0']].map(evidence => ({ evidence })))(
+    'rejects invalid Gemini selections without retry or replay of the tool T033 $evidence', async ({ evidence }) => {
+      const generateContent = vi.fn().mockResolvedValueOnce({ text: JSON.stringify({ kind: 'tool_request',
+        name: 'get_decision_evidence', arguments: { focus: 'street', limit: 10 } }) })
+        .mockResolvedValueOnce({ text: JSON.stringify({ kind: 'final', summary: 'S', recommendation: 'R',
+          confidence: 'low', completed: true, evidence }) });
+      const provider = createGeminiProvider('offline-key', () => ({ models: { generateContent } }));
+      const h = harness(undefined, { provider }); const result = await settle(h.run, h.clock);
+      expect(result).toMatchObject({ status: 'failed', stopReason: 'malformed_output',
+        failureCategory: 'invalid_structured_response', stepCount: 2, providerAttemptCount: 2, toolCallCount: 1 });
+      expect(generateContent).toHaveBeenCalledTimes(2); expect(h.executeTool).toHaveBeenCalledTimes(1);
+      safeFailure(result); h.unchanged();
+    });
   it.each([['unknown_tool', 'unknown_tool'], ['invalid_arguments', 'invalid_tool_arguments']] as const)('rejects %s before executor', async (kind, reason) => {
     const h = harness([{ kind }]); const result = await settle(h.run, h.clock);
     expect(result).toMatchObject({ status: 'stopped', stopReason: reason, toolCallCount: 0 });

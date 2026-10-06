@@ -1,5 +1,20 @@
 # Week05 — bounded read-only coach
 
+## Aktuelni T034/T035 rezultat — 2026-10-06
+
+T034 runtime primenjen po korisničkom odobrenju; opcioni safe outputIssue otkriva
+konkretna format polja bez raw odgovora. T035 reprodukuje invalid_kind i popravlja
+Gemini schema const→singleton enum u oba koraka. Validacija dokaza ostaje stroga.
+
+48/50odobrenih API zahteva isključivo FlashLite,24run-a: baseline4/6,
+diagnosis7/9, isti skup posle popravke9/9. Sva24read-only snapshot-a očuvana,
+retry/fallback/rate-limit/timeout0. Zabeleženi dispatch12–48 imaju najmanje6000ms
+razmaka i najviše10u60s; prethodnih11vremena nisu beležena. Poznato22927tokena
+za44zahteva,4usage missing, ukupan broj/cena unknown. Puna regresija888/888,
+typecheck/lint/build0. Browser E2E nije ponovljen u ovoj sesiji.
+[Konačni handoff](evidence/003-T035-handoff.md), [live dokaz](evidence/003-T035-live.json).
+Raniji odeljci ispod su istorija, a ne ograničenje aktuelnog odobrenja.
+
 Datum:2026-10-05,Europe/Belgrade. Polazni HEAD:
 `83cb2c2531934f2dd6fc5da1d0e4ab921b57309d`,čist worktree. Node24.20.0/npm11.19.0.
 T024/T025/T026 završeni; [T026 handoff](evidence/003-T026-handoff.txt).
@@ -356,3 +371,15 @@ Nakon završetka netstat nema LISTENING na5173/3001; vraćen normalni npm run de
 FrontendHTTP200, backendreachable=true/hasGame=false; stara memorijska partija/run
 nisu dostupni. Nije pokrenut novi coaching/retry/live. T027 ostaje odložen.
 [Handoff](evidence/003-T032-handoff.md), [audit](evidence/003-T032-audit.txt).
+## T033 — Gemini bira kanonske dokaze, 2026-10-06
+
+Korisnički terminalni DTO i read-only GET potvrđuju evidence_rejected posle
+2 koraka/2attempts/1tool; ne otkrivaju konkretno pogrešno polje raw finala.
+Popravka uklanja slobodno prepisivanje reference/factCode/JSON finding-a iz Gemini
+transporta: model bira numerisane facts, adapter prenosi originalne vrednosti.
+Završni validator, public DTO, budžeti i poker pravila ne menjaju se.
+RED3/71, završni fokus98/98, puna offline suite852/852, typecheck/lint/build0.
+Novi live pozivi0; live poboljšanje pouzdanosti još nije izmereno. Browser E2E
+nije ponavljan: korisnikov dev server/partija koriste iste lokalne portove, UI se
+ne menja, produkcioni adapter→orchestrator tok pokriven offline integration testom.
+[Detaljan dokaz](evidence/003-T033-handoff.md). Ljudski T027 ostaje otvoren.

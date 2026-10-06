@@ -119,3 +119,28 @@ razrešavaju prethodne otvorene izbore; HTTP je u [coach-http](contracts/coach-h
 Komande: Get-Content relevantnih izvora, rg za analysis/version/revision, git status
 --short i git diff -- plan.md. Dokumenti su pregledani; novi testovi nisu pokrenuti.
 Sledeće T004: prompt dopuniti samo nedostajućim obimom/proverama/nejasnoćama i manifestom.
+## T033 — Gemini transportna projekcija
+
+Neutralni final i javni DTO ostaju isti. Samo Gemini korak 2 dobija facts sa
+lokalnim `evidenceIndex` oznakama i bira `evidence: number[]` (0–10 izbora).
+Adapter prenosi originalne kanonske stavke iz validiranog request.toolResult-a,
+zatim runtime-validira neutralni CoachModelStep. Ne prihvata proizvoljan model
+finding u ovoj formi, ne bira dokaze umesto modela i ne čuva transport/raw payload.
+
+## T034/T035 — safe dijagnoza i provider schema
+
+CoachRunView ima opcioni outputIssue, isključivo ako su status failed,
+stopReason malformed_output i failureCategory invalid_structured_response.
+ProviderError/AgentRunState čuvaju samo CoachOutputIssueSchema allowlist vrednost;
+orchestrator odbija proizvoljne runtime stringove. Enum pokriva missing_output,
+output_too_large, invalid_json, transport_shape, invalid_evidence_index,
+duplicate_evidence, missing_completion_evidence, summary_bounds,
+recommendation_bounds, final_shape, unexpected_fields, invalid_kind,
+invalid_confidence, invalid_completion, invalid_text_type i invalid_evidence_list.
+Zod putanja služi lokalnoj klasifikaciji; raw vrednost/poruka ne izlazi u DTO/usage.
+
+Gemini adapter kopira neutralnu response šemu i rekurzivno prevodi string/number
+const u ekvivalentni enum sa jednom vrednošću. Ovo važi za oba agentska koraka;
+runtime CoachModelStepSchema, final evidence članstvo i budžeti ostaju nepromenjeni.
+CLI eval ledger čuva model/count/dispatch timestamps i safe smoke izveštaje,
+serijski kroz odvojene procese. Nije produkciona persistencija partije/debug API.

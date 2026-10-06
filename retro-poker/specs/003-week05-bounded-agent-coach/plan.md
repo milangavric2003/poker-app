@@ -233,3 +233,34 @@ live-region paragraph menja role status/alert prema stanju; bez duplog teksta.
 Mapirati dve malformed failureCategory vrednosti u jasna objašnjenja, uz bezbedan
 generički fallback. Opis selekcije prati focus, ne menja payload ili filtriranje.
 RED→GREEN i coach UI/API/lifecycle, typecheck/lint/build. Bez novih live poziva.
+
+T033: promena samo Gemini transporta koraka 2. Svaka činjenica u kopiji toolResult-a
+dobija lokalni evidenceIndex, počevši od nule kroz decisions/facts redosled.
+Transport final bira integer evidence listu, adapter validira strict oblik i
+indekse, zatim prenosi kanonske stavke iz izvornog request-a. Šema traži final ili
+refusal; neutralni provider ugovor, DTO i završni validator ne menjaju se.
+Postojeće byte granice važe i za obogaćeni transportni kontekst. Bez dupliranja
+finding-a, fallback dopunjavanja, dodatnog retry-ja ili promene budžeta/igre.
+TDD: offline SDK stub + read-only orchestrator integration, negativni indeksi,
+duplikati i unknown fields; agent/Gemini regresija, typecheck/lint/build.
+Tačno neispravno polje istorijskog run-a ostaje unknown; live provera nije pokrenuta.
+## T034/T035 — execution plan
+
+Primeniti pregledani003-T034-prepared.patch tek nakon novog odobrenja korisnika
+(dato2026-10-06); ponoviti119fokus/typecheck. T035 proširuje postojeći smoke runner
+sa strict --focus enum flagom i uvodi bounded batch runner/rate gate. CLI ledger
+beleži samo count/model/dispatch vremena/safe report. Maksimum50requests,6000ms
+razmak, bez SDK retry/fallback-a, sintetički constructor fixture u in-process HTTP.
+Prva baseline batch6run-ova=do12requests (3focus×2scenario), zatim adaptivni testovi
+i holdout za realne pronađene greške; ne mora se potrošiti ceo odobreni budžet.
+Opšti live DoD ne tvrdi odsustvo svih grešaka ili stratešku optimalnost. Runtime
+validator/read-only/budžeti ostaju, samo dokumentovano poboljšanje i precizna dijagnoza.
+Svi novi task-source/test/evidence putevi uT035. Jedan agent, bez subagenata.
+
+Konačna primena: T034119/119potvrđen u stvarnom projektu. Detaljna dijagnostika
+uhvatila invalid_kind; T035 menja string/number const u singleton enum samo u
+Gemini šemi oba koraka, uz immutable neutralni schema input i strict runtime
+validaciju. Ista matrica9run-ova pre/posle:7/9→9/9. Ukupno48zahteva; gate
+6000ms,0retry/fallback,0rate/timeouts. Long-match3ruke/12odluka nezavisan je holdout.
+Puna regresija888/888, typecheck/lint/build0. Browser E2E nije ponovljen; korisnički
+dev port je zauzet. [Konačni handoff](../../docs/evidence/003-T035-handoff.md).

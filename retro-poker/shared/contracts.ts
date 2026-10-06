@@ -294,6 +294,11 @@ export const CoachModelStepSchema = z.discriminatedUnion('kind', [
   CoachToolProposalSchema, CoachRefusalSchema, CoachFinalStepSchema,
 ]).refine(value => jsonUtf8Bytes(value) <= 32768, 'Model step exceeds UTF-8 cap');
 export const CoachRunStatusSchema = z.enum(['created', 'running', 'completed', 'stopped', 'failed']);
+export const CoachOutputIssueSchema = z.enum(['missing_output', 'output_too_large', 'invalid_json',
+  'transport_shape', 'invalid_evidence_index', 'duplicate_evidence', 'missing_completion_evidence',
+  'summary_bounds', 'recommendation_bounds', 'final_shape', 'unexpected_fields', 'invalid_kind',
+  'invalid_confidence', 'invalid_completion', 'invalid_text_type', 'invalid_evidence_list']);
+export type CoachOutputIssue = z.infer<typeof CoachOutputIssueSchema>;
 export const CoachFailureCategorySchema = z.enum(['authentication_configuration', 'quota_exhausted',
   'rate_limit', 'provider_timeout', 'provider_unavailable', 'provider_transport', 'provider_refusal',
   'tool_timeout', 'tool_error', 'tool_validation', 'invalid_structured_response', 'evidence_rejected',
@@ -305,7 +310,10 @@ export const CoachRunViewSchema = z.strictObject({ ...Identity, runId: z.uuid(),
   providerAttemptCount: z.number().int().min(0).max(4),
   stopReason: CoachStopReasonSchema.nullable(), failureCategory: CoachFailureCategorySchema.nullable(),
   result: CoachResultSchema.nullable(), sampleLimited: z.boolean(),
+  outputIssue: CoachOutputIssueSchema.optional(),
 }).refine(run => {
+  if (run.outputIssue && (run.status !== 'failed' || run.stopReason !== 'malformed_output'
+    || run.failureCategory !== 'invalid_structured_response')) return false;
   if (Date.parse(run.deadlineAt) < Date.parse(run.startedAt)
     || run.providerAttemptCount < run.stepCount || run.providerAttemptCount > run.stepCount * 2
     || run.toolCallCount > run.stepCount) return false;

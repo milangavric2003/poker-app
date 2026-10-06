@@ -334,6 +334,53 @@ Screenshot pokazuje duplu failure poruku i malformed_output stop. UI prikazuje
 jednu statusnu poruku: alert za retry/failure, status za ostala stanja. Za malformed
 koristi validiranu failureCategory: invalid_structured_response znači neispravnu
 strukturu/granice, evidence_rejected nepoklapanje sa dokazima. Bez raw izlaza.
+
+### T033 — pouzdan izbor kanonskih dokaza (2026-10-06)
+
+Korisnik prijavljuje više uzastopnih `evidence_rejected` ishoda. Završni DTO
+potvrđuje 2 koraka/2 attempts/1 alat; konkretno pogrešno polje starog odgovora
+nije dostupno jer se raw kandidat ne čuva. FR-011/012/020 ostaju obavezni.
+Gemini u drugom koraku bira do 10 numerisanih činjenica iz validiranog tool
+rezultata. Adapter prenosi njihove originalne decisionRef/factCode/finding
+vrednosti u neutralni final; ne popravlja modelom napisani finding niti dodaje
+dokaze koje model nije izabrao. Finalna strict i membership validacija ostaje ista.
+Nepostojeći, dupli, pogrešno tipizirani indeksi, dodatna polja i lažna completion
+bez dokaza moraju biti odbijeni. Refusal/insufficient_evidence ostaju podržani.
+Offline dokaz mora uključiti originalni JSON finding sa navodnicima, složeni
+finding, izbor kroz više odluka i pun 2-korak/1-alat read-only tok.
+Nema novih live poziva u ovom tasku; offline uspeh ne dokazuje stopu live uspeha.
 Opis izabranog cilja objašnjava stvarne filtere: betting bet/raise/call/all_in,
 street sve raspoložive odluke, showdown odluke iz ruku završenih showdown-om.
 Ne menja validator ili retry policy, niti tvrdi da je live pouzdanost popravljena.
+## T034/T035 — odobrena dijagnostika i live eval, 2026-10-06
+
+Konačni prihvaćeni rezultat: isti9scenarija daje7completed/2invalid_kind pre
+transportne popravke i9completed posle. Literale string/number u Gemini JSON šemi
+oba koraka izraziti ekvivalentnim singleton enum-om; neutralni ugovor se ne mutira,
+a nevalidan kind se i dalje odbija. Ne izvoditi garanciju iz malog uzorka.
+[Provere i budžet48/50](../../docs/evidence/003-T035-handoff.md).
+
+Korisnik odobrio primenu T034, restart/gubitak memorijske partije i samostalno
+testiranje/popravke uz najviše50pojedinačnih provider zahteva uključujući retry.
+Jedini odobreni model za ovaj rad je gemini-3.5-flash-lite, korisnikov RPM15.
+Pripremljeni outputIssue enum je opcion i dozvoljen samo za failed/malformed_output/
+invalid_structured_response; ne sadrži raw vrednosti. Final i tool membership ostaju.
+Eval koristi sintetički constructor fixture, produkcione HTTP/session/orchestrator
+granice u zasebnom procesu, sva3focus cilja, single-all-in i street-review scenario.
+SDK retries su1attempt, model fallback isključen. Run je2koraka/1alat/2attempts.
+Request gate dozvoljava najviše jedan dispatch na6000ms, serijski, i hard cap50
+persistiran u lokalnom ledger-u. Prvi live dispatch tek nakon najmanje60s cooldown-a.
+429 zaustavlja tekuću batch; novi pokušaj poštuje najmanje60s cooldown-a i isti ledger.
+Offline opt-in/budget/model/scenario/abort i rate-gate testovi prethode live radu.
+Live neuspeh se ne preimenuje u uspeh, raw prompt/response/reasoning/key se ne čuvaju.
+Smisleni otkriveni defekti dobijaju test→minimalnu popravku→regresiju→live retest.
+Ukupan broj poziva neće preći50 ni kroz različite batch procese ovog odobrenja.
+T035 live reprodukcija: baseline6run-ova daje4completed/2transport_shape;
+detaljnija dijagnostika potom identifikuje invalid_kind u dva realna run-a.
+Zod provider šema koristi const za kind, dok SDK i aktuelna zvanična structured
+output dokumentacija navode enum. Adapter prenosi ekvivalentni single-value enum
+za string/number const bez promene neutralnih/runtime ugovora. Pogrešan/missing
+kind se i dalje odbija; nema automatskog preimenovanja model odgovora.
+Ne tvrdi se rekonstruisana vrednost kind-a iz starog run-a, jer se raw ne čuva.
+Independent long-match holdout ima3ruke/12human odluka (betting3), proverene
+stacks0/2000 i ograničenje uzorka na10detaljnih odluka. Sledi ista live matrica.

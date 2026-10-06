@@ -3,6 +3,13 @@
 Datum: 2026-10-04, T003 ugovor; T018–T020 backend implementiran i offline proveren.
 Provider, alat i run state: [data model](../data-model.md).
 
+T034/T035 dodatak2026-10-06: GET run DTO opciono uključuje outputIssue isključivo
+za failed/malformed_output/invalid_structured_response. Vrednost je strict
+CoachOutputIssueSchema enum iz shared/contracts.ts (npr. invalid_kind,
+invalid_json, invalid_evidence_index ili summary_bounds). Nema raw odgovora,
+nepoznatih diagnostic polja ili novih debug ruta. Bez outputIssue raniji DTO i
+dalje važi. Tačna allowlist i ograničenja: [data model](../data-model.md#t034t035--safe-dijagnoza-i-provider-schema).
+
 ## Start
 
 POST `/api/game/coach`, JSON body ≤1024 UTF-8 bajta, strict:

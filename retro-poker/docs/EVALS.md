@@ -1,5 +1,20 @@
 # Week03 eval skup — T037
 
+## Week05 T035 — matched live provera, 2026-10-06
+
+Ovaj odeljak beleži rezultate očekivanja iz feature003 spec/plan i smoke testova,
+postavljenih pre live proba: strict validan final,1alat/2koraka, read-only snapshot.
+Matrica3focus×3scenario ima9slučajeva. Short all-in i četiri-faze street-review
+postoje pre baseline-a; nezavisan long-match holdout dodat je pre diagnosis matrice,
+sa literalnim kontrolisanim špilom/oracle-om,3ruke/12odluka (betting3).
+
+Ista diagnosis/enum-retest matrica pre i posle jednog const→enum adapter fix-a:
+7/9→9/9, prethodna2odbijanja invalid_kind; svaka partija očuvana. Negativni offline
+slučajevi ostaju obavezni: nepoznati/dupli evidence izbor, nevalidan kind/tekst,
+nepoznata polja i odsutni completion dokazi se odbijaju. Puna regresija888/888.
+50request budžet potrošen48,0rate-limit/timeouts/retries/fallback. Mali uzorak ne
+dokazuje odsustvo drugih grešaka ili optimalnost saveta. [Dokaz](evidence/003-T035-handoff.md).
+
 Status: očekivanja ispod zaključana su 2026-09-23 pre T037 izvršavanja i pre bilo
 kakve nove promene aplikacionog ponašanja. Prvi integrisani baseline je commit
 `7aacb0464fea3e2efb5938d67d14731aab27be58` (291/291, E2E 2/2) i screenshot
