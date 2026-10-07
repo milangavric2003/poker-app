@@ -3,15 +3,11 @@
 Feature: `003-week05-bounded-agent-coach` · Datum: 2026-10-04.
 Izvori: [spec](spec.md), [GAME_SPEC](../../docs/GAME_SPEC.md),
 [tehnički ugovor](data-model.md), [HTTP ugovor](contracts/coach-http.md).
-Ovo je plan; Week05 kod i testovi nisu implementirani ovim pregledom.
-
-Aktuelni status 2026-10-05: plan je realizovan kroz T007–T023 i T024 offline provere.
-Istorijska objašnjenja buduće implementacije ispod čuvaju ugovor; stvarni status je
-u [taskovima](tasks.md) i [T024 handoff-u](../../docs/evidence/003-T024-handoff.txt).
-T027 ljudska potvrda ostaje otvorena.
-T030 dodaje smoke runner i stvarni live ishod; njegov insufficient_evidence stop
-sam nije zatvorio live gate. T031 live #2 ga zatvara validiranim finalom 2/2/1,
-read-only=true. [Aktuelni handoff](../../docs/evidence/003-T031-handoff.md).
+Aktuelni status 2026-10-07: osnovni plan je realizovan, uključujući T027 ljudski
+walkthrough. T030–T035 imaju live i offline dokaze; T036–T039 obrađuju review
+nalaze i CI. Istorijski planovi ispod čuvaju ugovor i redosled promena.
+Aktuelni status provera je u [evidence pregledu](../../docs/EVIDENCE_W05.md)
+i [taskovima](tasks.md); live uspeh ne dokazuje produkcijsku dostupnost.
 
 ## Cilj i tok
 

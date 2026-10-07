@@ -546,3 +546,11 @@ otvoren do dijagnoze i novog prolaza; lokalni checkbox iznad ga ne potvrđuje.
 Lokalno: kontrolisani RED 4 pada/5 prolaza (četiri ostala testa nisu izabrana),
 GREEN 13/13 bez preskakanja, puna suite 888/888 u 61 fajlu, typecheck/lint exit 0.
 Checkbox označava lokalnu popravku; hosted potvrda beleži se u audit nastavku.
+
+## T040 — aktuelni pregled evidence-a
+
+- [x] T040 — dokumentaciona tačka 4 iz preuzetog review plana; deps T039.
+  Allowed: feature spec/plan/tasks, docs/EVIDENCE_W05.md i review audit.
+  Usklađeni uvodni statusi T027 u spec/plan; dodat zahtev–test–dokaz pregled.
+  Razdvojeni korisnikovih 830, mentorovih 877 i kasnijih 888 testova, hosted pad
+  i naknadna popravka. Istorijski logovi sačuvani; nema novih live poziva.

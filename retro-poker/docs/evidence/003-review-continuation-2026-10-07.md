@@ -27,15 +27,15 @@ Ovo potvrđuje hosted E2E prolaz na oba OS-a, ali ne zatvara punu Linux proveru.
 
 Javna anotacija Ubuntu job-a `112638388779` daje samo `Process completed with exit
 code 1`. Neautentifikovano preuzimanje detaljnog loga vraća HTTP 403. Uzrok pada
-još nije utvrđen; iz samog exit koda ne može se zaključiti da je worker timeout.
-Tražen je izlaz neuspešnog koraka od korisnika. Bez detaljnog loga nema opravdanja
-za promenu timeout-a, preskakanje testa ili proizvoljnu Linux korekciju.
+u tom trenutku nije bio utvrđen; iz samog exit koda nije se mogao zaključiti worker
+timeout. Naknadno dostavljeni log i T039 popravka opisani su ispod.
 
 ## Nova lokalna provera
 
 Iz `retro-poker/` pokrenuto `npm.cmd test -- --reporter=verbose`:
 61 fajl, 888/888 testova, exit 0, trajanje 26.35 s. Ovaj run nije clean instalacija
-niti Linux reprodukcija. Nema novih E2E ili live run-ova u ovom nastavku.
+niti Linux reprodukcija. U trenutku te provere nije bilo novih E2E ili live run-ova;
+kasnije odobren live rezultat zabeležen je ispod.
 
 ## Retry/fallback i live dokaz
 
@@ -101,6 +101,13 @@ dodat je eksplicitan assertion da su stigla tačno dva poziva.
 `npm.cmd run typecheck` i `npm.cmd run lint`: exit 0.
 Nema promena produkcionog ponašanja, test timeout-a, preskakanja ili retry maskiranja.
 Browser E2E nije lokalno ponavljan za ovu izmenu Node testa; novi CI proverava ceo paket.
+
+Recovery skup dodatno ponovljen tri puta: svaki run 13/13, exit 0, trajanja
+1.17 s, 916 ms i 878 ms. T040 usklađuje uvodne statusne preglede u spec/plan i
+EVIDENCE_W05, uz razdvojene istorijske i nove rezultate. Istorijski logovi nisu
+prepisani. Dokumentaciona provera: git diff --check prolazi; novi relativni link
+iz evidence pregleda vodi na ovaj postojeći fajl, feature linkovi na postojeći
+EVIDENCE_W05 i tasks. Izvorni assignment/addendum nisu deo ovog checkout-a.
 
 1. Linux log je primljen; lokalna T039 popravka i provere završene.
 2. Posle provere popravke potvrditi novi hosted Windows/Linux full-suite run za

@@ -1,5 +1,24 @@
 # Week05 — bounded read-only coach
 
+## Aktuelni review pregled — 2026-10-07
+
+Osnovna implementacija i T027 ljudski walkthrough su završeni. Mentorov nalaz na
+`c73ae8c` (877 prolaza uz worker grešku, E2E 12/13) ostaje zaseban dokaz.
+Raniji korisnikovih 830/830 posle T032 i kasnijih 888/888 posle T035 pripadaju
+različitim verzijama; nisu zamena za nezavisnu proveru.
+
+| Zahtev | Test / dokaz | Aktuelno stanje |
+| --- | --- | --- |
+| Puna lokalna suite | T036, T039; `npm.cmd test` | T036 tri puta 888/888; T039 888/888 posle popravke AI recovery sata |
+| Recovery bez retry maskiranja | T037, tests/e2e/recovery.spec.ts | Recovery 30/30, puna suite tri puta 14/14; hosted E2E prošao na oba OS-a na 116bac6 |
+| Clean Windows/Linux gate | T038 workflow | Windows prošao na 116bac6; Linux 884/888, T039 ispravlja četiri fallback testa; novi hosted rezultat prati audit |
+| Live i read-only | T035 + dodatni odobreni run | T035 24 run-a/48 zahteva; dodatni long-match completed sa 2/2 zahteva, 5 dokaza, read-only=true |
+| Retry/fallback | tests/integration/agent-run.test.ts | Offline 429/5xx, budžeti/deadline i fallback provereni; live dostupnost nije dokazana |
+| Doprinos i walkthrough | T027 human handoff | Potvrđeno za oba člana |
+
+[Aktuelni audit, komande i hosted linkovi](evidence/003-review-continuation-2026-10-07.md).
+Brojevi i statusi u sledećim datiranim odeljcima pripadaju navedenim izvršavanjima.
+
 ## T038 — clean CI gate, 2026-10-07
 
 Dodat je GitHub Actions workflow za Windows 2025 i Ubuntu 24.04, sa zaključanim
@@ -7,8 +26,8 @@ Node/npm, clean instalacijom, punim proverama i artefaktima pri padu. U zasebnoj
 kopiji praćenih fajlova iz `0a2f0d2`, bez .env ili prekopiranog node_modules,
 prošli su `npm ci`, typecheck, lint, Vitest 888/888, build i E2E 14/14 bez retry-ja.
 Actionlint prolazi; JSON/JUnit brojevi i HTML izveštaj provereni su lokalno.
-**GitHub Windows/Linux run još nije izvršen:** tačka 3 čeka pregled i odobreni
-push. Lokalni prolaz nije hosted dokaz. [Rezultati i granice](evidence/003-T038-handoff.md).
+Workflow je objavljen. Prvi hosted rezultat i naknadna T039 popravka razlikuju se
+od ove lokalne provere; videti [rezultate i granice](evidence/003-T038-handoff.md).
 
 ## T037 — recovery E2E, 2026-10-07
 
