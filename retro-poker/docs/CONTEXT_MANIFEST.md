@@ -711,3 +711,10 @@ API UI testovi, ai-offline E2E i instalirani Playwright Clock tip/opis.
 Portovi 5173/3001 na početku nisu imali listener. Ne menjati produkcioni Origin.
 Baseline puni E2E prolazi; hipoteza trke se proverava simulacijom sporog transporta.
 Nema potrebe za model/provider kodom, tajnama, live pozivima ili novim dependencies.
+
+T037 dopuna: pregledani lokalni RED i oba međukorak trace-a kroz ZIP/JSON zapise,
+bez browser UI-ja. RED mrežni metapodaci potvrđuju GET960ms pre prosleđenog POST-a.
+App alert markup objašnjava netačno očekivanje celog teksta; pending ruta
+objašnjava cleanup čekanje. Puni trace je lokalni ignorisani artefakt, sanitizovan
+izvod i rezultati su verzionisani. Korisnik nastavio posle ručnog WIP commita;
+provereni čist status/HEADc6f2016 i neizmenjen test diff pre trećeg run-a.

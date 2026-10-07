@@ -484,7 +484,7 @@ reprodukovan ni pre izmene; cap je preventivna mera, ne potvrđen root cause fix
 
 ## T037 — recovery E2E stabilnost, 2026-10-07
 
-- [ ] T037 (trenutni coding agent, pregled korisnika pre commit/push-a) — tačka 2
+- [x] T037 (trenutni coding agent, pregled korisnika pre commit/push-a) — tačka 2
   review plana; deps T036; GAME_SPEC AC18/AC22/AC23 i Week05 FR-023 regresija.
   Allowed: tests/e2e/recovery.spec.ts, tests/helpers/server.ts i namenski test
   helper samo po nalazu, playwright.config.ts ako dijagnostika opravda,
@@ -497,3 +497,10 @@ reprodukovan ni pre izmene; cap je preventivna mera, ne potvrđen root cause fix
   Kriterijum: recovery skup najmanje 5 puta i cela E2E suite 3 puta bez retry-ja,
   relevantni UI testovi/typecheck/lint; svi neuspehi ostaju zabeleženi.
   Bez CI, live poziva i tačaka 3–5; commit/push tek posle potvrde.
+
+T037 završen lokalno: kontrolisani RED sa sporim slanjem pokazuje recovery GET
+960 ms pre prosleđenog POST-a. Barijera na potvrđenom odgovoru i kontrolisan
+browser sat daju GREEN1/1, recovery30/30 (6scenarija×5), full E2E14/14 tri puta,
+API/action UI12/12, typecheck/lint0. Nema retries ili promene produkcionog koda.
+Korisnik je WIP ručno commitovao kao c6f2016; završni dokazi ostaju za pregled.
+[Reprodukcija, pokušaji i granice](../../docs/evidence/003-T037-handoff.md).

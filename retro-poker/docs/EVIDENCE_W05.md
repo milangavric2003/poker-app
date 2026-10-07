@@ -1,5 +1,14 @@
 # Week05 — bounded read-only coach
 
+## T037 — recovery E2E, 2026-10-07
+
+Kontrolisano usporavanje slanja POST-a reprodukuje trku u timeout testu: recovery
+GET pretiče backend mutaciju. Test sada potvrđuje backend odgovor pre pomeranja
+browser sata, čuva postojeće oracle-e i ima dodatni spori scenario. Recovery
+30/30 (pet ponavljanja), tri pune E2E provere po14/14, relevantni UI12/12,
+typecheck/lint exit0; retries0. Izvorni nezavisni pad nema trace, pa identičan
+istorijski uzrok nije potvrđen. [Kompletan dokaz](evidence/003-T037-handoff.md).
+
 ## T036 — lokalna Vitest ponovljivost, 2026-10-07
 
 Na grani `fix/week05-review-improvements` uveden je zajednički cap do 4 worker-a.

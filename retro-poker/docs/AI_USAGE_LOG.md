@@ -504,3 +504,15 @@ typecheck/lint0. Nema dokaza da je to uzrok/fix istorijskog single-worker kvara.
 Novi live provider pozivi0; offline fake pozivi nisu prebrojani. Korisnikov
 review još nije potvrđen; commit/push i tačke2–5 nisu izvršeni.
 [Rezultati i ograničenja](evidence/003-T036-handoff.md).
+
+## 2026-10-07 — T037 recovery E2E
+
+Korisnik odobrio tačku2 na istoj grani; jedan coding agent, bez subagenata.
+Očekivanje: konkretna dijagnoza i stabilni recovery/full browser run-ovi.
+Dodati spori transport reprodukuje test race (RED1), potvrđen trace redosledom
+GET pre POST-a. Sinhronizacija potvrđenog odgovora daje GREEN1; recovery30/30,
+full14/14 tri puta, UI12/12, typecheck/lint0. Dva neuspešna međukoraka novog
+assertion/cleanup setup-a sačuvana i nisu predstavljena kao produkcioni RED.
+Korisnik ručno commitovao WIPc6f2016, agent nastavio treću proveru i dokumente.
+Novi live pozivi0; fake pozivi nisu prebrojani; coding tokeni/trošak nepoznati.
+CI i naredne tačke nisu započete. [Detalji](evidence/003-T037-handoff.md).

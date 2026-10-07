@@ -1,0 +1,9 @@
+T037 controlled RED trace: selected HTTP request metadata only
+Source: .verification/T037-red/*/trace.zip
+('1-trace.network', 'GET', 'http://127.0.0.1:5173/api/game', '2026-10-06T22:14:28.377Z')
+('1-trace.network', 'GET', 'http://127.0.0.1:5173/api/game', '2026-10-06T22:14:28.377Z')
+('1-trace.network', 'POST', 'http://127.0.0.1:5173/api/game', '2026-10-06T22:14:29.155Z')
+('1-trace.network', 'POST', 'http://127.0.0.1:5173/api/game/actions', '2026-10-06T22:14:29.231Z')
+('1-trace.network', 'GET', 'http://127.0.0.1:5173/api/game', '2026-10-06T22:14:29.298Z')
+('0-trace.network', 'POST', 'http://127.0.0.1:5173/api/game/actions', '2026-10-06T22:14:30.258Z')
+Forwarded POST started 960 ms after recovery GET.
