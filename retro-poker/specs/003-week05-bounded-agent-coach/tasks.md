@@ -526,3 +526,23 @@ u 61 fajlu i cela E2E 14/14 bez retry-ja. JSON/JUnit/HTML reporti provereni.
 Hosted Windows/Linux izvršavanje i upload artefakata čekaju odobreni push;
 ovaj checkbox označava lokalnu isporuku, ne potvrđen GitHub run.
 [Dokazi i sledeći korak](../../docs/evidence/003-T038-handoff.md).
+
+Naknadna hosted provera 2026-10-07 na `116bac6`: Windows job i E2E na oba OS-a
+prolaze, Ubuntu Vitest pada u oba GitHub run-a. Hosted full-suite gate ostaje
+otvoren do dijagnoze i novog prolaza; lokalni checkbox iznad ga ne potvrđuje.
+[Audit nastavka](../../docs/evidence/003-review-continuation-2026-10-07.md).
+
+## T039 — deterministički AI recovery test posle Linux CI nalaza
+
+- [x] T039 — deps T038; owner: Veki uz Codex pomoć. Dostavljeni Linux log ima
+  884/888 i četiri pada u ai-failures.test.ts: timeout/429/5xx/network.
+  Allowed: taj test, feature plan/tasks, docs/CONTEXT_MANIFEST.md,
+  docs/AI_USAGE_LOG.md, docs/EVIDENCE_W05.md, docs/evidence/003-review-*.
+  Uvesti postojeći FakeClock kroz aiClock i kontrolisati napredovanje vremena
+  u recovery helper-u; sačuvati RED pre korekcije helper-a i GREEN posle.
+  Assertion-i i produkcioni kod ostaju isti. Fokus, puna suite i typecheck/lint;
+  hosted Linux rezultat posebno potvrditi nakon objavljivanja izmena.
+
+Lokalno: kontrolisani RED 4 pada/5 prolaza (četiri ostala testa nisu izabrana),
+GREEN 13/13 bez preskakanja, puna suite 888/888 u 61 fajlu, typecheck/lint exit 0.
+Checkbox označava lokalnu popravku; hosted potvrda beleži se u audit nastavku.

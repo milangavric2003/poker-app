@@ -330,3 +330,14 @@ T038 lokalno ostvareno: clean npm ci, typecheck/lint/build, Vitest 888/888 i
 E2E 14/14 bez retry-ja; YAML/expressions provereni actionlint-om 1.7.12.
 Sačuvan sažetak stvarnih reporta i runtime/commit/lockfile/workflow hash-a.
 Nema produkcionih izmena ili novih dependencies; hosted rezultat ostaje otvoren.
+
+## T039 — kontrolisani sat za AI recovery integraciju
+
+Ubuntu log za 116bac6 pokazuje četiri pada settled helper-a posle 161–207 ms,
+bez worker-start greške. Helper koristi 100 realnih pauza od 1 ms, što nije
+garancija da je prošao produkcioni retry backoff. Ubrizgati postojeći FakeClock
+po app instanci. Najpre proveriti da stari helper ne može završiti retry dok
+kontrolisani sat stoji; zatim napredovati taj sat tokom čekanja i zadržati sve
+provere broja poziva, fallback-a, verzije, usage-a i poker stanja. Provere
+retrying/model_fallback takođe koriste isti kontrolisani sat. HTTP/Fastify
+raspoređivanje ostaje stvarno. Bez povećavanja produkcionih/test timeout-a.

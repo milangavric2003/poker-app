@@ -6,18 +6,21 @@ import { processUsageStore } from '../../backend/src/ai/usage.js';
 import { GameResponseSchema, type GameView } from '../../shared/contracts.js';
 import { FakeAiProvider, legalBotProposal, type FakeAiStep } from '../helpers/fake-ai-provider.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
+import { FakeClock } from '../helpers/fake-clock.js';
 
 const apps: FastifyInstance[] = [];
+const clocks = new WeakMap<FastifyInstance, FakeClock>();
 afterEach(async () => {
   await Promise.all(apps.splice(0).map(app => app.close()));
   const snapshot = processUsageStore.snapshot(); processUsageStore.reset(snapshot.revision);
 });
 
 function makeApp(provider: FakeAiProvider, configured = true) {
+  const clock = new FakeClock();
   const app = buildApp({ deck: ac23Deck, deckRandom: sequenceRandom([]),
-    botRandom: sequenceRandom(Array<number>(100).fill(0.9)), aiProvider: provider,
+    botRandom: sequenceRandom(Array<number>(100).fill(0.9)), aiProvider: provider, aiClock: clock,
     aiConfig: loadAiConfig(configured ? { GEMINI_API_KEY: 'offline-test-placeholder' } : {}) });
-  apps.push(app); return app;
+  clocks.set(app, clock); apps.push(app); return app;
 }
 
 async function start(app: FastifyInstance): Promise<GameView> {
@@ -31,7 +34,9 @@ async function settled(app: FastifyInstance): Promise<GameView> {
   for (let attempt = 0; attempt < 100; attempt++) {
     const game = GameResponseSchema.parse((await app.inject('/api/game')).json()).game!;
     if (game.ai.lastBotOutcome && game.ai.active === null) return game;
-    await new Promise(resolve => setTimeout(resolve, 1));
+    // Advance the injected AI clock, independent of the host's timer resolution.
+    clocks.get(app)!.advance(10);
+    await new Promise<void>(resolve => setImmediate(resolve));
   }
   throw new Error('AI fallback nije zavrsen u predvidjenom roku.');
 }
@@ -92,8 +97,11 @@ describe('offline AI recovery (FR-012, AIAC03–AIAC09)', () => {
     async (status, firstStep, model) => {
       const provider = new FakeAiProvider([firstStep, { kind: 'pending', id: status }]);
       const app = makeApp(provider); await start(app);
-      for (let attempt = 0; attempt < 100 && provider.callCount < 2; attempt++)
-        await new Promise(resolve => setTimeout(resolve, 5));
+      for (let attempt = 0; attempt < 100 && provider.callCount < 2; attempt++) {
+        clocks.get(app)!.advance(10);
+        await new Promise<void>(resolve => setImmediate(resolve));
+      }
+      expect(provider.callCount).toBe(2);
       const waiting = GameResponseSchema.parse((await app.inject('/api/game')).json()).game!;
       expect(waiting.ai.active).toMatchObject({ status, attemptCount: 1, model });
       provider.resolve(status, legalBotProposal(provider.calls[1]!.context as Parameters<typeof legalBotProposal>[0]));

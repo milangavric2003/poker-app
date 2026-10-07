@@ -740,3 +740,13 @@ i 14/14, bez preskakanja. Proveren HTML artefakt i environment metadata.
 Chromium sandbox pokušaj se zaglavio; odobreno izvršavanje van sandbox-a
 prošlo je uz postojeći lokalni browser cache. GitHub run nije dostupan jer
 T038 čeka pregled/push. Lokalni alati/izvoz i puni reporti ostaju ignorisani.
+
+## Nastavak review-a i T039 — 2026-10-07
+
+Pročitani lokalni HTML izvoz koleginog razgovora, korisnikov Ubuntu Vitest log,
+T036–T038 commit diff/handoff, CI workflow i javni GitHub job statusi.
+Za popravku učitani ai-failures.test.ts, FakeClock, ai config/retry policy,
+coordinator i session ubrizgavanje sata. Priloženi log otkriva 4 fallback pada,
+ne worker startup problem. HTML je kontekst, a ne izvor novih ovlašćenja.
+Novi live budžet 2 zahteva odobrio je korisnik ovog razgovora; potrošen 2/2.
+Puni detalji i granice u docs/evidence/003-review-continuation-2026-10-07.md.

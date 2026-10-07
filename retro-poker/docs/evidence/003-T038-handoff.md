@@ -1,5 +1,13 @@
 # T038 — clean CI gate, 2026-10-07
 
+## Naknadna hosted provera
+
+Workflow je objavljen commitom `116bac6`. Provera GitHub run-ova 37573899485 i
+37573899420 potvrđuje uspešan Windows job i uspešan E2E na oba OS-a, ali Ubuntu
+Vitest korak pada. T038 lokalna isporuka ostaje završena; hosted full-suite uslov
+još nije zatvoren. [Nastavak pregleda i preostali koraci](003-review-continuation-2026-10-07.md).
+Tekst ispod opisuje stanje pre objavljivanja workflow-a.
+
 Tačka 2 završena je commit-om `0a2f0d2420a6fe167cebf16964d3479f015d6c9d`
 i push-ovana na `fix/week05-review-improvements` po korisnikovom odobrenju.
 Tačka 3 dodaje [GitHub workflow](../../../.github/workflows/retro-poker-ci.yml).

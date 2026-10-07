@@ -531,3 +531,14 @@ nisu izvršeni pre korisnikovog pregleda i odobrenja za push tačke 3.
 Novi live provider pozivi 0; offline fake pozivi nisu prebrojani.
 Review tačke 3 i doprinos drugog člana nisu pretpostavljeni; tačke 4/5 čekaju.
 [Handoff](evidence/003-T038-handoff.md).
+# Nastavak mentorovog review-a — 2026-10-07
+
+Veki traži pregled preuzetog rada i završetak popravki. Codex je pregledao
+commitove, dostavljeni HTML razgovor i Ubuntu log, proverio javne CI statuse,
+izmenio samo testni sat u ai-failures.test.ts i dopunio dokaze. Lokalni RED četiri
+fallback pada, GREEN 13/13 i puna regresija 888/888; typecheck/lint prolaze.
+Model/verzija coding agenta i potrošnja coding tokena nisu zabeleženi.
+Posebno odobren live budžet: 2 API zahteva, potrošen 2/2 kroz Gemini Flash Lite,
+jedan completed long-match/street run, 1632 total tokena, cena unknown,
+read-only=true, retry/fallback=0. Nema odobrenja za dodatne live pozive.
+[Dokaz, komande i ograničenja](evidence/003-review-continuation-2026-10-07.md).
