@@ -1,0 +1,36 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/recovery.spec.ts --grep timeout-slow-forward --retries=0 --trace=on --output=.verification/T037-green
+
+
+Running 1 test using 1 worker
+
+npm.cmd : (node:12768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:1
++ npm.cmd run test:e2e -- tests/e2e/recovery.spec.ts --grep timeout-slo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:12768) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja (30.1s)
+
+
+  1) [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja
+
+    Test timeout of 30000ms exceeded.
+
+    Error Context: .verification\T037-green\recovery-timeout-slow-forw-56a29-klađuje-POST-se-ne-ponavlja-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .verification\T037-green\recovery-timeout-slow-forw-56a29-klađuje-POST-se-ne-ponavlja-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace .verification\T037-green\recovery-timeout-slow-forw-56a29-klađuje-POST-se-ne-ponavlja-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja
+
+EXIT_CODE=1

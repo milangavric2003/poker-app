@@ -1,9 +1,10 @@
 # Feature Specification: Week05 bounded agent coach
 
 **Feature**: `003-week05-bounded-agent-coach`  
-**Status**: T002–T026 implementirani/provereni; T028/T029 male korekcije imaju dokaz.
-Ljudski walkthrough T027 nije potvrđen. Specifikacija sama nije runtime dokaz.
-T030 runner/stop su zabeleženi; T031 odobreni live #2 završio je validiranim finalom.
+**Status (2026-10-07)**: osnovni feature i T027 ljudski walkthrough završeni.
+T033–T035 poboljšavaju Gemini transport; T036–T039 obrađuju ponovljivost testova
+i clean CI. Aktuelni rezultati i ograničenja su u
+[evidence pregledu](../../docs/EVIDENCE_W05.md). Specifikacija sama nije runtime dokaz.
 **Datum**: 2026-10-04  
 **Ulaz**: proširenje Week04 analize završene partije u mali, proverljiv agentski tok.
 

@@ -1,0 +1,8 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Install Chromium
+Command from workflow:
+npx --no-install playwright install --with-deps chromium
+
+
+EXIT_CODE=0
+SIGNAL=none

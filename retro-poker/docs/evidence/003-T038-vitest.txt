@@ -1,0 +1,93 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Unit, contract, integration and UI tests
+Command from workflow:
+npm test -- --allowOnly=false --reporter=default --reporter=junit --reporter=json --outputFile.junit=ci-results/vitest.xml --outputFile.json=ci-results/vitest.json
+
+
+> retro-poker@0.1.0 test
+> vitest run --allowOnly=false --reporter=default --reporter=junit --reporter=json --outputFile.junit=ci-results/vitest.xml --outputFile.json=ci-results/vitest.json
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker/.verification/T038-clean/retro-poker
+
+ ✓ |node| tests/unit/agent-tool.test.ts (32 tests) 42ms
+ ✓ |node| tests/unit/deal.test.ts (33 tests) 52ms
+ ✓ |node| tests/integration/agent-run.test.ts (44 tests) 84ms
+ ✓ |node| tests/integration/gemini-agent.test.ts (35 tests) 38ms
+ ✓ |node| tests/integration/ai-analysis.test.ts (13 tests) 213ms
+ ✓ |node| tests/integration/session.test.ts (8 tests) 142ms
+ ✓ |node| tests/contract/coach-routes.test.ts (29 tests) 200ms
+ ✓ |node| tests/contract/ai-routes.test.ts (7 tests) 150ms
+ ✓ |node| tests/unit/betting.test.ts (21 tests) 9ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts (13 tests) 60ms
+ ✓ |node| tests/integration/coach-smoke.test.ts (33 tests) 1132ms
+ ✓ |node| tests/contract/messages.test.ts (61 tests) 30ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts (14 tests) 14ms
+ ✓ |node| tests/integration/ai-bots.test.ts (8 tests) 159ms
+ ✓ |node| tests/unit/coach-usage.test.ts (9 tests) 65ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts (18 tests) 128ms
+ ✓ |node| tests/unit/agent-schemas.test.ts (23 tests) 25ms
+ ✓ |node| tests/unit/ai-retry.test.ts (18 tests) 16ms
+ ✓ |node| tests/unit/pots.test.ts (14 tests) 12ms
+ ✓ |node| tests/unit/match-facts.test.ts (7 tests) 27ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts (8 tests) 433ms
+ ✓ |node| tests/integration/concurrency.test.ts (9 tests) 143ms
+ ✓ |node| tests/integration/gemini-http.test.ts (9 tests) 46ms
+ ✓ |node| tests/unit/ai-usage.test.ts (3 tests) 24ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts (8 tests) 65ms
+ ✓ |node| tests/unit/ai-context.test.ts (8 tests) 24ms
+ ✓ |node| tests/contract/ai-contracts.test.ts (13 tests) 29ms
+ ✓ |node| tests/unit/evaluator.test.ts (96 tests) 23ms
+ ✓ |node| tests/unit/ai-semantic.test.ts (12 tests) 17ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts (7 tests) 12ms
+ ✓ |node| tests/integration/actions.test.ts (5 tests) 173ms
+ ✓ |node| tests/unit/bot.test.ts (6 tests) 9ms
+ ✓ |node| tests/unit/agent-provider.test.ts (14 tests) 12ms
+ ✓ |node| tests/contract/view.test.ts (5 tests) 44ms
+ ✓ |node| tests/unit/positions.test.ts (16 tests) 11ms
+ ✓ |node| tests/integration/ai-failures.test.ts (13 tests) 1823ms
+ ✓ |node| tests/unit/hand.test.ts (5 tests) 9ms
+ ✓ |node| tests/contract/coach-contract.test.ts (3 tests) 15ms
+ ✓ |node| tests/unit/ai-slow-profile.test.ts (3 tests) 18ms
+ ✓ |node| tests/unit/agent-final.test.ts (20 tests) 20ms
+ ✓ |node| tests/unit/ai-config.test.ts (12 tests) 7ms
+ ✓ |node| tests/integration/hand-flow.test.ts (3 tests) 148ms
+ ✓ |node| tests/unit/invariants.test.ts (6 tests) 11ms
+ ✓ |node| tests/integration/elimination-settlement.test.ts (2 tests) 14ms
+ ✓ |node| tests/unit/history.test.ts (3 tests) 8ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts (6 tests) 96ms
+ ✓ |node| tests/integration/terminal-view.test.ts (2 tests) 158ms
+ ✓ |node| tests/contract/config.test.ts (39 tests) 15ms
+ ✓ |node| tests/integration/coach-live-eval.test.ts (1 test) 5ms
+ ✓ |node| tests/unit/gemini-diagnosis.test.ts (2 tests) 1284ms
+   ✓ diagnostic CLI failure exit codes (offline HTTP) (2)
+     ✓ fails on HTTP 503 without valid generation content 739ms
+     ✓ fails on HTTP 200 without valid generation content 542ms
+ ✓ |node| tests/integration/gemini-live-smoke.test.ts (2 tests) 2825ms
+   ✓ opt-in live runner with offline HTTP (2)
+     ✓ reports actual application outcomes with HTTP 200 1515ms
+     ✓ reports actual application outcomes with HTTP 503 1308ms
+ ✓ |ui| tests/ui/dashboard.test.tsx (11 tests) 542ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx (17 tests) 893ms
+ ✓ |ui| tests/ui/api.test.ts (7 tests) 32ms
+ ✓ |ui| tests/ui/coach.test.tsx (19 tests) 311ms
+ ✓ |ui| tests/ui/coach-api.test.ts (11 tests) 23ms
+ ✓ |ui| tests/ui/analysis.test.tsx (6 tests) 292ms
+ ✓ |ui| tests/ui/ai-status.test.tsx (23 tests) 2872ms
+   ✓ AI status (23)
+     ✓ polls with GET only and stops after a terminal snapshot 1632ms
+     ✓ clears polling on unmount 871ms
+ ✓ |ui| tests/ui/actions.test.tsx (5 tests) 324ms
+ ✓ |ui| tests/ui/table.test.tsx (3 tests) 185ms
+ ✓ |ui| tests/ui/results.test.tsx (5 tests) 280ms
+
+ Test Files  61 passed (61)
+      Tests  888 passed (888)
+   Start at  06:41:27
+   Duration  12.45s (tests 43%, environment 26%, import 25%, transform 4%, worker 1%)
+
+JSON report written to C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker/.verification/T038-clean/retro-poker/ci-results/vitest.json
+JUNIT report written to C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker/.verification/T038-clean/retro-poker/ci-results/vitest.xml
+
+EXIT_CODE=0
+SIGNAL=none

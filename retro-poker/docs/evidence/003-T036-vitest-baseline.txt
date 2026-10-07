@@ -1,0 +1,903 @@
+
+> retro-poker@0.1.0 test
+> vitest run --reporter=verbose
+
+
+ RUN  v5.0.1 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3/poker-app/retro-poker
+
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > rejects a nonterminal game and keeps poker state deeply equal 403ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > returns terminal-only 202 and completes a strict, locally-disclaimed, read-only analysis 41ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > keeps omitted aiMode backward-compatible and exposes mode off 300ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > belezi blindove, board i settlement kada oba blinda odmah idu all-in 19ms
+ ✓ |node| tests/integration/concurrency.test.ts > create/reset uslovi i konkurentni duplikati ne brišu noviju partiju 340ms
+ ✓ |node| tests/integration/concurrency.test.ts > kontrolisan 400 bez promene stanja 64ms
+ ✓ |node| tests/integration/hand-flow.test.ts > T018 bot loop, privatnost i AC23 > početni odgovor skriva bot karte, deck, burn, seed i observation 367ms
+ ✓ |node| tests/integration/hand-flow.test.ts > T018 bot loop, privatnost i AC23 > AC23 izvršava bot loop do sledećeg ljudskog poteza i završava 1010/990 72ms
+ ✓ |node| tests/integration/hand-flow.test.ts > T018 bot loop, privatnost i AC23 > AC17 posle ljudskog fold-a botovi završavaju bez novog ljudskog poteza 25ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > rejects unknown decisionRef in good twice and never publishes a fake analysis 62ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > rejects unknown decisionRef in mistake twice and never publishes a fake analysis 35ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > does not treat a bad result as sole evidence that the recorded decision was bad 21ms
+ ✓ |node| tests/integration/actions.test.ts > T018 create/get/action i transakcije > GET je prazan, create pravi UUID partiju, a GET vraća javni snapshot 352ms
+ ✓ |node| tests/integration/actions.test.ts > T018 create/get/action i transakcije > nevalidan config i pogrešan reset uslov ne zamenjuju postojeću partiju 44ms
+ ✓ |node| tests/integration/actions.test.ts > T018 create/get/action i transakcije > stale dupli potez ima jedan serijski commit i version raste samo jednom 40ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > serves GET before a pending provider resolves 346ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > replacement aborts the old signal and ignores its late callback 83ms
+ ✓ |node| tests/integration/terminal-view.test.ts > terminal all-in HTTP snapshot > validates a won game while preserving showdown evidence 438ms
+ ✓ |node| tests/integration/terminal-view.test.ts > terminal all-in HTTP snapshot > validates a lost game while preserving showdown evidence 36ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > accepts explicit aiMode boolean and rejects wrong types and unknown fields 99ms
+ ✓ |node| tests/integration/concurrency.test.ts > kontrolisan 413 bez promene stanja 17ms
+ ✓ |node| tests/integration/concurrency.test.ts > kontrolisan 415 bez promene stanja 17ms
+ ✓ |node| tests/integration/concurrency.test.ts > kontrolisan 415 bez promene stanja 10ms
+ ✓ |node| tests/integration/concurrency.test.ts > samo propisani Origin; nema debug ili set-deck ruta 35ms
+ ✓ |node| tests/integration/concurrency.test.ts > 404, stale i dupli potez imaju najviše jedan commit 25ms
+ ✓ |node| tests/integration/concurrency.test.ts > rollback next-hand čuva istoriju, verziju i oba RNG izvora posle potrošnje 12ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > završava AI bot obračun sledeće ruke posle eliminacije 469ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > malformed failure has the expected bounded chain and one visible local commit 473ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > schema failure has the expected bounded chain and one visible local commit 28ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > semantic failure has the expected bounded chain and one visible local commit 40ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > prenosi stackove, rotira heads-up blindove i čuva samo poslednji rezultat 455ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > istorija posle next-hand sadrži samo aktuelnu i poslednju završenu ruku 6ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > T035 identifies the failing transport contract unexpected_fields 26ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > T035 identifies the failing transport contract invalid_kind 4ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > T035 identifies the failing transport contract invalid_confidence 5ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > T035 identifies the failing transport contract invalid_completion 4ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > T035 identifies the failing transport contract invalid_text_type 3ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > T035 identifies the failing transport contract invalid_evidence_list 3ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies invalid_json without storing the rejected output 3ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies duplicate_evidence without storing the rejected output 3ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies invalid_evidence_index without storing the rejected output 5ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies invalid_evidence_index without storing the rejected output 4ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies missing_completion_evidence without storing the rejected output 3ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies summary_bounds without storing the rejected output 12ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies recommendation_bounds without storing the rejected output 5ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies unexpected_fields without storing the rejected output 3ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies output_too_large without storing the rejected output 2ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > identifies a missing text output 2ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > describes runtime bounds and distinct selection in the provider schema 5ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > starts a strict run and serves the same status with no-store 408ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {} before provider/tool calls 21ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"extra":true} before provider/tool calls 18ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"gameId":"bad"} before provider/tool calls 10ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"handId":"bad"} before provider/tool calls 13ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":-1} before provider/tool calls 12ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":1.2} before provider/tool calls 17ms
+ ✓ |node| tests/integration/actions.test.ts > T018 create/get/action i transakcije > nelegalna akcija vraća stabilnu grešku bez privatnog stanja i rollback-uje stanje/istoriju/RNG 57ms
+ ✓ |node| tests/integration/actions.test.ts > T018 create/get/action i transakcije > interna greška posle bot odluke rollback-uje stanje, istoriju i bot RNG 24ms
+ ✓ |node| tests/integration/concurrency.test.ts > kontrolisan HTTP 500 odbacuje kandidata i ne otkriva privatnu grešku 28ms
+ ✓ |node| tests/integration/coach-output-diagnostics.test.ts > safe coach output diagnostics T034 > exposes only a known diagnostic enum through the real session and GET route 480ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > ends immediate timeout errors as failed and preserves poker state 65ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > ends immediate malformed errors as failed and preserves poker state 19ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > ends immediate 5xx errors as failed and preserves poker state 18ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 long-match holdout covers three hands for street 626ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > keeps additive GameView.ai and no-store through create, GET, action and next-hand 190ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > offers a process-wide usage snapshot even when no game exists 13ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > rejects a callback after the version fingerprint changes and clears the stale interaction 97ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > rejects a callback after the hand fingerprint changes and clears the stale interaction 45ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > commits legal fake decisions through the engine for botCount=1 30ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > commits legal fake decisions through the engine for botCount=2 24ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > commits legal fake decisions through the engine for botCount=3 33ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > commits legal fake decisions through the engine for botCount=4 26ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > commits legal fake decisions through the engine for botCount=5 16ms
+ ✓ |node| tests/unit/gemini-diagnosis.test.ts > diagnostic CLI failure exit codes (offline HTTP) > fails on HTTP 503 without valid generation content 2174ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":"2"} before provider/tool calls 13ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"expectedVersion":9007199254740992} before provider/tool calls 12ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"goal":{"focus":"shell"}} before provider/tool calls 10ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"goal":{"focus":"street","extra":true}} before provider/tool calls 8ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects strict input {"goal":null} before provider/tool calls 27ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects game preflight without calls 7ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects hand preflight without calls 8ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects version preflight without calls 7ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects active preflight without calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects completed-hand preflight without calls 8ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > bounds genuinely hanging provider attempts by the 30 second interaction budget 114ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > rejects provider-supplied unexpected fields in strict analysis 34ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > rejects provider-supplied disclaimer fields in strict analysis 11ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > rejects a duplicate request while one interaction is pending 33ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > rejects a callback after the actor fingerprint changes and clears the stale interaction 67ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > rejects a callback after the decisionOrdinal fingerprint changes and clears the stale interaction 58ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > odbija prerani i dupli next-hand bez mutacije 43ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > reset vraća početne stackove, a nov proces nema memorijsko stanje 31ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > stvarni settlement postavlja won i terminalni session odbija next-hand 3ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > stvarni settlement postavlja lost i odmah završava session 3ms
+ ✓ |node| tests/integration/session.test.ts > T027/T028 session lifecycle > rollback next-hand kandidata čuva verziju, ruku, istoriju i RNG 29ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > uses strict optimistic concurrency for usage reset 21ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > rejects unknown reset fields and preserves the process aggregate after game replacement 14ms
+ ✓ |node| tests/contract/ai-routes.test.ts > Week04 HTTP contracts (AIAC01, AIAC12–AIAC13) > rejects analysis before a terminal game with a stable semantic error 15ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > AI mode off makes exactly zero provider calls and keeps the deterministic local path 13ms
+ ✓ |node| tests/integration/ai-bots.test.ts > AI bot mode public integration seam (FR-001, AIAC01, AIAC09) > missing key makes exactly zero provider calls and uses local fallback 9ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > accepts at most one commit when a provider resolves the same callback twice 46ms
+ ✓ |node| tests/integration/ai-concurrency.test.ts > AI cancellation, CAS and non-blocking reads (AIAC05/14/16, SC-010) > does not start a retry when the first response reaches the commit-reserve boundary 4ms
+ ✓ |node| tests/integration/ai-analysis.test.ts > analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11) > starts manual retry as a new logical interaction after terminal failure 20ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > returns insufficient evidence without provider or tool calls 15ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires gameId without provider or tool calls 7ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires handId without provider or tool calls 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires expectedVersion without provider or tool calls 5ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires goal without provider or tool calls 10ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > keeps facts revision server-side and rejects client overrides 6ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects a missing session safely 14ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > rejects unavailable AI before provider and tool calls 9ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 long-match holdout covers three hands for betting 138ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > timeout failure has the expected bounded chain and one visible local commit 274ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 long-match holdout covers three hands for showdown 122ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 accepts focus betting through the production tool 70ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > exposes a safe terminal failure and explicit POST retry creates another run 81ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > deduplicates active starts and rejects a competing goal 11ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > requires a valid retained run identity and rejects query alternatives 22ms
+ ✓ |node| tests/contract/coach-routes.test.ts > T018 coach HTTP contract > enforces JSON and 1024 byte cap with safe errors in the production app 11ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 accepts focus street through the production tool 82ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 accepts focus showdown through the production tool 73ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > 429 failure has the expected bounded chain and one visible local commit 271ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 rejects invalid focus flags before provider construction [ '--focus=all' ] 3ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 rejects invalid focus flags before provider construction [ '--focus=' ] 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > T035 rejects invalid focus flags before provider construction [ '--focus=street', '--focus=betting' ] 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > without the exact --live flag does not load configuration or create a provider 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects disabled configuration before any call 3ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_key configuration before any call 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects missing_agent configuration before any call 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > completes exactly one run with two distinct model steps, the actual tool and validated final 86ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports unknown_tool rejection with zero executor calls 94ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports invalid_arguments rejection with zero executor calls 74ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > 5xx failure has the expected bounded chain and one visible local commit 275ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops timeout_error after one attempt with no retry or fallback 51ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 429 after one attempt with no retry or fallback 84ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > pravi sve 52 jedinstvene karte bez džokera i nezavisne nizove 6ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > Fisher–Yates sa 51 nulom daje unapred poznatu rotaciju 4ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > kontrolisani prefiks dopunjava do 52 bez mutacije i trošenja RNG-a 3ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 0 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 1 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 2 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija nevalidan ili dupliran kontrolisani špil 3 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost -0.1 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost 1 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost NaN 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 špil i ubrizgana slučajnost > odbija RNG vrednost Infinity 0ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 1 botova: početne pozicije, blindovi i dva kruga deljenja 5ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 2 botova: početne pozicije, blindovi i dva kruga deljenja 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 3 botova: početne pozicije, blindovi i dva kruga deljenja 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 4 botova: početne pozicije, blindovi i dva kruga deljenja 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > 5 botova: početne pozicije, blindovi i dva kruga deljenja 4ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > bez kontrolisanog špila koristi ubrizgani RNG i čuva bot RNG 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova 0 pre RNG-a 1ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova 6 pre RNG-a 0ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova 1.5 pre RNG-a 0ms
+ ✓ |node| tests/unit/deal.test.ts > T014 AC01/AC02/validni AC03: početak ruke > odbija nevalidan broj botova NaN pre RNG-a 0ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 1 botova: legalni call/check tok završava bez zastoja 14ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 2 botova: legalni call/check tok završava bez zastoja 20ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 3 botova: legalni call/check tok završava bez zastoja 28ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops 5xx after one attempt with no retry or fallback 73ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 4 botova: legalni call/check tok završava bez zastoja 21ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > 5 botova: legalni call/check tok završava bez zastoja 85ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > AC02/AC23: BB dobija prvu kartu, ima opciju, board je 3–1–1 sa burn-ovima 9ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > AC16: fold odmah isplaćuje 995/1005 bez burn-a ili board-a 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > all-in čeka odgovor na dug pa automatski deli ostatak i isplaćuje jednom 3ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > all-in na flop-u ne deli flop ponovo i resetuje puni raise na novoj ulici 4ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > preskače folded/all-in mesta, ali dva solventna igrača nastavljaju za side pot 12ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > jedini solventni igrač ne dobija novu rundu protiv all-in protivnika 2ms
+ ✓ |node| tests/unit/deal.test.ts > T014 tok runde do settlement-a > odbijena akcija ne menja karte, cursor, žetone ili red poteza 1ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > runs two distinct steps and one validated read-only tool 38ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > does not forward corrupted tool results into step two 5ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > counts retry as attempt and retains one deadline 26ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > deduplicates concurrent execution and terminal transition 15ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > network failure has the expected bounded chain and one visible local commit 281ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > safety failure has the expected bounded chain and one visible local commit 42ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > auth/config failure has the expected bounded chain and one visible local commit 49ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > stops auth_config after one attempt with no retry or fallback 109ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > a step-two failure keeps the executed tool count and does not restart the workflow 53ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > stops at narrowed step_limit without an extra call 11ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > stops at narrowed tool_call_limit without an extra call 7ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > stops at narrowed call_budget without an extra call 14ms
+ ✓ |node| tests/unit/agent-orchestrator.test.ts > bounded coach state machine T014 > rejects repeated canonical action before a second executor call 21ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > publishes stable wall-clock ISO timestamps while the run keeps its monotonic deadline 58ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > dispatches only after the start mutation lock has been released 7ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > does not record late evidence after epoch invalidation 25ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > does not record late evidence after replacement invalidation 34ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > missing key makes zero provider calls and still exposes local fallback 16ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > rejects invented evidence as a failed smoke, even after two successful provider responses 78ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E1: accepts sufficient canonical betting evidence 15ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E2: accepts newest evidence at lower limit 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E3: accepts latest ten at upper limit 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E4: empty/aggregate-only source returns safe insufficient_evidence signal 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > E5: rejects foreign/stale evidence and oversized output 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects malformed/unknown fields/types, codes, findings, omitted facts and false empty output 5ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects valid-looking output from a different run snapshot, stale source, wrong limit/order/sample flag 4ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > accepts deterministic byte-truncated output and whole oversized-fact omissions without mutation 15ms
+ ✓ |node| tests/unit/agent-tool.test.ts > snapshot-bound result validation and expected-first evals (T011) > rejects incomplete fingerprint and corrupt source refs even for otherwise canonical output 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > registers only the explicit allowlisted name 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for betting with independent oracle 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for street with independent oracle 5ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > selects known decisions for showdown with independent oracle 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > includes each betting action but excludes check/fold 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E2: lower limit chooses only newest matching decision 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E3: upper limit keeps latest ten in increasing ordinal order 2ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 0 before projection 4ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 11 before projection 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit 1.5 before projection 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit "1" before projection 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects invalid limit null before projection 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"all","limit":1} 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"gameId":"foreign"} 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"path":"/private"} 0ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects unknown fields and foreign/stale reference input {"focus":"street","limit":1,"decisionRef":"stale:1"} 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > E4: empty and aggregate-only snapshots cannot fabricate details 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > is deterministic under input permutation and preserves deeply frozen snapshot 3ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > projects only allowlisted fields and keeps later outcome separate from knowledge 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > omits whole oversized facts without slicing and marks limited sample 1ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > removes oldest whole decisions until JSON UTF-8 fits 20480 bytes 7ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > counts one run, two steps, two attempts, one tool and separate validation; no retry 101ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > does not record late evidence after revision invalidation 5ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > completes only validated final output and preserves the entire poker snapshot 16ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates unknown_tool and explicit retry gets a new ID 46ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates invalid_arguments and explicit retry gets a new ID 14ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates auth_config and explicit retry gets a new ID 13ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > safely terminates invalid_final and explicit retry gets a new ID 13ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > rejects nonterminal, mismatched revision/game and corrupt detailed references 12ms
+ ✓ |node| tests/unit/agent-tool.test.ts > get_decision_evidence contract (T009) > cooperatively stops on abort, local 1000ms timeout and shorter run deadline 2ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > releases serial lock, deduplicates, aborts replacement and ignores a late provider 4ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > rejects stale versions with no provider/tool or poker mutation 3ms
+ ✓ |node| tests/integration/coach-lifecycle.test.ts > T019 session coach ownership > contains a raw tool exception inside safe terminal DTO and records one terminal outcome 6ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records 429 recovery within a step, fallback separately 13ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records 5xx recovery within a step, fallback separately 17ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records rejected unknown_tool but zero executions 5ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records rejected invalid_arguments but zero executions 4ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > rejects late epoch and invalidated run records without affecting Week04 17ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > bounds unsafe latency and stores only projected counters and metadata 8ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > rejects unknown aggregate fields and invalid counts while preserving old DTOs 7ms
+ ✓ |node| tests/unit/coach-usage.test.ts > T020 coach usage independent from Week04 > records malformed candidate and final evidence rejection as validation failures 16ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > reports insufficient evidence after the tool as an incomplete live outcome, without another call 58ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T030 bounded Week05 smoke through HTTP/session/orchestrator > never prints exception text or provider content, including configuration factory failures 46ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > collects four real decisions over four streets before one bounded coach run 65ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > accepts fold without amount 11ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > accepts check without amount 2ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > accepts call without amount 1ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > accepts all_in without amount 1ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > requires bounded amountTo for bet 3ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > requires bounded amountTo for raise 3ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"gameId":"wrong"} 1ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"handId":null} 0ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"expectedVersion":-1} 0ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"expectedVersion":1.5} 1ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"expectedVersion":9007199254740992} 1ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"expectedVersion":"0"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"actorId":"bot"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > rejects command patch {"type":"dance"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > requires identities and revision 1ms
+ ✓ |node| tests/contract/messages.test.ts > command contracts > next-hand accepts only the three precondition fields 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"fold"} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"check"} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"call","payAmount":5,"isAllIn":false} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"bet","minAmountTo":10,"maxAmountTo":1000} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"raise","minAmountTo":20,"maxAmountTo":1000} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts legal action {"type":"all_in","amountTo":1000,"payAmount":995,"classification":"raise"} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent action {"type":"call","payAmount":-1,"isAllIn":false} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent action {"type":"raise","minAmountTo":100,"maxAmountTo":50} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent action {"type":"all_in","amountTo":4,"payAmount":5,"classification":"call"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent action {"type":"all_in","amountTo":5,"payAmount":5,"classification":"check"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"hand_started","number":1,"buttonSeat":0,"smallBlindSeat":0,"bigBlindSeat":1} 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"blind_posted","playerId":"p0","blind":"small","amount":5} 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"action","playerId":"p0","actionType":"call","payAmount":5,"amountTo":10} 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"board_dealt","cards":["2c","3d","7h"]} 3ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"refund","playerId":"p0","amount":5} 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts public event {"type":"settled","reason":"showdown"} 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects invalid board event lengths and duplicates 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts empty and active game envelope 13ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > requires all snapshot fields 11ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"version":-1} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"version":1.5} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"handNumber":0} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"status":"paused"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"phase":"flop"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"board":["As"]} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"board":["2c","3d","7h"]} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"actorId":"missing"} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"botCount":2} 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"totalPot":14} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"deck":[]} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"result":{"handId":"22222222-2222-4222-8222-222222222222","reason":"showdown","gameStatus":"playing","pots":[{"id":"main","amount":20,"eligibleIds":["p0","p1"],"winnerIds":["p0"],"payouts":[{"playerId":"p0","amount":20}]}],"refunds":[],"revealedCards":[{"playerId":"p0","cards":["As","Ah"]},{"playerId":"p1","cards":["Kc","Kd"]}],"netChanges":[{"playerId":"p0","amount":10},{"playerId":"p1","amount":-10}]}} 5ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"buttonSeat":6} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects inconsistent public snapshot {"legalActions":[{"type":"check","secret":2}]} 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects duplicate seats, cards and unknown nested fields 3ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > rejects repeated event sequence and wrong hand 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > validates payouts, winner eligibility and zero-sum net result 2ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts settled view only with result and no pending pot/actor/actions 3ms
+ ✓ |node| tests/contract/view.test.ts > AC19: preflop/flop/turn/river skrivaju bot karte u celom odgovoru; showdown ih otkriva 64ms
+ ✓ |node| tests/contract/view.test.ts > AC19: fold ne otkriva protivnika ni kroz rezultat ili istoriju 6ms
+ ✓ |node| tests/contract/view.test.ts > javna projekcija izdvaja nested event/result polja bez internih dodataka 7ms
+ ✓ |node| tests/contract/view.test.ts > svaki nested objekat svih event unija i showdown/previousResult ostaje javna projekcija 13ms
+ ✓ |node| tests/contract/view.test.ts > foldovani bot ostaje skriven kada drugi učesnici stignu na showdown 5ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error INVALID_INPUT 7ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error GAME_NOT_FOUND 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error STALE_STATE 15ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error ILLEGAL_ACTION 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error PRECONDITION_REQUIRED 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error PAYLOAD_TOO_LARGE 0ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error UNSUPPORTED_MEDIA_TYPE 1ms
+ ✓ |node| tests/contract/messages.test.ts > output contracts > accepts safe error INTERNAL_ERROR 0ms
+ ✓ |node| tests/unit/gemini-diagnosis.test.ts > diagnostic CLI failure exit codes (offline HTTP) > fails on HTTP 200 without valid generation content 1436ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags [ '--scenario=unknown' ] before AI configuration 1ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags [ '--scenario=' ] before AI configuration 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags [ '--scenario' ] before AI configuration 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > rejects invalid scenario flags [ '--scenario=street-review', …(1) ] before AI configuration 0ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > preserves the original one-decision scenario and reports its actual sample size 70ms
+ ✓ |node| tests/integration/gemini-live-smoke.test.ts > opt-in live runner with offline HTTP > reports actual application outcomes with HTTP 200 3612ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > publishes retrying with attempt count and selected model before attempt two 297ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > completes the real Gemini adapter flow using selected canonical facts without poker mutation T033 55ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > completes two accepted steps around one canonical executor without poker/facts mutation 11ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects invalid Gemini selections without retry or replay of the tool T033 [ 999 ] 12ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects invalid Gemini selections without retry or replay of the tool T033 [ 0, 0 ] 11ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects invalid Gemini selections without retry or replay of the tool T033 [ '0' ] 10ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > reports a valid refusal enum, keeps the stop and spends no additional attempt 68ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > never echoes an unvalidated refusal reason into diagnostics 78ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > T035 sends provider-supported enum discriminants at both stages without mutating the neutral schema 30ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > shows indexed facts and returns selected original values without copying JSON strings 8ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > reproduces the rejected quote-copy variant and prevents model-authored findings 11ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ 3 ] 5ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ -1 ] 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ 0.5 ] 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ '0' ] 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ null ] 4ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ 0, 0 ] 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [] 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects invalid, duplicate or empty completion selections [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects untrusted additional fields {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":true,"evidence":[2,1,0],"raw":"private-output"} 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects untrusted additional fields {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":true,"evidence":[{"evidenceIndex":0,"finding":"invented"}]} 3ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > preserves insufficient-evidence output {"kind":"refusal","reason":"insufficient_context"} 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > preserves insufficient-evidence output {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":false,"evidence":[]} 2ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > selects the last of fifty facts and preserves quotes, escapes and Unicode in a separate holdout 4ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects absent, empty or invalid step-two tool results before a provider call 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects absent, empty or invalid step-two tool results before a provider call 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > canonical Gemini evidence selection T033 > rejects absent, empty or invalid step-two tool results before a provider call 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"tool_request","name":"get_decision_evidence","arguments":{"focus":"street","limit":10}} 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"final","summary":"S","recommendation":"R","confidence":"low","completed":true,"evidence":[{"decisionRef":"h:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > maps structured {"kind":"refusal","reason":"insufficient_context"} 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 1ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects unknown_tool before executor 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects invalid_arguments before executor 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure invalid_structured_response / malformed_output 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure invalid_structured_response / malformed_output 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure authentication_configuration / provider_failed 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_timeout / provider_failed 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure rate_limit / provider_failed 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_unavailable / provider_failed 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_transport / provider_failed 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure provider_refusal / provider_failed 2ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > safe failure evidence_rejected / malformed_output 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > tool exception cannot expose secrets or replay the executor 5ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > model refusal withholds success 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > 429 and 5xx recover within steps, with configured fallback and shared budget 22ms
+ ✓ |node| tests/integration/agent-run.test.ts > direct offline agent integration T016 > rejects negative facts revision before provider or tool calls 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > same canonical proposal stops before second tool execution 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > new proposal after the tool cap stops without executing twice 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > narrowed step_limit guard prevents extra calls 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > narrowed call_budget guard prevents extra calls 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > narrowed tool_call_limit guard prevents extra calls 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > uses all four attempts across steps, never sends a fifth after failures 8ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > rejects malformed/schema/unsupported output 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies safety 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 408 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 429 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 503 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 401 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 403 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies HTTP 400 1ms
+ ✓ |node| tests/integration/gemini-agent.test.ts > offline Gemini coach adapter > classifies transport and honors pre-abort without a call 2ms
+ ✓ |node| tests/integration/coach-smoke.test.ts > T031 informative synthetic street review and safe step metadata > lets the model narrow the legal tool sample instead of silently expanding its arguments 89ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > rejects invalid action fields after transport normalization: {"type":"call","amountTo":10} 73ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > rejects invalid action fields after transport normalization: {"type":"bet","amountTo":null} 4ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > rejects invalid action fields after transport normalization: {"type":"check","amountTo":null,"unexpected":true} 4ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > serializes the production schema and accepts a valid bot response 8ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > rejects a missing or stale decision ordinal undefined 3ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > rejects a missing or stale decision ordinal 2 2ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > retry cannot send an attempt after narrowed run budget is exhausted 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > cannot raise hard Core caps through injected configuration 2ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > aggregate-only preflight exposes limited sample and makes zero model/tool calls 2ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > shares deadline across timeout/retry/tool and step two, shortening the last timeout 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > does not start retry when backoff consumes the remaining deadline 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > times out a noncooperative provider, aborts it and ignores late success 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > cancellation settles a pending provider and freezes the terminal state immediately 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > pre-aborted run has zero provider/tool calls 2ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > does not dispatch a deferred provider operation after cancellation 7ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale runId cannot publish a final result 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale gameId cannot publish a final result 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale handId cannot publish a final result 3ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale expectedVersion cannot publish a final result 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > stale factsRevision cannot publish a final result 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > controlled reset/new-game owner aborts old run without changing its poker snapshot 4ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > trusted owner rejects a concurrent second run without replacing the active one 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > duplicate starts, cancellation and late replies cannot commit terminal status twice 6ms
+ ✓ |node| tests/integration/agent-run.test.ts > limits, races and ownership injection T017 > bounds a pending tool and never enters step two after timeout 3ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > publishes model_fallback with attempt count and selected model before attempt two 294ms
+ ✓ |node| tests/integration/ai-failures.test.ts > offline AI recovery (FR-012, AIAC03–AIAC09) > rejected proposals do not alter RNG, stacks, board or accepted history before fallback 22ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > preserves safe overload evidence through bot and dashboard parsing 23ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > preserves safe overload evidence through analysis and dashboard parsing 5ms
+ ✓ |node| tests/integration/gemini-http.test.ts > real Gemini SDK over intercepted HTTP > keeps a retired model 404 distinct from authentication failures 3ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts > provider and local bot schema agreement > permits fold only without amountTo 159ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts > provider and local bot schema agreement > permits check only without amountTo 5ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts > provider and local bot schema agreement > permits call only without amountTo 4ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts > provider and local bot schema agreement > permits all_in only without amountTo 3ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts > provider and local bot schema agreement > requires amountTo for bet 7ms
+ ✓ |node| tests/unit/ai-provider-schema.test.ts > provider and local bot schema agreement > requires amountTo for raise 4ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > defaults omitted aiMode to false while preserving the Week03 request 9ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > accepts boolean aiMode=true without coercion 1ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > accepts boolean aiMode=false without coercion 0ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > rejects non-boolean aiMode "true" 1ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > rejects non-boolean aiMode 1 0ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > rejects non-boolean aiMode null 0ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > keeps GameConfig strict after adding aiMode 0ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > requires and runtime-validates the additive public AI snapshot 18ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > strictly validates analysis request and documented result boundaries 5ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > strictly validates usage snapshot/reset and safe-integer boundaries 10ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > accepts the safe Week04 error code AI_UNAVAILABLE and still rejects internal details 2ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > accepts the safe Week04 error code AI_ALREADY_PENDING and still rejects internal details 0ms
+ ✓ |node| tests/contract/ai-contracts.test.ts > Week04 provider-neutral public contracts (FR-001, FR-015–FR-023) > accepts the safe Week04 error code ANALYSIS_NOT_ALLOWED and still rejects internal details 0ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > starts empty with an independent revision 5ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > captures only pre-action knowledge and keeps chosen action separate from later outcome 8ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > attaches verified settlement later and increments revision exactly once 6ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > keeps at most the last 64 public events in each immutable pre-action snapshot 2ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > retains 200 details and reduces older decisions to numeric hand aggregates 12ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > settles both retained details and already summarized decisions 25ms
+ ✓ |node| tests/unit/match-facts.test.ts > bounded match facts (FR-017, FR-026, SC-006) > new game/reset replaces all facts and restarts revision and ordinal 3ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01A 6ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01B 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02A 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02B 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV03 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV04 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV05 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV06 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV07 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV08 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV09 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10A 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10B 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 0, 14, 13, 12, 11, 8 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 1, 2, 5, 4, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 2, 3, 2, 4 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 3, 2, 4, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 4, 5 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 5, 7, 5, 4, 3, 2 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 6, 2, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 7, 2, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > pet karata: [ 8, 5 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 0, 14, 13, 12, 11, 8 ] < [ 1, 2, 5, 4, 3 ] 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 1, 2, 5, 4, 3 ] < [ 2, 3, 2, 4 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 2, 3, 2, 4 ] < [ 3, 2, 4, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 3, 2, 4, 3 ] < [ 4, 5 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 4, 5 ] < [ 5, 7, 5, 4, 3, 2 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 5, 7, 5, 4, 3, 2 ] < [ 6, 2, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 6, 2, 3 ] < [ 7, 2, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > susedne kategorije: [ 7, 2, 3 ] < [ 8, 5 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01: poređenje po rangu i kickerima 3ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02: poređenje po rangu i kickerima 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > high-card poslednji kicker: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > par poslednji kicker: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > dva para kicker: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > dva para niži par: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > trips drugi kicker: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > flush poslednji kicker: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > full house par: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > full house trips: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > quads kicker: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > straight flush high: poređenje po rangu i kickerima 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > šest karata, kasniji straight 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > šest karata, najviši flush 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > sedam karata, najviši flush 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > dupli rang unutar straight-a 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > straight i flush nisu straight flush 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > nema QKA23 wrap-a 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > jedna privatna karta poboljšava board 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10: board određuje jednak rezultat bez privatnog kickera 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 0, 14, 13, 12, 11, 8 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 1, 2, 5, 4, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 2, 3, 2, 4 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 3, 2, 4, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 4, 5 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 5, 7, 5, 4, 3, 2 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 6, 2, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 7, 2, 3 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > suit ne razrešava jednakost: [ 8, 5 ] 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01A: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV01B: redosled ne menja rank niti ulaz 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02A: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV02B: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV03: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV04: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV05: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV06: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV07: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV08: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV09: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10A: redosled ne menja rank niti ulaz 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > EV10B: redosled ne menja rank niti ulaz 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 0 2ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 1 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 2 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 3 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 4 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 5 1ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 6 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 7 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 8 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 9 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 10 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 11 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 12 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 13 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 14 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 15 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 16 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 17 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 18 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 19 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 20 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 21 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 22 0ms
+ ✓ |node| tests/unit/evaluator.test.ts > rank — AC14/AC15 > odbija nevalidan ulaz 23 0ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > obračunava pot sa ranije eliminisanim mestom bez karata 11ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija status active bez dve karte 2ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija status folded bez dve karte 1ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija status all_in bez dve karte 1ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija eliminisano mesto bez karata sa nenultim stack 1ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija eliminisano mesto bez karata sa nenultim stackAtHandStart 0ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija eliminisano mesto bez karata sa nenultim handContribution 0ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija eliminisano mesto bez karata sa nenultim streetContribution 0ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > AC11 pravi glavni i side pot na svakom nivou doprinosa 4ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > AC12 vraća neupareni višak 120 i isplaćuje pot 160 1ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > AC13 uključuje foldovan doprinos i daje neparni žeton prvom pobedniku levo od button-a 1ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > deli svaki od više tied side potova zasebno, sa različitim eligible skupovima 2ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > ponovljeni settlement vraća isto stanje i ne isplaćuje žetone dvaput 1ms
+ ✓ |node| tests/unit/pots.test.ts > T010 potovi — unapred izračunati AC11–AC13 oracle-i > odbija negativne, razlomljene i nebezbedne chip vrednosti bez mutacije 1ms
+ ✓ |node| tests/integration/elimination-settlement.test.ts > R8 / AC21 obračun narednih ruku posle eliminacije > završava naredne ruke: showdown 27ms
+ ✓ |node| tests/integration/elimination-settlement.test.ts > R8 / AC21 obračun narednih ruku posle eliminacije > završava naredne ruke: uncontested 5ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus betting 7ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus street 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows focus showdown 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":"all"} 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":1} 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {} 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal {"focus":"street","prompt":"x"} 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects invalid goal null 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows integer limit 1 2ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > allows integer limit 10 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 0 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 11 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit 1.5 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit "1" 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects limit null 0ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > rejects argument scope/unknown fields 1ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > discriminates strict model steps; unknown names remain classifiable by allowlist 8ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > bounds final text by trimmed Unicode code points 6ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > bounds/uniquifies evidence and enforces completed 3ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > strictly bounds output decisions/facts, unique refs/codes and UTF-8 bytes 13ms
+ ✓ |node| tests/unit/agent-schemas.test.ts > Week05 strict runtime schemas (T007) > context-bound evidence schema rejects refs/codes/findings not actually supplied 3ms
+ ✓ |node| tests/unit/ai-usage.test.ts > privacy safe AI usage aggregation > groups every dimension and counts retry and fallback semantics exactly 36ms
+ ✓ |node| tests/unit/ai-usage.test.ts > privacy safe AI usage aggregation > combines latency and every usage field while preserving partial unknown metadata 2ms
+ ✓ |node| tests/unit/ai-usage.test.ts > privacy safe AI usage aggregation > keeps public latency and token sums within the safe-integer contract 1ms
+ ✓ |node| tests/unit/ai-slow-profile.test.ts > explicit slower Lite profile > loads bounded opt-in deadlines without changing the default profile 8ms
+ ✓ |node| tests/unit/ai-slow-profile.test.ts > explicit slower Lite profile > accepts a legal reply after 12.6 seconds instead of silently falling back 18ms
+ ✓ |node| tests/unit/ai-slow-profile.test.ts > explicit slower Lite profile > still aborts a stuck request at 30 seconds with no extra attempt 3ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > strict BotActionProposal schema > parses JSON separately and rejects malformed content 7ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > strict BotActionProposal schema > requires the complete immutable decision fingerprint 8ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > strict BotActionProposal schema > rejects unknown fields, unsupported types and invalid amount shapes 3ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > strict BotActionProposal schema > publishes a strict manual provider schema with the decision ordinal 4ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > accepts matching identity and both inclusive raise bounds 1ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > rejects a stale or mismatched gameId 1ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > rejects a stale or mismatched handId 0ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > rejects a stale or mismatched expectedVersion 0ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > rejects a stale or mismatched actorId 0ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > rejects a stale or mismatched decisionOrdinal 1ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > rejects unavailable action types and amounts outside current engine bounds 1ms
+ ✓ |node| tests/unit/ai-semantic.test.ts > BotActionProposal semantic validation > does not mutate context, accepted history, version or RNG-like state on rejection 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > accepts canonical supporting facts and does not mutate inputs 18ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"foreign:1","factCode":"phase","finding":"\"flop\""}]} 3ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"action","finding":"\"flop\""}]} 2ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"secret","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"invented"}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""},{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"certain","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"}]} 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}],"raw":"provider-payload"} 0ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"final","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\"","raw":"x"}]} 0ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final null 0ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final "{bad" 0ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {} 0ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects invalid final {"kind":"tool_request","summary":"S","recommendation":"R","completed":true,"confidence":"low","evidence":[{"decisionRef":"hand:1","factCode":"phase","finding":"\"flop\""}]} 0ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > rejects fabricated completion on empty evidence 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > withholds a recommendation when the model declares insufficient evidence 1ms
+ ✓ |node| tests/unit/agent-final.test.ts > strict snapshot-bound final lifecycle > parses bounded JSON and trims text 1ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > zadrzava privacy allowlist u preflop fazi 15ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > zadrzava privacy allowlist u flop fazi 2ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > zadrzava privacy allowlist u turn fazi 2ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > zadrzava privacy allowlist u river fazi 2ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > sadrzi samo ugovorena identity/revision/actor/public polja i dve karte aktuelnog bota 7ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > uzima najvise 64 prethodna javna dogadjaja i ne dobija kasnije dogadjaje 7ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > ne moze da procuri hidden state, runtime tajne, source ili raw log preko GameState spread-a 2ms
+ ✓ |node| tests/unit/ai-context.test.ts > BotDecisionContext privacy allowlist (AIAC02/SC-002) > vraca duboko immutable snapshot odvojen od GameState-a 2ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC08 short raise does not reopen A, even through all_in 9ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC09 cumulative short raises reopen A but not C after A calls 2ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC10 short opening does not reopen a checker after C calls 1ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > AC10 full raise to14 reopens A with minimum24 0ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > check followed by a full opening permits a check-raise 0ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > short stack may call all-in even without reopening rights 2ms
+ ✓ |node| tests/unit/betting.test.ts > reopening / AC08–AC10 > folded and all-in seats are skipped after a raise 1ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC04 rejects check facing 20 and preserves state 1ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC05 minimum raise is 50, not 49 1ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC06 raise-to deducts only the difference 2ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > AC07 short call is all-in but not eliminated 1ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > BB retains option after limp; equal bets alone do not finish the round 1ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > short blind keeps nominal pre-flop minimum 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > one funded player cannot create a dry side pot 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > fold leaves contributions and closes the hand 1ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"raise","amountTo":-1} 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"raise","amountTo":1.5} 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"raise","amountTo":1001} 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"call","amountTo":5} 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > rejects bad action {"type":"dance"} 0ms
+ ✓ |node| tests/unit/betting.test.ts > basic betting / AC04–AC07 > only active current actor has actions 0ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_tool without network 8ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_refusal without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts agent_final without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts unknown_tool without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts invalid_arguments without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts invalid_final without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > scripts malformed without network 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies timeout_error 2ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies 429 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies 5xx 1ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies auth_config 0ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > classifies network 0ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps retries in one step, repeats proposals and supports late pending replies 3ms
+ ✓ |node| tests/unit/agent-provider.test.ts > provider-neutral coach fake > keeps automatically named pending agent responses independently resolvable 1ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL01 5ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL02 1ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL03 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL04 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL05 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL06 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL07 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL08 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL09 0ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > BL10 1ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > primenjuje heads-up početni izuzetak 1ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > odbija ring sa manje od dva aktivna mesta 2ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > naplaćuje kratke SB/BB kao all-in uz nominalni preflop minimum 10 3ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > ne naplaćuje dead small blind 1ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > AC23 druga ruka pre bot akcije ima prenete stackove i blindove 1000/985 1ms
+ ✓ |node| tests/unit/positions.test.ts > AC21 dead-button pozicije > automatski završava heads-up ruku kada su oba kratka blinda all-in 6ms
+ ✓ |node| tests/unit/invariants.test.ts > T012 settlement invarijante > čuva celobrojne žetone za generisani legalni doprinos 5 7ms
+ ✓ |node| tests/unit/invariants.test.ts > T012 settlement invarijante > čuva celobrojne žetone za generisani legalni doprinos 10 5ms
+ ✓ |node| tests/unit/invariants.test.ts > T012 settlement invarijante > čuva celobrojne žetone za generisani legalni doprinos 1 2ms
+ ✓ |node| tests/unit/invariants.test.ts > T012 settlement invarijante > čuva celobrojne žetone za generisani legalni doprinos 80 2ms
+ ✓ |node| tests/unit/invariants.test.ts > T012 settlement invarijante > čuva celobrojne žetone za generisani legalni doprinos 333 2ms
+ ✓ |node| tests/unit/invariants.test.ts > T012 settlement invarijante > odbija razlomljene žetone bez delimične isplate 4ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > enforces 6000ms between starts even after a failed request and persists each charge 10ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > never dispatches request51, including after reloading a persisted ledger 1ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > rejects another model and a pre-aborted call without spending a request 2ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > rejects corrupt ledgers or enlarged budgets 2ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > does not dispatch when persistence fails 1ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > rejects concurrent dispatch and abort during the wait without spending another request 2ms
+ ✓ |node| tests/unit/coach-request-gate.test.ts > T035 provider request gate > keeps a rate-limit cooldown across gate reloads 1ms
+ ✓ |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > strict request preserves Week04 identity and bounds goal 10ms
+ ✓ |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > enumerates all statuses and stop reasons with consistent terminal result 12ms
+ ✓ |node| tests/contract/coach-contract.test.ts > coach DTO contracts (T007) > strict response wrapper rejects private fields 1ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > retries rate_limited for bot on the same model with bounded jitter 5ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > retries timeout for bot on the same model with bounded jitter 1ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > retries network_error for bot on the same model with bounded jitter 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > retries rate_limited for analysis on the same model with bounded jitter 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > retries timeout for analysis on the same model with bounded jitter 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > retries network_error for analysis on the same model with bounded jitter 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > uses a distinct fallback model for 5xx and the same model when no fallback exists 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > uses one same-model corrective retry without backoff for malformed 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > uses one same-model corrective retry without backoff for schema_rejected 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > uses one same-model corrective retry without backoff for semantic_rejected 1ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > does not retry terminal outcome auth_config_error 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > does not retry terminal outcome safety_refusal 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > does not retry terminal outcome cancelled 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > does not retry terminal outcome stale 0ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > caps the chain at two attempts and marks the second malformed attempt corrective 4ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > honours provider Retry-After when it fits the bot budget 8ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > does not start attempt two when backoff would consume the 500 ms commit reserve 1ms
+ ✓ |node| tests/unit/ai-retry.test.ts > bounded retry policy (FR-009–FR-010, AIAC03–AIAC07) > keeps the 1000 ms analysis reserve at the 30 second total boundary 2ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > normalizes an explicit null amount without adding an amount to all_in 7ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > implements the provider-neutral contract and maps structured requests and usage 3ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > supports analysis through the same neutral contract without adding private fields 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > normalizes invalid or missing usage metadata to unknown safe fields 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > classifies empty output and safety refusal without exposing raw provider content 3ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > maps HTTP 400 to invalid_request with a sanitized error 2ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > maps HTTP 401 to auth_config_error with a sanitized error 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > maps HTTP 403 to auth_config_error with a sanitized error 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > maps HTTP 429 to rate_limited with a sanitized error 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > maps HTTP 500 to server_error with a sanitized error 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > maps HTTP 503 to server_error with a sanitized error 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > leaves status unknown when the SDK error has no numeric HTTP status 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > preserves cancellation as AbortError and maps transport failures 1ms
+ ✓ |node| tests/integration/gemini-adapter.test.ts > Gemini provider adapter > wires production only with an enabled key and an allowed model 3ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > accepts botCount 1 8ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > accepts botCount 2 1ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > accepts botCount 3 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > accepts botCount 4 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > accepts botCount 5 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {} 1ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration null 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration undefined 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {"botCount":0} 1ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {"botCount":6} 1ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {"botCount":2.5} 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {"botCount":"3"} 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {"botCount":true} 0ms
+ ✓ |node| tests/contract/config.test.ts > GameConfig / AC03 > rejects invalid configuration {"botCount":3,"startingStack":999999} 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts card 2c 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts card Td 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts card Ah 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts card Ks 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects card "10c" 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects card "1s" 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects card "AX" 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects card "as" 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects card "" 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects card null 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts chips 0 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts chips 1 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts chips 6000 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects chips -1 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects chips 6001 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects chips 1.5 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects chips "5" 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects chips null 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects chips null 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts seat 0 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > accepts seat 5 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects seat -1 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects seat 6 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects seat 1.1 0ms
+ ✓ |node| tests/contract/config.test.ts > shared scalar bounds > rejects seat "0" 0ms
+ ✓ |node| tests/unit/hand.test.ts > T012 settlement cele ruke > završava river showdown tek posle isplate i računa netChanges sa zbirom nula 10ms
+ ✓ |node| tests/unit/hand.test.ts > T012 settlement cele ruke > završava all-in showdown kada niko više ne može da odlučuje 3ms
+ ✓ |node| tests/unit/hand.test.ts > T012 settlement cele ruke > AC16 završava odmah posle folda, bez board-a i otkrivanja karata 1ms
+ ✓ |node| tests/unit/hand.test.ts > T012 settlement cele ruke > ponovljeni settlement ne menja rezultat ili stackove 2ms
+ ✓ |node| tests/unit/hand.test.ts > T012 settlement cele ruke > ne postavlja result/status kada stanje još nije terminalno 1ms
+ ✓ |node| tests/unit/history.test.ts > T016 FR-018 istorija > događaji imaju strogo rastući seq u tekućoj ruci 5ms
+ ✓ |node| tests/unit/history.test.ts > T016 FR-018 istorija > čuva samo tekuću i poslednju završenu ruku 1ms
+ ✓ |node| tests/unit/history.test.ts > T016 FR-018 istorija > javni događaj ne prihvata privatni observation 5ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > is unavailable without a key and keeps fixed budgets 8ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > normalizes duplicate or empty fallback model "gemini-3.8-flash" to null 1ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > normalizes duplicate or empty fallback model "" to null 0ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > allows only documented stable models and supports either through configuration 1ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > rejects disallowed model unknown-model without requiring a key or crashing 1ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > rejects disallowed model gemini-3.8-flash-preview without requiring a key or crashing 0ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > supports bounded operational settings and explicit disable 0ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > bounds configured attempts for "1" to 1 1ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > bounds configured attempts for "2" to 2 0ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > bounds configured attempts for "9" to 2 1ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > bounds configured attempts for "not-a-number" to 2 0ms
+ ✓ |node| tests/unit/ai-config.test.ts > AI runtime config > does not expose the key when serialized for public diagnostics 1ms
+ ✓ |node| tests/unit/bot.test.ts > T016 BOT1–BOT6 > isti observation i bot RNG daju isti potez, nezavisno od deck RNG-a 7ms
+ ✓ |node| tests/unit/bot.test.ts > T016 BOT1–BOT6 > observation sadrži samo botove karte, javno stanje, istoriju i legalne akcije 3ms
+ ✓ |node| tests/unit/bot.test.ts > T016 BOT1–BOT6 > D3 jaka ruka bira minimalni raise sa verovatnoćom 1/4 i inače check/call 1ms
+ ✓ |node| tests/unit/bot.test.ts > T016 BOT1–BOT6 > slaba ruka call-uje mali dug, a veliki dug fold-uje 1ms
+ ✓ |node| tests/unit/bot.test.ts > T016 BOT1–BOT6 > izabrani bot potez prolazi isti validator kao ljudski potez 3ms
+ ✓ |node| tests/unit/bot.test.ts > T016 BOT1–BOT6 > greška strategije daje detektovan check fallback, inače fold 1ms
+ ✓ |node| tests/integration/gemini-live-smoke.test.ts > opt-in live runner with offline HTTP > reports actual application outcomes with HTTP 503 2378ms
+ ✓ |node| tests/integration/coach-live-eval.test.ts > T035 live eval CLI preflight > requires exact opt-in and rejects invalid flags before ledger or provider construction 8ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > timeout prekida čekanje bez ponavljanja mutacije 36ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > izgubljen odgovor daje srpsku grešku i GET može uskladiti stanje bez POST retry 13ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > runtime validira uspešan backend odgovor 3ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > šalje create precondition i identitet potvrđenog snapshot-a 3ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > akciji dodaje identitet i verziju bez lokalnog odlučivanja legalnosti 2ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > runtime validira usage i odbija nepoznata potencijalno privatna polja 8ms
+ ✓ |ui| tests/ui/api.test.ts > frontend API > odbija attempt bez obaveznih privacy-safe usage agregata 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > sends one POST with exact public identity and goal 20ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > GET uses the path runId and disables caching 2ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 400 4ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 409 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 429 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > never exposes server/provider message for HTTP 500 1ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO 2ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO 2ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects malformed strict DTO 3ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > rejects invalid JSON and network exception safely 3ms
+ ✓ |ui| tests/ui/coach-api.test.ts > T022 strict coach API > times out without retrying POST 23ms
+ ✓ |ui| tests/ui/analysis.test.tsx > finished-game analysis > is absent until match completion 70ms
+ ✓ |ui| tests/ui/table.test.tsx > Table > prikazuje javni snapshot i događaje po redosledu koji je poslao backend 360ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 230ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 15ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 14ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 11ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 17ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 9ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 7ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 9ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 8ms
+ ✓ |ui| tests/ui/table.test.tsx > Table > daje kartama i mestima razumljiva imena koja ne zavise samo od boje 34ms
+ ✓ |ui| tests/ui/table.test.tsx > Table > prikazuje desetku kao 10 i ne ispisuje kod karte pri dnu 18ms
+ ✓ |ui| tests/ui/actions.test.tsx > ActionPanel > prikazuje samo kontrole koje backend označi kao legalne 286ms
+ ✓ |ui| tests/ui/actions.test.tsx > ActionPanel > razlikuje amountTo od doplate i blokira sve akcije dok zahtev traje 87ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > automatically displays completed bot and analysis calls without hiding existing metrics 312ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > reloads on reopening and stops polling when closed or unmounted 65ms
+ ✓ |ui| tests/ui/analysis.test.tsx > finished-game analysis > labels loading and prevents duplicate requests 210ms
+ ✓ |ui| tests/ui/analysis.test.tsx > finished-game analysis > renders validated sections without mutating result 89ms
+ ✓ |ui| tests/ui/results.test.tsx > T029/T030 rezultat i nastavak > rezultat ostaje vidljiv i prikazuje neto promene 253ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > offers bounded accessible goals and submits selected focus 316ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables unavailable coaching: playing 26ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables unavailable coaching: unavailable 17ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces running, selected goal and disables submit 28ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > disables start while awaiting POST 23ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 10ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 8ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > renders textual accessible state 7ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > labels loading and hides sensitive data 14ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > announces retrying stage accessibly 9ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > announces model_fallback stage accessibly 8ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > rejects an older or unrelated polling response 23ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > rejects a late generating snapshot after that analysis is terminal 5ms
+ ✓ |ui| tests/ui/analysis.test.tsx > finished-game analysis > shows failed and retry 31ms
+ ✓ |ui| tests/ui/analysis.test.tsx > finished-game analysis > shows unavailable and retry 20ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > ignores a late response from before the panel was reopened 39ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > does not let a background response undo a reset and resumes refreshing afterwards 71ms
+ ✓ |ui| tests/ui/results.test.tsx > T029/T030 rezultat i nastavak > nudi sledeću ruku samo za neterminalnu partiju 190ms
+ ✓ |ui| tests/ui/actions.test.tsx > App > pokreće lokalnu partiju i traži potvrdu pre zamene aktivne 145ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > guards duplicate POST and polls only after accepted start 435ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > shows only validated completed summary, recommendation and bounded evidence 53ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped insufficient_evidence and explicit retry 16ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped unknown_tool and explicit retry 19ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces stopped deadline and explicit retry 14ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > announces failed and exposes separate coaching retry 15ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 16ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 13ms
+ ✓ |ui| tests/ui/analysis.test.tsx > finished-game analysis > keeps HandResult visible and sends a retry POST only after the user clicks 175ms
+ ✓ |ui| tests/ui/actions.test.tsx > App > prikazuje serverom potvrden AI potez kao uspeh 58ms
+ ✓ |ui| tests/ui/actions.test.tsx > App > does not send duplicate actions before React disables the controls 83ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > explains a confirmed overload without exposing provider messages 50ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > shows loading and empty state 54ms
+ ✓ |ui| tests/ui/results.test.tsx > T029/T030 rezultat i nastavak > status won nema next-hand akciju 58ms
+ ✓ |ui| tests/ui/results.test.tsx > T029/T030 rezultat i nastavak > status lost nema next-hand akciju 74ms
+ ✓ |ui| tests/ui/results.test.tsx > T029/T030 rezultat i nastavak > reset aktivne partije podržava cancel i confirm 48ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > maps public analysis completed to an accessible terminal status 91ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > maps public analysis unavailable to an accessible terminal status 30ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > maps public analysis failed to an accessible terminal status 39ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal completed/completed 112ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 16ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 16ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > rejects invalid or foreign response without success or raw details 14ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > network failure has safe alert and manual retry 13ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > shows the screenshot failure once, with a safe explanation of invalid output 14ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > distinguishes rejected evidence from invalid structure without displaying a final 15ms
+ ✓ |ui| tests/ui/coach.test.tsx > T021 bounded coaching component > explains the selected goal using the actual tool filters without dispatching a run 32ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > aggregates requests, successes, fallback, failures, duration and analyses 66ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > shows partial token usage and labels missing cost as unknown 70ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal failed/provider_failed 101ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal stopped/unknown_tool 90ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > disables all human action controls while a bot interaction is active 111ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > distinguishes fully known and completely unknown token usage 73ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > confirms reset, prevents duplicates and refreshes snapshot 50ms
+ ✓ |ui| tests/ui/dashboard.test.tsx > local usage dashboard > offers retry after loading error 50ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > stops polling at terminal stopped/insufficient_evidence 77ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > does not poll a terminal POST response 55ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > allows only one GET in flight and unmount aborts/ignores late GET 60ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > ignores late POST after unmount 34ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > new game takes precedence over delayed POST 87ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > new game takes precedence over delayed GET 90ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > manual retry starts new runId and polls only that run 58ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > ignores old runId and foreign/reversed snapshots without overwriting current run 90ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > safe failure for POST exception stops polling and never leaks details 49ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > safe failure for GET exception stops polling and never leaks details 65ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > does not accept a different goal from start response 48ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > keeps Week04 analysis polling and retry independent during coaching 87ms
+ ✓ |ui| tests/ui/coach-lifecycle.test.tsx > T022 coaching App lifecycle > rejects same runId on terminal retry 91ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > polls with GET only and stops after a terminal snapshot 1665ms
+ ✓ |ui| tests/ui/ai-status.test.tsx > AI status > clears polling on unmount 886ms
+
+ Test Files  61 passed (61)
+      Tests  888 passed (888)
+   Start at  00:00:51
+   Duration  13.69s (environment 31%, tests 29%, import 28%, transform 11%, worker 1%)
+
+
+EXIT_CODE=0

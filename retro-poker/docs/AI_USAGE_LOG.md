@@ -491,3 +491,54 @@ Runtime izmena NIJE primenjena; ista partija/run potvrđeni završnim GET-om.
 Fake suite pozivi nisu instrumentirani; broj testova nije broj modelskih poziva.
 Nema tvrdnje da je novi live problem generisanja rešen, nema ljudskog review-a.
 [Konkretan patch/handoff](evidence/003-T034-prepared.md).
+
+## 2026-10-07 — T036 Vitest stabilnost
+
+Korisnik odobrio zajedničku granu i samo tačku1, uz pregled pre commit/push-a.
+Jedan coding agent, bez subagenata; coding model/tokeni/cena nisu zasebno mereni.
+Očekivanje: dijagnoza worker-start nalaza i tri puna prolaza bez slabijih testova.
+Neizmenjeni baseline888/888 i oba projekta prolaze, pa istorijski kvar nije
+reprodukovan. Agent predložio preventivni zajednički cap do4worker-a na osnovu
+lokalnog VitestCPU-1default-a; CLI proba i tri finalna888/888run-a prolaze,
+typecheck/lint0. Nema dokaza da je to uzrok/fix istorijskog single-worker kvara.
+Novi live provider pozivi0; offline fake pozivi nisu prebrojani. Korisnikov
+review još nije potvrđen; commit/push i tačke2–5 nisu izvršeni.
+[Rezultati i ograničenja](evidence/003-T036-handoff.md).
+
+## 2026-10-07 — T037 recovery E2E
+
+Korisnik odobrio tačku2 na istoj grani; jedan coding agent, bez subagenata.
+Očekivanje: konkretna dijagnoza i stabilni recovery/full browser run-ovi.
+Dodati spori transport reprodukuje test race (RED1), potvrđen trace redosledom
+GET pre POST-a. Sinhronizacija potvrđenog odgovora daje GREEN1; recovery30/30,
+full14/14 tri puta, UI12/12, typecheck/lint0. Dva neuspešna međukoraka novog
+assertion/cleanup setup-a sačuvana i nisu predstavljena kao produkcioni RED.
+Korisnik ručno commitovao WIPc6f2016, agent nastavio treću proveru i dokumente.
+Novi live pozivi0; fake pozivi nisu prebrojani; coding tokeni/trošak nepoznati.
+CI i naredne tačke nisu započete. [Detalji](evidence/003-T037-handoff.md).
+
+## 2026-10-07 — T038 clean CI gate
+
+Korisnik odobrio commit/push tačke 2 (izvršeno kao 0a2f0d2) i nastavak na
+tačku 3 iste grane. Jedan coding agent, bez subagenata; coding tokeni/cena
+nisu mereni. Očekivanje: čista, ponovljiva provera celog projekta i sačuvana
+dijagnostika pri padu. Dodat Windows/Linux GitHub workflow sa Node/npm verzijama,
+bez live tajni, test retry-ja ili slabljenja oracle-a. Lokalno actionlint 0,
+clean npm ci/typecheck/lint/build 0, Vitest 888/888 i E2E 14/14. Pripremne
+PowerShell/putanja poteškoće i zaglavljeni sandbox Chromium pokušaj navedeni su
+u handoff-u; Chromium instalacija van sandbox-a prolazi. Hosted job/upload
+nisu izvršeni pre korisnikovog pregleda i odobrenja za push tačke 3.
+Novi live provider pozivi 0; offline fake pozivi nisu prebrojani.
+Review tačke 3 i doprinos drugog člana nisu pretpostavljeni; tačke 4/5 čekaju.
+[Handoff](evidence/003-T038-handoff.md).
+# Nastavak mentorovog review-a — 2026-10-07
+
+Veki traži pregled preuzetog rada i završetak popravki. Codex je pregledao
+commitove, dostavljeni HTML razgovor i Ubuntu log, proverio javne CI statuse,
+izmenio samo testni sat u ai-failures.test.ts i dopunio dokaze. Lokalni RED četiri
+fallback pada, GREEN 13/13 i puna regresija 888/888; typecheck/lint prolaze.
+Model/verzija coding agenta i potrošnja coding tokena nisu zabeleženi.
+Posebno odobren live budžet: 2 API zahteva, potrošen 2/2 kroz Gemini Flash Lite,
+jedan completed long-match/street run, 1632 total tokena, cena unknown,
+read-only=true, retry/fallback=0. Nema odobrenja za dodatne live pozive.
+[Dokaz, komande i ograničenja](evidence/003-review-continuation-2026-10-07.md).

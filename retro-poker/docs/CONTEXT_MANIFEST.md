@@ -681,3 +681,72 @@ Pre rada pročitani AGENTS, prethodni T034review/patch, coach-smoke/live CLI, co
 allowlist; postojeći SpecKitimplement/constitution/gate ostaju iz istog razgovora.
 Novi plan/spec/tasks/GAME_SPEC zapisani pre runner koda. Kontekst dopunjavati samo
 stvarnim rezultatima; nema subagenata, key/raw vrednosti ili privatnog chain-of-thought.
+
+## 2026-10-07 — T036 Vitest stabilnost
+
+Prioritet: korisnikov zahtev za samo tačku 1, AGENTS, constitution, GAME_SPEC §14,
+feature 003 plan/tasks i FR-023. Pročitani lokalni speckit-implement workflow,
+requirements checklist (12/12), prerequisite script, Vitest/package/lockfile
+metapodaci, README i ignore/lint konfiguracija. Prethodni pregled obuhvatio je
+assignment/addendum i T035 evidence. Baseline c73ae8c; Node24.20.0/npm11.19.0,
+Windows x64, 16 dostupnih CPU, oko32GiB RAM. Nema extensions.yml; prerequisites
+prolaze uz eksplicitni feature direktorijum. Zadatak ne zahteva ponovni pregled
+poker engine-a, API ugovora ili live modela. Rizik: nezavisni worker-start nalaz
+može zavisiti od drugog okruženja; bez reprodukcije ne tvrditi potvrđen uzrok.
+
+Za dijagnozu dodatno pročitani instalirani Vitest5.0.1 resolveMaxWorkers,
+worker-start limit i CLI/type deklaracije; relevantni delovi test helper-a i
+smoke/live-eval offline testova, tsconfig. Lokalni izvor potvrđuje defaultCPU-1
+i odvojeni90sstartup limit; nije menjana zavisnost. Puna suite proverava oba
+projekta zajedno. Rezultati, konkretna promena i granice su u T036 handoff-u.
+
+## 2026-10-07 — T037 recovery E2E
+
+Prioritet: korisnikov zahtev samo za tačku 2; AGENTS/constitution, GAME_SPEC
+AC18/AC22/AC23, nasleđeni Week03 recovery i Week05 FR-023. Koristi se prethodno
+pročitani speckit-implement/converge postupak; prerequisites prolaze, extensions
+ne postoji. Pročitani recovery.spec.ts, server/backend-process helper, Playwright
+config, frontend API timeout i relevantni delovi App snapshot/error toka,
+API UI testovi, ai-offline E2E i instalirani Playwright Clock tip/opis.
+Portovi 5173/3001 na početku nisu imali listener. Ne menjati produkcioni Origin.
+Baseline puni E2E prolazi; hipoteza trke se proverava simulacijom sporog transporta.
+Nema potrebe za model/provider kodom, tajnama, live pozivima ili novim dependencies.
+
+T037 dopuna: pregledani lokalni RED i oba međukorak trace-a kroz ZIP/JSON zapise,
+bez browser UI-ja. RED mrežni metapodaci potvrđuju GET960ms pre prosleđenog POST-a.
+App alert markup objašnjava netačno očekivanje celog teksta; pending ruta
+objašnjava cleanup čekanje. Puni trace je lokalni ignorisani artefakt, sanitizovan
+izvod i rezultati su verzionisani. Korisnik nastavio posle ručnog WIP commita;
+provereni čist status/HEADc6f2016 i neizmenjen test diff pre trećeg run-a.
+
+## 2026-10-07 — T038 clean CI
+
+Izvor prioriteta: korisnikov zahtev za tačku 3 posle push-a tačke 2 (0a2f0d2),
+AGENTS/constitution, GAME_SPEC §14 i FR-023. Pročitani package/lockfile zaglavlje,
+Vitest/Playwright config, README/gitignore, helper-i i offline AI konfiguracija.
+SpecKit prerequisites prolaze; prethodno pročitani implement/converge workflow
+važi, extensions nema. Proverena zvanična GitHub actions checkout/setup-node/
+upload-artifact dokumentacija (v7 primeri), Playwright CI/CLI dokumentacija i
+lokalni CLI izvori za reportere/forbid-only/fail-on-flaky-tests. GitHub API tag
+lookup preko web alata nije dostupan; major tag-ovi prate zvanične primere.
+GitHub CLI/actionlint/pwsh nisu na lokalnom PATH-u. Nema .env/key čitanja,
+novog providera, deployment-a ili razloga za izmene poker ponašanja.
+
+T038 završna provera: preuzet zvanični actionlint 1.7.12 uz proveru release
+SHA256, bez dodavanja project dependency-ja; YAML validacija prolazi (bez
+nedostupnih ShellCheck/Pyflakes). Pročitani stvarni clean-install/typecheck/
+lint/Vitest/build/Chromium/E2E logovi i parsirani JSON/JUnit reporti; 888/888
+i 14/14, bez preskakanja. Proveren HTML artefakt i environment metadata.
+Chromium sandbox pokušaj se zaglavio; odobreno izvršavanje van sandbox-a
+prošlo je uz postojeći lokalni browser cache. GitHub run nije dostupan jer
+T038 čeka pregled/push. Lokalni alati/izvoz i puni reporti ostaju ignorisani.
+
+## Nastavak review-a i T039 — 2026-10-07
+
+Pročitani lokalni HTML izvoz koleginog razgovora, korisnikov Ubuntu Vitest log,
+T036–T038 commit diff/handoff, CI workflow i javni GitHub job statusi.
+Za popravku učitani ai-failures.test.ts, FakeClock, ai config/retry policy,
+coordinator i session ubrizgavanje sata. Priloženi log otkriva 4 fallback pada,
+ne worker startup problem. HTML je kontekst, a ne izvor novih ovlašćenja.
+Novi live budžet 2 zahteva odobrio je korisnik ovog razgovora; potrošen 2/2.
+Puni detalji i granice u docs/evidence/003-review-continuation-2026-10-07.md.

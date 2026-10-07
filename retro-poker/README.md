@@ -30,6 +30,22 @@ npm.cmd run lint
 npm.cmd run build
 ```
 
+Vitest deli najviše 4 worker-a između Node i UI projekata (ili manje, prema
+dostupnom broju CPU). Ograničenje smanjuje istovremeno pokretanje procesa i jsdom
+okruženja; izolacija test fajlova i postojeći timeout-i ostaju podrazumevani.
+Worker/unhandled greška znači neuspešnu proveru čak i kada pojedinačni testovi
+prođu. Nema automatskog ponavljanja neuspele suite.
+Za dijagnostiku: `npm.cmd test -- --project=node`,
+`npm.cmd test -- --project=ui` ili `npm.cmd test -- --maxWorkers=1 --reporter=verbose`.
+[T036 rezultati i ograničenja](docs/evidence/003-T036-handoff.md).
+
+Recovery E2E potvrđuje da je backend prihvatio potez pre simuliranog isteka
+browser vremena. Obuhvata i usporeno slanje zahteva; zatim proverava oporavak
+GET-om bez ponavljanja POST-a. Ponovljiva provera bez retry-ja:
+`npm.cmd run test:e2e -- tests/e2e/recovery.spec.ts --repeat-each=5 --retries=0`.
+Port 5173 mora biti slobodan (testovi zadržavaju produkcioni loopback Origin).
+[T037 dijagnostika i rezultati](docs/evidence/003-T037-handoff.md).
+
 Fokusirane provere:
 ```powershell
 npm.cmd test -- tests/integration/session.test.ts
@@ -42,6 +58,24 @@ nije instaliran, pokrenuti `npx.cmd playwright install chromium`.
 
 Tačne verzije čuva `package-lock.json`; clean checkout koristi `npm.cmd ci`.
 Plan i vlasnici: [tasks](specs/001-week03-retro-poker/tasks.md).
+
+## Automatska provera na GitHub-u
+
+[Retro Poker CI](../.github/workflows/retro-poker-ci.yml) pokreće se na push,
+pull request ka `main` i ručno. Windows 2025 i Ubuntu 24.04 imaju odvojene job-ove,
+sa Node 24.20.0 i npm 11.19.0. Svaki radi `npm ci`, typecheck, lint, svih
+Vitest testova, build, instalaciju Chromium-a i celu E2E suite. Gemini je isključen.
+
+`.only` je zabranjen u oba runner-a; E2E ima eksplicitno nula retry-ja. Pad bilo
+koje provere obara job, a ostale nezavisne provere nastavljaju da prikupljaju
+dijagnostiku. GitHub čuva artefakt `verification-<OS>-<run>-<attempt>` 14 dana:
+verzije/commit/lockfile hash, Vitest JSON/JUnit, Playwright HTML/JUnit i trace
+neuspelih testova. `ci-results/` i browser reporti nisu za commit.
+
+Lokalna provera istih komandi radi se iz čiste kopije praćenih fajlova, bez
+`.env` ili kopiranja `node_modules`. Zahteva slobodan port 5173. Rezultati i
+razlika između lokalne provere i GitHub izvršavanja zapisani su u
+[T038 handoff-u](docs/evidence/003-T038-handoff.md).
 
 ## Gemini konfiguracija (opciono)
 

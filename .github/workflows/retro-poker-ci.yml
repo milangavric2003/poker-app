@@ -1,0 +1,116 @@
+name: Retro Poker CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, ubuntu-24.04]
+    defaults:
+      run:
+        shell: bash
+        working-directory: retro-poker
+    env:
+      CI: 'true'
+      GEMINI_ENABLED: 'false'
+      GEMINI_API_KEY: ''
+      PLAYWRIGHT_HTML_OPEN: never
+      PLAYWRIGHT_JUNIT_OUTPUT_FILE: ci-results/playwright.xml
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.20.0'
+          cache: npm
+          cache-dependency-path: retro-poker/package-lock.json
+
+      - name: Pin npm
+        run: npm install --global npm@11.19.0
+
+      - name: Record environment
+        run: |
+          node --version
+          npm --version
+          git rev-parse HEAD
+          mkdir -p ci-results
+          npm --version > ci-results/npm-version.txt
+          node --input-type=module -e '
+            import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+            import { createHash } from "node:crypto";
+            import { execFileSync } from "node:child_process";
+            mkdirSync("ci-results", { recursive: true });
+            writeFileSync("ci-results/environment.json", JSON.stringify({
+              commit: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
+              node: process.version, platform: process.platform, arch: process.arch,
+              npm: readFileSync("ci-results/npm-version.txt", "utf8").trim(), runner: process.env.RUNNER_OS,
+              runId: process.env.GITHUB_RUN_ID, runAttempt: process.env.GITHUB_RUN_ATTEMPT,
+              lockfileSha256: createHash("sha256").update(readFileSync("package-lock.json")).digest("hex")
+            }, null, 2) + "\n");
+          '
+
+      - name: Clean dependency install
+        id: install
+        run: npm ci
+
+      - name: Typecheck
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run typecheck
+
+      - name: Lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run lint
+
+      - name: Unit, contract, integration and UI tests
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: >-
+          npm test -- --allowOnly=false --reporter=default --reporter=junit --reporter=json
+          --outputFile.junit=ci-results/vitest.xml --outputFile.json=ci-results/vitest.json
+
+      - name: Build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run build
+
+      - name: Install Chromium
+        id: chromium
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npx --no-install playwright install --with-deps chromium
+
+      - name: Full Chromium E2E
+        if: ${{ !cancelled() && steps.chromium.outcome == 'success' }}
+        run: >-
+          npm run test:e2e -- --forbid-only --retries=0 --fail-on-flaky-tests
+          --reporter=list,html,junit --trace=retain-on-failure
+
+      - name: Upload verification reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: verification-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            retro-poker/ci-results/
+            retro-poker/playwright-report/
+            retro-poker/test-results/
+          if-no-files-found: warn
+          retention-days: 14

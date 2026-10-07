@@ -1,0 +1,57 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/recovery.spec.ts --grep timeout-slow-forward --retries=0 --trace=on --output=.verification/T037-red
+
+
+Running 1 test using 1 worker
+
+npm.cmd : (node:10100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:1
++ npm.cmd run test:e2e -- tests/e2e/recovery.spec.ts --grep timeout-slo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:10100) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [chromium] › tests\e2e\recovery.spec.ts:20:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja (6.5s)
+
+
+  1) [chromium] › tests\e2e\recovery.spec.ts:20:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByLabel('Board')
+    Expected substring: "2c3d7h"
+    Received string:    "Board čeka flop"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByLabel('Board') with timeout 5000ms
+      - waiting for getByLabel('Board')
+        14 × locator resolved to <div class="board" aria-label="Board">…</div>
+           - unexpected value "Board čeka flop"
+
+
+      42 |       await expect(page.getByRole('button', { name: 'Call 5' })).toBeDisabled();
+      43 |       await page.getByRole('button', { name: 'Učitaj stanje' }).click();
+    > 44 |       await expect(page.getByLabel('Board')).toContainText('2c3d7h');
+         |                                              ^
+      45 |       await expect(page.getByText('Pot: 20', { exact: true })).toBeVisible();
+      46 |       expect(posts).toBe(1);
+      47 |     } finally { await servers.close(); }
+        at C:\Users\gm220391d\Carrier\AIBootcamp2026\week-3\poker-app\retro-poker\tests\e2e\recovery.spec.ts:44:46
+
+    Error Context: .verification\T037-red\recovery-timeout-slow-forw-56a29-klađuje-POST-se-ne-ponavlja-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .verification\T037-red\recovery-timeout-slow-forw-56a29-klađuje-POST-se-ne-ponavlja-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace .verification\T037-red\recovery-timeout-slow-forw-56a29-klađuje-POST-se-ne-ponavlja-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests\e2e\recovery.spec.ts:20:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja
+
+EXIT_CODE=1

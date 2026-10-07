@@ -1,0 +1,12 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Typecheck
+Command from workflow:
+npm run typecheck
+
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+
+EXIT_CODE=0
+SIGNAL=none

@@ -459,3 +459,98 @@ GREEN137/137fokus; puna regresija888/888u61fajlu, typecheck/lint/build0.
 Nema browser E2E ponavljanja u ovoj sesiji; UI testovi uključeni u regresiju.
 [Izveštaj i ograničenja](../../docs/evidence/003-T035-handoff.md),
 [safe live dokaz](../../docs/evidence/003-T035-live.json). T027 ljudski walkthrough je zatvoren potvrđenim handoff-om.
+
+## T036 — stabilnost pune Vitest provere, 2026-10-07
+
+- [x] T036 (trenutni coding agent; korisnik pregleda pre commit-a) — tačka 1
+  korisnikovog plana poboljšanja ocene, FR-023 i GAME_SPEC §14 ponovljivost;
+  deps T035. Baseline: main c73ae8c, grana fix/week05-review-improvements.
+  Allowed: vitest.config.ts, test setup/helper samo po dokazanom uzroku,
+  README.md, feature plan/tasks, CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05,
+  docs/evidence/003-T036-*.
+  Prvo sačuvati postojeći puni run, verzije, stderr i exit status; razdvojiti
+  Node/UI dijagnostiku po potrebi. Najmanja opravdana izmena bez preskakanja
+  testova, automatskog retry-ja ili slabijih assertion-a. Kriterijum: tri
+  uzastopna puna prolaza, bez worker/unhandled grešaka, i relevantne statičke
+  provere. Ako istorijski worker kvar nije reprodukovan, to izričito navesti;
+  konfiguracionu prevenciju ne predstavljati kao dokaz njegovog uzroka.
+  E2E/recovery, CI, opšti dokumentacioni audit i quality eval ostaju naredne
+  tačke. Bez live poziva, commit-a ili push-a pre korisnikove potvrde.
+
+T036 lokalni kriterijum ispunjen: zajednički cap do4worker-a; tri uzastopna
+run-a888/888u61fajlu, exit0, typecheck/lint0. Istorijski worker-start kvar nije
+reprodukovan ni pre izmene; cap je preventivna mera, ne potvrđen root cause fix.
+[Dijagnostika, logovi i ograničenja](../../docs/evidence/003-T036-handoff.md).
+
+## T037 — recovery E2E stabilnost, 2026-10-07
+
+- [x] T037 (trenutni coding agent, pregled korisnika pre commit/push-a) — tačka 2
+  review plana; deps T036; GAME_SPEC AC18/AC22/AC23 i Week05 FR-023 regresija.
+  Allowed: tests/e2e/recovery.spec.ts, tests/helpers/server.ts i namenski test
+  helper samo po nalazu, playwright.config.ts ako dijagnostika opravda,
+  README, feature plan/tasks, CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05,
+  docs/evidence/003-T037-*; privremeni trace pod .verification/.
+  Prvo full E2E baseline sa trace-om i bez retries; zatim reprodukcija konkretne
+  trke i najmanja popravka sinhronizacije. Oracle ostaje jedan POST, potvrđen
+  backend potez, stari UI snapshot do eksplicitnog GET-a i tačan oporavljen board/pot.
+  Proveriti cleanup/startup bez gašenja tuđeg dev servera i bez slabljenja Origin-a.
+  Kriterijum: recovery skup najmanje 5 puta i cela E2E suite 3 puta bez retry-ja,
+  relevantni UI testovi/typecheck/lint; svi neuspehi ostaju zabeleženi.
+  Bez CI, live poziva i tačaka 3–5; commit/push tek posle potvrde.
+
+T037 završen lokalno: kontrolisani RED sa sporim slanjem pokazuje recovery GET
+960 ms pre prosleđenog POST-a. Barijera na potvrđenom odgovoru i kontrolisan
+browser sat daju GREEN1/1, recovery30/30 (6scenarija×5), full E2E14/14 tri puta,
+API/action UI12/12, typecheck/lint0. Nema retries ili promene produkcionog koda.
+Korisnik je WIP ručno commitovao kao c6f2016; završni dokazi ostaju za pregled.
+[Reprodukcija, pokušaji i granice](../../docs/evidence/003-T037-handoff.md).
+
+## T038 — clean CI gate, 2026-10-07
+
+- [x] T038 (trenutni coding agent; korisnik pregleda pre commit/push-a) — tačka 3,
+  deps T036/T037; FR-023 i GAME_SPEC §14 ponovljivost. Allowed:
+  Git-root .github/workflows/retro-poker-ci.yml, .gitignore/README, minimalna
+  test/report konfiguracija samo po nalazu, feature plan/tasks,
+  CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05, docs/evidence/003-T038-*.
+  CI: Windows i Linux, zaključani Node/npm, npm ci iz lockfile-a, typecheck,
+  lint, puna Vitest suite, build, Chromium instalacija i ceo E2E bez retry-ja.
+  Greške ne smeju dati zelen job; reporti/metapodaci/trace se čuvaju i pri padu.
+  Lokalno proveriti YAML i iste komande u zasebnoj čistoj kopiji praćenih fajlova,
+  bez .env ili prekopiranog node_modules. Čuvati stvarne exit statuse i ograničenja.
+  GitHub job rezultat nije potvrđen dok workflow ne bude objavljen i izvršen;
+  ne objavljivati tačku 3 bez korisnikove potvrde. Bez live poziva/deployment-a.
+
+T038 implementacija i lokalna provera završene: workflow actionlint exit 0;
+čist izvoz HEAD-a 0a2f0d2, npm ci/typecheck/lint/build exit 0, Vitest 888/888
+u 61 fajlu i cela E2E 14/14 bez retry-ja. JSON/JUnit/HTML reporti provereni.
+Hosted Windows/Linux izvršavanje i upload artefakata čekaju odobreni push;
+ovaj checkbox označava lokalnu isporuku, ne potvrđen GitHub run.
+[Dokazi i sledeći korak](../../docs/evidence/003-T038-handoff.md).
+
+Naknadna hosted provera 2026-10-07 na `116bac6`: Windows job i E2E na oba OS-a
+prolaze, Ubuntu Vitest pada u oba GitHub run-a. Hosted full-suite gate ostaje
+otvoren do dijagnoze i novog prolaza; lokalni checkbox iznad ga ne potvrđuje.
+[Audit nastavka](../../docs/evidence/003-review-continuation-2026-10-07.md).
+
+## T039 — deterministički AI recovery test posle Linux CI nalaza
+
+- [x] T039 — deps T038; owner: Veki uz Codex pomoć. Dostavljeni Linux log ima
+  884/888 i četiri pada u ai-failures.test.ts: timeout/429/5xx/network.
+  Allowed: taj test, feature plan/tasks, docs/CONTEXT_MANIFEST.md,
+  docs/AI_USAGE_LOG.md, docs/EVIDENCE_W05.md, docs/evidence/003-review-*.
+  Uvesti postojeći FakeClock kroz aiClock i kontrolisati napredovanje vremena
+  u recovery helper-u; sačuvati RED pre korekcije helper-a i GREEN posle.
+  Assertion-i i produkcioni kod ostaju isti. Fokus, puna suite i typecheck/lint;
+  hosted Linux rezultat posebno potvrditi nakon objavljivanja izmena.
+
+Lokalno: kontrolisani RED 4 pada/5 prolaza (četiri ostala testa nisu izabrana),
+GREEN 13/13 bez preskakanja, puna suite 888/888 u 61 fajlu, typecheck/lint exit 0.
+Checkbox označava lokalnu popravku; hosted potvrda beleži se u audit nastavku.
+
+## T040 — aktuelni pregled evidence-a
+
+- [x] T040 — dokumentaciona tačka 4 iz preuzetog review plana; deps T039.
+  Allowed: feature spec/plan/tasks, docs/EVIDENCE_W05.md i review audit.
+  Usklađeni uvodni statusi T027 u spec/plan; dodat zahtev–test–dokaz pregled.
+  Razdvojeni korisnikovih 830, mentorovih 877 i kasnijih 888 testova, hosted pad
+  i naknadna popravka. Istorijski logovi sačuvani; nema novih live poziva.

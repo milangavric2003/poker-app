@@ -1,0 +1,37 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test --retries=0 --output=.verification/T037-full-1
+
+
+Running 14 tests using 1 worker
+
+npm.cmd : (node:25516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:1
++ npm.cmd run test:e2e -- --retries=0 --output=.verification/T037-full- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:25516) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › tests\e2e\accessibility.spec.ts:6:1 › pet botova: raspored, semantika i tastatura ostaju dostupni na 1280x720 (1.5s)
+  ok  2 [chromium] › tests\e2e\accessibility.spec.ts:52:1 › jedan bot: rezultat ruke se objavljuje čitaču ekrana (645ms)
+  ok  3 [chromium] › tests\e2e\ai-offline.spec.ts:5:1 › offline fake provider covers bot, analysis retry, dashboard and independent resets (4.7s)
+  ok  4 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (2.0s)
+  ok  5 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (5.5s)
+  ok  6 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (5.5s)
+  ok  7 [chromium] › tests\e2e\play-hand.spec.ts:18:1 › AC23: call 5 i check do showdown-a daje stackove 1010/990 (960ms)
+  ok  8 [chromium] › tests\e2e\play-hand.spec.ts:58:1 › AC16: fold zavrÅ¡ava ruku bez boarda i daje stackove 995/1005 (555ms)
+  ok  9 [chromium] › tests\e2e\recovery.spec.ts:5:1 › refresh ponovo GET-uje potvrđeno stanje (778ms)
+  ok 10 [chromium] › tests\e2e\recovery.spec.ts:21:3 › lost: snapshot ostaje, GET usklađuje, POST se ne ponavlja (682ms)
+  ok 11 [chromium] › tests\e2e\recovery.spec.ts:21:3 › invalid: snapshot ostaje, GET usklađuje, POST se ne ponavlja (763ms)
+  ok 12 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout: snapshot ostaje, GET usklađuje, POST se ne ponavlja (761ms)
+  ok 13 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja (2.6s)
+(node:19736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 14 [chromium] › tests\e2e\recovery.spec.ts:64:1 › novi backend bez memorije vraća game:null i novu partiju (1.7s)
+
+  14 passed (31.5s)
+
+EXIT_CODE=0

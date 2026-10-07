@@ -1,0 +1,12 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Lint
+Command from workflow:
+npm run lint
+
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+EXIT_CODE=0
+SIGNAL=none

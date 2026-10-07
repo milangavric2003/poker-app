@@ -3,15 +3,11 @@
 Feature: `003-week05-bounded-agent-coach` · Datum: 2026-10-04.
 Izvori: [spec](spec.md), [GAME_SPEC](../../docs/GAME_SPEC.md),
 [tehnički ugovor](data-model.md), [HTTP ugovor](contracts/coach-http.md).
-Ovo je plan; Week05 kod i testovi nisu implementirani ovim pregledom.
-
-Aktuelni status 2026-10-05: plan je realizovan kroz T007–T023 i T024 offline provere.
-Istorijska objašnjenja buduće implementacije ispod čuvaju ugovor; stvarni status je
-u [taskovima](tasks.md) i [T024 handoff-u](../../docs/evidence/003-T024-handoff.txt).
-T027 ljudska potvrda ostaje otvorena.
-T030 dodaje smoke runner i stvarni live ishod; njegov insufficient_evidence stop
-sam nije zatvorio live gate. T031 live #2 ga zatvara validiranim finalom 2/2/1,
-read-only=true. [Aktuelni handoff](../../docs/evidence/003-T031-handoff.md).
+Aktuelni status 2026-10-07: osnovni plan je realizovan, uključujući T027 ljudski
+walkthrough. T030–T035 imaju live i offline dokaze; T036–T039 obrađuju review
+nalaze i CI. Istorijski planovi ispod čuvaju ugovor i redosled promena.
+Aktuelni status provera je u [evidence pregledu](../../docs/EVIDENCE_W05.md)
+i [taskovima](tasks.md); live uspeh ne dokazuje produkcijsku dostupnost.
 
 ## Cilj i tok
 
@@ -264,3 +260,80 @@ validaciju. Ista matrica9run-ova pre/posle:7/9→9/9. Ukupno48zahteva; gate
 6000ms,0retry/fallback,0rate/timeouts. Long-match3ruke/12odluka nezavisan je holdout.
 Puna regresija888/888, typecheck/lint/build0. Browser E2E nije ponovljen; korisnički
 dev port je zauzet. [Konačni handoff](../../docs/evidence/003-T035-handoff.md).
+
+## T036 — plan stabilizacije Vitest-a, 2026-10-07
+
+Korisnik odobrava samo tačku 1 na zajedničkoj grani za buduće review popravke.
+Signal nezavisnog pregleda: 877 prolaza uz worker-start grešku, uključujući
+single-worker pokušaj. Uzrok još nije poznat. Lokalni prethodni dokaz je 888/888.
+Prvo zabeležiti neizmenjenu punu proveru i okruženje, zatim po nalazu proveriti
+projekat/pool/startup i cleanup. Test ponašanja proizvoda se ne menja radi runner-a.
+Ako se menja samo konfiguracija, postojeća puna suite je pre/posle oracle;
+infrastrukturni neuspeh nije izmišljeni behavior RED. Završni kriterijum su tri
+uzastopna puna exit-0 run-a bez grešaka runner-a, isti obuhvat i statičke provere.
+Istorijski kvar koji nije reprodukovan ostaje jasno ograničenje. E2E i CI su van
+ovog taska; nema provider poziva, novih dependencies ili automatskog Git publish-a.
+
+T036 dijagnostika: neizmenjeni full888/888, Node781/781 i UI107/107 prolaze.
+Instalirani Vitest5.0.1 resolveMaxWorkers bez konfiguracije koristi CPU-1,
+ovde15; worker-start rok je poseban interni90s, nije testTimeout. CLI proba
+maxWorkers=4 daje888/888. Minimalna izmena je zajednički cap
+Math.min(4, availableParallelism()) u vitest.config.ts. Pool/fajl izolacija,
+timeout-i, retry i skup testova ostaju isti. Ovo je preventivno ograničenje
+resursa, ne potvrđen uzrok istorijskog pada (single-worker nalaz ga ne dokazuje).
+
+## T037 — plan recovery E2E provere
+
+Korisnik odobrio samo tačku 2 na istoj grani; baseline commit 9bb6af2.
+Postojeći timeout test pomera browser sat odmah posle klika dok route.fetch
+još može biti u toku. Hipoteza: oporavak GET-om pre potvrđene backend mutacije.
+Prvo full baseline sa trace-om, zatim kontrolisana reprodukcija rasporeda događaja
+ako baseline ne pokaže problem. Dodatni timeout scenario odlaže prosleđivanje
+zahteva backend-u 1 s u Node route handler-u (simulacija sporog transporta ispod
+produkcionog 10 s roka, ne sinhronizacioni sleep). Očekivanje ostaje isto.
+Barijera treba da potvrdi stvarni backend odgovor pre simulacije gubitka/isteka
+i pre recovery GET-a, bez dodatnih POST pokušaja. Ne menjati produkcione tajminge
+ili slabljenjem assertion-a sakriti grešku. Proveriti pomoćni startup/cleanup i
+zadržati fiksni loopback Origin; proširiti helper samo ako nalaz zahteva.
+Pet recovery ponavljanja i tri puna E2E run-a sa retries 0 su lokalni kriterijum,
+ne garancija svih okruženja.
+
+T037 potvrđeno kontrolisanim RED-om: timeout-slow-forward bez barijere vraća
+"Board čeka flop" umesto 2c3d7h. Sinhronizacija čeka HTTP200 i validira backend
+GameResponse (flop, board2c/3d/7h, pot20) pre fastForward; browser clock je
+instaliran pre navigacije i pauziran tek posle kreiranja igre. Pauza sprečava
+isticanje produkcionog10s roka dok realni Node handler obrađuje zahtev.
+Posle timeout-a UI čuva pot15 do eksplicitnog GET-a, backend snapshot ostaje isti,
+POST count1. Namerno pending ruta se oslobađa zatvaranjem stranice pre servera.
+Nema izmene produkcionog koda, server helper-a, portova ili Playwright timeout-a.
+
+## T038 — CI plan, 2026-10-07
+
+Korisnik odobrava završni commit/push tačke 2, pa rad na tački 3 iste grane.
+GitHub Actions workflow ide u .github/workflows/ na Git korenu, komande rade
+iz retro-poker/. Windows2025/Ubuntu24.04 matrica sa fail-fast:false; Node24.20.0
+i npm11.19.0 prate lokalno provereno okruženje. Cache čuva npm download-e,
+ne node_modules; svaki job radi npm ci. Samo contents:read, bez live tajni.
+Neuspeh bilo kog gate-a ostaje neuspeh job-a; nezavisne provere se nastavljaju
+posle uspešne instalacije. JUnit/JSON/HTML izveštaji, trace pri padu i commit/
+lockfile/runtime metadata uploaduju se i pri neuspehu; retention14d.
+Bez retries, zabrana test.only, Playwright flaky ishod takođe ruši gate.
+Lokalna provera koristi čist git archive potvrđenog HEAD-a i relevantnu T038
+konfiguraciju u zasebnom ignorisanom direktorijumu. To nije GitHub hosted run;
+hosted Windows/Linux gate se proverava tek posle odobrenog objavljivanja.
+
+T038 lokalno ostvareno: clean npm ci, typecheck/lint/build, Vitest 888/888 i
+E2E 14/14 bez retry-ja; YAML/expressions provereni actionlint-om 1.7.12.
+Sačuvan sažetak stvarnih reporta i runtime/commit/lockfile/workflow hash-a.
+Nema produkcionih izmena ili novih dependencies; hosted rezultat ostaje otvoren.
+
+## T039 — kontrolisani sat za AI recovery integraciju
+
+Ubuntu log za 116bac6 pokazuje četiri pada settled helper-a posle 161–207 ms,
+bez worker-start greške. Helper koristi 100 realnih pauza od 1 ms, što nije
+garancija da je prošao produkcioni retry backoff. Ubrizgati postojeći FakeClock
+po app instanci. Najpre proveriti da stari helper ne može završiti retry dok
+kontrolisani sat stoji; zatim napredovati taj sat tokom čekanja i zadržati sve
+provere broja poziva, fallback-a, verzije, usage-a i poker stanja. Provere
+retrying/model_fallback takođe koriste isti kontrolisani sat. HTTP/Fastify
+raspoređivanje ostaje stvarno. Bez povećavanja produkcionih/test timeout-a.
