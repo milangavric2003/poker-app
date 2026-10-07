@@ -699,3 +699,15 @@ worker-start limit i CLI/type deklaracije; relevantni delovi test helper-a i
 smoke/live-eval offline testova, tsconfig. Lokalni izvor potvrđuje defaultCPU-1
 i odvojeni90sstartup limit; nije menjana zavisnost. Puna suite proverava oba
 projekta zajedno. Rezultati, konkretna promena i granice su u T036 handoff-u.
+
+## 2026-10-07 — T037 recovery E2E
+
+Prioritet: korisnikov zahtev samo za tačku 2; AGENTS/constitution, GAME_SPEC
+AC18/AC22/AC23, nasleđeni Week03 recovery i Week05 FR-023. Koristi se prethodno
+pročitani speckit-implement/converge postupak; prerequisites prolaze, extensions
+ne postoji. Pročitani recovery.spec.ts, server/backend-process helper, Playwright
+config, frontend API timeout i relevantni delovi App snapshot/error toka,
+API UI testovi, ai-offline E2E i instalirani Playwright Clock tip/opis.
+Portovi 5173/3001 na početku nisu imali listener. Ne menjati produkcioni Origin.
+Baseline puni E2E prolazi; hipoteza trke se proverava simulacijom sporog transporta.
+Nema potrebe za model/provider kodom, tajnama, live pozivima ili novim dependencies.

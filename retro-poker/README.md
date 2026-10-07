@@ -39,6 +39,13 @@ Za dijagnostiku: `npm.cmd test -- --project=node`,
 `npm.cmd test -- --project=ui` ili `npm.cmd test -- --maxWorkers=1 --reporter=verbose`.
 [T036 rezultati i ograničenja](docs/evidence/003-T036-handoff.md).
 
+Recovery E2E potvrđuje da je backend prihvatio potez pre simuliranog isteka
+browser vremena. Obuhvata i usporeno slanje zahteva; zatim proverava oporavak
+GET-om bez ponavljanja POST-a. Ponovljiva provera bez retry-ja:
+`npm.cmd run test:e2e -- tests/e2e/recovery.spec.ts --repeat-each=5 --retries=0`.
+Port 5173 mora biti slobodan (testovi zadržavaju produkcioni loopback Origin).
+[T037 dijagnostika i rezultati](docs/evidence/003-T037-handoff.md).
+
 Fokusirane provere:
 ```powershell
 npm.cmd test -- tests/integration/session.test.ts

@@ -481,3 +481,19 @@ T036 lokalni kriterijum ispunjen: zajednički cap do4worker-a; tri uzastopna
 run-a888/888u61fajlu, exit0, typecheck/lint0. Istorijski worker-start kvar nije
 reprodukovan ni pre izmene; cap je preventivna mera, ne potvrđen root cause fix.
 [Dijagnostika, logovi i ograničenja](../../docs/evidence/003-T036-handoff.md).
+
+## T037 — recovery E2E stabilnost, 2026-10-07
+
+- [ ] T037 (trenutni coding agent, pregled korisnika pre commit/push-a) — tačka 2
+  review plana; deps T036; GAME_SPEC AC18/AC22/AC23 i Week05 FR-023 regresija.
+  Allowed: tests/e2e/recovery.spec.ts, tests/helpers/server.ts i namenski test
+  helper samo po nalazu, playwright.config.ts ako dijagnostika opravda,
+  README, feature plan/tasks, CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05,
+  docs/evidence/003-T037-*; privremeni trace pod .verification/.
+  Prvo full E2E baseline sa trace-om i bez retries; zatim reprodukcija konkretne
+  trke i najmanja popravka sinhronizacije. Oracle ostaje jedan POST, potvrđen
+  backend potez, stari UI snapshot do eksplicitnog GET-a i tačan oporavljen board/pot.
+  Proveriti cleanup/startup bez gašenja tuđeg dev servera i bez slabljenja Origin-a.
+  Kriterijum: recovery skup najmanje 5 puta i cela E2E suite 3 puta bez retry-ja,
+  relevantni UI testovi/typecheck/lint; svi neuspehi ostaju zabeleženi.
+  Bez CI, live poziva i tačaka 3–5; commit/push tek posle potvrde.

@@ -285,3 +285,28 @@ maxWorkers=4 daje888/888. Minimalna izmena je zajednički cap
 Math.min(4, availableParallelism()) u vitest.config.ts. Pool/fajl izolacija,
 timeout-i, retry i skup testova ostaju isti. Ovo je preventivno ograničenje
 resursa, ne potvrđen uzrok istorijskog pada (single-worker nalaz ga ne dokazuje).
+
+## T037 — plan recovery E2E provere
+
+Korisnik odobrio samo tačku 2 na istoj grani; baseline commit 9bb6af2.
+Postojeći timeout test pomera browser sat odmah posle klika dok route.fetch
+još može biti u toku. Hipoteza: oporavak GET-om pre potvrđene backend mutacije.
+Prvo full baseline sa trace-om, zatim kontrolisana reprodukcija rasporeda događaja
+ako baseline ne pokaže problem. Dodatni timeout scenario odlaže prosleđivanje
+zahteva backend-u 1 s u Node route handler-u (simulacija sporog transporta ispod
+produkcionog 10 s roka, ne sinhronizacioni sleep). Očekivanje ostaje isto.
+Barijera treba da potvrdi stvarni backend odgovor pre simulacije gubitka/isteka
+i pre recovery GET-a, bez dodatnih POST pokušaja. Ne menjati produkcione tajminge
+ili slabljenjem assertion-a sakriti grešku. Proveriti pomoćni startup/cleanup i
+zadržati fiksni loopback Origin; proširiti helper samo ako nalaz zahteva.
+Pet recovery ponavljanja i tri puna E2E run-a sa retries 0 su lokalni kriterijum,
+ne garancija svih okruženja.
+
+T037 potvrđeno kontrolisanim RED-om: timeout-slow-forward bez barijere vraća
+"Board čeka flop" umesto 2c3d7h. Sinhronizacija čeka HTTP200 i validira backend
+GameResponse (flop, board2c/3d/7h, pot20) pre fastForward; browser clock je
+instaliran pre navigacije i pauziran tek posle kreiranja igre. Pauza sprečava
+isticanje produkcionog10s roka dok realni Node handler obrađuje zahtev.
+Posle timeout-a UI čuva pot15 do eksplicitnog GET-a, backend snapshot ostaje isti,
+POST count1. Namerno pending ruta se oslobađa zatvaranjem stranice pre servera.
+Nema izmene produkcionog koda, server helper-a, portova ili Playwright timeout-a.
