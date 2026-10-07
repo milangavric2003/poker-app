@@ -504,3 +504,25 @@ browser sat daju GREEN1/1, recovery30/30 (6scenarija×5), full E2E14/14 tri puta
 API/action UI12/12, typecheck/lint0. Nema retries ili promene produkcionog koda.
 Korisnik je WIP ručno commitovao kao c6f2016; završni dokazi ostaju za pregled.
 [Reprodukcija, pokušaji i granice](../../docs/evidence/003-T037-handoff.md).
+
+## T038 — clean CI gate, 2026-10-07
+
+- [x] T038 (trenutni coding agent; korisnik pregleda pre commit/push-a) — tačka 3,
+  deps T036/T037; FR-023 i GAME_SPEC §14 ponovljivost. Allowed:
+  Git-root .github/workflows/retro-poker-ci.yml, .gitignore/README, minimalna
+  test/report konfiguracija samo po nalazu, feature plan/tasks,
+  CONTEXT_MANIFEST/AI_USAGE_LOG/EVIDENCE_W05, docs/evidence/003-T038-*.
+  CI: Windows i Linux, zaključani Node/npm, npm ci iz lockfile-a, typecheck,
+  lint, puna Vitest suite, build, Chromium instalacija i ceo E2E bez retry-ja.
+  Greške ne smeju dati zelen job; reporti/metapodaci/trace se čuvaju i pri padu.
+  Lokalno proveriti YAML i iste komande u zasebnoj čistoj kopiji praćenih fajlova,
+  bez .env ili prekopiranog node_modules. Čuvati stvarne exit statuse i ograničenja.
+  GitHub job rezultat nije potvrđen dok workflow ne bude objavljen i izvršen;
+  ne objavljivati tačku 3 bez korisnikove potvrde. Bez live poziva/deployment-a.
+
+T038 implementacija i lokalna provera završene: workflow actionlint exit 0;
+čist izvoz HEAD-a 0a2f0d2, npm ci/typecheck/lint/build exit 0, Vitest 888/888
+u 61 fajlu i cela E2E 14/14 bez retry-ja. JSON/JUnit/HTML reporti provereni.
+Hosted Windows/Linux izvršavanje i upload artefakata čekaju odobreni push;
+ovaj checkbox označava lokalnu isporuku, ne potvrđen GitHub run.
+[Dokazi i sledeći korak](../../docs/evidence/003-T038-handoff.md).

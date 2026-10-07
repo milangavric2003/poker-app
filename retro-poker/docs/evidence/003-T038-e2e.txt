@@ -1,0 +1,31 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Full Chromium E2E
+Command from workflow:
+npm run test:e2e -- --forbid-only --retries=0 --fail-on-flaky-tests --reporter=list,html,junit --trace=retain-on-failure
+
+
+> retro-poker@0.1.0 test:e2e
+> playwright test --forbid-only --retries=0 --fail-on-flaky-tests --reporter=list,html,junit --trace=retain-on-failure
+
+
+Running 14 tests using 1 worker
+
+  ok  1 [chromium] › tests\e2e\accessibility.spec.ts:6:1 › pet botova: raspored, semantika i tastatura ostaju dostupni na 1280x720 (1.5s)
+  ok  2 [chromium] › tests\e2e\accessibility.spec.ts:52:1 › jedan bot: rezultat ruke se objavljuje čitaču ekrana (612ms)
+  ok  3 [chromium] › tests\e2e\ai-offline.spec.ts:5:1 › offline fake provider covers bot, analysis retry, dashboard and independent resets (4.6s)
+  ok  4 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (2.0s)
+  ok  5 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (5.7s)
+  ok  6 [chromium] › tests\e2e\coach.spec.ts:62:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (5.6s)
+  ok  7 [chromium] › tests\e2e\play-hand.spec.ts:18:1 › AC23: call 5 i check do showdown-a daje stackove 1010/990 (990ms)
+  ok  8 [chromium] › tests\e2e\play-hand.spec.ts:58:1 › AC16: fold zavrÅ¡ava ruku bez boarda i daje stackove 995/1005 (610ms)
+  ok  9 [chromium] › tests\e2e\recovery.spec.ts:5:1 › refresh ponovo GET-uje potvrđeno stanje (770ms)
+  ok 10 [chromium] › tests\e2e\recovery.spec.ts:21:3 › lost: snapshot ostaje, GET usklađuje, POST se ne ponavlja (707ms)
+  ok 11 [chromium] › tests\e2e\recovery.spec.ts:21:3 › invalid: snapshot ostaje, GET usklađuje, POST se ne ponavlja (685ms)
+  ok 12 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout: snapshot ostaje, GET usklađuje, POST se ne ponavlja (732ms)
+  ok 13 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja (2.5s)
+  ok 14 [chromium] › tests\e2e\recovery.spec.ts:64:1 › novi backend bez memorije vraća game:null i novu partiju (1.7s)
+
+  14 passed (32.5s)
+
+EXIT_CODE=0
+SIGNAL=none

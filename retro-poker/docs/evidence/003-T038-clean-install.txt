@@ -1,0 +1,3 @@
+Preparation attempt record (not a successful install log).
+PowerShell redirection/ErrorActionPreference setup did not produce output or a confirmed npm exit status.
+Final clean npm ci result is in 003-T038-clean-install-final.txt.

@@ -1,0 +1,22 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Build
+Command from workflow:
+npm run build
+
+
+> retro-poker@0.1.0 build
+> vite build && tsc -p tsconfig.server.json
+
+[36mvite v8.3.0 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 121 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-mS6wAVp3.css    5.11 kB │ gzip:   1.82 kB
+dist/frontend/assets/index-CRDYWWq3.js   351.21 kB │ gzip: 106.00 kB
+
+[32m✓ built in 388ms[39m
+
+EXIT_CODE=0
+SIGNAL=none

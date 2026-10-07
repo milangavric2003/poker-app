@@ -1,0 +1,29 @@
+Local clean-source verification (not a GitHub Actions run)
+Step: Record environment
+Command from workflow:
+node --version
+npm --version
+git rev-parse HEAD
+mkdir -p ci-results
+npm --version > ci-results/npm-version.txt
+node --input-type=module -e '
+  import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+  import { createHash } from "node:crypto";
+  import { execFileSync } from "node:child_process";
+  mkdirSync("ci-results", { recursive: true });
+  writeFileSync("ci-results/environment.json", JSON.stringify({
+    commit: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
+    node: process.version, platform: process.platform, arch: process.arch,
+    npm: readFileSync("ci-results/npm-version.txt", "utf8").trim(), runner: process.env.RUNNER_OS,
+    runId: process.env.GITHUB_RUN_ID, runAttempt: process.env.GITHUB_RUN_ATTEMPT,
+    lockfileSha256: createHash("sha256").update(readFileSync("package-lock.json")).digest("hex")
+  }, null, 2) + "\n");
+'
+
+
+v24.20.0
+11.19.0
+0a2f0d2420a6fe167cebf16964d3479f015d6c9d
+
+EXIT_CODE=0
+SIGNAL=none

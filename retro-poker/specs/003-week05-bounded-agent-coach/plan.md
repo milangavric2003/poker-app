@@ -310,3 +310,23 @@ isticanje produkcionog10s roka dok realni Node handler obrađuje zahtev.
 Posle timeout-a UI čuva pot15 do eksplicitnog GET-a, backend snapshot ostaje isti,
 POST count1. Namerno pending ruta se oslobađa zatvaranjem stranice pre servera.
 Nema izmene produkcionog koda, server helper-a, portova ili Playwright timeout-a.
+
+## T038 — CI plan, 2026-10-07
+
+Korisnik odobrava završni commit/push tačke 2, pa rad na tački 3 iste grane.
+GitHub Actions workflow ide u .github/workflows/ na Git korenu, komande rade
+iz retro-poker/. Windows2025/Ubuntu24.04 matrica sa fail-fast:false; Node24.20.0
+i npm11.19.0 prate lokalno provereno okruženje. Cache čuva npm download-e,
+ne node_modules; svaki job radi npm ci. Samo contents:read, bez live tajni.
+Neuspeh bilo kog gate-a ostaje neuspeh job-a; nezavisne provere se nastavljaju
+posle uspešne instalacije. JUnit/JSON/HTML izveštaji, trace pri padu i commit/
+lockfile/runtime metadata uploaduju se i pri neuspehu; retention14d.
+Bez retries, zabrana test.only, Playwright flaky ishod takođe ruši gate.
+Lokalna provera koristi čist git archive potvrđenog HEAD-a i relevantnu T038
+konfiguraciju u zasebnom ignorisanom direktorijumu. To nije GitHub hosted run;
+hosted Windows/Linux gate se proverava tek posle odobrenog objavljivanja.
+
+T038 lokalno ostvareno: clean npm ci, typecheck/lint/build, Vitest 888/888 i
+E2E 14/14 bez retry-ja; YAML/expressions provereni actionlint-om 1.7.12.
+Sačuvan sažetak stvarnih reporta i runtime/commit/lockfile/workflow hash-a.
+Nema produkcionih izmena ili novih dependencies; hosted rezultat ostaje otvoren.

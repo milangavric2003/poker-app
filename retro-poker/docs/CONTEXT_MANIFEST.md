@@ -718,3 +718,25 @@ App alert markup objašnjava netačno očekivanje celog teksta; pending ruta
 objašnjava cleanup čekanje. Puni trace je lokalni ignorisani artefakt, sanitizovan
 izvod i rezultati su verzionisani. Korisnik nastavio posle ručnog WIP commita;
 provereni čist status/HEADc6f2016 i neizmenjen test diff pre trećeg run-a.
+
+## 2026-10-07 — T038 clean CI
+
+Izvor prioriteta: korisnikov zahtev za tačku 3 posle push-a tačke 2 (0a2f0d2),
+AGENTS/constitution, GAME_SPEC §14 i FR-023. Pročitani package/lockfile zaglavlje,
+Vitest/Playwright config, README/gitignore, helper-i i offline AI konfiguracija.
+SpecKit prerequisites prolaze; prethodno pročitani implement/converge workflow
+važi, extensions nema. Proverena zvanična GitHub actions checkout/setup-node/
+upload-artifact dokumentacija (v7 primeri), Playwright CI/CLI dokumentacija i
+lokalni CLI izvori za reportere/forbid-only/fail-on-flaky-tests. GitHub API tag
+lookup preko web alata nije dostupan; major tag-ovi prate zvanične primere.
+GitHub CLI/actionlint/pwsh nisu na lokalnom PATH-u. Nema .env/key čitanja,
+novog providera, deployment-a ili razloga za izmene poker ponašanja.
+
+T038 završna provera: preuzet zvanični actionlint 1.7.12 uz proveru release
+SHA256, bez dodavanja project dependency-ja; YAML validacija prolazi (bez
+nedostupnih ShellCheck/Pyflakes). Pročitani stvarni clean-install/typecheck/
+lint/Vitest/build/Chromium/E2E logovi i parsirani JSON/JUnit reporti; 888/888
+i 14/14, bez preskakanja. Proveren HTML artefakt i environment metadata.
+Chromium sandbox pokušaj se zaglavio; odobreno izvršavanje van sandbox-a
+prošlo je uz postojeći lokalni browser cache. GitHub run nije dostupan jer
+T038 čeka pregled/push. Lokalni alati/izvoz i puni reporti ostaju ignorisani.

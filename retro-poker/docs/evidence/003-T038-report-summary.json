@@ -1,0 +1,32 @@
+{
+  "scope": "Local Windows clean dependency install; not a GitHub Actions run",
+  "environment": {
+    "commit": "0a2f0d2420a6fe167cebf16964d3479f015d6c9d",
+    "node": "v24.20.0",
+    "platform": "win32",
+    "arch": "x64",
+    "npm": "11.19.0",
+    "runner": "Windows-local",
+    "runId": "local-T038",
+    "runAttempt": "1",
+    "lockfileSha256": "2407a150855d3ec5e0c04fbe790ea76a35cb9b4ca027b533d4977838bf45515d"
+  },
+  "workflowSha256": "a01ce472f769a3146f4bfb95aa129a2eba395b003a58d1f788287f3fa760cca2",
+  "vitestJsonSuccess": true,
+  "vitestFiles": 61,
+  "junit": {
+    "vitest": {
+      "tests": 888,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "playwright": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "playwrightHtmlGenerated": true
+}

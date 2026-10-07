@@ -1,5 +1,15 @@
 # Week05 — bounded read-only coach
 
+## T038 — clean CI gate, 2026-10-07
+
+Dodat je GitHub Actions workflow za Windows 2025 i Ubuntu 24.04, sa zaključanim
+Node/npm, clean instalacijom, punim proverama i artefaktima pri padu. U zasebnoj
+kopiji praćenih fajlova iz `0a2f0d2`, bez .env ili prekopiranog node_modules,
+prošli su `npm ci`, typecheck, lint, Vitest 888/888, build i E2E 14/14 bez retry-ja.
+Actionlint prolazi; JSON/JUnit brojevi i HTML izveštaj provereni su lokalno.
+**GitHub Windows/Linux run još nije izvršen:** tačka 3 čeka pregled i odobreni
+push. Lokalni prolaz nije hosted dokaz. [Rezultati i granice](evidence/003-T038-handoff.md).
+
 ## T037 — recovery E2E, 2026-10-07
 
 Kontrolisano usporavanje slanja POST-a reprodukuje trku u timeout testu: recovery

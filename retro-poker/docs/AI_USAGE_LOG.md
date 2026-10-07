@@ -516,3 +516,18 @@ assertion/cleanup setup-a sačuvana i nisu predstavljena kao produkcioni RED.
 Korisnik ručno commitovao WIPc6f2016, agent nastavio treću proveru i dokumente.
 Novi live pozivi0; fake pozivi nisu prebrojani; coding tokeni/trošak nepoznati.
 CI i naredne tačke nisu započete. [Detalji](evidence/003-T037-handoff.md).
+
+## 2026-10-07 — T038 clean CI gate
+
+Korisnik odobrio commit/push tačke 2 (izvršeno kao 0a2f0d2) i nastavak na
+tačku 3 iste grane. Jedan coding agent, bez subagenata; coding tokeni/cena
+nisu mereni. Očekivanje: čista, ponovljiva provera celog projekta i sačuvana
+dijagnostika pri padu. Dodat Windows/Linux GitHub workflow sa Node/npm verzijama,
+bez live tajni, test retry-ja ili slabljenja oracle-a. Lokalno actionlint 0,
+clean npm ci/typecheck/lint/build 0, Vitest 888/888 i E2E 14/14. Pripremne
+PowerShell/putanja poteškoće i zaglavljeni sandbox Chromium pokušaj navedeni su
+u handoff-u; Chromium instalacija van sandbox-a prolazi. Hosted job/upload
+nisu izvršeni pre korisnikovog pregleda i odobrenja za push tačke 3.
+Novi live provider pozivi 0; offline fake pozivi nisu prebrojani.
+Review tačke 3 i doprinos drugog člana nisu pretpostavljeni; tačke 4/5 čekaju.
+[Handoff](evidence/003-T038-handoff.md).
