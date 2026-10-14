@@ -294,3 +294,15 @@ retroaktivno menjani.
 
 - [x] UR1 — Vlasnik: coding agent; zavisnost: US4/5, postojeći T030–T035. RED/GREEN za automatsko osvežavanje, ponovno otvaranje, spore/kasne odgovore, reset i cleanup. Putanje: `frontend/src/components/UsageDashboard.tsx`, `tests/ui/dashboard.test.tsx`. Dokaz: EVIDENCE_003, UR1/UR2 (4 očekivana pada → 11/11).
 - [x] UR2 — Vlasnik: coding agent; zavisnost: UR1. UI regresija, typecheck/lint i evidence. Putanje: aktivni 002 spec/plan/tasks i `docs/{EVIDENCE_003,CONTEXT_MANIFEST,AI_USAGE_LOG}.md`. Dokaz: 59/59 UI testova, typecheck/lint exit 0.
+
+## SR1 taskovi — 2026-10-14 (jedan coding agent)
+
+- [x] T045 [US2] Reprodukovati completed dugme i stale analysis snapshot u tests/ui/analysis.test.tsx i novom tests/ui/analysis-lifecycle.test.tsx; deps T029; dokaz docs/evidence/002-SR1-red.txt. Owner: Codex.
+- [x] T046 [US2] Najmanja UI ispravka u frontend/src/components/AnalysisPanel.tsx i frontend/src/App.tsx; deps T045; dokaz GREEN, retry/duplikati/stale/new-game/unmount. Owner: Codex.
+- [x] T047 [US2] Read-only success→success holdout u tests/integration/ai-analysis.test.ts i browser failure→success→success bez reload-a u tests/e2e/ai-offline.spec.ts; dozvoljen tests/helpers/server.ts za izolovan port/fake result; deps T046; dokaz UUID/count/state. Owner: Codex.
+- [x] T048 Završne offline provere i handoff; deps T047; dozvoljeni docs/evidence/002-SR1-*, docs/CONTEXT_MANIFEST.md, docs/AI_USAGE_LOG.md, aktivni 002 spec/plan/tasks/contracts/ai-http.md; dokaz stvarnih komandi i ograničenja, bez live/commit/push/merge. Owner: Codex.
+
+SR1 T045–T048 završeni: [handoff](../../docs/evidence/002-SR1-handoff.md).
+Ispravan behavior RED je 002-SR1-red-corrected.txt; prvi fixture/schema setup neuspeh
+u 002-SR1-red.txt ostaje odvojen. Unmount RED ima svoj log. Nova 002 dopuna ne menja
+istorijske taskove ili 003 coaching ponašanje. Bez live/commit/push/merge.

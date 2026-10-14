@@ -3,6 +3,11 @@ node_modules/
 dist/
 coverage/
 .env
+.env.*
+!.env.example
+.cache/
+.vite/
+*.tsbuildinfo
 .env.local
 *.log
 /report.md

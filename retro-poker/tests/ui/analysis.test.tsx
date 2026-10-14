@@ -37,6 +37,18 @@ describe('finished-game analysis', () => {
     expect(current.result).toEqual(snapshot);
     expect(document.body).not.toHaveTextContent(/raw provider response/i);
   });
+  it('offers explicit regeneration after success, disabled while pending', () => {
+    const current = game('won', { status: 'completed', interactionId: crypto.randomUUID(), result: {
+      summary: 'Prvi pregled.', goodDecisions: [], possibleMistakes: [], nextSteps: ['Vežbaj.'],
+    } });
+    const request = vi.fn();
+    const panel = render(<AnalysisPanel game={current} pending={false} onRequest={request} />);
+    expect(request).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Generiši analizu ponovo' }));
+    expect(request).toHaveBeenCalledTimes(1);
+    panel.rerender(<AnalysisPanel game={current} pending onRequest={request} />);
+    expect(screen.getByRole('button', { name: 'Generiši analizu ponovo' })).toBeDisabled();
+  });
   it.each(['failed', 'unavailable'] as const)('shows %s and retry', state => {
     const retry = vi.fn();
     render(<AnalysisPanel game={game('lost', { status: state, interactionId: null, result: null })} pending={false} onRequest={retry} />);

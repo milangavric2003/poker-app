@@ -204,4 +204,58 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     expect(harness.provider.callCount).toBe(2);
     expect(pokerSnapshot(after)).toEqual(pokerSnapshot(before));
   });
+  it('regenerates a completed match with a new identity and exactly one logical request per action', async () => {
+    const harness = terminalHarness();
+    const before = toGameView(harness.session.get()!);
+    harness.provider.enqueue(analysisResult(harness.decisionRef));
+    expect((await postAnalysis(harness.app, before)).statusCode).toBe(202);
+    const first = await waitForAnalysis(harness.app, 'completed');
+    const secondResult = analysisResult(harness.decisionRef);
+    secondResult.candidate = { ...secondResult.candidate as object, summary: 'Druga analiza iste partije.' };
+    harness.provider.enqueue(secondResult);
+    const secondStart = await postAnalysis(harness.app, first);
+    expect(secondStart.statusCode).toBe(202);
+    expect(secondStart.json().game.ai.analysis.interactionId).not.toBe(first.ai.analysis.interactionId);
+    const second = await waitForAnalysis(harness.app, 'completed');
+    expect(second.ai.analysis.result.summary).toBe('Druga analiza iste partije.');
+    expect(harness.provider.callCount).toBe(2);
+    expect(processUsageStore.snapshot().logical.filter(row => row.purpose === 'analysis')
+      .reduce((sum, row) => sum + row.count, 0)).toBe(2);
+    expect(pokerSnapshot(second)).toEqual(pokerSnapshot(before));
+  });
+
+  it('replacement aborts analysis and its late callback cannot publish an old result', async () => {
+    const harness = terminalHarness({ kind: 'pending', id: 'old-analysis' });
+    await postAnalysis(harness.app);
+    const signal = harness.provider.calls[0]!.signal;
+    harness.session.create(1, false);
+    const replacement = toGameView(harness.session.get()!);
+    expect(signal.aborted).toBe(true);
+    harness.provider.resolve('old-analysis', analysisResult(harness.decisionRef));
+    await new Promise(resolve => setTimeout(resolve, 20));
+    expect(toGameView(harness.session.get()!)).toEqual(replacement);
+  });
+  it('ignores a timed-out provider response after a newer analysis has completed', async () => {
+    const harness = terminalHarness({ kind: 'pending', id: 'late-analysis' }, { kind: 'safety_refusal' });
+    const before = pokerSnapshot(toGameView(harness.session.get()!));
+    await postAnalysis(harness.app);
+    for (let elapsed = 0; elapsed < 30000 && harness.session.get()!.ai.analysis.status === 'generating'; elapsed += 250) {
+      harness.clock.advance(250);
+      await harness.app.inject('/api/game');
+    }
+    const failed = await waitForAnalysis(harness.app, 'failed');
+    expect(harness.provider.calls[0]!.signal.aborted).toBe(true);
+    const fresh = analysisResult(harness.decisionRef);
+    fresh.candidate = { ...fresh.candidate as object, summary: 'Aktuelni pregled.' };
+    harness.provider.enqueue(fresh);
+    await postAnalysis(harness.app, failed);
+    const latest = await waitForAnalysis(harness.app, 'completed');
+    harness.provider.resolve('late-analysis', analysisResult(harness.decisionRef));
+    await new Promise(resolve => setTimeout(resolve, 20));
+    expect(toGameView(harness.session.get()!).ai.analysis).toEqual(latest.ai.analysis);
+    expect(latest.ai.analysis.result.summary).toBe('Aktuelni pregled.');
+    expect(pokerSnapshot(toGameView(harness.session.get()!))).toEqual(before);
+    expect(processUsageStore.snapshot().logical.filter(row => row.purpose === 'analysis')
+      .reduce((sum, row) => sum + row.count, 0)).toBe(2);
+  });
 });

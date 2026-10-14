@@ -31,7 +31,7 @@ function createOfflineProvider(): AiProvider {
   }
   analysisAttempts++;
   if (analysisAttempts <= 2) return { candidate: { invalid: 'offline-malformed-analysis' } };
-  return { candidate: { summary: 'Offline fake analiza.', goodDecisions: [], possibleMistakes: [],
+  return { candidate: { summary: analysisAttempts === 3 ? 'Offline fake analiza.' : 'Ponovo generisana offline analiza.', goodDecisions: [], possibleMistakes: [],
     nextSteps: ['Nastavi sa proverom uloga.'] }, usage: { promptTokens: 10, candidateTokens: 4, totalTokens: 14 } };
   } };
 }
@@ -43,7 +43,7 @@ export interface TestServers {
 }
 
 /** Real Fastify + Vite servers with constructor-only fixture injection. */
-export async function startTestServers(processBackend = false, fakeAi = false): Promise<TestServers> {
+export async function startTestServers(processBackend = false, fakeAi = false, frontendPort = 5173): Promise<TestServers> {
   if (processBackend) {
     let child: ChildProcess;
     async function start(port: number) {
@@ -85,9 +85,11 @@ export async function startTestServers(processBackend = false, fakeAi = false): 
       root: 'frontend',
       server: {
         host: '127.0.0.1',
-        port: 5173,
+        port: frontendPort,
         strictPort: true,
-        proxy: { '/api': { target: `http://127.0.0.1:${backendAddress.port}`, changeOrigin: false } },
+        // Isolated browser fixtures retain the backend's prescribed Origin policy.
+        proxy: { '/api': { target: `http://127.0.0.1:${backendAddress.port}`, changeOrigin: false,
+          ...(frontendPort === 0 ? { headers: { origin: 'http://127.0.0.1:5173' } } : {}) } },
       },
     });
     await frontend.listen();

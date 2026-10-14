@@ -5,6 +5,8 @@ playwright-report/
 test-results/
 .verification/
 *.tsbuildinfo
+.cache/
+.vite/
 .env
 .env.*
 !.env.example

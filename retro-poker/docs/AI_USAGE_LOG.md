@@ -491,3 +491,15 @@ Runtime izmena NIJE primenjena; ista partija/run potvrđeni završnim GET-om.
 Fake suite pozivi nisu instrumentirani; broj testova nije broj modelskih poziva.
 Nema tvrdnje da je novi live problem generisanja rešen, nema ljudskog review-a.
 [Konkretan patch/handoff](evidence/003-T034-prepared.md).
+
+## SR1 — summary bez reload-a, 2026-10-14
+
+Svrha Codex rada: pregled odvojenih Week04 analysis/Week05 coach tokova, dopuna
+postojećeg plana i taskova, reprodukcija i minimalna UI ispravka sa fake testovima.
+Alat: Codex/terminal/apply_patch; tačan model i token trošak sesije unknown.
+Korisnička odluka: implementacija na add-modifications, bez live Gemini,
+bez commit/push/merge; lokalni korisnički artefakti sačuvani.
+Ishod i komande: [SR1 handoff](evidence/002-SR1-handoff.md).
+Novi stvarni provider pozivi: 0; Gemini API budžet potrošen: 0.
+Fake testovi koriste lokalne skriptovane providere; broj testova nije broj API poziva.
+Ljudski peer review nije potvrđen; izmene ostaju za pregled.

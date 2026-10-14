@@ -77,7 +77,8 @@ Eligibility ne zahteva `ai.mode=on`: analysis je dostupna i posle partije u kojo
 botovi koristili samo Week03 lokalnu strategiju, ako je backend provider konfigurisan.
 
 Uspeh background obrade pojavljuje se kroz GET kao completed; provider failure kao
-failed. Ručni retry ponavlja isti POST tek posle terminalnog failed/unavailable stanja,
+failed. Ručni retry ponavlja isti POST tek posle terminalnog failed/unavailable stanja;
+eksplicitno ponovno generisanje dozvoljeno je i posle completed stanja. Svaki zahtev
 stvara novi interaction ID i ne menja završni result/version poker partije.
 
 ## Usage dashboard

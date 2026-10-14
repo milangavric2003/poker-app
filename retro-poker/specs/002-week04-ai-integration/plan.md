@@ -330,3 +330,24 @@ i na interval od 1 s dok je otvoren. Jedan aktivan GET, zaštita od kasnih odgov
 pri zatvaranju/resetu i zaustavljanje tajmera pri unmount-u. Pozadinsko učitavanje
 ne skriva metrike. Provera: Vitest UI sa lažnim satom i kontrolisanim odgovorima,
 zatim UI regresija, typecheck i lint. Nema novih model poziva ni API ugovora.
+
+## SR1 plan — 2026-10-14, pre promene ponašanja
+
+Baseline HEAD c73ae8c na add-modifications; izvan projekta postoje korisnički
+neverzionisani HTML/folder, netaknuti. Fokus 50/50 (4 fajla), exit0.
+Backend startAnalysis već prima completed/failed, rezerviše UUID pod lock-om,
+odbija generating i proverava ceo fingerprint pre read-only commit-a.
+UI nema completed dugme; acceptsAiSnapshot može propustiti drugi analysis UUID
+preko lastBotOutcome iz iste ruke, jer poker version ostaje isti. Retry i polling
+postoje; ovo nije dokaz problema u Gemini adapteru niti backend lifecycle-u.
+
+Najmanji slice: completed dugme u AnalysisPanel; eksplicitni POST sme prihvatiti
+novi UUID za isti game/hand/version, a read-only polling mora ostati vezan za
+trenutni analysis UUID i terminalno stanje. Request token sprečava kasni POST/
+recovery GET posle unmount-a ili namere nove partije. Postojeći mutation lock,
+strict API parser, 750ms GET polling i backend limiti ostaju.
+TDD: panel + App lifecycle/snapshot RED; backend success→success read-only holdout;
+GREEN i puna offline regresija. Browser: real Fastify/Vite + postojeći fake provider,
+failure→success→success bez reload-a, novi UUID/tačno tri logical analysis zahteva.
+Test helper koristi zaseban slobodan loopback port radi očuvanja aktivnog dev servera.
+Provere: npm.cmd test, test:e2e, typecheck, lint, build, git diff --check.

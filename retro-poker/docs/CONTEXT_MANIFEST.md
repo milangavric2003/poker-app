@@ -681,3 +681,17 @@ Pre rada pročitani AGENTS, prethodni T034review/patch, coach-smoke/live CLI, co
 allowlist; postojeći SpecKitimplement/constitution/gate ostaju iz istog razgovora.
 Novi plan/spec/tasks/GAME_SPEC zapisani pre runner koda. Kontekst dopunjavati samo
 stvarnim rezultatima; nema subagenata, key/raw vrednosti ili privatnog chain-of-thought.
+
+## SR1 korišćeni kontekst — 2026-10-14
+
+Prioritet: aktuelni korisnički zahtev, AGENTS.md na HEAD c73ae8c, GAME_SPEC §12–14,
+constitution principi I–VII, 002 spec/plan/tasks/data-model/ai-http/research/quickstart,
+003 relevantni plan/taskovi i dva odvojena UI panela. Kod: App/api/AnalysisPanel/
+CoachPanel/session/routes; testovi ai-analysis/ai-concurrency/analysis/ai-status,
+ai-offline/helper/server i coach E2E kao poređenje. Projektni speckit-plan/tasks/
+implement SKILL.md smernice; dopuna postojećeg feature-a, bez novog scaffold-a.
+Prerequisite skripta prvo blokirana execution policy, ponovljena process-only Bypass:
+FEATURE_DIR 002, svi relevantni artefakti postoje. Checklist requirements 26/26,
+read-only; extensions.yml ne postoji. Node24.20.0/npm11.19.0.
+Rizik: analysis nema novu poker verziju, pa stale zaštita mora koristiti interactionId.
+Istorijski live dokazi nisu novi pozivi; .env/ključevi nisu učitani, nema mrežnog provider-a.

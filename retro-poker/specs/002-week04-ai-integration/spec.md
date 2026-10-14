@@ -430,3 +430,16 @@ Zvanične stranice su vremenski promenljiv kontekst. Pre planiranja konkretnog m
 i pre opcionog live smoke testa MORAJU se ponovo proveriti model availability, capability,
 quota i billing za stvarni projekat; nijedna vrednost ključa se ne unosi u dokumentaciju
 ili razgovor.
+
+## SR1 — ponovno generisanje summary-ja, 2026-10-14
+
+Korisnički zahtev na grani `add-modifications` primenjuje se na Week04
+„AI analiza partije” / „Sažetak” (`POST /api/game/analysis`), zasebno od
+Week05 coaching cilja i `POST /api/game/coach`. Sledljivost: GAME_SPEC §12/§13,
+FR-008/009/016–019/024/026, US2 i AIAC10/11/14/15.
+Posle completed korisnik eksplicitno bira „Generiši analizu ponovo”; posle
+failed/unavailable bira postojeći retry. Jedan klik znači jedan novi interactionId,
+bez promene poker stanja, žetona ili rezultata. Generating/pending blokira duplikate.
+UI prati taj identitet do terminalnog rezultata/bezbedne greške; stariji snapshot,
+unmount i nova partija ne smeju vratiti staru analizu. Nema automatskog POST-a,
+novog poziva na render niti promene validacije, provider budžeta i timeout-a.
