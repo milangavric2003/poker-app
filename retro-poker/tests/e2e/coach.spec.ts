@@ -52,6 +52,11 @@ test('T023 keyboard success uses real backend validation and preserves poker res
     await expect(page.getByTestId('provider-attempt-count')).toHaveText('2');
     await expect(page.getByTestId('coach-steps')).toHaveText('2');
     await expect(page.getByTestId('coach-tools')).toHaveText('1');
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-coach-usage-1280.png', fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-coach-usage-390.png', fullPage: true });
+    await page.setViewportSize({ width: 1280, height: 720 });
     expect(terminal.result?.evidence.length).toBeGreaterThan(0);
     for (const evidence of terminal.result!.evidence) {
       await expect(coach.getByRole('listitem').filter({ hasText: evidence.decisionRef })).toContainText(evidence.finding);

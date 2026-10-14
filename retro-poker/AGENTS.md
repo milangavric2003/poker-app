@@ -2,6 +2,11 @@
 
 ## Namena i obim
 
+Posle završenog Week05 aplikacija se razvija privatno za dva člana. Novi zahtevi
+dobijaju zasebne `specs/` feature-e i dokaze, bez ponovnog otvaranja nedeljnih
+taskova. Feature 004 unapređuje frontend i mobilni raspored; pravila igre,
+arhitektonske granice i obavezne provere ispod ostaju na snazi.
+
 Radi na Week03–Week05 projektu Retro Poker: lokalnoj retro browser igri No-Limit Texas Hold'em. Jedan čovek igra protiv 1–5 programskih botova, najviše šest učesnika ukupno. Postoje frontend i mali backend sa stanjem u memoriji. Poker je odobren od predavača; Spec Kit i TDD su dogovoreni način rada. Week04 dodaje AI botove i analizu; Week05 dodaje ograničen, read-only agentski tok za analizu završene partije.
 
 Projektni koren je direktorijum u kome je ovaj fajl (`retro-poker/`). Git koren može biti njegov roditelj; proveri ga pre Git operacija. Sve putanje ispod odnose se na projektni koren. Dokumentaciju i objašnjenja piši na srpskom latinicom, identifikatore u kodu na engleskom.

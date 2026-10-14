@@ -712,3 +712,24 @@ Nisu uključeni istorijski suggestion, nastavni materijali, tajne/.env niti
 spoljni izvori za cene: nema potrebe za scope proširenjem ili cenovnom procenom.
 Rizik: različite istorijske retry jedinice; UI ih eksplicitno razdvaja.
 Dokaz i ograničenja: [AU1 handoff](evidence/004-AU1-handoff.md).
+
+## Privatni frontend feature 004 — 2026-10-14
+
+Prioritet: aktuelni korisnički zahtev > AGENTS/GAME_SPEC > constitution > novi
+feature 004 > postojeći kod/testovi. Baseline HEAD 9a6263a; grana
+add-modifications, početni status čist. Git koren roditelj projekta. Korišćeni:
+AGENTS; GAME_SPEC (R1–R8, ARCH1–8, AC11–13/19–23 i fazne granice);
+constitution v1.1.0; projektni Spec Kit specify/plan/tasks/implement/converge skills,
+spec/plan šabloni i setup/prerequisites/common skripte. Nema extensions.yml hook-ova.
+Korišćeni runtime izvori: package, ignore, ESLint/Playwright konfiguracije;
+App/Table/ActionPanel/HandResult/styles, CoachPanel markup, UsageDashboard
+polling/agregati, shared/contracts, engine/pots (isključivo čitanje);
+UI table i E2E accessibility/play-hand/ai-offline/coach, public-fixtures/server.
+Prethodne SR1/AU1 handoff beleške pročitane zbog summary/usage regresije.
+Razlog: javni podaci, privatnost, raspored i očuvanje lifecycle tokova.
+Nisu učitani .env/tajne, nastavni materijali, istorijski suggestion ili spoljne
+dizajn biblioteke. Nema potrebe za novim API-jem ili asset servisom.
+Rizik: CSS može uticati na dostupnost kontrola; proverene geometrija, fokus,
+desktop/mobile i reduced-motion. Browser alat nije dostupan; korišćen Playwright
+Chromium i lokalni view_image za stvarni pregled slika. Novi dokazi:
+[feature 004](../specs/004-frontend-table-polish/evidence/verification.md).

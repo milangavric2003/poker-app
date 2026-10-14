@@ -357,6 +357,15 @@ ima completed, 4 evidence reference i read-only=true, retry/fallback0.
 
 ## 15. Izvori i upravljanje promenama
 
+### Privatni nastavak posle završenog Week05
+
+Korisnički zahtev 2026-10-14 odobrava zaseban frontend feature
+[`004-frontend-table-polish`](../specs/004-frontend-table-polish/spec.md), uključujući
+mobilni raspored koji je bio van istorijskog Week03 scope-a. Karte, čipovi, sto i
+paneli koriste postojeći javni pogled; poker pravila, API ugovori i AI granice se
+ne menjaju. Week05 taskovi i dokazi ostaju istorijski zatvoreni. Novi dokazi su
+u feature 004, provere offline/fake, bez stvarnih Gemini poziva.
+
 - Retro AI Engineering Challenge — istorijski izvor za Week03 artefakte, eval i
   Week04 granicu: `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md`.
 - Week03 studentska skripta — kontekst, strukturisani izlazi i TDD/SDD:

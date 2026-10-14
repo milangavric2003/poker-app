@@ -514,3 +514,16 @@ Ishod: backend/API već beleže oba toka; UI projekcija popravljena i proverena.
 Ljudska odluka: korisnik autorizovao implementaciju i tražio izmene bez commit-a;
 završni ljudski review nije potvrđen. Live Gemini pozivi: 0.
 Detalji: [AU1 evidence](evidence/004-AU1-handoff.md).
+
+## Privatni frontend 004 — 2026-10-14
+
+Svrha: implementirati karte, bounded dekorativne čipove, responzivan poker sto i
+usklađene panele; očekivanje: čitljiv prikaz bez promene pravila/AI ugovora.
+Alati: Codex, shell/apply_patch, Vitest, Playwright Chromium i view_image.
+Model identitet, tokeni i cena coding sesije nisu dostupni — nepoznati.
+Kontekst: AGENTS/GAME_SPEC/constitution, Spec Kit skills, javni DTO, UI/stilovi,
+SR1/AU1 dokazi i offline testovi. Ishod i stvarne provere su u
+[feature evidence-u](../specs/004-frontend-table-polish/evidence/verification.md).
+Korisnik autorizovao implementaciju na add-modifications bez commit/push/merge.
+Codex implementirao i proverio; ljudski peer review/doprinos u sesiji nije potvrđen.
+Novi stvarni Gemini pozivi: 0. Fake-provider pokušaji nisu stvarni provider pozivi.

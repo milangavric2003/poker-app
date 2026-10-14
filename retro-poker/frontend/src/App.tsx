@@ -247,8 +247,9 @@ export function App() {
     {error && <><p className="error" role="alert">{error} Učitaj stanje pre nastavka.</p>
       <button disabled={pending} onClick={() => void synchronize()}>Učitaj stanje</button></>}
     {!game && !pending && !error && <p className="empty">Izaberi broj botova i pokreni lokalnu partiju.</p>}
-    {game && <><Table game={game} />
+    {game && <><div className="game-surface"><Table game={game} />
       {game.legalActions.length > 0 && <ActionPanel game={game} pending={busy || !!error} onAction={act} />}
+      </div>
       {visibleResult && <HandResult result={visibleResult} />}
       {game.phase === 'complete' && game.status === 'playing' &&
         <button disabled={busy || !!error} onClick={() => void advance()}>Sledeća ruka</button>}

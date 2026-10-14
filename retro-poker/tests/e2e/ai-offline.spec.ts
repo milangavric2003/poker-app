@@ -60,6 +60,11 @@ test('offline fake provider covers bot, analysis retry, dashboard and independen
     await page.getByText('Logical requests').click();
     await page.getByText('Attempts').click();
     await expect(page.getByRole('table').first()).toContainText('model_success');
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-summary-usage-1280.png', fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-summary-usage-390.png', fullPage: true });
+    await page.setViewportSize({ width: 1280, height: 720 });
     const beforeMetricReset = await (await page.request.get(`${servers.origin}/api/game`)).json();
     page.on('dialog', dialog => dialog.accept());
     await page.getByRole('button', { name: 'Resetuj metrike' }).click();
