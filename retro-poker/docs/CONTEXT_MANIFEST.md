@@ -695,3 +695,20 @@ FEATURE_DIR 002, svi relevantni artefakti postoje. Checklist requirements 26/26,
 read-only; extensions.yml ne postoji. Node24.20.0/npm11.19.0.
 Rizik: analysis nema novu poker verziju, pa stale zaštita mora koristiti interactionId.
 Istorijski live dokazi nisu novi pozivi; .env/ključevi nisu učitani, nema mrežnog provider-a.
+## AU1 kontekst — 2026-10-14
+
+Prioritet: aktuelni korisnički zahtev > AGENTS/GAME_SPEC > constitution > feature
+002/003 ugovori i planovi > kod/testovi. Korišćeni HEAD f900fa2 i git diff/status;
+AGENTS.md; GAME_SPEC §12–14; constitution v1.1.0; relevantni usage/SR1/FR-020–023
+delovi 002 spec/plan/tasks i ai-http; 003 spec/plan/tasks (T019–023/FR-022),
+data-model i coach-http; requirements checklists 002/003. Čitan projektni
+`.agents/skills/speckit-implement/SKILL.md`, prerequisites/common skripte.
+Runtime izvori: session.ts (analysis/coach beleženje), ai/usage.ts, routes.ts,
+shared/contracts.ts, App.tsx, AnalysisPanel/CoachPanel/UsageDashboard, testovi
+analysis/dashboard/coach usage i lifecycle, fake provider/server/coach-server,
+Playwright/Vitest/package/ignore/ESLint konfiguracije. Razlog: utvrđivanje stvarnog
+UI→backend mapiranja, postojećih agregata, reset i refresh semantike.
+Nisu uključeni istorijski suggestion, nastavni materijali, tajne/.env niti
+spoljni izvori za cene: nema potrebe za scope proširenjem ili cenovnom procenom.
+Rizik: različite istorijske retry jedinice; UI ih eksplicitno razdvaja.
+Dokaz i ograničenja: [AU1 handoff](evidence/004-AU1-handoff.md).

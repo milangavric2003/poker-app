@@ -4,6 +4,8 @@ import { loadAiConfig } from '../../backend/src/ai/config.js';
 import { getDecisionEvidence } from '../../backend/src/agent/tools.js';
 import { CoachResponseSchema } from '../../shared/contracts.js';
 import { processUsageStore } from '../../backend/src/ai/usage.js';
+import Fastify from 'fastify';
+import { registerRoutes } from '../../backend/src/routes.js';
 import { FakeAiProvider, type FakeAiStep } from '../helpers/fake-ai-provider.js';
 import { ac23Deck, sequenceRandom } from '../helpers/fixtures.js';
 
@@ -56,16 +58,37 @@ describe('T019 session coach ownership', () => {
     else expect(h.session.coachStatus(run.runId).status).toBe('completed');
   });
   it('completes only validated final output and preserves the entire poker snapshot', async () => {
+    processUsageStore.reset(processUsageStore.snapshot().revision);
     const h = harness([{ kind: 'agent_tool' }, { kind: 'agent_final' }]); const before = JSON.stringify(h.game);
     const started = await h.session.serial(() => h.session.startCoach(h.input));
     expect(['running', 'created']).toContain(started.status); await flush();
     const run = h.session.coachStatus(started.runId);
     CoachResponseSchema.parse({ run }); expect(run).toMatchObject({ status: 'completed', stepCount: 2, toolCallCount: 1, providerAttemptCount: 2 });
     expect(h.tool).toHaveBeenCalledTimes(1); expect(JSON.stringify(h.game)).toBe(before);
+    const recorded = processUsageStore.snapshot();
+    expect(recorded.logical).toEqual([]); expect(recorded.attempts).toEqual([]);
+    expect(recorded.coach).toMatchObject({ runCount: 1, stepCount: 2, providerAttemptCount: 2,
+      toolExecutionCount: 1, retryCount: 0, modelFallbackCount: 0 });
+    expect(recorded.coach.attempts.reduce((sum, row) => sum + row.count, 0)).toBe(2);
+    for (let i = 0; i < 3; i++) h.session.coachStatus(started.runId);
+    const app = Fastify(); registerRoutes(app, h.session);
+    try {
+      for (let i = 0; i < 3; i++) {
+        expect((await app.inject('/api/ai/usage')).json().usage).toEqual(recorded);
+        await app.inject(`/api/game/coach/${started.runId}`);
+      }
+    } finally { await app.close(); }
+    expect(processUsageStore.snapshot()).toEqual(recorded);
+    h.provider.enqueue({ kind: 'agent_tool' }, { kind: 'agent_final' });
+    const regenerated = await h.session.serial(() => h.session.startCoach(h.input)); await flush();
+    expect(regenerated.runId).not.toBe(started.runId);
+    expect(processUsageStore.snapshot().coach).toMatchObject({ runCount: 2, stepCount: 4,
+      providerAttemptCount: 4, toolExecutionCount: 2 });
     const publicText = JSON.stringify(run);
     for (const field of ['prompt', 'chainOfThought', 'candidate', 'apiKey', 'stack', 'validatedToolResult', 'attempts']) expect(publicText).not.toContain(field);
   });
   it.each(['unknown_tool', 'invalid_arguments', 'auth_config', 'invalid_final'] as const)('safely terminates %s and explicit retry gets a new ID', async kind => {
+    processUsageStore.reset(processUsageStore.snapshot().revision);
     const h = harness(kind === 'invalid_final' ? [{ kind: 'agent_tool' }, { kind }] : [{ kind }]);
     const first = await h.session.serial(() => h.session.startCoach(h.input)); await flush();
     expect(['failed', 'stopped']).toContain(h.session.coachStatus(first.runId).status);
@@ -74,6 +97,10 @@ describe('T019 session coach ownership', () => {
     h.provider.enqueue({ kind: 'agent_tool' }, { kind: 'agent_final' });
     const retry = await h.session.serial(() => h.session.startCoach(h.input)); expect(retry.runId).not.toBe(first.runId);
     await flush(); expect(h.session.coachStatus(retry.runId).status).toBe('completed');
+    expect(processUsageStore.snapshot().coach).toMatchObject({ runCount: 2,
+      stepCount: kind === 'invalid_final' ? 4 : 3, providerAttemptCount: kind === 'invalid_final' ? 4 : 3,
+      toolExecutionCount: kind === 'invalid_final' ? 2 : 1 });
+    expect(processUsageStore.snapshot().coach.stopReasons).toEqual(expect.arrayContaining([{ reason: 'completed', count: 1 }]));
   });
   it('releases serial lock, deduplicates, aborts replacement and ignores a late provider', async () => {
     const h = harness([{ kind: 'pending', id: 'late' }]);

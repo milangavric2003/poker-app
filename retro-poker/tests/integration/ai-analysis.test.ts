@@ -221,7 +221,32 @@ describe('analysis route read-only boundary (FR-016–FR-019, AIAC10–AIAC11)',
     expect(harness.provider.callCount).toBe(2);
     expect(processUsageStore.snapshot().logical.filter(row => row.purpose === 'analysis')
       .reduce((sum, row) => sum + row.count, 0)).toBe(2);
+    const recorded = processUsageStore.snapshot();
+    expect(recorded.attempts.reduce((sum, row) => sum + row.count, 0)).toBe(2);
+    expect(recorded.coach.runCount).toBe(0);
+    expect(recorded.attempts[0]!.usage.totalTokens).toEqual({ knownCount: 0, missingCount: 2, sum: 0 });
+    for (let i = 0; i < 3; i++) {
+      expect((await harness.app.inject('/api/ai/usage')).json().usage).toEqual(recorded);
+      await harness.app.inject('/api/game');
+    }
+    expect(processUsageStore.snapshot()).toEqual(recorded);
     expect(pokerSnapshot(second)).toEqual(pokerSnapshot(before));
+  });
+
+  it('usage reset rejects late summary metrics but allows a new explicit generation', async () => {
+    const harness = terminalHarness({ kind: 'pending', id: 'reset-summary' });
+    await postAnalysis(harness.app);
+    const revision = processUsageStore.snapshot().revision;
+    expect((await harness.app.inject({ method: 'POST', url: '/api/ai/usage/reset',
+      payload: { expectedRevision: revision } })).statusCode).toBe(200);
+    harness.provider.resolve('reset-summary', analysisResult(harness.decisionRef));
+    const completed = await waitForAnalysis(harness.app, 'completed');
+    expect(processUsageStore.snapshot().logical).toEqual([]);
+    expect(processUsageStore.snapshot().attempts).toEqual([]);
+    harness.provider.enqueue(analysisResult(harness.decisionRef));
+    await postAnalysis(harness.app, completed); await waitForAnalysis(harness.app, 'completed');
+    expect(processUsageStore.snapshot().logical).toMatchObject([{ purpose: 'analysis', count: 1 }]);
+    expect(processUsageStore.snapshot().attempts).toMatchObject([{ purpose: 'analysis', count: 1 }]);
   });
 
   it('replacement aborts analysis and its late callback cannot publish an old result', async () => {

@@ -384,3 +384,17 @@ kind se i dalje odbija; nema automatskog preimenovanja model odgovora.
 Ne tvrdi se rekonstruisana vrednost kind-a iz starog run-a, jer se raw ne čuva.
 Independent long-match holdout ima3ruke/12human odluka (betting3), proverene
 stacks0/2000 i ograničenje uzorka na10detaljnih odluka. Sledi ista live matrica.
+## Dopuna AU1 — zajednički dashboard (2026-10-14)
+
+GAME_SPEC §12–14, Week04 FR-020–023 i Week05 FR-022: UI „AI analiza
+partije / Sažetak” je `/api/game/analysis`, usage `analysis`; „Coaching
+sažetak” je `/api/game/coach`, usage `coach`. Svako eksplicitno ponovno
+generisanje je novo logičko pokretanje. Dashboard sabira postojeće disjunktne
+Week04 i coach agregate jednom; dva coach modelska koraka nisu dva pokretanja,
+a lokalni alat nije provider zahtev. Prikazuje odvojeno bot odluke, analizu,
+coaching, uspešna/neuspešna generisanja, pokušaje, korake, alate, retry/fallback,
+trajanje i raspoložive tokene. Nepoznati tokeni/cena ostaju nepoznati.
+Polling/GET ne beleži usage; terminalni uspeh ili neuspeh postaje vidljiv putem
+postojećeg polling-a bez reload-a. Reset epoha i request token sprečavaju kasni
+upis/prikaz obrisanih metrika. Bez novih brojača, baze, procene cene ili privatnog
+sadržaja. Stariji DTO bez opcionog coach agregata ostaje podržan.

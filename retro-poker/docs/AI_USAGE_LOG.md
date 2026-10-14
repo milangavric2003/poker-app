@@ -503,3 +503,14 @@ Ishod i komande: [SR1 handoff](evidence/002-SR1-handoff.md).
 Novi stvarni provider pozivi: 0; Gemini API budžet potrošen: 0.
 Fake testovi koriste lokalne skriptovane providere; broj testova nije broj API poziva.
 Ljudski peer review nije potvrđen; izmene ostaju za pregled.
+## AU1 — 2026-10-14, Codex rad na analitici
+
+Svrha: uključiti summary (`analysis`) i coaching (`coach`) u postojeći dashboard.
+Očekivanje: tačni odvojeni logical/model/provider/tool brojači bez duplog upisa.
+Alat: Codex, lokalni shell/apply_patch, Vitest/Playwright fake provider; model
+identitet i tokeni/trošak ove coding sesije nisu raspoloživi — nepoznati.
+Kontekst: AGENTS, GAME_SPEC §12–14, relevantni 002/003 dokumenti i usage/UI kod.
+Ishod: backend/API već beleže oba toka; UI projekcija popravljena i proverena.
+Ljudska odluka: korisnik autorizovao implementaciju i tražio izmene bez commit-a;
+završni ljudski review nije potvrđen. Live Gemini pozivi: 0.
+Detalji: [AU1 evidence](evidence/004-AU1-handoff.md).
