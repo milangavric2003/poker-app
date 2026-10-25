@@ -733,3 +733,36 @@ Rizik: CSS može uticati na dostupnost kontrola; proverene geometrija, fokus,
 desktop/mobile i reduced-motion. Browser alat nije dostupan; korišćen Playwright
 Chromium i lokalni view_image za stvarni pregled slika. Novi dokazi:
 [feature 004](../specs/004-frontend-table-polish/evidence/verification.md).
+
+## Week08 priprema — 2026-10-25
+
+Prioritet: korisnikov zahtev/razjašnjenje privatnih dorada > AGENTS/GAME_SPEC i
+constitution v1.1.0 > Week08 assignment 23.10.2026 > novi feature005 > postojeći kod.
+Korišćeni root `weekly-assignment.md` (SHA256
+0382b5f9ca929e6121dde9a33113a183535a1b37d14fe6a2af359893ca9a1abd), paket README,
+01/04 MD materijali i 03 MD evidence šablon, čitani kroz prethodnu analizu i ovu
+pripremu. Paket 02 MD ima isti hash kao root assignment; PDF/PPTX nisu zasebno
+analizirani, prema README-u paralelni štampani/prezentacioni materijali.
+Root assignment sada nije istorijski Week05 izvor. Lokalni materijali mogu
+nedostajati kolegi; zahtevi preneti u feature005.
+
+Pročitani projektni speckit-specify/plan/tasks SKILL.md, constitution, aktivni
+spec/plan/tasks šabloni, init-options, setup-plan/setup-tasks/common/prerequisites
+skripte; nema extensions.yml hook-ova. Jedan agent prema projektu; generički
+research-agent primer nije primenjen. Lokalni feature.json upućuje na 005,
+Git grana ostaje week08-init.
+
+Kod: app/routes/session, agent types/orchestrator/tools/validation, shared coach
+šeme, provider/coordinator granice, CoachPanel/AnalysisPanel, PlayingCard, Vite/
+Vitest/Playwright/package, fake helpers i relevantni route/lifecycle/recovery/
+failure/E2E testovi. Dokumenti: GAME_SPEC, feature004, manifest/AI log.
+Git: HEAD96fb971, mainc73ae8c, review2574a0a, diffs i osveženi origin refs;
+selektivan test/config/CI prenos bez main merge-a. PR review status je korisnički
+navod, ne rezultat GitHub API upita.
+
+OWASP CSP/API4/Logging pregledani web-om u prethodnoj analizi; ova priprema ne
+predstavlja novi advisory audit. Nisu čitani pravi ključevi/.env ili privatni
+podaci. Build koristi redovan Vite mehanizam; ne tvrdimo da Vite nikad učitava env.
+Nema live provider poziva. Rizici: test timing, orphan provider rad, nedostajući
+production headers/events; razlikovati source review od test dokaza.
+[Baseline](evidence/005-baseline.md), [W08 evidence](EVIDENCE_W08.md).

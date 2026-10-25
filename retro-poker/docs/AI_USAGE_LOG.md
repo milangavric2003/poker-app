@@ -527,3 +527,25 @@ SR1/AU1 dokazi i offline testovi. Ishod i stvarne provere su u
 Korisnik autorizovao implementaciju na add-modifications bez commit/push/merge.
 Codex implementirao i proverio; ljudski peer review/doprinos u sesiji nije potvrđen.
 Novi stvarni Gemini pozivi: 0. Fake-provider pokušaji nisu stvarni provider pozivi.
+
+## Week08 priprema i prenos osnove — 2026-10-25
+
+Korisnik (Veki) razjasnio da su post-W05 summary/usage/frontend dorade privatne,
+autorizovao poređenje/prenos potrebnih review popravki i izradu feature005.
+Codex predložio coaching kao W08 tok; pripremio spec/plan/tasks i evidence po
+nastavnom šablonu, bez implementacije novih security kontrola.
+Projektni Spec Kit specify/plan/tasks korišćeni; jedan coding agent.
+Alati: shell, git fetch/read/diff, apply_patch, Vitest/Playwright i offline helper.
+Model identitet, coding tokeni i trošak nisu dostupni — nepoznati.
+
+Stvaran ishod: pre prenosa 905/906 testova (offline subprocess timeout), recovery
+5/5; posle prenosa 906/906, E2E20/20, typecheck/lint/build exit0. Poseban coach
+helper prvo nije startovao zbog sandbox tsx/OS greške, odobren offline retry je
+uspeo sa osam scenarija. Sačuvani prvi izlazi; nema tvrdnje o trajnoj stabilnosti.
+Frontend/poslovni runtime nije menjan. Main/otvoreni PR nisu merged, nema push-a
+ili novog commit-a. Korisnička root ignore izmena sačuvana.
+
+Novi stvarni Gemini pozivi: 0; synthetic fake pokušaji nisu API potrošnja.
+Clean npm ci, novi remote CI, security matrica i ljudski review/demo nisu izvršeni.
+Milanov doprinos ovom W08 koraku i individualni testovi nisu potvrđeni.
+[Dokaz](EVIDENCE_W08.md), [provenance i komande](evidence/005-baseline.md).

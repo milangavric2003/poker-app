@@ -1,0 +1,41 @@
+
+> retro-poker@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+ ❯ |node| tests/integration/gemini-live-smoke.test.ts (2 tests | 1 failed) 11477ms
+   ❯ opt-in live runner with offline HTTP (2)
+     × reports actual application outcomes with HTTP 200 7196ms
+npm.cmd : 
+At line:3 char:1
++ npm.cmd test *> docs/evidence/005-baseline-tests-before.txt
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| tests/integration/gemini-live-smoke.test.ts > opt-in live runner with offline HTTP > reports actual 
+application outcomes with HTTP 200
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/integration/gemini-live-smoke.test.ts:5:22
+      3|
+      4| describe('opt-in live runner with offline HTTP', () => {
+      5|   it.each([200, 503])('reports actual application outcomes with HTTP %…
+       |                      ^
+      6|     const stub = `globalThis.fetch = async (_url, init) => {
+      7|       const body = JSON.parse(init.body);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 61 passed (62)
+      Tests  1 failed | 905 passed (906)
+   Start at  17:04:17
+   Duration  24.61s (environment 32%, import 31%, tests 30%, transform 6%, worker 1%)
+
+
+ExitCode=1

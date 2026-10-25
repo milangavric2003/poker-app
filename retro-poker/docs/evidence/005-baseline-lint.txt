@@ -1,0 +1,8 @@
+Command: npm.cmd run lint
+Started: 2026-10-25T16:06:53.436Z
+
+> retro-poker@0.1.0 lint
+> eslint .
+
+
+Result: {"command":"npm.cmd run lint","exitCode":0,"durationMs":7562,"file":"docs/evidence/005-baseline-lint.txt"}

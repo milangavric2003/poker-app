@@ -1,0 +1,18 @@
+{
+  "baseCommit": "96fb9715098d8a3bf857103c855335b302a30d36",
+  "branch": "week08-init",
+  "sourceReviewCommit": "2574a0aeb64a592b91882569629f8b8dc6cccf96",
+  "patch": "005-baseline-transfer.patch",
+  "patchSha256": "81261bd4f6e0a5c7cee8960837635800202c864849650ee8bc22d5a98c7a16b0",
+  "lockfileSha256": "2407a150855d3ec5e0c04fbe790ea76a35cb9b4ca027b533d4977838bf45515d",
+  "node": "v24.20.0",
+  "npm": "11.19.0",
+  "files": {
+    "retro-poker/vitest.config.ts": "8969b598d0728946c4099d73e01052a3d8468e3ea194944feb0c80a3612493bf",
+    "retro-poker/tests/integration/ai-failures.test.ts": "96ca3e2e8c97aa70ac80d1bea3ac1899f2424e3756906120d425c9916899ddf9",
+    "retro-poker/tests/e2e/recovery.spec.ts": "6052223c487690326577f140bc2b16e16734074e555cfaa7055af87304185d4d",
+    "retro-poker/.gitignore": "9804da86afafc32a997a2506d56b53c7e7c0580fb1c2537088484040b20d8706",
+    ".github/workflows/retro-poker-ci.yml": "a01ce472f769a3146f4bfb95aa129a2eba395b003a58d1f788287f3fa760cca2"
+  },
+  "notes": "Local working-tree baseline, no new commit. Root user .gitignore and documentation excluded; frontend/runtime unchanged."
+}

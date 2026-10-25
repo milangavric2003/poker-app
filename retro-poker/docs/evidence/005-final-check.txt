@@ -1,0 +1,14 @@
+Document/baseline verification, 2026-10-25
+
+Command: git apply --reverse --check retro-poker/docs/evidence/005-baseline-transfer.patch
+ExitCode=0
+
+Command: git diff --check
+warning: in the working copy of 'retro-poker/.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/e2e/recovery.spec.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/tests/integration/ai-failures.test.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'retro-poker/vitest.config.ts', LF will be replaced by CRLF the next time Git touches it
+ExitCode=0
+
+New-file check note: git diff --no-index reports exit 1 for differences against /dev/null, even with empty whitespace diagnostics; this is not a failed whitespace check.
+Direct trailing-whitespace scan: {"files":10,"errors":[]}

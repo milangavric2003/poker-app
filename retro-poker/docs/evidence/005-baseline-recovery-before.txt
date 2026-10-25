@@ -1,0 +1,29 @@
+
+> retro-poker@0.1.0 test:e2e
+> playwright test tests/e2e/recovery.spec.ts
+
+
+Running 5 tests using 1 worker
+
+npm.cmd : (node:2928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:3 char:1
++ npm.cmd run test:e2e -- tests/e2e/recovery.spec.ts *> docs/evidence/0 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:2928) War... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+5:04:50 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+  ok 1 [chromium] › tests\e2e\recovery.spec.ts:4:1 › refresh ponovo GET-uje potvrđeno stanje (3.2s)
+  ok 2 [chromium] › tests\e2e\recovery.spec.ts:20:3 › lost: snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.5s)
+  ok 3 [chromium] › tests\e2e\recovery.spec.ts:20:3 › invalid: snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.5s)
+  ok 4 [chromium] › tests\e2e\recovery.spec.ts:20:3 › timeout: snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.5s)
+(node:18996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 5 [chromium] › tests\e2e\recovery.spec.ts:48:1 › novi backend bez memorije vraća game:null i novu partiju (3.5s)
+
+  5 passed (17.1s)
+
+ExitCode=0
