@@ -1,0 +1,26 @@
+﻿[
+    {
+        "sha256":  "2e20777d443a9233633733ce55fd872ee42689bb0c183871efdb5a408087898b",
+        "path":  "tests/helpers/security-fixtures.ts"
+    },
+    {
+        "sha256":  "fd5f917dd2c9f23bd8e6600208de8752906298645eae2be3b61dc7e202217537",
+        "path":  "tests/helpers/security-server.ts"
+    },
+    {
+        "sha256":  "8531229308354c1155d83168639d2ff2f33a404589c38bc1327e1a110d430ea3",
+        "path":  "tests/integration/security-normal.test.ts"
+    },
+    {
+        "sha256":  "fec005d14d3ef3d59a1ceebdac34ff77bbea2c460ce194df2a8190bdb423b8a5",
+        "path":  "tests/integration/security-tools.test.ts"
+    },
+    {
+        "sha256":  "a470cd6e4926c4b853b377f2ee32d92aecd0e4e1f9784bbcee18213181746e72",
+        "path":  "tests/integration/security-admission.test.ts"
+    },
+    {
+        "sha256":  "71253d853576da823e2f1636b65150f5229dd89f4052a2d65f48937c2f6ab08b",
+        "path":  "tests/e2e/security-production.spec.ts"
+    }
+]

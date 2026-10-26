@@ -4,9 +4,23 @@
 **Dopuna 2026-10-26:** T004 završen na osnovi commita `0d361f1`; sačuvan
 [početni prompt](BUILD_PROMPT_WEEK08_V1.md), potvrđeni T001–T003 i ponovljene
 fokusirane provere: 57 testova i 6 recovery E2E PASS. [T004 dokaz](evidence/005-T004-handoff.md).
-Security implementacija još nije počela; sledeći task je T005.
+Ovo je istorijski T004 checkpoint; aktuelni status Faze 2 je ispod.
 Struktura prati nastavni šablon. Planirano nije izvršeno; stare W05/privatne
 dorade nisu novi W08 doprinos. Finalnu matricu popunjavati stvarnim opažanjima.
+
+**Faza 2, 2026-10-26:** T005–T007 završeni na `d08e06c` + radni diff.
+[Handoff i sve komande](evidence/005-phase2-handoff.md),
+[tačni ulazi/očekivanja i prvi padovi](evidence/005-phase2-expectations.md),
+[SHA256 fixture manifest](evidence/005-phase2-fixtures.json).
+T00 PASS (2 provider/1 stvarni tool, validan final, read-only poker),
+T07 shell/constructor/toString PASS (svaki nedozvoljeni executor 0, pozitivan retry 1).
+T13 početni RED: accepted 6/provider 12/tool 6 u 5 s umesto maksimuma 5/10/5.
+T16 početni RED: script 200 i kontrolni marker true; app marker true,
+violations [], bez CSP, broj script zahteva 2→3. Kontrole ostaju otvorene.
+`npm run test:security` postoji i trenutno izlazi 1 (4 PASS/1 T13 FAIL).
+Običan `npm test`: 910 PASS/1 očekivan T13 FAIL; typecheck/lint/build PASS.
+Prvi setup/type/lint padovi ostaju sačuvani; nisu predstavljeni kao security RED.
+Završna T00–T17 matrica i sva posle poređenja još NOT RUN. Sledeći task **T008**.
 
 ## 1. Opseg i checkpoint
 
@@ -132,7 +146,7 @@ signali nisu automatski preneti u završne PASS ocene.
 
 | ID | Fixture/ulaz i očekivanje pre testa | Početno opažanje / planirani test | Final |
 |---|---|---|---|
-| T00 | Sintetička terminalna partija, 2 model koraka/1 real tool, read-only | Baseline helper i full lifecycle PASS; `security-normal.test.ts` tek sledi | NOT RUN |
+| T00 | Sintetička terminalna partija, 2 model koraka/1 real tool, read-only | Faza 2 security-normal PASS: terminal lost [0,2000], completed, provider 2/real tool 1, poker identičan | NOT RUN |
 | T01 | Nevalidan JSON/tip/domain, pozitivan boundary; 0/0 poziva | `security-http.test.ts`; postojeći route testovi su samo osnova | NOT RUN |
 | T02 | Odvojeno oversized body i extra privilege polja; 0/0 | `security-http.test.ts` | NOT RUN |
 | T03 | Nepoznata/zastarela partija; dozvoljena trenutna prolazi | `security-http.test.ts`; single-user scope, bez fiktivnog auth-a | NOT RUN |
@@ -176,9 +190,9 @@ Prenos review test infrastrukture ne predstavlja tri security popravke.
 
 | Scenario | Pre checkpoint/ulaz/rezultat | Promena | Posle isti ulaz/rezultat | Ograničenje |
 |---|---|---|---|---|
-| T07 unknown/inherited tool | NOT RUN kompletan W08 fixture; helper je baseline signal | Očekivana postojeća zaštita, PASS→PASS dozvoljen | NOT RUN | Ne dokazuje sve model generacije |
-| T13 burst accepted starts | NOT RUN; broj i fake-time raspored sačuvati u T006 | Planirani rate/capacity gate | NOT RUN | Jedan proces, bez distribuiranog load testa |
-| T16 CSP blocked script | NOT RUN; sačuvati isti server/resurs/marker | Planirana preview HTTP zaglavlja | NOT RUN | Lokalni build, nije deploy audit |
+| T07 unknown/inherited tool | d08e06c + Faza 2 fixture; PASS shell/constructor/toString, svaki provider 1/tool 0; dozvoljeni retry ukupno 3/1 | Postojeća zaštita, bez runtime izmene | NOT RUN | Ne dokazuje sve model generacije; proširenje T010 ostaje otvoreno |
+| T13 burst accepted starts | d08e06c + Faza 2; [0,1000,2000,3000,4000,5000] ms, RED: 6 prihvaćenih/12 provider/6 tool | Planirani rate/capacity gate još nije uveden | NOT RUN | Početni rate dokaz; puna concurrency/reset/recovery matrica ostaje T015 |
+| T16 CSP blocked script | d08e06c + Faza 2; script 200/control marker true; RED app marker true/violations [], nema CSP, HTTP 2→3 | Planirana preview HTTP zaglavlja još nisu uvedena | NOT RUN | Lokalni build; puna browser/coaching/sentinel matrica ostaje T021/T025 |
 
 ## 7. Arhitektura, tajne i security događaji
 

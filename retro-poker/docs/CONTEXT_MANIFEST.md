@@ -779,3 +779,20 @@ sinhronizacija i coach lifecycle success assertions. Razlog: proveriti T001?T003
 i sa?uvati operativni prompt bez po?etka T005. Nisu ponovo ?itani nastavni PDF-ovi
 ili web izvori, .env/klju?evi; prethodna analiza nije novi audit. Hash-evi osnove
 i lockfile potvr?eni; fokusirani fake testovi izvr?eni. [Handoff](evidence/005-T004-handoff.md).
+
+## Faza 2 / T005–T007 — 2026-10-26
+
+Prioritet: aktuelni korisnički zahtev samo Faza 2, zatim AGENTS i constitution
+v1.1.0, GAME_SPEC ARCH1–8/AC19/AC23 i W05/W08 granice. Pročitani feature005
+spec/plan/tasks/data-model/contracts/security/research/quickstart, requirements
+checklist 9/9, BUILD_PROMPT_WEEK08_V1, EVIDENCE_W08 i T004 handoff/preflight,
+baseline snapshot, projektni speckit-implement SKILL.md. Nema extensions.yml.
+Pregledani session/routes/app, agent tools/validation/orchestrator relevantni delovi,
+coach-lifecycle, coach-evidence, fake-ai-provider, fake-clock, fixtures, server,
+recovery, vite/Vitest/Playwright/TS/ESLint/package konfiguracija i ignore pravila.
+Razlog: reuse fixture-a, real executor i produkcioni preview bez menjanja kontrola.
+Git koren D:/AIBootcamp/week3-4, branch week08-init, d08e06c, početno čisto.
+Baseline hash-evi i lockfile potvrđeni. Nastavni PDF/web izvori nisu ponovo čitani;
+feature sadrži potrebne zahteve. Nema .env/ključeva, live provider-a ili drugih
+servisa. Rizik: početni T13/T16 RED nije završna matrica niti hardening dokaz.
+[Stvarne komande, hash ulazi i handoff](evidence/005-phase2-handoff.md).

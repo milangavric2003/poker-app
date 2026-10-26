@@ -27,17 +27,24 @@ smoke/diagnose/live CLI. Testovi koriste constructor-injected fake i sintetičke
 Za lokalni API koristiti test helper, ne `npm run dev:backend` koji može učitati `.env`.
 Ne prekidati tuđ proces ako je test port zauzet; zabeležiti prepreku.
 
-## Posle implementacije T008/T023
+## Faza 2: postojeće security komande
 
-Sledeće komande su **planirane i još ne postoje**:
+T007 uvodi fake-only node selekciju postojećim Vitest runner-om:
 
 ```powershell
 npm.cmd run test:security
-npm.cmd run test:security:e2e
+npm.cmd run build
+npm.cmd run test:e2e -- tests/e2e/security-production.spec.ts
 ```
 
-Prva pokriva node security matricu; druga gradi app i pokreće browser testove nad
-stvarnim lokalnim preview-em. Test reset kreira nov proces/gate/sink/fake sat;
+`test:security` bira `tests/{unit,contract,integration}/security-*.test.ts`;
+običan `npm test` ih i dalje uključuje. Nema passWithNoTests. Početni rezultat
+je namerni exit 1 zbog T13 (šesti start prihvaćen). Browser komanda koristi
+stvaran build/preview iz produkcione konfiguracije: početni T16 je exit 1
+jer se script izvršava bez CSP-a. [Dokaz Faze 2](../../docs/evidence/005-phase2-handoff.md).
+`test:security:e2e` ostaje planiran za T022 i još ne postoji.
+Portovi 5173/3001 moraju biti slobodni; helper ne prekida tuđe procese.
+Test reset kreira nov proces/gate/sink/fake sat;
 posebni reset testovi dele isti proces da ne prikriju zaobilaženje limita.
 Očekivanje: validan coaching dva model koraka/jedan stvarni alat; negativni
 request nula poziva; tool odbijanje nula nedozvoljenih tool izvršenja; sentinel

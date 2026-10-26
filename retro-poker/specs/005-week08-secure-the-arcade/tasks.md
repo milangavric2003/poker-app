@@ -32,10 +32,13 @@
 ## Faza 2 — zajednički test harness i početni dokazi
 
 Cilj: poznata sintetička partija i merljivi brojači pre promena politike.
+Driver T005–T007: Codex u sesiji sa Vekijem, 2026-10-26.
+[Handoff](../../docs/evidence/005-phase2-handoff.md): završeni taskovi uz
+namerno otvorene T13/T16 RED nalaze; završna matrica ostaje otvorena.
 
-- [ ] T005 Pripremiti `tests/helpers/security-fixtures.ts`, `tests/helpers/security-server.ts` i `tests/integration/security-normal.test.ts`; deps: T004; reuse fake clock/provider i real tool; dokaz: T00 sa ≥2 model koraka, 1 stvarnim tool izvršenjem, validnim finalom i nepromenjenim kanonskim stanjem. Sačuvati tačan ulaz/expectation i actual.
-- [ ] T006 Pre hardening-a napisati i izvršiti iste početne scenarije T07/T13/T16 u `tests/integration/security-tools.test.ts`, `tests/integration/security-admission.test.ts`, `tests/e2e/security-production.spec.ts`; po potrebi build/preview helper u `tests/helpers/security-server.ts`; deps: T005; dokaz: ≥3 pre rezultata u `docs/EVIDENCE_W08.md` sa fixture hash/putanjom, checkpoint-om i brojačima. Pad setup-a nije security RED; već dobar T07 je PASS→PASS.
-- [ ] T007 Uvesti `test:security` u `package.json` za `tests/{unit,contract,integration}/security-*.test.ts`, sa testovima iz T005/T006; deps: T006; dozvoljeno i `quickstart.md`; dokaz: jedna ponovljiva fake-only komanda, običan `npm test` i dalje uključuje sve testove. Trenutno otvorene očekivane security padove zabeležiti.
+- [x] T005 Pripremiti `tests/helpers/security-fixtures.ts`, `tests/helpers/security-server.ts` i `tests/integration/security-normal.test.ts`; deps: T004; reuse fake clock/provider i real tool; dokaz: T00 sa ≥2 model koraka, 1 stvarnim tool izvršenjem, validnim finalom i nepromenjenim kanonskim stanjem. Sačuvati tačan ulaz/expectation i actual.
+- [x] T006 Pre hardening-a napisati i izvršiti iste početne scenarije T07/T13/T16 u `tests/integration/security-tools.test.ts`, `tests/integration/security-admission.test.ts`, `tests/e2e/security-production.spec.ts`; po potrebi build/preview helper u `tests/helpers/security-server.ts`; deps: T005; dokaz: ≥3 pre rezultata u `docs/EVIDENCE_W08.md` sa fixture hash/putanjom, checkpoint-om i brojačima. Pad setup-a nije security RED; već dobar T07 je PASS→PASS.
+- [x] T007 Uvesti `test:security` u `package.json` za `tests/{unit,contract,integration}/security-*.test.ts`, sa testovima iz T005/T006; deps: T006; dozvoljeno i `quickstart.md`; dokaz: jedna ponovljiva fake-only komanda, običan `npm test` i dalje uključuje sve testove. Trenutno otvorene očekivane security padove zabeležiti.
 
 ## Faza 3 — US1: ulaz, scope i alati
 

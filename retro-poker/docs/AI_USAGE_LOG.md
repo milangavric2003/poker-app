@@ -560,3 +560,19 @@ Rezultat: hash-evi odgovaraju, 57/57 testova i 6/6 recovery E2E prolaze.
 Runtime nije menjan, T005 nije zapo?et. Bez novih live Gemini poziva (0),
 commit/push/merge-a ili pripisivanja Milanovog review-a. Coding model/tokeni/
 tro?ak nisu dostupni; nepoznato. [Stvarni dokaz](evidence/005-T004-handoff.md).
+
+## 2026-10-26 — Week08 Faza 2 T005–T007
+
+Codex u sesiji sa Vekijem; alat: lokalni PowerShell, apply_patch, Vitest,
+Playwright Chromium, TypeScript, ESLint, Vite. Model identitet, tokeni i trošak:
+nepoznato. Korisnički zahtev: samo test harness/početni T07/T13/T16 i node skripta,
+bez budućih runtime kontrola. Očekivanje: T00/T07 PASS, smislen rate/CSP RED gde
+zaštita nedostaje. Kontekst i ograničenja u manifestu i feature005 dokumentima.
+Ishod: T005–T007 završeni, real tool instrumentacija, fake-only test:security;
+T00 i 3 T07 PASS, T13 RED 6/12/6, T16 RED script se izvršava bez CSP-a.
+Prvi oracle/clone/locator/type/lint problemi sačuvani i popravljeni u testovima;
+nisu security dokazi. Full npm test 910 PASS/1 nameran T13 FAIL;
+typecheck/lint/build PASS. Bez novih runtime kontrola, živih poziva (0),
+commit/push/merge-a. Veki je zatražio scope; novi ljudski review i Milanov rad
+nisu potvrđeni i ne pripisuju im se AI testovi kao samostalni doprinos.
+[Handoff i ograničenja](evidence/005-phase2-handoff.md). Sledeći T008 nije započet.
