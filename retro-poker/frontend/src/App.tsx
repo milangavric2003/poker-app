@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { CoachRunViewSchema, type CoachGoal, type CoachRunView, type GameView } from '../../shared/contracts';
-import { createGame, loadCoach, loadGame, nextHand, requestAnalysis, sendAction, startCoach, type ActionDraft } from './api';
+import { ApiError, createGame, loadCoach, loadGame, nextHand, requestAnalysis, sendAction, startCoach, type ActionDraft } from './api';
 import { ActionPanel } from './components/ActionPanel';
 import { AiStatus, type AiUiStatus } from './components/AiStatus';
 import { AnalysisPanel } from './components/AnalysisPanel';
@@ -39,6 +39,7 @@ export function App() {
   const [aiMode, setAiMode] = useState(false);
   const [pending, setPending] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [aiNotice, setAiNotice] = useState<string | null>(null);
   const pollId = useRef(0);
   const snapshotSequence = useRef(0);
   const mutationLock = useRef(false);
@@ -52,6 +53,7 @@ export function App() {
   const coachLock = useRef(false);
   const coachController = useRef<AbortController | null>(null);
   function invalidateCoach() {
+    setAiNotice(null);
     ++coachSequence.current;
     coachController.current?.abort();
     coachController.current = null;
@@ -114,16 +116,18 @@ export function App() {
     coachController.current?.abort();
     const controller = new AbortController(); coachController.current = controller;
     const previousId = coachRef.current?.runId;
-    setCoachPending(true); setCoachFailure(false);
+    setCoachPending(true); setCoachFailure(false); setAiNotice(null);
     try {
       const parsed = CoachRunViewSchema.safeParse(await startCoach(currentGame, goal, controller.signal));
       if (token !== coachSequence.current || controller.signal.aborted) return;
       if (!parsed.success || !coachMatches(parsed.data, gameRef.current)
         || parsed.data.goal.focus !== goal.focus || parsed.data.runId === previousId) throw new Error('Invalid coach start');
       commitCoach(parsed.data);
-    } catch {
+    } catch (caught) {
       if (token === coachSequence.current && !controller.signal.aborted) {
-        coachRef.current = null; setCoachRun(null); setCoachFailure(true);
+        if (caught instanceof ApiError && ['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'].includes(caught.code ?? '')) {
+          setAiNotice(caught.message); setCoachFailure(true);
+        } else { coachRef.current = null; setCoachRun(null); setCoachFailure(true); }
       }
     } finally {
       if (token === coachSequence.current) { coachLock.current = false; setCoachPending(false); }
@@ -195,6 +199,7 @@ export function App() {
   async function analyze() {
     if (!game || pending || mutationLock.current || game.status === 'playing' || game.ai.analysis.status === 'generating') return;
     mutationLock.current = true;
+    setAiNotice(null);
     const token = ++analysisSequence.current;
     const current = () => token === analysisSequence.current
       && gameRef.current?.gameId === game.gameId && gameRef.current.handId === game.handId
@@ -207,6 +212,9 @@ export function App() {
     }
     catch (caught) {
       if (!current()) return;
+      if (caught instanceof ApiError && ['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'].includes(caught.code ?? '')) {
+        setAiNotice(caught.message); return;
+      }
       try {
         const latest = await loadGame();
         if (!current()) return;
@@ -244,6 +252,7 @@ export function App() {
     {(game?.ai.mode === 'on' || game?.ai.active || game?.ai.lastBotOutcome || game?.ai.analysis.status !== 'idle') &&
       <AiStatus status={status} />}
     <UsageDashboard />
+    {aiNotice && <p role="alert">{aiNotice}</p>}
     {error && <><p className="error" role="alert">{error} Učitaj stanje pre nastavka.</p>
       <button disabled={pending} onClick={() => void synchronize()}>Učitaj stanje</button></>}
     {!game && !pending && !error && <p className="empty">Izaberi broj botova i pokreni lokalnu partiju.</p>}

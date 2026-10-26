@@ -24,6 +24,11 @@ async function fetchJson(path: string, init?: RequestInit, safeCoachError = fals
     try { payload = await response.json(); } catch { throw new ApiError('Nevažeći odgovor servera.'); }
     if (!response.ok) {
       const parsed = GameErrorSchema.safeParse(payload);
+      if (parsed.success && ['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'].includes(parsed.data.error.code)) {
+        throw new ApiError(parsed.data.error.code === 'AI_RATE_LIMITED'
+          ? 'Dostignuto je ograničenje AI zahteva. Pokušaj ponovo kasnije.'
+          : 'AI kapacitet je trenutno zauzet. Pokušaj ponovo.', parsed.data.error.code);
+      }
       if (safeCoachError) throw new ApiError('Coaching zahtev nije prihvaćen.', parsed.success ? parsed.data.error.code : null);
       throw new ApiError(parsed.success ? parsed.data.error.message : 'Nevažeći odgovor servera.',
         parsed.success ? parsed.data.error.code : null);

@@ -224,7 +224,7 @@ export const GameResponseSchema = z.strictObject({ game: GameViewSchema.nullable
 export const GameErrorSchema = z.strictObject({ error: z.strictObject({
   code: z.enum(['INVALID_INPUT', 'GAME_NOT_FOUND', 'STALE_STATE', 'ILLEGAL_ACTION',
     'PRECONDITION_REQUIRED', 'PAYLOAD_TOO_LARGE', 'UNSUPPORTED_MEDIA_TYPE', 'INTERNAL_ERROR',
-    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED',
+    'AI_UNAVAILABLE', 'AI_ALREADY_PENDING', 'ANALYSIS_NOT_ALLOWED', 'AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED',
     'GAME_NOT_TERMINAL', 'COACH_ALREADY_PENDING', 'RUN_NOT_FOUND']),
   message: z.string().min(1),
 }) });

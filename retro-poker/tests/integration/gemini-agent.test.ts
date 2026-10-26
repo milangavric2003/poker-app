@@ -116,6 +116,16 @@ describe('canonical Gemini evidence selection T033', () => {
     });
 });
 describe('offline Gemini coach adapter', () => {
+  it.each([1, 2, 3, 4])('enforces server token cap and one SDK attempt for application attempt %i', async ordinal => {
+    const second = ordinal > 2;
+    const { provider, generate } = setup({ text: JSON.stringify(second ? selectedFinal : tool) });
+    await provider.generateAgent({ ...(second ? secondRequest : request),
+      attemptOrdinal: ordinal % 2 ? 1 : 2, runAttemptOrdinal: ordinal as 1 | 2 | 3 | 4,
+      model: ordinal % 2 ? 'primary' : 'fallback' }, new AbortController().signal);
+    expect(generate).toHaveBeenCalledTimes(1);
+    expect(generate.mock.calls[0]![0].config).toMatchObject({ maxOutputTokens: 4096,
+      httpOptions: { retryOptions: { attempts: 1 } } });
+  });
   it.each([tool, final, { kind: 'refusal', reason: 'insufficient_context' }])('maps structured %j', async candidate => {
     const { provider, generate } = setup({ text: JSON.stringify(candidate), usageMetadata: { totalTokenCount: 7 } });
     const signal = new AbortController().signal;

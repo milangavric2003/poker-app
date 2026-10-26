@@ -1,5 +1,22 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Aktuelno, 2026-10-26 — Faza 4:** T013–T018 završeni na `cc0d3fb` + radni diff.
+[Handoff, svi taskovi, prvi padovi i komande](evidence/005-phase4-handoff.md).
+Budžeti/scope/terminal/usage guard-ovi PASS→PASS; dodat serverski coaching output
+cap 4096 tokena i procesni admission/lease: 5 coach/analysis startova u kliznih
+60 s, najviše 2 stvarna provider posla zajedno sa botovima. Lease traje do settle
+originalnog promise-a, odvojeno od terminalnog run-a; nema queue-a niti reset-a
+kroz novu partiju/usage. T17 late resolve/reject prelazi obe granice.
+UI odbijanje čuva summary/partiju i omogućava eksplicitan retry.
+Full: **1022 PASS**, security: **108 PASS**, fokusirana regresija **212 PASS**,
+browser **11 PASS**; typecheck/lint/build PASS. Prvi setup/lint/browser problemi
+sačuvani i odvojeni od stvarnih adapter/admission/UI RED nalaza.
+Isti početni T13 ulaz: **6/12/6 → 5/10/5** prihvaćenih/provider/tool;
+[actual](evidence/005-phase4-T13-same-input.txt). T16 CSP i dalje očekivani FAIL
+u zasebnom production testu. SDK byte provera je naknadna posle buffering-a;
+neotkaziv posao može zauzeti mesto do restarta. Sledeći **T019**.
+Stariji zapisi ispod predstavljaju prethodne checkpoint-e, ne aktuelni status.
+
 **Aktuelno, 2026-10-26 — Faza 3:** T008–T012 završeni na `2b8ea4e` + radni diff.
 [Handoff, task statusi, komande i ograničenja](evidence/005-phase3-handoff.md).
 Novi HTTP/model/tool/scope/schema/browser testovi potvrđuju postojeće kontrole;

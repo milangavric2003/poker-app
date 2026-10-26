@@ -37,6 +37,15 @@ beforeEach(() => {
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.useRealTimers(); });
 describe('T022 coaching App lifecycle', () => {
+  it.each(['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'])('shows %s, preserves confirmed game and retries only on click', async code => {
+    vi.mocked(api.startCoach).mockRejectedValueOnce(new api.ApiError('AI zahtev je odbijen. Pokušaj ponovo.', code));
+    await mount(); start(); await flush(); await tick(60000);
+    expect(screen.getByText('AI zahtev je odbijen. Pokušaj ponovo.')).toBeVisible();
+    expect(screen.getByRole('region', { name: 'Rezultat ruke' })).toBeVisible();
+    expect(api.startCoach).toHaveBeenCalledTimes(1); expect(api.loadCoach).not.toHaveBeenCalled();
+    fireEvent.click(panel().getByRole('button', { name: 'Pokušaj coaching ponovo' })); await flush();
+    expect(api.startCoach).toHaveBeenCalledTimes(2);
+  });
   it('guards duplicate POST and polls only after accepted start', async () => {
     const pending = deferred<CoachRunView>(); vi.mocked(api.startCoach).mockReturnValue(pending.promise);
     await mount(); start(); start();

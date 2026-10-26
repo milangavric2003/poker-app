@@ -21,8 +21,13 @@ export function registerRoutes(app: FastifyInstance, session: GameSession): void
   app.get('/api/game', async () => ({
     game: session.get() ? toGameView(session.get()!) : null,
   }));
+  const admissionError = (reply: FastifyReply, caught: unknown) => {
+    if (!(caught instanceof SessionError) || !['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'].includes(caught.code)) return false;
+    if (caught.retryAfterSeconds !== undefined) reply.header('Retry-After', caught.retryAfterSeconds);
+    return error(reply, 429, caught.code, caught.message);
+  };
   const coachError = (reply: FastifyReply, caught: unknown) => caught instanceof SessionError
-    ? error(reply, ['GAME_NOT_FOUND', 'RUN_NOT_FOUND'].includes(caught.code) ? 404 : 409, caught.code, caught.message)
+    ? admissionError(reply, caught) || error(reply, ['GAME_NOT_FOUND', 'RUN_NOT_FOUND'].includes(caught.code) ? 404 : 409, caught.code, caught.message)
     : error(reply, 500, 'INTERNAL_ERROR', 'Interna greška pri coaching obradi.');
   app.post('/api/game/coach', { bodyLimit: 1024 }, async (request, reply) => session.serial(() => {
     const parsed = CoachRequestSchema.safeParse(request.body);
@@ -92,6 +97,7 @@ export function registerRoutes(app: FastifyInstance, session: GameSession): void
     if (!parsed.success) return error(reply, 400, 'INVALID_INPUT', 'Nevalidan zahtev za analizu.');
     try { return reply.code(202).send({ game: toGameView(session.startAnalysis(parsed.data)) }); }
     catch (caught) {
+      const rejected = admissionError(reply, caught); if (rejected) return rejected;
       if (caught instanceof SessionError) return error(reply, caught.code === 'GAME_NOT_FOUND' ? 404 : 409,
         caught.code, caught.message);
       return error(reply, 500, 'INTERNAL_ERROR', 'Interna greška pri analizi.');

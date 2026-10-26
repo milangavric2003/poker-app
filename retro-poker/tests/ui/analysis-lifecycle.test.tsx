@@ -28,6 +28,21 @@ const secondId = '44444444-4444-4444-8444-444444444444';
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.useRealTimers(); });
 
 describe('SR1 analysis lifecycle', () => {
+  it.each(['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'])('preserves summary on %s and permits explicit regeneration', async code => {
+    vi.useFakeTimers(); const before = snapshot('completed', firstId);
+    vi.spyOn(api, 'loadGame').mockResolvedValue(before);
+    vi.spyOn(api, 'loadUsage').mockResolvedValue({ revision: 0, logical: [], attempts: [], retryCount: 0,
+      modelFallbackCount: 0, localFallbackCount: 0 });
+    const request = vi.spyOn(api, 'requestAnalysis').mockRejectedValueOnce(new api.ApiError('AI zahtev je odbijen. Pokušaj ponovo.', code))
+      .mockResolvedValue(snapshot('generating', secondId));
+    render(<App />); await act(async () => {});
+    fireEvent.click(screen.getByRole('button', { name: 'Generiši analizu ponovo' })); await act(async () => {});
+    expect(screen.getByText('AI zahtev je odbijen. Pokušaj ponovo.')).toBeVisible();
+    expect(screen.getByText('Prvi pregled.')).toBeVisible(); expect(screen.getByText('Poraz u partiji')).toBeVisible();
+    await act(async () => { await vi.advanceTimersByTimeAsync(60000); }); expect(request).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByRole('button', { name: 'Generiši analizu ponovo' })); await act(async () => {});
+    expect(request).toHaveBeenCalledTimes(2);
+  });
   it.each(['generating', 'completed'] as const)('rejects previous results while the latest is %s, even with same-hand bot outcome', status => {
     const latest = snapshot(status, secondId, 'Novi pregled.');
     for (const oldStatus of ['generating', 'completed', 'failed'] as const) {

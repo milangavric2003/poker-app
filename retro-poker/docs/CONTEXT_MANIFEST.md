@@ -1,5 +1,30 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-26 — Week08 Faza 4, T013–T018
+
+Prioritet: aktuelni korisnički zahtev (samo Faza 4) → AGENTS/constitution →
+GAME_SPEC ARCH/AC19/AC23/§13/W08 → feature005 spec/plan/tasks/data-model/
+contracts/security/research/quickstart → BUILD_PROMPT_WEEK08_V1 → prethodni
+phase2/phase3 handoff, EVIDENCE_W08 i sačuvani prvi rezultati/fixture hash-evi.
+Primenjen lokalni `.agents/skills/speckit-implement/SKILL.md`, prerequisites
+razrešava 005, checklist 9/9, nema extensions hook-ova. Git koren roditelj,
+week08-init, HEAD cc0d3fb, početno čisto. Bez drugih agenata.
+
+Učitani app/routes/session, agent orchestrator/types/tools/validation, Gemini
+adapter i AI coordinator/types/usage, shared contracts, frontend App/api i
+CoachPanel/AnalysisPanel; security fixture/server, fake clock/provider,
+agent-run/unit orchestrator, coach/analysis lifecycle/usage/UI/API testovi,
+coach E2E/helper, package/Vitest/ignore/ESLint. Razlog: razdvajanje logical run-a
+od originalnog provider promise-a, atomski admission i dokaz UI očuvanja/retry-a.
+Dodate test putanje unapred obrazložene u planu. Byte cap i token cap odvojeni;
+SDK buffering ostaje ograničenje. Gate singleton izolovan između testnih procesa,
+nikada kroz produkcionu new-game/usage reset rutu.
+
+Nisu učitavani .env/ključevi, novi web/PDF izvori; nema live Gemini poziva.
+Events/CSP/sentinel/audit i T019–T031 izostavljeni kao budući scope. Fake i lokalni
+browser ne dokazuju live prompt otpornost ili udaljeno prekidanje naplate.
+[Stvarni nalazi, provere i ograničenja](evidence/005-phase4-handoff.md).
+
 ## 2026-10-06 — usklađivanje paralelnog rada i odobren push
 
 Korisnik prijavio paralelan rad kolege na istoj grani i tražio push lokalnog

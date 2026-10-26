@@ -1,0 +1,25 @@
+﻿{
+    "originalT13Unchanged":  true,
+    "handoffLinks":  28,
+    "brokenLinks":  [
+
+                    ],
+    "featureTaskCompletion":  [
+                                  true,
+                                  true,
+                                  true,
+                                  true,
+                                  true,
+                                  true
+                              ],
+    "fixtures":  [
+                     {
+                         "Path":  "D:\\AIBootcamp\\week3-4\\retro-poker\\tests\\helpers\\security-fixtures.ts",
+                         "Hash":  "2E20777D443A9233633733CE55FD872EE42689BB0C183871EFDB5A408087898B"
+                     },
+                     {
+                         "Path":  "D:\\AIBootcamp\\week3-4\\retro-poker\\tests\\helpers\\security-server.ts",
+                         "Hash":  "FD5F917DD2C9F23BD8E6600208DE8752906298645EAE2BE3B61DC7E202217537"
+                     }
+                 ]
+}

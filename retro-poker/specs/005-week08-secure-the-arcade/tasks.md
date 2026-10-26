@@ -1,6 +1,6 @@
 # Tasks: Week08 — Secure the Arcade
 
-**Branch**: `week08-init`. Dokumentacija i priprema osnove su urađene; hardening tek sledi.
+**Branch**: `week08-init`. Faze 1–4 završene; T019–T031 ostaju otvoreni.
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
 
@@ -58,14 +58,20 @@ pre odgovarajućeg rada. Sačuvati poker oracle-e ARCH1–8/AC19/AC23.
 
 ## Faza 4 — US2: budžeti, kapacitet i zakašnjeli poslovi
 
+T013–T018 završeni 2026-10-26, Codex u sesiji sa Vekijem;
+[task statusi, prvi padovi, provere i ograničenja](../../docs/evidence/005-phase4-handoff.md).
+T014 budžeti i T018 lifecycle su uslovni PASS→PASS; adapter i admission/UI
+imaju stvaran RED→GREEN. Security 108 PASS, full 1022 PASS, browser 11 PASS.
+T16 CSP ostaje očekivani RED. Sledeći T019; ljudski peer review nije potvrđen.
+
 Nezavisna provera: fake sat/provider pokazuju granice i legitiman oporavak.
 
-- [ ] T013 [US2] RED/regresija T11/T12 u `tests/integration/security-budgets.test.ts`, mock SDK provera u `tests/integration/gemini-agent.test.ts`; deps: T012; ponavljanje zasebno od 2 koraka/1 tool/4 attempts, retry/fallback, 15 s call/45 s total/1 s tool i posebno zbir kratkih poziva; očekivati 4.096 output tokens; dokaz: nijedan dodatni poziv ili late success.
-- [ ] T014 [US2] GREEN budget/adapter u `backend/src/agent/orchestrator.ts`, `backend/src/ai/providers/gemini.ts` i po potrebi `backend/src/agent/types.ts`; deps: T013; dokaz: T11/T12 i mock config za sve coaching pokušaje, SDK attempts=1, dokumentovano naknadno byte ograničenje ako SDK baferuje.
-- [ ] T015 [US2] RED T13 u `tests/integration/security-admission.test.ts`, `tests/unit/security-capacity.test.ts`; deps: T014; globalno 2 stvarna provider posla, zajedno coach/analysis/bot; 5 novih coach/analysis startova u kliznih 60.000 ms; dedupe, odbijanje viška, race, recovery, usage/new-game reset; dokaz: active maximum, ne samo broj HTTP statusa.
-- [ ] T016 [US2] GREEN u `backend/src/security/{admission,capacity}.ts`, `backend/src/{app,routes,session}.ts`, `backend/src/ai/coordinator.ts`, `backend/src/agent/orchestrator.ts`, `shared/contracts.ts` i `frontend/src/{App.tsx,api.ts}` po potrebi; deps: T015; atomski gate, lease do settle, nema neograničenog reda, 429 kodovi/Retry-After, eksplicitan retry i lokalni bot fallback pri punom kapacitetu; dokaz: T13/T00, summary regeneration i usage regresija.
-- [ ] T017 [US2] RED dodatni T17 u `tests/integration/security-lifecycle.test.ts`; deps: T016; neotkaziv provider → nova partija + usage reset → novi start → stari resolve/reject; dokaz: 2-boundary lanac, kapacitet nije resetovan, nema stare mutacije/usage upisa ili unhandled rejection.
-- [ ] T018 [US2] Minimalni GREEN lifecycle-a u `backend/src/security/capacity.ts`, `backend/src/session.ts`, `backend/src/agent/orchestrator.ts` i `backend/src/ai/coordinator.ts`; deps: T017; dokaz: T12/T13/T17 i postojeće lifecycle provere. Neoslobođen posao zadržava mesto do settle/restart-a; ne praviti lažni cleanup.
+- [x] T013 [US2] RED/regresija T11/T12 u `tests/integration/security-budgets.test.ts`, mock SDK provera u `tests/integration/gemini-agent.test.ts`; deps: T012; ponavljanje zasebno od 2 koraka/1 tool/4 attempts, retry/fallback, 15 s call/45 s total/1 s tool i posebno zbir kratkih poziva; očekivati 4.096 output tokens; dokaz: nijedan dodatni poziv ili late success.
+- [x] T014 [US2] GREEN budget/adapter u `backend/src/agent/orchestrator.ts`, `backend/src/ai/providers/gemini.ts` i po potrebi `backend/src/agent/types.ts`; deps: T013; dokaz: T11/T12 i mock config za sve coaching pokušaje, SDK attempts=1, dokumentovano naknadno byte ograničenje ako SDK baferuje.
+- [x] T015 [US2] RED T13 u `tests/integration/security-admission.test.ts`, `tests/unit/security-capacity.test.ts`; deps: T014; globalno 2 stvarna provider posla, zajedno coach/analysis/bot; 5 novih coach/analysis startova u kliznih 60.000 ms; dedupe, odbijanje viška, race, recovery, usage/new-game reset; dokaz: active maximum, ne samo broj HTTP statusa.
+- [x] T016 [US2] GREEN u `backend/src/security/{admission,capacity}.ts`, `backend/src/{app,routes,session}.ts`, `backend/src/ai/coordinator.ts`, `backend/src/agent/orchestrator.ts`, `shared/contracts.ts` i `frontend/src/{App.tsx,api.ts}` po potrebi; deps: T015; atomski gate, lease do settle, nema neograničenog reda, 429 kodovi/Retry-After, eksplicitan retry i lokalni bot fallback pri punom kapacitetu; dokaz: T13/T00, summary regeneration i usage regresija.
+- [x] T017 [US2] RED dodatni T17 u `tests/integration/security-lifecycle.test.ts`; deps: T016; neotkaziv provider → nova partija + usage reset → novi start → stari resolve/reject; dokaz: 2-boundary lanac, kapacitet nije resetovan, nema stare mutacije/usage upisa ili unhandled rejection.
+- [x] T018 [US2] Minimalni GREEN lifecycle-a u `backend/src/security/capacity.ts`, `backend/src/session.ts`, `backend/src/agent/orchestrator.ts` i `backend/src/ai/coordinator.ts`; deps: T017; dokaz: T12/T13/T17 i postojeće lifecycle provere. Neoslobođen posao zadržava mesto do settle/restart-a; ne praviti lažni cleanup.
 
 ## Faza 5 — US3: bezbedan prikaz i produkcioni browser
 

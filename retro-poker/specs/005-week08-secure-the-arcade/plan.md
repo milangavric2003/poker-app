@@ -159,6 +159,17 @@ običnog full suite-a. Završne postojeće provere: `npm ci`, `npm test`,
 
 ## Complexity Tracking
 
+### Faza 4 — odobreni tehnički obuhvat (2026-10-26)
+
+Za procesni singleton test izolacija zahteva i `vitest.config.ts` +
+`tests/helpers/security-reset.ts`: beforeEach zamenjuje testne procesne gate objekte,
+bez produkcionog reset endpoint-a. U samom testu nova partija/usage reset nikada
+ne zamenjuju gate. Dozvoljena dopuna postojećih `tests/ui/{coach-lifecycle,analysis-lifecycle}.test.tsx`
+i `tests/e2e/coach.spec.ts` dokazuje očuvanje summary-ja i eksplicitan retry.
+Ovo proširenje test putanja prethodi implementaciji; nema novog produktnog scope-a.
+Session je jedini vlasnik admission rezervacije i provider wrapper-a; wrapper
+uzima lease za svaki stvarni pokušaj. Ne postoji drugi gate u adapteru/orchestrator-u.
+
 Nema novih servisa/auth-a/baze/sanitizer biblioteke ili multi-agent rada.
 SDK config se proverava mock transportom. Pre svake faze pregledati prethodnu
 implementaciju i fokusirane testove. Vlasnik je trenutni driver, ne fiksna podela;

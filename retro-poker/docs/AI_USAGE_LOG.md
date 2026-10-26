@@ -1,5 +1,25 @@
 # AI usage log
 
+## 2026-10-26 — Week08 Faza 4, T013–T018
+
+Alat: Codex, lokalni PowerShell/apply_patch/Vitest/Playwright; model identitet,
+token potrošnja i cena sesije nisu dostupni (nepoznato). Živi Gemini pozivi: 0.
+Korisnik je odredio samo Fazu 4, TDD, fake sat/provider/SDK i očuvanje ranijeg rada.
+Očekivanje: postojeći budžeti ostaju PASS, adapter dobija 4096 tokena, prihvatanje
+5 startova/60 s i fizički overlap≤2, lease ne prestaje sa run timeout-om; UI retry
+ručno i prethodni summary/partija očuvani. Kontekst je u manifestu.
+
+Codex je napisao testove pre relevantnih promena: stvarni adapter/admission/UI
+RED sačuvani; nove budget regresije PASS→PASS. Implementirani server token cap,
+procesni admission/lease, HTTP kodovi i UI obaveštenje. T17 obe late varijante
+regresioni PASS nakon T016, bez dodatnog runtime refaktorisanja. Prvi setup/lint/
+browser padovi ostaju dokumentovani odvojeno od security nalaza.
+Konačni full 1022 PASS, security 108 PASS, 11 E2E PASS, typecheck/lint/build PASS;
+T16 production CSP očekivani FAIL za buduću fazu. Isti T13 ulaz 6/12/6→5/10/5.
+Bez commit/push/merge-a, novog providera/modela ili dependency izmena.
+Ljudski peer review, Milanov doprinos i samostalni testovi para nisu potvrđeni.
+[Handoff/komande/ograničenja](evidence/005-phase4-handoff.md); sledeći T019.
+
 ## 2026-10-06 — integracija paralelnog rada, f457762
 
 Korisnik tražio pregled i push lokalnog f457762 uz očuvanje koleginog rada.
