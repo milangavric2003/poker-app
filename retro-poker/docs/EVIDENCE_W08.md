@@ -1,6 +1,10 @@
 # EVIDENCE_W08 — Secure the Arcade
 
 **Datum pripreme: 2026-10-25. Status: plan i lokalna osnova spremni; Week08 nije završen.**
+**Dopuna 2026-10-26:** T004 završen na osnovi commita `0d361f1`; sačuvan
+[početni prompt](BUILD_PROMPT_WEEK08_V1.md), potvrđeni T001–T003 i ponovljene
+fokusirane provere: 57 testova i 6 recovery E2E PASS. [T004 dokaz](evidence/005-T004-handoff.md).
+Security implementacija još nije počela; sledeći task je T005.
 Struktura prati nastavni šablon. Planirano nije izvršeno; stare W05/privatne
 dorade nisu novi W08 doprinos. Finalnu matricu popunjavati stvarnim opažanjima.
 
@@ -209,7 +213,7 @@ još nisu izvršeni. W08 finalni SHA i ponovljen kolegin checkout ostaju otvoren
   zaglavlja. Nisu izvršeni: sentinel, audit, tri security pre/posle i finalni CI/demo.
 - Abort ne dokazuje prekid udaljene naplate; fake ne dokazuje live prompt-injection
   otpornost, stratešku optimalnost ili produkcijsku dostupnost.
-- Sledeći korak: T004, zatim T005–T007 pre bilo koje security implementacije.
+- T004 je završen 26.10.2026; sledeći korak je T005, zatim T006–T007 pre hardening-a.
 
 ## 10. Doprinos para i AI odgovornost
 

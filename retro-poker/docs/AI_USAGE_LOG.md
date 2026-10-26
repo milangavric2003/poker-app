@@ -549,3 +549,14 @@ Novi stvarni Gemini pozivi: 0; synthetic fake pokušaji nisu API potrošnja.
 Clean npm ci, novi remote CI, security matrica i ljudski review/demo nisu izvršeni.
 Milanov doprinos ovom W08 koraku i individualni testovi nisu potvrđeni.
 [Dokaz](EVIDENCE_W08.md), [provenance i komande](evidence/005-baseline.md).
+
+## T004 ? po?etni Week08 prompt, 2026-10-26
+
+Korisnik zatra?io samo T004. Codex proverio T001?T003, sa?uvao
+BUILD_PROMPT_WEEK08_V1.md i a?urirao status/dokaze. Alati: lokalni shell/Git,
+apply_patch, Vitest i Playwright; projektni speckit-implement, jedan agent.
+O?ekivanje: nepromenjena osnova i prolaz fokusiranih offline provera.
+Rezultat: hash-evi odgovaraju, 57/57 testova i 6/6 recovery E2E prolaze.
+Runtime nije menjan, T005 nije zapo?et. Bez novih live Gemini poziva (0),
+commit/push/merge-a ili pripisivanja Milanovog review-a. Coding model/tokeni/
+tro?ak nisu dostupni; nepoznato. [Stvarni dokaz](evidence/005-T004-handoff.md).

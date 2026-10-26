@@ -10,6 +10,7 @@
 - Vlasnik T001–T003: Codex u sesiji sa Vekijem. Ostali: **D**, trenutni driver
   (Veki ili Milan), upisuje se pri preuzimanju; drugi član je reviewer, tek kad
   stvarno pregleda. Nema fiksne podele, paralelnih agenata ili pretpostavljenog review-a.
+- T004 završen 2026-10-26: Codex u sesiji sa Vekijem; ljudski peer review nije potvrđen.
 - Svaki task dozvoljava svoje navedene putanje i dopunu `docs/evidence/005-*`,
   `docs/EVIDENCE_W08.md`, `docs/AI_USAGE_LOG.md`, `docs/CONTEXT_MANIFEST.md` i ovog
   tasks fajla. Ostale izmene zahtevaju obrazloženu dopunu plana pre koda.
@@ -26,7 +27,7 @@
 - [x] T001 Kreirati ovaj feature i `docs/EVIDENCE_W08.md`; uskladiti `AGENTS.md`, `docs/GAME_SPEC.md`, manifest i AI log; deps: nema; dokaz: dokumentaciona provera i linkovi, bez tvrdnje o završenom hardening-u.
 - [x] T002 Uporediti `week08-init`, `add-modifications`, `main` i review granu; preneti samo `vitest.config.ts`, `tests/integration/ai-failures.test.ts`, `tests/e2e/recovery.spec.ts`, `../.github/workflows/retro-poker-ci.yml` i projektni ignore; deps: nema; dokaz: `docs/evidence/005-baseline.md`, provenance i snapshot patch; bez main/PR merge-a.
 - [x] T003 Zabeležiti početne i post-transfer provere u `docs/evidence/005-baseline-*`; deps: T002; dokaz: puni testovi, E2E, typecheck/lint/build i reproduktivan HEAD + patch. Ovo nije clean install/remote CI ili W08 T00–T17 dokaz.
-- [ ] T004 Proveriti T001–T003 u aktuelnom checkout-u i sačuvati `docs/BUILD_PROMPT_WEEK08_V1.md`; deps: T001–T003; dozvoljeno: taj prompt i evidence; dokaz: sačuvan cilj/scope/I1–I8/komande i potvrđena osnova pre prve security implementacije.
+- [x] T004 Proveriti T001–T003 u aktuelnom checkout-u i sačuvati `docs/BUILD_PROMPT_WEEK08_V1.md`; deps: T001–T003; dozvoljeno: taj prompt i evidence; dokaz: sačuvan cilj/scope/I1–I8/komande i potvrđena osnova pre prve security implementacije; [handoff i provere](../../docs/evidence/005-T004-handoff.md).
 
 ## Faza 2 — zajednički test harness i početni dokazi
 

@@ -1,0 +1,18 @@
+Date: 2026-10-26 Europe/Belgrade
+Command: npm.cmd test -- tests/integration/ai-failures.test.ts tests/integration/gemini-live-smoke.test.ts tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts
+Expected: existing offline tests pass; no live provider.
+
+> retro-poker@0.1.0 test
+> vitest run tests/integration/ai-failures.test.ts tests/integration/gemini-live-smoke.test.ts tests/integration/coach-lifecycle.test.ts tests/contract/coach-routes.test.ts
+
+
+ RUN  v5.0.1 D:/AIBootcamp/week3-4/retro-poker
+
+
+ Test Files  4 passed (4)
+      Tests  57 passed (57)
+   Start at  10:47:43
+   Duration  2.61s (tests 59%, import 28%, transform 12%)
+
+
+ExitCode=0

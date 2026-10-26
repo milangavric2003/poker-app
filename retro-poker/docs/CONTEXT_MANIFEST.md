@@ -766,3 +766,16 @@ podaci. Build koristi redovan Vite mehanizam; ne tvrdimo da Vite nikad učitava 
 Nema live provider poziva. Rizici: test timing, orphan provider rad, nedostajući
 production headers/events; razlikovati source review od test dokaza.
 [Baseline](evidence/005-baseline.md), [W08 evidence](EVIDENCE_W08.md).
+
+## T004 ? 2026-10-26
+
+Aktuelni zahtev: samo T004. HEAD 0d361f1, week08-init, po?etno ?isto stablo.
+Pro?itani AGENTS, constitution v1.1.0, GAME_SPEC W08 deo, feature005 spec/plan/
+tasks/data-model/contracts/research/quickstart i requirements checklist, baseline
+snapshot/results, raniji BUILD_PROMPT_WEEK05_V1 kao format. Kori??en projektni
+speckit-implement SKILL.md, prerequisites skripta; checklist 9/9, nema extensions.yml.
+Pregledani Git diff/log, ignore/ESLint, Vitest config, ai-failures i recovery
+sinhronizacija i coach lifecycle success assertions. Razlog: proveriti T001?T003
+i sa?uvati operativni prompt bez po?etka T005. Nisu ponovo ?itani nastavni PDF-ovi
+ili web izvori, .env/klju?evi; prethodna analiza nije novi audit. Hash-evi osnove
+i lockfile potvr?eni; fokusirani fake testovi izvr?eni. [Handoff](evidence/005-T004-handoff.md).
