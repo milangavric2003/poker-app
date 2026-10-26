@@ -576,3 +576,20 @@ typecheck/lint/build PASS. Bez novih runtime kontrola, živih poziva (0),
 commit/push/merge-a. Veki je zatražio scope; novi ljudski review i Milanov rad
 nisu potvrđeni i ne pripisuju im se AI testovi kao samostalni doprinos.
 [Handoff i ograničenja](evidence/005-phase2-handoff.md). Sledeći T008 nije započet.
+
+## 2026-10-26 — Week08 Faza 3 T008–T012
+
+Codex u sesiji sa Vekijem; lokalni PowerShell/apply_patch, Vitest, Playwright
+Chromium, TypeScript, ESLint i Vite. Model identitet/tokeni/trošak nisu dostupni.
+Svrha: proveriti prethodnu fazu i dokazati HTTP/model/tool/scope/browser granice
+bez proširenja na T013–T031. Očekivanje izraženo pre izvršavanja u assertions;
+već dobre zaštite PASS→PASS. Kontekst: manifest i feature005 ugovori.
+Ishod: T008–T012 završeni, nove regresije prolaze bez runtime izmene;
+236 fokusiranih PASS, 7 browser PASS; full 986 PASS/1 poznati T13 FAIL,
+security 80 PASS/1 poznati T13 FAIL, production T16 očekivani RED.
+Typecheck/lint/build PASS. Prvi browser whitespace assertion i observer tip
+popravljeni u testovima, originalni izlazi sačuvani. Sentinel pokriva samo extra
+tool polje; nema tvrdnje o punom secret/bundle/log auditu. Veki je odredio scope;
+novi ljudski peer review, samostalni testovi para i Milanov doprinos nisu potvrđeni.
+Bez live Gemini poziva (0), .env/ključeva, commit/push/merge-a ili novih servisa.
+[Handoff i stvarne komande](evidence/005-phase3-handoff.md). Sledeći T013.

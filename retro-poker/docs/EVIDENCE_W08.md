@@ -1,5 +1,17 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Aktuelno, 2026-10-26 — Faza 3:** T008–T012 završeni na `2b8ea4e` + radni diff.
+[Handoff, task statusi, komande i ograničenja](evidence/005-phase3-handoff.md).
+Novi HTTP/model/tool/scope/schema/browser testovi potvrđuju postojeće kontrole;
+runtime nije menjan (PASS→PASS). Fokusirana regresija 236 PASS, novi state browser
+i recovery 7 PASS. `test:security`: 80 PASS/1 očekivani T13 FAIL; full `npm test`:
+986 PASS/1 očekivani T13 FAIL. Produkcioni T16 ponovljen: očekivani CSP RED.
+Typecheck/lint/build PASS; prvi browser assertion i test-instrumentation typecheck
+padovi sačuvani, nisu security nalazi. T00–T03/T06–T10/T15 i origin imaju lokalni
+dokaz ove faze; puna završna W08 matrica ostaje otvorena. Sentinel je samo extra
+tool-field dokaz, bez tvrdnje o punom secret/bundle/log auditu. Sledeći **T013**.
+Stariji pasusi ispod opisuju istorijske checkpoint-e.
+
 **Datum pripreme: 2026-10-25. Status: plan i lokalna osnova spremni; Week08 nije završen.**
 **Dopuna 2026-10-26:** T004 završen na osnovi commita `0d361f1`; sačuvan
 [početni prompt](BUILD_PROMPT_WEEK08_V1.md), potvrđeni T001–T003 i ponovljene

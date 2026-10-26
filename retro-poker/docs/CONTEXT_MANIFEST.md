@@ -796,3 +796,23 @@ Baseline hash-evi i lockfile potvrđeni. Nastavni PDF/web izvori nisu ponovo či
 feature sadrži potrebne zahteve. Nema .env/ključeva, live provider-a ili drugih
 servisa. Rizik: početni T13/T16 RED nije završna matrica niti hardening dokaz.
 [Stvarne komande, hash ulazi i handoff](evidence/005-phase2-handoff.md).
+
+## Faza 3 / T008–T012 — 2026-10-26
+
+Prioritet: priloženi korisnički zahtev samo Faza 3, AGENTS, constitution 1.1.0,
+GAME_SPEC AC19/AC23, §13 read-only ugovor i W08-01–08. Pročitani
+BUILD_PROMPT_WEEK08_V1, feature005 spec/plan/tasks/data-model/contracts/security/
+research/quickstart, requirements checklist 9/9, EVIDENCE_W08 i phase2 handoff,
+izlazi početnih testova i sačuvani fixture-i. Primenjen lokalni
+`.agents/skills/speckit-implement/SKILL.md`, prerequisites potvrđen, hooks odsutni.
+Pregledani app/routes/session, agent orchestrator/tools/validation, shared schemas,
+fake provider/clock, security fixture/server, postojeći agent/tool/final testovi,
+coach-server/coach E2E, storage upotreba u frontu, package/ignore/ESLint.
+Razlog: pravi HTTP parser, nezavisno scope pre executor-a i output posle executor-a,
+snimljeni drugi modelski request, autoritativni backend rezultat u browseru.
+Git koren roditelj projekta, branch week08-init, HEAD 2b8ea4e, početno čisto.
+Nema novih web/PDF izvora, .env, pravih ključeva ili živih poziva. Ugovori su
+dovoljni za odobreni blok; future rate/CSP/events/secrets nisu prošireni u ovu fazu.
+Rizik: fake ne dokazuje live-model otpornost; public browser snapshot proverava
+serverski rezultat, node projekcija dodatno privatno poker/RNG/facts stanje.
+[Komande i nalazi](evidence/005-phase3-handoff.md); T13/T16 RED ostaje otvoren.

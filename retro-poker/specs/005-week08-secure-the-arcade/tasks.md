@@ -42,14 +42,19 @@ namerno otvorene T13/T16 RED nalaze; završna matrica ostaje otvorena.
 
 ## Faza 3 — US1: ulaz, scope i alati
 
+T008–T012 završeni 2026-10-26, Codex u sesiji sa Vekijem;
+[dokaz i ograničenja](../../docs/evidence/005-phase3-handoff.md).
+T009/T011 su uslovni PASS→PASS bez runtime izmene: nove provere nisu dokazale rupu.
+T13/T16 buduće kontrole ostaju RED; sledeći task T013.
+
 Nezavisna provera: validan coaching prolazi, svaka nedozvoljena granica se odbija
 pre odgovarajućeg rada. Sačuvati poker oracle-e ARCH1–8/AC19/AC23.
 
-- [ ] T008 [US1] RED/regresija HTTP T01/T02/T03 u `tests/contract/security-http.test.ts`; deps: T007; nevalidan JSON/tip/null/missing, zasebno 1.024-byte body cap i privilegovana polja, nepoznat ID/stale verzija, pozitivna byte granica; dokaz: 0 provider/0 tool i nepromenjen state, ispravan status.
-- [ ] T009 [US1] Minimalni GREEN samo za otkrivene rupe u `backend/src/app.ts`, `backend/src/routes.ts`, `backend/src/session.ts`, `shared/contracts.ts`; deps: T008; dokaz: T01–T03 + normalan T00, bez novih naloga ili opšteg refaktorisanja.
-- [ ] T010 [US1] RED/regresija T06–T10 u `tests/integration/security-tools.test.ts` i `tests/unit/security-schemas.test.ts`; deps: T009; invalid/oversized model, constructor/toString, args null/extra/limit 0/11, inače validan focus van scope-a, malicious fake proposal, oversized/extra/tuđ tool rezultat; pozitivan limit 1/10; dokaz: tačni executor/model brojači i nema curenja ka sledećem modelu.
-- [ ] T011 [US1] Minimalni GREEN u `backend/src/agent/{orchestrator,tools,validation}.ts` i `shared/contracts.ts`; deps: T010; očuvati 200 odluka, 10×5 facts, 20.480-byte tool/32.768-byte model limite, tekst/reference granice iz plana i tačno članstvo; dokaz: T06–T10/T00, read-only i bez neodobrenih efekata.
-- [ ] T012 [US1] Testirati T15 i stvarni origin/credential model u `tests/contract/security-http.test.ts`, `tests/e2e/security-state.spec.ts`; deps: T011; browser tamper ne menja server, nepoznat/null origin odbijen pre rada, dozvoljen origin prolazi; minimalne popravke samo `app.ts`/`routes.ts` po RED-u; dokaz: eksplicitno CSRF/SQL N/A gde funkcija ne postoji, bez preskakanja API/scope provera.
+- [x] T008 [US1] RED/regresija HTTP T01/T02/T03 u `tests/contract/security-http.test.ts`; deps: T007; nevalidan JSON/tip/null/missing, zasebno 1.024-byte body cap i privilegovana polja, nepoznat ID/stale verzija, pozitivna byte granica; dokaz: 0 provider/0 tool i nepromenjen state, ispravan status.
+- [x] T009 [US1] Minimalni GREEN samo za otkrivene rupe u `backend/src/app.ts`, `backend/src/routes.ts`, `backend/src/session.ts`, `shared/contracts.ts`; deps: T008; dokaz: T01–T03 + normalan T00, bez novih naloga ili opšteg refaktorisanja.
+- [x] T010 [US1] RED/regresija T06–T10 u `tests/integration/security-tools.test.ts` i `tests/unit/security-schemas.test.ts`; deps: T009; invalid/oversized model, constructor/toString, args null/extra/limit 0/11, inače validan focus van scope-a, malicious fake proposal, oversized/extra/tuđ tool rezultat; pozitivan limit 1/10; dokaz: tačni executor/model brojači i nema curenja ka sledećem modelu.
+- [x] T011 [US1] Minimalni GREEN u `backend/src/agent/{orchestrator,tools,validation}.ts` i `shared/contracts.ts`; deps: T010; očuvati 200 odluka, 10×5 facts, 20.480-byte tool/32.768-byte model limite, tekst/reference granice iz plana i tačno članstvo; dokaz: T06–T10/T00, read-only i bez neodobrenih efekata.
+- [x] T012 [US1] Testirati T15 i stvarni origin/credential model u `tests/contract/security-http.test.ts`, `tests/e2e/security-state.spec.ts`; deps: T011; browser tamper ne menja server, nepoznat/null origin odbijen pre rada, dozvoljen origin prolazi; minimalne popravke samo `app.ts`/`routes.ts` po RED-u; dokaz: eksplicitno CSRF/SQL N/A gde funkcija ne postoji, bez preskakanja API/scope provera.
 
 ## Faza 4 — US2: budžeti, kapacitet i zakašnjeli poslovi
 
