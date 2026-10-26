@@ -1,8 +1,12 @@
+import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { securityProductionServer } from '../helpers/security-server.js';
+import { buildSecurityProduction, securitySentinel, securityProductionServer } from '../helpers/security-server.js';
 import { securityInputs } from '../helpers/security-fixtures.js';
 import { AdmissionWindow, processAdmission } from '../../backend/src/security/admission.js';
 import { ProviderCapacity, processCapacity } from '../../backend/src/security/capacity.js';
+
+test.beforeAll(async () => { await buildSecurityProduction(); });
 
 test.beforeEach(() => {
   processAdmission.current = new AdmissionWindow();
@@ -12,6 +16,7 @@ test.beforeEach(() => {
 test('T16 initial: production CSP blocks an available second-origin script', async ({ page, context }, testInfo) => {
   const servers = await securityProductionServer();
   try {
+    expect(servers.configuredKey).toBe(securitySentinel);
     const script = `${servers.probeOrigin}${securityInputs.scriptPath}`;
     const available = await page.request.get(script);
     expect(available.status()).toBe(200);
@@ -75,6 +80,12 @@ test('T16 initial: production CSP blocks an available second-origin script', asy
     await expect(coach).toContainText('Pregled dostupnih odluka.');
     expect(servers.provider.agentCalls).toHaveLength(2);
     expect(servers.executions).toHaveLength(1);
+    const pollRun = await page.request.get(`${servers.origin}/api/game/coach/${servers.provider.agentCalls[0]!.request.runId}`);
+    const bad = await page.request.post(`${servers.origin}/api/game/coach`, { data: {} });
+    expect(bad.status()).toBe(400);
+    const usage = await page.request.get(`${servers.origin}/api/ai/usage`);
+    expect(JSON.stringify({ poll: await pollRun.text(), failure: await bad.text(), usage: await usage.text(),
+      model: servers.provider.agentCalls, events: servers.events.read(), html: await page.content() })).not.toContain(securitySentinel);
     expect(await (await page.request.get(`${servers.origin}/api/game`)).json()).toEqual(before);
     await page.setViewportSize({ width: 390, height: 844 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -83,4 +94,22 @@ test('T16 initial: production CSP blocks an available second-origin script', asy
     await testInfo.attach('T16-production-functionality.json', { contentType: 'application/json',
       body: JSON.stringify({ assets, providerSteps: 2, realTools: 1, pokerUnchanged: true, mobileOverflow: false }) });
   } finally { await servers.close(); }
+});
+
+
+test('T16 synthetic server secret is absent from fresh production JS/CSS/HTML and any source maps', async () => {
+  const files: string[] = [];
+  async function walk(directory: string) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const path = join(directory, entry.name);
+      if (entry.isDirectory()) await walk(path); else files.push(path);
+    }
+  }
+  await walk('dist/frontend');
+  expect(files.some(path => path.endsWith('.js'))).toBe(true);
+  expect(files.some(path => path.endsWith('.css'))).toBe(true);
+  expect(files.some(path => path.endsWith('.html'))).toBe(true);
+  for (const path of files) expect((await readFile(path)).includes(Buffer.from(securitySentinel)), path).toBe(false);
+  console.log('T16 artifact actual', JSON.stringify({ files, sourceMaps: files.filter(path => path.endsWith('.map')),
+    sentinelAbsent: true, envFilesDisabled: true, syntheticBuild: true }));
 });

@@ -1,5 +1,19 @@
 # AI usage log
 
+## 2026-10-26 — ponovna provera Week08 T019–T022
+
+Codex, jedan agent, po priloženom korisničkom zahtevu. Alati: lokalni PowerShell,
+apply_patch, Vitest, Playwright Chromium, Vite, TypeScript i ESLint.
+Model/tokeni/trošak nisu dostupni. Očekivanje: već završene taskove potvrditi
+bez duple implementacije; proveriti validan final, bezbedan DOM, stvaran CSP i
+regresije. Kontekst i granice u manifestu. Ishod: T019–T022 potvrđeni, runtime
+i testovi nepromenjeni; prethodna faza 68, security 108, UI 125, security E2E 4,
+pun E2E 25 PASS; typecheck/lint/build PASS. Dodata dokumentacija i novi izlazi.
+Lokalni T023–T027 ostaju otvoreni; nema potvrde korisničke napomene o njihovom
+završetku. Nema novog ljudskog review-a ili samostalnog doprinosa para.
+Bez .env/pravih ključeva/live poziva, commit/push/merge-a ili Faze 7.
+[Komande i dokazi](evidence/005-phase5-recheck.md).
+
 ## 2026-10-26 — Week08 Faza 5, T019–T022
 
 Codex u sesiji sa Vekijem, jedan agent. Svrha: proveriti prethodnu fazu,
@@ -631,3 +645,22 @@ tool polje; nema tvrdnje o punom secret/bundle/log auditu. Veki je odredio scope
 novi ljudski peer review, samostalni testovi para i Milanov doprinos nisu potvrđeni.
 Bez live Gemini poziva (0), .env/ključeva, commit/push/merge-a ili novih servisa.
 [Handoff i stvarne komande](evidence/005-phase3-handoff.md). Sledeći T013.
+
+
+## 2026-10-26 — Week08 Faza 6 T023–T027
+
+Codex po priloženom zahtevu, jedan coding agent. Svrha: potvrditi Fazu 5,
+implementirati bounded security sink uz testove, dokazati sentinel putanje i
+obrazložiti dependency odluke. Očekivanja su prethodno zapisana u assertions;
+analysis acceptance/terminal RED→GREEN, secret kontrole PASS→PASS.
+Prvi nedostajući modul/setup i sandbox tsx export problem nisu security RED.
+Alati: PowerShell/Python/apply_patch, Vitest, Playwright Chromium, Vite, TypeScript,
+ESLint, npm audit/installer i web pregled javnih advisory-ja. Tačan model/tokeni/
+trošak nisu dostupni. Kontekst: manifest i aktivni feature005 ugovori.
+Ishod: T023–T027 završeni; full 1037 PASS, security 123 PASS, production security
+browser 5 PASS, typecheck/lint/build/diff-check PASS. Audit prvo mrežna prepreka,
+zatim 10 pogođenih paketa; ciljane kompatibilne zakrpe daju audit 0 nalaza.
+Server sentinel učitavanje dokazano uz fake/mock, live provider poziva 0.
+Korisnik je odredio scope; peer review/samostalni doprinosi Vekija i Milana nisu
+potvrđeni. Bez commit/push/merge-a, clean checkout/CI/demo ili Faze 7.
+[Stvarne komande, prvi rezultati i granice](evidence/005-phase6-handoff.md).

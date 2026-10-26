@@ -1,5 +1,32 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Aktuelno 2026-10-26 — Faza 6 T023–T027 završena:**
+[Handoff i sve komande](evidence/005-phase6-handoff.md),
+[audit po paketu/advisory-ju](evidence/005-phase6-audit.md),
+[stvarni sanitizovani događaji](evidence/005-phase6-event-examples.json).
+Interni allowlist sink: 200 događaja / manje od 30 minuta, pruning pri read/write,
+server UUID korelacija, bez raw sadržaja/javnog endpoint-a i usage reset brisanja.
+Log injection/dedupe/cancel/late-settle testovi prolaze. Analysis RED→GREEN;
+prvi module/setup padovi sačuvani odvojeno od security nalaza.
+Sentinel config/factory učitavanje potvrđeno, adapter/tool/normalna putanja PASS→PASS;
+extra tool polje zaustavlja drugi model. Kontrolisani production build nema sentinel
+u JS/CSS/HTML; **source maps ne postoje**. CSP/header i sentinel/bundle deo imaju
+dokaze na istom checkpoint-u: lokalni T16 PASS za testirane putanje, bez opšteg DLP
+obećanja. Audit: mrežna prepreka, zatim 10 pogođenih paketa → ciljane kompatibilne
+zakrpe → **0 nalaza / exit 0**. Full **1037 PASS**, security **123 PASS**, production
+security browser **5 PASS**, typecheck/lint/build/diff-check PASS.
+Postojeće phase5-recheck izmene sačuvane. Nema live poziva, commit/push/merge-a.
+Sledeći **T028**; clean checkout/remote CI/demo/ljudski review nisu završeni.
+Stariji statusi ispod predstavljaju istorijske checkpoint-e.
+
+**Ponovna provera 2026-10-26, HEAD `e498a06`:** T019–T022 već završeni i
+potvrđeni bez nove runtime implementacije. [Novi dokaz i komande](evidence/005-phase5-recheck.md).
+Prethodna faza 68 PASS, security 108 PASS, UI 125 PASS, security E2E 4 PASS,
+pun E2E 25 PASS, oba sa svežim build-om; typecheck/lint PASS. DOM ostaje tekst;
+produkcioni CSP blokira dostupan script uz `script-src-elem` enforce violation.
+Lokalni T023–T027 su otvoreni i nema njihove Week08 events/secrets implementacije;
+status nije vraćen unazad. Puni T16 ostaje otvoren. Sledeći task T023.
+
 **Aktuelno, 2026-10-26 — Faza 5:** T019–T022 završeni na `9d89726` + radni diff.
 [Handoff, taskovi, prvi rezultati i komande](evidence/005-phase5-handoff.md).
 T04/T05: oba panela već bezbedno prikazuju tekst, **PASS→PASS**, bez runtime izmene.

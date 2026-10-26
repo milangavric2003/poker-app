@@ -1,7 +1,8 @@
 import Fastify from 'fastify';
 import { createServer } from 'node:http';
-import { preview, type PreviewServer } from 'vite';
-import { buildApp } from '../../backend/src/app.js';
+import { build, preview, type PreviewServer } from 'vite';
+import { SecurityEvents } from '../../backend/src/security/events.js';
+import { buildApp, productionAiDependencies } from '../../backend/src/app.js';
 import { registerRoutes } from '../../backend/src/routes.js';
 import { securityFixture, securityInputs } from './security-fixtures.js';
 import type { FakeAiStep } from './fake-ai-provider.js';
@@ -32,9 +33,24 @@ export async function securityRenderingProbe() {
 }
 
 /** Loads the actual preview config: no helper-supplied security headers/proxy overrides. */
+export const securitySentinel = 'W08_SERVER_SECRET_DO_NOT_EXPOSE';
+
+/** Build from current source, with local env files disabled and a synthetic server key. */
+export async function buildSecurityProduction() {
+  const previous = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = securitySentinel;
+  try { await build({ configFile: 'vite.config.ts', envDir: false }); }
+  finally { if (previous === undefined) delete process.env.GEMINI_API_KEY; else process.env.GEMINI_API_KEY = previous; }
+}
+
 export async function securityProductionServer() {
   const fixture = securityFixture([{ kind: 'agent_tool' }, { kind: 'agent_final' }]);
-  const backend = buildApp(fixture.dependencies);
+  let configuredKey: string | undefined;
+  const dependencies = productionAiDependencies({ GEMINI_API_KEY: securitySentinel }, key => {
+    configuredKey = key; return fixture.provider;
+  });
+  const events = new SecurityEvents();
+  const backend = buildApp({ ...fixture.dependencies, ...dependencies, securityEvents: events });
   let frontend: PreviewServer | undefined;
   let scriptRequests = 0;
   const probe = createServer((request, response) => {
@@ -60,8 +76,8 @@ export async function securityProductionServer() {
     });
     const address = probe.address();
     if (!address || typeof address === 'string') throw new Error('Probe did not bind');
-    frontend = await preview({ configFile: 'vite.config.ts' });
+    frontend = await preview({ configFile: 'vite.config.ts', envDir: false });
     return { origin: 'http://127.0.0.1:5173', probeOrigin: `http://127.0.0.1:${address.port}`,
-      scriptRequests: () => scriptRequests, provider: fixture.provider, executions: fixture.executions, close };
+      configuredKey, events, scriptRequests: () => scriptRequests, provider: fixture.provider, executions: fixture.executions, close };
   } catch (error) { await close(); throw error; }
 }

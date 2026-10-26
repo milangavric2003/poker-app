@@ -1,5 +1,21 @@
 # Context manifest — implementacioni blok člana A
 
+## Ponovna provera T019–T022 — 2026-10-26
+
+Prioritet: priloženi korisnički zahtev samo Faza 5, AGENTS, constitution 1.1.0,
+GAME_SPEC ARCH1–8/AC19/AC23, W05 read-only i W08 granice. Pročitani BUILD_PROMPT_WEEK08_V1,
+feature005 spec/plan/tasks/data-model/research/contracts/quickstart, checklist 9/9,
+EVIDENCE_W08, phase2/4/5 handoff, originalni T006 actual/fixture manifest i phase5
+validation. Primenjen lokalni speckit-implement SKILL.md; prerequisites PASS,
+bez extensions/hooks. Pregledani security fixtures/server/coach-server, rendering/
+production/state testovi, oba panela, admission/capacity i session gate mesta,
+T00, package/Vite/Playwright/ignore/ESLint. Razlog: potvrditi stvarnu final→UI
+putanju, DOM nezavisno od CSP-a, svež build i očuvanje prethodnih kontrola.
+Checkpoint e498a06, week08-init, početno čisto. Kasniji events/secrets kod i
+phase6 dokazi nisu pronađeni; lokalni T023–T027 otvoreni. Nisu pokretani.
+Nema web/PDF izvora, .env ili živih poziva. Fake-only nije live-model dokaz;
+CSP deo T16 nije sentinel/bundle dokaz. [Actual](evidence/005-phase5-recheck.md).
+
 ## 2026-10-26 — Week08 Faza 5, T019–T022
 
 Prioritet: korisnički priloženi zahtev samo Faza 5 → AGENTS/constitution 1.1.0 →
@@ -862,3 +878,28 @@ dovoljni za odobreni blok; future rate/CSP/events/secrets nisu prošireni u ovu 
 Rizik: fake ne dokazuje live-model otpornost; public browser snapshot proverava
 serverski rezultat, node projekcija dodatno privatno poker/RNG/facts stanje.
 [Komande i nalazi](evidence/005-phase3-handoff.md); T13/T16 RED ostaje otvoren.
+
+
+## 2026-10-26 — Faza 6 T023–T027
+
+Prioritet: priloženi korisnički zahtev → AGENTS i constitution 1.1.0 → GAME_SPEC
+§16/W08-01–08 → feature005 spec/plan/tasks/data-model/contracts/security/research/
+quickstart → BUILD_PROMPT_WEEK08_V1 i EVIDENCE_W08. Pročitani phase5 handoff/recheck
+i novi preflight izlazi. Pročitan speckit-implement SKILL.md; prerequisites PASS
+(zaseban PowerShell ExecutionPolicy Bypass), checklist 9/9, bez extension hook-ova.
+Pregledani app/routes/session, agent orchestrator/tools/validation/types, ai config/
+adapter, shared schemas, security admission/capacity, fake provider/clock/fixtures/
+server, normal/lifecycle/production security testovi, package/lock/ignore/ESLint/
+Vitest/Vite konfiguracija. Razlog: stvarni request/run/tool brojači, ista sanitizacija
+produkcije i test sink-a, server factory granica i kontrolisani production build.
+Git HEAD e498a06 na week08-init; zatečene dokumentacione izmene sačuvane.
+
+Novi izvori: npm registry audit i javni GitHub security advisories za prijavljene
+pakete, sa verzijama/URL-ovima/izloženošću u [audit zapisu](evidence/005-phase6-audit.md).
+Fastify/Vitest maintainer advisories pročitani; Zod maintainer URL 404, bez tvrdnje
+o uspešnom čitanju. Nastavni PDF/PPTX i drugi feature taskovi nisu potrebni: aktivni
+ugovori daju scope. Nisu traženi korisnički .env/ključevi niti pokretani live CLI-jevi.
+Kontrolisani Vite sentinel build/preview koristi envDir:false.
+Rizici: procesna memorija nije trajni audit, jedan sentinel nije opšti DLP, audit
+se može promeniti. Clean checkout/CI/demo ostaju van ove faze.
+[Rezultati i checkpoint](evidence/005-phase6-handoff.md).

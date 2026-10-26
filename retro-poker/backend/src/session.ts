@@ -1,3 +1,4 @@
+import { SecurityEvents, processSecurityEvents, securityCorrelation } from './security/events.js';
 import { randomUUID } from 'node:crypto';
 import { buildBotObservation, chooseBotAction, safeBotAction } from './bots/strategy.js';
 import { BettingError, legalActions } from './engine/betting.js';
@@ -50,6 +51,7 @@ export interface GameState {
 }
 
 export interface SessionDependencies extends GameDependencies {
+  securityEvents?: SecurityEvents;
   /** In-process transaction fault injection; never exposed by HTTP. */
   beforeActionCommit?: () => void;
   beforeNextHandCommit?: () => void;
@@ -139,6 +141,7 @@ function runBots(game: GameState): void {
 }
 
 export class GameSession {
+  readonly securityEvents: SecurityEvents;
   private game: GameState | null = null;
   private queue: Promise<void> = Promise.resolve();
   private activeBot: { interactionId: string; controller: AbortController } | null = null;
@@ -147,6 +150,7 @@ export class GameSession {
   private readonly capacity = processCapacity.current;
   private readonly admission = processAdmission.current;
   constructor(private readonly dependencies: SessionDependencies) {
+    this.securityEvents = dependencies.securityEvents ?? processSecurityEvents;
     this.aiConfig = dependencies.aiConfig ?? loadAiConfig();
   }
 
@@ -212,6 +216,9 @@ export class GameSession {
       || input.goal.focus === 'betting' && ['call', 'bet', 'raise', 'all_in'].includes(d.chosenAction.type)
       || input.goal.focus === 'showdown' && d.outcome?.reason === 'showdown');
     const bound = hasEvidence ? this.capacity.bind(provider, this.admit()) : null;
+    const correlationId = securityCorrelation();
+    this.securityEvents.emit({ event: 'ai.request.accepted', correlationId, purpose: 'coach',
+      reasonCode: 'accepted', outcome: 'accepted', providerAttempts: 0, executedToolCalls: 0 });
     const controller = new AbortController();
     const run = new BoundedAgentRun({ runId: randomUUID(), goal: input.goal,
       snapshot: { gameId: game.gameId, handId: game.hand.handId, expectedVersion: game.version,
@@ -222,7 +229,8 @@ export class GameSession {
       backoffMinMs: this.aiConfig.backoffMinMs, backoffMaxMs: this.aiConfig.backoffMaxMs,
       jitter: this.dependencies.aiJitter ?? zeroJitter, signal: controller.signal,
       isCurrent: identity => this.coachCurrent(identity),
-      ...(this.dependencies.coachExecuteTool ? { executeTool: this.dependencies.coachExecuteTool } : {}) });
+      ...(this.dependencies.coachExecuteTool ? { executeTool: this.dependencies.coachExecuteTool } : {}) },
+      { sink: this.securityEvents, correlationId });
     // Calendar time is display metadata; the run's injected monotonic clock owns all budgets.
     const slot = { run, controller, committed: false, wallStartedAt: Date.now() };
     this.coach = slot;
@@ -428,6 +436,9 @@ export class GameSession {
     }
     const bound = this.capacity.bind(this.dependencies.aiProvider, this.admit());
     const interactionId = randomUUID();
+    const correlationId = securityCorrelation();
+    this.securityEvents.emit({ event: 'ai.request.accepted', correlationId, purpose: 'analysis',
+      reasonCode: 'accepted', outcome: 'accepted', providerAttempts: 0, executedToolCalls: 0 });
     const controller = new AbortController();
     game.ai.analysis = { status: 'generating', interactionId, result: null };
     game.ai.active = { interactionId, purpose: 'analysis', status: 'waiting', attemptCount: 0,
@@ -439,13 +450,13 @@ export class GameSession {
     const usageEpoch = processUsageStore.currentEpoch();
     // Dispatch outside the mutation lock, just like coaching and bot work.
     void this.serial(() => undefined).then(() => this.runAnalysis(interactionId, controller, fingerprint,
-      context, usageEpoch, bound.provider)).finally(() => bound.releaseUnused());
+      context, usageEpoch, bound.provider, correlationId)).finally(() => bound.releaseUnused());
     return game;
   }
 
   private async runAnalysis(interactionId: string, controller: AbortController,
     fingerprint: { gameId: string; handId: string; expectedVersion: number; factsRevision: number },
-    context: unknown, usageEpoch: number, provider: AiProvider): Promise<void> {
+    context: unknown, usageEpoch: number, provider: AiProvider, correlationId: string): Promise<void> {
     const result = await coordinateAnalysis(provider, this.aiConfig, context,
       controller.signal, this.dependencies.aiClock ?? systemClock, this.dependencies.aiJitter ?? zeroJitter,
       async (status, attemptCount, model) => {
@@ -455,6 +466,10 @@ export class GameSession {
           }
         });
       });
+    this.securityEvents.emit({ event: 'ai.run.finished', correlationId, purpose: 'analysis',
+      reasonCode: controller.signal.aborted ? 'cancelled' : result.ok ? 'completed' : 'provider_failed',
+      outcome: controller.signal.aborted ? 'stopped' : result.ok ? 'completed' : 'failed',
+      providerAttempts: result.attempts.length, executedToolCalls: 0 });
     recordUsageOnce(interactionId, 'analysis', this.aiConfig.primaryModel, result, usageEpoch);
     await this.serial(() => {
       const game = this.game;

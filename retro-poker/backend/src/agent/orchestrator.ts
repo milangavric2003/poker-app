@@ -1,3 +1,4 @@
+import { type SecurityEvents, type SecurityEvent, securityReason } from '../security/events.js';
 import { CoachGoalSchema, CoachModelStepSchema, CoachOutputIssueSchema, CoachRequestSchema,
   jsonUtf8Bytes, DecisionEvidenceArgumentsSchema } from '../../../shared/contracts.js';
 import { ProviderError, type AgentStepContext, type AgentStepResult, type ProviderUsage } from '../ai/types.js';
@@ -32,7 +33,7 @@ export class BoundedAgentRun {
   private work: Promise<AgentRunState> | undefined;
   private activeAttempt: { record: AgentRunState['attempts'][number]; started: number } | undefined;
   private invalidLimits = false;
-  constructor(options: AgentRunOptions) {
+  constructor(options: AgentRunOptions, private readonly security?: { sink: SecurityEvents; correlationId: string }) {
     this.options = { ...options, goal: freeze(structuredClone(options.goal)), snapshot: freeze(structuredClone(options.snapshot)) };
     this.limits = { ...CORE_AGENT_LIMITS, ...options.limits };
     for (const key of Object.keys(CORE_AGENT_LIMITS) as Array<keyof AgentLimits>) {
@@ -48,6 +49,10 @@ export class BoundedAgentRun {
       stopReason: null, failureCategory: null, result: null, sampleLimited: options.snapshot.facts.aggregates.length > 0,
       terminalTransitionCount: 0, attempts: [], toolAttemptCount: 0, toolRejectionCount: 0,
       validationCount: 0, validationRejectedCount: 0, finishedAt: null };
+  }
+  private securityEvent(event: SecurityEvent['event'], reasonCode: SecurityEvent['reasonCode'], outcome: SecurityEvent['outcome']): void {
+    this.security?.sink.emit({ event, reasonCode, outcome, purpose: 'coach', correlationId: this.security.correlationId,
+      providerAttempts: this.current.providerAttemptCount, executedToolCalls: this.current.toolCallCount });
   }
   get state(): AgentRunState { return structuredClone(this.current); }
   private get terminal(): boolean { return ['completed', 'stopped', 'failed'].includes(this.current.status); }
@@ -65,6 +70,9 @@ export class BoundedAgentRun {
     this.current.finishedAt = this.options.clock.now();
     if (reason !== 'completed') this.current.result = null;
     this.current.terminalTransitionCount++;
+    if (['unknown_tool', 'invalid_tool_arguments', 'repeated_action', 'tool_call_limit', 'invalid_model_proposal'].includes(reason)
+      && this.current.toolRejectionCount > 0) this.securityEvent('agent.tool.rejected', securityReason(reason), 'denied');
+    this.securityEvent('ai.run.finished', securityReason(reason), this.current.status as 'completed' | 'stopped' | 'failed');
     this.controller.abort();
     // Observers cannot undo a terminal transition or leak their exception.
     try { this.options.onTerminal?.(this.state); } catch { /* terminal state remains committed */ }
@@ -201,6 +209,7 @@ export class BoundedAgentRun {
       if (this.current.recentActionKeys.includes(key)) { this.current.toolRejectionCount++; this.finish('repeated_action'); return false; }
       if (this.current.toolCallCount >= this.limits.maxToolCalls) { this.current.toolRejectionCount++; this.finish('tool_call_limit'); return false; }
       if (stage !== 1) { this.current.toolRejectionCount++; this.finish('invalid_model_proposal'); return false; }
+      this.securityEvent('agent.tool.accepted', 'accepted', 'accepted');
       const toolMs = Math.min(this.limits.toolTimeoutMs, this.current.deadlineAt - this.options.clock.now());
       const toolDeadlineAt = this.options.clock.now() + toolMs;
       try {

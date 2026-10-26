@@ -1,6 +1,6 @@
 # Tasks: Week08 — Secure the Arcade
 
-**Branch**: `week08-init`. Faze 1–5 završene; T023–T031 ostaju otvoreni.
+**Branch**: `week08-init`. Faze 1–6 završene; T028–T031 ostaju otvoreni.
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
 
@@ -85,15 +85,25 @@ Nezavisna provera: pravi browser vidi normalan tekst i igru, bez aktivnog payloa
 Faza 5 završena 2026-10-26: Codex u sesiji sa Vekijem; ljudski review nije potvrđen.
 [Taskovi, PASS→PASS/RED→GREEN, komande i granice T16](../../docs/evidence/005-phase5-handoff.md).
 
+Ponovna provera na `e498a06`, 2026-10-26: T019–T022 potvrđeni bez izmene
+runtime-a/testova; [novi rezultati i granice](../../docs/evidence/005-phase5-recheck.md).
+Napomena o završenim T023–T027 nije potvrđena lokalnim kodom/dokazima;
+njihovi postojeći otvoreni checkbox-i ostaju nepromenjeni. Puni T16 ostaje otvoren.
+
 ## Faza 6 — US4: događaji, tajne i zavisnosti
 
 Nezavisna provera: kontrolisani events i sentinel bez curenja, ponovljiva evidencija.
 
-- [ ] T023 [US4] RED event/log injection u `tests/unit/security-events.test.ts`, `tests/integration/security-events.test.ts`; deps: T022; allowlist iz data-model-a, server correlation UUID, safe integer brojači, acceptance/rejection/terminal, newline forged event; max 200 i 30 min retention; dokaz: nema sirovog sadržaja ni duplog terminala.
-- [ ] T024 [US4] GREEN `backend/src/security/events.ts` i integracija `app.ts`/`routes.ts`/`session.ts`/`agent/orchestrator.ts`; deps: T023; dokaz: sanitized sink i kontrolisana memorija, bez javnog log endpoint-a, raw prompt/stack-a ili reset-a kroz usage API.
-- [ ] T025 [US4] RED/regresija T14/T16 sentinel u `tests/integration/security-secrets.test.ts`, `tests/e2e/security-production.spec.ts` i helper; deps: T024; server stvarno učitava sintetičku vrednost, adapter greška i extra tool polje, bundle/source maps/HTTP/model/events skeniranje; dokaz: nije test samo imena env promenljive niti opšti DLP claim.
-- [ ] T026 [US4] Minimalni GREEN prema T025 u `backend/src/ai/providers/gemini.ts`, `backend/src/agent/validation.ts`, `backend/src/security/events.ts`, `backend/src/app.ts`, `vite.config.ts`; deps: T025; dokaz: T10/T14/T16 plus normalan tok. Ne čitati/stavljati pravi ključ u fixture/log.
-- [ ] T027 [US4] Pokrenuti dependency audit i mapirati runtime/dev izloženost u `docs/EVIDENCE_W08.md`; deps: T026; po potrebi ciljano `package.json`/`package-lock.json` uz prethodni regression scenario; dokaz: verzija/advisory/uslov/odluka i relevantna regresija ili iskreno zabeležena prepreka, bez force upgrade-a.
+- [x] T023 [US4] RED event/log injection u `tests/unit/security-events.test.ts`, `tests/integration/security-events.test.ts`; deps: T022; allowlist iz data-model-a, server correlation UUID, safe integer brojači, acceptance/rejection/terminal, newline forged event; max 200 i 30 min retention; dokaz: nema sirovog sadržaja ni duplog terminala.
+- [x] T024 [US4] GREEN `backend/src/security/events.ts` i integracija `app.ts`/`routes.ts`/`session.ts`/`agent/orchestrator.ts`; deps: T023; dokaz: sanitized sink i kontrolisana memorija, bez javnog log endpoint-a, raw prompt/stack-a ili reset-a kroz usage API.
+- [x] T025 [US4] RED/regresija T14/T16 sentinel u `tests/integration/security-secrets.test.ts`, `tests/e2e/security-production.spec.ts` i helper; deps: T024; server stvarno učitava sintetičku vrednost, adapter greška i extra tool polje, bundle/source maps/HTTP/model/events skeniranje; dokaz: nije test samo imena env promenljive niti opšti DLP claim.
+- [x] T026 [US4] Minimalni GREEN prema T025 u `backend/src/ai/providers/gemini.ts`, `backend/src/agent/validation.ts`, `backend/src/security/events.ts`, `backend/src/app.ts`, `vite.config.ts`; deps: T025; dokaz: T10/T14/T16 plus normalan tok. Ne čitati/stavljati pravi ključ u fixture/log.
+- [x] T027 [US4] Pokrenuti dependency audit i mapirati runtime/dev izloženost u `docs/EVIDENCE_W08.md`; deps: T026; po potrebi ciljano `package.json`/`package-lock.json` uz prethodni regression scenario; dokaz: verzija/advisory/uslov/odluka i relevantna regresija ili iskreno zabeležena prepreka, bez force upgrade-a.
+
+Faza 6 završena 2026-10-26, Codex po korisničkom zahtevu; ljudski review nije potvrđen.
+[Prvi rezultati, implementacija, sentinel, audit i ograničenja](../../docs/evidence/005-phase6-handoff.md).
+Security 123 PASS, full 1037 PASS, production security browser 5 PASS, audit 0 nalaza.
+T026 je uslovni PASS→PASS; T027 ciljane kompatibilne zakrpe. Sledeći T028.
 
 ## Faza 7 — završna provera i predaja
 

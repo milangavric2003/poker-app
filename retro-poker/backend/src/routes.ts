@@ -1,3 +1,4 @@
+import { securityCorrelation, securityReason } from './security/events.js';
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { CoachRequestSchema, CoachResponseSchema, GameConfigSchema, NextHandSchema, PlayerActionSchema } from '../../shared/contracts.js';
 import { SessionError, type GameSession } from './session.js';
@@ -14,7 +15,15 @@ function error(reply: FastifyReply, status: number, code: string, message: strin
 }
 
 export function registerRoutes(app: FastifyInstance, session: GameSession): void {
-  app.addHook('onSend', async (_request, reply, payload) => {
+  app.addHook('onSend', async (request, reply, payload) => {
+    const path = request.url.split('?')[0];
+    if (request.method === 'POST' && ['/api/game/coach', '/api/game/analysis'].includes(path!) && reply.statusCode >= 400) {
+      let code: unknown;
+      try { code = JSON.parse(typeof payload === 'string' ? payload : '').error?.code; } catch { /* safe fallback */ }
+      session.securityEvents.emit({ event: 'ai.request.rejected', correlationId: securityCorrelation(),
+        purpose: path === '/api/game/coach' ? 'coach' : 'analysis', reasonCode: securityReason(code),
+        outcome: 'denied', providerAttempts: 0, executedToolCalls: 0 });
+    }
     reply.header('cache-control', 'no-store');
     return payload;
   });

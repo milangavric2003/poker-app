@@ -1,5 +1,8 @@
 # Week08 — vodič za proveru
 
+T019–T022 ponovo provereni na `e498a06` bez nove implementacije:
+[komande, DOM/CSP dokaz i lokalni status sledećih taskova](../../docs/evidence/005-phase5-recheck.md).
+
 Pokretati iz `retro-poker/`, Node 24/npm 11. Na Windows-u koristiti `npm.cmd`.
 Aktivna grana je `week08-init`; feature direktorijum ne zavisi od imena grane.
 Za Spec Kit u novom checkout-u:
