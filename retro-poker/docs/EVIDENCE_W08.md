@@ -1,5 +1,28 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Aktuelno, 2026-10-26 — Faza 5:** T019–T022 završeni na `9d89726` + radni diff.
+[Handoff, taskovi, prvi rezultati i komande](evidence/005-phase5-handoff.md).
+T04/T05: oba panela već bezbedno prikazuju tekst, **PASS→PASS**, bez runtime izmene.
+Validan fake final prolazi stvaran alat i backend validaciju: 2 model koraka/1 alat.
+HTML/event/script/Markdown/javascript i dostupna spoljašnja slika ostaju literalni
+tekst; scoped DOM nema izvršive elemente/event atribute, marker izostaje,
+navigacija/poker su očuvani i automatskih zahteva prema probe serveru ima 0.
+Srpski č/ć/š/ž/đ, apostrof i `a < b` ostaju sačuvani.
+T16 CSP/header deo **RED→GREEN**: isti `/security-probe.js` i marker kao T006,
+bez politike HTTP 200 + marker true; u preview aplikaciji marker false,
+`script-src-elem` enforce violation za konkretan URL, HTTP broj ostaje 2→2
+(pre politike 2→3). Zaglavlja dolaze iz stvarnog `vite.config.ts` `preview.headers`,
+uključuju aktivnu tačnu CSP iz plana, nosniff i no-referrer. Igra, JS/CSS asset-i,
+kontrole, mobile širina i validan coaching rade pod istom politikom.
+`test:security:e2e`: build + **4 PASS**; `test:e2e`: svež build + **25 PASS**;
+security node **108 PASS**, fokusirana prethodna faza **68 PASS**, security/UI
+**233 PASS**, typecheck/lint/build PASS. Prvi full E2E imao je 24 PASS/1 harness
+ENOENT zbog preklopa runner-a i trace direktorijuma; sačuvan, zatim serijski 25 PASS.
+Istorijski feature004 screenshot-i vraćeni iz lokalnog početnog backup-a.
+**Puni T16 nije završen**: sentinel/server-secret/bundle/events ostaju T025–T026.
+Nema novih live poziva, ključeva, paketa, commit/push/merge-a. Sledeći **T023**.
+Stariji zapisi ispod su istorijski checkpoint-i.
+
 **Aktuelno, 2026-10-26 — Faza 4:** T013–T018 završeni na `cc0d3fb` + radni diff.
 [Handoff, svi taskovi, prvi padovi i komande](evidence/005-phase4-handoff.md).
 Budžeti/scope/terminal/usage guard-ovi PASS→PASS; dodat serverski coaching output

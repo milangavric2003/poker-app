@@ -1,6 +1,6 @@
 # Tasks: Week08 — Secure the Arcade
 
-**Branch**: `week08-init`. Faze 1–4 završene; T019–T031 ostaju otvoreni.
+**Branch**: `week08-init`. Faze 1–5 završene; T023–T031 ostaju otvoreni.
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
 
@@ -77,10 +77,13 @@ Nezavisna provera: fake sat/provider pokazuju granice i legitiman oporavak.
 
 Nezavisna provera: pravi browser vidi normalan tekst i igru, bez aktivnog payload-a.
 
-- [ ] T019 [US3] RED/regresija T04/T05 u `tests/e2e/security-rendering.spec.ts`, fake final u `tests/helpers/security-fixtures.ts`; deps: T018; XSS execution marker + DOM, HTML/Markdown/javascript link/spoljna slika, pozitivan srpski tekst/apostrof/a<b; dokaz: stvarna final→UI putanja, bez oslanjanja samo na alert ili CSP.
-- [ ] T020 [US3] Ako T019 otkrije rupu, minimalni GREEN u `frontend/src/components/{CoachPanel,AnalysisPanel}.tsx`; inače bez runtime promene; deps: T019; dokaz: T04/T05 plus postojeći panel/keyboard testovi, bez novog rich-text renderera.
-- [ ] T021 [US3] Dopuniti početni T16 test u `tests/e2e/security-production.spec.ts` i helper; deps: T020; kontrolisani drugi origin script radi bez CSP-a (200 + marker), politika ga blokira uz violation direktivu; dokaz: stvaran preview build, bypassCSP=false, normalna igra i coaching.
-- [ ] T022 [US3] GREEN u `vite.config.ts`, po potrebi zajednički `frontend/security-headers.ts`, i `package.json`/`quickstart.md`; deps: T021; policy iz plana, nosniff/no-referrer, `test:security:e2e` gradi i izvršava security browser testove; dokaz: T04/T05/T16, desktop/mobile i summary/usage očuvani. Nema slabljenja script-src zbog inline CSS-a.
+- [x] T019 [US3] RED/regresija T04/T05 u `tests/e2e/security-rendering.spec.ts`, fake final u `tests/helpers/security-fixtures.ts`; deps: T018; XSS execution marker + DOM, HTML/Markdown/javascript link/spoljna slika, pozitivan srpski tekst/apostrof/a<b; dokaz: stvarna final→UI putanja, bez oslanjanja samo na alert ili CSP.
+- [x] T020 [US3] Ako T019 otkrije rupu, minimalni GREEN u `frontend/src/components/{CoachPanel,AnalysisPanel}.tsx`; inače bez runtime promene; deps: T019; dokaz: T04/T05 plus postojeći panel/keyboard testovi, bez novog rich-text renderera.
+- [x] T021 [US3] Dopuniti početni T16 test u `tests/e2e/security-production.spec.ts` i helper; deps: T020; kontrolisani drugi origin script radi bez CSP-a (200 + marker), politika ga blokira uz violation direktivu; dokaz: stvaran preview build, bypassCSP=false, normalna igra i coaching.
+- [x] T022 [US3] GREEN u `vite.config.ts`, po potrebi zajednički `frontend/security-headers.ts`, i `package.json`/`quickstart.md`; deps: T021; policy iz plana, nosniff/no-referrer, `test:security:e2e` gradi i izvršava security browser testove; dokaz: T04/T05/T16, desktop/mobile i summary/usage očuvani. Nema slabljenja script-src zbog inline CSS-a.
+
+Faza 5 završena 2026-10-26: Codex u sesiji sa Vekijem; ljudski review nije potvrđen.
+[Taskovi, PASS→PASS/RED→GREEN, komande i granice T16](../../docs/evidence/005-phase5-handoff.md).
 
 ## Faza 6 — US4: događaji, tajne i zavisnosti
 

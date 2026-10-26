@@ -1,5 +1,26 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-26 — Week08 Faza 5, T019–T022
+
+Prioritet: korisnički priloženi zahtev samo Faza 5 → AGENTS/constitution 1.1.0 →
+GAME_SPEC ARCH/AC19/AC23/read-only/W08 → feature005 spec/plan/tasks/data-model/
+research/contracts/security/quickstart → BUILD_PROMPT_WEEK08_V1 i EVIDENCE_W08.
+Pročitani phase4 handoff i security/budget/admission/lifecycle rezultati,
+phase2 originalni T16 rezultat i fixture. Pregledani stvarni session admission/
+capacity dispatch i lease moduli; fokusirani testovi ponovljeni, ne samo checkbox-i.
+Korišćen `.agents/skills/speckit-implement/SKILL.md`, checklist 9/9; prerequisites
+kroz dokumentovan PowerShell ExecutionPolicy Bypass prolazi, nema extensions hooks.
+Git koren D:/AIBootcamp/week3-4, grana week08-init, HEAD 9d89726158cf0af45d7ffc997b36915007cfbbd3,
+početno čisto; jedan coding agent. Pročitani security/coach/server/fake helpers,
+CoachPanel/AnalysisPanel, CSS, coach/state/production/table/offline/recovery E2E,
+UI test inventar i Vite/Playwright/package/ESLint/ignore konfiguracija.
+Razlog: validan malicious final mora preći pravu backend granicu; real preview
+mora sam postaviti zaglavlja. Nema novih web izvora/paketa; ugovor daje tačnu
+politiku, lokalni browser daje dokaz. Nisu čitani .env/ključevi niti pokretani
+live CLI pozivi. Širi nastavni PDF-i nisu potrebni za ovaj ograničeni blok.
+Rizici: fake nije live-model dokaz; T16 sentinel i event/bundle provere pripadaju
+kasnijoj fazi. [Handoff i prvi rezultati](evidence/005-phase5-handoff.md).
+
 ## 2026-10-26 — Week08 Faza 4, T013–T018
 
 Prioritet: aktuelni korisnički zahtev (samo Faza 4) → AGENTS/constitution →

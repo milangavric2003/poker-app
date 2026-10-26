@@ -14,9 +14,26 @@ export function securityServer(steps: FakeAiStep[] = []) {
   return { ...fixture, app };
 }
 
+/** Available second-origin image: count real HTTP hits independently of browser events. */
+export async function securityRenderingProbe() {
+  let requests = 0;
+  const server = createServer((_request, response) => {
+    requests++;
+    response.writeHead(200, { 'content-type': 'image/svg+xml' });
+    response.end('<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>');
+  });
+  await new Promise<void>((resolve, reject) => {
+    server.once('error', reject); server.listen(0, '127.0.0.1', resolve);
+  });
+  const address = server.address();
+  if (!address || typeof address === 'string') throw new Error('Rendering probe did not bind');
+  return { resource: `http://127.0.0.1:${address.port}/w08-unwanted.png`, requests: () => requests,
+    close: () => new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())) };
+}
+
 /** Loads the actual preview config: no helper-supplied security headers/proxy overrides. */
 export async function securityProductionServer() {
-  const fixture = securityFixture();
+  const fixture = securityFixture([{ kind: 'agent_tool' }, { kind: 'agent_final' }]);
   const backend = buildApp(fixture.dependencies);
   let frontend: PreviewServer | undefined;
   let scriptRequests = 0;
@@ -45,6 +62,6 @@ export async function securityProductionServer() {
     if (!address || typeof address === 'string') throw new Error('Probe did not bind');
     frontend = await preview({ configFile: 'vite.config.ts' });
     return { origin: 'http://127.0.0.1:5173', probeOrigin: `http://127.0.0.1:${address.port}`,
-      scriptRequests: () => scriptRequests, close };
+      scriptRequests: () => scriptRequests, provider: fixture.provider, executions: fixture.executions, close };
   } catch (error) { await close(); throw error; }
 }

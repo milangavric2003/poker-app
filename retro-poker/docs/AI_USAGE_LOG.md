@@ -1,5 +1,23 @@
 # AI usage log
 
+## 2026-10-26 — Week08 Faza 5, T019–T022
+
+Codex u sesiji sa Vekijem, jedan agent. Svrha: proveriti prethodnu fazu,
+dokazati plain-text prikaz i zatvoriti production CSP/header propust.
+Očekivanja su zapisana u test assertions pre runtime izmene: payload dolazi
+do oba panela uz validan final/evidence; nula izvršivog DOM-a, markera,
+automatskih spoljašnjih zahteva/navigacije, poker nepromenjen. Za CSP isti
+T006 script radi bez politike i blokiran je konkretnom direktivom u aplikaciji.
+Kontekst: manifest, feature005 ugovori i prethodni handoff. Alati: PowerShell,
+apply_patch, Vitest/Playwright Chromium, Vite/TypeScript/ESLint. Tokeni/trošak
+i tačan model identitet nisu dostupni. Plain-text paneli PASS→PASS bez runtime
+izmene; CSP RED→GREEN kroz preview.headers. Dodat build pre obe E2E npm komande.
+Prvi full E2E rezultat sačuvan: preklopljene runner komande dele trace direktorijum,
+ENOENT pri teardown-u; serijska provera razdvaja harness nalaz od produkta.
+Živi Gemini pozivi 0; nema novih zavisnosti, .env/ključeva ili commit/push/merge-a.
+Korisnik je odredio scope; ljudski review i samostalni doprinosi para nisu potvrđeni.
+[Stvarne komande, taskovi i ograničenja](evidence/005-phase5-handoff.md). Sledeći T023.
+
 ## 2026-10-26 — Week08 Faza 4, T013–T018
 
 Alat: Codex, lokalni PowerShell/apply_patch/Vitest/Playwright; model identitet,

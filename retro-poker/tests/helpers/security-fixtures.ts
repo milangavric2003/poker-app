@@ -15,6 +15,25 @@ export const securityInputs = {
   marker: '__w08ScriptExecuted',
 };
 
+/** Fits both coaching text limits; canonical evidence is supplied separately. */
+export const renderingInputs = {
+  marker: '__w08TextExecuted',
+  resource: 'http://127.0.0.1:9/w08-unwanted.png',
+  attack: '<img src="http://127.0.0.1:9/w08-unwanted.png" onerror="window.__w08TextExecuted=true"> '
+    + '<script>window.__w08TextExecuted=true</script> '
+    + '[klik](javascript:window.__w08TextExecuted=true) javascript:alert(1)',
+  normal: "Čuvaj č/ć/š/ž/đ, igračev apostrof ' i izraz a < b.",
+};
+
+export function renderingFinal(context: unknown, text: string) {
+  const result = (context as { toolResult: { decisions: Array<{ decisionRef: string;
+    facts: Array<{ factCode: string; finding: string }> }> } }).toolResult;
+  const decision = result.decisions[0]!;
+  const fact = decision.facts[0]!;
+  return { candidate: { kind: 'final', summary: text, recommendation: text,
+    confidence: 'low', completed: true, evidence: [{ decisionRef: decision.decisionRef, ...fact }] } };
+}
+
 export function securityFixture(steps: FakeAiStep[] = []) {
   const provider = new FakeAiProvider(structuredClone(steps));
   const clock = new FakeClock();
