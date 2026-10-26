@@ -1,0 +1,649 @@
+{
+  "node": "v24.20.0",
+  "npm": "11.19.0",
+  "platform": "Windows",
+  "lockSha256": "3d3df617e2d713be18771a3ae04cbbdae2f13e462d701ccb54e48ee6e385b801",
+  "lockUnchanged": true,
+  "testedExecutableFilesIdenticalToDeliveryAndIsolatedCopy": [
+    {
+      "path": ".github/workflows/retro-poker-ci.yml",
+      "sha256": "8a9d7f3b348ffc50bca9e844238cc9a76532110d011c4a4f1e8bbc8fab027726"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/orchestrator.ts",
+      "sha256": "389471190d709f7bd9a2d2c9ca558f22af093d03349bd83eeda17ffc58cb3193"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/tools.ts",
+      "sha256": "b9a8b8bd3e638867559ef3b3adf7af5f66bf098c3cb1875e49371b373e40115f"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/types.ts",
+      "sha256": "b56cec69cb16e866660edc9f4f0143f2a11e57f533c9df5d21344adbcabc344b"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/validation.ts",
+      "sha256": "75ded2b8efe476842947bbfe96bd981c04d15a89961c1e7ab843d02ce446228d"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/config.ts",
+      "sha256": "5e4ed2ff0555ec66ea31f8e2de728f9898b6570719be37293caf9c5a6438d574"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/context.ts",
+      "sha256": "76ae5c19fd7b624452625221dbb1d5dede70615334c7ce52722835e4b3fe1a7e"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/coordinator.ts",
+      "sha256": "f04608fa378a2c3d8b185e56056d30a3334d58923f9dafd636e059dae01fded2"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/match-facts.ts",
+      "sha256": "eae47038a576ae20d2d6802b7cbfb48c5c8d2ddfa08a9e8eb8a55a7769d965c6"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/providers/gemini-diagnostic.ts",
+      "sha256": "898d9b0b5abb20cad400769c694f9de131db0fd31f7649afc1cd721e6c72af4d"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/providers/gemini.ts",
+      "sha256": "0bfbce07a176a34e0729207e1247a8926cb55e996ccc1b5c624fec9ee3679f63"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/retry-policy.ts",
+      "sha256": "2013719c57d5c316f99c8d9e22d275da5850c626b4659982379874ddf94a5ea2"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/schemas.ts",
+      "sha256": "0b263f67f751a6ff79dc81de7c00e387ec4d1e6d7be9ab98624318234690fbe4"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/semantic.ts",
+      "sha256": "006606b9a6d4a77dfbb1ac640ef2c28647681b162acccbeac5bb0f9de179e3d3"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/types.ts",
+      "sha256": "db02e5afaee94d8679bf33668b6f5b1f182c041fa1b9799bbb6b9d0ba7483bb7"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/usage.ts",
+      "sha256": "bdb1abe95c268b0ec9f53ba689e89ef4126a319685145a3b85a9fca6ac6cb3fe"
+    },
+    {
+      "path": "retro-poker/backend/src/app.ts",
+      "sha256": "998c37a10bab8b1cc06262d66b3e58b0bff0552f1970c247347e31595b1f6133"
+    },
+    {
+      "path": "retro-poker/backend/src/bots/strategy.ts",
+      "sha256": "0fe905f3b8a9e33892385117477329d73aeb7ea5d564dfe2750110ffa69a8da4"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/betting.ts",
+      "sha256": "a01b27cc1fb1026c9b429d84b6b7396d7af5994f2769bca523a5e86d1480247f"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/cards.ts",
+      "sha256": "47cc973904b231a829e2822232157690a8adf2ddcdc70870fe0b57220840d8c3"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/hand.ts",
+      "sha256": "6cfb7e6fc53859f3af19a3c97e8fd59fdbf9c06fb00842e31de960a61b61fc71"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/history.ts",
+      "sha256": "5031359606a4e3fea8e93d27a1f560cf6f0f3381419e3aae00c11b84af5a2f67"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/positions.ts",
+      "sha256": "f82d462dd7fcc206da83de4c310e918f541f404a750c4cb73f7d8d6708860bc0"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/pots.ts",
+      "sha256": "7afbb30d7f820537a77096d6ff8daa52c54da8a564887e06431b61c1d86a2de6"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/types.ts",
+      "sha256": "710cd4c3eee02dadc0df6fd21ad8086bc2050c2fcfcea69c1794a1db10af7d91"
+    },
+    {
+      "path": "retro-poker/backend/src/evaluator/rank.ts",
+      "sha256": "94f8162339423874ac9fdc59655178feaa0183bc1a5c64fa2909629bfeddf845"
+    },
+    {
+      "path": "retro-poker/backend/src/routes.ts",
+      "sha256": "950d320106d70db7740f6dbcfe0be7e9d26925bf4a3c49fd8baf4e04918b71d2"
+    },
+    {
+      "path": "retro-poker/backend/src/security/admission.ts",
+      "sha256": "3f45178a5e724551bec30ed84224d643a3a0c40e07754c904280036bacfbe6cb"
+    },
+    {
+      "path": "retro-poker/backend/src/security/capacity.ts",
+      "sha256": "e59dd9bbc46e63f02ec76b5e655f6f11799c74e19e4add62c59e5b12549feccd"
+    },
+    {
+      "path": "retro-poker/backend/src/security/events.ts",
+      "sha256": "8a477d44340292b2703981dbb7a7c53b2b622ee3b3e131c6e5e3fa050af59133"
+    },
+    {
+      "path": "retro-poker/backend/src/server.ts",
+      "sha256": "664698c042b425fb5f16fbaa2e1c63040d19a81b446680b5591a1dbfdb6416cb"
+    },
+    {
+      "path": "retro-poker/backend/src/session.ts",
+      "sha256": "01e90ccd3b5c2e802313299d6eabea7c48caa4364952e08fa928a58c3aa52ca4"
+    },
+    {
+      "path": "retro-poker/backend/src/view.ts",
+      "sha256": "c3f7be0569db6fb73e58feb5dc38f182b882f062d142cd3947047b7c8b5d2e49"
+    },
+    {
+      "path": "retro-poker/frontend/index.html",
+      "sha256": "4572f7da05eda28973f99ff084e5490bc9a45a87888c58b6ebca1b989d0c786e"
+    },
+    {
+      "path": "retro-poker/frontend/src/App.tsx",
+      "sha256": "83b5835019364356b46566322e8e956d683045d062a7ec59c67a1c64e0464408"
+    },
+    {
+      "path": "retro-poker/frontend/src/api.ts",
+      "sha256": "62e04b661eab2c00e6a27724864b4093b5cdae73eaea4e7422fad064241aa5d1"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/ActionPanel.tsx",
+      "sha256": "eb5ee32fa4a639d881f41ba610c1ede5cbb7c9f7d98c7f35773606db0b182fe8"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/AiStatus.tsx",
+      "sha256": "3a6b66e6cf3be216f5014c8f39597f01c2aabb02bb30157f3d03f8a277377089"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/AnalysisPanel.tsx",
+      "sha256": "635badc8accc9d9863384e257e5cb3d6c1204d2e276c6439b0e3d0ec81db9949"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/ChipAmount.tsx",
+      "sha256": "3958fc7acbee6f310d0cda49c6507abc55c59f1e5cc32aabc21e5b0fe55dd793"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/CoachPanel.tsx",
+      "sha256": "cef56b51614a44a53abfce179ae0a080cf06807445ed9ae4cc208a3f9394a06e"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/HandResult.tsx",
+      "sha256": "34ec0ae60cd1c46bc3b7dcc61949f3ef8cbfa624654ee0bd1e83be4a5d0b7437"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/PlayerSeat.tsx",
+      "sha256": "a62b94bd996b83a0e5e4db2bde31c410b27ff8e291cbcb8ef1e1a196a0b41460"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/PlayingCard.tsx",
+      "sha256": "05d571af7e850d11c345632810dad5c869c0bc40a2365d90affbff9544e29222"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/Table.tsx",
+      "sha256": "d719c94adf0002b4003c2b88dc50c35b84574f62d1848c7fcdd52705b78835a6"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/UsageDashboard.tsx",
+      "sha256": "d9edbe882fc4cfe7bebe5a15a38b0959f263357088ace967201c229bd34821c2"
+    },
+    {
+      "path": "retro-poker/frontend/src/main.tsx",
+      "sha256": "b11439c2eac9209053a02430cc5725a37fe453966b663e264f6c67fd921c8a74"
+    },
+    {
+      "path": "retro-poker/frontend/src/styles.css",
+      "sha256": "852598b978d40f18737cae2081e6019b7036d4a4d5c2df36591472d1a1d60d17"
+    },
+    {
+      "path": "retro-poker/package-lock.json",
+      "sha256": "3d3df617e2d713be18771a3ae04cbbdae2f13e462d701ccb54e48ee6e385b801"
+    },
+    {
+      "path": "retro-poker/package.json",
+      "sha256": "7e0430673a00d0ba5750c63ef3008491eb5d812c90b74ccd6419c4d28ab62a5a"
+    },
+    {
+      "path": "retro-poker/playwright.config.ts",
+      "sha256": "fd815a706b84f91dffa3bc0af27db39ff5ad906d5b752ec3341081b53e33a8d5"
+    },
+    {
+      "path": "retro-poker/scripts/coach-live-eval.ts",
+      "sha256": "0f5a0fd1f7b492b201dcc6f3ac8020e6d36aaa451513dc558fdd2fa05d5702b7"
+    },
+    {
+      "path": "retro-poker/scripts/coach-request-gate.ts",
+      "sha256": "37289833eb85276036687f68d5c6452e2bd4e669029dbc7e469a2bab5c5fc5eb"
+    },
+    {
+      "path": "retro-poker/scripts/coach-smoke.ts",
+      "sha256": "e28597748dd61781a6419518152561cbe01a06b0b981184fee4e3e5c2922a151"
+    },
+    {
+      "path": "retro-poker/scripts/gemini-coach-live-smoke.ts",
+      "sha256": "86b2fc29d2d6509ebf699bf6baaa3c369b69416dbfacbdc8257c49d5c3dbc528"
+    },
+    {
+      "path": "retro-poker/scripts/gemini-diagnosis.ts",
+      "sha256": "22944074261858557392ee345dc18b6f6c989d8cad1bd2c02440a98354e43a54"
+    },
+    {
+      "path": "retro-poker/scripts/gemini-live-smoke.ts",
+      "sha256": "c6cc1e8da02be09f2a681f148e148b50ddc32809c03a41d1ebc5dae59848eb13"
+    },
+    {
+      "path": "retro-poker/shared/ai-diagnostic.ts",
+      "sha256": "18eb161c24a10b5dca0f2b3dfa9320c6f8e01b784be0b3c0cccddaed6ee5ff55"
+    },
+    {
+      "path": "retro-poker/shared/contracts.ts",
+      "sha256": "ab3806a27bf67f7c2ba0737148b94adefd7f1dec6b33dc994a01f0ad57d44089"
+    },
+    {
+      "path": "retro-poker/tests/contract/ai-contracts.test.ts",
+      "sha256": "411d7a5d5de7752c9e1f4f5194771fbc63dbb807484012c06e4f291b27456090"
+    },
+    {
+      "path": "retro-poker/tests/contract/ai-routes.test.ts",
+      "sha256": "30e3ceaf436b344140991730a2551fa9c1327417d29c2af5d0fcc5521cd159da"
+    },
+    {
+      "path": "retro-poker/tests/contract/coach-contract.test.ts",
+      "sha256": "9eb50b54e2947b353edf3f632e322cac5422f87072424a2c3d1471ca4729eb54"
+    },
+    {
+      "path": "retro-poker/tests/contract/coach-routes.test.ts",
+      "sha256": "58342a380fcd1853871c86675fec72459098feb617986e16764f4d4dd4c58fcd"
+    },
+    {
+      "path": "retro-poker/tests/contract/config.test.ts",
+      "sha256": "4612abb5828024c949c4e3d75a3da7adb84689bce0de896320c5815111043406"
+    },
+    {
+      "path": "retro-poker/tests/contract/messages.test.ts",
+      "sha256": "83380341100e382803f776e27e8daee9908c18f32427f4340835741925ece082"
+    },
+    {
+      "path": "retro-poker/tests/contract/security-http.test.ts",
+      "sha256": "184cc48663c751b6bcd4c75692675a7cf3d1be9ee0501bec1cdcc3f98bf858ec"
+    },
+    {
+      "path": "retro-poker/tests/contract/view.test.ts",
+      "sha256": "a4c3bbf7fef309506eb1328c53d58d7cd5366896e641d562eec3e0ae0648e237"
+    },
+    {
+      "path": "retro-poker/tests/e2e/accessibility.spec.ts",
+      "sha256": "3c8fa4111e2985f8212ade5e6ce9679877ec23cd3dba3c094c96dc7e946b2e72"
+    },
+    {
+      "path": "retro-poker/tests/e2e/ai-offline.spec.ts",
+      "sha256": "27e6ff72c0da328ac630e733764bfc66d7dac8277dfa3affa4885b7da1b8a7b8"
+    },
+    {
+      "path": "retro-poker/tests/e2e/coach.spec.ts",
+      "sha256": "2173cfe7c9683be6f122201b4b32c860944ed89b5462c1afc743c08442bc9c91"
+    },
+    {
+      "path": "retro-poker/tests/e2e/play-hand.spec.ts",
+      "sha256": "1e4d1bc79f24bffcb9dc4c69dd38879d04d50bf1696505a2d7f1d67806ac50b1"
+    },
+    {
+      "path": "retro-poker/tests/e2e/recovery.spec.ts",
+      "sha256": "6052223c487690326577f140bc2b16e16734074e555cfaa7055af87304185d4d"
+    },
+    {
+      "path": "retro-poker/tests/e2e/security-production.spec.ts",
+      "sha256": "34908e10166d7e9861ddeba25c58f9e75cdd2fb488c0589a3e2a2b2a8e8bf2ac"
+    },
+    {
+      "path": "retro-poker/tests/e2e/security-rendering.spec.ts",
+      "sha256": "6bfa49a6983310288055dd2bc8993d79fac8ce15799036f7bd371b15ce7ad76f"
+    },
+    {
+      "path": "retro-poker/tests/e2e/security-state.spec.ts",
+      "sha256": "f15db86f3e07370865cc4fa3c987d8f895711cc5c578e76887b529e2639ef18d"
+    },
+    {
+      "path": "retro-poker/tests/e2e/table-polish.spec.ts",
+      "sha256": "3c740ad70545a794e68f4a6c814ac1a0d6402c147a969e3538434feb5344511a"
+    },
+    {
+      "path": "retro-poker/tests/helpers/assertions.ts",
+      "sha256": "8e2663b35ac11548a530307e1b6c0380641047c51ea4c123dcccec35f075004b"
+    },
+    {
+      "path": "retro-poker/tests/helpers/backend-process.ts",
+      "sha256": "732f3fe23b186853ca3f8cb474879730ea1a04e71139406ad7da185da042c317"
+    },
+    {
+      "path": "retro-poker/tests/helpers/coach-evidence.ts",
+      "sha256": "dfebb9078b0cdd6126e597e9e6d4b7d14eff4cd9ddd3f67809178b22e82bb2a1"
+    },
+    {
+      "path": "retro-poker/tests/helpers/coach-server.ts",
+      "sha256": "ba80f9530910a40f7a51624d098cf6bf14af06e902f0198e86850d57a0d7e798"
+    },
+    {
+      "path": "retro-poker/tests/helpers/fake-ai-provider.ts",
+      "sha256": "7570216bf883b64b48024c13b60e8f980400691aa31b0a5a3a111f2a95a4ca43"
+    },
+    {
+      "path": "retro-poker/tests/helpers/fake-clock.ts",
+      "sha256": "c5863609550af4af7fab4212f4eb1e7d612b08929218379c156d192ce7e330c5"
+    },
+    {
+      "path": "retro-poker/tests/helpers/fixtures.ts",
+      "sha256": "170ec5fc445ace666ff919a40fa1d7eef4d2bd3362826470e7513e84f05d1882"
+    },
+    {
+      "path": "retro-poker/tests/helpers/process-user-shim.cjs",
+      "sha256": "87193545d3fa6ff55b6ddafc867f3a251bd7c593b6417790fa5867870c450884"
+    },
+    {
+      "path": "retro-poker/tests/helpers/public-fixtures.ts",
+      "sha256": "c4c5d28e5aef4193546b2f12ff50695d853d07077ca9f780d88e2bb92bee4b73"
+    },
+    {
+      "path": "retro-poker/tests/helpers/security-fixtures.ts",
+      "sha256": "8aec6450c720ca0fe62f8b98b87b06eb81cc089b27eccd8c87072093bbfe2a7f"
+    },
+    {
+      "path": "retro-poker/tests/helpers/security-reset.ts",
+      "sha256": "cc7d912848cb7af78afc63e6809a1e4d807d393eab1eaa1551467eb4a38cee56"
+    },
+    {
+      "path": "retro-poker/tests/helpers/security-server.ts",
+      "sha256": "49e3551a279ec1a7f0d7fcf99adbe9d36bd424f49bb16c5d0e5bede87d0fdff5"
+    },
+    {
+      "path": "retro-poker/tests/helpers/server.ts",
+      "sha256": "b35c2f572aec7236341cdca8d41777e12b2e31b45e825d9b090e5e96ce28b669"
+    },
+    {
+      "path": "retro-poker/tests/integration/actions.test.ts",
+      "sha256": "d54c35a09f181fd9bfb9dabf2ccb12be3a8ce77a39f2ec0696b70ff862761b13"
+    },
+    {
+      "path": "retro-poker/tests/integration/agent-run.test.ts",
+      "sha256": "f925b985eafc13e6be521db6ac7c0a2471874c76e2982c07ab8653ed06cdaa5f"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-analysis.test.ts",
+      "sha256": "cd64083e5ebbaa6aec9ebf255c4cfa143a2a7315ece78531b22952d847342688"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-bots.test.ts",
+      "sha256": "5e188948819fb0ca0cbace800d7d19084a325c74c789528780fc3ca8fda67e15"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-concurrency.test.ts",
+      "sha256": "d0927731c77c197cb2dd3f7644a5dfcca621ecbd2eb61f354ad8b374f03b70bf"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-failures.test.ts",
+      "sha256": "96ca3e2e8c97aa70ac80d1bea3ac1899f2424e3756906120d425c9916899ddf9"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-lifecycle.test.ts",
+      "sha256": "a87581148ab72f8f2c9f0bf8cb7b0a81bbd2aa1c5882d275f3c078b48cf214eb"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-live-eval.test.ts",
+      "sha256": "6a5f147e6b48a6959b33ee88b67ee459c9a3542ad4388ab0f389146bbb8521a6"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-output-diagnostics.test.ts",
+      "sha256": "86e1381c594f365e30d6c2f0e7621b4f0854cbde9389de65dd1e5c8677238a9d"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-smoke.test.ts",
+      "sha256": "fc5a3151aff9ade70f858da1a0e66fff01260867efcca82dfde22cc1234d0546"
+    },
+    {
+      "path": "retro-poker/tests/integration/concurrency.test.ts",
+      "sha256": "6c0bf5f797bcc7c5456d9784a50e87f5d79d5074be12e63e10f4ca343f9f783f"
+    },
+    {
+      "path": "retro-poker/tests/integration/elimination-settlement.test.ts",
+      "sha256": "37bfe7465c12544255348de20f9e1d6272fa37cb339023164233b1096f927670"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-adapter.test.ts",
+      "sha256": "916e12a0ab3f8cb755fa5517f176edb259a3fb28d3647c92ded032106b235837"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-agent.test.ts",
+      "sha256": "41d526071030c8c87fc65ba83e6b116f961f711f1ffb3d15aabc35cf28df164f"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-http.test.ts",
+      "sha256": "b717dec12bcc4d6a3e1a915757a2f5d4849adb830a2bc0aff83654b453f43e5f"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-live-smoke.test.ts",
+      "sha256": "155090ad73e2152e7012fba981ac87921509c30101b94618bb3462f31f7a3df8"
+    },
+    {
+      "path": "retro-poker/tests/integration/hand-flow.test.ts",
+      "sha256": "a2a75e0e7da163d82a801703967a1dcb50db0621e1dfaa1154601cd15b3f8826"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-admission.test.ts",
+      "sha256": "80f3d5e0b001df80be7faeca7b1feffbff005026a5a5199cacf546fcf89acfda"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-budgets.test.ts",
+      "sha256": "2d0de4bd40ee7b1e1050ca547f8ac4f219e9d65fb722910ad20be91210a726ec"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-events.test.ts",
+      "sha256": "d88fdfff390596d8ee53de1b2d8bed595a28a90da1fa18e2a90a2b09a50c640f"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-lifecycle.test.ts",
+      "sha256": "f9b79ae9f0a7a537d2cd73b09a568d3ddb03ef85131a7cd11d99ea581e235c10"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-normal.test.ts",
+      "sha256": "8531229308354c1155d83168639d2ff2f33a404589c38bc1327e1a110d430ea3"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-secrets.test.ts",
+      "sha256": "ac9bf489697cf202d3d1dd3da7dc25374868dd73723bd9978d4a1ba141082ee9"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-tools.test.ts",
+      "sha256": "74c624b13f8b9ef0821f2f362b4c7ad0a8f950f84db3a70957c1479c7d400b46"
+    },
+    {
+      "path": "retro-poker/tests/integration/session.test.ts",
+      "sha256": "a3a3cbd2633f7e62e8f053bd10ac2f4fc6895a1995c513cfaee406b36fc946a6"
+    },
+    {
+      "path": "retro-poker/tests/integration/terminal-view.test.ts",
+      "sha256": "383e422e63d5b77188d24e0233e653006ea9446422715e203292a1fd2c454f7f"
+    },
+    {
+      "path": "retro-poker/tests/ui/actions.test.tsx",
+      "sha256": "e590f37fd8adc5b25591429d54b6897cb8b907a8df1b8a99718ad87534c2453b"
+    },
+    {
+      "path": "retro-poker/tests/ui/ai-status.test.tsx",
+      "sha256": "d5057e0c7762cdf475cd10da1c846376dbfc7d38a145b0dca23dd902c5562717"
+    },
+    {
+      "path": "retro-poker/tests/ui/analysis-lifecycle.test.tsx",
+      "sha256": "550abcd03746f0e4d659cea4f0a928b2cfc9edb7f784401e262f9eed4b73b0d0"
+    },
+    {
+      "path": "retro-poker/tests/ui/analysis.test.tsx",
+      "sha256": "f6dd2019fd3be3984dbd48f2e6d5024af3ded913f0b3f61b2f3f63e28b93f7f6"
+    },
+    {
+      "path": "retro-poker/tests/ui/api.test.ts",
+      "sha256": "1d11844872f1cbad83858e157eb8df8ac4fd86d59d6b409861d2a0d8d0f9a631"
+    },
+    {
+      "path": "retro-poker/tests/ui/coach-api.test.ts",
+      "sha256": "7b77b5565cbd0e8e6f82156af949e1a62d717b054a253a989e336f5827900ad6"
+    },
+    {
+      "path": "retro-poker/tests/ui/coach-lifecycle.test.tsx",
+      "sha256": "4d6858d2cfc1f56f2d08415f5d453e61f91c7211815f8e2c67aa5a510fd326f2"
+    },
+    {
+      "path": "retro-poker/tests/ui/coach.test.tsx",
+      "sha256": "cd4adb2333d25564bb50c20fcfb10a85fa73a768fe5c83ed7a162699a3a456f7"
+    },
+    {
+      "path": "retro-poker/tests/ui/dashboard.test.tsx",
+      "sha256": "d1f5128f9398f67b9f9499ac5addc09eb6a643e596b1477351105d33ddd90a00"
+    },
+    {
+      "path": "retro-poker/tests/ui/results.test.tsx",
+      "sha256": "114d47528f4fb4baa5f179d0da962aecd36b9e828c69e6ffbc2ef62562bc62c2"
+    },
+    {
+      "path": "retro-poker/tests/ui/table.test.tsx",
+      "sha256": "1f4bbb220a03653df18cd44b1929160a9e02ac34434ce1dbd1dcfff58473d926"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-final.test.ts",
+      "sha256": "33d4b16bfab00e77a099225ba6f91202408c2fa474bb482df8a44e1c909a616f"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-orchestrator.test.ts",
+      "sha256": "e90eefa9c53cf56ab1bfeacf90782774d6c3123b58462c30b1451eec7240578d"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-provider.test.ts",
+      "sha256": "df2ce72c84e19a8ffb0c971bef41e29d12f3dd58a92f370136f7672d1672e6f5"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-schemas.test.ts",
+      "sha256": "075e53b454cdf6793ea21a6d4c5756c566e87766d458b01c1cec08885f554038"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-tool.test.ts",
+      "sha256": "04d01c3649e60360209dd04a585c3b55210fce50c9e7d4e60c5877961efe236a"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-config.test.ts",
+      "sha256": "b68a66388f0f70f2f07e63c9cd3949701eaa0bb649e1aff7c807f46ee009f05b"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-context.test.ts",
+      "sha256": "17cbb153de57020d9d439f718f3b27ab2663d90418a50db417f7624059b9bfad"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-provider-schema.test.ts",
+      "sha256": "427bb57084ce759be87f85cbd3278a07c6a2dfbf069ccfac59f62c5e91c14711"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-retry.test.ts",
+      "sha256": "2a1bbd7e378f9955e57072b2b6ad1d921cbc52b98932c10538074fa891e2c985"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-semantic.test.ts",
+      "sha256": "cab822accccbc4950583c199b8ae35c53c31dc0534bb11c608e63c4bce3e4443"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-slow-profile.test.ts",
+      "sha256": "e336750bdcc4a33f46a211d15869b3160a3445c5342dc26e333838ea4ab62777"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-usage.test.ts",
+      "sha256": "9d87fc4331732d0abe1a06f17147b35adf58c393f01a0fc1902048387d3de108"
+    },
+    {
+      "path": "retro-poker/tests/unit/betting.test.ts",
+      "sha256": "67b73891e6ae55e729f2f315ff445c49a96636def45f649b892b48f33fd795c1"
+    },
+    {
+      "path": "retro-poker/tests/unit/bot.test.ts",
+      "sha256": "c5cae5e54c0bab3a07708a0864470f59c046e4bcbdda345e38e346f636e0c1ec"
+    },
+    {
+      "path": "retro-poker/tests/unit/coach-request-gate.test.ts",
+      "sha256": "939c2f06557e49439aae4e1d7fbee8a799c71f738a32f2a12246f8576f600ed0"
+    },
+    {
+      "path": "retro-poker/tests/unit/coach-usage.test.ts",
+      "sha256": "d01f54db82de11183e3e7704cf8058a70202c5c8df2dccbb5f0570996733458e"
+    },
+    {
+      "path": "retro-poker/tests/unit/deal.test.ts",
+      "sha256": "f847da6d5b0c866e97bd8db98107668316e909901161587d11b8207e432dcc8d"
+    },
+    {
+      "path": "retro-poker/tests/unit/evaluator.test.ts",
+      "sha256": "d566ae19572ab4e9c35f5ff1d6f195e5d6ff7c8befd8903d7878206e19b8abb9"
+    },
+    {
+      "path": "retro-poker/tests/unit/gemini-diagnosis.test.ts",
+      "sha256": "8a7c87d658e5c5dd9df381d1fd825ff790d586e68bfa918c451b32be6caacb1a"
+    },
+    {
+      "path": "retro-poker/tests/unit/hand.test.ts",
+      "sha256": "6b0c3e7ec6eb0d460fcc4b849399f91fc1ab6388984fc0e1449c082760ded80d"
+    },
+    {
+      "path": "retro-poker/tests/unit/history.test.ts",
+      "sha256": "3c3e6eed642689c39203e64789877eb220799203c568d744b336f264304cade1"
+    },
+    {
+      "path": "retro-poker/tests/unit/invariants.test.ts",
+      "sha256": "4cfbd4c8626c9dd550c36ab7e2605805099f20e068c900f4e46fc1586a4a8946"
+    },
+    {
+      "path": "retro-poker/tests/unit/match-facts.test.ts",
+      "sha256": "fa70a09282308bef1cc52309ba9834c0264b69e32383d79f9301be76eca322d9"
+    },
+    {
+      "path": "retro-poker/tests/unit/positions.test.ts",
+      "sha256": "2d85ae1491d89b6b4441516449ba79b0e08b68a668a7b1787f3dce773f1f8c97"
+    },
+    {
+      "path": "retro-poker/tests/unit/pots.test.ts",
+      "sha256": "5829287091b05b075b8464024b757bb500052f0c0e9dd65d0f6c8800a8cc792a"
+    },
+    {
+      "path": "retro-poker/tests/unit/security-capacity.test.ts",
+      "sha256": "1a4114fd56318c078c571c7079e660ec812bd1e2c847e1bf28b1d20537aa1927"
+    },
+    {
+      "path": "retro-poker/tests/unit/security-events.test.ts",
+      "sha256": "40136663b84051abf86da4f27671899743ba3ba6d6c231ef589acd406ae9028c"
+    },
+    {
+      "path": "retro-poker/tests/unit/security-schemas.test.ts",
+      "sha256": "9841d071f309eefff23e9eac5b81feaa967b432b77f54299bff454ce1217563b"
+    },
+    {
+      "path": "retro-poker/tsconfig.json",
+      "sha256": "53e04b7f78d90ae1296eaf83346628b3e7efb9d906661067438875f48809450f"
+    },
+    {
+      "path": "retro-poker/tsconfig.server.json",
+      "sha256": "438ee4b10475054bebd79d126a49e084b97b807de2bb9854e5b0c74c69f1fa64"
+    },
+    {
+      "path": "retro-poker/vite.config.ts",
+      "sha256": "df38bc99c1dca93ac4cc75b53d154f675a6b9b19c8b99d2ae38a972fb11ff7dc"
+    },
+    {
+      "path": "retro-poker/vitest.config.ts",
+      "sha256": "620936f683f3af202d1c92ed51824f51a2ba9b1f022410d21ed15718fc68a57e"
+    }
+  ],
+  "liveProviderCalls": 0,
+  "humanConfirmation": "Korisnik: To jos nije spremno.",
+  "taskStatus": {
+    "T028": "complete",
+    "T029": "complete: local isolated copy; remote not run",
+    "T030": "open: human contribution/demo",
+    "T031": "open: depends on T030"
+  }
+}

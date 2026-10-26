@@ -4,7 +4,10 @@
 
 **Created**: 2026-10-25
 
-**Status**: Specifikovano; bezbednosna implementacija i dokazi još nisu završeni.
+**Status**: Tehničke kontrole lokalno verifikovane; Week08 nije završen.
+T030 i zavisni T031 čekaju stvarne ljudske dokaze.
+[Završna matrica i ograničenja](../../docs/evidence/005-phase7-matrix.md),
+[handoff sa lokalnim/izolovanim/CI statusom](../../docs/evidence/005-phase7-handoff.md).
 
 **Input**: Week08 zadatak od 23.10.2026, korisnički zahtev za planiranje i pripremu osnove.
 

@@ -1,6 +1,7 @@
 # Tasks: Week08 — Secure the Arcade
 
-**Branch**: `week08-init`. Faze 1–6 završene; T028–T031 ostaju otvoreni.
+**Branch**: `week08-init`. Faze 1–6 i T028–T029 završeni lokalno;
+T030 i zavisni T031 ostaju otvoreni. Week08 nije završen; remote CI nije potvrđen.
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
 
@@ -107,10 +108,22 @@ T026 je uslovni PASS→PASS; T027 ciljane kompatibilne zakrpe. Sledeći T028.
 
 ## Faza 7 — završna provera i predaja
 
-- [ ] T028 Izvršiti kompletnu T00–T17 matricu, ponoviti ista tri pre/posle ulaza i full test/E2E/typecheck/lint/build/diff-check; deps: T027; dozvoljeno: evidence i minimalna ispravka isključivo uz novi nalaz/test; dokaz: svi obavezni redovi imaju actual rezultat i brojače, bez sakrivanja prvog pada rerun-om.
-- [ ] T029 Potvrditi clean `npm ci` i iste komande u izolovanom checkout-u/CI, dopuniti `../.github/workflows/retro-poker-ci.yml` za security komande po potrebi; deps: T028; dokaz: commit/okruženje i stvarni izlazi; remote CI ne označavati PASS dok run za konkretni SHA nije pregledan. Ne push/merge bez važećeg korisničkog zahteva.
+- [x] T028 Izvršiti kompletnu T00–T17 matricu, ponoviti ista tri pre/posle ulaza i full test/E2E/typecheck/lint/build/diff-check; deps: T027; dozvoljeno: evidence i minimalna ispravka isključivo uz novi nalaz/test; dokaz: svi obavezni redovi imaju actual rezultat i brojače, bez sakrivanja prvog pada rerun-om.
+- [x] T029 Potvrditi clean `npm ci` i iste komande u izolovanom checkout-u/CI, dopuniti `../.github/workflows/retro-poker-ci.yml` za security komande po potrebi; deps: T028; dokaz: commit/okruženje i stvarni izlazi; remote CI ne označavati PASS dok run za konkretni SHA nije pregledan. Ne push/merge bez važećeg korisničkog zahteva.
 - [ ] T030 Veki i Milan pregledaju promene, svaki doprinese kontroli i samostalno osmisli negativni test, odrade osam minuta demo-a i individualnu varijantu; deps: T029; dozvoljeno: evidence i sintetički testovi; dokaz: stvarna imena/commitovi/objašnjenja, bez Codex potvrde u njihovo ime.
 - [ ] T031 Uskladiti `spec.md`, `plan.md`, `tasks.md`, `quickstart.md`, `docs/GAME_SPEC.md`, `docs/EVIDENCE_W08.md`, manifest/AI log i završni checkpoint; deps: T030; dokaz: I1–I8→kontrola→test→actual, nema preostalih obaveznih rupa; označiti samo stvarno zatvorene stavke.
+
+2026-10-26, Codex po korisničkom zahtevu, jedan agent:
+[završni handoff i snapshot](../../docs/evidence/005-phase7-handoff.md),
+[matrica i tri ista input-a](../../docs/evidence/005-phase7-matrix.md).
+T028: security 123/full 1037/browser 5/full E2E 26 PASS, typecheck/lint/build/diff-check.
+T029: ista izvršna isporuka u vernoj izolovanoj kopiji, čist npm cache/npm ci,
+nov browser direktorijum, iste provere PASS, lock nepromenjen, audit 0.
+Zatvoren po kriterijumu izolovane lokalne provere i pripremljenog CI-ja;
+remote CI nije izvršen (API za početni SHA: 0 run-ova), Linux nije lokalno testiran.
+T030: korisnik izričito potvrdio da ljudski deo još nije spreman; commit autorstvo
+nije samostalni test ili demo. [Konkretna priprema](../../docs/evidence/005-phase7-demo.md).
+T031: dokumentacija tehnički pripremljena, ali ostaje otvoren zbog zavisnosti T030.
 
 ## Zavisnosti, mapa i način isporuke
 

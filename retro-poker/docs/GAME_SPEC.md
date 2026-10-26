@@ -409,7 +409,7 @@ uz safe outputIssue dijagnozu. Primenjeni T034/T035:48zahteva/24run-a, poslednja
 matrica3cilja×3scenarija9/9completed; read-only24/24. Ovo je ograničen dokaz,
 ne garancija budućih generacija. [Rezultati](evidence/003-T035-handoff.md).
 
-## 16. Week08 — Secure the Arcade (planirano 2026-10-25)
+## 16. Week08 — Secure the Arcade (završna provera 2026-10-26)
 
 Korisnik odobrava bezbednosno ojačavanje postojećeg W05 coaching toka kroz
 [feature 005](../specs/005-week08-secure-the-arcade/spec.md). Nova grana
@@ -435,14 +435,19 @@ Nema naloga, privatnih multi-user resursa, novog game moda ili deployment-a.
 Abort nije garancija prekida udaljene obrade/naplate. Fake test nije dokaz
 otpornosti pravog modela niti produkcijske dostupnosti.
 
-Week08 Definition of Done — sve ispod ostaje otvoreno do stvarnih dokaza:
+Week08 Definition of Done — lokalni tehnički dokaz i ljudska potvrda su odvojeni:
 
-- [ ] I1–I8 imaju izvršne kontrole i povezane prolazne testove.
-- [ ] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
-- [ ] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
-- [ ] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
-- [ ] Full regresija/clean checkout i status CI-ja vezani za konkretan završni checkpoint.
+- [x] I1–I8 imaju izvršne kontrole i povezane prolazne testove.
+- [x] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
+- [x] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
+- [x] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
+- [x] Full regresija/clean checkout i status CI-ja vezani za konkretan završni checkpoint (remote nije izvršen).
 - [ ] Oba člana imaju kontrolu i negativni test, mogu ponoviti provere i objasniti demo.
+
+[Završna matrica](evidence/005-phase7-matrix.md) i
+[handoff](evidence/005-phase7-handoff.md) navode stvarne komande i checkpoint-e.
+Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 ostaju
+otvoreni; Week08 nije završen. Lokalni prolaz nije remote CI uspeh.
 
 Aktuelno opaženo stanje: [EVIDENCE_W08.md](EVIDENCE_W08.md). Novi nastavni izvor
 je root `weekly-assignment.md`, verzija 23.10.2026; potrebni zahtevi su preneti u

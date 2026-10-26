@@ -903,3 +903,24 @@ Kontrolisani Vite sentinel build/preview koristi envDir:false.
 Rizici: procesna memorija nije trajni audit, jedan sentinel nije opšti DLP, audit
 se može promeniti. Clean checkout/CI/demo ostaju van ove faze.
 [Rezultati i checkpoint](evidence/005-phase6-handoff.md).
+
+## 2026-10-26 — Faza 7 T028–T031
+
+Prioritet: priloženi korisnički zahtev → AGENTS/constitution 1.1.0 → GAME_SPEC
+ARCH1–8, AC19/23, §13/16 → feature005 spec/plan/tasks/data-model/security ugovor/
+quickstart/research → BUILD_PROMPT_WEEK08_V1, EVIDENCE_W08, phase6 handoff/audit,
+phase2 fixture manifest/očekivanja/originalni rezultati i phase5 istorijski status.
+Pročitani lokalni speckit-implement i speckit-converge SKILL.md; primenjen implement,
+converge nije zasebno pokrenut (preostali rad već postoji u T030/T031). Checklist
+9/9, prerequisites PASS uz zasebni PowerShell Bypass; nema extension hook-ova.
+Pregledani security testovi i production app/routes/session/orchestrator/tools/
+validation/events/admission/capacity putovi, SDK mock, oba React panela,
+fake fixture/server, Vite/Vitest/Playwright, package/lock i root CI workflow.
+Razlog: brojači i stanje, nezavisni schema/scope i timeout/deadline/rate/capacity
+dokazi, server sentinel i browser enforcement. Git autorstvo odvojeno od ljudskog
+osmišljavanja testova. GitHub Actions API za d508f13: 0 run-ova; prvi socket problem
+i stvarni ponovljeni odgovor sačuvani. T027 odluke su istorijski audit izvor;
+clean npm install audit signal vezan za trenutni lock. Bez .env, ključeva, live
+poziva, subagenata ili PDF/PPTX širenja scope-a. Izolovana kopija uključuje workflow
+patch, bez lokalnih helper-a/cache-a/dependency/build foldera; svi .env* izostavljeni.
+[Dokazi i ograničenja](evidence/005-phase7-handoff.md).

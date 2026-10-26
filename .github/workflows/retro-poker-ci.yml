@@ -72,7 +72,15 @@ jobs:
 
       - name: Clean dependency install
         id: install
-        run: npm ci
+        run: |
+          npm ci
+          git diff --exit-code -- package-lock.json
+
+      - name: Security contracts and integration
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: >-
+          npm run test:security -- --allowOnly=false --reporter=default --reporter=junit
+          --outputFile.junit=ci-results/security.xml
 
       - name: Typecheck
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
@@ -88,19 +96,24 @@ jobs:
           npm test -- --allowOnly=false --reporter=default --reporter=junit --reporter=json
           --outputFile.junit=ci-results/vitest.xml --outputFile.json=ci-results/vitest.json
 
-      - name: Build
-        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
-        run: npm run build
-
       - name: Install Chromium
         id: chromium
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npx --no-install playwright install --with-deps chromium
 
-      - name: Full Chromium E2E
+      - name: Production security browser checks (includes build)
+        id: security_browser
         if: ${{ !cancelled() && steps.chromium.outcome == 'success' }}
+        env:
+          PLAYWRIGHT_JUNIT_OUTPUT_FILE: ci-results/security-browser.xml
         run: >-
-          npm run test:e2e -- --forbid-only --retries=0 --fail-on-flaky-tests
+          npm run test:security:e2e -- --forbid-only --retries=0 --fail-on-flaky-tests
+          --reporter=list,junit --trace=retain-on-failure --output=security-test-results
+
+      - name: Full Chromium E2E
+        if: ${{ !cancelled() && steps.security_browser.outcome == 'success' }}
+        run: >-
+          npx --no-install playwright test --forbid-only --retries=0 --fail-on-flaky-tests
           --reporter=list,html,junit --trace=retain-on-failure
 
       - name: Upload verification reports
@@ -112,5 +125,6 @@ jobs:
             retro-poker/ci-results/
             retro-poker/playwright-report/
             retro-poker/test-results/
+            retro-poker/security-test-results/
           if-no-files-found: warn
           retention-days: 14

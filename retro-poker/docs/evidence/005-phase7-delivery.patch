@@ -1,0 +1,381 @@
+diff --git a/.github/workflows/retro-poker-ci.yml b/.github/workflows/retro-poker-ci.yml
+index 2146617..7d8364a 100644
+--- a/.github/workflows/retro-poker-ci.yml
++++ b/.github/workflows/retro-poker-ci.yml
+@@ -72,7 +72,15 @@ jobs:
+ 
+       - name: Clean dependency install
+         id: install
+-        run: npm ci
++        run: |
++          npm ci
++          git diff --exit-code -- package-lock.json
++
++      - name: Security contracts and integration
++        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
++        run: >-
++          npm run test:security -- --allowOnly=false --reporter=default --reporter=junit
++          --outputFile.junit=ci-results/security.xml
+ 
+       - name: Typecheck
+         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+@@ -88,19 +96,24 @@ jobs:
+           npm test -- --allowOnly=false --reporter=default --reporter=junit --reporter=json
+           --outputFile.junit=ci-results/vitest.xml --outputFile.json=ci-results/vitest.json
+ 
+-      - name: Build
+-        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+-        run: npm run build
+-
+       - name: Install Chromium
+         id: chromium
+         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+         run: npx --no-install playwright install --with-deps chromium
+ 
+-      - name: Full Chromium E2E
++      - name: Production security browser checks (includes build)
++        id: security_browser
+         if: ${{ !cancelled() && steps.chromium.outcome == 'success' }}
++        env:
++          PLAYWRIGHT_JUNIT_OUTPUT_FILE: ci-results/security-browser.xml
++        run: >-
++          npm run test:security:e2e -- --forbid-only --retries=0 --fail-on-flaky-tests
++          --reporter=list,junit --trace=retain-on-failure --output=security-test-results
++
++      - name: Full Chromium E2E
++        if: ${{ !cancelled() && steps.security_browser.outcome == 'success' }}
+         run: >-
+-          npm run test:e2e -- --forbid-only --retries=0 --fail-on-flaky-tests
++          npx --no-install playwright test --forbid-only --retries=0 --fail-on-flaky-tests
+           --reporter=list,html,junit --trace=retain-on-failure
+ 
+       - name: Upload verification reports
+@@ -112,5 +125,6 @@ jobs:
+             retro-poker/ci-results/
+             retro-poker/playwright-report/
+             retro-poker/test-results/
++            retro-poker/security-test-results/
+           if-no-files-found: warn
+           retention-days: 14
+diff --git a/retro-poker/docs/AI_USAGE_LOG.md b/retro-poker/docs/AI_USAGE_LOG.md
+index a786f88..44fd6e0 100644
+--- a/retro-poker/docs/AI_USAGE_LOG.md
++++ b/retro-poker/docs/AI_USAGE_LOG.md
+@@ -664,3 +664,30 @@ Server sentinel učitavanje dokazano uz fake/mock, live provider poziva 0.
+ Korisnik je odredio scope; peer review/samostalni doprinosi Vekija i Milana nisu
+ potvrđeni. Bez commit/push/merge-a, clean checkout/CI/demo ili Faze 7.
+ [Stvarne komande, prvi rezultati i granice](evidence/005-phase6-handoff.md).
++
++## 2026-10-26 — Week08 Faza 7 T028–T031
++
++Codex po priloženom zahtevu, jedan coding agent. Cilj: stvarna završna provera,
++minimalna CI dopuna, izolovana instalacija i dokumentaciono usklađivanje.
++Kontekst/prioritet u manifestu; korišćen lokalni speckit-implement, pročitan
++speckit-converge bez zasebnog pokretanja ili dupliranja otvorenih taskova.
++Alati: PowerShell/Python/apply_patch, Vitest, Playwright Chromium, Vite, tsc,
++ESLint, npm ci/audit i read-only GitHub Actions API. Model identitet, tokeni i
++trošak nisu dostupni. Nema privatnog chain-of-thought zapisa.
++Očekivanje: stvarne kontrole i brojači, ista T006 input poređenja, bez novog
++runtime scope-a. Ishod: T028 završen (123 security/1037 full/5 security browser/
++26 full browser), typecheck/lint/build/diff-check PASS. T029 lokalno završen:
++verna izolovana kopija HEAD+workflow patch, nov npm cache i npm ci, nov browser
++direktorijum, iste komande PASS, lock hash nepromenjen i audit 0. CI dopuna
++zadržava Windows/Linux, security korake, build preduslov i izveštaje.
++Prvi setup/log-path/policy/registry/socket/browser-cache problemi sačuvani i
++razdvojeni od test rezultata; nijedan produkt/test assertion nije oslabljen.
++Kod/testovi ostaju d508f13. Tri originalna input-a identična: T07 PASS→PASS,
++T13/T16 RED→GREEN. GitHub API za početni SHA nema run; novi radni snapshot nije
++objavljen. Nema tvrdnje o remote ili Linux PASS-u.
++Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 otvoreni;
++Codex demo/varijante su priprema, nisu samostalni testovi Vekija/Milana niti
++potvrda review-a/razumevanja. Week08 nije proglašen završenim.
++Bez .env/pravih ključeva, live poziva (0), subagenata, automatskog commit/push/
++dispatch/merge-a ili prekidanja korisničkog servera.
++[Komande, prvi problemi, rezultati i snapshot](evidence/005-phase7-handoff.md).
+diff --git a/retro-poker/docs/CONTEXT_MANIFEST.md b/retro-poker/docs/CONTEXT_MANIFEST.md
+index dbc3b72..03cd0e7 100644
+--- a/retro-poker/docs/CONTEXT_MANIFEST.md
++++ b/retro-poker/docs/CONTEXT_MANIFEST.md
+@@ -903,3 +903,24 @@ Kontrolisani Vite sentinel build/preview koristi envDir:false.
+ Rizici: procesna memorija nije trajni audit, jedan sentinel nije opšti DLP, audit
+ se može promeniti. Clean checkout/CI/demo ostaju van ove faze.
+ [Rezultati i checkpoint](evidence/005-phase6-handoff.md).
++
++## 2026-10-26 — Faza 7 T028–T031
++
++Prioritet: priloženi korisnički zahtev → AGENTS/constitution 1.1.0 → GAME_SPEC
++ARCH1–8, AC19/23, §13/16 → feature005 spec/plan/tasks/data-model/security ugovor/
++quickstart/research → BUILD_PROMPT_WEEK08_V1, EVIDENCE_W08, phase6 handoff/audit,
++phase2 fixture manifest/očekivanja/originalni rezultati i phase5 istorijski status.
++Pročitani lokalni speckit-implement i speckit-converge SKILL.md; primenjen implement,
++converge nije zasebno pokrenut (preostali rad već postoji u T030/T031). Checklist
++9/9, prerequisites PASS uz zasebni PowerShell Bypass; nema extension hook-ova.
++Pregledani security testovi i production app/routes/session/orchestrator/tools/
++validation/events/admission/capacity putovi, SDK mock, oba React panela,
++fake fixture/server, Vite/Vitest/Playwright, package/lock i root CI workflow.
++Razlog: brojači i stanje, nezavisni schema/scope i timeout/deadline/rate/capacity
++dokazi, server sentinel i browser enforcement. Git autorstvo odvojeno od ljudskog
++osmišljavanja testova. GitHub Actions API za d508f13: 0 run-ova; prvi socket problem
++i stvarni ponovljeni odgovor sačuvani. T027 odluke su istorijski audit izvor;
++clean npm install audit signal vezan za trenutni lock. Bez .env, ključeva, live
++poziva, subagenata ili PDF/PPTX širenja scope-a. Izolovana kopija uključuje workflow
++patch, bez lokalnih helper-a/cache-a/dependency/build foldera; svi .env* izostavljeni.
++[Dokazi i ograničenja](evidence/005-phase7-handoff.md).
+diff --git a/retro-poker/docs/EVIDENCE_W08.md b/retro-poker/docs/EVIDENCE_W08.md
+index f2387fb..b979c0e 100644
+--- a/retro-poker/docs/EVIDENCE_W08.md
++++ b/retro-poker/docs/EVIDENCE_W08.md
+@@ -1,5 +1,23 @@
+ # EVIDENCE_W08 — Secure the Arcade
+ 
++**Aktuelno 2026-10-26 — Faza 7:** lokalna završna matrica T00–T17 prolazi,
++security **123/123**, full **1037/1037**, security Chromium **5/5**, puni E2E
++**26/26**, typecheck/lint/build prolaze. Kod/testovi na
++`d508f13e4930972d1d64e9d196f69c07ed374027` nisu menjani.
++[Matrica pretnja→zahtev→kontrola→test→actual i tri ista pre/posle ulaza](evidence/005-phase7-matrix.md),
++[završni handoff, izolovana instalacija i snapshot](evidence/005-phase7-handoff.md),
++[konkretan demo i potvrde para](evidence/005-phase7-demo.md).
++Workflow zadržava Windows/Linux i dobija security korake/lockfile guard.
++T028 i T029 završeni: verna izolovana kopija, nov npm cache i npm ci, nov browser
++direktorijum i iste security/full/type/lint/build provere prolaze; lock nepromenjen,
++audit **0**. T029 je lokalni izolovani dokaz uz pripremljen CI.
++GitHub API za tačan početni HEAD vraća **0 run-ova**; novi radni patch nije objavljen,
++remote CI nije PASS. Korisnik potvrđuje da ljudski doprinosi/demo još nisu spremni:
++**T030 i zavisni T031 otvoreni; Week08 nije završen.**
++Aktuelni rezultati imaju prednost nad istorijskim statusima ispod.
++
++## Istorija prethodnih checkpoint-a (ne predstavlja aktuelni status)
++
+ **Aktuelno 2026-10-26 — Faza 6 T023–T027 završena:**
+ [Handoff i sve komande](evidence/005-phase6-handoff.md),
+ [audit po paketu/advisory-ju](evidence/005-phase6-audit.md),
+diff --git a/retro-poker/docs/GAME_SPEC.md b/retro-poker/docs/GAME_SPEC.md
+index 1369d7b..03071b8 100644
+--- a/retro-poker/docs/GAME_SPEC.md
++++ b/retro-poker/docs/GAME_SPEC.md
+@@ -409,7 +409,7 @@ uz safe outputIssue dijagnozu. Primenjeni T034/T035:48zahteva/24run-a, poslednja
+ matrica3cilja×3scenarija9/9completed; read-only24/24. Ovo je ograničen dokaz,
+ ne garancija budućih generacija. [Rezultati](evidence/003-T035-handoff.md).
+ 
+-## 16. Week08 — Secure the Arcade (planirano 2026-10-25)
++## 16. Week08 — Secure the Arcade (završna provera 2026-10-26)
+ 
+ Korisnik odobrava bezbednosno ojačavanje postojećeg W05 coaching toka kroz
+ [feature 005](../specs/005-week08-secure-the-arcade/spec.md). Nova grana
+@@ -435,15 +435,20 @@ Nema naloga, privatnih multi-user resursa, novog game moda ili deployment-a.
+ Abort nije garancija prekida udaljene obrade/naplate. Fake test nije dokaz
+ otpornosti pravog modela niti produkcijske dostupnosti.
+ 
+-Week08 Definition of Done — sve ispod ostaje otvoreno do stvarnih dokaza:
++Week08 Definition of Done — lokalni tehnički dokaz i ljudska potvrda su odvojeni:
+ 
+-- [ ] I1–I8 imaju izvršne kontrole i povezane prolazne testove.
+-- [ ] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
+-- [ ] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
+-- [ ] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
+-- [ ] Full regresija/clean checkout i status CI-ja vezani za konkretan završni checkpoint.
++- [x] I1–I8 imaju izvršne kontrole i povezane prolazne testove.
++- [x] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
++- [x] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
++- [x] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
++- [x] Full regresija/clean checkout i status CI-ja vezani za konkretan završni checkpoint (remote nije izvršen).
+ - [ ] Oba člana imaju kontrolu i negativni test, mogu ponoviti provere i objasniti demo.
+ 
++[Završna matrica](evidence/005-phase7-matrix.md) i
++[handoff](evidence/005-phase7-handoff.md) navode stvarne komande i checkpoint-e.
++Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 ostaju
++otvoreni; Week08 nije završen. Lokalni prolaz nije remote CI uspeh.
++
+ Aktuelno opaženo stanje: [EVIDENCE_W08.md](EVIDENCE_W08.md). Novi nastavni izvor
+ je root `weekly-assignment.md`, verzija 23.10.2026; potrebni zahtevi su preneti u
+ verzionisane dokumente jer nastavni paket nije garantovan u svakom checkout-u.
+diff --git a/retro-poker/specs/005-week08-secure-the-arcade/contracts/security.md b/retro-poker/specs/005-week08-secure-the-arcade/contracts/security.md
+index ebbf37c..a6b0630 100644
+--- a/retro-poker/specs/005-week08-secure-the-arcade/contracts/security.md
++++ b/retro-poker/specs/005-week08-secure-the-arcade/contracts/security.md
+@@ -1,4 +1,4 @@
+-# Bezbednosni ugovor — planirana W08 dopuna
++# Bezbednosni ugovor — implementirana W08 dopuna
+ 
+ ## HTTP i korisničko ponašanje
+ 
+@@ -19,7 +19,7 @@ provider/debug/log endpoint-a. Sve mutacije prolaze postojeću proveru verzije.
+ | Novi start bez provider kapaciteta | 429 AI_CAPACITY_EXCEEDED | Bez novog rada, ne troši accepted token |
+ | Normalan start | Postojeći 202; neposredan stop 200 | Fiksni server config, dalje validiran async rad |
+ 
+-Proširiti postojeći error schema/API mapu za nove kodove; ne menjati shape svih
++Postojeći error schema/API mapa sadrže nove kodove; nije promenjen shape svih
+ odgovora radi ovog feature-a. Retry je eksplicitan korisnički potez. UI ne briše
+ potvrđenu partiju ili prethodni summary kada dobije 429. Usage GET/reset ponašanje
+ ostaje, reset nije način resetovanja sigurnosnih limita.
+@@ -50,3 +50,7 @@ Sentinel test mora dokazati učitavanje server vrednosti, odsustvo iz bundle-a i
+ source mapa ako postoje, HTTP-a, konteksta i događaja. Event buffer je interni;
+ nema raw export-a. Nema autentikacionih cookie-ja; credential CSRF N/A uz proveru
+ stvarne origin granice. SQL N/A jer nema baze; nije zahtev da je uvedemo.
++
++Izvršna mapa ugovora: [T00–T17](../../../docs/evidence/005-phase7-matrix.md).
++Lokalni profil nije deployed server, UUID nije credential; N/A ne pokriva origin
++ili obavezni tool tok.
+diff --git a/retro-poker/specs/005-week08-secure-the-arcade/data-model.md b/retro-poker/specs/005-week08-secure-the-arcade/data-model.md
+index 2c21eb3..b00bd12 100644
+--- a/retro-poker/specs/005-week08-secure-the-arcade/data-model.md
++++ b/retro-poker/specs/005-week08-secure-the-arcade/data-model.md
+@@ -1,6 +1,7 @@
+ # Podaci i stanja — Week08
+ 
+-Postojeći poker/coach DTO se zadržava; ovo je dizajn dopuna, ne već implementiran kod.
++Postojeći poker/coach DTO se zadržava; ovo je implementirani W08 ugovor;
++[izvršni dokaz](../../docs/evidence/005-phase7-matrix.md).
+ Autoritativne granice su u [planu](plan.md), HTTP pravila u [ugovoru](contracts/security.md).
+ 
+ | Entitet | Polja i pravila | Životni vek |
+diff --git a/retro-poker/specs/005-week08-secure-the-arcade/plan.md b/retro-poker/specs/005-week08-secure-the-arcade/plan.md
+index e0d97dd..1c1c655 100644
+--- a/retro-poker/specs/005-week08-secure-the-arcade/plan.md
++++ b/retro-poker/specs/005-week08-secure-the-arcade/plan.md
+@@ -15,8 +15,8 @@ Prenos ne predstavlja implementaciju W08 bezbednosnih kontrola.
+ ## Technical Context
+ 
+ - TypeScript 6.0.3, Node 24/npm 11; lokalno Node 24.20.0/npm 11.19.0.
+-- React 19.3.0, Vite 8.3.0, Fastify 5.12.5, Zod 4.6.5, Gemini SDK 2.24.0.
+-- Vitest 5.0.1, Playwright 1.63.0 Chromium, fake provider i monotoni fake sat.
++- React 19.3.0, Vite 8.3.5, Fastify 5.12.7, Zod 4.6.7, Gemini SDK 2.24.0.
++- Vitest 5.0.5, Playwright 1.63.0 Chromium, fake provider i monotoni fake sat.
+ - Jedan proces/jedna lokalna partija u memoriji; bez baze, auth-a i novih paketa.
+ - Frontend `127.0.0.1:5173`, API `127.0.0.1:3001`, frontend proxy `/api`.
+ - Production smoke: Vite preview sa istom konfiguracijom zaglavlja kao lokalni
+@@ -40,7 +40,7 @@ specs/005-week08-secure-the-arcade/
+   spec.md, plan.md, tasks.md, research.md, data-model.md, quickstart.md
+   contracts/security.md, checklists/requirements.md
+ docs/EVIDENCE_W08.md, docs/evidence/005-*
+-backend/src/security/               # planirani admission/capacity/events moduli
++backend/src/security/               # implementirani admission/capacity/events moduli
+ backend/src/{app,routes,session}.ts  # HTTP i lifecycle integracija
+ backend/src/agent/                  # postojeći orchestrator/tools/validation
+ backend/src/ai/{coordinator.ts,providers/gemini.ts}
+@@ -150,8 +150,8 @@ T13 zasebni overlap i rate-window testovi uz oporavak. T17: neotkaziv provider 
+ nova partija + usage reset → novi start → stari late rezultat; rad ostaje obračunat,
+ nova partija i usage epoch zaštićeni. Svaka glavna kontrola ima pozitivan control.
+ 
+-Planirane komande: `npm run test:security` (node), `npm run test:security:e2e`
+-(build + browser). **Još ne postoje**; uvode ih taskovi, bez isključivanja testova iz
++Postojeće komande: `npm run test:security` (node), `npm run test:security:e2e`
++(build + browser); uvedene T007/T022, bez isključivanja testova iz
+ običnog full suite-a. Završne postojeće provere: `npm ci`, `npm test`,
+ `npm run test:e2e`, `npm run typecheck`, `npm run lint`, `npm run build`,
+ `git diff --check`. `npm audit --json`: runtime/dev nalaz i odluka, ne slepi
+@@ -174,3 +174,13 @@ Nema novih servisa/auth-a/baze/sanitizer biblioteke ili multi-agent rada.
+ SDK config se proverava mock transportom. Pre svake faze pregledati prethodnu
+ implementaciju i fokusirane testove. Vlasnik je trenutni driver, ne fiksna podela;
+ oba člana moraju doprineti kontroli i negativnom testu.
++
++## Faza 7 — završna provera, 2026-10-26
++
++Runtime i testovi na `d508f13` potvrđeni bez izmene ponašanja.
++[Matrica T00–T17 / I1–I8](../../docs/evidence/005-phase7-matrix.md) i
++[handoff](../../docs/evidence/005-phase7-handoff.md) odvajaju lokalni/izolovani dokaz,
++remote CI i ljudske potvrde. Workflow zadržava Windows/Linux, dodaje eksplicitne
++security korake i lockfile guard; puni browser koristi build iz security koraka.
++T030 i zavisni T031 ostaju otvoreni do stvarne potvrde para. Nema novih runtime
++funkcija ili promene limita. Verzije iznad usklađene su sa T027 zakrpama.
+diff --git a/retro-poker/specs/005-week08-secure-the-arcade/quickstart.md b/retro-poker/specs/005-week08-secure-the-arcade/quickstart.md
+index 0683202..0b2dd60 100644
+--- a/retro-poker/specs/005-week08-secure-the-arcade/quickstart.md
++++ b/retro-poker/specs/005-week08-secure-the-arcade/quickstart.md
+@@ -1,7 +1,7 @@
+ # Week08 — vodič za proveru
+ 
+-T019–T022 ponovo provereni na `e498a06` bez nove implementacije:
+-[komande, DOM/CSP dokaz i lokalni status sledećih taskova](../../docs/evidence/005-phase5-recheck.md).
++Aktuelni završni tehnički dokaz: [matrica](../../docs/evidence/005-phase7-matrix.md),
++[handoff](../../docs/evidence/005-phase7-handoff.md). T030 i T031 ostaju otvoreni.
+ 
+ Pokretati iz `retro-poker/`, Node 24/npm 11. Na Windows-u koristiti `npm.cmd`.
+ Aktivna grana je `week08-init`; feature direktorijum ne zavisi od imena grane.
+@@ -30,7 +30,7 @@ smoke/diagnose/live CLI. Testovi koriste constructor-injected fake i sintetičke
+ Za lokalni API koristiti test helper, ne `npm run dev:backend` koji može učitati `.env`.
+ Ne prekidati tuđ proces ako je test port zauzet; zabeležiti prepreku.
+ 
+-## Security komande (Faze 2–5)
++## Security komande (implementirane)
+ 
+ T007 uvodi fake-only node selekciju postojećim Vitest runner-om:
+ 
+@@ -62,7 +62,8 @@ zahtevi unutar scenarija i dalje dele stvarnih 5/60 s i kapacitet 2.
+ Početni T13/T16 RED rezultati su istorijski sačuvani u
+ [Fazi 2](../../docs/evidence/005-phase2-handoff.md). Faza 4 zatvara rate deo,
+ [Faza 5](../../docs/evidence/005-phase5-handoff.md) zatvara browser prikaz i
+-CSP/header deo T16. Puni server-secret/bundle/sentinel T16 ostaje za T025–T026.
++CSP/header deo T16. Faza 6 zatvara server-secret/bundle/sentinel deo; završni
++run proverava oba dela u istom checkpoint-u.
+ Portovi 5173/3001 moraju biti slobodni; helper ne prekida tuđe procese.
+ Test reset kreira nov proces/gate/sink/fake sat;
+ posebni reset testovi dele isti proces da ne prikriju zaobilaženje limita.
+@@ -80,5 +81,12 @@ zabranjen tool, rate/capacity/late rezultat, browser CSP/XSS, sentinel/event i
+ pre/posle dokazi. Obojica samostalno menjaju jedan sintetički ulaz i objašnjavaju
+ očekivanu granicu. Demo nije izvršen samim pisanjem vodiča.
+ 
++Konkretan raspored, komande i obrazac ljudskih potvrda:
++[demo priprema](../../docs/evidence/005-phase7-demo.md). Priprema nije izveden demo.
++CI koristi `npm run test:security:e2e` sa build-om, zatim direktan puni Playwright
++run bez ponovnog identičnog build-a. Lokalno obe dokumentovane npm E2E komande
++rade sopstveni build; ne pokretati dodatni build između njih. Poseban finalni
++`npm run build` daje traženi samostalni dokaz komande.
++
+ Pre svake faze pročitati prethodni handoff, diff i fokusirane testove. Grešku
+ prethodne faze prvo zatvoriti, a zatim nastaviti od prvog otvorenog taska.
+diff --git a/retro-poker/specs/005-week08-secure-the-arcade/spec.md b/retro-poker/specs/005-week08-secure-the-arcade/spec.md
+index b0804db..048a76a 100644
+--- a/retro-poker/specs/005-week08-secure-the-arcade/spec.md
++++ b/retro-poker/specs/005-week08-secure-the-arcade/spec.md
+@@ -4,7 +4,10 @@
+ 
+ **Created**: 2026-10-25
+ 
+-**Status**: Specifikovano; bezbednosna implementacija i dokazi još nisu završeni.
++**Status**: Tehničke kontrole lokalno verifikovane; Week08 nije završen.
++T030 i zavisni T031 čekaju stvarne ljudske dokaze.
++[Završna matrica i ograničenja](../../docs/evidence/005-phase7-matrix.md),
++[handoff sa lokalnim/izolovanim/CI statusom](../../docs/evidence/005-phase7-handoff.md).
+ 
+ **Input**: Week08 zadatak od 23.10.2026, korisnički zahtev za planiranje i pripremu osnove.
+ 
+diff --git a/retro-poker/specs/005-week08-secure-the-arcade/tasks.md b/retro-poker/specs/005-week08-secure-the-arcade/tasks.md
+index b80f2c7..176b93c 100644
+--- a/retro-poker/specs/005-week08-secure-the-arcade/tasks.md
++++ b/retro-poker/specs/005-week08-secure-the-arcade/tasks.md
+@@ -1,6 +1,7 @@
+ # Tasks: Week08 — Secure the Arcade
+ 
+-**Branch**: `week08-init`. Faze 1–6 završene; T028–T031 ostaju otvoreni.
++**Branch**: `week08-init`. Faze 1–6 i T028–T029 završeni lokalno;
++T030 i zavisni T031 ostaju otvoreni. Week08 nije završen; remote CI nije potvrđen.
+ **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
+ [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
+ 
+@@ -107,11 +108,23 @@ T026 je uslovni PASS→PASS; T027 ciljane kompatibilne zakrpe. Sledeći T028.
+ 
+ ## Faza 7 — završna provera i predaja
+ 
+-- [ ] T028 Izvršiti kompletnu T00–T17 matricu, ponoviti ista tri pre/posle ulaza i full test/E2E/typecheck/lint/build/diff-check; deps: T027; dozvoljeno: evidence i minimalna ispravka isključivo uz novi nalaz/test; dokaz: svi obavezni redovi imaju actual rezultat i brojače, bez sakrivanja prvog pada rerun-om.
+-- [ ] T029 Potvrditi clean `npm ci` i iste komande u izolovanom checkout-u/CI, dopuniti `../.github/workflows/retro-poker-ci.yml` za security komande po potrebi; deps: T028; dokaz: commit/okruženje i stvarni izlazi; remote CI ne označavati PASS dok run za konkretni SHA nije pregledan. Ne push/merge bez važećeg korisničkog zahteva.
++- [x] T028 Izvršiti kompletnu T00–T17 matricu, ponoviti ista tri pre/posle ulaza i full test/E2E/typecheck/lint/build/diff-check; deps: T027; dozvoljeno: evidence i minimalna ispravka isključivo uz novi nalaz/test; dokaz: svi obavezni redovi imaju actual rezultat i brojače, bez sakrivanja prvog pada rerun-om.
++- [x] T029 Potvrditi clean `npm ci` i iste komande u izolovanom checkout-u/CI, dopuniti `../.github/workflows/retro-poker-ci.yml` za security komande po potrebi; deps: T028; dokaz: commit/okruženje i stvarni izlazi; remote CI ne označavati PASS dok run za konkretni SHA nije pregledan. Ne push/merge bez važećeg korisničkog zahteva.
+ - [ ] T030 Veki i Milan pregledaju promene, svaki doprinese kontroli i samostalno osmisli negativni test, odrade osam minuta demo-a i individualnu varijantu; deps: T029; dozvoljeno: evidence i sintetički testovi; dokaz: stvarna imena/commitovi/objašnjenja, bez Codex potvrde u njihovo ime.
+ - [ ] T031 Uskladiti `spec.md`, `plan.md`, `tasks.md`, `quickstart.md`, `docs/GAME_SPEC.md`, `docs/EVIDENCE_W08.md`, manifest/AI log i završni checkpoint; deps: T030; dokaz: I1–I8→kontrola→test→actual, nema preostalih obaveznih rupa; označiti samo stvarno zatvorene stavke.
+ 
++2026-10-26, Codex po korisničkom zahtevu, jedan agent:
++[završni handoff i snapshot](../../docs/evidence/005-phase7-handoff.md),
++[matrica i tri ista input-a](../../docs/evidence/005-phase7-matrix.md).
++T028: security 123/full 1037/browser 5/full E2E 26 PASS, typecheck/lint/build/diff-check.
++T029: ista izvršna isporuka u vernoj izolovanoj kopiji, čist npm cache/npm ci,
++nov browser direktorijum, iste provere PASS, lock nepromenjen, audit 0.
++Zatvoren po kriterijumu izolovane lokalne provere i pripremljenog CI-ja;
++remote CI nije izvršen (API za početni SHA: 0 run-ova), Linux nije lokalno testiran.
++T030: korisnik izričito potvrdio da ljudski deo još nije spreman; commit autorstvo
++nije samostalni test ili demo. [Konkretna priprema](../../docs/evidence/005-phase7-demo.md).
++T031: dokumentacija tehnički pripremljena, ali ostaje otvoren zbog zavisnosti T030.
++
+ ## Zavisnosti, mapa i način isporuke
+ 
+ T001 i T002 vode u T003/T004; zatim T005→T006→…→T031. Svaka faza je checkpoint.

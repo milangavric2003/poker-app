@@ -15,8 +15,8 @@ Prenos ne predstavlja implementaciju W08 bezbednosnih kontrola.
 ## Technical Context
 
 - TypeScript 6.0.3, Node 24/npm 11; lokalno Node 24.20.0/npm 11.19.0.
-- React 19.3.0, Vite 8.3.0, Fastify 5.12.5, Zod 4.6.5, Gemini SDK 2.24.0.
-- Vitest 5.0.1, Playwright 1.63.0 Chromium, fake provider i monotoni fake sat.
+- React 19.3.0, Vite 8.3.5, Fastify 5.12.7, Zod 4.6.7, Gemini SDK 2.24.0.
+- Vitest 5.0.5, Playwright 1.63.0 Chromium, fake provider i monotoni fake sat.
 - Jedan proces/jedna lokalna partija u memoriji; bez baze, auth-a i novih paketa.
 - Frontend `127.0.0.1:5173`, API `127.0.0.1:3001`, frontend proxy `/api`.
 - Production smoke: Vite preview sa istom konfiguracijom zaglavlja kao lokalni
@@ -40,7 +40,7 @@ specs/005-week08-secure-the-arcade/
   spec.md, plan.md, tasks.md, research.md, data-model.md, quickstart.md
   contracts/security.md, checklists/requirements.md
 docs/EVIDENCE_W08.md, docs/evidence/005-*
-backend/src/security/               # planirani admission/capacity/events moduli
+backend/src/security/               # implementirani admission/capacity/events moduli
 backend/src/{app,routes,session}.ts  # HTTP i lifecycle integracija
 backend/src/agent/                  # postojeći orchestrator/tools/validation
 backend/src/ai/{coordinator.ts,providers/gemini.ts}
@@ -150,8 +150,8 @@ T13 zasebni overlap i rate-window testovi uz oporavak. T17: neotkaziv provider �
 nova partija + usage reset → novi start → stari late rezultat; rad ostaje obračunat,
 nova partija i usage epoch zaštićeni. Svaka glavna kontrola ima pozitivan control.
 
-Planirane komande: `npm run test:security` (node), `npm run test:security:e2e`
-(build + browser). **Još ne postoje**; uvode ih taskovi, bez isključivanja testova iz
+Postojeće komande: `npm run test:security` (node), `npm run test:security:e2e`
+(build + browser); uvedene T007/T022, bez isključivanja testova iz
 običnog full suite-a. Završne postojeće provere: `npm ci`, `npm test`,
 `npm run test:e2e`, `npm run typecheck`, `npm run lint`, `npm run build`,
 `git diff --check`. `npm audit --json`: runtime/dev nalaz i odluka, ne slepi
@@ -174,3 +174,13 @@ Nema novih servisa/auth-a/baze/sanitizer biblioteke ili multi-agent rada.
 SDK config se proverava mock transportom. Pre svake faze pregledati prethodnu
 implementaciju i fokusirane testove. Vlasnik je trenutni driver, ne fiksna podela;
 oba člana moraju doprineti kontroli i negativnom testu.
+
+## Faza 7 — završna provera, 2026-10-26
+
+Runtime i testovi na `d508f13` potvrđeni bez izmene ponašanja.
+[Matrica T00–T17 / I1–I8](../../docs/evidence/005-phase7-matrix.md) i
+[handoff](../../docs/evidence/005-phase7-handoff.md) odvajaju lokalni/izolovani dokaz,
+remote CI i ljudske potvrde. Workflow zadržava Windows/Linux, dodaje eksplicitne
+security korake i lockfile guard; puni browser koristi build iz security koraka.
+T030 i zavisni T031 ostaju otvoreni do stvarne potvrde para. Nema novih runtime
+funkcija ili promene limita. Verzije iznad usklađene su sa T027 zakrpama.

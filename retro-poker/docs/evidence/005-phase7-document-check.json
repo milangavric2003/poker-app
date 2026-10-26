@@ -1,0 +1,15 @@
+{
+  "checkedMarkdownFiles": 14,
+  "checkedLocalLinks": 102,
+  "missing": [],
+  "scope": "active feature; new phase7 docs; current W08 summary/GAME_SPEC section; latest manifest/AI entries; historical results preserved",
+  "tasks": {
+    "T028": "checked",
+    "T029": "checked locally",
+    "T030": "open",
+    "T031": "open"
+  },
+  "matrixRows": 18,
+  "runtimeChanged": false,
+  "documentEncoding": "UTF-8"
+}

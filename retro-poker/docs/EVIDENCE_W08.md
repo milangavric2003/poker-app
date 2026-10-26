@@ -1,5 +1,23 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Aktuelno 2026-10-26 — Faza 7:** lokalna završna matrica T00–T17 prolazi,
+security **123/123**, full **1037/1037**, security Chromium **5/5**, puni E2E
+**26/26**, typecheck/lint/build prolaze. Kod/testovi na
+`d508f13e4930972d1d64e9d196f69c07ed374027` nisu menjani.
+[Matrica pretnja→zahtev→kontrola→test→actual i tri ista pre/posle ulaza](evidence/005-phase7-matrix.md),
+[završni handoff, izolovana instalacija i snapshot](evidence/005-phase7-handoff.md),
+[konkretan demo i potvrde para](evidence/005-phase7-demo.md).
+Workflow zadržava Windows/Linux i dobija security korake/lockfile guard.
+T028 i T029 završeni: verna izolovana kopija, nov npm cache i npm ci, nov browser
+direktorijum i iste security/full/type/lint/build provere prolaze; lock nepromenjen,
+audit **0**. T029 je lokalni izolovani dokaz uz pripremljen CI.
+GitHub API za tačan početni HEAD vraća **0 run-ova**; novi radni patch nije objavljen,
+remote CI nije PASS. Korisnik potvrđuje da ljudski doprinosi/demo još nisu spremni:
+**T030 i zavisni T031 otvoreni; Week08 nije završen.**
+Aktuelni rezultati imaju prednost nad istorijskim statusima ispod.
+
+## Istorija prethodnih checkpoint-a (ne predstavlja aktuelni status)
+
 **Aktuelno 2026-10-26 — Faza 6 T023–T027 završena:**
 [Handoff i sve komande](evidence/005-phase6-handoff.md),
 [audit po paketu/advisory-ju](evidence/005-phase6-audit.md),

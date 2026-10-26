@@ -1,0 +1,3155 @@
+{
+  "head": "d508f13e4930972d1d64e9d196f69c07ed374027",
+  "copy": "D:\\AIBootcamp\\week3-4\\retro-poker\\.verification\\phase7",
+  "excluded": "All .env* including template; no node_modules, dist, cache, local helpers",
+  "files": [
+    {
+      "path": ".github/workflows/retro-poker-ci.yml",
+      "sha256": "8a9d7f3b348ffc50bca9e844238cc9a76532110d011c4a4f1e8bbc8fab027726"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-analyze/SKILL.md",
+      "sha256": "a8a894a87ff085e7b042699453510824c2bafa3e194b1bbd30aa3a759f2a5f8a"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-checklist/SKILL.md",
+      "sha256": "92cae5abcaadc5caf1ec38aeb1d1f59bd2da08b6fe9a8c38b369423745959347"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-clarify/SKILL.md",
+      "sha256": "31e8829ea79be98a048ed0b0cba53e6b33ad51d06188b35556cb279cf79dc7d1"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-constitution/SKILL.md",
+      "sha256": "889702c370fe440143a0b1d9aea6e24e809efa5e2076144367e63b30fb06a65b"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-converge/SKILL.md",
+      "sha256": "a907a638aa818b069ec8d1d59c93a48078907cc27acf69995b691b67545454ad"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-implement/SKILL.md",
+      "sha256": "aa57fcf508929e6686c05ab8d729ae10633df485c0628ba38aad1b33351e7aeb"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-plan/SKILL.md",
+      "sha256": "3bdce69c90ee2a7d52c675baff8834f0587e194b00e5f1f97b99604102c88144"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-specify/SKILL.md",
+      "sha256": "e6b880a4ed6af8d8a9de01f3f771f5f633b09f951f05e4ba5bd9ee9d94b6a3e7"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-tasks/SKILL.md",
+      "sha256": "d508d6a031e07ed0e753605c81327ea01fbca23266f31b3cb97c291caa9fa3a7"
+    },
+    {
+      "path": "retro-poker/.agents/skills/speckit-taskstoissues/SKILL.md",
+      "sha256": "02c91339c2ce2dabc5d5c072098eab0a0f4f1fd33287934b41be67e1d79156a1"
+    },
+    {
+      "path": "retro-poker/.gitignore",
+      "sha256": "9804da86afafc32a997a2506d56b53c7e7c0580fb1c2537088484040b20d8706"
+    },
+    {
+      "path": "retro-poker/.specify/.gitignore",
+      "sha256": "05c2054a5f5ca103ed62daa73191675013ee1d3d44eafb8e49891898b5368878"
+    },
+    {
+      "path": "retro-poker/.specify/init-options.json",
+      "sha256": "9a2116567a631e3fb86c292b1507f0e9c574f8b71435d486706d3a0c282e5591"
+    },
+    {
+      "path": "retro-poker/.specify/integration.json",
+      "sha256": "0e0a51950339de99d7a4f58b0d5e9e34f063db839df0a0ad6a8189901c462687"
+    },
+    {
+      "path": "retro-poker/.specify/integrations/codex.manifest.json",
+      "sha256": "57197c7593b096c8b35e42fc84f050d60dd01cc3101a666a781710eee6e053d1"
+    },
+    {
+      "path": "retro-poker/.specify/integrations/speckit.manifest.json",
+      "sha256": "ae2cbd7cc66545851297d79dec2b8c6b23b8ca3491135d9304183fb64328e29f"
+    },
+    {
+      "path": "retro-poker/.specify/memory/.constitution-template.json",
+      "sha256": "36e9c61ac9797211aba27a5dc6dcc20d11419406448c387f7fb2e7a407610d60"
+    },
+    {
+      "path": "retro-poker/.specify/memory/constitution.md",
+      "sha256": "19384595b89ef953f8aecf57ed330cc870f33ebbf186bcf944ae84d659853c12"
+    },
+    {
+      "path": "retro-poker/.specify/scripts/powershell/check-prerequisites.ps1",
+      "sha256": "e71c1273020aa9888cf15cd7e895c3c6133041db590fe34324ac6b8b94b93b79"
+    },
+    {
+      "path": "retro-poker/.specify/scripts/powershell/common.ps1",
+      "sha256": "dbb07fc929287e9c7e03a53f4b95d2de3c88e75524b618136d7413aac40a83bd"
+    },
+    {
+      "path": "retro-poker/.specify/scripts/powershell/create-new-feature.ps1",
+      "sha256": "79dfefe26fe532f2b703dddb543cac4f9e5d69132c4eaa4bb032d5ffd82a1024"
+    },
+    {
+      "path": "retro-poker/.specify/scripts/powershell/resolve-template.ps1",
+      "sha256": "99a4589963895d07146ccc195873832c67141ee7d9dd4cb2c1e47bf39f933778"
+    },
+    {
+      "path": "retro-poker/.specify/scripts/powershell/setup-plan.ps1",
+      "sha256": "dda307ce74dcdf7a72d438746e67df488a40f202cb9ec670031c1527908e9e12"
+    },
+    {
+      "path": "retro-poker/.specify/scripts/powershell/setup-tasks.ps1",
+      "sha256": "7b0c10d7b0fa1856689114724141375fcc2ca8b7accaae32bb46d1e64b707335"
+    },
+    {
+      "path": "retro-poker/.specify/templates/checklist-template.md",
+      "sha256": "0915ed5d49a922cbf5a23415b13a56adc47145eb489486d3877d48438d043dca"
+    },
+    {
+      "path": "retro-poker/.specify/templates/constitution-template.md",
+      "sha256": "29fc1837b20f493d302203554923322a245123b4be9ed5734d9e1af96cd5ef0b"
+    },
+    {
+      "path": "retro-poker/.specify/templates/plan-template.md",
+      "sha256": "eddcad4c5b6fcefb81a29b0495d060a87764ed89cc3d393f04aabcc40ad3e688"
+    },
+    {
+      "path": "retro-poker/.specify/templates/spec-template.md",
+      "sha256": "cfc2f4605b4366d798d184956ca848a8301ad701d548e0c2c1a33ad7aeda7289"
+    },
+    {
+      "path": "retro-poker/.specify/templates/tasks-template.md",
+      "sha256": "85d2141d85f50f124874a9579b4410f4e6c0049e36a478e972b451e43bec8fca"
+    },
+    {
+      "path": "retro-poker/.specify/workflows/speckit/workflow.yml",
+      "sha256": "ea636ff77e01aafdd5d44097e16d47ddb62264ea66b09b63f560aa4d543af082"
+    },
+    {
+      "path": "retro-poker/.specify/workflows/workflow-registry.json",
+      "sha256": "c577fad9b6c8bcbf6ddf11d3ec8d6432a2f63ff15adac77d21d4f5c6dec44f72"
+    },
+    {
+      "path": "retro-poker/AGENTS.md",
+      "sha256": "b55b72531ca887d604a20f14cee2555111531ce184e4162f35749f3dda35ab64"
+    },
+    {
+      "path": "retro-poker/README.md",
+      "sha256": "b8a590b92ccbffe52c52d66e20ee9607fdc872f9fcb862be6d9c718b3fb19bdb"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/orchestrator.ts",
+      "sha256": "389471190d709f7bd9a2d2c9ca558f22af093d03349bd83eeda17ffc58cb3193"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/tools.ts",
+      "sha256": "b9a8b8bd3e638867559ef3b3adf7af5f66bf098c3cb1875e49371b373e40115f"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/types.ts",
+      "sha256": "b56cec69cb16e866660edc9f4f0143f2a11e57f533c9df5d21344adbcabc344b"
+    },
+    {
+      "path": "retro-poker/backend/src/agent/validation.ts",
+      "sha256": "75ded2b8efe476842947bbfe96bd981c04d15a89961c1e7ab843d02ce446228d"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/config.ts",
+      "sha256": "5e4ed2ff0555ec66ea31f8e2de728f9898b6570719be37293caf9c5a6438d574"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/context.ts",
+      "sha256": "76ae5c19fd7b624452625221dbb1d5dede70615334c7ce52722835e4b3fe1a7e"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/coordinator.ts",
+      "sha256": "f04608fa378a2c3d8b185e56056d30a3334d58923f9dafd636e059dae01fded2"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/match-facts.ts",
+      "sha256": "eae47038a576ae20d2d6802b7cbfb48c5c8d2ddfa08a9e8eb8a55a7769d965c6"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/providers/gemini-diagnostic.ts",
+      "sha256": "898d9b0b5abb20cad400769c694f9de131db0fd31f7649afc1cd721e6c72af4d"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/providers/gemini.ts",
+      "sha256": "0bfbce07a176a34e0729207e1247a8926cb55e996ccc1b5c624fec9ee3679f63"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/retry-policy.ts",
+      "sha256": "2013719c57d5c316f99c8d9e22d275da5850c626b4659982379874ddf94a5ea2"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/schemas.ts",
+      "sha256": "0b263f67f751a6ff79dc81de7c00e387ec4d1e6d7be9ab98624318234690fbe4"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/semantic.ts",
+      "sha256": "006606b9a6d4a77dfbb1ac640ef2c28647681b162acccbeac5bb0f9de179e3d3"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/types.ts",
+      "sha256": "db02e5afaee94d8679bf33668b6f5b1f182c041fa1b9799bbb6b9d0ba7483bb7"
+    },
+    {
+      "path": "retro-poker/backend/src/ai/usage.ts",
+      "sha256": "bdb1abe95c268b0ec9f53ba689e89ef4126a319685145a3b85a9fca6ac6cb3fe"
+    },
+    {
+      "path": "retro-poker/backend/src/app.ts",
+      "sha256": "998c37a10bab8b1cc06262d66b3e58b0bff0552f1970c247347e31595b1f6133"
+    },
+    {
+      "path": "retro-poker/backend/src/bots/strategy.ts",
+      "sha256": "0fe905f3b8a9e33892385117477329d73aeb7ea5d564dfe2750110ffa69a8da4"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/betting.ts",
+      "sha256": "a01b27cc1fb1026c9b429d84b6b7396d7af5994f2769bca523a5e86d1480247f"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/cards.ts",
+      "sha256": "47cc973904b231a829e2822232157690a8adf2ddcdc70870fe0b57220840d8c3"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/hand.ts",
+      "sha256": "6cfb7e6fc53859f3af19a3c97e8fd59fdbf9c06fb00842e31de960a61b61fc71"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/history.ts",
+      "sha256": "5031359606a4e3fea8e93d27a1f560cf6f0f3381419e3aae00c11b84af5a2f67"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/positions.ts",
+      "sha256": "f82d462dd7fcc206da83de4c310e918f541f404a750c4cb73f7d8d6708860bc0"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/pots.ts",
+      "sha256": "7afbb30d7f820537a77096d6ff8daa52c54da8a564887e06431b61c1d86a2de6"
+    },
+    {
+      "path": "retro-poker/backend/src/engine/types.ts",
+      "sha256": "710cd4c3eee02dadc0df6fd21ad8086bc2050c2fcfcea69c1794a1db10af7d91"
+    },
+    {
+      "path": "retro-poker/backend/src/evaluator/rank.ts",
+      "sha256": "94f8162339423874ac9fdc59655178feaa0183bc1a5c64fa2909629bfeddf845"
+    },
+    {
+      "path": "retro-poker/backend/src/routes.ts",
+      "sha256": "950d320106d70db7740f6dbcfe0be7e9d26925bf4a3c49fd8baf4e04918b71d2"
+    },
+    {
+      "path": "retro-poker/backend/src/security/admission.ts",
+      "sha256": "3f45178a5e724551bec30ed84224d643a3a0c40e07754c904280036bacfbe6cb"
+    },
+    {
+      "path": "retro-poker/backend/src/security/capacity.ts",
+      "sha256": "e59dd9bbc46e63f02ec76b5e655f6f11799c74e19e4add62c59e5b12549feccd"
+    },
+    {
+      "path": "retro-poker/backend/src/security/events.ts",
+      "sha256": "8a477d44340292b2703981dbb7a7c53b2b622ee3b3e131c6e5e3fa050af59133"
+    },
+    {
+      "path": "retro-poker/backend/src/server.ts",
+      "sha256": "664698c042b425fb5f16fbaa2e1c63040d19a81b446680b5591a1dbfdb6416cb"
+    },
+    {
+      "path": "retro-poker/backend/src/session.ts",
+      "sha256": "01e90ccd3b5c2e802313299d6eabea7c48caa4364952e08fa928a58c3aa52ca4"
+    },
+    {
+      "path": "retro-poker/backend/src/view.ts",
+      "sha256": "c3f7be0569db6fb73e58feb5dc38f182b882f062d142cd3947047b7c8b5d2e49"
+    },
+    {
+      "path": "retro-poker/docs/AI_USAGE_LOG.md",
+      "sha256": "024830d09d9d86112b2d6dc3e67cc720b861f05b488e10c5995d5f69dbf30f0d"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_GEMINI_RECOVERY.md",
+      "sha256": "a62403e4ea9e4d8c935db3e5ca41dad64b6171871386e57ba50ad296b113a5e1"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_MERGE_RECOVERY.md",
+      "sha256": "987478f60e5dd62edc3b4a20f2fa00e827c35595e32a2a78695cb88b5eede31e"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_T014_T015.md",
+      "sha256": "191a9e5a993f7211a8f9610de7055df4742a2dec26eb0f0b4c3dfb07c6f5a79e"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_V1.md",
+      "sha256": "47d38aa72064a5e44a1795799cba5880036da4167d2f29a7472a9161b5b6e161"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_WEEK04_V1.md",
+      "sha256": "469585c0fa1474913d9c778aa758727b1a238c354a19a79b01ebdeab6925703c"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_WEEK05_V1.md",
+      "sha256": "8093c0c6072150e49b6ba11442855e9414f55e4aed9eaa33be7a1b6f1bd92473"
+    },
+    {
+      "path": "retro-poker/docs/BUILD_PROMPT_WEEK08_V1.md",
+      "sha256": "3bed3741cccfd9ebb6a925684177ddae9c9bc121c324f23dbd4178c9bfdf0d28"
+    },
+    {
+      "path": "retro-poker/docs/CONTEXT_MANIFEST.md",
+      "sha256": "1c863680ed2ad7104b3767e79f3ddc5f321be3fd7a1bc01afae616d6d9c17d80"
+    },
+    {
+      "path": "retro-poker/docs/EVALS.md",
+      "sha256": "4d799aeba555b0fcb7a43a579a1715a6efefe5a5f767029f4882b4c2e0962be5"
+    },
+    {
+      "path": "retro-poker/docs/EVIDENCE_003.md",
+      "sha256": "4422da40f1721b3ff4b1de850cf1b5ad544bbfaff7168b89779307e640e5e5f7"
+    },
+    {
+      "path": "retro-poker/docs/EVIDENCE_W05.md",
+      "sha256": "d581f8501171809b8231420e177521fda9352792b9b00dd8539294f729e37dfd"
+    },
+    {
+      "path": "retro-poker/docs/EVIDENCE_W08.md",
+      "sha256": "6f71a47a4343a0be9af4f1598869da8b38f0a1aaf475dc2e56dbcde1a1812ccb"
+    },
+    {
+      "path": "retro-poker/docs/GAME_SPEC.md",
+      "sha256": "a360bd2fcca447a13639da1cc992352c0f93c5fe0c606837d8cc453ac7ae473a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-browser.txt",
+      "sha256": "8543547114d9858790baee49aa8bab53e5a6e1156e1e06217b39d9569068b5f5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-build.txt",
+      "sha256": "8c7932e0aaadb65a7f51adf0164a7c827086203de11fd7a661d8f03cf6fb2065"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-diff-check.txt",
+      "sha256": "8fe3e687ba0e640b93fcab66a36f860d1897b8daaeca87d2d5fa48ff00ab789e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-e2e-regression.txt",
+      "sha256": "5f407e97b03f4d1efe741538ada30808d181df11e9ebfa8b28acdc85df5ddb2b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-green.txt",
+      "sha256": "404dbe35cc59f1cb5a2f55249ea80713e282375c4af32df2cbae78a12cb4d5a0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-handoff.md",
+      "sha256": "f8c33f2fa75ee036c7ed554548f64508984d949b458fb3586c65849fa7ffbc71"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-holdout.txt",
+      "sha256": "caa4c6fbc78f7d81755222678356df82c99122307eb8bb745aa36268dd525d9a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-lint-final.txt",
+      "sha256": "6ff3be2fe94604da5c24247835b42cfaaeb76caca8d138de64e3dd2b70bb9960"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-lint.txt",
+      "sha256": "6ff3be2fe94604da5c24247835b42cfaaeb76caca8d138de64e3dd2b70bb9960"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-red-corrected.txt",
+      "sha256": "925b5293d8efa08c51f331eecc472dab30bf5f5169233cebe1ce6760d4041079"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-red.txt",
+      "sha256": "74e86ed62df60d18cfc8401e7d3aff3038893b8d9fa5d0cafc8f92e9aa569707"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-regression-final.txt",
+      "sha256": "3cadf427c2fbf5475f51c763b7ac240bcc602de5277c195487160b28f8825f20"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-regression.txt",
+      "sha256": "eafda234ef104e62db7c28f8892cfacfc005432eedcfaadf1b569cbd375b71e8"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-typecheck-final.txt",
+      "sha256": "2071f9f87f50af51f918c37be920ee6a506da51482bbb166f48c7fba004d4ca7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-typecheck.txt",
+      "sha256": "2071f9f87f50af51f918c37be920ee6a506da51482bbb166f48c7fba004d4ca7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-SR1-unmount-red.txt",
+      "sha256": "39313587c3b62d6193681f87742d389f3ac359e609ea5f96808e0cfd4d05b843"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T001-governance.txt",
+      "sha256": "b04ffd4fa71ad322e710888b9e3444c8ee79638f266975eab7fc13641d664f6a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T009-red.txt",
+      "sha256": "9b61bd707b5a53734fb2be103b420a0938da218bf02e86e7d1b8378ab912d3ed"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T011-red.txt",
+      "sha256": "06f0926bd7876608cf1e96a6b5a4f59d8a0b92166e3c8bfc4edc2235cffc0cd6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T016-red.txt",
+      "sha256": "0fb21d3ebed56878e9613f5d6353715b67bcd7856191b12a66d12b24d2d3a21e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T018-red.txt",
+      "sha256": "55a26684debc85e7b552f791593d618f6f682daa703b3b62fd845a2976163764"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T020-red.txt",
+      "sha256": "5c486f45a6c124e1165a0ad48e41741f9ca1d6bde3b804237c928b82faea345d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T024-red.txt",
+      "sha256": "7b6db9f4007fdc8b1b952618279b0f8581926f2b96e391e7ac7e9d60176fc311"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T026-red.txt",
+      "sha256": "142bd41405f48ce7dc2b7b4ffa44a51a7146c2ce959cb3cc61779c45fd9fd47e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T030-T035-final.txt",
+      "sha256": "3720ec105aa6dbe6a31591b37bd63579c7225a763ff91679b04265fd91bc1ce6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T030-red.txt",
+      "sha256": "04404118961c0e73fde6a72d41a2dcd6129f72a8bfa060efac1bbf931b7e239f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T035-green.txt",
+      "sha256": "64094034d367fb515aa5b3d2b28ffe4333f7f28ba553924801c9ca4266795da2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T036-T037-status.txt",
+      "sha256": "ac4a96e0a2adcb522b4640d04cfc1b0d1d3dd44ccdeb6d4af790b8b43c8af5e7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T036-e2e.txt",
+      "sha256": "eb3c9a61ea2d0cfaff74ed7c758223a06ddc0558a8fc916c6d1106d59dcaab80"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T037-green-or-regression.txt",
+      "sha256": "7f7c0b2920b7a8c6a98acfbddb9eee3bf3f29649b8de15074599b0e4be3dc79b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T039-red.txt",
+      "sha256": "db7407e8400f773bb8f1987fb41c86b258d310032e42d73e4077e9c82371743d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T042-docs.txt",
+      "sha256": "e5b9f6bbd0bb50ddabd4d9ad9f7cb437fcb927272182b01263ecabf2e17bc2d7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T043-final.txt",
+      "sha256": "20ce1eda81379275767d50216d209ae6964434a0bc9478d06c23d3905b3f9cb4"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-T044-traceability.txt",
+      "sha256": "6383dea68fcbc6fe61aafe70dcf8792495d2f19ecc490698dcac052adbefd385"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-gemini-adapter.md",
+      "sha256": "887a63ed525b7b92b54ccc503d78f959f366c207703526bccb0f758e9b5b5908"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-gemini-diagnosis.md",
+      "sha256": "0357d1627a43f9b5ca25234d815067727dfc25d8d4b52d99818e4ad1928e20c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-gemini-lite-success.md",
+      "sha256": "984b6cc8a52f02af9e6dace3da8c05dabaaa9290af9ecadfd3b197f5338fcb18"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-gemini-recovery.md",
+      "sha256": "dab91ba9569cc96866678e03247a411e026e3f312c7941310c79c2e84c1e376d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-live-smoke.md",
+      "sha256": "3917d7fbcfca84865555f6f6c4c963f122de34a6062f95ecdb8f253da16fd7dc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-merge-recovery.md",
+      "sha256": "f6538c6f79a141c79240a4fa44cde3a897ed73f85f04f3f061b9cd73fd6d5212"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-offline-green.txt",
+      "sha256": "debb019fe6379f4ccc5a4d3f192e89d7448f2231217a8f8465f62b15a28ca544"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-post-merge-first-run.txt",
+      "sha256": "8a3eae9ce8d7d90d48b4a6fd17f441815d7045c4cb89dfd1205169717953f70f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-post-merge-rerun.txt",
+      "sha256": "a57e3f5058293d0429ed8dd5658d1f7ee2300ce73d7457638f2a55a089f63f71"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-post-merge-verification.md",
+      "sha256": "b97e4f44b4f2cb7679e9f96438f61cd5239ec2325c59c08c4e4c87ca054e407f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-red-tests.txt",
+      "sha256": "a4b1073f1d24a943ddad174ffd5cecc42fdd323ad7cd7e9b2f525ef02708f35c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/002-task-status-audit.md",
+      "sha256": "d2291800555d154a799779123e7f9104a590bbdfd2cb2d5f2e105eccb29dc661"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T007-red.txt",
+      "sha256": "162ce48aa8243e89c488834e355d6219e451ffecf64b1c31ed4270f033356170"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T008-green.txt",
+      "sha256": "ce3ad848d3ac26d3cd93f6fb6e25e6abb174580248c7e13fd2c3a71f8b50e7a0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T009-red.txt",
+      "sha256": "c2e759b2a710e247c8bcb7c67abe6ff139df1bf2cdc2a2ca11029129fb0b4435"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T010-green.txt",
+      "sha256": "52b329728f1aa13185a4e30748e949678857575ba175f62797e54095874f2264"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-build.txt",
+      "sha256": "ae0ebc0832d7c7e425aed88ab006475dea6f4887f937be79a16300f44229b3e6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-green.txt",
+      "sha256": "259fb7030c6658800997c52a5bfe902dd573de1350bd65d64fa0ec915d77f9a8"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-handoff.txt",
+      "sha256": "f2005823272ad912289b22885abb871f609f498407a33fdc93934912557400ac"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-lint.txt",
+      "sha256": "58a151459ced6d214bae437aa52c91af81888a3e94ae62d524e68918d8fc670a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-red.txt",
+      "sha256": "c77c25c77317d76067707b90f8deaf82271e55140164b6518f80a099be20bf61"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-regression.txt",
+      "sha256": "33654f378143066603de85799856086c34c5161fca418d8648ebe89ce3c45b3e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-review.txt",
+      "sha256": "5054ec78fa366493823930ef5213b8a87df4d770ee070a6ddcc3b02d52435c51"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T011-typecheck.txt",
+      "sha256": "892c27c71f3734669fe5b3149c502a27ce7ab1883c61ea3f581aa58718cba190"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T012-green.txt",
+      "sha256": "2676ef7b2273ef02ae3be4a79c189d47139519061413767226569f7176dd6854"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T012-red.txt",
+      "sha256": "705b6f330bd59972e255bc717bd122abeb8f9aaca0fbeace7b547abd0e977f31"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T013-green.txt",
+      "sha256": "a671414586f19a0dd71897497d581054eecd8d190826d710b264c41398d237e2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T013-red.txt",
+      "sha256": "ca02ca09a0553f36fcb4ebd02c641c56f2a3a9e7df6265de81988c2384debc05"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T014-green.txt",
+      "sha256": "5422933a5d75f57d59512062e891bbd607ede1039b72570cb50edd58ea257e84"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T014-red.txt",
+      "sha256": "1606e135315271077b60f73f2603470176058e363ca3d97b69bbd1b839455e96"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T015-green.txt",
+      "sha256": "d38a489ed99a017436864b94f1f6b43f5355e2b5d9b0f2406e01d9f6f2cb0c59"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T015-red.txt",
+      "sha256": "947ab82dbd583f73f76b0f91f2ba70bfdee615f17e73a24e68d1a7d13cadf315"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T016-green.txt",
+      "sha256": "2c0c2a89bd91cc81d995395655d0975306888aad1f3e359a58a8a44ab98dd968"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T016-red.txt",
+      "sha256": "fe3dac1fd8c2950073d5a21e332a9be66825b928ddc95311d9b43fa3efca6fb6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T017-green.txt",
+      "sha256": "089c1879f6f0e32ab1f27a1a4756f34f6706ac520e094c8615c116b0bcd5e132"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T017-red.txt",
+      "sha256": "b6293ce7e86f54707755a46434302cf5d418b9b805cf79edbc5f9e1767ac5fb4"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T018-red.txt",
+      "sha256": "da0b3e39c3cf8fe85aa1377218f5eeef51f617d625cde68dbef515f31b9f4ec0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T019-green.txt",
+      "sha256": "5c113cd9e299c99ce3485e3c589e810f530557cb5effa5af4b5026a9f936e5b3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T019-lock-holdout-red.txt",
+      "sha256": "fb09984a6eaa9250619e449aad2e54b0c6973a2cf337ccfad97bef097e16b77d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T019-red.txt",
+      "sha256": "4af3c16207da9a53243bfed426335728be143fcd86f88a6990de7c932708a39e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T020-green.txt",
+      "sha256": "cd3c6bc0bf0494a3896cfde0f3b4c9bc2372d82a7aedff14bf45298db9929629"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T020-red.txt",
+      "sha256": "f97e9e61ab6a86e1381dde6682b4d447f7ed8b0da08bcbe21d5882abd009eb38"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T020-validation-red.txt",
+      "sha256": "7a609b45c69e83e24a15d61513dcbf8ed129111691c081cd4851f4319f35c149"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T021-green.txt",
+      "sha256": "7e93f6adadaab478409abf31f969a921fbc642638873c4a1797952ec12e090e1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T021-red.txt",
+      "sha256": "9af72a1cc269d80494d6c219ece716ad867de2a3596a283a72088780be7af810"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T022-green.txt",
+      "sha256": "dca20ff274ab039065c595645978bae61ac525c6ceeb92a9758805ecf4760e24"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T022-red.txt",
+      "sha256": "7e39831c3704291d8888c245a8c13f5650ead7db03d21245d9c05a145ac778d5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T022-typecheck.txt",
+      "sha256": "66582a646de52055290f9b85c3011c939204073863b1ebf3063b33dd4ce5bfbe"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-build.txt",
+      "sha256": "280a0f2dc329776bd94cb6f88bd8040d183cbbf8da07f5c7a6e1188d0b5c8e6c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-green.txt",
+      "sha256": "66557273332275cfca36902c89820cb6e3d91bc1b0b674b2d7109ebbf8511091"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-lint.txt",
+      "sha256": "a27189cdf5b37a8d15561a323c5335f41d8d867b945eb4a123c699233d50ef4d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-red.txt",
+      "sha256": "961d542ad2b3e2e783fed91be627d7a5cc14a23629229e0a9c7364659104f49e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-regression.txt",
+      "sha256": "d56b93fdaa89e1250d9955d7e07479b8e3c982d04c5faad7e306eb3491240a62"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-setup.txt",
+      "sha256": "bff6ba92620f36a91e87e866a5e7ac521fe2bfcb908aadbbde1f7fc327ec24f9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-typecheck.txt",
+      "sha256": "d5a5de64eb127f136fef2554345ba1d4c82e98165c3e51ca06d61c85b3881607"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T023-week04-e2e.txt",
+      "sha256": "92e6508dd449d6c8e3745bae35cb8b1e9ece204faa94a07c0f90ead956a022c0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-build.txt",
+      "sha256": "7c3b37a5d2de0365f33ce3cfa66d82c740f5e3ef8536be03ad7f9823b66f8a5f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-e2e-rerun.txt",
+      "sha256": "375a438342aeb8fa719748cc29e4af6247dc7f779ea318c15cce0f9f3c11d222"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-e2e.txt",
+      "sha256": "9ce9478a118e463c1ed94abae15793e67288aafe12de8f853530185d77ca193a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-focus.txt",
+      "sha256": "69d1623c85078717e3f6ab776fa0698c36c0b9b7b8a8e81289a3348205f3f971"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-handoff.txt",
+      "sha256": "eef5f6312504d4c9ff6bf4a34c3024c1ea9d3a706e38507078fd4484d62a6576"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-lint.txt",
+      "sha256": "2c4850030d2641c91876b12fc8cf78cb83a08a31d6949985908e944205d9b951"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-prerequisites.txt",
+      "sha256": "328e3761790f8394b9a431bbf9df09a81cd60cb19f69e0227bb1e64af31a58ab"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-regression.txt",
+      "sha256": "6ff70bbb81a76cf6026784290b06e63a86dd9b90f1a9bb2418dfccb3b1665abb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-traces.txt",
+      "sha256": "cb16d3636fe383b4ea1980a44527bc0d5ebd31c3af0a6ebc72d53edc23ad13d3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T024-typecheck.txt",
+      "sha256": "98295bf6f06be23beefebb3d7f1b223ad7abca1e48daaa9f459f734508a39aa8"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-build.txt",
+      "sha256": "d93a1d91013a9e1051f7592d70693c47386c57964475fecfd99cd0a13edc3e47"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-e2e.txt",
+      "sha256": "84c8f3d201d5e1dac1409b0d54b8071a5dc6d1feab5e38d6c94af95fe9fb149d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-links.txt",
+      "sha256": "2fdc02636740758525d0cfa74231d322566f883fbed567cc94946d4378167e45"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-lint.txt",
+      "sha256": "42b5ff86f7f1661f4695315dc57fb7c1188e41604cb7511486ddd518c9df15be"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-regression.txt",
+      "sha256": "a57fd1429772c8b84b16af3b356aff49e35f13c461001781412716391c55508b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-review.txt",
+      "sha256": "3719e51fd697e9b7111d05488c00638de1dc3c1534ebd07eba28b0ecc2710cfc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-secret-scan.txt",
+      "sha256": "d05a2b9610fe28c3f61fa054fe2706a034e5f077a3f35e8a9a0da540d36fd100"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-timestamp-green.txt",
+      "sha256": "d640171b2dd98b6e3670bb52f0eaebdd5c8dc5793fe4d8f10df1cd9d19695690"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-timestamp-red.txt",
+      "sha256": "f3bc82c9b6ffa4e9f7860c0ed70765a34078533f19014688b44c326975632791"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T025-typecheck.txt",
+      "sha256": "966617dfc3e6a245437289368c592a91becea125c5b926494b52caf5cec4f4b0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T026-doc-check.txt",
+      "sha256": "1a6ddf0dfd093091413bb664cb7ceb5bec60a937d2fa8635bc5368d5eeba8fc5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T026-handoff.txt",
+      "sha256": "cbd413b550fecc4ae438beed478c85b525a1458f2ec4650a6526a12f91cee609"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-commit-snapshot.txt",
+      "sha256": "8e05e9db2abf66975c5398595846f783b71fe0ee2afaac3449dfa0e79023e248"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-contributions.md",
+      "sha256": "a9fff755a5b152ad5eaacc6da9e6c10dfb2cc61cc09fcf5807db8cece12ac8da"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-demo.md",
+      "sha256": "d1076f5c24bf170ebc49acb4185815285ee0548eb127acf5e32b93533517c6da"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-final-gate.txt",
+      "sha256": "c5ede6e490a30e6ffe28c9dda7171390d50ae2486c676312a1188451f70b24ea"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-human-doc-check.txt",
+      "sha256": "0be475e1d9d4a69ab463d342aa5c17fa5ac085a61dc809fd92097bcba293bfbb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-human-final-doc-check.txt",
+      "sha256": "96eba053eaeaf6aa6a1f7ec340f8254cebd8875b1fbc28ee022500d4b8450c00"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-human-handoff.md",
+      "sha256": "6e7e908b3e1e57003f21835c0094d8007aabbac868ee7be64c9c6a0bcea002a1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T027-merge-verification.txt",
+      "sha256": "e12532465fe5c40a9c7b72362f48a72291fc7d1f67741234f682368f96d85829"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-audit.txt",
+      "sha256": "89b87a65e624507f7867c0a6a00dbdf1d48a32296eab2f61b71c8498b915f0cd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-build-initial.txt",
+      "sha256": "5eaa6dadb590954c156c916c632c0e97166011f1fc7edf4fefd6b57b4eec8bd6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-build.txt",
+      "sha256": "b9b276d487510c57f35cdee6a8b536d5a1dfccb37db3fc033f9c189d4e590b2d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-e2e.txt",
+      "sha256": "6f751614604e85cf199dfafe9666c4f5d69f1b956624a2102c572171c4bfa0d3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-focus.txt",
+      "sha256": "cde18620acd73d0dbc3d8a662401b9b913b35749c40743d4aacb99e325f4b7fd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-green-final.txt",
+      "sha256": "5fd2048789154e6316001fd9852cbe0a3371d8f63111db57f07237989f42903b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-green.txt",
+      "sha256": "d3d3565818291e09f15a7edf2f7d6685ad4cea81a658a1bbb1272007d9bc7b1a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-handoff.md",
+      "sha256": "7f93c1499cc8f3aff68c35a00f05dc0ff79882d286ad33b14ae2db6647995d55"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-lint-final.txt",
+      "sha256": "bbe4cc986b9fe2d6e226021ce18510dcc9802a5b939c49bae12cea1d95f439aa"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-lint-initial.txt",
+      "sha256": "bbe4cc986b9fe2d6e226021ce18510dcc9802a5b939c49bae12cea1d95f439aa"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-lint.txt",
+      "sha256": "bbe4cc986b9fe2d6e226021ce18510dcc9802a5b939c49bae12cea1d95f439aa"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-live.txt",
+      "sha256": "32d117cdcd6ba4788d2b8fdc266e4d721174abee14b5b8009fec2eafd55000e5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-npm-optin.txt",
+      "sha256": "1df92812d669ad07a9a88d451c29f9b63829182da5f066ab5fbcf1a000e96cd9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-optin.txt",
+      "sha256": "1c044ec75428e1d538ba3e1d448380ccb57fd5309a80a38d7250681ba50c5149"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-prerequisites.txt",
+      "sha256": "a5a93c69c2e2028353ee9d2f948b894e95e9c0ac3a4be3830f9149145ba60838"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-red.txt",
+      "sha256": "66df14790cf3234b3913e8f6647d047c5263ae5d645619e3128a333ba1dc8c73"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-regression-final.txt",
+      "sha256": "0af84c7036e55194bd802a1f1ef86bd6867fb729917f36d39b772612031e226b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-regression.txt",
+      "sha256": "56aa3e0b63a369026653afc529c365505d07d1f5fb08f2a7a571363246a23c63"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-traces.txt",
+      "sha256": "d5d755e85b6711d75fd784ad760f4fd2dce23b77a0c6c4ba1a217b4210b8bf58"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-typecheck-final.txt",
+      "sha256": "f08b33486ce9c81fcb0cf82603e682c4dd53dcc8ead9b057be639da7dad0cc71"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-typecheck-initial.txt",
+      "sha256": "69ac5fd8bf112dd3701367e6f57dc58a8a9083303f07ed49e32a8073a67b68b3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T030-typecheck.txt",
+      "sha256": "f08b33486ce9c81fcb0cf82603e682c4dd53dcc8ead9b057be639da7dad0cc71"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-audit.txt",
+      "sha256": "23efe2ab0ea68d5eef4808f650d15521ceeb3292e5140fd1f4849a89f1eeaaea"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-build.txt",
+      "sha256": "2de0feb5da90720aa1813c9b25d27ff7a6fc1fb8e889231b6d78874853bda69d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-e2e.txt",
+      "sha256": "7110803c3b00cd42fc699e352c7353d65e41ae04d71605afb200a607362f4efc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-green-final.txt",
+      "sha256": "1cd21eeb6b40f6d65dbd9b8bf18a76bd00978c49422c6a07e7191ef2344d3d69"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-green.txt",
+      "sha256": "09e611a6d935bf5861be29168766f7f533748ba863a2c8d7dffddf97ce44717f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-handoff.md",
+      "sha256": "77195a49c3b15d740fa07113d80e466f38fd9148292c2a453968622f9a7f8a30"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-lint.txt",
+      "sha256": "410572318cc53473517febebc12f4f8615639be4be98863d6baa5c6f0838ab7d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-live-02.txt",
+      "sha256": "1af5252f46f8ee99096d152538715e452c6d43b43876c1ef2f3b2d5ef51c713b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-optin.txt",
+      "sha256": "a10f25210f17475e11c370feda5b6e4fa40a49da384078c4fffd47d0fb1617d4"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-prerequisites.txt",
+      "sha256": "9241346b36b70d02a4d639dd87ace1cc22e415891c6f559d6b2dd084923e00ae"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-red-final.txt",
+      "sha256": "74b64e83bb3a3f129d8449fc63e9196dbc2c66b0a79a21fdc06a1dcf27b4d603"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-red.txt",
+      "sha256": "046a9bc6c7fa05b33eb176bb27ed45eee307903a6485871b28c0e54938bc3039"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-tests.txt",
+      "sha256": "c27679faf9ea14f0e201cecdc1d5c43ffd3d7602d3fab37e285a72f615226e0c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T031-typecheck.txt",
+      "sha256": "58acc2e74d32c49ce055a6dcb47b4b6a99a4f4fe418b5336e6c0812e08e62d8e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-audit.txt",
+      "sha256": "9c257994e571817c64e75a0fc4ef0113668746b6c30e07d928e1112051ecc501"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-build.txt",
+      "sha256": "e179bab27972c31e16ae3acf401356601ce7888ab13a6ffded332f868aaa9afb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-e2e.txt",
+      "sha256": "8fbabdfa98e64a3e54df4cb9f3cacb18ceac74924ba511defc1e9d7ef757f22d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-green-final.txt",
+      "sha256": "c0582e75effbc13c32dc32066465f0808d2351f4a13f4222910bc9b199b4c616"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-green-initial.txt",
+      "sha256": "992f97c3b502ff948693a018d9459c5d2a8d2d39bada9cfb213d2fe2752a346d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-handoff.md",
+      "sha256": "682174768f5940ca3a121a9353a7493104d8f5ec0a05e0e7ec488f7da6d9db76"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-lint.txt",
+      "sha256": "6b4c9c8a0d4cbd19d8a236a248372ef18d687e8799e9d307ff15cf91faf0ffca"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-red.txt",
+      "sha256": "0c6f5261b941e7f274eccfa303a0d5fa839326063d446836da4a40e7779a0529"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T032-typecheck.txt",
+      "sha256": "63a402a8192e77253d14d953a2f8b9f9ccaa0f5b58008240e91a1f94c92c4320"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-build.txt",
+      "sha256": "2958e9d4c015b844354abf8013acc03c80876fbde1d5f99c577e79f28e25e975"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-green-final.txt",
+      "sha256": "b37d02593d40b0c2f4c11c0e237cb0c6553591ad8610c4a90fceec2ea9535c9e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-green.txt",
+      "sha256": "3c8fff26a73090e06ae8fe09214eede14dd389ee5e1acede92d406a8645e1a3c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-handoff.md",
+      "sha256": "22217a54baf09106895dc281e37627fc2b439c49e10e789611b1a4a9c568c92d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-lint-initial.txt",
+      "sha256": "14f1e1866afe3ec89cc0e8c6d64c0b5277a67999895310b13bf405f0e6002e1b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-red.txt",
+      "sha256": "2e84c584aaffd32ecc28d353fd68c97e8b5c88c7074b9fdb66c17926fad3ce65"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-regression.txt",
+      "sha256": "07e3c8d6475c6e49d479246af3b7f82f3458247622efe5148308a14fd3d45cf5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-typecheck-initial.txt",
+      "sha256": "8da9e3430dd0de44c739c9318246c6a837f5fa5cca565fa1223dc6fdf3bec760"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T033-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-applied.txt",
+      "sha256": "870d591e45c70850fccfdb40335e1e1d0257647ec4c72796bfc72424560f0130"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-build.txt",
+      "sha256": "86243539b4ee251c562abb7cb33da62d07d6041b0f652e523b73b841baa9f22a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-green.txt",
+      "sha256": "ec3de95debe490d41f56f47af10ca78d24d85baac08235ce189cc2e7a53357b7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-prepared.md",
+      "sha256": "c6ab23bf7b9f8a67859f86f6f72b0785d6d6a8f250b362fd228f6b8faf60f15b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-prepared.patch",
+      "sha256": "a3be956bc394b005044c18f29e0929c8a2e8adb495a5eaeebab39bdc43b094b7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-red.txt",
+      "sha256": "55a762af3973b032a36637e967209029e06697d0204e255eae3d08851f6a56b3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-regression.txt",
+      "sha256": "0bead8fec89a3f9985af46c1674f4a173e9e7c9c80706322a5e7bfb68e1fd830"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T034-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-audit.txt",
+      "sha256": "6a1b59e83cdc5f1a806e99ad31c54c62e94332ac5f0a087f96479e1a104dfabe"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-build-detail-final.txt",
+      "sha256": "f0a135d6b14d653c7f8dee16bbdd7e74cca8436b4e8fbd3830c78acc497aa683"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-build-detail.txt",
+      "sha256": "86b500ebec5ee5acdd39debeeb271e30f7257a76fe053d167d08b9082852d334"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-build-initial.txt",
+      "sha256": "000eb1dd9aee9a8c612d21c1e960035e22e1aa419d5f9c433a2fe286da70667a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-build-kind.txt",
+      "sha256": "80e8dfa82ff2a84e024da747438f4e0c46d5763921f70e52f1ec0479317cc71d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-detail-green.txt",
+      "sha256": "02cf90a73bf2e296f934efa481780d22ac42ecac5ead6de4f0d45678ab8018e9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-detail-red.txt",
+      "sha256": "b157d7d7d1f1296d44f21c9c975e95d109fa692177b53b31e2b96c5189836be6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-green-initial.txt",
+      "sha256": "5b7229ba943d5247bae26663779b199e09a7e690a230edf5fd69995cab32dda5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-green.txt",
+      "sha256": "3cfc96d32a69f848eab3cc8311278ded9ae152cace6a1a5212a0a111ad25b3c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-handoff.md",
+      "sha256": "4b123b821a2622dcc6f0711cfaa263406be32460fb2a22884f016a71c64aaa77"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-kind-green.txt",
+      "sha256": "fbc93d89ee2079205cad50ae68628ff83439e9f2e1e756b60575812a892ba5fa"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-kind-red.txt",
+      "sha256": "7f7bb1423a9c3faee4b165b58ef0d9aa8d8dfbbff3a54de6717820d60f313535"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-lint-initial.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-live.json",
+      "sha256": "96fa7618418a73638a7168de6032fe48a5e408c27ed5e0878cedc04bdcb187dd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-long-green.txt",
+      "sha256": "94f86155d34e590a16d281c549b00ae4622574c260223c48d626ec1d8fd8909e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-long-red.txt",
+      "sha256": "03453e92ed0dbbf6a1bf5efe035428800cf00fc5a070b99dbd815c069849b346"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-red.txt",
+      "sha256": "c3aca53b89a5664f6f3e618882c064f71ff7a71c9f804a7477ffbcff5efc8f5e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-regression.txt",
+      "sha256": "9ff2380433b0a2c72c1c804f89e61a2f5c9ed9d96ea3f261f47357bce66b8187"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-typecheck-initial.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-T035-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-baseline-doc-check.txt",
+      "sha256": "9245bab1315ef1e1e9d9134f958459aef50927536180bb332467d6eecff8ade2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-baseline-smoke.txt",
+      "sha256": "160cb737096780be7e5fc975f9bd1852bf57143d521f7b88ca70263a662fa1a3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-baseline-snapshot.txt",
+      "sha256": "793dc39e74482e4fa78dd7eb9c2432d35a5c1668f356bbfa8c5c2aa253d94728"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-baseline-tests.txt",
+      "sha256": "5297b80ad27fd174c9f4806ee86887fc96b974af0000050fbd461370b570c796"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-baseline-typecheck.txt",
+      "sha256": "f91922ad3f0a2e28bf4344ed18d8b41b455e96501901e030274b5d97aaee65ce"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-baseline.md",
+      "sha256": "0f430dbac9ea1e5a50d65d12d7ef389501f85117b29302d63cea114746460390"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-evals.md",
+      "sha256": "66c82e886c2b26b0d4e59681116a76dcf20bf316ecdf3a47ddcf9a5f484956dc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-final-verification-2026-10-05.txt",
+      "sha256": "8c44db0bbc260f74abcc26859cbc20b3564f12d010f879da96d5b6dfecf44971"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-build.txt",
+      "sha256": "a832f52a65b8fa54c8ae39c88d68bddacb1f9d07de1a365a484857710d1bd00d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-handoff.txt",
+      "sha256": "99088398a44c7fe9b0f96388c419c5b0e5c842240a5f56f85e9990918e3aed35"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-lint.txt",
+      "sha256": "1909acb03f35bc74b8871f6c930f93e41c00d87d2fc3ac3705698da25f5bfdf1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-prerequisites.txt",
+      "sha256": "17136593f6879d3d816b2adffce693e36cb4dccb882244f34468b2aff60bc33e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-regression.txt",
+      "sha256": "a8282e78e9cfb5583cce2d9f1602c78f4f676f599909e3c7fdae4dd589d89fd6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-review.txt",
+      "sha256": "7f5168c190037d321089e6161fdc48322406462b63761001cda7422f2c8c225c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase2-typecheck.txt",
+      "sha256": "000f5ea986d393c05ace245ffc848b0da6b3df2ed8de536f81776de072d2f359"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-build.txt",
+      "sha256": "e372c3ff23744aba2942f7385050f13c6cc264442159c269c13d1baf7e1143ed"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-diff-check.txt",
+      "sha256": "827c75dc1dc5cd88eeda1073100c315a1c522b291e7c1fb7c8ae156e70dc820b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-handoff.txt",
+      "sha256": "029754296838f8370739d3ae8f1f1702c9fe110d9a23a56803c3dc720a14b4fb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-lint.txt",
+      "sha256": "0e24c98923b91258d6c8131ab3ab6d126dbeb9fbabe474ee86c7bc87815f9136"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-prerequisites.txt",
+      "sha256": "0140cb5332e26bda3e352d4cdd7fd930b74f753ce3041b38651f8332e7ccac8a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-regression.txt",
+      "sha256": "06456b3860227db4849c40640408aebe83ec1456f7ce97986349a64933913044"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase3-typecheck.txt",
+      "sha256": "b4988786f98ebeee268712907de64f208aa97ecf1b46e3b0fda602dbf34244ee"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase4-handoff.txt",
+      "sha256": "e72caa1246dd5cea5a40a745416307db6fd8d68041b55f8ed9f2c3eef0ce2f46"
+    },
+    {
+      "path": "retro-poker/docs/evidence/003-phase4-prerequisites.txt",
+      "sha256": "f658129c469510c8aca190fbb6275df2440d8dc8dfd4ed3976de822da6326079"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-build-final.txt",
+      "sha256": "60594dcd3610b60565ba677994974e44016688f6949374812dcd4b745fa06b73"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-build.txt",
+      "sha256": "f1d254f67694b36beeed11381320ac6608a26c6533234b343cba31b5735979c9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-e2e-final.txt",
+      "sha256": "50f7650b14e94f0bf343c535f4d618e8fa6d8e919a4e21a309f4eebe33dc641b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-e2e.txt",
+      "sha256": "a501d9b2de411a618d79693f48c968059a607ba475331375d152c68309ab5ae3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-green-final.txt",
+      "sha256": "88c7cb12c0f28852ee4c54260a90d67f2ca047af604b9edabc9b65b2e7c8811e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-green.txt",
+      "sha256": "24a656725885169171b63cdb8d888bdb6a6e1cc8c825660687dc7f19366f0f1c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-handoff.md",
+      "sha256": "abc5307e838848a3c229ffd9e3c0252174dafa96695dd99af9add2310627f6fd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-lint-final.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-red.txt",
+      "sha256": "c2806673ee591af322bc94fd1a68cef58f0aab7e4320246eccaea88acc0354ce"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-regression-final.txt",
+      "sha256": "2ad3df6c4ac793e163eb960716977bff04548bba54d8f0c3940da46392d427d7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-regression.txt",
+      "sha256": "ed36de206eb432a9bdbe3fa49dd6311871a62567aab2e06db727a5133ac9fbbc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-typecheck-final.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/004-AU1-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-T004-handoff.md",
+      "sha256": "7e2584b6a0183d68d09f1f34c922771a195efbd1f23f0bdb1cd361dd7479e197"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-T004-preflight.json",
+      "sha256": "3808d3ed879657ea1a73d3e8afa8280cbb4bc1f34e4d118c7320f1eba23c09b5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-T004-recovery.txt",
+      "sha256": "7e3972f0ab1d6c0c44796422fd189a4af46a78d510f799f894272b72e6bb7a79"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-T004-tests.txt",
+      "sha256": "86dc7094b1e4c2459dba408ebbfebf26beccc1c4c72012d37d34fcf399f57723"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-T004-validation.json",
+      "sha256": "17ffc80316e26cf3b74cc4322108ec3780dc6f878450a608f508dbe2fd84e0b3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-build.txt",
+      "sha256": "ba8c5f0055b0dbb2011c8043f63d39abc7a4659fe4b0bdc28e00b729e30c55a7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-coach-retry.txt",
+      "sha256": "28025a22c888478b22e88ae0ceb995a246554c8b4b7a9e73a53db2d894fc4899"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-coach.txt",
+      "sha256": "80f86fedff74bb4b05a3f89c84f33ccc911e6c930e29141381c69a645a68c9c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-e2e-after.txt",
+      "sha256": "15003958708ff56aef3840b0b797ed3b75a5782bcdfb120374363d7d0978fcef"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-lint.txt",
+      "sha256": "c109c01c92f87e0fe94275bdfe3f99649a7eabdb01c717cb7d75489bc305d015"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-recovery-before.txt",
+      "sha256": "9a0eefbe6ae44d54a63a828a267d26a0ec1071af9a735e1ee2397bfe3109e3c6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-results.json",
+      "sha256": "e4b2acf903a1e31ccf9c31b792ebd06e600234329eef9718ac64a1e462e6f9b4"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-snapshot.json",
+      "sha256": "65ef8e967a5be8ea02e0e5ee56c091cac6b58fc26cd08c8980a07430a64e3e1f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-tests-after.txt",
+      "sha256": "a306121cf931d57cee982804e2bb2b337f298cdbabdbf0c189d2012d38b3fe85"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-tests-before.txt",
+      "sha256": "73c0ac04d8851382ebbc5223fa3e7ffaf8581e0eb9b1f58d5b5903989f421942"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-transfer.patch",
+      "sha256": "81261bd4f6e0a5c7cee8960837635800202c864849650ee8bc22d5a98c7a16b0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline-typecheck.txt",
+      "sha256": "7b81bb3ff3d31eea9ec844f7406064241ff6ad7e4af8f1ff9f7b3d619cd874ec"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-baseline.md",
+      "sha256": "8527c48a64d76995f5c6259589b3869414132559630f8af93dd27a070efa9071"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-document-check.json",
+      "sha256": "68bbceda1d4b4fae89547667fcdbeb32ccd4c0caa50327cf5a466bd233ac673b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-final-check.txt",
+      "sha256": "d10291856f1b46a23fa0f2877f795ec05b1445e764623a7788712009064f6ba7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-build.txt",
+      "sha256": "86bb4ffac0d018899a0503ce8988f707554530b1a4f9daa9ce33888367404e2f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-expectations.md",
+      "sha256": "90c72f30b7ab3313d6d51d6f4a72f15a99a5643299526811083d52878992d60e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-fixtures.json",
+      "sha256": "3545850b0bc02dcadc868014bb52cd63583229e4b05ede1d3c45668a38ff047f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-full-tests.txt",
+      "sha256": "7d51138475b1df55ee2acb499b5d4bcd5dd764c264e9bcf656e65e371cb5eb1b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-handoff.md",
+      "sha256": "b7b592c83145fb4d701c43464842d0f4e5dfce7a61a353c3dab9b962ad31b560"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-lint-first.txt",
+      "sha256": "b5af5684af82a63435919a2c6d6eff91d63958b0c12d34f9b91f6035630ebfa0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-preflight-tests.txt",
+      "sha256": "100789b736c40e01881e211010207d7d6a9b70293a0b6bda7c4747c40d0940be"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-preflight.json",
+      "sha256": "c2922021c8d602cacb9047c12967ab8ba9e82e680cbab73c230d5d9429a4f03b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-production-baseline.txt",
+      "sha256": "c965762daaebc93862ca8b7ee897b20c5650d9c37f9f42e589f917d8ffba0799"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-production-first.txt",
+      "sha256": "7296bde32db15d7469beff3539f4dbea1424174adc3a65965663f6e4e73fcab1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-recovery.txt",
+      "sha256": "089370ed4f6755be191fbf375c81a697cb6b3f5ac1a001c73bfcbe7bb70226df"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-security-baseline.txt",
+      "sha256": "1403a71af091bb0f5ce6e057f24d58910e6fe3e59919883c06f045b83d17a083"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-security-command.txt",
+      "sha256": "b532cdc1c8807f3ee0c47e90b81e3ed6e9680c86393646eafdfee15d2a316d86"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-security-first.txt",
+      "sha256": "d6e778a30b3af53dac25afb31c10da9e01fa155bcdf39c3f8ae70c1b1cbf057c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-typecheck-final.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-typecheck-first.txt",
+      "sha256": "de58f1f3114cdefaa1b8546f065a0cf53a0b285ed265b9228422229aaf816192"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase2-validation.json",
+      "sha256": "a1070fa882a472d94b23a2db972c9c92192516828a7219bd66a06a7920ae59a5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-browser.txt",
+      "sha256": "9c03d3bcf76dfd2d402a4f01d19b8ca167599f34ead80297009c1f415e029a37"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-build.txt",
+      "sha256": "a941c4557be919d0caeb4afb257d65758af2597efad1314f40a8d3f673ef768e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-diff-check.txt",
+      "sha256": "820c91781950a7813d843698bd243d1f687286306319e3cae8a011151291e8ca"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-focused.txt",
+      "sha256": "a7a181d5de9b3bfab8d3b96d813019387eca5fffea8c7a558e491ff596d7135e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-full-tests.txt",
+      "sha256": "63803ae2c71693d6d2ad0580629183070e842d1487b8ac5b2138503803f4a035"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-handoff.md",
+      "sha256": "d819738c123bd6bc99937837254edb9febe50f6f8d7aa8e4195e8a067f8cdc66"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-http-final.txt",
+      "sha256": "e7d154445a595ea2b5d0f6639b165e53a2f97ef666c7cd61656ed60756c3b2ed"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-http-first.txt",
+      "sha256": "aac0380d1d3ffe1bf7578e64bd1859ce05a3c7b594ad8b63b6c70f0bce4fcc59"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-http-verified.txt",
+      "sha256": "a9c1f5d121b00789ef0f5a6c58d1da920578aa6c690a8798be99ba8c76b6c233"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-lint-final.txt",
+      "sha256": "8f36a5c02c7ae218f8d79ee13be133e315bb5e50410c0dba8558f41ad91a1b34"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-lint-verified.txt",
+      "sha256": "ed249c4fb411c147d57e09bf9444cf8ca8d1d9651f1d3f03b14864b640afc06c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-preflight.txt",
+      "sha256": "694f99a02885e805355b2fd4514ceb6ad285be9783254a7633ec107f44e5d47a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-production.txt",
+      "sha256": "91c3b01ea92e5d00cd819955b7486dd6b4c56564b5da95be4abf8a1ed30e52b2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-schemas-first.txt",
+      "sha256": "cef084d5502a636edccd044b3465aeec62eb62a75867aa5d78308152044008be"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-security.txt",
+      "sha256": "15839d64dd65c1836fc20cd5cf23f702cac92e916dbce04114b6c2d5f68ebb5b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-state-first.txt",
+      "sha256": "12f0c285fdf8bd0774b698e77182c6e74b9f14208cacdf5f3efabe85fac53837"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-tools-first.txt",
+      "sha256": "0eddf3fff17525aa9dc288aadc9d92cd0106472a83d09e1281c0182e3ff9faf3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-typecheck-final.txt",
+      "sha256": "8f100212232ac300deefb38f89dffb3197bee66bab47d33b2efb87e1c01217cc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-typecheck-verified.txt",
+      "sha256": "8f100212232ac300deefb38f89dffb3197bee66bab47d33b2efb87e1c01217cc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-typecheck.txt",
+      "sha256": "b039d4ed70374f3c7eb5b19b20e21c8ef2a982533a8767e7091e2bc87d925ed0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase3-validation.json",
+      "sha256": "0e249c730179f3b0e0b26080a3c32874363bede8f1716189ba718a38b8b41ee2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-T13-same-input.txt",
+      "sha256": "dcc08f5e9e7725c9bb168cec3848a6f785f9418640e89f8d9828a0b313fd7ecd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-admission-first-green.txt",
+      "sha256": "5e2b2c5d69b52aca8f36d4f0a71ffb01f7c939f04250470609b7964ec4270f43"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-admission-red.txt",
+      "sha256": "879514130397d0fe281508a62c4177dde02ef1df71785914a9e28e29fae6e2a8"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-bot-capacity.txt",
+      "sha256": "c69d1aba9bd0611719dcf387f2a9a647ac3364fbbcc1d35c12d7726c3135696a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-browser-first.txt",
+      "sha256": "0f765a2a5c03bf85d97fd993c86db8edd5d03c1caef05f2932e4a6d20ff6c9d6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-browser-verified.txt",
+      "sha256": "8c5cb23de006cce710c1dbfb45816d383cff6ec16360b56e2a705db91cf771de"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-browser.txt",
+      "sha256": "6c62a82af3b15e2965d4cb015a842a7131b263e434e4bc0e6e2b021115bc24ac"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-budgets-first.txt",
+      "sha256": "2ece6d5fba890c2404d5cde7b8c0908766d4e9bdde78de368ae6e5b0ce1ed7f0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-budgets-green.txt",
+      "sha256": "84f0d2a7c3963e8c71a32e430d9d9693c86353c0c24d06a25e35a949c983445b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-build-verified.txt",
+      "sha256": "d1e1a496a0206e5365b71a8ec40969992d7fb2e8d9e4ca70fca2b9c4335d5ff5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-build.txt",
+      "sha256": "d4800c4f6cc56476db86d11790b8b110ef565e569921126e3f25cb9098234844"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-capacity-setup.txt",
+      "sha256": "6c530046d695240bfc7c360ff388492df7b3cc66bf5f5109984a0dd9d697198a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-diff-check.txt",
+      "sha256": "3d6a527893df57cdeae2cedd9ccf353f19e62988aa1ab2e960a72e7de92ebcf6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-focused.txt",
+      "sha256": "0064a5a05ad26956d5677b96d68cecd0944d41f2381fdc653c10059b7d31e9cf"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-full-first.txt",
+      "sha256": "8f7f7500678c3d91f99e2f7d9342fbdcd288106aeae0e8bb2e77830ab0aada15"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-full-verified.txt",
+      "sha256": "855769663ac91053001a0925bbec40d5f48162c60b1d071aaabedc65c7313c9e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-full.txt",
+      "sha256": "223546ee85edf8065059472ffc484f63bfbcf65990d576338fcb1bf3b68fe5e0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-handoff.md",
+      "sha256": "da961971b12d1f6672fe248600487baa0f289d91d0d6ab6ea03b3b4cfc991cd7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-lifecycle-first.txt",
+      "sha256": "7594382017157220c6892a567f9a25e1f690efd4efa621bd22edaff394deae2d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-lifecycle-verified.txt",
+      "sha256": "e66418ab01979d1949ff6202474fee1f139acd132eaa7b2c3a6dfc02085ec3cb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-lint-final.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-lint-first.txt",
+      "sha256": "73b530997d030cc52d342f28cf40f9d9a627fc9b609cac05ac1718f525654896"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-lint-verified.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-preflight.txt",
+      "sha256": "e55eced3814c65d571c9adbd1379d8ab984bc870baa5b070307ec533df587bb1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-production.txt",
+      "sha256": "772730baab4f27101b951f2dc74d205c4142cb7f69abd073cc27a44fcef9a30b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-security-final.txt",
+      "sha256": "859b65c2d9a52748076a40b5e0bcd6764f6725a785d82d039002392ced7b919a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-security-verified.txt",
+      "sha256": "10cbd997da899d341ec5c5bdd3ce162c98c606970125ae39a422ae317629b5fd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-security.txt",
+      "sha256": "649497220f6acad364bb5c568daf1ec0f0a39a66e98b69682cda68688fcac209"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-typecheck-final.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-typecheck-verified.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-ui-green.txt",
+      "sha256": "9d9160943bb42e060e524b1a2ff05860cb11dabc8fde6bf0d2f94f53ddbbcacd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-ui-red.txt",
+      "sha256": "23210d3922653159701fc9500f404e6fbc02ff972d86ef48d97bd99146ab6d05"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase4-validation.json",
+      "sha256": "aaf9c0ca067f8e03700ed648ab5a66d678ddfd6ea7265642f8aa7b080aa94a2a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-browser-before.txt",
+      "sha256": "5d1291e2436d9d1439ffc1eadc0b62b15163e4b085424fcbfff66bb0826622c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-diff-check.txt",
+      "sha256": "fa8842c83b0c311ebef4548e75ff7bb6c669ccdd49df69d8d74b8a5fe3adfb07"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-full-e2e-serial.txt",
+      "sha256": "4a15e2b76b4379a258ba94d50376d5f4bcf39a3ee965ce6867ae6f34041fed96"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-full-e2e.txt",
+      "sha256": "39e7fbb519b0382166e6de8851efcea17006684af61bdeb0903fba00c10ae45a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-handoff.md",
+      "sha256": "2342ef8e23644520deb623be270c3cc7ee4bd522245e6b623ba1af6adb81e61a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-lint-final.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-preflight-security.txt",
+      "sha256": "499370cb27b4081c1cd6f9f5330b2992f3639606e58cb4c4982bdecb21dde243"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-previous-focused.txt",
+      "sha256": "3035e24548b0569eeb984b96f0ba93a1a0a5730cdb172e0c59c889185181b09a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-production-red.txt",
+      "sha256": "333641aded9f6c6bf5b4937958bd5d7b822f1012b851655e2fe2a40d8e7e28ad"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-diff-check.txt",
+      "sha256": "7dd5efdf730dd99cc7dbee6ecd2c518fba1a7ca9c72628cd001f539870509ad8"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-full-e2e.txt",
+      "sha256": "f4919a9bf31157be0c585790531c5cbabb70c17e00b7c5cdf08ba355d55f4544"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-previous.txt",
+      "sha256": "8aa292d97fbe9c3fe038e17a229630a236975f83d6f1d0544ae54f9d8f73f588"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-security-e2e.txt",
+      "sha256": "5779bb2b7a7f4e16d6b90709742772e8dc6ea3f7fb487820173ab3eeaf4c3239"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-security.txt",
+      "sha256": "d0c6fc6676276f735900f12755e26042fcdf8ba34fe60b5ca7448600766f2847"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-ui.txt",
+      "sha256": "4457dcb4ff8200ebfe9490ce370ad86039789dc857a97dc48be5bad3a5e7d9a0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck-validation.json",
+      "sha256": "a11eb4060bd12050410ee9483fa12558761d0b42518265ad27515407fb2dad39"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-recheck.md",
+      "sha256": "7d2cfe4da735e73ca55b44e6bcb33784921dbc6d4020a5b775742516c0e1c4eb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-security-e2e-final.txt",
+      "sha256": "f1297ab348ddba781814992e470cd5d698b82e955071a5b9f88f898acb39a9b6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-security-e2e.txt",
+      "sha256": "753067409d48bae0f8fc7f001a177d9caf293288a8abe5dcde802fee91f66742"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-security-ui.txt",
+      "sha256": "b2e62f07c9b2497fb541bd609dd167140bc9a1c8a38a84533aa96cc21c3cb2b3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-typecheck-final.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase5-validation.json",
+      "sha256": "17d4ad7d740106aaa26450f667e886cdf7739a14cae796e4a82f8844527b647e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-analysis-red.txt",
+      "sha256": "f2b2e62282e7939ea01d5941ccdf880a0575ffad0b22254eaed9dc9552250c69"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-audit-final.json",
+      "sha256": "2cbd9f61d7638de9aecb2f059d405de034833f0aabbc0e8f47647b3eb1676e27"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-audit-paths-before.json",
+      "sha256": "511b856e3dbcad787075160c3b25ef32f3f9dfe2c3c58bb5c24baf166a6f9e91"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-audit-paths-final.json",
+      "sha256": "05cdf18c41d376ab183255ab48b4358f45aee5617c85972e9399eee59dda7adb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-audit-retry.json",
+      "sha256": "f74b5e8e473692034f65ab2dfe5acc347540f9a0088240992ecd86ae90172eb0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-audit.json",
+      "sha256": "2e1ec74fce4406d66a753abc62cdd3f092c7124d53e42d7ea85aaaccbc8dd8e6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-audit.md",
+      "sha256": "cd7313e19602b8d15c1f401646f05b5396dfe97181f5b627636fa852b5364692"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-build-final.txt",
+      "sha256": "f3abff9549391a7a37a67c29449a7edc27a541e96b3a46a1d1ddf63604057d60"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-build.txt",
+      "sha256": "2b80322ac83a367e10051e584c415865618882b4285d21f795604d6ecd206d99"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-checkpoint.json",
+      "sha256": "fee3f4f5df1ce647fb6f936d0b7f90eb68d66ff4ce02eeb58b99b5e822410b16"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-concurrently-cli.txt",
+      "sha256": "290044d0543d39a7efd1a4a0cdc1c08a90c9127762477a70fe45d10ba387cab2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-diff-check.txt",
+      "sha256": "872278f6fd2d0d0be3b27be5967d3acc6272692004fd8abb4ddc0273a22b098e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-event-examples.json",
+      "sha256": "fab30df4c37d79e3799ff5aff901ff2f72affa7d07c7081db3843c2296f1cae4"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-event-header-final.txt",
+      "sha256": "a2e3615c17337add62d45dfd5eac9f2b167a53e7b2a12ad941ac9b6dd20fee12"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-event-observed.txt",
+      "sha256": "78a11fc9030e14158f45b7cd079ec44e54494c21417032c762dcb6b4bc457958"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-events-expanded-first.txt",
+      "sha256": "dba7b5830a03cd28d88f31507636b360ab82485eac8f4d82e276783f12991a88"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-events-expanded-green.txt",
+      "sha256": "50bc4c2670c9a776e5de6ff14396053ff439182b5abda6add7484ab9c4e2bca0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-events-first.txt",
+      "sha256": "ebaaff1bb321521483c91e73542661d9e019d606892f70e8b99862fec251f45d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-events-green-first.txt",
+      "sha256": "ca27253ba9bebc35d0efad7aed360e569d328031185e2af1be7f5484f324443f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-focused.txt",
+      "sha256": "feac035df0f6a8dade359f7b0e68968f001cde237004a00b219ea761df538cef"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-full-tests.txt",
+      "sha256": "d4a9a0008c4062ba8edbd122dcb22af07895c4aceecf2a4c49c9d93eadd3ccd9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-handoff.md",
+      "sha256": "c2554eb4f0e1f3a81180377df19b669a86c8b55e700a222ef8399acb7f17bf94"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-installed-final.json",
+      "sha256": "10f87abd0ad6c201ac17ff808daa46571d91f6715bc7d345eb0a6812cefcab6f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-installed.json",
+      "sha256": "363f4a52bea5966cb6694fb07064916eb02f83d624b1f5094728e9fb764fae06"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-lint-final.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-lint-first.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-lock-changes.json",
+      "sha256": "ffbedfcd2b50f2d59eb838856d1bf06009d74f893ba64c4349502c496b58bb11"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-preflight-browser.txt",
+      "sha256": "5b62286c3a759cf7893b92de8137eb5fa9a4a798338c432a85de17af9475885d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-preflight-security.txt",
+      "sha256": "47141afe7a1895dae1e9d9a443fe4fc27aee80a9d8607c5eae27c1b234c905ea"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-regression.txt",
+      "sha256": "a0139ff2ae1b9ba00ca44367630ac7a4348bbb28a7f50bbcb7f6d44d0bea3556"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-secrets-first.txt",
+      "sha256": "ea3b1ea1dd1bc0a3d0ad4526fb2dd8d9f2cde37f23bca97dfda8cd786e1e41e9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-security-e2e-final.txt",
+      "sha256": "9a91579edff1595ef761f349bb36a88f30d0f6f80a10c173109b679e5f44311e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-security-e2e-first.txt",
+      "sha256": "aebc8895560642da73683f5dad90e0a563c74d1c66edf84257c873de8440a2ac"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-security-final.txt",
+      "sha256": "a88525796bf5f517c2ff676ccd9d01c6d8dd08d471637898c631773c3e34a73c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-security.txt",
+      "sha256": "b180c235ae565c832c76b83f8f9cfd3ef1b876ac43a7fb946f69611bb9fdac42"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-typecheck-final.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-typecheck-first.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-update-dev.txt",
+      "sha256": "d05f9c5abf6c4756daac01f6fd61b1e47de546791212ce502d7c28ace205dcf2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-update-runtime.txt",
+      "sha256": "7279bb3ff975c4987c05423570c9041f2955c62dbbf8e9322323cc2204facfdc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase6-update-transitive.txt",
+      "sha256": "ddbfd5daf7bcccc4963a6343e8127389e8b7f17d4c920a11216b382152cac759"
+    },
+    {
+      "path": "retro-poker/docs/evidence/A-final-build.txt",
+      "sha256": "d067880307d30979aa9e596cd9cceee605440ef0fb43e42f1dfbc1f54effe199"
+    },
+    {
+      "path": "retro-poker/docs/evidence/A-final-lint.txt",
+      "sha256": "1d05a6311f3a64133029fdb97eb635ae7d810ecc0751dbd52abc8a63ddb87c57"
+    },
+    {
+      "path": "retro-poker/docs/evidence/A-final-tests.txt",
+      "sha256": "88525bebba2442ebe7cdbc241361c7ba3d2c083914e7b3cd1cf172e9c5c2dd91"
+    },
+    {
+      "path": "retro-poker/docs/evidence/A-final-typecheck.txt",
+      "sha256": "c4625ee9571b9e0c9d7f91289f7310203e7f4ce81af052718ba372890e0fd087"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T003-input-red-source.txt",
+      "sha256": "bd5fab74f0afbd5bd40fcce5bc80fd1015b73387100e5ebf3d777609fded9ebc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T003-input-red.txt",
+      "sha256": "3dfd2d186597b0a0747c249dd36fbfdfe1cc44c494fe77d9f82b5cfdf300d50d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T003-output-red-full.txt",
+      "sha256": "cac406ab27389c11b5ff9cdf5c4a93c58b9f933e56815dcffe3bdd133e738526"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T003-output-red.txt",
+      "sha256": "65f6f9106465996181ded0c481383361906d1ee1fc7dc12598460d3e34ac460c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T004-input-green.txt",
+      "sha256": "7d5451919bd0a7ba8e180ff8491041edbb75fd737998df13df93ee2d413ffcf9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T004-output-green.txt",
+      "sha256": "02e77f1538577bd81228eccf9e4f2442695402309a75f6f776952adf58811e89"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T006-rank-red-stub.txt",
+      "sha256": "977b1d2fa6399f117ba9839f17c238b4f74383bb72db05bb57a3a9d40188c501"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T006-red.txt",
+      "sha256": "a77ca56636cec078c9c46449bee1b086ed1e675841bc00dd5af3006e7fc8065b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T007-build.txt",
+      "sha256": "6a44b84a67ab38290f569dc5487a75d3370324177a3bae095160c5681f81c246"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T007-final-checks.txt",
+      "sha256": "a87dea1f5c27faa05cdb77ee3bc9f46b447cc50a2eb5b8512e010fa1095fafdb"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T007-green.txt",
+      "sha256": "dc085c69d566e5d48c69885ae87275a63240898d565b0b4c69bf676a18618710"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T007-lint.txt",
+      "sha256": "e402bc47d93f17ffe1a44e575932a42322cad65579b1a030fb73b61ab9a50116"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T007-test.txt",
+      "sha256": "787f0fa3d2449a097c243cf79e28454a9b1d781a2da50883d400347b23acd529"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T007-typecheck.txt",
+      "sha256": "aba5299b81fc5a0ff40ce1cb3a079adc425f2e3f3645c51a154a4f043338ce7b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T008-basic-red-source.txt",
+      "sha256": "e8a597c5f5a3e593365843f1cef689ea1b9a607ba52e32cce5382d901a16199d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T008-basic-red.txt",
+      "sha256": "e68b62e1fc9ab22cf577c96c80e3b032c4154cfbda0a9445aa8bb0870e96002d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T008-reopening-red-source.txt",
+      "sha256": "77addbca3a009aaf399e0bd1382fa311c4dac2d555a060866093b36ff90c643b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T008-reopening-red.txt",
+      "sha256": "a68879add76e3b93c90acb33d0d7c10fff709527f6c2e0e068bcf0a59f74e61e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T009-basic-green.txt",
+      "sha256": "5e99237bd307b957785d62492e03d5e3ff6b74438238dcf6fbf5e833f469a5e7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T009-reopening-green.txt",
+      "sha256": "8e9820a3ab821e5a717fc37cbe7e1bf2499196761cf7c30db7a75cb832dcca98"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-final-build.txt",
+      "sha256": "9b375ca2fa82b5398e188e625af3f6182ffa84830d4f8e2f8d7dfc91a75ad3e0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-final-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-final-test.txt",
+      "sha256": "c038e216bb5783e29ad646ddbb20de8ffb5dc20224ebcf0aa642f6d7bf6b298a"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-final-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-first-final-build-failed.txt",
+      "sha256": "90b2f88d62e03d2a0993f7cbc690f8647344251197ecaf0835997316a296ffb2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-first-final-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-first-final-test.txt",
+      "sha256": "f4f32922a16b4056bcd7e68f0a5b479e843345950bf004b4d149e406a1bb8f5d"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-T013-first-final-typecheck-failed.txt",
+      "sha256": "4fadc6f637b039b208daa6299c7dfca845c0e50edaff57394326df80900d8204"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T010-red.txt",
+      "sha256": "370942b625308add983ee09d15b381968a64a65faad386b7af70733d172f1d68"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T011-green.txt",
+      "sha256": "c1e44a4b9d57c4b7d64f260e842fd6f01aeb9500ad3d2c3e122b9fd5adfe233e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T011-regression.txt",
+      "sha256": "96b459f8a2c23cb8c9e5102cd5f7a1ced4b8f7a2c953d6d5dd91b681eaf2c807"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T012-red.txt",
+      "sha256": "614f5263aa3acb395350d225556f64740ecc82d451eefb6ee27edfee2152bde6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T013-first-green-failed.txt",
+      "sha256": "1ace027e5ab1831ddbdd5a92e38e1c98820b5c9bfade6de6f4b018103543c833"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T013-first-regression-failed.txt",
+      "sha256": "715ba1a3ba819cfb4f1228a88587e6a829b533a8c2bdc077bce6e1439dbc5a5f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T013-green.txt",
+      "sha256": "fe85f455f7392704e290d4c06de2cca4a08500dd4406c784e78b3581ec17e401"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T013-regression.txt",
+      "sha256": "f8cc668f6bef7d49701b7e9fd91c7b51c854f03a82cd242d1ed76dc9fb1ebd8f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-T015-final-build.txt",
+      "sha256": "957fb03b9ef77413aa8fc28aee25caf52d0c1601cd9b6cb3ab1e5ab8e9611784"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-T015-final-lint.txt",
+      "sha256": "1bd9ead36b2dd71582bc7b5199586dd143aa17321301936b7a08e3e827bb64e8"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-T015-final-test.txt",
+      "sha256": "3efd5beb8e8fc2e3822fb9eaac87e4892b24b0c33f6c2aeb8fc05aa22b9ed0ee"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-T015-final-typecheck.txt",
+      "sha256": "aba5299b81fc5a0ff40ce1cb3a079adc425f2e3f3645c51a154a4f043338ce7b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-cards-red-stub.txt",
+      "sha256": "b560811b43a7713331b8f84e9d88f4bf698944e22922a499bc49bafb515d689b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-hand-red-stub.txt",
+      "sha256": "89e7ae3e2061fca2f4876304d0493c094cccae26ed08d9af442096838d8f52e6"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-positions-red-stub.txt",
+      "sha256": "151a3789697beb754e26e7a7bab24fafb2b0ba2f4b7215cea4f0734e46ebedcc"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-prerequisites.txt",
+      "sha256": "8cae0a1bd8f41b756d32f8a9cb320f236abd4890443306d101d60b98871c70b1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T014-red.txt",
+      "sha256": "4b2c920d649df33e648d51504cee98a1dc51015717bac7b6591ceabb839bb755"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T015-green.txt",
+      "sha256": "1f86492a1714893e2f5fecd43871de808ad85d9759e864268ab0cd054e022939"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T016-T019-final.txt",
+      "sha256": "cc4b4b941de3c80721a2a318a3f5521c694f36e45781e056ba0b0481a2a31b19"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T016-red.txt",
+      "sha256": "e9832e102a6d1eb75207cf6ee38d311b3c1fcd46154c2e3d78029dae3adf71c5"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T017-green.txt",
+      "sha256": "7f73f400db35d1972f716ff273d36c52e44cf05050682c1ded5eb3dc05120e40"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T018-red.txt",
+      "sha256": "ed42c74f89e206167155f6641426ca80db72cc7bae392233331a2989337400e0"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T019-green.txt",
+      "sha256": "58c18f4838df76d373efeaa8a1e94e91fc1b5170d8a4557d568ae8b335a72d18"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T020-red.txt",
+      "sha256": "b46a054f904082777a4700f1267b0d3f83598146e3eeb303b5c987a0ecb7919e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T021-green.txt",
+      "sha256": "7f80c84b982591473e766f647da4ede4091a6ac3fb08007165d9a9a4aaf513d9"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T022-T030-final-regression.txt",
+      "sha256": "14dc87d677ea3a2021c01947bf0e566ee5a4a364046e1588cd6b268f6ef29d0e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T022-red.txt",
+      "sha256": "8ca519bb1f08fecdc57cec06335374ca053e085354c4e8d49cab4002dff99cd3"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T023-green.txt",
+      "sha256": "1ecd1001dc6407ff1648becd9d3e0083687784b70909882319c6b8c51ab46ec2"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T024-first-hand.png",
+      "sha256": "6a7355593daed3780de828eacda24b59fb6a2a51ebfdd9ee82169b8552eee4ba"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T025-red.txt",
+      "sha256": "ce652d37511f52a67e8752d000f5a5dcec4e54d4be8067a6dba3c9e25eedd151"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T026-green.txt",
+      "sha256": "3be97fb1092a582a8eb03e1e0dfe3cc47ce1f58cf2737f1916d9aa4d74d59330"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T027-red.txt",
+      "sha256": "2a5e046b1a2ba050d17bf089d8882b9880af4679a8598107af4d9e34c0081410"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T028-green.txt",
+      "sha256": "0e77335857632a9d4167920887957b2f35800bd32a3412fe64a9edadea45791f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T029-red.txt",
+      "sha256": "267f8671cb99632a7cba1c874fee5347a651fc4d1f4b01ea984a3672e432f27b"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T030-green.txt",
+      "sha256": "f04360a07f7b3fc9164377f0fc5b1c30cd9217516e2f90db00495eb8938fba39"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T031-T034-final-regression.txt",
+      "sha256": "e498c02effcec6e29b140019baf2b59ac7ce5471cb4e044d8115c931eed360c7"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T031-T034-lint.txt",
+      "sha256": "997c7236bf366aa5d6d3c24f8b1a2997df01c6bb84f58257120fc6412a5f80bd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T031-T034-typecheck.txt",
+      "sha256": "c30bdf2c5fb3b326612b32ffe7cddec580e719576fd44a55377a06f6a5eb2bba"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T031-baseline.txt",
+      "sha256": "69542cd83c3f79b62cd651d6e7eabf7f4e9fdc679481b0c965c4db73fe8ba43c"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T031-red.txt",
+      "sha256": "fa4864d81dffa0b4c4e8e5e49e6d465c926e3f95ee72cb48b100e632a4e9f200"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T032-green.txt",
+      "sha256": "dfab247406dbc0a600dde8251d4648943a60ec724018fce27c6cc190f1915442"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T033-red.txt",
+      "sha256": "995f92319ebb35580e2bfc0665a98826e940212ad18536c31e87330ac5d5d666"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T034-green.txt",
+      "sha256": "6da8b8ad720cbe5ee546319fd3c8a4cd36eae9ead851ffca4df600b8b2def609"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T035-before-1280x720.png",
+      "sha256": "e9846e2b0b743b327b01c9ebbc8e20f045bdaf99b973889bdb4cfdb3cfb84b79"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T035-red.txt",
+      "sha256": "19945e37a569789c22c2469cd2997a91ccd1a0574ff6b44a9e7860425b599277"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T036-after-1280x720.png",
+      "sha256": "7384bd2f29ffce038f608311cbdd47b835316c8c193e4d448dcfdb0de5bc1a3e"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T036-green.txt",
+      "sha256": "3d48ce9deb40fcd134bfae799d992e6edba934a65dd2de79e52ebd2858c6e931"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T037-evals.txt",
+      "sha256": "cea78af5a201cb855d690c2e2d7bb92947b5e2296a4def3c22bef3684071ba84"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T038-red.txt",
+      "sha256": "9f9bfba2b4ebffb93ae117b9622c3fe94cdd9c448db6b5fa5480bf97a3d57afd"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T039-green.txt",
+      "sha256": "458d896c85c3e2ef6cb887e62dbf4a799b74f198f6b9dd62e0c7be77142ff633"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T040-clean-ci.txt",
+      "sha256": "b2531a9faecacbed0db95f7a1c903f8db189b8200c8708a77b9992b8d7516be1"
+    },
+    {
+      "path": "retro-poker/docs/evidence/T040-final.txt",
+      "sha256": "3dffdce258c263b952852176422f63919eda8799ecee91fb53e5467c900b30ce"
+    },
+    {
+      "path": "retro-poker/docs/evidence/elimination-ai-red.txt",
+      "sha256": "a0481c364dd4650eb72424e46ca224e8049d1c94a638e9e4e5261b1b6c29505f"
+    },
+    {
+      "path": "retro-poker/docs/evidence/elimination-green.txt",
+      "sha256": "433390ddf8de28ce5f50ce838e5f1df9cb177dad2849eea361fdf98da5714765"
+    },
+    {
+      "path": "retro-poker/docs/evidence/elimination-red.txt",
+      "sha256": "61045e862a95c6facd8561c56a158c190bcaecc38d94cda6e2c33c40fc2b68d4"
+    },
+    {
+      "path": "retro-poker/docs/evidence/elimination-regression.txt",
+      "sha256": "ae416c706bc96cf0185c31b07dafe07876ad62d3c882bd2f4e17e7e6e576c609"
+    },
+    {
+      "path": "retro-poker/eslint.config.js",
+      "sha256": "1299374afa46e89279cf163bd0621f2d8962c764529759fbb4b6d6aac99c8ca7"
+    },
+    {
+      "path": "retro-poker/frontend/index.html",
+      "sha256": "4572f7da05eda28973f99ff084e5490bc9a45a87888c58b6ebca1b989d0c786e"
+    },
+    {
+      "path": "retro-poker/frontend/src/App.tsx",
+      "sha256": "83b5835019364356b46566322e8e956d683045d062a7ec59c67a1c64e0464408"
+    },
+    {
+      "path": "retro-poker/frontend/src/api.ts",
+      "sha256": "62e04b661eab2c00e6a27724864b4093b5cdae73eaea4e7422fad064241aa5d1"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/ActionPanel.tsx",
+      "sha256": "eb5ee32fa4a639d881f41ba610c1ede5cbb7c9f7d98c7f35773606db0b182fe8"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/AiStatus.tsx",
+      "sha256": "3a6b66e6cf3be216f5014c8f39597f01c2aabb02bb30157f3d03f8a277377089"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/AnalysisPanel.tsx",
+      "sha256": "635badc8accc9d9863384e257e5cb3d6c1204d2e276c6439b0e3d0ec81db9949"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/ChipAmount.tsx",
+      "sha256": "3958fc7acbee6f310d0cda49c6507abc55c59f1e5cc32aabc21e5b0fe55dd793"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/CoachPanel.tsx",
+      "sha256": "cef56b51614a44a53abfce179ae0a080cf06807445ed9ae4cc208a3f9394a06e"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/HandResult.tsx",
+      "sha256": "34ec0ae60cd1c46bc3b7dcc61949f3ef8cbfa624654ee0bd1e83be4a5d0b7437"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/PlayerSeat.tsx",
+      "sha256": "a62b94bd996b83a0e5e4db2bde31c410b27ff8e291cbcb8ef1e1a196a0b41460"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/PlayingCard.tsx",
+      "sha256": "05d571af7e850d11c345632810dad5c869c0bc40a2365d90affbff9544e29222"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/Table.tsx",
+      "sha256": "d719c94adf0002b4003c2b88dc50c35b84574f62d1848c7fcdd52705b78835a6"
+    },
+    {
+      "path": "retro-poker/frontend/src/components/UsageDashboard.tsx",
+      "sha256": "d9edbe882fc4cfe7bebe5a15a38b0959f263357088ace967201c229bd34821c2"
+    },
+    {
+      "path": "retro-poker/frontend/src/main.tsx",
+      "sha256": "b11439c2eac9209053a02430cc5725a37fe453966b663e264f6c67fd921c8a74"
+    },
+    {
+      "path": "retro-poker/frontend/src/styles.css",
+      "sha256": "852598b978d40f18737cae2081e6019b7036d4a4d5c2df36591472d1a1d60d17"
+    },
+    {
+      "path": "retro-poker/package-lock.json",
+      "sha256": "3d3df617e2d713be18771a3ae04cbbdae2f13e462d701ccb54e48ee6e385b801"
+    },
+    {
+      "path": "retro-poker/package.json",
+      "sha256": "7e0430673a00d0ba5750c63ef3008491eb5d812c90b74ccd6419c4d28ab62a5a"
+    },
+    {
+      "path": "retro-poker/playwright.config.ts",
+      "sha256": "fd815a706b84f91dffa3bc0af27db39ff5ad906d5b752ec3341081b53e33a8d5"
+    },
+    {
+      "path": "retro-poker/scripts/coach-live-eval.ts",
+      "sha256": "0f5a0fd1f7b492b201dcc6f3ac8020e6d36aaa451513dc558fdd2fa05d5702b7"
+    },
+    {
+      "path": "retro-poker/scripts/coach-request-gate.ts",
+      "sha256": "37289833eb85276036687f68d5c6452e2bd4e669029dbc7e469a2bab5c5fc5eb"
+    },
+    {
+      "path": "retro-poker/scripts/coach-smoke.ts",
+      "sha256": "e28597748dd61781a6419518152561cbe01a06b0b981184fee4e3e5c2922a151"
+    },
+    {
+      "path": "retro-poker/scripts/gemini-coach-live-smoke.ts",
+      "sha256": "86b2fc29d2d6509ebf699bf6baaa3c369b69416dbfacbdc8257c49d5c3dbc528"
+    },
+    {
+      "path": "retro-poker/scripts/gemini-diagnosis.ts",
+      "sha256": "22944074261858557392ee345dc18b6f6c989d8cad1bd2c02440a98354e43a54"
+    },
+    {
+      "path": "retro-poker/scripts/gemini-live-smoke.ts",
+      "sha256": "c6cc1e8da02be09f2a681f148e148b50ddc32809c03a41d1ebc5dae59848eb13"
+    },
+    {
+      "path": "retro-poker/shared/ai-diagnostic.ts",
+      "sha256": "18eb161c24a10b5dca0f2b3dfa9320c6f8e01b784be0b3c0cccddaed6ee5ff55"
+    },
+    {
+      "path": "retro-poker/shared/contracts.ts",
+      "sha256": "ab3806a27bf67f7c2ba0737148b94adefd7f1dec6b33dc994a01f0ad57d44089"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/checklists/requirements.md",
+      "sha256": "8933dad406f6b96796f5cd7004e3f310d0438392763acac948ac462dee299ade"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/contracts/http.md",
+      "sha256": "50cd0fc8ece0aa2bfbb36857eae98d1611105946e010cbf052ec7a363d3ee0af"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/data-model.md",
+      "sha256": "d00ceb5aedc511a43a2af5dab3cbe4d50a3bc4c4487e7999ed22bdebb79747dd"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/fixtures.md",
+      "sha256": "9ff8a495553994d4d798ac7e08e0eef9ce93c40da90bc39d69b5e23c7c88bba2"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/plan.md",
+      "sha256": "59d3141fc19407d78add7e85f8948a59f025fab00a87d853223f8e9aaeba1edb"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/quickstart.md",
+      "sha256": "7398bc0f56e4a5b206870e6257130f0410a3f95c915370a96b00b7ab0dbae433"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/research.md",
+      "sha256": "3acfffa26d6224f5bde83a98f86af9f7a5d1deb373360b6a1d59d4dc4ddf8df7"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/spec.md",
+      "sha256": "54c2c9ebc316bad20dfd87b57d54fb8d765b0fa6a7a223fd2186dc73dda8342c"
+    },
+    {
+      "path": "retro-poker/specs/001-week03-retro-poker/tasks.md",
+      "sha256": "7bfd297cf02bf02a28a2ec3881b4db75ba19364e47eed2fc287935cc280fe902"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/checklists/requirements.md",
+      "sha256": "a4893030a41f7aacba85900e147a9418c7a07240698794ddf1c71e98d1e5b7ff"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/contracts/ai-http.md",
+      "sha256": "6fef029afb68fd4651d8958c48cb7a1532b5cd4462d42872fb98514531a16a78"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/data-model.md",
+      "sha256": "20a41f2cd6a0e5f21d49755e3cf5821051a9bd253c9d65727808303d3e6bd30a"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/plan.md",
+      "sha256": "3db14c1652cbb483e57e68eb1780caaccbde46d820e444db50fa3c60ab89e117"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/prompt.md",
+      "sha256": "4d4d43acb2b42b48a80723e60823589cc61f03a89014416ef365d5569959201c"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/quickstart.md",
+      "sha256": "11294bbcb806b4a9a7fa5b5dcda45b929f61ed0ae33b9f1c3753a81b8634ebb8"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/research.md",
+      "sha256": "81447e3bb4cd42bb8f8ec3ef2c414cb9679a23b6e542d956739728a304a88735"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/spec.md",
+      "sha256": "4c728bfa19084d95d265c87df4ec4f22154629e599e53e7f9bb4c82d418f64ae"
+    },
+    {
+      "path": "retro-poker/specs/002-week04-ai-integration/tasks.md",
+      "sha256": "f2e2d03f6afedc20b3e6ab9f13e662e94d09ec9991f4064b06dba3603d8dfd58"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/checklists/requirements.md",
+      "sha256": "5fab904d7dd2c6d88aec2ee011fff7c00775c7df3610f22705f72df0ca331b89"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/contracts/coach-http.md",
+      "sha256": "24320832bc2781f6102b6000987478fd85373f88d270c39750c6fca0332a7f76"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/data-model.md",
+      "sha256": "7571914be6505b2963678bf4722e97ebd74dfc8acc43f75047235c12f3982c8f"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/evals.md",
+      "sha256": "81c6efa30f60947e956a0f636628639aeb47628347df8771c0dbe70827ed7806"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/plan.md",
+      "sha256": "10cb9c3f01a0900bb3b4891227c3edfa8922e11bb207f9cddb5d5a5b65d392df"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/spec.md",
+      "sha256": "a031967667f3b150b5bbd55841452e69cc9b0ea063f438312a550d44b0955e0c"
+    },
+    {
+      "path": "retro-poker/specs/003-week05-bounded-agent-coach/tasks.md",
+      "sha256": "31ec35fae8d2fd68b84ca939a73518f59ff9d8cbd256e2d3a3521888bbae4b69"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/checklists/requirements.md",
+      "sha256": "4709dfabc1d69c37cc732a3faade34c87101c04566c64eb9a7dbd2cfc076d21a"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/contracts/ui.md",
+      "sha256": "2381a4559763d41c412b5dfa146e6051283cf78f41530ba37899d15b3f025ac8"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/data-model.md",
+      "sha256": "09c768c3ef7c84d2e0c816b3b7b91425fbc72de34cf12557be0b3c9c11fc2814"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-1280-1bots.png",
+      "sha256": "f14c3deb558bc1e0bc570972119c406e676ce50188c3fea180bab16623c7ec95"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-1280-5bots.png",
+      "sha256": "43b709f70e70c52e4942d0d65a348910e9c9d7869e5f54dc48b1afa2bde5826b"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-1280-6000-stack-refund.png",
+      "sha256": "85f028291fb55f231a804f2e6ff0995ed1997ffa7b30dab7f4dbf54648257383"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-1280-river-statuses.png",
+      "sha256": "942692a1d9956c1b64cc6ba239ff50b9f714b9b7af9ae655085581959dc07861"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-390-1bots.png",
+      "sha256": "38795a7ce34a0132728bbf15cd30d399fba9d96f6e178895447858dfaa9b50c7"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-390-5bots.png",
+      "sha256": "c589ea59743e28c9a987231ca1d7e2e0cf84d6539e0a6187166b32745b018825"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-390-6000-stack-refund.png",
+      "sha256": "0c947a41b851f1f9e13e0e28d1d44874a13017256862843597d40edd4e53a0e1"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-390-river-statuses.png",
+      "sha256": "d2f3c941b1eec8beb7bd4e807733b051fa5f456875415e06f9a7bcd699e34092"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-accessibility-1280x720.png",
+      "sha256": "88cdf57954aef33b14c141d833722e803d636e2885c462a7dce6bfc02ee944da"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-coach-usage-1280.png",
+      "sha256": "3497732c7995a79f8f0c52d038431776dcd26f947698366272b808a2aaf444e6"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-coach-usage-390.png",
+      "sha256": "5b6d35cf8e9d5109d901e2d9846d130e0b5a7612bee0c169d278297c16dcd798"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-showdown-1280x720.png",
+      "sha256": "6ebf66184315b6015244b0a7d9dc1b0fe972840a7892e3875fbed87bb2afd0d5"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-summary-usage-1280.png",
+      "sha256": "7d6d7a1d50c21ec8e8cfd910efbad4ca11e71d976e6d22d9ada8d57affce8046"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/after-summary-usage-390.png",
+      "sha256": "5bb71d37ee7f528fecd4792eb7619858e11ffd6db56776d8fd46f7ed9a547baa"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/baseline-e2e.txt",
+      "sha256": "a53bbc13b28aa32677ade168413dba562661ba32e727f18ebf847121c105a617"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/baseline-tests.txt",
+      "sha256": "3bbd18785ae20525b86786f094f236372e7e525f108b6fe6eb2a3907f5562744"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/before-1280-1bots.png",
+      "sha256": "d9fc95a896781e9d345bc157f14ae235a854afafecb547da556c5035e2847a3b"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/before-1280-5bots.png",
+      "sha256": "7384bd2f29ffce038f608311cbdd47b835316c8c193e4d448dcfdb0de5bc1a3e"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/before-390-1bots.png",
+      "sha256": "2732a612bbd61a01f7c663ec24765389982cce5fced3ff59d52a3efd718f5f59"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/before-390-5bots.png",
+      "sha256": "8c19f6cb7719487140bed89a946b47de4c926297c4472cc726de01dc7e0137b0"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/build.txt",
+      "sha256": "ffeebccd747e89fdaea2903ae9b5b27a0c120966f35f5aa26e16d946b42f4f9d"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/diff-check.txt",
+      "sha256": "88d017bd4d6540669abcec419843fd341f470d7e570d51186732bf7fe0782ed9"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-ai-panels.txt",
+      "sha256": "e99645e87eb67cd494580b4213ce5aed61a21ac02300bc2e99c3ea6846288d30"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-e2e-refined.txt",
+      "sha256": "0502d9e96d4a3ff8ffaaf27150da3081be53e1eebd8cf1064688a3c88df3d5bf"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-e2e.txt",
+      "sha256": "291d0a1bab6fa25fafc5aec15c4c5c8ec0b452d697aa38f55a8c3535dac797a1"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-layout.txt",
+      "sha256": "c3b60728ab0ab36babe5fc6ace1dfce9ddb92e84589fe977ddf650d194b698a5"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-status.txt",
+      "sha256": "1c58e81ad2a78d21d5e83ea7527259768a049247e1b93c34e886e9bb40f9ee68"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-tests.txt",
+      "sha256": "4191547699ae870e03de31322eb5e151a46c482792c0b628a021e5e09870a24e"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/final-ui-refined.txt",
+      "sha256": "9ccdb15381fdf4800815ad897e9ba154ff077d4c52b98cc6ef439237267f4883"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/green.txt",
+      "sha256": "565ec502e6832c8ed9fc715721d64404e986234354a1918eb17f7657b08288df"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/layout-first.txt",
+      "sha256": "627883010db03d586c678977010f5c350f360a8c1c4862960916e85720dc55c3"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/layout-fixtures.txt",
+      "sha256": "2bbb94d6a16a14d6380623e8c52f5a93b8557ad64144cbbb767125068b719d05"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/layout-second.txt",
+      "sha256": "759ec4260af8b2fc68ee6fcd9357fd28bd32ef0f712b05a0b6d32e9243b37a38"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/lint-final.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/mobile-actions-red.txt",
+      "sha256": "1357a796841d026753fadacdd888937c803d52ecbd0c65aec61517145d11b0af"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/pot-labels-red.txt",
+      "sha256": "8c5f4e702aa380d98aee838441d34a846445c093f360cfc3b497120d459ef27e"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/red-corrected.txt",
+      "sha256": "b132a752d4aa568d69879305fd5f4d3d917a1c4b81fae750911e17059aa49c25"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/red-valid-fixtures.txt",
+      "sha256": "24b48f3c6d3aaa979ef2e8407dcc262774cadb17469e37a71a3dd39be256b4eb"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/red.txt",
+      "sha256": "df0dcee2cb709a64d57486480724a7aa7f0fdd80d82bced162c1bc1518915fff"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/task-setup.txt",
+      "sha256": "0f922090e55f9ae84c43ebb137df5d9e3d7e1a61cec20ee0fdbf8310a4fcaa1a"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/typecheck-final.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/evidence/verification.md",
+      "sha256": "1b9bff6ca34617c6cf60748a5efe049c06e8bda455aceeeb7f0435dcccdb1acc"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/plan.md",
+      "sha256": "537d45b5201a8e10b5f16a3c21064e704561ef2b8c622db1947de1a6a4781a89"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/prompt.md",
+      "sha256": "33eca5f1462a7530c4acfc000a55f93f482b7a3d56441c4346c0b1b43a328b2a"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/quickstart.md",
+      "sha256": "31686e8fc5a06303e35fac6f4a43a9c54c40994c075daf324fcb2855e1516b8c"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/research.md",
+      "sha256": "f41d2b030068e5e5daba32d505cc42a23eb6a0aac45f4382be70032eeb1f1754"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/spec.md",
+      "sha256": "0e716e011d2c1bdc897ff7c9929bb0a67052645863e87e2099f77f4d77e6a695"
+    },
+    {
+      "path": "retro-poker/specs/004-frontend-table-polish/tasks.md",
+      "sha256": "3b802f2f0c7b19ed0eb2cefab832f8611d7b8fd5aecb4a11f9c0f8da2fd721f1"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/checklists/requirements.md",
+      "sha256": "dd9c9be4d5e781102108c065480b690a921920e24c02e58c0d5b67fab06acaeb"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/contracts/security.md",
+      "sha256": "7b65d3350bf89ad222d5888c2fdf9d2346a4f48dbeb65fcf56fcea15c412d2fe"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/data-model.md",
+      "sha256": "e3071a87b72afd47cfb0ea977e1b94c518590b5d4f4b4ec6f9d33295f1fb334b"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/plan.md",
+      "sha256": "90a19237dd668e7ca1a1eedf6f4cb8dec305d3ebf6ea45e9d94ad9ad0da19f9c"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/quickstart.md",
+      "sha256": "a3bd3768368cd6d337ff376d8709e05e5ce60c4af00bed5e1fcbdd98a323aa05"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/research.md",
+      "sha256": "e8002def9d22b583c4ae9aa3d5ef336083559b3665fd4b9d63354c8036cdff35"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/spec.md",
+      "sha256": "738f021116f3e7200309b9b8ca0842ccadc8def2000f555a83e2249d1a3931d9"
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/tasks.md",
+      "sha256": "74e1a9a7f796a2bc897833b2bd51c1b2f47220d61354ce526a10b8bd698758bc"
+    },
+    {
+      "path": "retro-poker/tests/contract/ai-contracts.test.ts",
+      "sha256": "411d7a5d5de7752c9e1f4f5194771fbc63dbb807484012c06e4f291b27456090"
+    },
+    {
+      "path": "retro-poker/tests/contract/ai-routes.test.ts",
+      "sha256": "30e3ceaf436b344140991730a2551fa9c1327417d29c2af5d0fcc5521cd159da"
+    },
+    {
+      "path": "retro-poker/tests/contract/coach-contract.test.ts",
+      "sha256": "9eb50b54e2947b353edf3f632e322cac5422f87072424a2c3d1471ca4729eb54"
+    },
+    {
+      "path": "retro-poker/tests/contract/coach-routes.test.ts",
+      "sha256": "58342a380fcd1853871c86675fec72459098feb617986e16764f4d4dd4c58fcd"
+    },
+    {
+      "path": "retro-poker/tests/contract/config.test.ts",
+      "sha256": "4612abb5828024c949c4e3d75a3da7adb84689bce0de896320c5815111043406"
+    },
+    {
+      "path": "retro-poker/tests/contract/messages.test.ts",
+      "sha256": "83380341100e382803f776e27e8daee9908c18f32427f4340835741925ece082"
+    },
+    {
+      "path": "retro-poker/tests/contract/security-http.test.ts",
+      "sha256": "184cc48663c751b6bcd4c75692675a7cf3d1be9ee0501bec1cdcc3f98bf858ec"
+    },
+    {
+      "path": "retro-poker/tests/contract/view.test.ts",
+      "sha256": "a4c3bbf7fef309506eb1328c53d58d7cd5366896e641d562eec3e0ae0648e237"
+    },
+    {
+      "path": "retro-poker/tests/e2e/accessibility.spec.ts",
+      "sha256": "3c8fa4111e2985f8212ade5e6ce9679877ec23cd3dba3c094c96dc7e946b2e72"
+    },
+    {
+      "path": "retro-poker/tests/e2e/ai-offline.spec.ts",
+      "sha256": "27e6ff72c0da328ac630e733764bfc66d7dac8277dfa3affa4885b7da1b8a7b8"
+    },
+    {
+      "path": "retro-poker/tests/e2e/coach.spec.ts",
+      "sha256": "2173cfe7c9683be6f122201b4b32c860944ed89b5462c1afc743c08442bc9c91"
+    },
+    {
+      "path": "retro-poker/tests/e2e/play-hand.spec.ts",
+      "sha256": "1e4d1bc79f24bffcb9dc4c69dd38879d04d50bf1696505a2d7f1d67806ac50b1"
+    },
+    {
+      "path": "retro-poker/tests/e2e/recovery.spec.ts",
+      "sha256": "6052223c487690326577f140bc2b16e16734074e555cfaa7055af87304185d4d"
+    },
+    {
+      "path": "retro-poker/tests/e2e/security-production.spec.ts",
+      "sha256": "34908e10166d7e9861ddeba25c58f9e75cdd2fb488c0589a3e2a2b2a8e8bf2ac"
+    },
+    {
+      "path": "retro-poker/tests/e2e/security-rendering.spec.ts",
+      "sha256": "6bfa49a6983310288055dd2bc8993d79fac8ce15799036f7bd371b15ce7ad76f"
+    },
+    {
+      "path": "retro-poker/tests/e2e/security-state.spec.ts",
+      "sha256": "f15db86f3e07370865cc4fa3c987d8f895711cc5c578e76887b529e2639ef18d"
+    },
+    {
+      "path": "retro-poker/tests/e2e/table-polish.spec.ts",
+      "sha256": "3c740ad70545a794e68f4a6c814ac1a0d6402c147a969e3538434feb5344511a"
+    },
+    {
+      "path": "retro-poker/tests/helpers/assertions.ts",
+      "sha256": "8e2663b35ac11548a530307e1b6c0380641047c51ea4c123dcccec35f075004b"
+    },
+    {
+      "path": "retro-poker/tests/helpers/backend-process.ts",
+      "sha256": "732f3fe23b186853ca3f8cb474879730ea1a04e71139406ad7da185da042c317"
+    },
+    {
+      "path": "retro-poker/tests/helpers/coach-evidence.ts",
+      "sha256": "dfebb9078b0cdd6126e597e9e6d4b7d14eff4cd9ddd3f67809178b22e82bb2a1"
+    },
+    {
+      "path": "retro-poker/tests/helpers/coach-server.ts",
+      "sha256": "ba80f9530910a40f7a51624d098cf6bf14af06e902f0198e86850d57a0d7e798"
+    },
+    {
+      "path": "retro-poker/tests/helpers/fake-ai-provider.ts",
+      "sha256": "7570216bf883b64b48024c13b60e8f980400691aa31b0a5a3a111f2a95a4ca43"
+    },
+    {
+      "path": "retro-poker/tests/helpers/fake-clock.ts",
+      "sha256": "c5863609550af4af7fab4212f4eb1e7d612b08929218379c156d192ce7e330c5"
+    },
+    {
+      "path": "retro-poker/tests/helpers/fixtures.ts",
+      "sha256": "170ec5fc445ace666ff919a40fa1d7eef4d2bd3362826470e7513e84f05d1882"
+    },
+    {
+      "path": "retro-poker/tests/helpers/process-user-shim.cjs",
+      "sha256": "87193545d3fa6ff55b6ddafc867f3a251bd7c593b6417790fa5867870c450884"
+    },
+    {
+      "path": "retro-poker/tests/helpers/public-fixtures.ts",
+      "sha256": "c4c5d28e5aef4193546b2f12ff50695d853d07077ca9f780d88e2bb92bee4b73"
+    },
+    {
+      "path": "retro-poker/tests/helpers/security-fixtures.ts",
+      "sha256": "8aec6450c720ca0fe62f8b98b87b06eb81cc089b27eccd8c87072093bbfe2a7f"
+    },
+    {
+      "path": "retro-poker/tests/helpers/security-reset.ts",
+      "sha256": "cc7d912848cb7af78afc63e6809a1e4d807d393eab1eaa1551467eb4a38cee56"
+    },
+    {
+      "path": "retro-poker/tests/helpers/security-server.ts",
+      "sha256": "49e3551a279ec1a7f0d7fcf99adbe9d36bd424f49bb16c5d0e5bede87d0fdff5"
+    },
+    {
+      "path": "retro-poker/tests/helpers/server.ts",
+      "sha256": "b35c2f572aec7236341cdca8d41777e12b2e31b45e825d9b090e5e96ce28b669"
+    },
+    {
+      "path": "retro-poker/tests/integration/actions.test.ts",
+      "sha256": "d54c35a09f181fd9bfb9dabf2ccb12be3a8ce77a39f2ec0696b70ff862761b13"
+    },
+    {
+      "path": "retro-poker/tests/integration/agent-run.test.ts",
+      "sha256": "f925b985eafc13e6be521db6ac7c0a2471874c76e2982c07ab8653ed06cdaa5f"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-analysis.test.ts",
+      "sha256": "cd64083e5ebbaa6aec9ebf255c4cfa143a2a7315ece78531b22952d847342688"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-bots.test.ts",
+      "sha256": "5e188948819fb0ca0cbace800d7d19084a325c74c789528780fc3ca8fda67e15"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-concurrency.test.ts",
+      "sha256": "d0927731c77c197cb2dd3f7644a5dfcca621ecbd2eb61f354ad8b374f03b70bf"
+    },
+    {
+      "path": "retro-poker/tests/integration/ai-failures.test.ts",
+      "sha256": "96ca3e2e8c97aa70ac80d1bea3ac1899f2424e3756906120d425c9916899ddf9"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-lifecycle.test.ts",
+      "sha256": "a87581148ab72f8f2c9f0bf8cb7b0a81bbd2aa1c5882d275f3c078b48cf214eb"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-live-eval.test.ts",
+      "sha256": "6a5f147e6b48a6959b33ee88b67ee459c9a3542ad4388ab0f389146bbb8521a6"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-output-diagnostics.test.ts",
+      "sha256": "86e1381c594f365e30d6c2f0e7621b4f0854cbde9389de65dd1e5c8677238a9d"
+    },
+    {
+      "path": "retro-poker/tests/integration/coach-smoke.test.ts",
+      "sha256": "fc5a3151aff9ade70f858da1a0e66fff01260867efcca82dfde22cc1234d0546"
+    },
+    {
+      "path": "retro-poker/tests/integration/concurrency.test.ts",
+      "sha256": "6c0bf5f797bcc7c5456d9784a50e87f5d79d5074be12e63e10f4ca343f9f783f"
+    },
+    {
+      "path": "retro-poker/tests/integration/elimination-settlement.test.ts",
+      "sha256": "37bfe7465c12544255348de20f9e1d6272fa37cb339023164233b1096f927670"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-adapter.test.ts",
+      "sha256": "916e12a0ab3f8cb755fa5517f176edb259a3fb28d3647c92ded032106b235837"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-agent.test.ts",
+      "sha256": "41d526071030c8c87fc65ba83e6b116f961f711f1ffb3d15aabc35cf28df164f"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-http.test.ts",
+      "sha256": "b717dec12bcc4d6a3e1a915757a2f5d4849adb830a2bc0aff83654b453f43e5f"
+    },
+    {
+      "path": "retro-poker/tests/integration/gemini-live-smoke.test.ts",
+      "sha256": "155090ad73e2152e7012fba981ac87921509c30101b94618bb3462f31f7a3df8"
+    },
+    {
+      "path": "retro-poker/tests/integration/hand-flow.test.ts",
+      "sha256": "a2a75e0e7da163d82a801703967a1dcb50db0621e1dfaa1154601cd15b3f8826"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-admission.test.ts",
+      "sha256": "80f3d5e0b001df80be7faeca7b1feffbff005026a5a5199cacf546fcf89acfda"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-budgets.test.ts",
+      "sha256": "2d0de4bd40ee7b1e1050ca547f8ac4f219e9d65fb722910ad20be91210a726ec"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-events.test.ts",
+      "sha256": "d88fdfff390596d8ee53de1b2d8bed595a28a90da1fa18e2a90a2b09a50c640f"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-lifecycle.test.ts",
+      "sha256": "f9b79ae9f0a7a537d2cd73b09a568d3ddb03ef85131a7cd11d99ea581e235c10"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-normal.test.ts",
+      "sha256": "8531229308354c1155d83168639d2ff2f33a404589c38bc1327e1a110d430ea3"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-secrets.test.ts",
+      "sha256": "ac9bf489697cf202d3d1dd3da7dc25374868dd73723bd9978d4a1ba141082ee9"
+    },
+    {
+      "path": "retro-poker/tests/integration/security-tools.test.ts",
+      "sha256": "74c624b13f8b9ef0821f2f362b4c7ad0a8f950f84db3a70957c1479c7d400b46"
+    },
+    {
+      "path": "retro-poker/tests/integration/session.test.ts",
+      "sha256": "a3a3cbd2633f7e62e8f053bd10ac2f4fc6895a1995c513cfaee406b36fc946a6"
+    },
+    {
+      "path": "retro-poker/tests/integration/terminal-view.test.ts",
+      "sha256": "383e422e63d5b77188d24e0233e653006ea9446422715e203292a1fd2c454f7f"
+    },
+    {
+      "path": "retro-poker/tests/ui/actions.test.tsx",
+      "sha256": "e590f37fd8adc5b25591429d54b6897cb8b907a8df1b8a99718ad87534c2453b"
+    },
+    {
+      "path": "retro-poker/tests/ui/ai-status.test.tsx",
+      "sha256": "d5057e0c7762cdf475cd10da1c846376dbfc7d38a145b0dca23dd902c5562717"
+    },
+    {
+      "path": "retro-poker/tests/ui/analysis-lifecycle.test.tsx",
+      "sha256": "550abcd03746f0e4d659cea4f0a928b2cfc9edb7f784401e262f9eed4b73b0d0"
+    },
+    {
+      "path": "retro-poker/tests/ui/analysis.test.tsx",
+      "sha256": "f6dd2019fd3be3984dbd48f2e6d5024af3ded913f0b3f61b2f3f63e28b93f7f6"
+    },
+    {
+      "path": "retro-poker/tests/ui/api.test.ts",
+      "sha256": "1d11844872f1cbad83858e157eb8df8ac4fd86d59d6b409861d2a0d8d0f9a631"
+    },
+    {
+      "path": "retro-poker/tests/ui/coach-api.test.ts",
+      "sha256": "7b77b5565cbd0e8e6f82156af949e1a62d717b054a253a989e336f5827900ad6"
+    },
+    {
+      "path": "retro-poker/tests/ui/coach-lifecycle.test.tsx",
+      "sha256": "4d6858d2cfc1f56f2d08415f5d453e61f91c7211815f8e2c67aa5a510fd326f2"
+    },
+    {
+      "path": "retro-poker/tests/ui/coach.test.tsx",
+      "sha256": "cd4adb2333d25564bb50c20fcfb10a85fa73a768fe5c83ed7a162699a3a456f7"
+    },
+    {
+      "path": "retro-poker/tests/ui/dashboard.test.tsx",
+      "sha256": "d1f5128f9398f67b9f9499ac5addc09eb6a643e596b1477351105d33ddd90a00"
+    },
+    {
+      "path": "retro-poker/tests/ui/results.test.tsx",
+      "sha256": "114d47528f4fb4baa5f179d0da962aecd36b9e828c69e6ffbc2ef62562bc62c2"
+    },
+    {
+      "path": "retro-poker/tests/ui/table.test.tsx",
+      "sha256": "1f4bbb220a03653df18cd44b1929160a9e02ac34434ce1dbd1dcfff58473d926"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-final.test.ts",
+      "sha256": "33d4b16bfab00e77a099225ba6f91202408c2fa474bb482df8a44e1c909a616f"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-orchestrator.test.ts",
+      "sha256": "e90eefa9c53cf56ab1bfeacf90782774d6c3123b58462c30b1451eec7240578d"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-provider.test.ts",
+      "sha256": "df2ce72c84e19a8ffb0c971bef41e29d12f3dd58a92f370136f7672d1672e6f5"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-schemas.test.ts",
+      "sha256": "075e53b454cdf6793ea21a6d4c5756c566e87766d458b01c1cec08885f554038"
+    },
+    {
+      "path": "retro-poker/tests/unit/agent-tool.test.ts",
+      "sha256": "04d01c3649e60360209dd04a585c3b55210fce50c9e7d4e60c5877961efe236a"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-config.test.ts",
+      "sha256": "b68a66388f0f70f2f07e63c9cd3949701eaa0bb649e1aff7c807f46ee009f05b"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-context.test.ts",
+      "sha256": "17cbb153de57020d9d439f718f3b27ab2663d90418a50db417f7624059b9bfad"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-provider-schema.test.ts",
+      "sha256": "427bb57084ce759be87f85cbd3278a07c6a2dfbf069ccfac59f62c5e91c14711"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-retry.test.ts",
+      "sha256": "2a1bbd7e378f9955e57072b2b6ad1d921cbc52b98932c10538074fa891e2c985"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-semantic.test.ts",
+      "sha256": "cab822accccbc4950583c199b8ae35c53c31dc0534bb11c608e63c4bce3e4443"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-slow-profile.test.ts",
+      "sha256": "e336750bdcc4a33f46a211d15869b3160a3445c5342dc26e333838ea4ab62777"
+    },
+    {
+      "path": "retro-poker/tests/unit/ai-usage.test.ts",
+      "sha256": "9d87fc4331732d0abe1a06f17147b35adf58c393f01a0fc1902048387d3de108"
+    },
+    {
+      "path": "retro-poker/tests/unit/betting.test.ts",
+      "sha256": "67b73891e6ae55e729f2f315ff445c49a96636def45f649b892b48f33fd795c1"
+    },
+    {
+      "path": "retro-poker/tests/unit/bot.test.ts",
+      "sha256": "c5cae5e54c0bab3a07708a0864470f59c046e4bcbdda345e38e346f636e0c1ec"
+    },
+    {
+      "path": "retro-poker/tests/unit/coach-request-gate.test.ts",
+      "sha256": "939c2f06557e49439aae4e1d7fbee8a799c71f738a32f2a12246f8576f600ed0"
+    },
+    {
+      "path": "retro-poker/tests/unit/coach-usage.test.ts",
+      "sha256": "d01f54db82de11183e3e7704cf8058a70202c5c8df2dccbb5f0570996733458e"
+    },
+    {
+      "path": "retro-poker/tests/unit/deal.test.ts",
+      "sha256": "f847da6d5b0c866e97bd8db98107668316e909901161587d11b8207e432dcc8d"
+    },
+    {
+      "path": "retro-poker/tests/unit/evaluator.test.ts",
+      "sha256": "d566ae19572ab4e9c35f5ff1d6f195e5d6ff7c8befd8903d7878206e19b8abb9"
+    },
+    {
+      "path": "retro-poker/tests/unit/gemini-diagnosis.test.ts",
+      "sha256": "8a7c87d658e5c5dd9df381d1fd825ff790d586e68bfa918c451b32be6caacb1a"
+    },
+    {
+      "path": "retro-poker/tests/unit/hand.test.ts",
+      "sha256": "6b0c3e7ec6eb0d460fcc4b849399f91fc1ab6388984fc0e1449c082760ded80d"
+    },
+    {
+      "path": "retro-poker/tests/unit/history.test.ts",
+      "sha256": "3c3e6eed642689c39203e64789877eb220799203c568d744b336f264304cade1"
+    },
+    {
+      "path": "retro-poker/tests/unit/invariants.test.ts",
+      "sha256": "4cfbd4c8626c9dd550c36ab7e2605805099f20e068c900f4e46fc1586a4a8946"
+    },
+    {
+      "path": "retro-poker/tests/unit/match-facts.test.ts",
+      "sha256": "fa70a09282308bef1cc52309ba9834c0264b69e32383d79f9301be76eca322d9"
+    },
+    {
+      "path": "retro-poker/tests/unit/positions.test.ts",
+      "sha256": "2d85ae1491d89b6b4441516449ba79b0e08b68a668a7b1787f3dce773f1f8c97"
+    },
+    {
+      "path": "retro-poker/tests/unit/pots.test.ts",
+      "sha256": "5829287091b05b075b8464024b757bb500052f0c0e9dd65d0f6c8800a8cc792a"
+    },
+    {
+      "path": "retro-poker/tests/unit/security-capacity.test.ts",
+      "sha256": "1a4114fd56318c078c571c7079e660ec812bd1e2c847e1bf28b1d20537aa1927"
+    },
+    {
+      "path": "retro-poker/tests/unit/security-events.test.ts",
+      "sha256": "40136663b84051abf86da4f27671899743ba3ba6d6c231ef589acd406ae9028c"
+    },
+    {
+      "path": "retro-poker/tests/unit/security-schemas.test.ts",
+      "sha256": "9841d071f309eefff23e9eac5b81feaa967b432b77f54299bff454ce1217563b"
+    },
+    {
+      "path": "retro-poker/tsconfig.json",
+      "sha256": "53e04b7f78d90ae1296eaf83346628b3e7efb9d906661067438875f48809450f"
+    },
+    {
+      "path": "retro-poker/tsconfig.server.json",
+      "sha256": "438ee4b10475054bebd79d126a49e084b97b807de2bb9854e5b0c74c69f1fa64"
+    },
+    {
+      "path": "retro-poker/vite.config.ts",
+      "sha256": "df38bc99c1dca93ac4cc75b53d154f675a6b9b19c8b99d2ae38a972fb11ff7dc"
+    },
+    {
+      "path": "retro-poker/vitest.config.ts",
+      "sha256": "620936f683f3af202d1c92ed51824f51a2ba9b1f022410d21ed15718fc68a57e"
+    }
+  ]
+}

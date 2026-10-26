@@ -1,6 +1,7 @@
 # Podaci i stanja — Week08
 
-Postojeći poker/coach DTO se zadržava; ovo je dizajn dopuna, ne već implementiran kod.
+Postojeći poker/coach DTO se zadržava; ovo je implementirani W08 ugovor;
+[izvršni dokaz](../../docs/evidence/005-phase7-matrix.md).
 Autoritativne granice su u [planu](plan.md), HTTP pravila u [ugovoru](contracts/security.md).
 
 | Entitet | Polja i pravila | Životni vek |

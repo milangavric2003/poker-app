@@ -1,7 +1,7 @@
 # Week08 — vodič za proveru
 
-T019–T022 ponovo provereni na `e498a06` bez nove implementacije:
-[komande, DOM/CSP dokaz i lokalni status sledećih taskova](../../docs/evidence/005-phase5-recheck.md).
+Aktuelni završni tehnički dokaz: [matrica](../../docs/evidence/005-phase7-matrix.md),
+[handoff](../../docs/evidence/005-phase7-handoff.md). T030 i T031 ostaju otvoreni.
 
 Pokretati iz `retro-poker/`, Node 24/npm 11. Na Windows-u koristiti `npm.cmd`.
 Aktivna grana je `week08-init`; feature direktorijum ne zavisi od imena grane.
@@ -30,7 +30,7 @@ smoke/diagnose/live CLI. Testovi koriste constructor-injected fake i sintetičke
 Za lokalni API koristiti test helper, ne `npm run dev:backend` koji može učitati `.env`.
 Ne prekidati tuđ proces ako je test port zauzet; zabeležiti prepreku.
 
-## Security komande (Faze 2–5)
+## Security komande (implementirane)
 
 T007 uvodi fake-only node selekciju postojećim Vitest runner-om:
 
@@ -62,7 +62,8 @@ zahtevi unutar scenarija i dalje dele stvarnih 5/60 s i kapacitet 2.
 Početni T13/T16 RED rezultati su istorijski sačuvani u
 [Fazi 2](../../docs/evidence/005-phase2-handoff.md). Faza 4 zatvara rate deo,
 [Faza 5](../../docs/evidence/005-phase5-handoff.md) zatvara browser prikaz i
-CSP/header deo T16. Puni server-secret/bundle/sentinel T16 ostaje za T025–T026.
+CSP/header deo T16. Faza 6 zatvara server-secret/bundle/sentinel deo; završni
+run proverava oba dela u istom checkpoint-u.
 Portovi 5173/3001 moraju biti slobodni; helper ne prekida tuđe procese.
 Test reset kreira nov proces/gate/sink/fake sat;
 posebni reset testovi dele isti proces da ne prikriju zaobilaženje limita.
@@ -79,6 +80,13 @@ Osam minuta: normalna igra/coaching, pretnje/granice, direktan nevalidan HTTP,
 zabranjen tool, rate/capacity/late rezultat, browser CSP/XSS, sentinel/event i
 pre/posle dokazi. Obojica samostalno menjaju jedan sintetički ulaz i objašnjavaju
 očekivanu granicu. Demo nije izvršen samim pisanjem vodiča.
+
+Konkretan raspored, komande i obrazac ljudskih potvrda:
+[demo priprema](../../docs/evidence/005-phase7-demo.md). Priprema nije izveden demo.
+CI koristi `npm run test:security:e2e` sa build-om, zatim direktan puni Playwright
+run bez ponovnog identičnog build-a. Lokalno obe dokumentovane npm E2E komande
+rade sopstveni build; ne pokretati dodatni build između njih. Poseban finalni
+`npm run build` daje traženi samostalni dokaz komande.
 
 Pre svake faze pročitati prethodni handoff, diff i fokusirane testove. Grešku
 prethodne faze prvo zatvoriti, a zatim nastaviti od prvog otvorenog taska.

@@ -1,4 +1,4 @@
-# Bezbednosni ugovor — planirana W08 dopuna
+# Bezbednosni ugovor — implementirana W08 dopuna
 
 ## HTTP i korisničko ponašanje
 
@@ -19,7 +19,7 @@ provider/debug/log endpoint-a. Sve mutacije prolaze postojeću proveru verzije.
 | Novi start bez provider kapaciteta | 429 AI_CAPACITY_EXCEEDED | Bez novog rada, ne troši accepted token |
 | Normalan start | Postojeći 202; neposredan stop 200 | Fiksni server config, dalje validiran async rad |
 
-Proširiti postojeći error schema/API mapu za nove kodove; ne menjati shape svih
+Postojeći error schema/API mapa sadrže nove kodove; nije promenjen shape svih
 odgovora radi ovog feature-a. Retry je eksplicitan korisnički potez. UI ne briše
 potvrđenu partiju ili prethodni summary kada dobije 429. Usage GET/reset ponašanje
 ostaje, reset nije način resetovanja sigurnosnih limita.
@@ -50,3 +50,7 @@ Sentinel test mora dokazati učitavanje server vrednosti, odsustvo iz bundle-a i
 source mapa ako postoje, HTTP-a, konteksta i događaja. Event buffer je interni;
 nema raw export-a. Nema autentikacionih cookie-ja; credential CSRF N/A uz proveru
 stvarne origin granice. SQL N/A jer nema baze; nije zahtev da je uvedemo.
+
+Izvršna mapa ugovora: [T00–T17](../../../docs/evidence/005-phase7-matrix.md).
+Lokalni profil nije deployed server, UUID nije credential; N/A ne pokriva origin
+ili obavezni tool tok.

@@ -664,3 +664,30 @@ Server sentinel učitavanje dokazano uz fake/mock, live provider poziva 0.
 Korisnik je odredio scope; peer review/samostalni doprinosi Vekija i Milana nisu
 potvrđeni. Bez commit/push/merge-a, clean checkout/CI/demo ili Faze 7.
 [Stvarne komande, prvi rezultati i granice](evidence/005-phase6-handoff.md).
+
+## 2026-10-26 — Week08 Faza 7 T028–T031
+
+Codex po priloženom zahtevu, jedan coding agent. Cilj: stvarna završna provera,
+minimalna CI dopuna, izolovana instalacija i dokumentaciono usklađivanje.
+Kontekst/prioritet u manifestu; korišćen lokalni speckit-implement, pročitan
+speckit-converge bez zasebnog pokretanja ili dupliranja otvorenih taskova.
+Alati: PowerShell/Python/apply_patch, Vitest, Playwright Chromium, Vite, tsc,
+ESLint, npm ci/audit i read-only GitHub Actions API. Model identitet, tokeni i
+trošak nisu dostupni. Nema privatnog chain-of-thought zapisa.
+Očekivanje: stvarne kontrole i brojači, ista T006 input poređenja, bez novog
+runtime scope-a. Ishod: T028 završen (123 security/1037 full/5 security browser/
+26 full browser), typecheck/lint/build/diff-check PASS. T029 lokalno završen:
+verna izolovana kopija HEAD+workflow patch, nov npm cache i npm ci, nov browser
+direktorijum, iste komande PASS, lock hash nepromenjen i audit 0. CI dopuna
+zadržava Windows/Linux, security korake, build preduslov i izveštaje.
+Prvi setup/log-path/policy/registry/socket/browser-cache problemi sačuvani i
+razdvojeni od test rezultata; nijedan produkt/test assertion nije oslabljen.
+Kod/testovi ostaju d508f13. Tri originalna input-a identična: T07 PASS→PASS,
+T13/T16 RED→GREEN. GitHub API za početni SHA nema run; novi radni snapshot nije
+objavljen. Nema tvrdnje o remote ili Linux PASS-u.
+Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 otvoreni;
+Codex demo/varijante su priprema, nisu samostalni testovi Vekija/Milana niti
+potvrda review-a/razumevanja. Week08 nije proglašen završenim.
+Bez .env/pravih ključeva, live poziva (0), subagenata, automatskog commit/push/
+dispatch/merge-a ili prekidanja korisničkog servera.
+[Komande, prvi problemi, rezultati i snapshot](evidence/005-phase7-handoff.md).
