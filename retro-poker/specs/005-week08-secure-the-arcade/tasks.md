@@ -1,9 +1,10 @@
 # Tasks: Week08 — Secure the Arcade
 
-**Branch**: `week08-init`; završna dorada `fix/week08-finalization` od `07db76b`.
-T001–T029 i T032–T034 završeni tehnički. T030 i zavisni T031 ostaju otvoreni.
-Week08 nije završen. Remote CI baseline-a `07db76b` potvrđen na Windows/Linux;
-lokalne završne izmene još nisu objavljene/proverene u novom CI-ju.
+**Isporuka**: `main`, tehnički checkpoint `c5038bb`; grane `week08-init` i
+`fix/week08-finalization` spojene kroz PR #12/#11. T001–T029 i T031–T034 završeni.
+**T030 ostaje otvoren samo za preostali ljudski deo**; spremnost za prezentaciju
+je potvrđena, izvođenje nije. Windows/Linux CI konačne implementacije PASS.
+[Paket za predaju i aktuelni status](../../docs/evidence/005-week08-submission.md).
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
 
@@ -113,7 +114,7 @@ T026 je uslovni PASS→PASS; T027 ciljane kompatibilne zakrpe. Sledeći T028.
 - [x] T028 Izvršiti kompletnu T00–T17 matricu, ponoviti ista tri pre/posle ulaza i full test/E2E/typecheck/lint/build/diff-check; deps: T027; dozvoljeno: evidence i minimalna ispravka isključivo uz novi nalaz/test; dokaz: svi obavezni redovi imaju actual rezultat i brojače, bez sakrivanja prvog pada rerun-om.
 - [x] T029 Potvrditi clean `npm ci` i iste komande u izolovanom checkout-u/CI, dopuniti `../.github/workflows/retro-poker-ci.yml` za security komande po potrebi; deps: T028; dokaz: commit/okruženje i stvarni izlazi; remote CI ne označavati PASS dok run za konkretni SHA nije pregledan. Ne push/merge bez važećeg korisničkog zahteva.
 - [ ] T030 Veki i Milan pregledaju promene, svaki doprinese kontroli i samostalno osmisli negativni test, odrade osam minuta demo-a i individualnu varijantu; deps: T029; dozvoljeno: evidence i sintetički testovi; dokaz: stvarna imena/commitovi/objašnjenja, bez Codex potvrde u njihovo ime.
-- [ ] T031 Uskladiti `spec.md`, `plan.md`, `tasks.md`, `quickstart.md`, `docs/GAME_SPEC.md`, `docs/EVIDENCE_W08.md`, manifest/AI log i završni checkpoint; deps: T030; dokaz: I1–I8→kontrola→test→actual, nema preostalih obaveznih rupa; označiti samo stvarno zatvorene stavke.
+- [x] T031 Uskladiti `spec.md`, `plan.md`, `tasks.md`, `quickstart.md`, `docs/GAME_SPEC.md`, `docs/EVIDENCE_W08.md`, manifest/AI log i tehnički checkpoint/linkove za predaju; deps: T029, T034; dokaz: I1–I8→kontrola→test→actual, potvrđen main CI i jasan status preostalog ljudskog dela u T030. Po Milanovom zahtevu 2026-10-27 dokumentaciona priprema je izdvojena od naknadnog izvođenja prezentacije; T030 se ne zatvara time.
 
 2026-10-26, Codex po korisničkom zahtevu, jedan agent:
 [završni handoff i snapshot](../../docs/evidence/005-phase7-handoff.md),
@@ -167,3 +168,12 @@ njihove grane/commitove; dodatna ručna igra kroz `npm run dev` radi.
 [Potvrđen doprinos i odobren Git tok](../../docs/evidence/005-week08-delivery.md).
 To dopunjuje prethodnu napomenu o doprinosu; demo/individualna varijanta nisu
 prijavljeni kao izvedeni. T030/T031 se ne zatvaraju samim merge-om.
+
+## Završna dokumentaciona predaja — 2026-10-27
+
+Milan potvrđuje da su spremni za demo/individualni deo i traži završetak
+dokumentacionog koraka pre njihovog izvođenja. T031 je završen za dokumente,
+aktuelni CI, checkpoint i linkove. Ranija zavisnost T031 od izvedenog T030
+zamenjena je tehničkim T029/T034; preostale ljudske obaveze ostaju u otvorenom
+T030, bez promene nastavnog kriterijuma SC-006. Starije napomene iznad su istorija.
+[Konačni paket](../../docs/evidence/005-week08-submission.md).

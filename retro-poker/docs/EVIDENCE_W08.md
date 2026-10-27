@@ -1,5 +1,13 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Završni dokumentacioni status — 2026-10-27:** implementacija, Git isporuka i
+tehnička dokumentacija su završeni; demo/individualni deo spremni su za izvođenje
+prema Milanovoj potvrdi. [Paket i konačni linkovi za predaju](evidence/005-week08-submission.md).
+Proveren main checkpoint `c5038bb` ima [Windows/Linux CI PASS](https://github.com/milangavric2003/poker-app/actions/runs/40558876322).
+PR #12 i #11 su spojeni; #9/#10 zatvoreni. **T031 dokumentacija je završena;
+T030 čeka stvarno izvođenje demo-a/individualne provere.** Plan beleži razdvajanje
+te dve stavke; nema tvrdnje da je spremnost već izvedeni demo. Statusi ispod su istorijski.
+
 **2026-10-27 — odobrena isporuka i potvrđen doprinos:** Milan je potvrdio
 podelu Vedran/`week08-init` i Milan/`fix/week08-finalization`, dodatno ručno
 odigrao/proverio aplikaciju kroz `npm run dev` i odobrio push/PR/merge u main.

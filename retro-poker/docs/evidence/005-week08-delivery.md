@@ -1,5 +1,11 @@
 # Week08 — podela rada i odobrena isporuka
 
+**Završno stanje:** PR #12 i #11 spojeni su, PR #9/#10 zatvoreni,
+main `c5038bb` ima uspešan Windows/Linux CI. T031 dokumentacioni paket je
+završen pre prezentacije po Milanovom zahtevu; T030 ostaje za izvođenje.
+[Konačni paket i linkovi](005-week08-submission.md).
+Odeljci ispod čuvaju prethodni checkpoint pre objave i tadašnji plan.
+
 2026-10-27, Europe/Belgrade. Checkpoint pre objavljivanja:
 `fix/week08-finalization`, tehnički commit `1d8124c`.
 Milan je izričito odobrio push, potrebne PR-ove i spajanje u main.

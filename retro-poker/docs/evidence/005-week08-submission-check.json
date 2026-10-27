@@ -1,0 +1,29 @@
+{
+  "checkedOn": "2026-10-27",
+  "baseline": "c5038bb04ef442032d7b20a94e0300a9c774dd71",
+  "branch": "main",
+  "markdownFiles": 12,
+  "checkedLinks": 210,
+  "introducedBrokenLinks": [],
+  "existingBrokenLinks": [],
+  "openTasks": [
+    "T030"
+  ],
+  "whitespaceCheck": "PASS",
+  "lockfileUnchanged": true,
+  "historicalImagesUnchanged": true,
+  "snapshotSha256": {
+    "frontend/src/App.tsx": "1afe0e4f98ec8caa4220faed6d8c7082736da5024c9d7d1d274c06c46e88caa5",
+    "frontend/src/main.tsx": "92fac161d760918b17c3e53bdc49ef834553a393431a5a9928daa10e591502f4",
+    "frontend/src/validation.ts": "e29578a2ad12f159fbc7446ce5f874c853756823cf59eae6555d04745ef2290f",
+    "tests/ui/ai-polling.test.tsx": "b8eff585d116f37e3092a94e85857339165fcc4e2d6eb681f19a11ccf19fbfb4",
+    "tests/e2e/security-production.spec.ts": "32344dc2c383c5d5f4df9cbc60b580cba7e09e9645df4be7b14d2f81c5168f85",
+    "tests/helpers/security-demo.ts": "dc8a9e83a54438f5ccbf2d27bba7807481fa7365809d7ca83e07e1b760c69794",
+    "package.json": "f992144f931836fcad53cba7f33bfa0b617e8b7db104a0e19a32926dcb84e9ce",
+    "package-lock.json": "3d3df617e2d713be18771a3ae04cbbdae2f13e462d701ccb54e48ee6e385b801"
+  },
+  "assignmentSha256": "0382b5f9ca929e6121dde9a33113a183535a1b37d14fe6a2af359893ca9a1abd",
+  "personalGuideSha256": "85b9565d5226bb9a54ad516970b510420ebec066234c1d4ad3d768e404c5de39",
+  "changeScope": "Documentation only; runtime, tests, configuration and lockfile unchanged",
+  "verifiedCodeCi": "https://github.com/milangavric2003/poker-app/actions/runs/40558876322"
+}

@@ -1,5 +1,16 @@
 # AI usage log
 
+## 2026-10-27 — završni dokumentacioni korak pre prezentacije
+
+Milan potvrđuje spremnost za demo/individualni deo i traži završetak koraka 3,
+dokumentacije i linkova. Codex, jedan agent: usklađeni aktuelni statusi i paket
+predaje sa potvrđenim main/CI/PR rezultatima. T031 dokumentacija izdvojena je
+od prethodne zavisnosti od izvođenja T030; promena redosleda izričito zabeležena
+u planu/taskovima, bez uklanjanja ljudskog kriterijuma. T030 ostaje otvoren.
+Nema runtime/test/lockfile izmene ili live poziva; proveravaju se linkovi i diff.
+Cena/tokeni nisu dostupni. Student-weekly-report nije pokrenut: korisnik ga
+planira za novi razgovor. [Paket](evidence/005-week08-submission.md).
+
 ## 2026-10-27 — potvrda doprinosa i odobreno objavljivanje
 
 Milan je potvrdio ručnu proveru igre kroz dev režim i podelu doprinosa prema

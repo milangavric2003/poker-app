@@ -222,3 +222,17 @@ request rade, normalan tok nema prekršaja. Zaseban kontrolisan `Function` poku�
 ostaje odbijen sa eval/script-src violation-om. Sačuvati RED/GREEN i ponoviti
 relevantne provere pre odobrenog lokalnog commit-a. Ljudski maxSteps rezultat
 beležiti kao Milanovu izvršenu proveru asistentskog primera, ne samostalnu ideju.
+
+## Dokumentaciona finalizacija pre prezentacije — 2026-10-27
+
+Po Milanovom zahtevu završiti korak dokumentacije i linkova dok su demo i
+individualni deo spremni, ali tek predstoje. T031 je dokumentacioni paket
+sa zavisnostima T029/T034; raniji redosled T030→T031 više ne blokira pripremu
+predaje. Izvođenje, objašnjenje i individualne potvrde ostaju obavezni T030/SC-006.
+Ovo je promena redosleda evidencije, ne izuzetak od tih kriterijuma.
+
+Uskladiti aktuelne statuse i dodati `docs/evidence/005-week08-submission.md`
+sa main checkpoint-om, stvarnim CI/PR linkovima i preostalim ljudskim delom.
+Proveriti relativne linkove, whitespace i odsustvo runtime/lockfile promene;
+ne ponavljati aplikacione testove za dokumentacionu izmenu. Poseban weekly report
+ostaje naredni razgovor prema korisnikovom zahtevu.

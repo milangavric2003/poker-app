@@ -1,5 +1,16 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-27 — finalna dokumentacija i spremnost za demo
+
+Izvori: korisnikov zahtev da završi korak 3 pre izvođenja koraka 1/2; AGENTS,
+spec/plan/tasks/quickstart, GAME_SPEC DoD, aktuelni EVIDENCE_W08, delivery/human
+i demo checkpoint-i, stvarni prethodno pregledani GitHub merge/CI ishodi i
+lokalni Git main c5038bb. Razlog: ukloniti zastarele tvrdnje da dorada nije
+objavljena, objediniti predajne linkove i razdvojiti dokumentaciju od izvođenja.
+Dokumentaciono T031 zatvoreno po novom redosledu u planu; nastavna obaveza T030
+ostaje. Nema nove implementacije, provere modela ili tvrdnje o izvedenom demo-u.
+Weekly-report skill nije primenjen jer ga je korisnik odložio za novi chat.
+
 ## 2026-10-27 — GitHub isporuka
 
 Korišćeni: aktuelni korisnički nalog za push/merge i potvrda doprinosa/dev

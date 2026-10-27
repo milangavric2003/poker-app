@@ -4,8 +4,10 @@
 
 **Created**: 2026-10-25
 
-**Status**: Tehničke kontrole lokalno verifikovane; Week08 nije završen.
-T030 i zavisni T031 čekaju stvarne ljudske dokaze.
+**Status**: Implementacija, Windows/Linux CI i dokumentacioni paket završeni;
+main checkpoint `c5038bb`. T031 zatvoren za dokumentaciju/linkove. T030 ostaje
+za stvarno izvođenje demo-a i individualnog dela; potvrđena je spremnost.
+[Paket za predaju](../../docs/evidence/005-week08-submission.md).
 [Završna matrica i ograničenja](../../docs/evidence/005-phase7-matrix.md),
 [handoff sa lokalnim/izolovanim/CI statusom](../../docs/evidence/005-phase7-handoff.md).
 

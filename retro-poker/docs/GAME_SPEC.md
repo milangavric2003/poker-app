@@ -442,13 +442,16 @@ Week08 Definition of Done — lokalni tehnički dokaz i ljudska potvrda su odvoj
 - [x] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
 - [x] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
 - [x] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
-- [x] Full regresija/clean checkout i status CI-ja vezani za checkpoint: baseline `07db76b` remote Windows/Linux PASS; nova lokalna dorada ima zasebne rezultate bez novog CI-ja.
+- [x] Full regresija/clean checkout i status CI-ja vezani za checkpoint: konačan main `c5038bb` ima Windows/Linux CI PASS, uz lokalne 1040/1040 i 27/27 E2E dokaze.
 - [ ] Oba člana imaju kontrolu i negativni test, mogu ponoviti provere i objasniti demo.
 
 [Završna matrica](evidence/005-phase7-matrix.md) i
 [handoff](evidence/005-phase7-handoff.md) navode stvarne komande i checkpoint-e.
-Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 ostaju
-otvoreni; Week08 nije završen. Lokalni prolaz nove dorade nije njen remote CI uspeh.
+Milan je 2026-10-27 potvrdio spremnost za prezentaciju i zatražio završetak
+dokumentacione pripreme pre izvođenja. T031 paket/linkovi su završeni, uz
+eksplicitnu promenu redosleda u planu; T030 ostaje za izvedeni demo/individualnu
+varijantu. Implementacija i dokumentacija su spremni za predaju/predstavljanje.
+[Konačni paket i CI/PR linkovi](evidence/005-week08-submission.md).
 [Milanova tehnička dorada](evidence/005-milan-handoff.md) čuva novi polling
 RED/GREEN, fake-only ručni profil i stvarne rezultate od 2026-10-27.
 

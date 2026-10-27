@@ -1,5 +1,11 @@
 # T030 — priprema demo-a i ljudske potvrde
 
+**Aktuelno 2026-10-27:** Milan potvrđuje da su spremni za prezentovanje demo-a
+i individualni deo. T031 dokumentacija/linkovi su završeni unapred; T030 ostaje
+otvoren do stvarnog izvođenja. Doprinosi su potvrđeni i vezani za commitove u
+[konačnom paketu](005-week08-submission.md). Naredna tabela iz 26.10. čuva
+istorijsko stanje pre potvrde doprinosa i nije aktuelna mapa autorstva.
+
 2026-10-26. **NIJE IZVEDENO / T030 otvoren.** Codex priprema nije ljudski demo.
 Rani zahtev za konkretne potvrde poslat je korisniku tokom završne provere.
 

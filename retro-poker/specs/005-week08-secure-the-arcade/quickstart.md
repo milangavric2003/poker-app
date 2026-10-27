@@ -1,10 +1,12 @@
 # Week08 — vodič za proveru
 
-Aktuelni završni tehnički dokaz: [matrica](../../docs/evidence/005-phase7-matrix.md),
-[handoff](../../docs/evidence/005-phase7-handoff.md). T030 i T031 ostaju otvoreni.
+Aktuelno: [paket za predaju](../../docs/evidence/005-week08-submission.md),
+[matrica](../../docs/evidence/005-phase7-matrix.md) i
+[završna dorada](../../docs/evidence/005-milan-csp-handoff.md).
+T031 dokumentacija završena; T030 čeka izvođenje pripremljenog ljudskog dela.
 
 Pokretati iz `retro-poker/`, Node 24/npm 11. Na Windows-u koristiti `npm.cmd`.
-Aktivna grana je `week08-init`; feature direktorijum ne zavisi od imena grane.
+Isporuka je na `main`; feature direktorijum ne zavisi od imena grane.
 Za Spec Kit u novom checkout-u:
 
 ```powershell

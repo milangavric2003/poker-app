@@ -22,6 +22,10 @@ Portovi su fiksni i bind samo na loopback.
 
 ## Provere
 
+Week08 implementacija i dokumentacioni paket su na `main`:
+[konačni linkovi za predaju, doprinosi i CI](docs/evidence/005-week08-submission.md).
+Demo i individualni deo su pripremljeni; njihovo izvođenje vodi otvoreni T030.
+
 Za Week08 ručni pregled sa sintetičkim podacima i fake providerom:
 
 ```powershell
