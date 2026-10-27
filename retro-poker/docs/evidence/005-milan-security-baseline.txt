@@ -1,0 +1,12 @@
+
+> retro-poker@0.1.0 test:security
+> vitest run --project node tests/unit/security- tests/contract/security- tests/integration/security-
+
+
+ RUN  v5.0.5 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3,4,5/poker-app/retro-poker
+
+
+ Test Files  11 passed (11)
+      Tests  123 passed (123)
+   Start at  18:03:41
+   Duration  1.97s (import 50%, tests 26%, transform 20%, setup 3%, worker 1%)

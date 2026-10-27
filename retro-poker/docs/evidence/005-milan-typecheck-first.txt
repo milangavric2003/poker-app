@@ -1,0 +1,5 @@
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+tests/helpers/security-demo.ts(5,10): error TS2305: Module '"../../backend/src/ai/types.js"' has no exported member 'systemClock'.

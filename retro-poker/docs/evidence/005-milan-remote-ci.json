@@ -1,0 +1,158 @@
+{
+  "checkedOn": "2026-10-27",
+  "source": "https://github.com/milangavric2003/poker-app/actions/runs/40409602714",
+  "testedSha": "07db76bd2df44508d0d6ac626ba20a300c5d0470",
+  "scope": "Remote CI početne osnove; nije CI lokalnih T032/T033 izmena.",
+  "jobs": [
+    {
+      "name": "Verify (ubuntu-24.04)",
+      "conclusion": "success",
+      "url": "https://github.com/milangavric2003/poker-app/actions/runs/40409602714/job/121876465077",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up Node",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pin npm",
+          "conclusion": "success"
+        },
+        {
+          "name": "Record environment",
+          "conclusion": "success"
+        },
+        {
+          "name": "Clean dependency install",
+          "conclusion": "success"
+        },
+        {
+          "name": "Security contracts and integration",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lint",
+          "conclusion": "success"
+        },
+        {
+          "name": "Unit, contract, integration and UI tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install Chromium",
+          "conclusion": "success"
+        },
+        {
+          "name": "Production security browser checks (includes build)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Full Chromium E2E",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload verification reports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up Node",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "Verify (windows-2025)",
+      "conclusion": "success",
+      "url": "https://github.com/milangavric2003/poker-app/actions/runs/40409602714/job/121876465446",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up Node",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pin npm",
+          "conclusion": "success"
+        },
+        {
+          "name": "Record environment",
+          "conclusion": "success"
+        },
+        {
+          "name": "Clean dependency install",
+          "conclusion": "success"
+        },
+        {
+          "name": "Security contracts and integration",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lint",
+          "conclusion": "success"
+        },
+        {
+          "name": "Unit, contract, integration and UI tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install Chromium",
+          "conclusion": "success"
+        },
+        {
+          "name": "Production security browser checks (includes build)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Full Chromium E2E",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload verification reports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up Node",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

@@ -16,6 +16,12 @@ novog W08 negativnog testa, razumevanja ili izvedenog demo-a.
 
 ## Osam minuta, fake-only
 
+Milan je 2026-10-27 prijavio izvršen asistentski maxSteps negativni primer
+(400, stanje/metrike nepromenjeni) i uspešan normalan street coaching.
+[Stvarni prijavljeni ishodi i ograničenja](005-milan-human-check.json).
+Ovo potvrđuje taj ručni pregled; samostalna ideja testa, ceo doprinos oba člana,
+osam minuta demo-a i individualna varijanta ostaju nepotvrđeni. T030 je otvoren.
+
 Pre demo-a: Node 24.20.0/npm 11.19.0, clean instalacija i Chromium. Bez `.env`,
 pravih ključeva, live CLI-ja ili `dev:backend`. Koristiti postojeće automatizovane
 browser fixture-e (stvarni UI/API/alat), uz headful Playwright za vidljiv browser.

@@ -1,5 +1,31 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Najnovije 2026-10-27 — T034 i ljudska provera:** browser Zod bootstrap sada
+koristi jitless pre shared schema konstrukcije: normalan production tok nema
+eval CSP prekršaj, dok kontrolisan eval iz učitane skripte ostaje blokiran.
+[RED/GREEN i uzrok](evidence/005-milan-csp-handoff.md).
+Završne provere: [full 1040/1040](evidence/005-milan-final-tests.txt),
+[build + E2E 27/27](evidence/005-milan-final-e2e.txt),
+[typecheck](evidence/005-milan-final-typecheck.txt)/[lint](evidence/005-milan-final-lint.txt) PASS.
+Milan je prijavio [stvaran ručni 400/bez efekta i pozitivan coaching](evidence/005-milan-human-check.json).
+Asistentski primer nije samostalna ideja testa; **T030/T031 ostaju otvoreni**.
+Promene se čuvaju odobrenim lokalnim commit-om na `fix/week08-finalization`;
+novi hosted CI i merge ostaju naredni koraci. Ispod su prethodni checkpoint-i.
+
+**Aktuelno 2026-10-27 — Milanova završna tehnička dorada:** grana
+`fix/week08-finalization`, osnova `07db76b`. Reprodukovano odbacivanje sporih
+GET odgovora; polling ispravka, RED 2 FAIL/1 PASS → fokus 53 PASS,
+puna suite **1040/1040**, build + browser **26/26**, typecheck/lint PASS.
+Fake-only `demo:security` i uputstvo pripremljeni i browser probom provereni:
+maxSteps extra 400/bez efekta, normalan coaching 2/1, regeneracija, slow GET i mobile.
+[Novi handoff, komande i ograničenja](evidence/005-milan-handoff.md),
+[ručni pregled](evidence/005-milan-manual.md).
+Remote CI za **07db76b** sada je stvarno potvrđen na Windows/Linux:
+[run](https://github.com/milangavric2003/poker-app/actions/runs/40409602714),
+[API sažetak](evidence/005-milan-remote-ci.json). Lokalne T032/T033 izmene nisu
+objavljene i nemaju novi remote CI. **T030 i T031 ostaju otvoreni.**
+Sledeći 2026-10-26 blok je prethodni checkpoint, ne aktuelni CI status.
+
 **Aktuelno 2026-10-26 — Faza 7:** lokalna završna matrica T00–T17 prolazi,
 security **123/123**, full **1037/1037**, security Chromium **5/5**, puni E2E
 **26/26**, typecheck/lint/build prolaze. Kod/testovi na

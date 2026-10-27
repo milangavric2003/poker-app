@@ -1,7 +1,9 @@
 # Tasks: Week08 — Secure the Arcade
 
-**Branch**: `week08-init`. Faze 1–6 i T028–T029 završeni lokalno;
-T030 i zavisni T031 ostaju otvoreni. Week08 nije završen; remote CI nije potvrđen.
+**Branch**: `week08-init`; završna dorada `fix/week08-finalization` od `07db76b`.
+T001–T029 i T032–T034 završeni tehnički. T030 i zavisni T031 ostaju otvoreni.
+Week08 nije završen. Remote CI baseline-a `07db76b` potvrđen na Windows/Linux;
+lokalne završne izmene još nisu objavljene/proverene u novom CI-ju.
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).
 
@@ -142,3 +144,20 @@ Prvi koristan inkrement je US1, ali sam US1 ne zatvara Week08.
 | FR-015 / svi SC | T028–T031 | Celokupna matrica, pre/posle, par |
 
 Ukupno 31 task: setup 4, foundation 3, US1 5, US2 6, US3 4, US4 5, final 4.
+
+## Faza 8 — Milanova završna provera
+
+Driver: Codex u Milanovoj sesiji, 2026-10-27. Novi korisnički zahtev dozvoljava
+zasebnu granu i završne ispravke. T030/T031 se ne zatvaraju pripremom.
+
+- [x] T032 Popraviti reprodukovan prekid UI napretka pri sporom GET-u prema I8 / US1 scenario 6; deps: T029; putanje: `frontend/src/App.tsx`, `tests/ui/ai-polling.test.tsx`, plan/spec i evidence. Dokaz: smislen RED za bot/analysis 1200 ms, minimalni GREEN bez preklapanja, GET failure recovery, postojeći lifecycle holdout-i i puna regresija. Prvi pogrešno scope-ovan test query čuvati odvojeno od RED dokaza.
+- [x] T033 Pripremiti ponovljiv fake-only ručni profil i Milanove korake prema T030 / SC-006; deps: T032; putanje: `tests/helpers/security-demo.ts`, `package.json`, README/quickstart, AGENTS izvor i evidence/manifest/AI log. Dokaz: stvarni production preview/API/alat, eksplicitni fake provider i stvarni sat, bez `.env` ili novih debug ruta; normalan browser smoke i uputstvo. Ljudski test/review/demo nisu potvrđeni ovom stavkom.
+
+[Stvarni T032/T033 rezultati i ograničenja](../../docs/evidence/005-milan-handoff.md).
+
+- [x] T034 Ukloniti browser Zod eval probu bez slabljenja CSP-a prema US3 scenario 5 / FR-010 / I5/I8; deps: T033; putanje: `frontend/src/{main.tsx,validation.ts}`, `tests/e2e/security-production.spec.ts`, plan/spec i evidence/manifest/AI log. Dokaz: startup listener RED za normalan tok, jitless bootstrap GREEN, validni/invalidni ugovori i dalje rade, eksplicitan eval ostaje blokiran; provere pre lokalnog commit-a. T030/T031 ne zatvarati na osnovu jednog vođenog testa.
+
+[T034 RED/GREEN i granice](../../docs/evidence/005-milan-csp-handoff.md): full 1040/1040,
+build + browser 27/27, typecheck/lint PASS. Milan je prijavio vođeni ručni HTTP
+test i normalan coaching; [actual](../../docs/evidence/005-milan-human-check.json).
+To nije ceo T030; samostalni test/doprinos oba člana/demo ostaju otvoreni.

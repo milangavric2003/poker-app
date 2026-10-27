@@ -14,6 +14,7 @@
     "dev": "concurrently --kill-others --names frontend,backend \"npm:dev:frontend\" \"npm:dev:backend\"",
     "dev:frontend": "vite",
     "dev:backend": "node --env-file-if-exists=.env --import tsx --watch backend/src/server.ts",
+    "demo:security": "node --import tsx tests/helpers/security-demo.ts",
     "test": "vitest run",
     "test:security": "vitest run --project node tests/unit/security- tests/contract/security- tests/integration/security-",
     "test:e2e": "npm run build && playwright test",

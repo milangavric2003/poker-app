@@ -18,8 +18,10 @@ Projektni koren je direktorijum u kome je ovaj fajl (`retro-poker/`). Git koren 
 - `docs/GAME_SPEC.md` je autoritativan za ponašanje igre, Week03–Week05 granice i Definition of Done.
 - Ovaj fajl određuje način rada. `.specify/memory/constitution.md` određuje usvojene inženjerske principe tek kada bude popunjen; postojeći placeholder-i nisu donete odluke.
 - Aktivni `specs/<feature>/spec.md`, `plan.md`, `tasks.md` razrađuju zahteve; ne smeju tiho menjati `GAME_SPEC.md`. Konflikt prijavi i uskladi pre zavisne implementacije.
-- Za Week08 izvor je roditeljski `weekly-assignment.md` (verzija 23.10.2026) i
-  `../Nedelja-08/` MD materijali/šablon. Root assignment je sada Week08, ne Week05.
+- Za Week08 izvor je `../milan/weekly-assignment week08.md` (verzija 23.10.2026),
+  identičan `../Nedelja-08/02-Nedeljni-zadatak-Secure-the-Arcade.md`, i
+  `../Nedelja-08/` MD materijali/šablon. Roditeljski `weekly-assignment.md` u
+  Milanovom checkout-u sadrži istorijski Week05 i nije Week08 izvor.
   Materijali nisu garantovani u drugom checkout-u; feature 005 i `docs/EVIDENCE_W08.md`
   sadrže potrebne zahteve. PDF/PPTX ne dodaju zaseban scope samo zato što postoje.
 - `../suggestion.md` je istorijski predlog. Fiksna ulaganja, izostavljanje all-in/side potova, opcioni Spec Kit i čekanje odobrenja za poker više ne važe. Ne uključuj ceo taj fajl u implementacione promptove.
@@ -69,7 +71,8 @@ Projektni koren je direktorijum u kome je ovaj fajl (`retro-poker/`). Git koren 
 
 Inicijalni scaffold je istorija: aplikacija, package.json i test runner-i postoje.
 Aktuelne komande proveri u package.json. Week08 `test:security` i
-`test:security:e2e` su planirane dok ih T007/T022 ne uvedu; ne navodi ih kao postojeće.
+`test:security:e2e` uvedene su kroz T007/T022. `demo:security` je zaseban lokalni
+fake-only profil za ljudski pregled; constructor fixture-i nisu produkcioni API.
 
 Tokom inicijalnog setup taska uvedi i dokumentuj sledeći npm interfejs u projektni `README.md` i `package.json`:
 
