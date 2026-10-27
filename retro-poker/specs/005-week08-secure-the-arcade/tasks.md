@@ -161,3 +161,9 @@ zasebnu granu i završne ispravke. T030/T031 se ne zatvaraju pripremom.
 build + browser 27/27, typecheck/lint PASS. Milan je prijavio vođeni ručni HTTP
 test i normalan coaching; [actual](../../docs/evidence/005-milan-human-check.json).
 To nije ceo T030; samostalni test/doprinos oba člana/demo ostaju otvoreni.
+
+Naknadna Milanova potvrda 2026-10-27: podela doprinosa oba člana vezana je za
+njihove grane/commitove; dodatna ručna igra kroz `npm run dev` radi.
+[Potvrđen doprinos i odobren Git tok](../../docs/evidence/005-week08-delivery.md).
+To dopunjuje prethodnu napomenu o doprinosu; demo/individualna varijanta nisu
+prijavljeni kao izvedeni. T030/T031 se ne zatvaraju samim merge-om.

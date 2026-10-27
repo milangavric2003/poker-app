@@ -1,5 +1,13 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**2026-10-27 — odobrena isporuka i potvrđen doprinos:** Milan je potvrdio
+podelu Vedran/`week08-init` i Milan/`fix/week08-finalization`, dodatno ručno
+odigrao/proverio aplikaciju kroz `npm run dev` i odobrio push/PR/merge u main.
+[Mapa doprinosa, Git tok i granice predaje](evidence/005-week08-delivery.md).
+Prethodna formulacija o nepotvrđenoj podeli doprinosa odnosi se na ranije
+checkpoint-e. **Demo/individualna provera još nisu prijavljeni kao izvedeni;
+T030/T031 ostaju otvoreni.** Merge/CI ishod proverava se na povezanim PR-ovima.
+
 **Najnovije 2026-10-27 — T034 i ljudska provera:** browser Zod bootstrap sada
 koristi jitless pre shared schema konstrukcije: normalan production tok nema
 eval CSP prekršaj, dok kontrolisan eval iz učitane skripte ostaje blokiran.

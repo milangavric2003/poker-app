@@ -1,5 +1,15 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-27 — GitHub isporuka
+
+Korišćeni: aktuelni korisnički nalog za push/merge i potvrda doprinosa/dev
+smoke-a, AGENTS Git/dokaz pravila, feature tasks i prethodni human/CSP dokazi,
+Git istorija/remote head-ovi i GitHub PR/Actions REST. Namena je isporuka
+već proverene implementacije, bez novog runtime scope-a. Sačuvati autorstvo
+i prethodne izvore; ne zaključivati demo/individualnu odbranu iz commita.
+Nema novih live AI ili nastavnih web izvora. Svi GitHub credential-i ostaju
+u lokalnom helper-u i memoriji procesa, bez ispisa u report.
+
 ## 2026-10-27 — T034 i ljudski rezultat
 
 Nastavak odobrenog rada, bez novih agenata. Pregledani korisnikov CSP screenshot

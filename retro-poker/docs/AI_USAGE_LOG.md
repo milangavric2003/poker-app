@@ -1,5 +1,15 @@
 # AI usage log
 
+## 2026-10-27 — potvrda doprinosa i odobreno objavljivanje
+
+Milan je potvrdio ručnu proveru igre kroz dev režim i podelu doprinosa prema
+granama/commitovima. Izričito je odobrio push, PR radnje i merge u main.
+Codex nastavlja kao jedan agent: dokumentacioni zapis, Git/GitHub integracija
+i provera CI-ja konkretnog SHA, bez ponovljenih live proba ili pripisivanja
+neizvedenog demo-a. GitHub autentikacija koristi postojeći Git credential helper;
+credential vrednosti ne ulaze u dokaze ili izlaz. T030/T031 ostaju otvoreni
+za preostali ljudski deo. [Plan i doprinos](evidence/005-week08-delivery.md).
+
 ## 2026-10-27 — CSP screenshot, ljudski rezultat i odobren lokalni commit
 
 Milan je prijavio i ručno izvršio prethodno pripremljen HTTP negativni primer
