@@ -1,0 +1,16 @@
+{
+  "yamlParsed": true,
+  "matrix": [
+    "windows-2025",
+    "ubuntu-24.04"
+  ],
+  "fakeOnly": true,
+  "cleanInstallLockGuard": true,
+  "explicitSecurityCommands": true,
+  "productionBuildBeforeFullBrowser": true,
+  "forbidOnlyAndZeroRetries": true,
+  "continueOnError": false,
+  "alwaysUpload": true,
+  "securitySkipOrFails": [],
+  "remoteExecutionProven": false
+}

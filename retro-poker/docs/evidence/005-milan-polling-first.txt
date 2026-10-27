@@ -1,0 +1,1810 @@
+
+> retro-poker@0.1.0 test
+> vitest run tests/ui/ai-polling.test.tsx
+
+
+ RUN  v5.0.5 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3,4,5/poker-app/retro-poker
+
+ ❯ |ui| tests/ui/ai-polling.test.tsx (3 tests | 3 failed) 190ms
+   ❯ slow game polling preserves normal AI progress (W08 I8) (3)
+     × shows a completed bot despite GET latency above 750 ms 126ms
+     × shows a completed analysis despite GET latency above 750 ms 27ms
+     × recovers after a failed GET and accepts the next completed snapshot 35ms
+npm.cmd :
+At line:2 char:54
++ ... API_KEY=''; npm.cmd test -- tests/ui/ai-polling.test.tsx *> docs/evid ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |ui| tests/ui/ai-polling.test.tsx > slow game polling preserves normal AI progress (W08 I8) > shows a completed
+bot despite GET latency above 750 ms
+TestingLibraryElementError: Found multiple elements with the role "status"
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<div[39m
+  [33maria-live[39m=[32m"polite"[39m
+  [33mclass[39m=[32m"ai-status ai-status--requesting"[39m
+  [33mrole[39m=[32m"status"[39m
+[36m>[39m
+  [36m<span[39m
+    [33maria-label[39m=[32m"AI obrađuje potez"[39m
+    [33mclass[39m=[32m"loading-dot"[39m
+  [36m/>[39m
+  [36m<span>[39m
+    [0mAI razmišlja o potezu…[0m
+  [36m</span>[39m
+[36m</div>[39m
+
+Ignored nodes: comments, script, style
+[36m<p[39m
+  [33mrole[39m=[32m"status"[39m
+[36m>[39m
+  [0mObrada poteza…[0m
+[36m</p>[39m
+
+Ignored nodes: comments, script, style
+[36m<p[39m
+  [33maria-live[39m=[32m"polite"[39m
+  [33mrole[39m=[32m"status"[39m
+[36m>[39m
+  [0mCoaching je dostupan za završenu partiju.[0m
+[36m</p>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or
+`findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"ai-status ai-status--requesting"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33maria-label[39m=[32m"AI obrađuje potez"[39m
+          [33mclass[39m=[32m"loading-dot"[39m
+        [36m/>[39m
+        [36m<span>[39m
+          [0mAI razmišlja o potezu…[0m
+        [36m</span>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"game-surface"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"table-layout"[39m
+        [36m>[39m
+          [36m<section[39m
+            [33maria-label[39m=[32m"Poker sto"[39m
+            [33mclass[39m=[32m"poker-table"[39m
+          [36m>[39m
+            [36m<header>[39m
+              [36m<span>[39m
+                [0mRuka [0m
+                [0m1[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"phase-badge"[39m
+              [36m>[39m
+                [0mpreflop[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNO LIMIT[0m
+              [36m</span>[39m
+            [36m</header>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"blind-summary"[39m
+            [36m>[39m
+              [0mMali blind: [0m
+              [0mTi[0m
+              [0m, [0m
+              [0m5[0m
+              [0m · Veliki blind: [0m
+              [0mBot 1[0m
+              [0m, [0m
+              [0m10[0m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"table-arena"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"table-center"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"table-wordmark"[39m
+                [36m>[39m
+                  [0mRETRO POKER[0m
+                [36m</span>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Board"[39m
+                  [33mclass[39m=[32m"board"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"board-waiting"[39m
+                  [36m>[39m
+                    [0mBoard čeka flop[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Ukupni pot"[39m
+                  [33mclass[39m=[32m"total-pot"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"chip-amount"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                      [33mclass[39m=[32m"chip-stack"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"poker-chip chip-5"[39m
+                        [33mdata-denomination[39m=[32m"5"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"poker-chip chip-5"[39m
+                        [33mdata-denomination[39m=[32m"5"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"poker-chip chip-5"[39m
+                        [33mdata-denomination[39m=[32m"5"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"amount-value"[39m
+                    [36m>[39m
+                      [0mPot[0m
+                      [0m: [0m
+                      [0m15[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Potovi"[39m
+                  [33mclass[39m=[32m"pots"[39m
+                [36m>[39m
+                  [36m<span>[39m
+                    [0mGlavni pot[0m
+                    [0m · [0m
+                    [0mmain[0m
+                    [0m: [0m
+                    [0m10[0m
+                  [36m</span>[39m
+                  [36m<span>[39m
+                    [0mNepotvrđen ulog[0m
+                    [0m · [0m
+                    [0muncalled[0m
+                    [0m: [0m
+                    [0m5[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<article[39m
+                [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+                [33mclass[39m=[32m"seat seat-position-2 seat-active"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-heading"[39m
+                [36m>[39m
+                  [36m<h3>[39m
+                    [0mBot 1[0m
+                  [36m</h3>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"seat-status"[39m
+                  [36m>[39m
+                    [0mU ruci[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-badges"[39m
+                [36m>[39m
+                  [36m<span>[39m
+                    [0mBB · Veliki blind[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-body"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-stats"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mStack[0m
+                        [0m: [0m
+                        [0m990[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-5"[39m
+                          [33mdata-denomination[39m=[32m"5"[39m
+                        [36m>[39m
+                          [0m5[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-5"[39m
+                          [33mdata-denomination[39m=[32m"5"[39m
+                        [36m>[39m
+                          [0m5[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mUlog[0m
+                        [0m: [0m
+                        [0m10[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-hand"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33maria-label[39m=[32m"Karte: Bot 1"[39m
+                      [33mclass[39m=[32m"cards"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"Skrivena karta"[39m
+                        [33mclass[39m=[32m"card card-back"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-back-pattern"[39m
+                        [36m>[39m
+                          [0mRP[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"Skrivena karta"[39m
+                        [33mclass[39m=[32m"card card-back"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-back-pattern"[39m
+                        [36m>[39m
+                          [0mRP[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</article>[39m
+              [36m<article[39m
+                [33maria-label[39m=[32m"Ti, mesto 1"[39m
+                [33mclass[39m=[32m"seat seat-position-0 seat-active seat-human seat-current"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-heading"[39m
+                [36m>[39m
+                  [36m<h3>[39m
+                    [0mTi[0m
+                  [36m</h3>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"seat-status"[39m
+                  [36m>[39m
+                    [0mNa potezu[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-badges"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"dealer-badge"[39m
+                  [36m>[39m
+                    [0mButton[0m
+                  [36m</span>[39m
+                  [36m<span>[39m
+                    [0mSB · Mali blind[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-body"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-stats"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mStack[0m
+                        [0m: [0m
+                        [0m995[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-5"[39m
+                          [33mdata-denomination[39m=[32m"5"[39m
+                        [36m>[39m
+                          [0m5[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mUlog[0m
+                        [0m: [0m
+                        [0m5[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-hand"[39m
+                  [36m>[39m
+                    [36m<strong[39m
+                      [33mclass[39m=[32m"sr-only"[39m
+                    [36m>[39m
+                      [0mTvoje karte[0m
+                    [36m</strong>[39m
+                    [36m<div[39m
+                      [33maria-label[39m=[32m"Tvoje karte"[39m
+                      [33mclass[39m=[32m"cards"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"As pik"[39m
+                        [33mclass[39m=[32m"card card-black"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♠[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-pip"[39m
+                        [36m>[39m
+                          [0m♠[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner card-corner-bottom"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♠[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"As herc"[39m
+                        [33mclass[39m=[32m"card card-red"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♥[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-pip"[39m
+                        [36m>[39m
+                          [0m♥[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner card-corner-bottom"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♥[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</article>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"chip-note"[39m
+            [36m>[39m
+              [0mČipovi su ilustracija · tačan iznos je uz oznaku[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<aside[39m
+            [33maria-label[39m=[32m"Istorija"[39m
+            [33mclass[39m=[32m"history"[39m
+          [36m>[39m
+            [36m<h2>[39m
+              [0mIstorija[0m
+            [36m</h2>[39m
+            [36m<ol[39m
+              [33maria-label[39m=[32m"Istorija ruke"[39m
+            [36m>[39m
+              [36m<li>[39m
+                [0mPočetak ruke 1[0m
+              [36m</li>[39m
+            [36m</ol>[39m
+          [36m</aside>[39m
+        [36m</div>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Akcije"[39m
+          [33mclass[39m=[32m"actions"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mTvoj potez [0m
+            [36m<span[39m
+              [33mclass[39m=[32m"action-hint"[39m
+            [36m>[39m
+              [0m— izaberi legalnu akciju[0m
+            [36m</span>[39m
+          [36m</h2>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"action-row"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0mFold[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0mCall [0m
+              [0m5[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<p[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mObrada poteza…[0m
+          [36m</p>[39m
+        [36m</section>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Coaching partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCoaching partije[0m
+        [36m</h2>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"_r_0_"[39m
+        [36m>[39m
+          [0mCoaching cilj[0m
+        [36m</label>[39m
+        [0m [0m
+        [36m<select[39m
+          [33maria-describedby[39m=[32m"_r_0_-description"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mid[39m=[32m"_r_0_"[39m
+        [36m>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"betting"[39m
+          [36m>[39m
+            [0mUlaganje[0m
+          [36m</option>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"street"[39m
+          [36m>[39m
+            [0mOdluke po fazama[0m
+          [36m</option>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"showdown"[39m
+          [36m>[39m
+            [0mShowdown[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<p[39m
+          [33mid[39m=[32m"_r_0_-description"[39m
+        [36m>[39m
+          [0mPregled odluka sa ulaganjem žetona: bet, raise, call i all-in. Check i fold nisu deo ovog uzorka.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m>[39m
+          [0mCoaching je dostupan za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0mPokreni coaching[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/ai-polling.test.tsx:49:42
+     47|     render(<App />); await act(async () => {});
+     48|     await act(async () => { await vi.advanceTimersByTimeAsync(1950); }…
+     49|     if (purpose === 'bot') expect(screen.getByRole('status')).toHaveTe…
+       |                                          ^
+     50|     else expect(screen.getByText('Potvrđena završena analiza.')).toBeV…
+     51|     expect(maximumReads).toBe(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |ui| tests/ui/ai-polling.test.tsx > slow game polling preserves normal AI progress (W08 I8) > shows a completed
+analysis despite GET latency above 750 ms
+TestingLibraryElementError: Unable to find an element with the text: Potvrđena završena analiza.. This could be
+because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to
+make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"ai-status ai-status--requesting"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33maria-label[39m=[32m"AI priprema analizu"[39m
+          [33mclass[39m=[32m"loading-dot"[39m
+        [36m/>[39m
+        [36m<span>[39m
+          [0mAI priprema analizu…[0m
+        [36m</span>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"game-surface"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"table-layout"[39m
+        [36m>[39m
+          [36m<section[39m
+            [33maria-label[39m=[32m"Poker sto"[39m
+            [33mclass[39m=[32m"poker-table"[39m
+          [36m>[39m
+            [36m<header>[39m
+              [36m<span>[39m
+                [0mRuka [0m
+                [0m1[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"phase-badge"[39m
+              [36m>[39m
+                [0mcomplete[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNO LIMIT[0m
+              [36m</span>[39m
+            [36m</header>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"blind-summary"[39m
+            [36m>[39m
+              [0mMali blind: [0m
+              [0mTi[0m
+              [0m, [0m
+              [0m0[0m
+              [0m · Veliki blind: [0m
+              [0mBot 1[0m
+              [0m, [0m
+              [0m0[0m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"table-arena"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"table-center"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"table-wordmark"[39m
+                [36m>[39m
+                  [0mRETRO POKER[0m
+                [36m</span>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Board"[39m
+                  [33mclass[39m=[32m"board"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"board-waiting"[39m
+                  [36m>[39m
+                    [0mBoard čeka flop[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Ukupni pot"[39m
+                  [33mclass[39m=[32m"total-pot"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"chip-amount"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"amount-value"[39m
+                    [36m>[39m
+                      [0mPot[0m
+                      [0m: [0m
+                      [0m0[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Potovi"[39m
+                  [33mclass[39m=[32m"pots"[39m
+                [36m/>[39m
+              [36m</div>[39m
+              [36m<article[39m
+                [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+                [33mclass[39m=[32m"seat seat-position-2 seat-active"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-heading"[39m
+                [36m>[39m
+                  [36m<h3>[39m
+                    [0mBot 1[0m
+                  [36m</h3>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"seat-status"[39m
+                  [36m>[39m
+                    [0mU ruci[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-badges"[39m
+                [36m>[39m
+                  [36m<span>[39m
+                    [0mBB · Veliki blind[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-body"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-stats"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-1000"[39m
+                          [33mdata-denomination[39m=[32m"1000"[39m
+                        [36m>[39m
+                          [0m1000[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mStack[0m
+                        [0m: [0m
+                        [0m1000[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mUlog[0m
+                        [0m: [0m
+                        [0m0[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-hand"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33maria-label[39m=[32m"Karte: Bot 1"[39m
+                      [33mclass[39m=[32m"cards"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"Skrivena karta"[39m
+                        [33mclass[39m=[32m"card card-back"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-back-pattern"[39m
+                        [36m>[39m
+                          [0mRP[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"Skrivena karta"[39m
+                        [33mclass[39m=[32m"card card-back"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-back-pattern"[39m
+                        [36m>[39m
+                          [0mRP[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</article>[39m
+              [36m<article[39m
+                [33maria-label[39m=[32m"Ti, mesto 1"[39m
+                [33mclass[39m=[32m"seat seat-position-0 seat-active seat-human"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-heading"[39m
+                [36m>[39m
+                  [36m<h3>[39m
+                    [0mTi[0m
+                  [36m</h3>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"seat-status"[39m
+                  [36m>[39m
+                    [0mU ruci[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-badges"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"dealer-badge"[39m
+                  [36m>[39m
+                    [0mButton[0m
+                  [36m</span>[39m
+                  [36m<span>[39m
+                    [0mSB · Mali blind[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-body"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-stats"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-1000"[39m
+                          [33mdata-denomination[39m=[32m"1000"[39m
+                        [36m>[39m
+                          [0m1000[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mStack[0m
+                        [0m: [0m
+                        [0m1000[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mUlog[0m
+                        [0m: [0m
+                        [0m0[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-hand"[39m
+                  [36m>[39m
+                    [36m<strong[39m
+                      [33mclass[39m=[32m"sr-only"[39m
+                    [36m>[39m
+                      [0mTvoje karte[0m
+                    [36m</strong>[39m
+                    [36m<div[39m
+                      [33maria-label[39m=[32m"Tvoje karte"[39m
+                      [33mclass[39m=[32m"cards"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"As pik"[39m
+                        [33mclass[39m=[32m"card card-black"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♠[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-pip"[39m
+                        [36m>[39m
+                          [0m♠[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner card-corner-bottom"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♠[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"As herc"[39m
+                        [33mclass[39m=[32m"card card-red"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♥[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-pip"[39m
+                        [36m>[39m
+                          [0m♥[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner card-corner-bottom"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♥[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</article>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"chip-note"[39m
+            [36m>[39m
+              [0mČipovi su ilustracija · tačan iznos je uz oznaku[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<aside[39m
+            [33maria-label[39m=[32m"Istorija"[39m
+            [33mclass[39m=[32m"history"[39m
+          [36m>[39m
+            [36m<h2>[39m
+              [0mIstorija[0m
+            [36m</h2>[39m
+            [36m<ol[39m
+              [33maria-label[39m=[32m"Istorija ruke"[39m
+            [36m>[39m
+              [36m<li>[39m
+                [0mPočetak ruke 1[0m
+              [36m</li>[39m
+            [36m</ol>[39m
+          [36m</aside>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-label[39m=[32m"Rezultat ruke"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"result"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mRezultat ruke[0m
+        [36m</h2>[39m
+        [36m<p>[39m
+          [0mShowdown[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPobeda u partiji[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mPot [0m
+          [0m20[0m
+          [0m: [0m
+          [0mp0 +20[0m
+        [36m</p>[39m
+        [36m<ul>[39m
+          [36m<li>[39m
+            [0mp0[0m
+            [0m: [0m
+            [0m+[0m
+            [0m10[0m
+          [36m</li>[39m
+          [36m<li>[39m
+            [0mp1[0m
+            [0m: [0m
+            [0m-10[0m
+          [36m</li>[39m
+        [36m</ul>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"AI analiza partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mAI analiza partije[0m
+        [36m</h2>[39m
+        [36m<p[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33maria-label[39m=[32m"AI priprema analizu partije"[39m
+            [33mclass[39m=[32m"loading-dot"[39m
+          [36m/>[39m
+          [0m Analiza se priprema…[0m
+        [36m</p>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Coaching partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCoaching partije[0m
+        [36m</h2>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"_r_1_"[39m
+        [36m>[39m
+          [0mCoaching cilj[0m
+        [36m</label>[39m
+        [0m [0m
+        [36m<select[39m
+          [33maria-describedby[39m=[32m"_r_1_-description"[39m
+          [33mid[39m=[32m"_r_1_"[39m
+        [36m>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"betting"[39m
+          [36m>[39m
+            [0mUlaganje[0m
+          [36m</option>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"street"[39m
+          [36m>[39m
+            [0mOdluke po fazama[0m
+          [36m</option>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"showdown"[39m
+          [36m>[39m
+            [0mShowdown[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<p[39m
+          [33mid[39m=[32m"_r_1_-description"[39m
+        [36m>[39m
+          [0mPregled odluka sa ulaganjem žetona: bet, raise, call i all-in. Check i fold nisu deo ovog uzorka.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m>[39m
+          [0mIzaberi cilj za pregled završene partije.[0m
+        [36m</p>[39m
+        [36m<button>[39m
+          [0mPokreni coaching[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/ai-polling.test.tsx:50:24
+     48|     await act(async () => { await vi.advanceTimersByTimeAsync(1950); }…
+     49|     if (purpose === 'bot') expect(screen.getByRole('status')).toHaveTe…
+     50|     else expect(screen.getByText('Potvrđena završena analiza.')).toBeV…
+       |                        ^
+     51|     expect(maximumReads).toBe(1);
+     52|     await act(async () => { await vi.advanceTimersByTimeAsync(3000); }…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |ui| tests/ui/ai-polling.test.tsx > slow game polling preserves normal AI progress (W08 I8) > recovers after a
+failed GET and accepts the next completed snapshot
+TestingLibraryElementError: Found multiple elements with the role "status"
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<div[39m
+  [33maria-live[39m=[32m"polite"[39m
+  [33mclass[39m=[32m"ai-status ai-status--success"[39m
+  [33mrole[39m=[32m"status"[39m
+[36m>[39m
+  [36m<span>[39m
+    [0mAI potez je prihvaćen.[0m
+  [36m</span>[39m
+[36m</div>[39m
+
+Ignored nodes: comments, script, style
+[36m<p[39m
+  [33maria-live[39m=[32m"polite"[39m
+  [33mrole[39m=[32m"status"[39m
+[36m>[39m
+  [0mCoaching je dostupan za završenu partiju.[0m
+[36m</p>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or
+`findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"checkbox"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0m AI režim[0m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0mNova partija[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"ai-status ai-status--success"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mAI potez je prihvaćen.[0m
+        [36m</span>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"usage-dashboard"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-controls[39m=[32m"usage-panel"[39m
+          [33maria-expanded[39m=[32m"false"[39m
+        [36m>[39m
+          [0mAI upotreba[0m
+        [36m</button>[39m
+      [36m</section>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"game-surface"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"table-layout"[39m
+        [36m>[39m
+          [36m<section[39m
+            [33maria-label[39m=[32m"Poker sto"[39m
+            [33mclass[39m=[32m"poker-table"[39m
+          [36m>[39m
+            [36m<header>[39m
+              [36m<span>[39m
+                [0mRuka [0m
+                [0m1[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"phase-badge"[39m
+              [36m>[39m
+                [0mpreflop[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNO LIMIT[0m
+              [36m</span>[39m
+            [36m</header>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"blind-summary"[39m
+            [36m>[39m
+              [0mMali blind: [0m
+              [0mTi[0m
+              [0m, [0m
+              [0m5[0m
+              [0m · Veliki blind: [0m
+              [0mBot 1[0m
+              [0m, [0m
+              [0m10[0m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"table-arena"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"table-center"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"table-wordmark"[39m
+                [36m>[39m
+                  [0mRETRO POKER[0m
+                [36m</span>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Board"[39m
+                  [33mclass[39m=[32m"board"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"board-waiting"[39m
+                  [36m>[39m
+                    [0mBoard čeka flop[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Ukupni pot"[39m
+                  [33mclass[39m=[32m"total-pot"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"chip-amount"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33maria-hidden[39m=[32m"true"[39m
+                      [33mclass[39m=[32m"chip-stack"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"poker-chip chip-5"[39m
+                        [33mdata-denomination[39m=[32m"5"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"poker-chip chip-5"[39m
+                        [33mdata-denomination[39m=[32m"5"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"poker-chip chip-5"[39m
+                        [33mdata-denomination[39m=[32m"5"[39m
+                      [36m>[39m
+                        [0m5[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"amount-value"[39m
+                    [36m>[39m
+                      [0mPot[0m
+                      [0m: [0m
+                      [0m15[0m
+                    [36m</span>[39m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33maria-label[39m=[32m"Potovi"[39m
+                  [33mclass[39m=[32m"pots"[39m
+                [36m>[39m
+                  [36m<span>[39m
+                    [0mGlavni pot[0m
+                    [0m · [0m
+                    [0mmain[0m
+                    [0m: [0m
+                    [0m10[0m
+                  [36m</span>[39m
+                  [36m<span>[39m
+                    [0mNepotvrđen ulog[0m
+                    [0m · [0m
+                    [0muncalled[0m
+                    [0m: [0m
+                    [0m5[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<article[39m
+                [33maria-label[39m=[32m"Bot 1, mesto 2"[39m
+                [33mclass[39m=[32m"seat seat-position-2 seat-active"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-heading"[39m
+                [36m>[39m
+                  [36m<h3>[39m
+                    [0mBot 1[0m
+                  [36m</h3>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"seat-status"[39m
+                  [36m>[39m
+                    [0mU ruci[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-badges"[39m
+                [36m>[39m
+                  [36m<span>[39m
+                    [0mBB · Veliki blind[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-body"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-stats"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mStack[0m
+                        [0m: [0m
+                        [0m990[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-5"[39m
+                          [33mdata-denomination[39m=[32m"5"[39m
+                        [36m>[39m
+                          [0m5[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-5"[39m
+                          [33mdata-denomination[39m=[32m"5"[39m
+                        [36m>[39m
+                          [0m5[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mUlog[0m
+                        [0m: [0m
+                        [0m10[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-hand"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33maria-label[39m=[32m"Karte: Bot 1"[39m
+                      [33mclass[39m=[32m"cards"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"Skrivena karta"[39m
+                        [33mclass[39m=[32m"card card-back"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-back-pattern"[39m
+                        [36m>[39m
+                          [0mRP[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"Skrivena karta"[39m
+                        [33mclass[39m=[32m"card card-back"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-back-pattern"[39m
+                        [36m>[39m
+                          [0mRP[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</article>[39m
+              [36m<article[39m
+                [33maria-label[39m=[32m"Ti, mesto 1"[39m
+                [33mclass[39m=[32m"seat seat-position-0 seat-active seat-human seat-current"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-heading"[39m
+                [36m>[39m
+                  [36m<h3>[39m
+                    [0mTi[0m
+                  [36m</h3>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"seat-status"[39m
+                  [36m>[39m
+                    [0mNa potezu[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-badges"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"dealer-badge"[39m
+                  [36m>[39m
+                    [0mButton[0m
+                  [36m</span>[39m
+                  [36m<span>[39m
+                    [0mSB · Mali blind[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"seat-body"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-stats"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-500"[39m
+                          [33mdata-denomination[39m=[32m"500"[39m
+                        [36m>[39m
+                          [0m500[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mStack[0m
+                        [0m: [0m
+                        [0m995[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"chip-amount"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-hidden[39m=[32m"true"[39m
+                        [33mclass[39m=[32m"chip-stack"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"poker-chip chip-5"[39m
+                          [33mdata-denomination[39m=[32m"5"[39m
+                        [36m>[39m
+                          [0m5[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"amount-value"[39m
+                      [36m>[39m
+                        [0mUlog[0m
+                        [0m: [0m
+                        [0m5[0m
+                      [36m</span>[39m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"seat-hand"[39m
+                  [36m>[39m
+                    [36m<strong[39m
+                      [33mclass[39m=[32m"sr-only"[39m
+                    [36m>[39m
+                      [0mTvoje karte[0m
+                    [36m</strong>[39m
+                    [36m<div[39m
+                      [33maria-label[39m=[32m"Tvoje karte"[39m
+                      [33mclass[39m=[32m"cards"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"As pik"[39m
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  18:05:08
+   Duration  1.26s (environment 55%, tests 17%, import 16%, transform 13%)
+                        [33mclass[39m=[32m"card card-black"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♠[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-pip"[39m
+                        [36m>[39m
+                          [0m♠[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner card-corner-bottom"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♠[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33maria-label[39m=[32m"As herc"[39m
+                        [33mclass[39m=[32m"card card-red"[39m
+                        [33mrole[39m=[32m"img"[39m
+                      [36m>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♥[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-pip"[39m
+                        [36m>[39m
+                          [0m♥[0m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33maria-hidden[39m=[32m"true"[39m
+                          [33mclass[39m=[32m"card-corner card-corner-bottom"[39m
+                        [36m>[39m
+                          [0mA[0m
+                          [0m♥[0m
+                        [36m</span>[39m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</article>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"chip-note"[39m
+            [36m>[39m
+              [0mČipovi su ilustracija · tačan iznos je uz oznaku[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<aside[39m
+            [33maria-label[39m=[32m"Istorija"[39m
+            [33mclass[39m=[32m"history"[39m
+          [36m>[39m
+            [36m<h2>[39m
+              [0mIstorija[0m
+            [36m</h2>[39m
+            [36m<ol[39m
+              [33maria-label[39m=[32m"Istorija ruke"[39m
+            [36m>[39m
+              [36m<li>[39m
+                [0mPočetak ruke 1[0m
+              [36m</li>[39m
+            [36m</ol>[39m
+          [36m</aside>[39m
+        [36m</div>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"Akcije"[39m
+          [33mclass[39m=[32m"actions"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0mTvoj potez [0m
+            [36m<span[39m
+              [33mclass[39m=[32m"action-hint"[39m
+            [36m>[39m
+              [0m— izaberi legalnu akciju[0m
+            [36m</span>[39m
+          [36m</h2>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"action-row"[39m
+          [36m>[39m
+            [36m<button>[39m
+              [0mFold[0m
+            [36m</button>[39m
+            [36m<button>[39m
+              [0mCall [0m
+              [0m5[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</section>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Coaching partije"[39m
+        [33mclass[39m=[32m"analysis-panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCoaching partije[0m
+        [36m</h2>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"_r_2_"[39m
+        [36m>[39m
+          [0mCoaching cilj[0m
+        [36m</label>[39m
+        [0m [0m
+        [36m<select[39m
+          [33maria-describedby[39m=[32m"_r_2_-description"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mid[39m=[32m"_r_2_"[39m
+        [36m>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"betting"[39m
+          [36m>[39m
+            [0mUlaganje[0m
+          [36m</option>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"street"[39m
+          [36m>[39m
+            [0mOdluke po fazama[0m
+          [36m</option>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"showdown"[39m
+          [36m>[39m
+            [0mShowdown[0m
+          [36m</option>[39m
+        [36m</select>[39m
+        [36m<p[39m
+          [33mid[39m=[32m"_r_2_-description"[39m
+        [36m>[39m
+          [0mPregled odluka sa ulaganjem žetona: bet, raise, call i all-in. Check i fold nisu deo ovog uzorka.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m>[39m
+          [0mCoaching je dostupan za završenu partiju.[0m
+        [36m</p>[39m
+        [36m<button[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0mPokreni coaching[0m
+        [36m</button>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/ai-polling.test.tsx:64:19
+     62|     render(<App />); await act(async () => {});
+     63|     await act(async () => { await vi.advanceTimersByTimeAsync(1500); }…
+     64|     expect(screen.getByRole('status')).toHaveTextContent(/potez je pri…
+       |                   ^
+     65|     expect(load).toHaveBeenCalledTimes(3);
+     66|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯

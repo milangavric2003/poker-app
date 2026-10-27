@@ -1,0 +1,39 @@
+Command: npm.cmd run test:e2e
+Started: 2026-10-25T16:07:06.746Z
+
+> retro-poker@0.1.0 test:e2e
+> playwright test
+
+
+Running 20 tests using 1 worker
+
+(node:19392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › tests\e2e\accessibility.spec.ts:6:1 › pet botova: raspored, semantika i tastatura ostaju dostupni na 1280x720 (2.2s)
+  ok  2 [chromium] › tests\e2e\accessibility.spec.ts:52:1 › jedan bot: rezultat ruke se objavljuje čitaču ekrana (1.3s)
+  ok  3 [chromium] › tests\e2e\ai-offline.spec.ts:5:1 › offline fake provider covers bot, analysis retry, dashboard and independent resets (7.6s)
+  ok  4 [chromium] › tests\e2e\coach.spec.ts:24:1 › T023 keyboard success uses real backend validation and preserves poker result (4.5s)
+  ok  5 [chromium] › tests\e2e\coach.spec.ts:76:3 › T023 unknown_tool is safe, executes no tool and retries only by keyboard (7.3s)
+  ok  6 [chromium] › tests\e2e\coach.spec.ts:76:3 › T023 provider_timeout is safe, executes no tool and retries only by keyboard (7.4s)
+  ok  7 [chromium] › tests\e2e\play-hand.spec.ts:18:1 › AC23: call 5 i check do showdown-a daje stackove 1010/990 (2.6s)
+  ok  8 [chromium] › tests\e2e\play-hand.spec.ts:58:1 › AC16: fold zavrÅ¡ava ruku bez boarda i daje stackove 995/1005 (1.5s)
+  ok  9 [chromium] › tests\e2e\recovery.spec.ts:5:1 › refresh ponovo GET-uje potvrđeno stanje (2.0s)
+  ok 10 [chromium] › tests\e2e\recovery.spec.ts:21:3 › lost: snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.7s)
+  ok 11 [chromium] › tests\e2e\recovery.spec.ts:21:3 › invalid: snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.6s)
+  ok 12 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout: snapshot ostaje, GET usklađuje, POST se ne ponavlja (1.5s)
+  ok 13 [chromium] › tests\e2e\recovery.spec.ts:21:3 › timeout-slow-forward: snapshot ostaje, GET usklađuje, POST se ne ponavlja (3.4s)
+(node:5924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 14 [chromium] › tests\e2e\recovery.spec.ts:64:1 › novi backend bez memorije vraća game:null i novu partiju (3.1s)
+  ok 15 [chromium] › tests\e2e\table-polish.spec.ts:21:5 › table polish 1280px 1 bots (1.6s)
+  ok 16 [chromium] › tests\e2e\table-polish.spec.ts:21:5 › table polish 1280px 5 bots (1.6s)
+  ok 17 [chromium] › tests\e2e\table-polish.spec.ts:21:5 › table polish 390px 1 bots (1.4s)
+  ok 18 [chromium] › tests\e2e\table-polish.spec.ts:21:5 › table polish 390px 5 bots (1.6s)
+  ok 19 [chromium] › tests\e2e\table-polish.spec.ts:56:3 › public status and large amount fixtures 1280px (2.3s)
+  ok 20 [chromium] › tests\e2e\table-polish.spec.ts:56:3 › public status and large amount fixtures 390px (3.0s)
+
+  20 passed (1.0m)
+
+Result: {"command":"npm.cmd run test:e2e","exitCode":0,"durationMs":64492,"file":"docs/evidence/005-baseline-e2e-after.txt"}

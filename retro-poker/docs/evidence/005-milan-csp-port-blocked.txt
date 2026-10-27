@@ -1,0 +1,40 @@
+
+Running 1 test using 1 worker
+
+npx.cmd : (node:10496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:54
++ ... API_KEY=''; npx.cmd --no-install playwright test tests/e2e/security-p ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:10496) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 124 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-GcOVcj2f.css   11.70 kB │ gzip:   3.68 kB
+dist/frontend/assets/index-C8pquTlk.js   358.67 kB │ gzip: 107.97 kB
+
+✓ built in 339ms
+  x  1 [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP (216ms)
+
+
+  1) [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP
+
+    Error: listen EADDRINUSE: address already in use 127.0.0.1:3001
+
+    Error Context: test-results\security-production-T16-st-05f2a-probes-under-production-CSP-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\security-production-T16-st-05f2a-probes-under-production-CSP-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\security-production-T16-st-05f2a-probes-under-production-CSP-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP

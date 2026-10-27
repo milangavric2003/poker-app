@@ -1,0 +1,32 @@
+[
+  {
+    "command": "npm.cmd test",
+    "exitCode": 0,
+    "durationMs": 31289,
+    "file": "docs/evidence/005-baseline-tests-after.txt"
+  },
+  {
+    "command": "npm.cmd run typecheck",
+    "exitCode": 0,
+    "durationMs": 11411,
+    "file": "docs/evidence/005-baseline-typecheck.txt"
+  },
+  {
+    "command": "npm.cmd run lint",
+    "exitCode": 0,
+    "durationMs": 7562,
+    "file": "docs/evidence/005-baseline-lint.txt"
+  },
+  {
+    "command": "npm.cmd run build",
+    "exitCode": 0,
+    "durationMs": 5746,
+    "file": "docs/evidence/005-baseline-build.txt"
+  },
+  {
+    "command": "npm.cmd run test:e2e",
+    "exitCode": 0,
+    "durationMs": 64492,
+    "file": "docs/evidence/005-baseline-e2e-after.txt"
+  }
+]

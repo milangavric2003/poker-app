@@ -1,0 +1,26 @@
+
+Running 1 test using 1 worker
+
+npx.cmd : (node:25816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:173
++ ... API_KEY=''; npx.cmd --no-install playwright test tests/e2e/security-p ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:25816) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 125 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-GcOVcj2f.css   11.70 kB │ gzip:   3.68 kB
+dist/frontend/assets/index-BYL-uYPa.js   358.65 kB │ gzip: 108.07 kB
+
+✓ built in 330ms
+T16 normal startup {"normalViolations":[],"providerSteps":2,"realTools":1}
+T16 explicit eval control {"noPolicyExecuted":true,"evalExecuted":false,"blockedByCsp":true}
+  ok 1 [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP (3.0s)
+
+  1 passed (5.5s)

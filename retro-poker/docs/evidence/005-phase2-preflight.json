@@ -1,0 +1,27 @@
+﻿{
+    "branch":  "week08-init",
+    "lockMatch":  true,
+    "baselineFiles":  [
+                          {
+                              "match":  true,
+                              "path":  "retro-poker/vitest.config.ts"
+                          },
+                          {
+                              "match":  true,
+                              "path":  "retro-poker/tests/integration/ai-failures.test.ts"
+                          },
+                          {
+                              "match":  true,
+                              "path":  "retro-poker/tests/e2e/recovery.spec.ts"
+                          },
+                          {
+                              "match":  true,
+                              "path":  "retro-poker/.gitignore"
+                          },
+                          {
+                              "match":  true,
+                              "path":  ".github/workflows/retro-poker-ci.yml"
+                          }
+                      ],
+    "head":  "d08e06c95f8051e12e15a8e80e9d950de5b3333b"
+}

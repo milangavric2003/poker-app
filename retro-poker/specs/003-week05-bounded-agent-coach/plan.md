@@ -264,3 +264,21 @@ validaciju. Ista matrica9run-ova pre/posle:7/9→9/9. Ukupno48zahteva; gate
 6000ms,0retry/fallback,0rate/timeouts. Long-match3ruke/12odluka nezavisan je holdout.
 Puna regresija888/888, typecheck/lint/build0. Browser E2E nije ponovljen; korisnički
 dev port je zauzet. [Konačni handoff](../../docs/evidence/003-T035-handoff.md).
+## AU1 plan — 2026-10-14
+
+Baseline: `f900fa2` na `add-modifications`; početna korisnička izmena
+roditeljskog `.gitignore` ostaje netaknuta. Prethodna SR1 faza: 65/65 fokusiranih
+testova prolazi, konkretna regresija nije pronađena. Backend `recordUsageOnce`
+beleži analysis, `recordCoach` beleži terminalni coach run u postojeći UsageStore;
+API već vraća oba. Propust je UI projekcija koja zanemaruje `usage.coach`.
+
+1. RED: dashboard coach-only i mešani agregati, uspeh/neuspeh, tačni pokušaji,
+   delimičan usage, polling i reset; proširiti fake session/API dokaze za GET,
+   ponovno generisanje i kasni response.
+2. GREEN: lokalna izvedena projekcija postojećeg DTO u dashboardu; bez promene
+   backend ugovora/brojanja. Zbir logičkih Week04 interakcija + coach.runCount;
+   zbir pokušaja iz disjunktnih attempts + coach.attempts. Coach koraci/alati
+   ostaju odvojeni; prikaz stop razloga i run latencije iz coach agregata.
+3. Provere: fokusirani testovi, puna offline Vitest regresija, relevantni fake
+   Playwright scenariji, typecheck/lint/build; bez live Gemini poziva.
+4. Evidencija AU1: baseline, RED/GREEN, komande, ograničenja, manifest/usage log.

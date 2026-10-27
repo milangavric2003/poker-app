@@ -1,0 +1,44 @@
+﻿{
+    "broken":  [
+
+               ],
+    "status":  [
+                   " M docs/AI_USAGE_LOG.md",
+                   " M docs/CONTEXT_MANIFEST.md",
+                   " M docs/EVIDENCE_W08.md",
+                   " M package.json",
+                   " M specs/005-week08-secure-the-arcade/quickstart.md",
+                   " M specs/005-week08-secure-the-arcade/tasks.md",
+                   "?? docs/evidence/005-phase2-build.txt",
+                   "?? docs/evidence/005-phase2-expectations.md",
+                   "?? docs/evidence/005-phase2-fixtures.json",
+                   "?? docs/evidence/005-phase2-full-tests.txt",
+                   "?? docs/evidence/005-phase2-handoff.md",
+                   "?? docs/evidence/005-phase2-lint-first.txt",
+                   "?? docs/evidence/005-phase2-lint.txt",
+                   "?? docs/evidence/005-phase2-preflight-tests.txt",
+                   "?? docs/evidence/005-phase2-preflight.json",
+                   "?? docs/evidence/005-phase2-production-baseline.txt",
+                   "?? docs/evidence/005-phase2-production-first.txt",
+                   "?? docs/evidence/005-phase2-recovery.txt",
+                   "?? docs/evidence/005-phase2-security-baseline.txt",
+                   "?? docs/evidence/005-phase2-security-command.txt",
+                   "?? docs/evidence/005-phase2-security-first.txt",
+                   "?? docs/evidence/005-phase2-typecheck-final.txt",
+                   "?? docs/evidence/005-phase2-typecheck-first.txt",
+                   "?? docs/evidence/005-phase2-typecheck.txt",
+                   "?? tests/e2e/security-production.spec.ts",
+                   "?? tests/helpers/security-fixtures.ts",
+                   "?? tests/helpers/security-server.ts",
+                   "?? tests/integration/security-admission.test.ts",
+                   "?? tests/integration/security-normal.test.ts",
+                   "?? tests/integration/security-tools.test.ts"
+               ],
+    "taskStatus":  [
+                       "- [x] T005 Pripremiti `tests/helpers/security-fixtures.ts`, `tests/helpers/security-server.ts` i `tests/integration/security-normal.test.ts`; deps: T004; reuse fake clock/provider i real tool; dokaz: T00 sa ≥2 model koraka, 1 stvarnim tool izvršenjem, validnim finalom i nepromenjenim kanonskim stanjem. Sačuvati tačan ulaz/expectation i actual.",
+                       "- [x] T006 Pre hardening-a napisati i izvršiti iste početne scenarije T07/T13/T16 u `tests/integration/security-tools.test.ts`, `tests/integration/security-admission.test.ts`, `tests/e2e/security-production.spec.ts`; po potrebi build/preview helper u `tests/helpers/security-server.ts`; deps: T005; dokaz: ≥3 pre rezultata u `docs/EVIDENCE_W08.md` sa fixture hash/putanjom, checkpoint-om i brojačima. Pad setup-a nije security RED; već dobar T07 je PASS→PASS.",
+                       "- [x] T007 Uvesti `test:security` u `package.json` za `tests/{unit,contract,integration}/security-*.test.ts`, sa testovima iz T005/T006; deps: T006; dozvoljeno i `quickstart.md`; dokaz: jedna ponovljiva fake-only komanda, običan `npm test` i dalje uključuje sve testove. Trenutno otvorene očekivane security padove zabeležiti."
+                   ],
+    "diffCheckExit":  0,
+    "checkedLinks":  43
+}

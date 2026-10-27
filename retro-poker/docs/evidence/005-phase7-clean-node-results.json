@@ -1,0 +1,22 @@
+﻿[
+    {
+        "exit":  0,
+        "command":  "npm.cmd run test:security"
+    },
+    {
+        "exit":  0,
+        "command":  "npm.cmd test"
+    },
+    {
+        "exit":  0,
+        "command":  "npm.cmd run typecheck"
+    },
+    {
+        "exit":  0,
+        "command":  "npm.cmd run lint"
+    },
+    {
+        "exit":  0,
+        "command":  "npm.cmd run build"
+    }
+]

@@ -1,0 +1,53 @@
+
+Running 1 test using 1 worker
+
+npx.cmd : (node:18544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+At line:2 char:54
++ ... API_KEY=''; npx.cmd --no-install playwright test tests/e2e/security-p ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:18544) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 125 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-GcOVcj2f.css   11.70 kB │ gzip:   3.68 kB
+dist/frontend/assets/index-BYL-uYPa.js   358.65 kB │ gzip: 108.07 kB
+
+✓ built in 361ms
+T16 normal startup {"normalViolations":[],"providerSteps":2,"realTools":1}
+  x  1 [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP (2.9s)
+
+
+  1) [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      52 |       catch { return false; }
+      53 |     });
+    > 54 |     expect(evalExecuted).toBe(false);
+         |                          ^
+      55 |     await expect.poll(async () => await page.evaluate(() => Reflect.get(window, '__w08StartupViolations')))
+      56 |       .toEqual(expect.arrayContaining([expect.objectContaining({
+      57 |         directive: 'script-src', blockedURI: 'eval', disposition: 'enforce',
+        at C:\Users\gm220391d\Carrier\AIBootcamp2026\week-3,4,5\poker-app\retro-poker\tests\e2e\security-production.spec.ts:54:26
+
+    Error Context: test-results\security-production-T16-st-05f2a-probes-under-production-CSP-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\security-production-T16-st-05f2a-probes-under-production-CSP-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\security-production-T16-st-05f2a-probes-under-production-CSP-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests\e2e\security-production.spec.ts:16:1 › T16 startup: schemas validate without eval probes under production CSP

@@ -1,5 +1,100 @@
 # AI usage log
 
+## 2026-10-27 — potvrda doprinosa i odobreno objavljivanje
+
+Milan je potvrdio ručnu proveru igre kroz dev režim i podelu doprinosa prema
+granama/commitovima. Izričito je odobrio push, PR radnje i merge u main.
+Codex nastavlja kao jedan agent: dokumentacioni zapis, Git/GitHub integracija
+i provera CI-ja konkretnog SHA, bez ponovljenih live proba ili pripisivanja
+neizvedenog demo-a. GitHub autentikacija koristi postojeći Git credential helper;
+credential vrednosti ne ulaze u dokaze ili izlaz. T030/T031 ostaju otvoreni
+za preostali ljudski deo. [Plan i doprinos](evidence/005-week08-delivery.md).
+
+## 2026-10-27 — CSP screenshot, ljudski rezultat i odobren lokalni commit
+
+Milan je prijavio i ručno izvršio prethodno pripremljen HTTP negativni primer
+i normalan coaching. Zabeleženi su samo rezultati potrebni za dokaz,
+sa asistentskim poreklom primera; T030/T031 nisu proglašeni završenim.
+Korisnik je odobrio commit na fix/week08-finalization.
+Codex gpt-6.1-sol, jedan agent; tokeni i cena nisu dostupni.
+Zod installed-source pregled utvrdio je capability probe; dodat startup CSP
+test prvo reprodukuje eval violation, zatim browser jitless bootstrap uklanja
+normalan prekršaj uz aktivnu validaciju i očuvanu eval zabranu.
+Prvi port/setup i DevTools kontrolni probe pad ostaju odvojeni od RED/GREEN.
+Pre commita provereni puni testovi, tipovi/lint i production/browser regresija.
+Nema live poziva, novih dependency verzija ili slabljenja CSP-a.
+[Izmena i dokazi](evidence/005-milan-csp-handoff.md).
+
+## 2026-10-27 — Milanova Week08 finalizacija T032/T033
+
+Milan je odobrio nastavak, novu granu i proveru prijavljenog usporenja.
+Codex (model sesije gpt-6.1-sol), jedan agent, PowerShell/apply_patch,
+lokalni Spec Kit implement postupak, Vitest/Chromium/Vite/TypeScript/ESLint i
+read-only GitHub REST. Tokeni/trošak nisu dostupni. Očekivanje je sačuvano u
+`005-milan-expectations.md` pre produkcione izmene. Nađena konkretna UI trka
+sa sporim GET-om; posle setup query ispravke RED 2 FAIL/1 PASS, minimalna
+inFlight zaštita, GREEN fokus 53/53 i full 1040/1040. Typecheck/lint i
+build + E2E 26/26 prolaze. Prvi typecheck i sandbox demo prepreka zabeleženi.
+Fake-only ručni profil i objašnjenje dodatnog maxSteps polja pripremljeni;
+tačna Console komanda, normalan coaching i nezavisan spor browser GET provereni.
+0 live poziva; nije merena brzina pravog modela. GitHub baseline `07db76b`
+Windows/Linux PASS provereno; nove lokalne izmene nisu objavljene.
+T030/T031 čekaju stvarne ljudske dokaze. Nema pripisivanja asistentskog primera
+kao samostalne ljudske ideje ili označavanja demo-a završenim.
+[Komande, rezultati i nastavak](evidence/005-milan-handoff.md).
+
+## 2026-10-26 — ponovna provera Week08 T019–T022
+
+Codex, jedan agent, po priloženom korisničkom zahtevu. Alati: lokalni PowerShell,
+apply_patch, Vitest, Playwright Chromium, Vite, TypeScript i ESLint.
+Model/tokeni/trošak nisu dostupni. Očekivanje: već završene taskove potvrditi
+bez duple implementacije; proveriti validan final, bezbedan DOM, stvaran CSP i
+regresije. Kontekst i granice u manifestu. Ishod: T019–T022 potvrđeni, runtime
+i testovi nepromenjeni; prethodna faza 68, security 108, UI 125, security E2E 4,
+pun E2E 25 PASS; typecheck/lint/build PASS. Dodata dokumentacija i novi izlazi.
+Lokalni T023–T027 ostaju otvoreni; nema potvrde korisničke napomene o njihovom
+završetku. Nema novog ljudskog review-a ili samostalnog doprinosa para.
+Bez .env/pravih ključeva/live poziva, commit/push/merge-a ili Faze 7.
+[Komande i dokazi](evidence/005-phase5-recheck.md).
+
+## 2026-10-26 — Week08 Faza 5, T019–T022
+
+Codex u sesiji sa Vekijem, jedan agent. Svrha: proveriti prethodnu fazu,
+dokazati plain-text prikaz i zatvoriti production CSP/header propust.
+Očekivanja su zapisana u test assertions pre runtime izmene: payload dolazi
+do oba panela uz validan final/evidence; nula izvršivog DOM-a, markera,
+automatskih spoljašnjih zahteva/navigacije, poker nepromenjen. Za CSP isti
+T006 script radi bez politike i blokiran je konkretnom direktivom u aplikaciji.
+Kontekst: manifest, feature005 ugovori i prethodni handoff. Alati: PowerShell,
+apply_patch, Vitest/Playwright Chromium, Vite/TypeScript/ESLint. Tokeni/trošak
+i tačan model identitet nisu dostupni. Plain-text paneli PASS→PASS bez runtime
+izmene; CSP RED→GREEN kroz preview.headers. Dodat build pre obe E2E npm komande.
+Prvi full E2E rezultat sačuvan: preklopljene runner komande dele trace direktorijum,
+ENOENT pri teardown-u; serijska provera razdvaja harness nalaz od produkta.
+Živi Gemini pozivi 0; nema novih zavisnosti, .env/ključeva ili commit/push/merge-a.
+Korisnik je odredio scope; ljudski review i samostalni doprinosi para nisu potvrđeni.
+[Stvarne komande, taskovi i ograničenja](evidence/005-phase5-handoff.md). Sledeći T023.
+
+## 2026-10-26 — Week08 Faza 4, T013–T018
+
+Alat: Codex, lokalni PowerShell/apply_patch/Vitest/Playwright; model identitet,
+token potrošnja i cena sesije nisu dostupni (nepoznato). Živi Gemini pozivi: 0.
+Korisnik je odredio samo Fazu 4, TDD, fake sat/provider/SDK i očuvanje ranijeg rada.
+Očekivanje: postojeći budžeti ostaju PASS, adapter dobija 4096 tokena, prihvatanje
+5 startova/60 s i fizički overlap≤2, lease ne prestaje sa run timeout-om; UI retry
+ručno i prethodni summary/partija očuvani. Kontekst je u manifestu.
+
+Codex je napisao testove pre relevantnih promena: stvarni adapter/admission/UI
+RED sačuvani; nove budget regresije PASS→PASS. Implementirani server token cap,
+procesni admission/lease, HTTP kodovi i UI obaveštenje. T17 obe late varijante
+regresioni PASS nakon T016, bez dodatnog runtime refaktorisanja. Prvi setup/lint/
+browser padovi ostaju dokumentovani odvojeno od security nalaza.
+Konačni full 1022 PASS, security 108 PASS, 11 E2E PASS, typecheck/lint/build PASS;
+T16 production CSP očekivani FAIL za buduću fazu. Isti T13 ulaz 6/12/6→5/10/5.
+Bez commit/push/merge-a, novog providera/modela ili dependency izmena.
+Ljudski peer review, Milanov doprinos i samostalni testovi para nisu potvrđeni.
+[Handoff/komande/ograničenja](evidence/005-phase4-handoff.md); sledeći T019.
+
 ## 2026-10-06 — integracija paralelnog rada, f457762
 
 Korisnik tražio pregled i push lokalnog f457762 uz očuvanje koleginog rada.
@@ -491,3 +586,151 @@ Runtime izmena NIJE primenjena; ista partija/run potvrđeni završnim GET-om.
 Fake suite pozivi nisu instrumentirani; broj testova nije broj modelskih poziva.
 Nema tvrdnje da je novi live problem generisanja rešen, nema ljudskog review-a.
 [Konkretan patch/handoff](evidence/003-T034-prepared.md).
+
+## SR1 — summary bez reload-a, 2026-10-14
+
+Svrha Codex rada: pregled odvojenih Week04 analysis/Week05 coach tokova, dopuna
+postojećeg plana i taskova, reprodukcija i minimalna UI ispravka sa fake testovima.
+Alat: Codex/terminal/apply_patch; tačan model i token trošak sesije unknown.
+Korisnička odluka: implementacija na add-modifications, bez live Gemini,
+bez commit/push/merge; lokalni korisnički artefakti sačuvani.
+Ishod i komande: [SR1 handoff](evidence/002-SR1-handoff.md).
+Novi stvarni provider pozivi: 0; Gemini API budžet potrošen: 0.
+Fake testovi koriste lokalne skriptovane providere; broj testova nije broj API poziva.
+Ljudski peer review nije potvrđen; izmene ostaju za pregled.
+## AU1 — 2026-10-14, Codex rad na analitici
+
+Svrha: uključiti summary (`analysis`) i coaching (`coach`) u postojeći dashboard.
+Očekivanje: tačni odvojeni logical/model/provider/tool brojači bez duplog upisa.
+Alat: Codex, lokalni shell/apply_patch, Vitest/Playwright fake provider; model
+identitet i tokeni/trošak ove coding sesije nisu raspoloživi — nepoznati.
+Kontekst: AGENTS, GAME_SPEC §12–14, relevantni 002/003 dokumenti i usage/UI kod.
+Ishod: backend/API već beleže oba toka; UI projekcija popravljena i proverena.
+Ljudska odluka: korisnik autorizovao implementaciju i tražio izmene bez commit-a;
+završni ljudski review nije potvrđen. Live Gemini pozivi: 0.
+Detalji: [AU1 evidence](evidence/004-AU1-handoff.md).
+
+## Privatni frontend 004 — 2026-10-14
+
+Svrha: implementirati karte, bounded dekorativne čipove, responzivan poker sto i
+usklađene panele; očekivanje: čitljiv prikaz bez promene pravila/AI ugovora.
+Alati: Codex, shell/apply_patch, Vitest, Playwright Chromium i view_image.
+Model identitet, tokeni i cena coding sesije nisu dostupni — nepoznati.
+Kontekst: AGENTS/GAME_SPEC/constitution, Spec Kit skills, javni DTO, UI/stilovi,
+SR1/AU1 dokazi i offline testovi. Ishod i stvarne provere su u
+[feature evidence-u](../specs/004-frontend-table-polish/evidence/verification.md).
+Korisnik autorizovao implementaciju na add-modifications bez commit/push/merge.
+Codex implementirao i proverio; ljudski peer review/doprinos u sesiji nije potvrđen.
+Novi stvarni Gemini pozivi: 0. Fake-provider pokušaji nisu stvarni provider pozivi.
+
+## Week08 priprema i prenos osnove — 2026-10-25
+
+Korisnik (Veki) razjasnio da su post-W05 summary/usage/frontend dorade privatne,
+autorizovao poređenje/prenos potrebnih review popravki i izradu feature005.
+Codex predložio coaching kao W08 tok; pripremio spec/plan/tasks i evidence po
+nastavnom šablonu, bez implementacije novih security kontrola.
+Projektni Spec Kit specify/plan/tasks korišćeni; jedan coding agent.
+Alati: shell, git fetch/read/diff, apply_patch, Vitest/Playwright i offline helper.
+Model identitet, coding tokeni i trošak nisu dostupni — nepoznati.
+
+Stvaran ishod: pre prenosa 905/906 testova (offline subprocess timeout), recovery
+5/5; posle prenosa 906/906, E2E20/20, typecheck/lint/build exit0. Poseban coach
+helper prvo nije startovao zbog sandbox tsx/OS greške, odobren offline retry je
+uspeo sa osam scenarija. Sačuvani prvi izlazi; nema tvrdnje o trajnoj stabilnosti.
+Frontend/poslovni runtime nije menjan. Main/otvoreni PR nisu merged, nema push-a
+ili novog commit-a. Korisnička root ignore izmena sačuvana.
+
+Novi stvarni Gemini pozivi: 0; synthetic fake pokušaji nisu API potrošnja.
+Clean npm ci, novi remote CI, security matrica i ljudski review/demo nisu izvršeni.
+Milanov doprinos ovom W08 koraku i individualni testovi nisu potvrđeni.
+[Dokaz](EVIDENCE_W08.md), [provenance i komande](evidence/005-baseline.md).
+
+## T004 ? po?etni Week08 prompt, 2026-10-26
+
+Korisnik zatra?io samo T004. Codex proverio T001?T003, sa?uvao
+BUILD_PROMPT_WEEK08_V1.md i a?urirao status/dokaze. Alati: lokalni shell/Git,
+apply_patch, Vitest i Playwright; projektni speckit-implement, jedan agent.
+O?ekivanje: nepromenjena osnova i prolaz fokusiranih offline provera.
+Rezultat: hash-evi odgovaraju, 57/57 testova i 6/6 recovery E2E prolaze.
+Runtime nije menjan, T005 nije zapo?et. Bez novih live Gemini poziva (0),
+commit/push/merge-a ili pripisivanja Milanovog review-a. Coding model/tokeni/
+tro?ak nisu dostupni; nepoznato. [Stvarni dokaz](evidence/005-T004-handoff.md).
+
+## 2026-10-26 — Week08 Faza 2 T005–T007
+
+Codex u sesiji sa Vekijem; alat: lokalni PowerShell, apply_patch, Vitest,
+Playwright Chromium, TypeScript, ESLint, Vite. Model identitet, tokeni i trošak:
+nepoznato. Korisnički zahtev: samo test harness/početni T07/T13/T16 i node skripta,
+bez budućih runtime kontrola. Očekivanje: T00/T07 PASS, smislen rate/CSP RED gde
+zaštita nedostaje. Kontekst i ograničenja u manifestu i feature005 dokumentima.
+Ishod: T005–T007 završeni, real tool instrumentacija, fake-only test:security;
+T00 i 3 T07 PASS, T13 RED 6/12/6, T16 RED script se izvršava bez CSP-a.
+Prvi oracle/clone/locator/type/lint problemi sačuvani i popravljeni u testovima;
+nisu security dokazi. Full npm test 910 PASS/1 nameran T13 FAIL;
+typecheck/lint/build PASS. Bez novih runtime kontrola, živih poziva (0),
+commit/push/merge-a. Veki je zatražio scope; novi ljudski review i Milanov rad
+nisu potvrđeni i ne pripisuju im se AI testovi kao samostalni doprinos.
+[Handoff i ograničenja](evidence/005-phase2-handoff.md). Sledeći T008 nije započet.
+
+## 2026-10-26 — Week08 Faza 3 T008–T012
+
+Codex u sesiji sa Vekijem; lokalni PowerShell/apply_patch, Vitest, Playwright
+Chromium, TypeScript, ESLint i Vite. Model identitet/tokeni/trošak nisu dostupni.
+Svrha: proveriti prethodnu fazu i dokazati HTTP/model/tool/scope/browser granice
+bez proširenja na T013–T031. Očekivanje izraženo pre izvršavanja u assertions;
+već dobre zaštite PASS→PASS. Kontekst: manifest i feature005 ugovori.
+Ishod: T008–T012 završeni, nove regresije prolaze bez runtime izmene;
+236 fokusiranih PASS, 7 browser PASS; full 986 PASS/1 poznati T13 FAIL,
+security 80 PASS/1 poznati T13 FAIL, production T16 očekivani RED.
+Typecheck/lint/build PASS. Prvi browser whitespace assertion i observer tip
+popravljeni u testovima, originalni izlazi sačuvani. Sentinel pokriva samo extra
+tool polje; nema tvrdnje o punom secret/bundle/log auditu. Veki je odredio scope;
+novi ljudski peer review, samostalni testovi para i Milanov doprinos nisu potvrđeni.
+Bez live Gemini poziva (0), .env/ključeva, commit/push/merge-a ili novih servisa.
+[Handoff i stvarne komande](evidence/005-phase3-handoff.md). Sledeći T013.
+
+
+## 2026-10-26 — Week08 Faza 6 T023–T027
+
+Codex po priloženom zahtevu, jedan coding agent. Svrha: potvrditi Fazu 5,
+implementirati bounded security sink uz testove, dokazati sentinel putanje i
+obrazložiti dependency odluke. Očekivanja su prethodno zapisana u assertions;
+analysis acceptance/terminal RED→GREEN, secret kontrole PASS→PASS.
+Prvi nedostajući modul/setup i sandbox tsx export problem nisu security RED.
+Alati: PowerShell/Python/apply_patch, Vitest, Playwright Chromium, Vite, TypeScript,
+ESLint, npm audit/installer i web pregled javnih advisory-ja. Tačan model/tokeni/
+trošak nisu dostupni. Kontekst: manifest i aktivni feature005 ugovori.
+Ishod: T023–T027 završeni; full 1037 PASS, security 123 PASS, production security
+browser 5 PASS, typecheck/lint/build/diff-check PASS. Audit prvo mrežna prepreka,
+zatim 10 pogođenih paketa; ciljane kompatibilne zakrpe daju audit 0 nalaza.
+Server sentinel učitavanje dokazano uz fake/mock, live provider poziva 0.
+Korisnik je odredio scope; peer review/samostalni doprinosi Vekija i Milana nisu
+potvrđeni. Bez commit/push/merge-a, clean checkout/CI/demo ili Faze 7.
+[Stvarne komande, prvi rezultati i granice](evidence/005-phase6-handoff.md).
+
+## 2026-10-26 — Week08 Faza 7 T028–T031
+
+Codex po priloženom zahtevu, jedan coding agent. Cilj: stvarna završna provera,
+minimalna CI dopuna, izolovana instalacija i dokumentaciono usklađivanje.
+Kontekst/prioritet u manifestu; korišćen lokalni speckit-implement, pročitan
+speckit-converge bez zasebnog pokretanja ili dupliranja otvorenih taskova.
+Alati: PowerShell/Python/apply_patch, Vitest, Playwright Chromium, Vite, tsc,
+ESLint, npm ci/audit i read-only GitHub Actions API. Model identitet, tokeni i
+trošak nisu dostupni. Nema privatnog chain-of-thought zapisa.
+Očekivanje: stvarne kontrole i brojači, ista T006 input poređenja, bez novog
+runtime scope-a. Ishod: T028 završen (123 security/1037 full/5 security browser/
+26 full browser), typecheck/lint/build/diff-check PASS. T029 lokalno završen:
+verna izolovana kopija HEAD+workflow patch, nov npm cache i npm ci, nov browser
+direktorijum, iste komande PASS, lock hash nepromenjen i audit 0. CI dopuna
+zadržava Windows/Linux, security korake, build preduslov i izveštaje.
+Prvi setup/log-path/policy/registry/socket/browser-cache problemi sačuvani i
+razdvojeni od test rezultata; nijedan produkt/test assertion nije oslabljen.
+Kod/testovi ostaju d508f13. Tri originalna input-a identična: T07 PASS→PASS,
+T13/T16 RED→GREEN. GitHub API za početni SHA nema run; novi radni snapshot nije
+objavljen. Nema tvrdnje o remote ili Linux PASS-u.
+Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 otvoreni;
+Codex demo/varijante su priprema, nisu samostalni testovi Vekija/Milana niti
+potvrda review-a/razumevanja. Week08 nije proglašen završenim.
+Bez .env/pravih ključeva, live poziva (0), subagenata, automatskog commit/push/
+dispatch/merge-a ili prekidanja korisničkog servera.
+[Komande, prvi problemi, rezultati i snapshot](evidence/005-phase7-handoff.md).

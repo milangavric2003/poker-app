@@ -1,5 +1,119 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-27 — GitHub isporuka
+
+Korišćeni: aktuelni korisnički nalog za push/merge i potvrda doprinosa/dev
+smoke-a, AGENTS Git/dokaz pravila, feature tasks i prethodni human/CSP dokazi,
+Git istorija/remote head-ovi i GitHub PR/Actions REST. Namena je isporuka
+već proverene implementacije, bez novog runtime scope-a. Sačuvati autorstvo
+i prethodne izvore; ne zaključivati demo/individualnu odbranu iz commita.
+Nema novih live AI ili nastavnih web izvora. Svi GitHub credential-i ostaju
+u lokalnom helper-u i memoriji procesa, bez ispisa u report.
+
+## 2026-10-27 — T034 i ljudski rezultat
+
+Nastavak odobrenog rada, bez novih agenata. Pregledani korisnikov CSP screenshot
+i prijavljeni maxSteps/coaching rezultati; nema pretpostavke o demo-u ili
+samostalnom testu. Ponovo provereni git stanje, checklist i odsustvo hook-ova.
+Novi relevantni izvori: tačno instalirani Zod 4.6.7 util.ts allowsEval,
+schemas.ts object JIT i core.ts jitless konfiguracija; main bootstrap,
+shared schema konstrukcija i postojeći production helper/test. Time je
+potvrđen uzrok za pinovanu verziju, bez oslanjanja na promenljivu web dokumentaciju.
+Novi browser oracle prati događaje pre navigacije i koristi učitanu stranicu/
+skriptu za eval kontrolu, jer DevTools evaluate nije oracle page CSP-a.
+Sačuvani port setup, početni RED i prvi neispravan DevTools probe; sintetički
+podaci i fake-only. Nema čitanja .env ili aktiviranja spoljnog providera.
+[Dokazi i ograničenja](evidence/005-milan-csp-handoff.md).
+
+## 2026-10-27 — Milanova završna provera i ručni profil
+
+Prioritet: aktuelni Milanov zahtev → AGENTS/constitution 1.1.0 → GAME_SPEC
+W08/I8 i feature005 spec/plan/tasks/data-model/contracts/research/quickstart.
+Pročitani checklist 9/9, početni BUILD_PROMPT_WEEK08_V1, phase7 handoff/demo/
+matrica, EVIDENCE_W08 i baseline provenance review prenosa. Korisnikovi novi
+izvori `milan/weekly-assignment week08.md` i `Nedelja-08/02-Nedeljni-zadatak-Secure-the-Arcade.md`
+su identični SHA256 `0382b5f9ca929e6121dde9a33113a183535a1b37d14fe6a2af359893ca9a1abd`;
+učitani zadatak, README paketa i šablon. Root weekly-assignment je lokalno W05
+i isključen iz W08 acceptance-a. PDF/PPTX i sesije ne uvode novi scope samo
+zbog dostupnosti; nisu korišćeni za novu implementaciju. Nema .env/ključeva.
+
+Pregledani App/API/AiStatus/CoachPanel/UsageDashboard, postojeći AI/analysis/
+coach/dashboard UI testovi, security fixtures/server, fake provider, clock,
+admission/capacity, session/app, cards i agent limits, package/TS/Vite/Playwright
+konfiguracija, ignore/ESLint. Razlog: reprodukovati zastarevanje sporog GET-a,
+sačuvati lifecycle i napraviti ponovljiv lokalni fake profil. Primenjen
+speckit-implement: prerequisites razrešava 005, checklist PASS, nema extension
+hook-ova. Converge SKILL pročitan radi završnog pregleda; otvoreni ljudski
+T030/T031 već imaju zadatke i nisu duplirani niti označeni gotovim.
+
+Git pregled prethodnog odgovora i read-only GitHub API potvrđuju runtime-neutralan
+review prenos; novi API rezultat konkretnih poslova vezan je za baseline SHA,
+ne za lokalnu doradu. Lokalni screenshot backup očuvao je istorijske PNG/JPG.
+Dokazi ne tvrde clean install/audit ili live latenciju u ovoj sesiji.
+[Actual i granice](evidence/005-milan-handoff.md).
+
+## Ponovna provera T019–T022 — 2026-10-26
+
+Prioritet: priloženi korisnički zahtev samo Faza 5, AGENTS, constitution 1.1.0,
+GAME_SPEC ARCH1–8/AC19/AC23, W05 read-only i W08 granice. Pročitani BUILD_PROMPT_WEEK08_V1,
+feature005 spec/plan/tasks/data-model/research/contracts/quickstart, checklist 9/9,
+EVIDENCE_W08, phase2/4/5 handoff, originalni T006 actual/fixture manifest i phase5
+validation. Primenjen lokalni speckit-implement SKILL.md; prerequisites PASS,
+bez extensions/hooks. Pregledani security fixtures/server/coach-server, rendering/
+production/state testovi, oba panela, admission/capacity i session gate mesta,
+T00, package/Vite/Playwright/ignore/ESLint. Razlog: potvrditi stvarnu final→UI
+putanju, DOM nezavisno od CSP-a, svež build i očuvanje prethodnih kontrola.
+Checkpoint e498a06, week08-init, početno čisto. Kasniji events/secrets kod i
+phase6 dokazi nisu pronađeni; lokalni T023–T027 otvoreni. Nisu pokretani.
+Nema web/PDF izvora, .env ili živih poziva. Fake-only nije live-model dokaz;
+CSP deo T16 nije sentinel/bundle dokaz. [Actual](evidence/005-phase5-recheck.md).
+
+## 2026-10-26 — Week08 Faza 5, T019–T022
+
+Prioritet: korisnički priloženi zahtev samo Faza 5 → AGENTS/constitution 1.1.0 →
+GAME_SPEC ARCH/AC19/AC23/read-only/W08 → feature005 spec/plan/tasks/data-model/
+research/contracts/security/quickstart → BUILD_PROMPT_WEEK08_V1 i EVIDENCE_W08.
+Pročitani phase4 handoff i security/budget/admission/lifecycle rezultati,
+phase2 originalni T16 rezultat i fixture. Pregledani stvarni session admission/
+capacity dispatch i lease moduli; fokusirani testovi ponovljeni, ne samo checkbox-i.
+Korišćen `.agents/skills/speckit-implement/SKILL.md`, checklist 9/9; prerequisites
+kroz dokumentovan PowerShell ExecutionPolicy Bypass prolazi, nema extensions hooks.
+Git koren D:/AIBootcamp/week3-4, grana week08-init, HEAD 9d89726158cf0af45d7ffc997b36915007cfbbd3,
+početno čisto; jedan coding agent. Pročitani security/coach/server/fake helpers,
+CoachPanel/AnalysisPanel, CSS, coach/state/production/table/offline/recovery E2E,
+UI test inventar i Vite/Playwright/package/ESLint/ignore konfiguracija.
+Razlog: validan malicious final mora preći pravu backend granicu; real preview
+mora sam postaviti zaglavlja. Nema novih web izvora/paketa; ugovor daje tačnu
+politiku, lokalni browser daje dokaz. Nisu čitani .env/ključevi niti pokretani
+live CLI pozivi. Širi nastavni PDF-i nisu potrebni za ovaj ograničeni blok.
+Rizici: fake nije live-model dokaz; T16 sentinel i event/bundle provere pripadaju
+kasnijoj fazi. [Handoff i prvi rezultati](evidence/005-phase5-handoff.md).
+
+## 2026-10-26 — Week08 Faza 4, T013–T018
+
+Prioritet: aktuelni korisnički zahtev (samo Faza 4) → AGENTS/constitution →
+GAME_SPEC ARCH/AC19/AC23/§13/W08 → feature005 spec/plan/tasks/data-model/
+contracts/security/research/quickstart → BUILD_PROMPT_WEEK08_V1 → prethodni
+phase2/phase3 handoff, EVIDENCE_W08 i sačuvani prvi rezultati/fixture hash-evi.
+Primenjen lokalni `.agents/skills/speckit-implement/SKILL.md`, prerequisites
+razrešava 005, checklist 9/9, nema extensions hook-ova. Git koren roditelj,
+week08-init, HEAD cc0d3fb, početno čisto. Bez drugih agenata.
+
+Učitani app/routes/session, agent orchestrator/types/tools/validation, Gemini
+adapter i AI coordinator/types/usage, shared contracts, frontend App/api i
+CoachPanel/AnalysisPanel; security fixture/server, fake clock/provider,
+agent-run/unit orchestrator, coach/analysis lifecycle/usage/UI/API testovi,
+coach E2E/helper, package/Vitest/ignore/ESLint. Razlog: razdvajanje logical run-a
+od originalnog provider promise-a, atomski admission i dokaz UI očuvanja/retry-a.
+Dodate test putanje unapred obrazložene u planu. Byte cap i token cap odvojeni;
+SDK buffering ostaje ograničenje. Gate singleton izolovan između testnih procesa,
+nikada kroz produkcionu new-game/usage reset rutu.
+
+Nisu učitavani .env/ključevi, novi web/PDF izvori; nema live Gemini poziva.
+Events/CSP/sentinel/audit i T019–T031 izostavljeni kao budući scope. Fake i lokalni
+browser ne dokazuju live prompt otpornost ili udaljeno prekidanje naplate.
+[Stvarni nalazi, provere i ograničenja](evidence/005-phase4-handoff.md).
+
 ## 2026-10-06 — usklađivanje paralelnog rada i odobren push
 
 Korisnik prijavio paralelan rad kolege na istoj grani i tražio push lokalnog
@@ -681,3 +795,184 @@ Pre rada pročitani AGENTS, prethodni T034review/patch, coach-smoke/live CLI, co
 allowlist; postojeći SpecKitimplement/constitution/gate ostaju iz istog razgovora.
 Novi plan/spec/tasks/GAME_SPEC zapisani pre runner koda. Kontekst dopunjavati samo
 stvarnim rezultatima; nema subagenata, key/raw vrednosti ili privatnog chain-of-thought.
+
+## SR1 korišćeni kontekst — 2026-10-14
+
+Prioritet: aktuelni korisnički zahtev, AGENTS.md na HEAD c73ae8c, GAME_SPEC §12–14,
+constitution principi I–VII, 002 spec/plan/tasks/data-model/ai-http/research/quickstart,
+003 relevantni plan/taskovi i dva odvojena UI panela. Kod: App/api/AnalysisPanel/
+CoachPanel/session/routes; testovi ai-analysis/ai-concurrency/analysis/ai-status,
+ai-offline/helper/server i coach E2E kao poređenje. Projektni speckit-plan/tasks/
+implement SKILL.md smernice; dopuna postojećeg feature-a, bez novog scaffold-a.
+Prerequisite skripta prvo blokirana execution policy, ponovljena process-only Bypass:
+FEATURE_DIR 002, svi relevantni artefakti postoje. Checklist requirements 26/26,
+read-only; extensions.yml ne postoji. Node24.20.0/npm11.19.0.
+Rizik: analysis nema novu poker verziju, pa stale zaštita mora koristiti interactionId.
+Istorijski live dokazi nisu novi pozivi; .env/ključevi nisu učitani, nema mrežnog provider-a.
+## AU1 kontekst — 2026-10-14
+
+Prioritet: aktuelni korisnički zahtev > AGENTS/GAME_SPEC > constitution > feature
+002/003 ugovori i planovi > kod/testovi. Korišćeni HEAD f900fa2 i git diff/status;
+AGENTS.md; GAME_SPEC §12–14; constitution v1.1.0; relevantni usage/SR1/FR-020–023
+delovi 002 spec/plan/tasks i ai-http; 003 spec/plan/tasks (T019–023/FR-022),
+data-model i coach-http; requirements checklists 002/003. Čitan projektni
+`.agents/skills/speckit-implement/SKILL.md`, prerequisites/common skripte.
+Runtime izvori: session.ts (analysis/coach beleženje), ai/usage.ts, routes.ts,
+shared/contracts.ts, App.tsx, AnalysisPanel/CoachPanel/UsageDashboard, testovi
+analysis/dashboard/coach usage i lifecycle, fake provider/server/coach-server,
+Playwright/Vitest/package/ignore/ESLint konfiguracije. Razlog: utvrđivanje stvarnog
+UI→backend mapiranja, postojećih agregata, reset i refresh semantike.
+Nisu uključeni istorijski suggestion, nastavni materijali, tajne/.env niti
+spoljni izvori za cene: nema potrebe za scope proširenjem ili cenovnom procenom.
+Rizik: različite istorijske retry jedinice; UI ih eksplicitno razdvaja.
+Dokaz i ograničenja: [AU1 handoff](evidence/004-AU1-handoff.md).
+
+## Privatni frontend feature 004 — 2026-10-14
+
+Prioritet: aktuelni korisnički zahtev > AGENTS/GAME_SPEC > constitution > novi
+feature 004 > postojeći kod/testovi. Baseline HEAD 9a6263a; grana
+add-modifications, početni status čist. Git koren roditelj projekta. Korišćeni:
+AGENTS; GAME_SPEC (R1–R8, ARCH1–8, AC11–13/19–23 i fazne granice);
+constitution v1.1.0; projektni Spec Kit specify/plan/tasks/implement/converge skills,
+spec/plan šabloni i setup/prerequisites/common skripte. Nema extensions.yml hook-ova.
+Korišćeni runtime izvori: package, ignore, ESLint/Playwright konfiguracije;
+App/Table/ActionPanel/HandResult/styles, CoachPanel markup, UsageDashboard
+polling/agregati, shared/contracts, engine/pots (isključivo čitanje);
+UI table i E2E accessibility/play-hand/ai-offline/coach, public-fixtures/server.
+Prethodne SR1/AU1 handoff beleške pročitane zbog summary/usage regresije.
+Razlog: javni podaci, privatnost, raspored i očuvanje lifecycle tokova.
+Nisu učitani .env/tajne, nastavni materijali, istorijski suggestion ili spoljne
+dizajn biblioteke. Nema potrebe za novim API-jem ili asset servisom.
+Rizik: CSS može uticati na dostupnost kontrola; proverene geometrija, fokus,
+desktop/mobile i reduced-motion. Browser alat nije dostupan; korišćen Playwright
+Chromium i lokalni view_image za stvarni pregled slika. Novi dokazi:
+[feature 004](../specs/004-frontend-table-polish/evidence/verification.md).
+
+## Week08 priprema — 2026-10-25
+
+Prioritet: korisnikov zahtev/razjašnjenje privatnih dorada > AGENTS/GAME_SPEC i
+constitution v1.1.0 > Week08 assignment 23.10.2026 > novi feature005 > postojeći kod.
+Korišćeni root `weekly-assignment.md` (SHA256
+0382b5f9ca929e6121dde9a33113a183535a1b37d14fe6a2af359893ca9a1abd), paket README,
+01/04 MD materijali i 03 MD evidence šablon, čitani kroz prethodnu analizu i ovu
+pripremu. Paket 02 MD ima isti hash kao root assignment; PDF/PPTX nisu zasebno
+analizirani, prema README-u paralelni štampani/prezentacioni materijali.
+Root assignment sada nije istorijski Week05 izvor. Lokalni materijali mogu
+nedostajati kolegi; zahtevi preneti u feature005.
+
+Pročitani projektni speckit-specify/plan/tasks SKILL.md, constitution, aktivni
+spec/plan/tasks šabloni, init-options, setup-plan/setup-tasks/common/prerequisites
+skripte; nema extensions.yml hook-ova. Jedan agent prema projektu; generički
+research-agent primer nije primenjen. Lokalni feature.json upućuje na 005,
+Git grana ostaje week08-init.
+
+Kod: app/routes/session, agent types/orchestrator/tools/validation, shared coach
+šeme, provider/coordinator granice, CoachPanel/AnalysisPanel, PlayingCard, Vite/
+Vitest/Playwright/package, fake helpers i relevantni route/lifecycle/recovery/
+failure/E2E testovi. Dokumenti: GAME_SPEC, feature004, manifest/AI log.
+Git: HEAD96fb971, mainc73ae8c, review2574a0a, diffs i osveženi origin refs;
+selektivan test/config/CI prenos bez main merge-a. PR review status je korisnički
+navod, ne rezultat GitHub API upita.
+
+OWASP CSP/API4/Logging pregledani web-om u prethodnoj analizi; ova priprema ne
+predstavlja novi advisory audit. Nisu čitani pravi ključevi/.env ili privatni
+podaci. Build koristi redovan Vite mehanizam; ne tvrdimo da Vite nikad učitava env.
+Nema live provider poziva. Rizici: test timing, orphan provider rad, nedostajući
+production headers/events; razlikovati source review od test dokaza.
+[Baseline](evidence/005-baseline.md), [W08 evidence](EVIDENCE_W08.md).
+
+## T004 ? 2026-10-26
+
+Aktuelni zahtev: samo T004. HEAD 0d361f1, week08-init, po?etno ?isto stablo.
+Pro?itani AGENTS, constitution v1.1.0, GAME_SPEC W08 deo, feature005 spec/plan/
+tasks/data-model/contracts/research/quickstart i requirements checklist, baseline
+snapshot/results, raniji BUILD_PROMPT_WEEK05_V1 kao format. Kori??en projektni
+speckit-implement SKILL.md, prerequisites skripta; checklist 9/9, nema extensions.yml.
+Pregledani Git diff/log, ignore/ESLint, Vitest config, ai-failures i recovery
+sinhronizacija i coach lifecycle success assertions. Razlog: proveriti T001?T003
+i sa?uvati operativni prompt bez po?etka T005. Nisu ponovo ?itani nastavni PDF-ovi
+ili web izvori, .env/klju?evi; prethodna analiza nije novi audit. Hash-evi osnove
+i lockfile potvr?eni; fokusirani fake testovi izvr?eni. [Handoff](evidence/005-T004-handoff.md).
+
+## Faza 2 / T005–T007 — 2026-10-26
+
+Prioritet: aktuelni korisnički zahtev samo Faza 2, zatim AGENTS i constitution
+v1.1.0, GAME_SPEC ARCH1–8/AC19/AC23 i W05/W08 granice. Pročitani feature005
+spec/plan/tasks/data-model/contracts/security/research/quickstart, requirements
+checklist 9/9, BUILD_PROMPT_WEEK08_V1, EVIDENCE_W08 i T004 handoff/preflight,
+baseline snapshot, projektni speckit-implement SKILL.md. Nema extensions.yml.
+Pregledani session/routes/app, agent tools/validation/orchestrator relevantni delovi,
+coach-lifecycle, coach-evidence, fake-ai-provider, fake-clock, fixtures, server,
+recovery, vite/Vitest/Playwright/TS/ESLint/package konfiguracija i ignore pravila.
+Razlog: reuse fixture-a, real executor i produkcioni preview bez menjanja kontrola.
+Git koren D:/AIBootcamp/week3-4, branch week08-init, d08e06c, početno čisto.
+Baseline hash-evi i lockfile potvrđeni. Nastavni PDF/web izvori nisu ponovo čitani;
+feature sadrži potrebne zahteve. Nema .env/ključeva, live provider-a ili drugih
+servisa. Rizik: početni T13/T16 RED nije završna matrica niti hardening dokaz.
+[Stvarne komande, hash ulazi i handoff](evidence/005-phase2-handoff.md).
+
+## Faza 3 / T008–T012 — 2026-10-26
+
+Prioritet: priloženi korisnički zahtev samo Faza 3, AGENTS, constitution 1.1.0,
+GAME_SPEC AC19/AC23, §13 read-only ugovor i W08-01–08. Pročitani
+BUILD_PROMPT_WEEK08_V1, feature005 spec/plan/tasks/data-model/contracts/security/
+research/quickstart, requirements checklist 9/9, EVIDENCE_W08 i phase2 handoff,
+izlazi početnih testova i sačuvani fixture-i. Primenjen lokalni
+`.agents/skills/speckit-implement/SKILL.md`, prerequisites potvrđen, hooks odsutni.
+Pregledani app/routes/session, agent orchestrator/tools/validation, shared schemas,
+fake provider/clock, security fixture/server, postojeći agent/tool/final testovi,
+coach-server/coach E2E, storage upotreba u frontu, package/ignore/ESLint.
+Razlog: pravi HTTP parser, nezavisno scope pre executor-a i output posle executor-a,
+snimljeni drugi modelski request, autoritativni backend rezultat u browseru.
+Git koren roditelj projekta, branch week08-init, HEAD 2b8ea4e, početno čisto.
+Nema novih web/PDF izvora, .env, pravih ključeva ili živih poziva. Ugovori su
+dovoljni za odobreni blok; future rate/CSP/events/secrets nisu prošireni u ovu fazu.
+Rizik: fake ne dokazuje live-model otpornost; public browser snapshot proverava
+serverski rezultat, node projekcija dodatno privatno poker/RNG/facts stanje.
+[Komande i nalazi](evidence/005-phase3-handoff.md); T13/T16 RED ostaje otvoren.
+
+
+## 2026-10-26 — Faza 6 T023–T027
+
+Prioritet: priloženi korisnički zahtev → AGENTS i constitution 1.1.0 → GAME_SPEC
+§16/W08-01–08 → feature005 spec/plan/tasks/data-model/contracts/security/research/
+quickstart → BUILD_PROMPT_WEEK08_V1 i EVIDENCE_W08. Pročitani phase5 handoff/recheck
+i novi preflight izlazi. Pročitan speckit-implement SKILL.md; prerequisites PASS
+(zaseban PowerShell ExecutionPolicy Bypass), checklist 9/9, bez extension hook-ova.
+Pregledani app/routes/session, agent orchestrator/tools/validation/types, ai config/
+adapter, shared schemas, security admission/capacity, fake provider/clock/fixtures/
+server, normal/lifecycle/production security testovi, package/lock/ignore/ESLint/
+Vitest/Vite konfiguracija. Razlog: stvarni request/run/tool brojači, ista sanitizacija
+produkcije i test sink-a, server factory granica i kontrolisani production build.
+Git HEAD e498a06 na week08-init; zatečene dokumentacione izmene sačuvane.
+
+Novi izvori: npm registry audit i javni GitHub security advisories za prijavljene
+pakete, sa verzijama/URL-ovima/izloženošću u [audit zapisu](evidence/005-phase6-audit.md).
+Fastify/Vitest maintainer advisories pročitani; Zod maintainer URL 404, bez tvrdnje
+o uspešnom čitanju. Nastavni PDF/PPTX i drugi feature taskovi nisu potrebni: aktivni
+ugovori daju scope. Nisu traženi korisnički .env/ključevi niti pokretani live CLI-jevi.
+Kontrolisani Vite sentinel build/preview koristi envDir:false.
+Rizici: procesna memorija nije trajni audit, jedan sentinel nije opšti DLP, audit
+se može promeniti. Clean checkout/CI/demo ostaju van ove faze.
+[Rezultati i checkpoint](evidence/005-phase6-handoff.md).
+
+## 2026-10-26 — Faza 7 T028–T031
+
+Prioritet: priloženi korisnički zahtev → AGENTS/constitution 1.1.0 → GAME_SPEC
+ARCH1–8, AC19/23, §13/16 → feature005 spec/plan/tasks/data-model/security ugovor/
+quickstart/research → BUILD_PROMPT_WEEK08_V1, EVIDENCE_W08, phase6 handoff/audit,
+phase2 fixture manifest/očekivanja/originalni rezultati i phase5 istorijski status.
+Pročitani lokalni speckit-implement i speckit-converge SKILL.md; primenjen implement,
+converge nije zasebno pokrenut (preostali rad već postoji u T030/T031). Checklist
+9/9, prerequisites PASS uz zasebni PowerShell Bypass; nema extension hook-ova.
+Pregledani security testovi i production app/routes/session/orchestrator/tools/
+validation/events/admission/capacity putovi, SDK mock, oba React panela,
+fake fixture/server, Vite/Vitest/Playwright, package/lock i root CI workflow.
+Razlog: brojači i stanje, nezavisni schema/scope i timeout/deadline/rate/capacity
+dokazi, server sentinel i browser enforcement. Git autorstvo odvojeno od ljudskog
+osmišljavanja testova. GitHub Actions API za d508f13: 0 run-ova; prvi socket problem
+i stvarni ponovljeni odgovor sačuvani. T027 odluke su istorijski audit izvor;
+clean npm install audit signal vezan za trenutni lock. Bez .env, ključeva, live
+poziva, subagenata ili PDF/PPTX širenja scope-a. Izolovana kopija uključuje workflow
+patch, bez lokalnih helper-a/cache-a/dependency/build foldera; svi .env* izostavljeni.
+[Dokazi i ograničenja](evidence/005-phase7-handoff.md).

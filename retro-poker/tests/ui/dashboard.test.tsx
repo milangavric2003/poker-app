@@ -30,7 +30,79 @@ const usage: api.UsageDashboardView = {
       latency: { count: 2, sumMs: 60, maxMs: 40 }, usage: unknownUsage(2) },
   ], retryCount: 1, modelFallbackCount: 1, localFallbackCount: 2,
 };
+function coachingUsage(): NonNullable<api.UsageDashboardView['coach']> {
+  return { runCount: 1, stepCount: 2, providerAttemptCount: 2, toolAttemptCount: 1,
+    toolExecutionCount: 1, toolRejectionCount: 0, validationCount: 5, validationRejectedCount: 0,
+    retryCount: 0, modelFallbackCount: 0, stopReasons: [{ reason: 'completed', count: 1 }],
+    latency: { count: 1, sumMs: 300, maxMs: 300 },
+    attempts: [1, 2].map(stepOrdinal => ({ stepOrdinal, model: 'coach-model', relation: 'initial',
+      outcome: 'success', count: 1, latency: { count: 1, sumMs: 100, maxMs: 100 },
+      usage: unknownUsage(1) })) };
+}
 describe('local usage dashboard', () => {
+  it('shows a coach-only run as one generation, two provider attempts and one local tool', async () => {
+    vi.spyOn(api, 'loadUsage').mockResolvedValue({ ...usage, logical: [], attempts: [],
+      retryCount: 0, modelFallbackCount: 0, localFallbackCount: 0, coach: coachingUsage() });
+    render(<UsageDashboard />);
+    fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i }));
+    expect(await screen.findByTestId('total-requests')).toHaveTextContent(/^1$/);
+    expect(screen.getByTestId('successful-requests')).toHaveTextContent(/^1$/);
+    expect(screen.getByTestId('provider-attempt-count')).toHaveTextContent(/^2$/);
+    expect(screen.getByTestId('provider-success-count')).toHaveTextContent(/^2$/);
+    expect(screen.getByTestId('coach-count')).toHaveTextContent(/^1$/);
+    expect(screen.getByTestId('coach-steps')).toHaveTextContent(/^2$/);
+    expect(screen.getByTestId('coach-tools')).toHaveTextContent(/^1$/);
+    expect(screen.getByTestId('analysis-count')).toHaveTextContent(/^0$/);
+    expect(screen.getByTestId('bot-count')).toHaveTextContent(/^0$/);
+    expect(screen.getByTestId('usage-total-tokens')).toHaveTextContent('Nepoznato');
+    expect(screen.getByTestId('usage-cost')).toHaveTextContent('Nepoznato');
+    expect(screen.getByTestId('coach-duration')).toHaveTextContent('300 / 300 ms');
+    expect(screen.getByTestId('retry-count')).toHaveTextContent('Retry: 0');
+  });
+  it('polls a failed and retried coaching aggregate into mixed totals without double counting', async () => {
+    vi.useFakeTimers();
+    const coach = coachingUsage();
+    coach.runCount = 2; coach.stepCount = 3; coach.providerAttemptCount = 4;
+    coach.retryCount = 1; coach.modelFallbackCount = 1;
+    coach.stopReasons.push({ reason: 'provider_failed', count: 1 });
+    coach.attempts.push({ ...coach.attempts[0]!, relation: 'same_model_retry', outcome: 'timeout',
+      count: 2, latency: { count: 2, sumMs: 400, maxMs: 200 } });
+    coach.attempts[1]!.usage.totalTokens = { knownCount: 1, missingCount: 0, sum: 42 };
+    vi.spyOn(api, 'loadUsage').mockResolvedValueOnce(usage).mockResolvedValue({ ...usage, coach });
+    render(<UsageDashboard />);
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i })); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    expect(screen.getByTestId('total-requests')).toHaveTextContent(/^9$/);
+    expect(screen.getByTestId('successful-requests')).toHaveTextContent(/^6$/);
+    expect(screen.getByTestId('provider-attempt-count')).toHaveTextContent(/^11$/);
+    expect(screen.getByTestId('failed-requests')).toHaveTextContent(/^1$/);
+    expect(screen.getByTestId('error-count')).toHaveTextContent(/^6$/);
+    expect(screen.getByTestId('bot-count')).toHaveTextContent(/^5$/);
+    expect(screen.getByTestId('analysis-count')).toHaveTextContent(/^2$/);
+    expect(screen.getByTestId('coach-count')).toHaveTextContent(/^2$/);
+    expect(screen.getByTestId('usage-total-tokens')).toHaveTextContent('42 (delimično)');
+    expect(screen.getByTestId('retry-count')).toHaveTextContent('Retry: 1 | model fallback: 1');
+    expect(screen.getByTestId('coach-recovery')).toHaveTextContent('retry pokušaji: 1 | model fallback pokušaji: 1');
+    expect(screen.getByText('provider_failed')).toBeInTheDocument();
+  });
+  it('does not restore coaching metrics from a late pre-reset response', async () => {
+    vi.useFakeTimers();
+    const mixed = { ...usage, coach: coachingUsage() };
+    let finish!: (value: api.UsageDashboardView) => void;
+    const empty = { ...usage, revision: 5, logical: [], attempts: [], coach: {
+      ...coachingUsage(), runCount: 0, attempts: [], stopReasons: [] } };
+    vi.spyOn(api, 'loadUsage').mockResolvedValueOnce(mixed)
+      .mockImplementationOnce(() => new Promise(resolve => { finish = resolve; })).mockResolvedValue(empty);
+    vi.spyOn(api, 'resetUsage').mockResolvedValue(empty);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    render(<UsageDashboard />);
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: /AI upotreba/i })); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000); });
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: /resetuj metrike/i })); });
+    await act(async () => { finish(mixed); await vi.advanceTimersByTimeAsync(1000); });
+    expect(screen.getByText(/nema zabeleženih AI zahteva/i)).toBeVisible();
+    expect(screen.queryByTestId('coach-count')).not.toBeInTheDocument();
+  });
   it('automatically displays completed bot and analysis calls without hiding existing metrics', async () => {
     vi.useFakeTimers();
     const updated = structuredClone(usage);

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-26",
+  "commit": "0d361f1ce4429dbf9cd64f1adcf9dbd78c9f8874",
+  "branch": "week08-init",
+  "initialStatus": "",
+  "baselineFiles": [
+    {
+      "file": "retro-poker/vitest.config.ts",
+      "match": true
+    },
+    {
+      "file": "retro-poker/tests/integration/ai-failures.test.ts",
+      "match": true
+    },
+    {
+      "file": "retro-poker/tests/e2e/recovery.spec.ts",
+      "match": true
+    },
+    {
+      "file": "retro-poker/.gitignore",
+      "match": true
+    },
+    {
+      "file": ".github/workflows/retro-poker-ci.yml",
+      "match": true
+    }
+  ],
+  "lockMatch": true,
+  "runtimeDiffFromOriginal": "",
+  "checklist": {
+    "total": 9,
+    "checked": 9
+  },
+  "extensionsPresent": false
+}

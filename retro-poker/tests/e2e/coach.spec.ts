@@ -2,8 +2,46 @@ import { expect, test, type Page } from '@playwright/test';
 import { ProviderError } from '../../backend/src/ai/types.js';
 import { CoachResponseSchema } from '../../shared/contracts.js';
 import { startCoachServers } from '../helpers/coach-server.js';
+import { processAdmission, AdmissionWindow } from '../../backend/src/security/admission.js';
+import { processCapacity, ProviderCapacity } from '../../backend/src/security/capacity.js';
+import { processUsageStore } from '../../backend/src/ai/usage.js';
 
 test.use({ viewport: { width: 1280, height: 720 } });
+test.beforeEach(() => {
+  // Each test starts a fresh local server fixture, representing a new process.
+  processAdmission.current = new AdmissionWindow(); processCapacity.current = new ProviderCapacity();
+  processUsageStore.reset(processUsageStore.snapshot().revision);
+});
+test('W08 rate rejection preserves previous summary and confirmed game with explicit retry', async ({ page }) => {
+  const servers = await startCoachServers();
+  try {
+    await page.goto(servers.origin);
+    const identity = { gameId: servers.terminal.gameId, handId: servers.terminal.handId,
+      expectedVersion: servers.terminal.version };
+    expect((await page.request.post(`${servers.origin}/api/game/analysis`, { data: identity })).status()).toBe(202);
+    await expect.poll(() => servers.provider.pending.has('first')).toBe(true);
+    servers.provider.resolve('first', { candidate: { summary: 'Sačuvani pregled.', goodDecisions: [],
+      possibleMistakes: [], nextSteps: ['Vežbaj.'] } });
+    await expect.poll(async () => (await servers.snapshot()).game.ai.analysis.status).toBe('completed');
+    await page.reload(); const before = await servers.snapshot();
+    let posts = 0; page.on('request', r => { if (r.method() === 'POST' && r.url().endsWith('/api/game/analysis')) posts++; });
+    for (let i = 0; i < 4; i++) {
+      servers.provider.enqueue({ kind: 'analysis_success' });
+      await page.getByRole('button', { name: 'Generiši analizu ponovo' }).click();
+      await expect(page.getByRole('button', { name: 'Generiši analizu ponovo' })).toBeEnabled();
+    }
+    const summary = page.getByRole('region', { name: 'AI analiza partije' });
+    const previous = await summary.innerText();
+    await page.getByRole('button', { name: 'Generiši analizu ponovo' }).click();
+    await expect(page.getByRole('alert').filter({ hasText: 'Dostignuto je ograničenje AI zahteva.' })).toBeVisible();
+    expect(await summary.innerText()).toBe(previous); expect(posts).toBe(5);
+    expect((await servers.snapshot()).game.result).toEqual(before.game.result);
+    await page.clock.install(); await page.clock.fastForward(60000); expect(posts).toBe(5);
+    await page.getByRole('button', { name: 'Generiši analizu ponovo' }).click();
+    await expect(page.getByRole('alert').filter({ hasText: 'Dostignuto je ograničenje AI zahteva.' })).toBeVisible();
+    expect(posts).toBe(6); expect(await summary.innerText()).toBe(previous);
+  } finally { await servers.close(); }
+});
 async function keyboardStart(page: Page) {
   const goal = page.getByRole('combobox', { name: 'Coaching cilj' });
   // Tab from the page through native controls, without mouse/focus shortcuts.
@@ -33,6 +71,8 @@ test('T023 keyboard success uses real backend validation and preserves poker res
     await expect(coach.getByRole('status')).toHaveAttribute('aria-live', 'polite');
     await expect(coach.getByText('Izabrani cilj: Odluke po fazama')).toBeVisible();
     await expect.poll(() => servers.provider.pending.has('first')).toBe(true);
+    await page.getByRole('button', { name: 'AI upotreba' }).click();
+    await expect(page.getByText('Nema zabeleženih AI zahteva.')).toBeVisible();
     servers.provider.enqueue({ kind: 'agent_final' });
     servers.provider.resolve('first', { candidate: { kind: 'tool_request', name: 'get_decision_evidence',
       arguments: { focus: 'street', limit: 10 } } });
@@ -43,6 +83,18 @@ test('T023 keyboard success uses real backend validation and preserves poker res
     expect(terminal).toMatchObject({ status: 'completed', stepCount: 2, toolCallCount: 1, providerAttemptCount: 2 });
     expect(servers.toolCount()).toBe(1);
     expect(servers.provider.agentCalls).toHaveLength(2);
+    await expect(page.getByTestId('total-requests')).toHaveText('1');
+    await page.getByText('Tokeni i trošak', { exact: true }).click();
+    await expect(page.getByTestId('coach-count')).toBeVisible();
+    await expect(page.getByTestId('coach-count')).toHaveText('1');
+    await expect(page.getByTestId('provider-attempt-count')).toHaveText('2');
+    await expect(page.getByTestId('coach-steps')).toHaveText('2');
+    await expect(page.getByTestId('coach-tools')).toHaveText('1');
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-coach-usage-1280.png', fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-coach-usage-390.png', fullPage: true });
+    await page.setViewportSize({ width: 1280, height: 720 });
     expect(terminal.result?.evidence.length).toBeGreaterThan(0);
     for (const evidence of terminal.result!.evidence) {
       await expect(coach.getByRole('listitem').filter({ hasText: evidence.decisionRef })).toContainText(evidence.finding);

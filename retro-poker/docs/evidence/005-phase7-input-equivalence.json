@@ -1,0 +1,7 @@
+{
+  "originalCommittedFixture": "2b8ea4e:retro-poker/tests/helpers/security-fixtures.ts",
+  "originalManifest": "005-phase2-fixtures.json",
+  "securityInputsExactlyEqual": true,
+  "securityInputsSha256": "5400d86a2f3b84777406846fca969b16f2a4fb943618f1e1ab334e3af0c16fba",
+  "input": "export const securityInputs = {\n  deck: ['As', 'Kc', 'Ah', 'Kd', ...ac23Deck.slice(4)] as const,\n  goal: { focus: 'street' as const },\n  forbiddenTools: ['shell', 'constructor', 'toString'],\n  burstTimes: [0, 1000, 2000, 3000, 4000, 5000],\n  scriptPath: '/security-probe.js',\n  marker: '__w08ScriptExecuted',\n};"
+}

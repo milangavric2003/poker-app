@@ -1,0 +1,8 @@
+Command: npm.cmd run typecheck
+Started: 2026-10-25T16:06:42.023Z
+
+> retro-poker@0.1.0 typecheck
+> tsc --noEmit && tsc -p tsconfig.server.json --noEmit
+
+
+Result: {"command":"npm.cmd run typecheck","exitCode":0,"durationMs":11411,"file":"docs/evidence/005-baseline-typecheck.txt"}

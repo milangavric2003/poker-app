@@ -1,3 +1,4 @@
+import { SecurityEvents, processSecurityEvents, securityCorrelation } from './security/events.js';
 import { randomUUID } from 'node:crypto';
 import { buildBotObservation, chooseBotAction, safeBotAction } from './bots/strategy.js';
 import { BettingError, legalActions } from './engine/betting.js';
@@ -15,12 +16,15 @@ import { CoachRunViewSchema, type CoachRequest, type CoachRunView, type MatchAna
 import { BoundedAgentRun } from './agent/orchestrator.js';
 import type { AgentFingerprint, AgentRunOptions } from './agent/types.js';
 import type { AgentProvider } from './ai/types.js';
+import { processCapacity } from './security/capacity.js';
+import { processAdmission } from './security/admission.js';
 
 export class SessionError extends Error {
   constructor(readonly code: 'GAME_NOT_FOUND' | 'STALE_STATE' | 'ILLEGAL_ACTION' | 'INTERNAL_ERROR'
     | 'AI_UNAVAILABLE' | 'AI_ALREADY_PENDING' | 'ANALYSIS_NOT_ALLOWED'
-    | 'GAME_NOT_TERMINAL' | 'COACH_ALREADY_PENDING' | 'RUN_NOT_FOUND',
-    message: string) { super(message); }
+    | 'GAME_NOT_TERMINAL' | 'COACH_ALREADY_PENDING' | 'RUN_NOT_FOUND'
+    | 'AI_RATE_LIMITED' | 'AI_CAPACITY_EXCEEDED',
+    message: string, readonly retryAfterSeconds?: number) { super(message); }
 }
 
 export interface GameState {
@@ -47,6 +51,7 @@ export interface GameState {
 }
 
 export interface SessionDependencies extends GameDependencies {
+  securityEvents?: SecurityEvents;
   /** In-process transaction fault injection; never exposed by HTTP. */
   beforeActionCommit?: () => void;
   beforeNextHandCommit?: () => void;
@@ -136,12 +141,16 @@ function runBots(game: GameState): void {
 }
 
 export class GameSession {
+  readonly securityEvents: SecurityEvents;
   private game: GameState | null = null;
   private queue: Promise<void> = Promise.resolve();
   private activeBot: { interactionId: string; controller: AbortController } | null = null;
   private coach: { run: BoundedAgentRun; controller: AbortController; committed: boolean; wallStartedAt: number } | null = null;
   private readonly aiConfig: AiRuntimeConfig;
+  private readonly capacity = processCapacity.current;
+  private readonly admission = processAdmission.current;
   constructor(private readonly dependencies: SessionDependencies) {
+    this.securityEvents = dependencies.securityEvents ?? processSecurityEvents;
     this.aiConfig = dependencies.aiConfig ?? loadAiConfig();
   }
 
@@ -154,6 +163,15 @@ export class GameSession {
   }
 
   get(): GameState | null { return this.game; }
+
+  private admit() {
+    const result = this.admission.accept((this.dependencies.aiClock ?? systemClock).now(), this.capacity);
+    if ('lease' in result) return result.lease;
+    throw new SessionError(result.code, result.code === 'AI_RATE_LIMITED'
+      ? 'Dostignuto je ograničenje AI zahteva. Pokušaj ponovo kasnije.'
+      : 'AI kapacitet je trenutno zauzet. Pokušaj ponovo.',
+    'retryAfterSeconds' in result ? result.retryAfterSeconds : undefined);
+  }
 
   private coachCurrent(identity: AgentFingerprint): boolean {
     const game = this.game;
@@ -193,17 +211,26 @@ export class GameSession {
       if (this.coach.run.state.goal.focus !== input.goal.focus) throw new SessionError('COACH_ALREADY_PENDING', 'Coaching je već u toku.');
       return this.coachStatus(this.coach.run.state.runId);
     }
+    // No-evidence preflight precedes admission and dispatch.
+    const hasEvidence = game.facts.decisions.some(d => input.goal.focus === 'street'
+      || input.goal.focus === 'betting' && ['call', 'bet', 'raise', 'all_in'].includes(d.chosenAction.type)
+      || input.goal.focus === 'showdown' && d.outcome?.reason === 'showdown');
+    const bound = hasEvidence ? this.capacity.bind(provider, this.admit()) : null;
+    const correlationId = securityCorrelation();
+    this.securityEvents.emit({ event: 'ai.request.accepted', correlationId, purpose: 'coach',
+      reasonCode: 'accepted', outcome: 'accepted', providerAttempts: 0, executedToolCalls: 0 });
     const controller = new AbortController();
     const run = new BoundedAgentRun({ runId: randomUUID(), goal: input.goal,
       snapshot: { gameId: game.gameId, handId: game.hand.handId, expectedVersion: game.version,
         factsRevision: game.facts.revision, status: game.hand.gameStatus, facts: structuredClone(game.facts) },
-      provider: provider as AiProvider & AgentProvider, clock: this.dependencies.aiClock ?? systemClock,
+      provider: (bound?.provider ?? provider) as AiProvider & AgentProvider, clock: this.dependencies.aiClock ?? systemClock,
       model: this.aiConfig.primaryModel, fallbackModel: this.aiConfig.fallbackModel,
       limits: { maxAttemptsPerStep: this.aiConfig.maxAttempts },
       backoffMinMs: this.aiConfig.backoffMinMs, backoffMaxMs: this.aiConfig.backoffMaxMs,
       jitter: this.dependencies.aiJitter ?? zeroJitter, signal: controller.signal,
       isCurrent: identity => this.coachCurrent(identity),
-      ...(this.dependencies.coachExecuteTool ? { executeTool: this.dependencies.coachExecuteTool } : {}) });
+      ...(this.dependencies.coachExecuteTool ? { executeTool: this.dependencies.coachExecuteTool } : {}) },
+      { sink: this.securityEvents, correlationId });
     // Calendar time is display metadata; the run's injected monotonic clock owns all budgets.
     const slot = { run, controller, committed: false, wallStartedAt: Date.now() };
     this.coach = slot;
@@ -215,7 +242,7 @@ export class GameSession {
       if (this.coach !== slot || slot.committed || !this.coachCurrent(state)) return;
       slot.committed = true;
       processUsageStore.recordCoach(state, usageEpoch);
-    }));
+    })).finally(() => bound?.releaseUnused());
     return this.coachStatus(run.state.runId);
   }
 
@@ -341,10 +368,12 @@ export class GameSession {
       game.ai.active = { interactionId, purpose: 'bot', status: 'waiting', attemptCount: 0,
         model: this.aiConfig.primaryModel };
       this.activeBot = { interactionId, controller };
-      return { interactionId, controller, context, usageEpoch: processUsageStore.currentEpoch() };
+      const lease = this.capacity.reserve();
+      const bound = lease ? this.capacity.bind(this.dependencies.aiProvider!, lease) : null;
+      return { interactionId, controller, context, bound, usageEpoch: processUsageStore.currentEpoch() };
     });
     if (!reservation || !this.dependencies.aiProvider) return;
-    const result = await coordinateBot(this.dependencies.aiProvider, this.aiConfig, reservation.context,
+    const result = reservation.bound ? await coordinateBot(reservation.bound.provider, this.aiConfig, reservation.context,
       reservation.controller.signal, this.dependencies.aiClock ?? systemClock,
       this.dependencies.aiJitter ?? zeroJitter, async (status, attemptCount, model) => {
         await this.serial(() => {
@@ -352,7 +381,8 @@ export class GameSession {
             this.game.ai.active = { ...this.game.ai.active, status, attemptCount, model };
           }
         });
-      });
+      }).finally(() => reservation.bound?.releaseUnused())
+      : { ok: false, attempts: [], finalModel: null };
     const committed = await this.serial(() => this.commitBot(reservation.interactionId, reservation.context, result));
     recordUsageOnce(reservation.interactionId, 'bot', this.aiConfig.primaryModel,
       committed || result.failure === 'cancelled' ? result : { ...result, ok: false, value: undefined, failure: 'stale' },
@@ -404,7 +434,11 @@ export class GameSession {
       game.ai.analysis = { status: 'unavailable', interactionId: null, result: null };
       throw new SessionError('AI_UNAVAILABLE', 'AI analiza nije dostupna.');
     }
+    const bound = this.capacity.bind(this.dependencies.aiProvider, this.admit());
     const interactionId = randomUUID();
+    const correlationId = securityCorrelation();
+    this.securityEvents.emit({ event: 'ai.request.accepted', correlationId, purpose: 'analysis',
+      reasonCode: 'accepted', outcome: 'accepted', providerAttempts: 0, executedToolCalls: 0 });
     const controller = new AbortController();
     game.ai.analysis = { status: 'generating', interactionId, result: null };
     game.ai.active = { interactionId, purpose: 'analysis', status: 'waiting', attemptCount: 0,
@@ -414,14 +448,16 @@ export class GameSession {
       expectedVersion: game.version, factsRevision: game.facts.revision };
     const context = analysisContext(game.facts);
     const usageEpoch = processUsageStore.currentEpoch();
-    void this.runAnalysis(interactionId, controller, fingerprint, context, usageEpoch);
+    // Dispatch outside the mutation lock, just like coaching and bot work.
+    void this.serial(() => undefined).then(() => this.runAnalysis(interactionId, controller, fingerprint,
+      context, usageEpoch, bound.provider, correlationId)).finally(() => bound.releaseUnused());
     return game;
   }
 
   private async runAnalysis(interactionId: string, controller: AbortController,
     fingerprint: { gameId: string; handId: string; expectedVersion: number; factsRevision: number },
-    context: unknown, usageEpoch: number): Promise<void> {
-    const result = await coordinateAnalysis(this.dependencies.aiProvider!, this.aiConfig, context,
+    context: unknown, usageEpoch: number, provider: AiProvider, correlationId: string): Promise<void> {
+    const result = await coordinateAnalysis(provider, this.aiConfig, context,
       controller.signal, this.dependencies.aiClock ?? systemClock, this.dependencies.aiJitter ?? zeroJitter,
       async (status, attemptCount, model) => {
         await this.serial(() => {
@@ -430,6 +466,10 @@ export class GameSession {
           }
         });
       });
+    this.securityEvents.emit({ event: 'ai.run.finished', correlationId, purpose: 'analysis',
+      reasonCode: controller.signal.aborted ? 'cancelled' : result.ok ? 'completed' : 'provider_failed',
+      outcome: controller.signal.aborted ? 'stopped' : result.ok ? 'completed' : 'failed',
+      providerAttempts: result.attempts.length, executedToolCalls: 0 });
     recordUsageOnce(interactionId, 'analysis', this.aiConfig.primaryModel, result, usageEpoch);
     await this.serial(() => {
       const game = this.game;

@@ -357,6 +357,15 @@ ima completed, 4 evidence reference i read-only=true, retry/fallback0.
 
 ## 15. Izvori i upravljanje promenama
 
+### Privatni nastavak posle završenog Week05
+
+Korisnički zahtev 2026-10-14 odobrava zaseban frontend feature
+[`004-frontend-table-polish`](../specs/004-frontend-table-polish/spec.md), uključujući
+mobilni raspored koji je bio van istorijskog Week03 scope-a. Karte, čipovi, sto i
+paneli koriste postojeći javni pogled; poker pravila, API ugovori i AI granice se
+ne menjaju. Week05 taskovi i dokazi ostaju istorijski zatvoreni. Novi dokazi su
+u feature 004, provere offline/fake, bez stvarnih Gemini poziva.
+
 - Retro AI Engineering Challenge — istorijski izvor za Week03 artefakte, eval i
   Week04 granicu: `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-week-04-retro-ai-engineering-challenge.md`.
 - Week03 studentska skripta — kontekst, strukturisani izlazi i TDD/SDD:
@@ -365,7 +374,11 @@ ima completed, 4 evidence reference i read-only=true, retry/fallback0.
   `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md`.
 - Week04 AI API addendum — provider granica, structured output, timeout, retry i
   fake-first testovi: `../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md`.
-- [Week05 assignment](../../weekly-assignment.md) i [Week05 reliability addendum](../../week-05-bounded-agentic-workflows-reliable-integration-addendum.md): bounded agentic flow, tools, budžeti, stop razlozi, fake-first testovi i evidence.
+- Istorijski Week05 assignment je u Milanovom checkout-u i dalje root
+  `weekly-assignment.md`; W08 ima zasebnu putanju navedenu u §16.
+  W05 zahteve čuvaju feature 003 i njegov evidence;
+  [Week05 reliability addendum](../../week-05-bounded-agentic-workflows-reliable-integration-addendum.md)
+  ostaje lokalni izvor za bounded flow, tools, budžete i fake-first provere.
 - [Week05 feature 003](../specs/003-week05-bounded-agent-coach/spec.md): implementacioni ugovor i acceptance scenarios.
 - Poker izvori su linkovani uz pravila; provereni 2026-09-21. Nisu zamena za sopstvene determinističke testove.
 
@@ -396,3 +409,51 @@ neutralni ugovor i runtime provere ostaju nepromenjeni. Nevalidan kind se odbija
 uz safe outputIssue dijagnozu. Primenjeni T034/T035:48zahteva/24run-a, poslednja
 matrica3cilja×3scenarija9/9completed; read-only24/24. Ovo je ograničen dokaz,
 ne garancija budućih generacija. [Rezultati](evidence/003-T035-handoff.md).
+
+## 16. Week08 — Secure the Arcade (završna provera 2026-10-26)
+
+Korisnik odobrava bezbednosno ojačavanje postojećeg W05 coaching toka kroz
+[feature 005](../specs/005-week08-secure-the-arcade/spec.md). Nova grana
+`week08-init` polazi sa `add-modifications` i čuva privatne dorade frontenda,
+ponavljanja summary-ja i AI analitike. One nisu Week08 doprinos. Week05 ostaje
+zatvoren; otvoreni privatni PR se ne spaja u main ovom pripremom.
+
+| ID | Proizvodna granica / prihvatanje |
+|---|---|
+| W08-01 | Normalna igra i coaching ostaju funkcionalni: ≥2 model koraka, ≥1 stvarni dozvoljeni alat i nepromenjen kanonski poker rezultat. |
+| W08-02 | Nevalidan početni HTTP zahtev ne pokreće provider/tool; strict ulaz i serversko stanje sprečavaju klijentsko podmetanje identiteta, konfiguracije i rezultata. |
+| W08-03 | Model predlaže samo dozvoljen alat; naziv/args/scope/output/final proverava server. Nema proizvoljnog čitanja, URL fetch-a, shell-a ili promene partije. |
+| W08-04 | Per-run i procesne cross-request granice obuhvataju pokušaje, vreme, veličine i stvarno aktivan rad; retry/fallback/reset/timeout ih ne zaobilaze. |
+| W08-05 | AI sadržaj ostaje neizvršiv tekst; produkcioni lokalni build ima proverena aktivna CSP/nosniff/referrer zaglavlja uz funkcionalan novi frontend. |
+| W08-06 | Tajne nisu deo browser/model/log izlaza; minimalni bezbednosni događaji imaju dozvoljena polja i ograničen životni vek. |
+| W08-07 | Očuvan local-only single-user model bez auth-a/baze; dokumentovati origin/credential granicu, audit zavisnosti i stvarna ograničenja. |
+| W08-08 | T00–T17 dokazi, ≥3 ista pre/posle scenarija, ponovljiva fake-first provera i potvrđen doprinos oba člana; bez live ključeva/privatnih podataka. |
+
+Tačne granice, HTTP kodovi i promene korisničkog retry ponašanja su u
+[planu](../specs/005-week08-secure-the-arcade/plan.md) i
+[ugovoru](../specs/005-week08-secure-the-arcade/contracts/security.md).
+Nema naloga, privatnih multi-user resursa, novog game moda ili deployment-a.
+Abort nije garancija prekida udaljene obrade/naplate. Fake test nije dokaz
+otpornosti pravog modela niti produkcijske dostupnosti.
+
+Week08 Definition of Done — lokalni tehnički dokaz i ljudska potvrda su odvojeni:
+
+- [x] I1–I8 imaju izvršne kontrole i povezane prolazne testove.
+- [x] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
+- [x] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
+- [x] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
+- [x] Full regresija/clean checkout i status CI-ja vezani za checkpoint: baseline `07db76b` remote Windows/Linux PASS; nova lokalna dorada ima zasebne rezultate bez novog CI-ja.
+- [ ] Oba člana imaju kontrolu i negativni test, mogu ponoviti provere i objasniti demo.
+
+[Završna matrica](evidence/005-phase7-matrix.md) i
+[handoff](evidence/005-phase7-handoff.md) navode stvarne komande i checkpoint-e.
+Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 ostaju
+otvoreni; Week08 nije završen. Lokalni prolaz nove dorade nije njen remote CI uspeh.
+[Milanova tehnička dorada](evidence/005-milan-handoff.md) čuva novi polling
+RED/GREEN, fake-only ručni profil i stvarne rezultate od 2026-10-27.
+
+Aktuelno opaženo stanje: [EVIDENCE_W08.md](EVIDENCE_W08.md). Novi nastavni izvor
+je `milan/weekly-assignment week08.md` iz Git korena, identičan zadatku u
+`Nedelja-08/02-Nedeljni-zadatak-Secure-the-Arcade.md`, verzija 23.10.2026.
+Root `weekly-assignment.md` u Milanovom checkout-u je istorijski W05; W08 zahtevi su preneti u
+verzionisane dokumente jer nastavni paket nije garantovan u svakom checkout-u.

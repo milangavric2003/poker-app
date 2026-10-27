@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { CoachRunViewSchema, type CoachGoal, type CoachRunView, type GameView } from '../../shared/contracts';
-import { createGame, loadCoach, loadGame, nextHand, requestAnalysis, sendAction, startCoach, type ActionDraft } from './api';
+import { ApiError, createGame, loadCoach, loadGame, nextHand, requestAnalysis, sendAction, startCoach, type ActionDraft } from './api';
 import { ActionPanel } from './components/ActionPanel';
 import { AiStatus, type AiUiStatus } from './components/AiStatus';
 import { AnalysisPanel } from './components/AnalysisPanel';
@@ -13,6 +13,13 @@ export function acceptsAiSnapshot(current: GameView | null, incoming: GameView |
   if (!current || !incoming) return true;
   if (current.gameId !== incoming.gameId) return false;
   if (incoming.version < current.version) return false;
+  const analysis = current.ai.analysis;
+  if (analysis.interactionId) {
+    // Analysis does not increment poker version. Only an explicit POST may
+    // replace its identity; polling must follow the current interaction.
+    if (incoming.ai.analysis.interactionId !== analysis.interactionId) return false;
+    if (analysis.status !== 'generating' && incoming.ai.analysis.status === 'generating') return false;
+  }
   const active = current.ai.active?.interactionId;
   if (!active) {
     const terminalAnalysis = current.ai.analysis;
@@ -32,9 +39,11 @@ export function App() {
   const [aiMode, setAiMode] = useState(false);
   const [pending, setPending] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [aiNotice, setAiNotice] = useState<string | null>(null);
   const pollId = useRef(0);
   const snapshotSequence = useRef(0);
   const mutationLock = useRef(false);
+  const analysisSequence = useRef(0);
   const [coachRun, setCoachRun] = useState<CoachRunView | null>(null);
   const coachRef = useRef<CoachRunView | null>(null);
   const [coachPending, setCoachPending] = useState(false);
@@ -44,6 +53,7 @@ export function App() {
   const coachLock = useRef(false);
   const coachController = useRef<AbortController | null>(null);
   function invalidateCoach() {
+    setAiNotice(null);
     ++coachSequence.current;
     coachController.current?.abort();
     coachController.current = null;
@@ -60,11 +70,12 @@ export function App() {
     snapshotSequence.current++;
     if (force || acceptsAiSnapshot(gameRef.current, next)) {
       const current = gameRef.current;
+      if (current?.gameId !== next?.gameId || current?.handId !== next?.handId || current?.version !== next?.version) ++analysisSequence.current;
       if (current?.gameId !== next?.gameId || current?.handId !== next?.handId || current?.version !== next?.version) invalidateCoach();
       gameRef.current = next; setGame(next);
     }
   }
-  useEffect(() => () => { ++coachSequence.current; coachController.current?.abort(); }, []);
+  useEffect(() => () => { ++analysisSequence.current; ++coachSequence.current; coachController.current?.abort(); }, []);
   useEffect(() => {
     if (!coachRun || (coachRun.status !== 'running' && coachRun.status !== 'created')) return;
     const token = coachSequence.current;
@@ -105,16 +116,18 @@ export function App() {
     coachController.current?.abort();
     const controller = new AbortController(); coachController.current = controller;
     const previousId = coachRef.current?.runId;
-    setCoachPending(true); setCoachFailure(false);
+    setCoachPending(true); setCoachFailure(false); setAiNotice(null);
     try {
       const parsed = CoachRunViewSchema.safeParse(await startCoach(currentGame, goal, controller.signal));
       if (token !== coachSequence.current || controller.signal.aborted) return;
       if (!parsed.success || !coachMatches(parsed.data, gameRef.current)
         || parsed.data.goal.focus !== goal.focus || parsed.data.runId === previousId) throw new Error('Invalid coach start');
       commitCoach(parsed.data);
-    } catch {
+    } catch (caught) {
       if (token === coachSequence.current && !controller.signal.aborted) {
-        coachRef.current = null; setCoachRun(null); setCoachFailure(true);
+        if (caught instanceof ApiError && ['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'].includes(caught.code ?? '')) {
+          setAiNotice(caught.message); setCoachFailure(true);
+        } else { coachRef.current = null; setCoachRun(null); setCoachFailure(true); }
       }
     } finally {
       if (token === coachSequence.current) { coachLock.current = false; setCoachPending(false); }
@@ -133,11 +146,15 @@ export function App() {
       && game.actorId !== null && game.legalActions.length === 0;
     if (!game?.ai.active && !awaitingBotReservation) return;
     const id = ++pollId.current;
+    let inFlight = false;
     const timer = window.setInterval(() => {
+      // A slower GET must finish before another tick can supersede its snapshot.
+      if (inFlight) return;
+      inFlight = true;
       const requestId = ++snapshotSequence.current;
       void loadGame().then(next => {
         if (id === pollId.current && requestId === snapshotSequence.current) commit(next);
-      }).catch(() => undefined);
+      }).catch(() => undefined).finally(() => { inFlight = false; });
     }, 750);
     return () => { ++pollId.current; window.clearInterval(timer); };
   }, [game?.gameId, game?.handId, game?.phase, game?.actorId,
@@ -156,6 +173,8 @@ export function App() {
     if (pending || error || mutationLock.current) return;
     if (game?.status === 'playing' && !window.confirm('Aktivna partija će biti zamenjena. Nastaviti?')) return;
     invalidateCoach();
+    ++analysisSequence.current;
+    ++pollId.current;
     mutationLock.current = true;
     snapshotSequence.current++;
     setPending(true); setError(null);
@@ -184,18 +203,31 @@ export function App() {
   async function analyze() {
     if (!game || pending || mutationLock.current || game.status === 'playing' || game.ai.analysis.status === 'generating') return;
     mutationLock.current = true;
+    setAiNotice(null);
+    const token = ++analysisSequence.current;
+    const current = () => token === analysisSequence.current
+      && gameRef.current?.gameId === game.gameId && gameRef.current.handId === game.handId
+      && gameRef.current.version === game.version;
     snapshotSequence.current++;
     setPending(true); setError(null);
-    try { commit(await requestAnalysis(game)); }
+    try {
+      const next = await requestAnalysis(game);
+      if (current() && next.gameId === game.gameId && next.handId === game.handId && next.version === game.version) commit(next, true);
+    }
     catch (caught) {
+      if (!current()) return;
+      if (caught instanceof ApiError && ['AI_RATE_LIMITED', 'AI_CAPACITY_EXCEEDED'].includes(caught.code ?? '')) {
+        setAiNotice(caught.message); return;
+      }
       try {
         const latest = await loadGame();
+        if (!current()) return;
         if (latest?.gameId === game.gameId && latest.handId === game.handId
-          && latest.ai.analysis.status !== 'idle') commit(latest);
+          && latest.version === game.version && latest.ai.analysis.status !== 'idle') commit(latest, true);
         else setError(caught instanceof Error ? caught.message : 'Analiza nije pokrenuta.');
-      } catch { setError('Analiza nije pokrenuta. Ucitaj stanje pre nastavka.'); }
+      } catch { if (current()) setError('Analiza nije pokrenuta. Ucitaj stanje pre nastavka.'); }
     }
-    finally { mutationLock.current = false; setPending(false); }
+    finally { if (current()) { mutationLock.current = false; setPending(false); } }
   }
   const visibleResult = game?.result ?? game?.previousResult;
   const lastBotOutcome = game && game.ai.lastBotOutcome?.handId === game.handId ? game.ai.lastBotOutcome : null;
@@ -224,11 +256,13 @@ export function App() {
     {(game?.ai.mode === 'on' || game?.ai.active || game?.ai.lastBotOutcome || game?.ai.analysis.status !== 'idle') &&
       <AiStatus status={status} />}
     <UsageDashboard />
+    {aiNotice && <p role="alert">{aiNotice}</p>}
     {error && <><p className="error" role="alert">{error} Učitaj stanje pre nastavka.</p>
       <button disabled={pending} onClick={() => void synchronize()}>Učitaj stanje</button></>}
     {!game && !pending && !error && <p className="empty">Izaberi broj botova i pokreni lokalnu partiju.</p>}
-    {game && <><Table game={game} />
+    {game && <><div className="game-surface"><Table game={game} />
       {game.legalActions.length > 0 && <ActionPanel game={game} pending={busy || !!error} onAction={act} />}
+      </div>
       {visibleResult && <HandResult result={visibleResult} />}
       {game.phase === 'complete' && game.status === 'playing' &&
         <button disabled={busy || !!error} onClick={() => void advance()}>Sledeća ruka</button>}

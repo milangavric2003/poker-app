@@ -6,6 +6,7 @@ export function AnalysisPanel({ game, pending, onRequest }: Props) {
   const { analysis } = game.ai;
   return <section className="analysis-panel" aria-label="AI analiza partije">
     <h2>AI analiza partije</h2>
+    {analysis.status === 'completed' && <button disabled={pending} onClick={onRequest}>Generiši analizu ponovo</button>}
     {analysis.status === 'idle' && <><p>Analiza je dostupna za završenu partiju.</p>
       <button disabled={pending} onClick={onRequest}>Zatraži analizu</button></>}
     {analysis.status === 'generating' && <p role="status"><span className="loading-dot"

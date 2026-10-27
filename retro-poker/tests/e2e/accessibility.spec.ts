@@ -11,7 +11,7 @@ test('pet botova: raspored, semantika i tastatura ostaju dostupni na 1280x720', 
     await page.getByRole('button', { name: 'Nova partija' }).focus();
     await page.keyboard.press('Enter');
     await expect(page.getByRole('region', { name: 'Poker sto' })).toBeVisible();
-    await page.screenshot({ path: 'docs/evidence/T036-after-1280x720.png', fullPage: true });
+    await page.screenshot({ path: 'specs/004-frontend-table-polish/evidence/after-accessibility-1280x720.png', fullPage: true });
 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const seats = page.getByRole('article');

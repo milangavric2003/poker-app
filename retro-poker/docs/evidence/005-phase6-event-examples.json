@@ -1,0 +1,42 @@
+[
+  {
+    "event": "ai.request.rejected",
+    "timestamp": "2026-10-26T20:53:17.246Z",
+    "correlationId": "dd459142-b249-4c31-952f-62d479e403cf",
+    "purpose": "coach",
+    "reasonCode": "INVALID_INPUT",
+    "outcome": "denied",
+    "providerAttempts": 0,
+    "executedToolCalls": 0
+  },
+  {
+    "event": "ai.request.accepted",
+    "timestamp": "2026-10-26T20:53:17.263Z",
+    "correlationId": "5db4377a-6afe-4737-886f-d4eb177c034a",
+    "purpose": "coach",
+    "reasonCode": "accepted",
+    "outcome": "accepted",
+    "providerAttempts": 0,
+    "executedToolCalls": 0
+  },
+  {
+    "event": "agent.tool.accepted",
+    "timestamp": "2026-10-26T20:53:17.270Z",
+    "correlationId": "5db4377a-6afe-4737-886f-d4eb177c034a",
+    "purpose": "coach",
+    "reasonCode": "accepted",
+    "outcome": "accepted",
+    "providerAttempts": 1,
+    "executedToolCalls": 0
+  },
+  {
+    "event": "ai.run.finished",
+    "timestamp": "2026-10-26T20:53:17.276Z",
+    "correlationId": "5db4377a-6afe-4737-886f-d4eb177c034a",
+    "purpose": "coach",
+    "reasonCode": "completed",
+    "outcome": "completed",
+    "providerAttempts": 2,
+    "executedToolCalls": 1
+  }
+]

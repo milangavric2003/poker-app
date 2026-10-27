@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-26 Europe/Belgrade",
+  "head": "d508f13e4930972d1d64e9d196f69c07ed374027",
+  "branch": "week08-init",
+  "initialWorkingTree": "clean",
+  "testedCodeAndTests": "HEAD unchanged; 158 executable files match install/execution snapshot",
+  "finalChanges": "workflow + documentation/evidence; no runtime or test changes",
+  "localResults": {
+    "security": 123,
+    "full": 1037,
+    "securityBrowser": 5,
+    "fullE2E": 26,
+    "typecheck": 0,
+    "lint": 0,
+    "build": 0,
+    "diffCheck": 0
+  },
+  "isolatedResults": "same commands PASS, fresh npm cache + ci + fresh Chromium, lock unchanged, audit 0",
+  "remoteCI": {
+    "queriedHead": "d508f13e4930972d1d64e9d196f69c07ed374027",
+    "runs": 0,
+    "deliveryRun": "NOT RUN: working snapshot unpublished"
+  },
+  "tasks": {
+    "T028": "complete",
+    "T029": "complete: isolated local criteria; remote NOT RUN",
+    "T030": "open: user confirms human evidence not ready",
+    "T031": "open: dependency T030"
+  },
+  "payload": [
+    {
+      "path": ".github/workflows/retro-poker-ci.yml",
+      "sha256": "8a9d7f3b348ffc50bca9e844238cc9a76532110d011c4a4f1e8bbc8fab027726",
+      "bytes": 4541
+    },
+    {
+      "path": "retro-poker/docs/AI_USAGE_LOG.md",
+      "sha256": "e372a996456caade12d97af835d4c9829dc01108fa50ef11dae97ae8037b1684",
+      "bytes": 45799
+    },
+    {
+      "path": "retro-poker/docs/CONTEXT_MANIFEST.md",
+      "sha256": "aa31619ad443788f6ab3c5abf18c79c6866305ca575354e6ed9197d8dd822209",
+      "bytes": 67310
+    },
+    {
+      "path": "retro-poker/docs/EVIDENCE_W08.md",
+      "sha256": "20c4f70473d09abfa8987509f641821f331baf648f52da28fcf9545b11e31b63",
+      "bytes": 25852
+    },
+    {
+      "path": "retro-poker/docs/GAME_SPEC.md",
+      "sha256": "1016e75f8a4e0b04e60cebd49122ec1dc5a816746b0c6d779f8e9598bf931e2f",
+      "bytes": 39574
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-build.txt",
+      "sha256": "ffd9f953e40024027e3154b4412a64780ff8542fa9753c8803b305b4830784a4",
+      "bytes": 912
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-audit.json",
+      "sha256": "2cbd9f61d7638de9aecb2f059d405de034833f0aabbc0e8f47647b3eb1676e27",
+      "bytes": 774
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-browser-direct.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-browser-escalated.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-browser-setup.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-build-first.txt",
+      "sha256": "f8712d1ed532e6653c645212d703889799ccf02958cba6ff96e221b540015c51",
+      "bytes": 912
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-ci-first.txt",
+      "sha256": "b29c81601af74d22692932212b3b9035af2b2e78836ca20df7b5d54b2628afc7",
+      "bytes": 4702
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-ci-retry.txt",
+      "sha256": "8cbb485f16bc04d286c3091d53faf09c21cb92974993b1e206b11405f4a7f09a",
+      "bytes": 2148
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-e2e-first.txt",
+      "sha256": "20dd3b1423c21f3abaac37b134fbbbb414c09444326da3491c98d54fb70ab883",
+      "bytes": 19762
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-fresh-browser-results.json",
+      "sha256": "904f64059738ab111ad880b03f98baebc3e5f3a78e893d9a018edc65a66d122e",
+      "bytes": 413
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-fresh-browser.txt",
+      "sha256": "b8a183ef31f56d063226641644ce6b7bec6ebdb852b96cb3dc7aed1c69746c2f",
+      "bytes": 10742
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-fresh-e2e.txt",
+      "sha256": "4e167e15b2fe1628ed452f977d0074b660ab1dd2fa6d3cb5a4af001d2a2a499c",
+      "bytes": 19774
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-fresh-security-e2e.txt",
+      "sha256": "5df7f515e815f973730bba6caa2068cdcf7f7604d3743650d6ead6a118348358",
+      "bytes": 13334
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-full-first.txt",
+      "sha256": "6ba6ab2571207bbc95c41b056fde80f917b689dffb6b90091143511f551b6f16",
+      "bytes": 632
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-lint-first.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2",
+      "bytes": 86
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-node-results.json",
+      "sha256": "2ba0e80b138a76703fd760566b887d32d3df3d2fa6687cc743b7fe11640e2065",
+      "bytes": 399
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-security-e2e-first.txt",
+      "sha256": "43a768b9528f1493a1495be92f22255ed84de77594330d241f83c950d5dd2a5b",
+      "bytes": 13156
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-security-first.txt",
+      "sha256": "f38afe5a303eda985bfb618997e33e74ddd1eaa8e5cbb8321b045607ccee192f",
+      "bytes": 790
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-clean-typecheck-first.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1",
+      "bytes": 184
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-comparison.txt",
+      "sha256": "3aa8c8357fccfc1816c5ff626e9840b2e7d66185c8f9b3a610ad979c5f81fd9a",
+      "bytes": 11634
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-demo.md",
+      "sha256": "0e35680c78b7f06492d4f5444a6a4c030f129d6f94025c44c28f73b040112706",
+      "bytes": 4950
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-diff-check-final.txt",
+      "sha256": "68a44969d8de6d7f430b23c6372b0f9a43d3adff3efe33911d74817428733070",
+      "bytes": 1240
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-diff-check-first.txt",
+      "sha256": "68edbb8f8e09995a5fa940ade3951813ac457d4cfe777242a10ffc1be1b4832f",
+      "bytes": 1266
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-document-check.json",
+      "sha256": "6afdaa4ab7caa6dbfa0a8a64bd30b841cfbc41e3843054d8dd17b97206c00272",
+      "bytes": 425
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-e2e-first.txt",
+      "sha256": "c1bf352fd65b230efdd966423b1612cfdd5f422d88ddc0cd22523fa9fd867c5f",
+      "bytes": 19774
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-execution-snapshot.json",
+      "sha256": "d802efb4984bfb2b25baa56037d2d44936031916fb8b12f938001f90be69f9bd",
+      "bytes": 25860
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-full-first.txt",
+      "sha256": "6a63dd735163b266e7b8a4fadd87a157cb9e035024c8e2dee5592c40d37de524",
+      "bytes": 566
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-generated-artifacts.json",
+      "sha256": "7cf44eeeeebda935ee7648bd202f087456e25de8b0e54d38d7c8574977d6d7f2",
+      "bytes": 401
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-handoff.md",
+      "sha256": "858e2759cc3d34d36595040a7893bcf902dabb75369e12f6f837584fac5dad67",
+      "bytes": 11991
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-input-equivalence.json",
+      "sha256": "d7ea0e25dc143887fef3e3e271e9953d444a0cb520260e4d5a16498dd1982a11",
+      "bytes": 613
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-install-snapshot.json",
+      "sha256": "603c2209be0dc2a44e53a844f7d81dc5daa1bd01f59a00c5850fcb06ed43848a",
+      "bytes": 131497
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-lint.txt",
+      "sha256": "f4b84636171d8ac4c893fc7c95b38764dfe60532c780516239504ad4dedd33c2",
+      "bytes": 86
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-matrix.md",
+      "sha256": "133bd78cb6f7708ef457bbc1619a496e3d3b6e9b2d1dfbed3025d5c9425cee79",
+      "bytes": 12254
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-remote-ci-first.txt",
+      "sha256": "b3bf05d9419c29baba9831ae6349fed0db5344ff5ba49108926ddb826577b761",
+      "bytes": 8430
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-remote-ci-retry.txt",
+      "sha256": "b2a1894d058750d82930600ea194f37962adf8da496aa9d62cd35e7e586af7e0",
+      "bytes": 374
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-security-e2e-first.txt",
+      "sha256": "b74c1024752ea7f78233aa6044ab05c39a7063a701753c320f31b95f5c5dd474",
+      "bytes": 13152
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-security-first.txt",
+      "sha256": "de8646407c5f96781210d156caf39e9d0912686af45cd58625bbd8e967d1a542",
+      "bytes": 722
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-tested.patch",
+      "sha256": "579c95966d0cc9243b7e18d75a2c746c37bf8ec5a0f010f0478a081b8e5f0ef8",
+      "bytes": 3415998
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-typecheck.txt",
+      "sha256": "10da82102dac769af3aa405456c89cc547b891bc1953ff0242591e69fdc913c1",
+      "bytes": 184
+    },
+    {
+      "path": "retro-poker/docs/evidence/005-phase7-workflow-review.json",
+      "sha256": "e021e5a16914b56ede78b93dd902e943d73aee903ef29b10bdf27e769cce7a18",
+      "bytes": 383
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/contracts/security.md",
+      "sha256": "a30d23f224bc0a5022bd83e91918653d7df0cb62c2cc9644cd4bcb67164d19ae",
+      "bytes": 3495
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/data-model.md",
+      "sha256": "bab0a011ba92f612bedb9a284c49a90b21419f57c5d7b9666c8e28927dd0e0f7",
+      "bytes": 2847
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/plan.md",
+      "sha256": "4fa770ee9138d16d9b2b199541eadb27363dd31a6313659602424bd367c676fc",
+      "bytes": 11328
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/quickstart.md",
+      "sha256": "b8809714654478851e42f0d80958c9ce5dcdc0d3b7f0eb7222db47012409d1e5",
+      "bytes": 4606
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/spec.md",
+      "sha256": "8f20080637b6c452d80557756b973778f343011302ac9bf88b50a6734d8a5292",
+      "bytes": 10732
+    },
+    {
+      "path": "retro-poker/specs/005-week08-secure-the-arcade/tasks.md",
+      "sha256": "27f17c3c3cc4f9119d48e0d4d813c0ae9e70b5e5101a0ef8ecc7bdcc2751cd7e",
+      "bytes": 16121
+    }
+  ],
+  "archive": {
+    "path": "retro-poker/docs/evidence/005-phase7-delivery.zip",
+    "sha256": "dc9397318c2bd54f712c9312b5e0a514f7657e55c32f80a307409991faa9e39a"
+  },
+  "trackedPatch": {
+    "path": "retro-poker/docs/evidence/005-phase7-delivery.patch",
+    "sha256": "20c9956df1ab5e8a61e53461ee31620a619436135013f4640615579c4a283626"
+  },
+  "exclusions": "checkpoint and archive exclude themselves; patch is separately hashed and included in ZIP",
+  "reproduce": "Start from head in a separate checkout; overlay ZIP from Git root; verify payload sha256; follow feature quickstart. No deletions in this delivery."
+}

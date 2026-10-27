@@ -1,0 +1,24 @@
+{
+  "reportedOn": "2026-10-27",
+  "reportedBy": "Milan",
+  "source": "Rezultat koji je korisnik poslao u razgovoru nakon ručnog izvršavanja Console komande i normalnog coachinga.",
+  "scenarioOrigin": "Codex primer iz lokalnog milan/week08-maxSteps-uputstvo.md; nije prijavljen kao samostalno osmišljen test.",
+  "negativeTest": {
+    "extraField": { "maxSteps": 999 },
+    "expected": { "status": 400, "errorCode": "INVALID_INPUT", "gameUnchanged": true, "usageUnchanged": true },
+    "reportedActual": { "status": 400, "errorCode": "INVALID_INPUT", "gameUnchanged": true, "usageUnchanged": true }
+  },
+  "positiveTest": {
+    "focus": "street",
+    "reportedStatus": "Coaching je završen.",
+    "reportedSummary": "Pregled dostupnih odluka.",
+    "reportedRecommendation": "Proveri legalne opcije pre odluke.",
+    "reportedEvidence": { "factCode": "action", "finding": { "type": "all_in" } },
+    "runCountersReported": false
+  },
+  "limits": [
+    "Ručno potvrđena strict HTTP granica i pozitivan UI rezultat; provider/tool nula brojači imaju zasebne automatizovane dokaze.",
+    "Ovo ne potvrđuje samostalno osmišljen test, doprinos oba člana, osam minuta demo-a ili individualnu odbranu.",
+    "T030 i zavisni T031 ostaju otvoreni."
+  ]
+}

@@ -14,8 +14,11 @@
     "dev": "concurrently --kill-others --names frontend,backend \"npm:dev:frontend\" \"npm:dev:backend\"",
     "dev:frontend": "vite",
     "dev:backend": "node --env-file-if-exists=.env --import tsx --watch backend/src/server.ts",
+    "demo:security": "node --import tsx tests/helpers/security-demo.ts",
     "test": "vitest run",
-    "test:e2e": "playwright test",
+    "test:security": "vitest run --project node tests/unit/security- tests/contract/security- tests/integration/security-",
+    "test:e2e": "npm run build && playwright test",
+    "test:security:e2e": "npm run build && playwright test tests/e2e/security-",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
     "lint": "eslint .",
     "build": "vite build && tsc -p tsconfig.server.json",
@@ -24,10 +27,10 @@
   },
   "dependencies": {
     "@google/genai": "2.24.0",
-    "fastify": "5.12.5",
+    "fastify": "5.12.7",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -38,13 +41,13 @@
     "@types/node": "24.13.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "concurrently": "10.0.5",
+    "concurrently": "10.0.6",
     "eslint": "10.11.0",
     "jsdom": "30.1.0",
     "tsx": "4.23.15",
     "typescript": "6.0.3",
     "typescript-eslint": "8.70.1",
-    "vite": "8.3.0",
-    "vitest": "5.0.1"
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
   }
 }

@@ -459,3 +459,18 @@ GREEN137/137fokus; puna regresija888/888u61fajlu, typecheck/lint/build0.
 Nema browser E2E ponavljanja u ovoj sesiji; UI testovi uključeni u regresiju.
 [Izveštaj i ograničenja](../../docs/evidence/003-T035-handoff.md),
 [safe live dokaz](../../docs/evidence/003-T035-live.json). T027 ljudski walkthrough je zatvoren potvrđenim handoff-om.
+## AU1 — dashboard svih AI tokova (2026-10-14)
+
+- [x] AU1-01 (owner: Codex; deps: nema) Sačuvati baseline i proveriti SR1;
+  allowed: docs/evidence/004-AU1*, docs/CONTEXT_MANIFEST.md; dokaz: fokusirana regresija.
+- [x] AU1-02 (owner: Codex; deps: AU1-01) RED acceptance testovi;
+  allowed: tests/ui/dashboard.test.tsx, tests/integration/ai-analysis.test.ts,
+  tests/integration/coach-lifecycle.test.ts, tests/e2e/coach.spec.ts;
+  dokaz: očekivani UI pad, fake backend brojači i browser refresh.
+- [x] AU1-03 (owner: Codex; deps: AU1-02) Prikaz svih postojećih usage agregata;
+  allowed: frontend/src/components/UsageDashboard.tsx; dokaz: GREEN bez duplog brojanja.
+- [x] AU1-04 (owner: Codex; deps: AU1-03) Offline regresija/typecheck/lint/build,
+  fake E2E i evidence; allowed: docs, ove specifikacije; dokaz: stvarni exit statusi.
+
+AU1 završen: [handoff](../../docs/evidence/004-AU1-handoff.md),
+902/902 offline testova, 4/4 relevantna fake E2E scenarija, typecheck/lint/build exit 0.

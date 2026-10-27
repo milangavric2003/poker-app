@@ -1,0 +1,28 @@
+{
+  "checkedOn": "2026-10-27",
+  "baseline": "1d8124cb0a4c01bf91bc4d52b000c7bceafe583a",
+  "branch": "fix/week08-finalization",
+  "markdownFiles": 5,
+  "checkedLinks": 138,
+  "introducedBrokenLinks": [],
+  "existingBrokenLinks": [],
+  "openTasks": [
+    "T030",
+    "T031"
+  ],
+  "whitespaceCheck": "PASS",
+  "lockfileUnchanged": true,
+  "historicalImagesUnchanged": true,
+  "snapshotSha256": {
+    "frontend/src/App.tsx": "1afe0e4f98ec8caa4220faed6d8c7082736da5024c9d7d1d274c06c46e88caa5",
+    "frontend/src/main.tsx": "92fac161d760918b17c3e53bdc49ef834553a393431a5a9928daa10e591502f4",
+    "frontend/src/validation.ts": "98e8552806d04f10199977790a5a5f9a9a78576c01624e973f5a285772fde1b5",
+    "tests/ui/ai-polling.test.tsx": "c23e9c5b8d698d760f7a2e545ea202e25bd4652886d1c0e0bc6e4a6a44e38b9b",
+    "tests/e2e/security-production.spec.ts": "32344dc2c383c5d5f4df9cbc60b580cba7e09e9645df4be7b14d2f81c5168f85",
+    "tests/helpers/security-demo.ts": "b999cf9407fd3ccb2b72b60764695e6d81af391af4e116050c3a795e9e4e3414",
+    "package.json": "f992144f931836fcad53cba7f33bfa0b617e8b7db104a0e19a32926dcb84e9ce",
+    "package-lock.json": "3d3df617e2d713be18771a3ae04cbbdae2f13e462d701ccb54e48ee6e385b801"
+  },
+  "assignmentSha256": "0382b5f9ca929e6121dde9a33113a183535a1b37d14fe6a2af359893ca9a1abd",
+  "personalGuideSha256": "85b9565d5226bb9a54ad516970b510420ebec066234c1d4ad3d768e404c5de39"
+}

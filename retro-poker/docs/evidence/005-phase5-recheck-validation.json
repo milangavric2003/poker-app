@@ -1,0 +1,13 @@
+{
+  "originalT006InputsUnchanged": true,
+  "evidenceLinksExist": true,
+  "historicalScreenshotsUnchanged": true,
+  "runtimeAndTestsUnchanged": true,
+  "trackedChanges": [
+    "retro-poker/docs/AI_USAGE_LOG.md",
+    "retro-poker/docs/CONTEXT_MANIFEST.md",
+    "retro-poker/docs/EVIDENCE_W08.md",
+    "retro-poker/specs/005-week08-secure-the-arcade/quickstart.md",
+    "retro-poker/specs/005-week08-secure-the-arcade/tasks.md"
+  ]
+}

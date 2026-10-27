@@ -3,9 +3,16 @@ node_modules/
 dist/
 coverage/
 .env
+.env.*
+!.env.example
+.cache/
+.vite/
+*.tsbuildinfo
 .env.local
 *.log
 /report.md
 /.agents/
 /week-05-bounded-agentic-workflows-reliable-integration-addendum.md
 /weekly-assignment.md
+/Predloži poboljšanja za week05.html
+/Nedelja-08

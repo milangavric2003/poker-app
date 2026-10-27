@@ -1,0 +1,18 @@
+Command: npm.cmd run build
+Started: 2026-10-25T16:07:00.999Z
+
+> retro-poker@0.1.0 build
+> vite build && tsc -p tsconfig.server.json
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 124 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-GcOVcj2f.css   11.70 kB │ gzip:   3.68 kB
+dist/frontend/assets/index-qCs7_PZ1.js   357.58 kB │ gzip: 107.56 kB
+
+✓ built in 331ms
+
+Result: {"command":"npm.cmd run build","exitCode":0,"durationMs":5746,"file":"docs/evidence/005-baseline-build.txt"}

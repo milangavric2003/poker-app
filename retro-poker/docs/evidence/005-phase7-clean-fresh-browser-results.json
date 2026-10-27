@@ -1,0 +1,12 @@
+﻿[
+    {
+        "command":  "npm.cmd run test:security:e2e",
+        "browserPath":  "D:\\AIBootcamp\\week3-4\\retro-poker\\.verification\\phase7\\retro-poker\\.fresh-browsers",
+        "exit":  0
+    },
+    {
+        "command":  "npm.cmd run test:e2e",
+        "browserPath":  "D:\\AIBootcamp\\week3-4\\retro-poker\\.verification\\phase7\\retro-poker\\.fresh-browsers",
+        "exit":  0
+    }
+]
