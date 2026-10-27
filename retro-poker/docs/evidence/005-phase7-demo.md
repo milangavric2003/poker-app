@@ -1,10 +1,22 @@
 # T030 — priprema demo-a i ljudske potvrde
 
-**Aktuelno 2026-10-27:** Milan potvrđuje da su spremni za prezentovanje demo-a
-i individualni deo. T031 dokumentacija/linkovi su završeni unapred; T030 ostaje
-otvoren do stvarnog izvođenja. Doprinosi su potvrđeni i vezani za commitove u
+**Aktuelno 2026-10-27:** korisnik potvrđuje da su Vedran i Milan lokalno
+isprobali aplikaciju i demo zasebno i zajedno, i da su spremni za prezentaciju
+28.10. T031 dokumentacija/linkovi su završeni unapred; T030 ostaje otvoren za
+formalni zajednički demo i individualnu proveru. Doprinosi su potvrđeni i
+vezani za commitove u
 [konačnom paketu](005-week08-submission.md). Naredna tabela iz 26.10. čuva
 istorijsko stanje pre potvrde doprinosa i nije aktuelna mapa autorstva.
+
+Lokalna proba je prijavljena kao ljudska potvrda, bez zapisnika o trajanju,
+zasebnim ulazima i ishodima svakog člana. Ne zamenjuje formalno izvođenje niti
+potvrđuje individualnu odbranu. Milan je dodatno potvrdio da su obojica predložila
+i lokalno izvršila negativnu proveru povećanja `maxSteps`. Raniji [zapis konkretne probe](005-milan-human-check.json)
+pripisuje Codexu uputstvo, a Milanu izvršenje `maxSteps:999` sa 400 i
+nepromenjenim stanjem/usage-om. Vedranov zaseban izlaz i brojači nisu sačuvani;
+njegovo lokalno izvršenje je potvrđeno u razgovoru, ne u mašinskom tragu.
+Posle prezentacije dopisati
+stvarni tok i individualne odgovore u T030, uz proverljive ulaze/ishode.
 
 2026-10-26. **NIJE IZVEDENO / T030 otvoren.** Codex priprema nije ljudski demo.
 Rani zahtev za konkretne potvrde poslat je korisniku tokom završne provere.
@@ -47,6 +59,19 @@ Sledeće komande pripremiti unapred; browser komande serijski i sa slobodnim
 | 6:05–7:00 | Pokazati originalne T006 rezultate i isti input posle: T07 PASS→PASS, T13/T16 RED→GREEN. Pokazati clean snapshot/lock hash i audit odluke. Navesti remote CI status odvojeno od lokalnog. |
 | 7:00–8:00 | Svaki član objašnjava i izvršava svoju malu individualnu varijantu; beležiti stvarni ulaz, očekivanje pre testa, komandu i izlaz. Ako ne stane, dovršiti individualni deo posebno i zabeležiti trajanje. |
 
+## Kratak podsetnik za individualna pitanja
+
+| Pitanje | Gde pokazati odgovor | Granica koju treba jasno izreći |
+|---|---|---|
+| Zašto `maxSteps:999` ne menja partiju niti pokreće model? | [Strict coach DTO i 1024-byte limit](../../backend/src/routes.ts), [HTTP negativni test](../../tests/contract/security-http.test.ts) | Provera game/run ID-ja nije autentifikacija korisnika. |
+| Zašto model ne može da zatraži drugi alat ili podmetne tuđ rezultat? | [Tačan dispatch i scope](../../backend/src/agent/orchestrator.ts), [kanonska validacija](../../backend/src/agent/validation.ts) | Fake predlog testira izvršnu kontrolu, ne ponašanje svih živih modela. |
+| Zašto otkazani posao i dalje može da zauzima mesto? | [Provider lease](../../backend/src/security/capacity.ts), [T17 test](../../tests/integration/security-lifecycle.test.ts) | Abort ne garantuje prekid udaljenog rada/naplate; granica je procesna. |
+| Zašto je AI tekst bezbedan u browseru? | [Tekstualni panel](../../frontend/src/components/CoachPanel.tsx), [production CSP](../../vite.config.ts), [browser test](../../tests/e2e/security-production.spec.ts) | CSP je proveren na lokalnom preview-u, ne na spoljašnjem hostingu. |
+
+Svaki član treba da objasni svoj stvarni doprinos i **sopstveni** negativni slučaj,
+sa očekivanjem zapisanim pre izvršavanja. Tabela je podsetnik za razumevanje,
+ne dokaz da je individualna odbrana već izvedena.
+
 ## Predložene vežbe (Codex ih je predložio)
 
 Ove vežbe proveravaju razumevanje; **nisu dokaz samostalnog osmišljavanja**.
@@ -65,4 +90,5 @@ Za potvrdu svakog člana zapisati: ime/datum, konkretan kontrolni doprinos i faj
 commit ili patch, ko je osmislio test i kada, sopstveni test input i očekivanje,
 komandu/actual/exit, kratko objašnjenje granice i ograničenja, reviewer-a i potvrdu
 izvedenog demo-a/individualne varijante. Ne pripisivati Codex predlog kao samostalnu
-ideju. Ćutanje i commit author nisu potvrda. T031 zavisi od ove stavke.
+ideju. Ćutanje i commit author nisu potvrda. T031 je dokumentaciono završen;
+T030 se zatvara tek po ovom zapisu.

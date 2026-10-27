@@ -1,5 +1,24 @@
 # AI usage log
 
+## 2026-10-27 — usklađivanje dokaza posle pregleda 88/100
+
+Korisnik traži da se isprave konkretne zamerke na W08 predaju i dozvoljava
+lokalni commit na main. Codex, jedan agent; alat: lokalni PowerShell, čitanje
+izvora i dokumenata, Vitest, Playwright Chromium, TypeScript, ESLint, Vite i
+apply_patch. Model identitet, tokeni i cena ove sesije nisu dostupni.
+Očekivanje: već implementirane kontrole i regresije prolaze, a aktuelni evidence
+statusi treba da se razlikuju od istorijskog plana; lokalna proba oba člana je
+korisnička potvrda, ne formalna odbrana ili samostalni test bez detalja.
+Milan je naknadno potvrdio da su obojica predložila i lokalno izvršila negativnu
+proveru `maxSteps`; raniji konkretni postupak je Codexovo uputstvo uz sačuvan
+Milanov ishod. Vedranov zaseban izlaz nije pronađen u dokumentaciji.
+Stvarni ishod pre dokumentacionih izmena: 123/123 security, 1040/1040 full,
+27/27 Chromium E2E sa build-om, typecheck i lint PASS na `main@c2a0d95`.
+E2E je generisao 14 izmenjenih istorijskih screenshotova; vraćeni su na HEAD.
+Usklađeni EVIDENCE_W08, operativni README, submission, demo i aktuelni spec/task
+statusi. Nema izmena izvršnog koda/lockfile-a, novih live poziva (0), audita,
+clean install-a ili remote CI u ovoj sesiji. [Aktuelni dokaz](EVIDENCE_W08.md).
+
 ## 2026-10-27 — završni dokumentacioni korak pre prezentacije
 
 Milan potvrđuje spremnost za demo/individualni deo i traži završetak koraka 3,

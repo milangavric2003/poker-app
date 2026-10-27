@@ -3,7 +3,11 @@
 **Isporuka**: `main`, tehnički checkpoint `c5038bb`; grane `week08-init` i
 `fix/week08-finalization` spojene kroz PR #12/#11. T001–T029 i T031–T034 završeni.
 **T030 ostaje otvoren samo za preostali ljudski deo**; spremnost za prezentaciju
-je potvrđena, izvođenje nije. Windows/Linux CI konačne implementacije PASS.
+je potvrđena, formalno izvođenje nije. Vedran i Milan su, prema korisnikovoj
+potvrdi 27.10, lokalno isprobali aplikaciju i demo zasebno i zajedno.
+Milan potvrđuje da su obojica predložila i lokalno izvršila negativnu proveru
+`maxSteps`; Milanov ishod je zapisan, Vedranov zaseban izlaz nije. To ne zatvara T030.
+Windows/Linux CI konačne implementacije PASS.
 [Paket za predaju i aktuelni status](../../docs/evidence/005-week08-submission.md).
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),
 [ugovor](contracts/security.md), [dokazi](../../docs/EVIDENCE_W08.md).

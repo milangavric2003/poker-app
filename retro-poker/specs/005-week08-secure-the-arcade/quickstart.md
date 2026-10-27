@@ -3,7 +3,8 @@
 Aktuelno: [paket za predaju](../../docs/evidence/005-week08-submission.md),
 [matrica](../../docs/evidence/005-phase7-matrix.md) i
 [završna dorada](../../docs/evidence/005-milan-csp-handoff.md).
-T031 dokumentacija završena; T030 čeka izvođenje pripremljenog ljudskog dela.
+T031 dokumentacija završena; lokalna proba oba člana (zasebno i zajedno) je
+prijavljena 27.10, a T030 čeka formalni demo i individualnu proveru.
 
 Pokretati iz `retro-poker/`, Node 24/npm 11. Na Windows-u koristiti `npm.cmd`.
 Isporuka je na `main`; feature direktorijum ne zavisi od imena grane.

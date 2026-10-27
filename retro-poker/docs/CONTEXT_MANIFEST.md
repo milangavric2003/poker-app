@@ -987,3 +987,29 @@ clean npm install audit signal vezan za trenutni lock. Bez .env, ključeva, live
 poziva, subagenata ili PDF/PPTX širenja scope-a. Izolovana kopija uključuje workflow
 patch, bez lokalnih helper-a/cache-a/dependency/build foldera; svi .env* izostavljeni.
 [Dokazi i ograničenja](evidence/005-phase7-handoff.md).
+
+## 2026-10-27 — odgovor na W08 pregled 88/100
+
+Prioritet: aktuelni korisnički zahtev za usklađivanje završnih dokaza i lokalnu
+probnu potvrdu → AGENTS → feature005 spec/plan/tasks → završna T00–T17 matrica
+i raniji phase handoff-ovi. Korisnik je dostavio ceo tekst pregleda u razgovoru
+i kao prilog; oba su ista. Pročitani su `docs/EVIDENCE_W08.md`, README, završni
+submission/delivery/demo/manual, feature005 spec/plan/tasks/quickstart, manifest
+i AI log. Pregledani su app/routes/session, agent orchestrator/tools/validation,
+admission/capacity/events, Vite CSP, frontend prikaz i package skripte. Razlog:
+proveriti da li komentar traži popravku koda ili usklađivanje dokaza i jasne
+granice lokalnog opsega. Lokalni speckit-converge SKILL.md je pročitan, ali nije
+pokrenut: njegov jedini dozvoljeni upis su novi tasks za kodne propuste, dok
+ovaj zahtev ispravlja dokumentaciju i ne menja izvršni kod.
+
+Na `main@c2a0d95` stvarno pokrenuti security/full Vitest, puni Chromium E2E
+sa build-om, typecheck i lint; rezultati su u aktuelnom delu EVIDENCE_W08.
+Browser test je prepisao 14 verzionisanih istorijskih screenshotova; vraćeni
+su iz HEAD-a i Git stablo je ostalo čisto pre dokumentacionih izmena.
+Nisu čitani nastavni PDF/PPTX, pravi `.env`/ključevi, niti pokretan live model,
+clean install, audit ili udaljeni CI u ovoj sesiji. Rizik: lokalno ponavljanje
+ne zamenjuje nezavisnu nastavničku proveru, a korisnička potvrda lokalne probe
+ne sadrži pojedinačne ulaze i ishode samostalno osmišljenih testova. Milanova
+naknadna potvrda da su obojica predložila i lokalno izvršila `maxSteps` slučaj
+uzeta je kao ljudski izveštaj; prethodni JSON za konkretno uputstvo i Milanov
+ishod ostaje netaknut. Vedranov zaseban izlaz nije sačuvan.

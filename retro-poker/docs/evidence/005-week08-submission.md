@@ -1,9 +1,9 @@
 # Week08 — paket za predaju i prezentaciju
 
 2026-10-27, Europe/Belgrade. **Implementacija, Git isporuka, CI i dokumentacioni
-paket su završeni. Demo i individualna provera spremni su za izvođenje.**
-Milan je potvrdio spremnost za prezentaciju i zatražio završetak dokumentacionog
-koraka unapred. Nije prijavljeno da su demo i individualna varijanta već izvedeni.
+paket su završeni. Vedran i Milan su lokalno isprobali aplikaciju i demo zasebno
+i zajedno i spremni su za prezentaciju 28.10.** To je korisnik potvrdio u razgovoru
+27.10; formalni osamominutni demo i individualna odbrana još nisu izvedeni.
 
 ## Linkovi za predaju
 
@@ -28,6 +28,9 @@ ne zamenjuje tehnički checkpoint niti izmišlja ranije rezultate testova.
 - [Build i 27/27 Chromium E2E](005-milan-final-e2e.txt), uključujući 6 security browser scenarija.
 - [Typecheck](005-milan-final-typecheck.txt) i [lint](005-milan-final-lint.txt) PASS.
 - Hosted clean install, testovi, build i browser provere prolaze na Windowsu i Linuxu za `c5038bb`.
+- Naknadno lokalno na `main@c2a0d95`: 123/123 security, 1040/1040 full,
+  27/27 Chromium E2E sa build-om, typecheck i lint PASS. Ova sesija nije
+  ponovila clean install, audit, Linux CI ni live provider.
 - PR #12 spojen je u week08-init, zatim #11 u main; autorstvo je sačuvano.
 - PR #9 zatvoren je kao zamenjen selektivnim prenosom; #10 je uključen i zatvoren.
 - Milan je izvršio [vođeni negativni HTTP test i normalan coaching](005-milan-human-check.json),
@@ -38,12 +41,29 @@ i [Milanovoj tehničkoj doradi](005-milan-handoff.md). Zadržani su početni pad
 pozitivne kontrole i stvarne granice zaključka. Fake testovi ne dokazuju ponašanje
 živog modela; nema novih live poziva u završnoj dokumentacionoj proveri.
 
+## Status dorada iz pregleda 88/100
+
+1. **Demo i pojedinačna odbrana:** lokalna proba oba člana, zasebno i zajedno,
+   potvrđena je 27.10. Formalni nastup 28.10. i stvarni individualni ulazi/ishodi
+   ostaju T030. Milan potvrđuje da su obojica predložila i lokalno izvršila
+   negativnu proveru povećanja `maxSteps`; dokumentovan je njegov ishod uz
+   Codexovo uputstvo, dok Vedranov zaseban izlaz nije sačuvan.
+   [Obrazac za zapis](005-phase7-demo.md).
+2. **Evidence:** [aktuelni T00–T17 rezultati i tri ista ulaza pre/posle](../EVIDENCE_W08.md)
+   stoje ispred jasno označenog istorijskog plana. Početni `NOT RUN` i RED zapisi
+   nisu prepravljeni u naknadni PASS.
+3. **Deployment granice:** [README](../../README.md#granice-lokalnog-demo-a)
+   izričito navodi single-user bez auth/vlasništva, procesni rate/kapacitet i
+   memorijske događaje. To nije tvrdnja o višekorisničkom deployment-u.
+
 ## Prezentovanje
 
 Iz `retro-poker/`: `npm.cmd run demo:security`, zatim http://127.0.0.1:5173/.
 Profil koristi stvarni API/alat/production CSP i constructor-only fake provider.
 [Ručni koraci](005-milan-manual.md), [osam minuta i individualne varijante](005-phase7-demo.md).
 Browser testovi i ručni server dele portove: ugasiti ručni server pre testova.
+[Operativne granice lokalnog single-user demo-a](../../README.md#granice-lokalnog-demo-a)
+navode odsustvo auth-a, procesne limite i memorijske događaje.
 
 T031 je završen kao paket dokumentacije i linkova po Milanovom zahtevu.
 Njegova prethodna zavisnost od izvedenog T030 razdvojena je u planu: dokumentacija
@@ -58,5 +78,6 @@ svakog člana, potvrdu zajedničkog demo-a i individualne varijante; tada zatvor
 ## Poruka za kolegu
 
 > Tehnički deo Week08 je završen: kod i dokumentacija su na main-u, testovi i
-> Windows/Linux CI prolaze, PR-ovi su sređeni. Spremni smo za prezentaciju;
-> ostaje da izvedemo zajednički demo i individualni deo.
+> Windows/Linux CI prolaze, PR-ovi su sređeni. Obojica smo zasebno i zajedno
+> isprobali lokalni demo i spremni smo za prezentaciju 28.10; formalni zajednički
+> demo i individualni deo tek predstoje.

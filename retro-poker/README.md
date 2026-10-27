@@ -24,7 +24,9 @@ Portovi su fiksni i bind samo na loopback.
 
 Week08 implementacija i dokumentacioni paket su na `main`:
 [konačni linkovi za predaju, doprinosi i CI](docs/evidence/005-week08-submission.md).
-Demo i individualni deo su pripremljeni; njihovo izvođenje vodi otvoreni T030.
+Formalna prezentacija i individualni deo su pripremljeni; njihovo izvođenje vodi otvoreni T030.
+Vedran i Milan su, prema korisnikovoj potvrdi 27.10, lokalno isprobali demo
+zasebno i zajedno. Formalna prezentacija i individualna provera su 28.10.
 
 Za Week08 ručni pregled sa sintetičkim podacima i fake providerom:
 
@@ -38,6 +40,25 @@ lokalne servere na tim portovima pre pokretanja; zaustaviti sa Ctrl+C.
 Pravi sat i sve produkcione kontrole ostaju aktivni. Model oznake u UI-ju nisu
 dokaz stvarnog model poziva u ovom profilu.
 [Milanovi koraci i očekivani rezultati](docs/evidence/005-milan-manual.md).
+
+### Granice lokalnog demo-a
+
+`demo:security` služi za lokalni pregled jedne partije i jednog korisnika. Frontend
+i API slušaju samo na `127.0.0.1`. Nema naloga, autentifikacije ni vlasništva nad
+partijom ili AI usage podacima; game/run UUID i provera aktuelne verzije štite
+lokalni opseg, ali nisu korisnički credential-i.
+
+Limit od 5 novih analysis/coaching startova u 60 s i najviše 2 stvarno aktivna
+provider posla važi **po jednom backend procesu**. Više procesa ne deli rate
+prozor, kapacitet, stanje partije ni security događaje. Sanitizovani security
+događaji čuvaju se samo u memoriji (najviše 200, kraće od 30 min), bez trajnog
+operativnog audit zapisa; restart ih uklanja. Fake provider i sintetički sentinel
+testiraju izvršne granice, ali ne dokazuju ponašanje živog modela.
+
+Pre izlaganja aplikacije van lokalnog single-user okruženja potrebni su zaseban
+dizajn korisničkog identiteta/vlasništva, deljeni limiti i kapacitet između procesa
+i trajno operativno beleženje. Trenutni local production preview i CI nisu dokaz
+takvog deployment-a. [Detaljna W08 matrica i ograničenja](docs/EVIDENCE_W08.md).
 
 ```powershell
 npm.cmd test

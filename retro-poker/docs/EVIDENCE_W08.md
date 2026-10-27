@@ -1,5 +1,97 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+## Aktuelni status za predaju — 2026-10-27
+
+**Opseg:** lokalni single-user demo, sintetički podaci i fake provider. Tehnički
+checkpoint je `c5038bb`; `main@c2a0d95` dodaje završni dokumentacioni paket bez
+promene izvršnog koda. [Paket za predaju](evidence/005-week08-submission.md),
+[završna izvršna matrica](evidence/005-phase7-matrix.md) i
+[Windows/Linux CI za tehnički checkpoint](https://github.com/milangavric2003/poker-app/actions/runs/40558876322)
+razdvajaju kod, lokalne rezultate i hosted provere. T001–T029 i T031–T034 su
+završeni; **T030 ostaje otvoren za formalni zajednički demo i individualnu proveru**.
+Vedran i Milan su, prema korisnikovoj potvrdi 27.10, lokalno isprobali aplikaciju
+i demo zasebno i zajedno i spremni su za prezentaciju 28.10. Ta potvrda ne navodi
+tačne ulaze/ishode njihovih zasebno osmišljenih negativnih slučajeva i ne označava
+formalnu odbranu kao izvedenu.
+Milan je zatim potvrdio da su **obojica predložila i lokalno izvršila negativnu
+proveru povećanja `maxSteps`**. Prethodni [konkretni `maxSteps:999` zapis](evidence/005-milan-human-check.json)
+čuva poreklo Codexovog uputstva i Milanovo izvršenje (400/`INVALID_INPUT`,
+partija i usage nepromenjeni). Nova potvrda odnosi se na ljudski predlog
+slučaja i Vedranovo lokalno izvršenje, ne menja poreklo tog uputstva. Zaseban
+Vedranov izlaz i brojači nisu sačuvani; formalna individualna varijanta ostaje T030.
+
+### Završni rezultati T00–T17
+
+Sledeći statusi su **izvršeni rezultati**, a ne plan iz istorijskog §5 ispod.
+[Matrica](evidence/005-phase7-matrix.md) za svaki red navodi zahtev, izvršnu
+kontrolu, naziv testa, komandu, brojače, pozitivnu kontrolu i ograničenje. S =
+`npm.cmd run test:security` (123/123), B = `npm.cmd run test:security:e2e`
+(5/5 na faznom checkpoint-u), F = `npm.cmd test` (1037/1037 na tom checkpoint-u),
+E = `npm.cmd run test:e2e` (26/26 na tom checkpoint-u). Milanova kasnija
+[završna provera](evidence/005-week08-submission.md) ima 1040/1040 i 27/27,
+uključujući 6 security browser scenarija; to su različiti checkpoint-i.
+
+| Scenario | Konačni status i konkretan ishod | Provera |
+|---|---|---|
+| T00 | PASS: završena partija, 2 model koraka/1 stvarni read-only alat; poker/facts/RNG nepromenjeni. | S/F, `security-normal.test.ts` |
+| T01 | PASS: nevalidan JSON, tip, domen i Origin odbijeni pre provider/tool efekta; validan zahtev prolazi. | S/F, `security-http.test.ts` |
+| T02 | PASS: privilegovana polja i 1025 bajtova odbijeni; validna granica 1024 prolazi. | S/F, `security-http.test.ts` |
+| T03 | PASS: nepoznata/zastarela partija, ruka ili verzija odbijeni sa 0/0 poziva. | S/F, `security-http.test.ts` |
+| T04 | PASS: XSS marker iz validiranog finala ne izvršava kod i ne pravi izvršiv DOM. | B/E, `security-rendering.spec.ts` |
+| T05 | PASS: HTML/Markdown/URL/slika ostaju tekst; normalna srpska slova ostaju čitljiva. | B/E, `security-rendering.spec.ts` |
+| T06 | PASS: nevalidan i prevelik modelov izlaz/final odbijeni; nema uspeha bez validacije. | S/F, `security-tools.test.ts` |
+| T07 | PASS: shell/constructor/toString imaju 0 executor poziva; dozvoljen alat prolazi. | S/F, `security-tools.test.ts` |
+| T08 | PASS: loši argumenti i schema-valid focus izvan server scope-a odbijeni pre alata. | S/F, `security-tools.test.ts` |
+| T09 | PASS: maliciozan fake predlog ne menja poker i ne izvršava admin alat. | S/F, `security-tools.test.ts` |
+| T10 | PASS: extra/sentinel/tuđ tool rezultat ne ulazi u drugi model; kanonski rezultat prolazi. | S/F, `security-tools.test.ts` |
+| T11 | PASS: fiksni step/tool/call limiti i zbir retry/fallback pokušaja. | S/F, `security-budgets.test.ts` |
+| T12 | PASS: per-call i ukupni deadline, kao i zakašnjeli odgovor, ne daju lažan uspeh. | S/F, `security-budgets.test.ts` i `security-admission.test.ts` |
+| T13 | PASS: najviše 2 stvarno aktivna posla i 5 prihvaćenih startova/60 s; oporavak prolazi. | S/F, `security-admission.test.ts` |
+| T14 | PASS: učitan sentinel nije u izlazima; forged newline ne stvara lažni događaj. | S/F, `security-secrets.test.ts` i `security-events.test.ts` |
+| T15 | PASS: izmenjen browser prikaz/storage/zahtev ne menja serversku partiju ni limite. | B/E, `security-state.spec.ts` |
+| T16 | PASS: production CSP blokira dostupan script uz pozitivnu kontrolu; sentinel nije u bundle-u. | B/E, `security-production.spec.ts` |
+| T17 | PASS: posao koji ignoriše abort ostaje u kapacitetu; kasni rezultat ne menja novu partiju/usage. | S/F, `security-lifecycle.test.ts` |
+
+### Ista tri ulaza pre i posle
+
+[Doslovna ekvivalencija ulaza](evidence/005-phase7-input-equivalence.json),
+[izvorni i završni brojači](evidence/005-phase7-comparison.txt) i
+[detaljna tabela](evidence/005-phase7-matrix.md#t006--ista-tri-ulaza) čuvaju
+istorijski RED/PASS bez prepravljanja početnih rezultata.
+
+| Scenario | Pre | Posle na tehničkom faznom checkpoint-u |
+|---|---|---|
+| T07, shell/constructor/toString | PASS: svaki 1 provider/0 tool; dozvoljeni retry 3/1 | PASS→PASS: isti brojači i nepromenjen poker |
+| T13, šest startova u 5 s | RED: 6 prihvaćenih/12 provider/6 tool | RED→GREEN: 5 prihvaćenih/10 provider/5 tool; šesti 429 |
+| T16, dostupan zabranjeni script | RED: script 200, marker u aplikaciji true, nema CSP violation | RED→GREEN: script 200, marker false, `script-src-elem` enforce violation |
+
+### Završna provera, audit i granice
+
+Završni Milanov checkpoint beleži [1040/1040 testova](evidence/005-milan-final-tests.txt),
+[27/27 Chromium E2E i build](evidence/005-milan-final-e2e.txt),
+[typecheck](evidence/005-milan-final-typecheck.txt) i
+[lint](evidence/005-milan-final-lint.txt) PASS. U ovoj dokumentacionoj sesiji su
+na `main@c2a0d95` ponovo lokalno prošli `npm.cmd run test:security` 123/123,
+`npm.cmd test` 1040/1040, `npm.cmd run test:e2e` 27/27 uz build, `npm.cmd run
+typecheck` i `npm.cmd run lint` (exit 0). Browser test je generisao istorijske
+screenshotove; vraćeni su na HEAD i radni direktorijum je ostao čist. Ova sesija
+nije ponovila clean install, audit, Linux CI ili živog provajdera.
+
+[Audit odluke](evidence/005-phase6-audit.md) čuvaju početni mrežni problem,
+10 pogođenih paketa, ciljane zakrpe i tadašnji konačni rezultat 0 nalaza;
+to nije tvrdnja o današnjem novom registry skeniranju. [Sentinel i log događaji](evidence/005-phase6-handoff.md)
+provereni su u kontrolisanim error/tool/browser putanjama. Jedan sentinel nije
+opšti dokaz protiv svih curenja.
+
+Rate i kapacitet važe samo unutar jednog procesa; događaji su memorijski i
+nisu trajni operativni audit. Nema autentifikacije ni korisničkog vlasništva;
+UUID partije nije credential. Fake provider ne dokazuje otpornost živog modela,
+a abort ne garantuje prekid udaljenog rada ili naplate. Ovaj lokalni demo nije
+dokaz spremnosti za višekorisnički deployment. [Operativni README](../README.md)
+navodi ove granice pre bilo kakvog izlaganja van lokalnog okruženja.
+
+## Istorijski dnevnik i početni plan (statusi ispod nisu aktuelni)
+
 **Završni dokumentacioni status — 2026-10-27:** implementacija, Git isporuka i
 tehnička dokumentacija su završeni; demo/individualni deo spremni su za izvođenje
 prema Milanovoj potvrdi. [Paket i konačni linkovi za predaju](evidence/005-week08-submission.md).
@@ -13,8 +105,9 @@ podelu Vedran/`week08-init` i Milan/`fix/week08-finalization`, dodatno ručno
 odigrao/proverio aplikaciju kroz `npm run dev` i odobrio push/PR/merge u main.
 [Mapa doprinosa, Git tok i granice predaje](evidence/005-week08-delivery.md).
 Prethodna formulacija o nepotvrđenoj podeli doprinosa odnosi se na ranije
-checkpoint-e. **Demo/individualna provera još nisu prijavljeni kao izvedeni;
-T030/T031 ostaju otvoreni.** Merge/CI ishod proverava se na povezanim PR-ovima.
+checkpoint-e. **U ovom tadašnjem checkpoint-u T030/T031 su bili otvoreni**;
+kasnije je T031 dokumentaciono zatvoren. Merge/CI ishod tada je tek trebalo
+proveriti na povezanim PR-ovima.
 
 **Najnovije 2026-10-27 — T034 i ljudska provera:** browser Zod bootstrap sada
 koristi jitless pre shared schema konstrukcije: normalan production tok nema
@@ -24,7 +117,7 @@ Završne provere: [full 1040/1040](evidence/005-milan-final-tests.txt),
 [build + E2E 27/27](evidence/005-milan-final-e2e.txt),
 [typecheck](evidence/005-milan-final-typecheck.txt)/[lint](evidence/005-milan-final-lint.txt) PASS.
 Milan je prijavio [stvaran ručni 400/bez efekta i pozitivan coaching](evidence/005-milan-human-check.json).
-Asistentski primer nije samostalna ideja testa; **T030/T031 ostaju otvoreni**.
+Asistentski primer nije samostalna ideja testa; **T030/T031 su tada bili otvoreni**.
 Promene se čuvaju odobrenim lokalnim commit-om na `fix/week08-finalization`;
 novi hosted CI i merge ostaju naredni koraci. Ispod su prethodni checkpoint-i.
 
@@ -278,12 +371,14 @@ Ugovor: [security](../specs/005-week08-secure-the-arcade/contracts/security.md).
 Ovo je mapa implementacije, ne lista završenih kontrola. Konkretni test fajlovi
 i tačni izvršeni testovi dopunjavaju se po tasks-u.
 
-## 5. Rezultati scenarija T00–T17
+## 5. Početna matrica scenarija T00–T17 (istorijski plan)
 
-Finalni status svih redova je **NOT RUN** do W08 izvršavanja. Postojeći baseline
-signali nisu automatski preneti u završne PASS ocene.
+Na početnom checkpoint-u 25–26.10. svi završni redovi su bili **NOT RUN**.
+To je sačuvan plan pre implementacije, ne aktuelna ocena. Izvršeni statusi
+T00–T17 i link na završnu matricu nalaze se na početku ovog dokumenta.
+Postojeći baseline signali nisu automatski preneti u završne PASS ocene.
 
-| ID | Fixture/ulaz i očekivanje pre testa | Početno opažanje / planirani test | Final |
+| ID | Fixture/ulaz i očekivanje pre testa | Početno opažanje / planirani test | Tadašnji final |
 |---|---|---|---|
 | T00 | Sintetička terminalna partija, 2 model koraka/1 real tool, read-only | Faza 2 security-normal PASS: terminal lost [0,2000], completed, provider 2/real tool 1, poker identičan | NOT RUN |
 | T01 | Nevalidan JSON/tip/domain, pozitivan boundary; 0/0 poziva | `security-http.test.ts`; postojeći route testovi su samo osnova | NOT RUN |
@@ -316,13 +411,15 @@ arhitektonski N/A, ne izvršeni PASS. Cross-origin cost test ipak obavezan:
 drugi lokalni Origin/null → 0 provider/0 tool; validan origin → normalan tok.
 SQL N/A jer nema baze. Ako se model promeni, ove odluke ponovo otvoriti.
 
-### Dependency audit
+### Dependency audit — početni plan
 
-NOT RUN. T027 upisuje komandu/exit, paket, stvarnu lockfile verziju, advisory,
-runtime/dev uslov izloženosti i odluku (fixed/mitigated/N/A uz dokaz/open).
-Nedostupna mreža nije clean audit. Ne koristiti `audit fix --force`.
+Tada **NOT RUN**. T027 je kasnije upisao komandu/exit, paket, stvarnu lockfile
+verziju, advisory, runtime/dev uslov izloženosti i odluku
+(fixed/mitigated/N/A uz dokaz/open).
+Stvarni rezultat je povezan u aktuelnom delu na početku. Nedostupna mreža
+nije clean audit. Ne koristiti `audit fix --force`.
 
-## 6. Poređenje pre/posle
+## 6. Početni plan poređenja pre/posle
 
 Najmanje tri scenarija, isti fixture/ulaz. T006 ih izvršava pre security koda.
 Prenos review test infrastrukture ne predstavlja tri security popravke.
@@ -333,29 +430,31 @@ Prenos review test infrastrukture ne predstavlja tri security popravke.
 | T13 burst accepted starts | d08e06c + Faza 2; [0,1000,2000,3000,4000,5000] ms, RED: 6 prihvaćenih/12 provider/6 tool | Planirani rate/capacity gate još nije uveden | NOT RUN | Početni rate dokaz; puna concurrency/reset/recovery matrica ostaje T015 |
 | T16 CSP blocked script | d08e06c + Faza 2; script 200/control marker true; RED app marker true/violations [], nema CSP, HTTP 2→3 | Planirana preview HTTP zaglavlja još nisu uvedena | NOT RUN | Lokalni build; puna browser/coaching/sentinel matrica ostaje T021/T025 |
 
-## 7. Arhitektura, tajne i security događaji
+## 7. Početni plan: arhitektura, tajne i security događaji
 
-Plan: admission/capacity i mali memorijski event sink u `backend/src/security/`.
+Plan iz 25.10: admission/capacity i mali memorijski event sink u `backend/src/security/`.
 Bez novog servisa ili javnog log API-ja. Fake se ubrizgava konstruktorom; normalan
 backend koristi postojeći adapter. Sentinel `W08_SERVER_SECRET_DO_NOT_EXPOSE`
 je planirana sintetička vrednost, ne pravi ključ.
 
-Još nema izvršenog sentinel testa, stvarnog W08 accepted/rejected event primera
-niti dokaza retention-a. T023–T026 ih popunjavaju. Predviđeno čitanje događaja:
+Na početnom checkpoint-u još nije bilo izvršenog sentinel testa ni stvarnog
+W08 accepted/rejected event primera niti dokaza retention-a. T023–T026 ih
+popunjavaju. Predviđeno čitanje događaja:
 lokalni proces/operator/test sink; max 200/30 min, bez trajnog zapisivanja,
 restart uklanja buffer, usage reset ga ne briše. Jedan sentinel nije opšti DLP.
 
-## 8. Ponovljivost i isporuka
+## 8. Početni plan ponovljivosti i isporuke
 
-[Quickstart](../specs/005-week08-secure-the-arcade/quickstart.md) razlikuje postojeće
-komande od planiranih `test:security` i `test:security:e2e` koje još ne postoje.
+[Quickstart](../specs/005-week08-secure-the-arcade/quickstart.md) je tada razlikovao postojeće
+komande od planiranih `test:security` i `test:security:e2e` koje još nisu postojale.
 Početne rezultate videti u §1 i [machine-readable rezultatima](evidence/005-baseline-results.json).
 Dokumentacija je proverena: [linkovi/taskovi/snapshot](evidence/005-document-check.json)
 i [patch/diff check](evidence/005-final-check.txt), bez grešaka.
-Završni clean install, security/full suite, browser production, audit i remote CI
-još nisu izvršeni. W08 finalni SHA i ponovljen kolegin checkout ostaju otvoreni.
+Na tom početnom checkpoint-u clean install, security/full suite, browser
+production, audit i remote CI još nisu bili izvršeni. Kasniji ishodi su na
+početku dokumenta i u povezanim završnim dokazima.
 
-## 9. Zaključci i preostali rizik
+## 9. Zaključci početnog checkpoint-a (istorijski)
 
 - Dokazano: lokalna post-transfer regresija 906 testova/20 E2E + typecheck/lint/build;
   postojeći fake coaching dva koraka/jedan alat i read-only rezultat.
@@ -368,7 +467,11 @@ još nisu izvršeni. W08 finalni SHA i ponovljen kolegin checkout ostaju otvoren
   otpornost, stratešku optimalnost ili produkcijsku dostupnost.
 - T004 je završen 26.10.2026; sledeći korak je T005, zatim T006–T007 pre hardening-a.
 
-## 10. Doprinos para i AI odgovornost
+## 10. Početna evidencija doprinosa para i AI odgovornosti
+
+Tabela ispod čuva stanje pripreme 25.10. Potvrđena kasnija podela rada je u
+[završnoj isporuci](evidence/005-week08-delivery.md); lokalna proba i preostala
+formalna odbrana su u aktuelnom delu ovog dokumenta.
 
 | Član | Stvarno potvrđeno u ovoj pripremi | Kontrola / samostalni negativni test / review |
 |---|---|---|

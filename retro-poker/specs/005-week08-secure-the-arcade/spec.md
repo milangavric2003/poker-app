@@ -6,7 +6,8 @@
 
 **Status**: Implementacija, Windows/Linux CI i dokumentacioni paket završeni;
 main checkpoint `c5038bb`. T031 zatvoren za dokumentaciju/linkove. T030 ostaje
-za stvarno izvođenje demo-a i individualnog dela; potvrđena je spremnost.
+za formalno izvođenje demo-a i individualnog dela; Vedran i Milan su, prema
+korisnikovoj potvrdi 27.10, lokalno isprobali demo zasebno i zajedno.
 [Paket za predaju](../../docs/evidence/005-week08-submission.md).
 [Završna matrica i ograničenja](../../docs/evidence/005-phase7-matrix.md),
 [handoff sa lokalnim/izolovanim/CI statusom](../../docs/evidence/005-phase7-handoff.md).

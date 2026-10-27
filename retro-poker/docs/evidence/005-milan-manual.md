@@ -49,4 +49,4 @@ rasporeda iz `005-phase7-demo.md` i individualnu varijantu.
 Ime/datum/checkpoint; šta je pregledano ili promenjeno; poreklo ideje testa;
 ulaz/očekivanje pre; komanda/actual/exit; gde se kontrola izvršava; ograničenje;
 reviewer; izveden demo i individualna varijanta. Popuniti stvarnim opažanjima.
-T030/T031 ostaju otvoreni dok taj dokaz ne postoji.
+T031 dokumentacija je završena; T030 ostaje otvoren dok taj dokaz ne postoji.
