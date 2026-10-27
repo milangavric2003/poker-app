@@ -13,6 +13,67 @@ test.beforeEach(() => {
   processCapacity.current = new ProviderCapacity();
 });
 
+test('T16 startup: schemas validate without eval probes under production CSP', async ({ page }) => {
+  await page.addInitScript(() => {
+    Reflect.set(window, '__w08StartupViolations', []);
+    document.addEventListener('securitypolicyviolation', event => {
+      (Reflect.get(window, '__w08StartupViolations') as unknown[]).push({
+        directive: event.effectiveDirective, blockedURI: event.blockedURI, disposition: event.disposition,
+      });
+    });
+  });
+  const servers = await securityProductionServer();
+  try {
+    await page.goto(servers.origin);
+    await page.getByLabel('Broj botova').selectOption('1');
+    await page.getByRole('button', { name: 'Nova partija', exact: true }).click();
+    await page.getByRole('button', { name: /All-in/i }).click();
+    await expect(page.getByText(/Pobeda u partiji|Poraz u partiji/)).toBeVisible();
+    const before = await (await page.request.get(`${servers.origin}/api/game`)).json();
+    const invalid = await page.request.post(`${servers.origin}/api/game/coach`, { data: {
+      gameId: before.game.gameId, handId: before.game.handId, expectedVersion: before.game.version,
+      goal: { focus: 'street' }, maxSteps: 999,
+    } });
+    expect(invalid.status()).toBe(400);
+    expect(servers.provider.agentCalls).toHaveLength(0);
+    await page.getByLabel('Coaching cilj', { exact: true }).selectOption('street');
+    await page.getByRole('button', { name: 'Pokreni coaching', exact: true }).click();
+    await expect(page.getByRole('region', { name: 'Coaching partije' }).getByRole('status'))
+      .toHaveText('Coaching je završen.');
+    expect(servers.provider.agentCalls).toHaveLength(2);
+    expect(servers.executions).toHaveLength(1);
+    expect(await (await page.request.get(`${servers.origin}/api/game`)).json()).toEqual(before);
+    const normalViolations = await page.evaluate(() => Reflect.get(window, '__w08StartupViolations'));
+    console.log('T16 normal startup', JSON.stringify({ normalViolations, providerSteps: 2, realTools: 1 }));
+    expect(normalViolations).toEqual([]);
+
+    // A fetched page script exercises CSP. Runtime.evaluate from DevTools may
+    // permit eval independently of the page policy, so it is not this oracle.
+    const probeSource = 'window.__w08EvalLoaded = true; window.__w08EvalExecuted = false; '
+      + 'try { window.__w08EvalExecuted = new Function("return 42")() === 42; } catch {}';
+    const control = await page.context().newPage();
+    try {
+      await control.goto(servers.probeOrigin);
+      await control.route('**/w08-eval-control.js', route => route.fulfill({
+        status: 200, contentType: 'text/javascript', body: probeSource,
+      }));
+      await control.addScriptTag({ url: `${servers.probeOrigin}/w08-eval-control.js` });
+      expect(await control.evaluate(() => Reflect.get(window, '__w08EvalExecuted'))).toBe(true);
+    } finally { await control.close(); }
+    await page.route('**/w08-eval-control.js', route => route.fulfill({
+      status: 200, contentType: 'text/javascript', body: probeSource,
+    }));
+    await page.addScriptTag({ url: `${servers.origin}/w08-eval-control.js` });
+    expect(await page.evaluate(() => Reflect.get(window, '__w08EvalLoaded'))).toBe(true);
+    expect(await page.evaluate(() => Reflect.get(window, '__w08EvalExecuted'))).toBe(false);
+    await expect.poll(async () => await page.evaluate(() => Reflect.get(window, '__w08StartupViolations')))
+      .toEqual(expect.arrayContaining([expect.objectContaining({
+        directive: 'script-src', blockedURI: 'eval', disposition: 'enforce',
+      })]));
+    console.log('T16 explicit eval control', JSON.stringify({ noPolicyExecuted: true, evalExecuted: false, blockedByCsp: true }));
+  } finally { await servers.close(); }
+});
+
 test('T16 initial: production CSP blocks an available second-origin script', async ({ page, context }, testInfo) => {
   const servers = await securityProductionServer();
   try {

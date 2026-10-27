@@ -374,8 +374,9 @@ u feature 004, provere offline/fake, bez stvarnih Gemini poziva.
   `../../week-03-week-04-pdf-review/materijali-za-studente/week-03-tdd-sdd-agentic-engineering-addendum.md`.
 - Week04 AI API addendum — provider granica, structured output, timeout, retry i
   fake-first testovi: `../../week-03-week-04-pdf-review/materijali-za-studente/week-04-ai-api-integration-addendum.md`.
-- Istorijski Week05 assignment ranije je bio u root `weekly-assignment.md`, koji
-  je sada zamenjen Week08 zadatkom. W05 zahteve čuvaju feature 003 i njegov evidence;
+- Istorijski Week05 assignment je u Milanovom checkout-u i dalje root
+  `weekly-assignment.md`; W08 ima zasebnu putanju navedenu u §16.
+  W05 zahteve čuvaju feature 003 i njegov evidence;
   [Week05 reliability addendum](../../week-05-bounded-agentic-workflows-reliable-integration-addendum.md)
   ostaje lokalni izvor za bounded flow, tools, budžete i fake-first provere.
 - [Week05 feature 003](../specs/003-week05-bounded-agent-coach/spec.md): implementacioni ugovor i acceptance scenarios.
@@ -441,14 +442,18 @@ Week08 Definition of Done — lokalni tehnički dokaz i ljudska potvrda su odvoj
 - [x] T00–T15 i T17 automatizovani, T04/T05 u browseru, T16 stvaran production build.
 - [x] Najmanje tri scenarija imaju isti input i pre/posle rezultate; PASS→PASS dozvoljen.
 - [x] Sentinel, log injection, origin/CSRF primenljivost i dependency odluke dokumentovani.
-- [x] Full regresija/clean checkout i status CI-ja vezani za konkretan završni checkpoint (remote nije izvršen).
+- [x] Full regresija/clean checkout i status CI-ja vezani za checkpoint: baseline `07db76b` remote Windows/Linux PASS; nova lokalna dorada ima zasebne rezultate bez novog CI-ja.
 - [ ] Oba člana imaju kontrolu i negativni test, mogu ponoviti provere i objasniti demo.
 
 [Završna matrica](evidence/005-phase7-matrix.md) i
 [handoff](evidence/005-phase7-handoff.md) navode stvarne komande i checkpoint-e.
 Korisnik je potvrdio da ljudski deo još nije spreman. T030 i zavisni T031 ostaju
-otvoreni; Week08 nije završen. Lokalni prolaz nije remote CI uspeh.
+otvoreni; Week08 nije završen. Lokalni prolaz nove dorade nije njen remote CI uspeh.
+[Milanova tehnička dorada](evidence/005-milan-handoff.md) čuva novi polling
+RED/GREEN, fake-only ručni profil i stvarne rezultate od 2026-10-27.
 
 Aktuelno opaženo stanje: [EVIDENCE_W08.md](EVIDENCE_W08.md). Novi nastavni izvor
-je root `weekly-assignment.md`, verzija 23.10.2026; potrebni zahtevi su preneti u
+je `milan/weekly-assignment week08.md` iz Git korena, identičan zadatku u
+`Nedelja-08/02-Nedeljni-zadatak-Secure-the-Arcade.md`, verzija 23.10.2026.
+Root `weekly-assignment.md` u Milanovom checkout-u je istorijski W05; W08 zahtevi su preneti u
 verzionisane dokumente jer nastavni paket nije garantovan u svakom checkout-u.

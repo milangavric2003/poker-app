@@ -146,11 +146,15 @@ export function App() {
       && game.actorId !== null && game.legalActions.length === 0;
     if (!game?.ai.active && !awaitingBotReservation) return;
     const id = ++pollId.current;
+    let inFlight = false;
     const timer = window.setInterval(() => {
+      // A slower GET must finish before another tick can supersede its snapshot.
+      if (inFlight) return;
+      inFlight = true;
       const requestId = ++snapshotSequence.current;
       void loadGame().then(next => {
         if (id === pollId.current && requestId === snapshotSequence.current) commit(next);
-      }).catch(() => undefined);
+      }).catch(() => undefined).finally(() => { inFlight = false; });
     }, 750);
     return () => { ++pollId.current; window.clearInterval(timer); };
   }, [game?.gameId, game?.handId, game?.phase, game?.actorId,

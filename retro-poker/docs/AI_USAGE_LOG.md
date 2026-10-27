@@ -1,5 +1,48 @@
 # AI usage log
 
+## 2026-10-27 — potvrda doprinosa i odobreno objavljivanje
+
+Milan je potvrdio ručnu proveru igre kroz dev režim i podelu doprinosa prema
+granama/commitovima. Izričito je odobrio push, PR radnje i merge u main.
+Codex nastavlja kao jedan agent: dokumentacioni zapis, Git/GitHub integracija
+i provera CI-ja konkretnog SHA, bez ponovljenih live proba ili pripisivanja
+neizvedenog demo-a. GitHub autentikacija koristi postojeći Git credential helper;
+credential vrednosti ne ulaze u dokaze ili izlaz. T030/T031 ostaju otvoreni
+za preostali ljudski deo. [Plan i doprinos](evidence/005-week08-delivery.md).
+
+## 2026-10-27 — CSP screenshot, ljudski rezultat i odobren lokalni commit
+
+Milan je prijavio i ručno izvršio prethodno pripremljen HTTP negativni primer
+i normalan coaching. Zabeleženi su samo rezultati potrebni za dokaz,
+sa asistentskim poreklom primera; T030/T031 nisu proglašeni završenim.
+Korisnik je odobrio commit na fix/week08-finalization.
+Codex gpt-6.1-sol, jedan agent; tokeni i cena nisu dostupni.
+Zod installed-source pregled utvrdio je capability probe; dodat startup CSP
+test prvo reprodukuje eval violation, zatim browser jitless bootstrap uklanja
+normalan prekršaj uz aktivnu validaciju i očuvanu eval zabranu.
+Prvi port/setup i DevTools kontrolni probe pad ostaju odvojeni od RED/GREEN.
+Pre commita provereni puni testovi, tipovi/lint i production/browser regresija.
+Nema live poziva, novih dependency verzija ili slabljenja CSP-a.
+[Izmena i dokazi](evidence/005-milan-csp-handoff.md).
+
+## 2026-10-27 — Milanova Week08 finalizacija T032/T033
+
+Milan je odobrio nastavak, novu granu i proveru prijavljenog usporenja.
+Codex (model sesije gpt-6.1-sol), jedan agent, PowerShell/apply_patch,
+lokalni Spec Kit implement postupak, Vitest/Chromium/Vite/TypeScript/ESLint i
+read-only GitHub REST. Tokeni/trošak nisu dostupni. Očekivanje je sačuvano u
+`005-milan-expectations.md` pre produkcione izmene. Nađena konkretna UI trka
+sa sporim GET-om; posle setup query ispravke RED 2 FAIL/1 PASS, minimalna
+inFlight zaštita, GREEN fokus 53/53 i full 1040/1040. Typecheck/lint i
+build + E2E 26/26 prolaze. Prvi typecheck i sandbox demo prepreka zabeleženi.
+Fake-only ručni profil i objašnjenje dodatnog maxSteps polja pripremljeni;
+tačna Console komanda, normalan coaching i nezavisan spor browser GET provereni.
+0 live poziva; nije merena brzina pravog modela. GitHub baseline `07db76b`
+Windows/Linux PASS provereno; nove lokalne izmene nisu objavljene.
+T030/T031 čekaju stvarne ljudske dokaze. Nema pripisivanja asistentskog primera
+kao samostalne ljudske ideje ili označavanja demo-a završenim.
+[Komande, rezultati i nastavak](evidence/005-milan-handoff.md).
+
 ## 2026-10-26 — ponovna provera Week08 T019–T022
 
 Codex, jedan agent, po priloženom korisničkom zahtevu. Alati: lokalni PowerShell,

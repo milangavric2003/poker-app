@@ -1,5 +1,57 @@
 # Context manifest — implementacioni blok člana A
 
+## 2026-10-27 — GitHub isporuka
+
+Korišćeni: aktuelni korisnički nalog za push/merge i potvrda doprinosa/dev
+smoke-a, AGENTS Git/dokaz pravila, feature tasks i prethodni human/CSP dokazi,
+Git istorija/remote head-ovi i GitHub PR/Actions REST. Namena je isporuka
+već proverene implementacije, bez novog runtime scope-a. Sačuvati autorstvo
+i prethodne izvore; ne zaključivati demo/individualnu odbranu iz commita.
+Nema novih live AI ili nastavnih web izvora. Svi GitHub credential-i ostaju
+u lokalnom helper-u i memoriji procesa, bez ispisa u report.
+
+## 2026-10-27 — T034 i ljudski rezultat
+
+Nastavak odobrenog rada, bez novih agenata. Pregledani korisnikov CSP screenshot
+i prijavljeni maxSteps/coaching rezultati; nema pretpostavke o demo-u ili
+samostalnom testu. Ponovo provereni git stanje, checklist i odsustvo hook-ova.
+Novi relevantni izvori: tačno instalirani Zod 4.6.7 util.ts allowsEval,
+schemas.ts object JIT i core.ts jitless konfiguracija; main bootstrap,
+shared schema konstrukcija i postojeći production helper/test. Time je
+potvrđen uzrok za pinovanu verziju, bez oslanjanja na promenljivu web dokumentaciju.
+Novi browser oracle prati događaje pre navigacije i koristi učitanu stranicu/
+skriptu za eval kontrolu, jer DevTools evaluate nije oracle page CSP-a.
+Sačuvani port setup, početni RED i prvi neispravan DevTools probe; sintetički
+podaci i fake-only. Nema čitanja .env ili aktiviranja spoljnog providera.
+[Dokazi i ograničenja](evidence/005-milan-csp-handoff.md).
+
+## 2026-10-27 — Milanova završna provera i ručni profil
+
+Prioritet: aktuelni Milanov zahtev → AGENTS/constitution 1.1.0 → GAME_SPEC
+W08/I8 i feature005 spec/plan/tasks/data-model/contracts/research/quickstart.
+Pročitani checklist 9/9, početni BUILD_PROMPT_WEEK08_V1, phase7 handoff/demo/
+matrica, EVIDENCE_W08 i baseline provenance review prenosa. Korisnikovi novi
+izvori `milan/weekly-assignment week08.md` i `Nedelja-08/02-Nedeljni-zadatak-Secure-the-Arcade.md`
+su identični SHA256 `0382b5f9ca929e6121dde9a33113a183535a1b37d14fe6a2af359893ca9a1abd`;
+učitani zadatak, README paketa i šablon. Root weekly-assignment je lokalno W05
+i isključen iz W08 acceptance-a. PDF/PPTX i sesije ne uvode novi scope samo
+zbog dostupnosti; nisu korišćeni za novu implementaciju. Nema .env/ključeva.
+
+Pregledani App/API/AiStatus/CoachPanel/UsageDashboard, postojeći AI/analysis/
+coach/dashboard UI testovi, security fixtures/server, fake provider, clock,
+admission/capacity, session/app, cards i agent limits, package/TS/Vite/Playwright
+konfiguracija, ignore/ESLint. Razlog: reprodukovati zastarevanje sporog GET-a,
+sačuvati lifecycle i napraviti ponovljiv lokalni fake profil. Primenjen
+speckit-implement: prerequisites razrešava 005, checklist PASS, nema extension
+hook-ova. Converge SKILL pročitan radi završnog pregleda; otvoreni ljudski
+T030/T031 već imaju zadatke i nisu duplirani niti označeni gotovim.
+
+Git pregled prethodnog odgovora i read-only GitHub API potvrđuju runtime-neutralan
+review prenos; novi API rezultat konkretnih poslova vezan je za baseline SHA,
+ne za lokalnu doradu. Lokalni screenshot backup očuvao je istorijske PNG/JPG.
+Dokazi ne tvrde clean install/audit ili live latenciju u ovoj sesiji.
+[Actual i granice](evidence/005-milan-handoff.md).
+
 ## Ponovna provera T019–T022 — 2026-10-26
 
 Prioritet: priloženi korisnički zahtev samo Faza 5, AGENTS, constitution 1.1.0,

@@ -184,3 +184,41 @@ remote CI i ljudske potvrde. Workflow zadržava Windows/Linux, dodaje eksplicitn
 security korake i lockfile guard; puni browser koristi build iz security koraka.
 T030 i zavisni T031 ostaju otvoreni do stvarne potvrde para. Nema novih runtime
 funkcija ili promene limita. Verzije iznad usklađene su sa T027 zakrpama.
+
+## Milanova završna provera — 2026-10-27
+
+Grana `fix/week08-finalization`, osnova `07db76b`. Dostavljeni izvor je
+`milan/weekly-assignment week08.md` iz Git korena, identičan Week08 zadatku
+u lokalnom studentskom paketu. Root `weekly-assignment.md` u ovom checkout-u
+ostaje istorijski W05 i ne koristi se za W08 acceptance.
+
+I8 / US1 scenario 6: `frontend/src/App.tsx` sme da ima najviše jedan pending
+GET po aktivnom polling toku. Zadržati 750 ms interval i postojeće request/revision
+guard-ove; dok odgovor traje, preskočiti sledeći tick, osloboditi lokalnu zastavicu
+i posle uspeha i posle greške. To nije serverski kapacitet niti promena modela.
+`tests/ui/ai-polling.test.tsx` proverava 1200 ms odgovore bota/analize, vidljiv
+terminalni rezultat, odsustvo preklapanja/POST-a, prestanak terminalnog polling-a
+i oporavak od GET greške. Postojeći lifecycle testovi ostaju holdout za stale/unmount.
+
+Za pripremu T030 dozvoljeni su `tests/helpers/security-demo.ts`, `package.json`,
+README/quickstart i uputstvo u `docs/evidence/005-milan-manual.md`.
+`demo:security` pokreće stvarni build/preview/API/alat sa constructor-only fake
+providerom, sintetičkim podacima i stvarnim satom; ne učitava `.env`, ne dodaje
+debug HTTP rute ni produkcioni izbor fake-a. Testni runner ostaje izvan server
+build ulaza. Time se priprema ljudski pregled; ne potvrđuje se T030.
+
+## T034 — CSP startup, 2026-10-27
+
+Milanov screenshot prijavljuje script-src eval blokadu iz produkcionog bundle-a.
+Instalirani Zod 4.6.7 proverava `new Function` pri inicijalizaciji object šema;
+catch aktivira fallback, ali browser ipak prijavi CSP prekršaj. Uvesti browser
+bootstrap `frontend/src/validation.ts` sa `z.config({ jitless: true })` kao prvu
+zavisnost `main.tsx`, pre App/shared šema. Backend konfiguracija se ne menja.
+Ne dodavati unsafe-eval, ne uklanjati schema provere ili CSP.
+
+Pre runtime izmene dodati test u `tests/e2e/security-production.spec.ts`:
+init listener hvata i startup događaje; normalna igra/coaching 2/1 i nevalidan
+request rade, normalan tok nema prekršaja. Zaseban kontrolisan `Function` pokušaj
+ostaje odbijen sa eval/script-src violation-om. Sačuvati RED/GREEN i ponoviti
+relevantne provere pre odobrenog lokalnog commit-a. Ljudski maxSteps rezultat
+beležiti kao Milanovu izvršenu proveru asistentskog primera, ne samostalnu ideju.

@@ -22,6 +22,19 @@ Portovi su fiksni i bind samo na loopback.
 
 ## Provere
 
+Za Week08 ručni pregled sa sintetičkim podacima i fake providerom:
+
+```powershell
+npm.cmd run demo:security
+```
+
+Komanda sama gradi i služi production frontend na http://127.0.0.1:5173/ i
+lokalni API na portu 3001. Ne učitava `.env` niti poziva Gemini. Zatvoriti druge
+lokalne servere na tim portovima pre pokretanja; zaustaviti sa Ctrl+C.
+Pravi sat i sve produkcione kontrole ostaju aktivni. Model oznake u UI-ju nisu
+dokaz stvarnog model poziva u ovom profilu.
+[Milanovi koraci i očekivani rezultati](docs/evidence/005-milan-manual.md).
+
 ```powershell
 npm.cmd test
 npm.cmd run test:e2e

@@ -1,0 +1,153 @@
+
+> retro-poker@0.1.0 test
+> vitest run tests/ui/ai-polling.test.tsx
+
+
+ RUN  v5.0.5 C:/Users/gm220391d/Carrier/AIBootcamp2026/week-3,4,5/poker-app/retro-poker
+
+ ❯ |ui| tests/ui/ai-polling.test.tsx (3 tests | 2 failed) 165ms
+   ❯ slow game polling preserves normal AI progress (W08 I8) (3)
+     × shows a completed bot despite GET latency above 750 ms 62ms
+     × shows a completed analysis despite GET latency above 750 ms 19ms
+npm.cmd :
+At line:2 char:204
++ ... MIT='1200'; npm.cmd test -- tests/ui/ai-polling.test.tsx *> docs/evid ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |ui| tests/ui/ai-polling.test.tsx > slow game polling preserves normal AI progress (W08 I8) > shows a completed
+bot despite GET latency above 750 ms
+TestingLibraryElementError: Unable to find an element with the text: AI potez je prihvaćen.. This could be because the
+text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your
+matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</se...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/ai-polling.test.tsx:49:42
+     47|     render(<App />); await act(async () => {});
+     48|     await act(async () => { await vi.advanceTimersByTimeAsync(1950); }…
+     49|     if (purpose === 'bot') expect(screen.getByText('AI potez je prihva…
+       |                                          ^
+     50|     else expect(screen.getByText('Potvrđena završena analiza.')).toBeV…
+     51|     expect(maximumReads).toBe(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |ui| tests/ui/ai-polling.test.tsx > slow game polling preserves normal AI progress (W08 I8) > shows a completed
+analysis despite GET latency above 750 ms
+TestingLibraryElementError: Unable to find an element with the text: Potvrđena završena analiza.. This could be
+because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to
+make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"titlebar"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mRETRO POKER[0m
+        [36m</h1>[39m
+        [36m<span>[39m
+          [0mLOCAL TABLE // NO LIMIT[0m
+        [36m</span>[39m
+      [36m</header>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Nova partija"[39m
+        [33mclass[39m=[32m"new-game"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [0mBroj botova[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33mid[39m=[32m"bot-count"[39m
+        [36m>[39m
+          [36m<option>[39m
+            [0m1[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m2[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m3[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m4[0m
+          [36m</option>[39m
+          [36m<option>[39m
+            [0m5[0m
+          [36m</option>[39m
+        [36m</se...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/ui/ai-polling.test.tsx:50:24
+     48|     await act(async () => { await vi.advanceTimersByTimeAsync(1950); }…
+     49|     if (purpose === 'bot') expect(screen.getByText('AI potez je prihva…
+     50|     else expect(screen.getByText('Potvrđena završena analiza.')).toBeV…
+       |                        ^
+     51|     expect(maximumReads).toBe(1);
+     52|     await act(async () => { await vi.advanceTimersByTimeAsync(3000); }…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  18:05:30
+   Duration  1.15s (environment 61%, import 18%, tests 16%, transform 5%)

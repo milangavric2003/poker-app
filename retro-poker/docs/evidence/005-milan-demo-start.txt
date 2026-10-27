@@ -1,0 +1,13 @@
+
+> retro-poker@0.1.0 demo:security
+> node --import tsx tests/helpers/security-demo.tsvite v8.3.5 building client environment for production...
+✓ 124 modules transformed.
+rendering chunks (1)...computing gzip size...
+dist/frontend/index.html                   0.37 kB │ gzip:   0.27 kB
+dist/frontend/assets/index-GcOVcj2f.css   11.70 kB │ gzip:   3.68 kB
+dist/frontend/assets/index-C8pquTlk.js   358.67 kB │ gzip: 107.97 kB✓ built in 395ms
+Week08 lokalni demo: http://127.0.0.1:5173/
+FAKE provider, sintetičke karte, 0 live AI poziva. Model oznake u UI-ju su konfiguracione oznake.
+Stvarni sat: najviše 5 novih analiza/coaching zahteva u 60 s; najviše 2 aktivna provider posla.
+Za početak: 1 bot, AI režim isključen, Nova partija, All-in, coaching cilj Odluke po fazama.
+Za gašenje: Ctrl+C.

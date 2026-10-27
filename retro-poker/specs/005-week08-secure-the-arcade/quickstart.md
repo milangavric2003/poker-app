@@ -76,6 +76,13 @@ u EVIDENCE_W08. Ne tumačiti mrežni neuspeh kao čist audit i ne koristiti forc
 
 ## Demo i handoff
 
+Za slobodan ručni pregled produkcionog lokalnog prikaza:
+`npm.cmd run demo:security`. Komanda sama gradi sa isključenim `.env` učitavanjem,
+pokreće constructor-only fake i stvarni API/preview. Stvarni sat čuva rate prozor;
+model oznake u UI-ju su fake konfiguracione oznake. Portovi 5173/3001 moraju biti
+slobodni. [Redosled i očekivanja](../../docs/evidence/005-milan-manual.md).
+Ugasiti Ctrl+C pre automatizovanih browser komandi koje dele iste portove.
+
 Osam minuta: normalna igra/coaching, pretnje/granice, direktan nevalidan HTTP,
 zabranjen tool, rate/capacity/late rezultat, browser CSP/XSS, sentinel/event i
 pre/posle dokazi. Obojica samostalno menjaju jedan sintetički ulaz i objašnjavaju

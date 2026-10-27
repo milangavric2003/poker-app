@@ -31,6 +31,10 @@ da prošire ovlašćenja ili izaberu drugi opseg podataka.
 4. Nevalidan ili prevelik model/tool rezultat i dokaz iz druge partije ne ulaze
    u uspešan rezultat; nedozvoljeno tool polje ne ide u drugi modelski poziv.
 5. Ručno izmenjen browser prikaz, zahtev ili storage ne postaje serverski rezultat.
+6. Spor ispravan GET odgovor (npr. 1200 ms) i dalje dovodi do prikaza završenog
+   bota/analize. Periodična provera ne preklapa zahteve i ne poništava odgovor
+   samo zato što traje duže od intervala 750 ms; GET greška dopušta narednu proveru.
+   Provere identiteta/revizije i odbacivanje odgovora stare partije ostaju.
 
 ### US2 — Potrošnja ostaje ograničena i posle više zahteva (P1)
 
@@ -63,6 +67,9 @@ Produkcioni lokalni prikaz zadržava postojeće karte, čipove i mobilni raspore
 4. Lokalni production build šalje aktivnu CSP politiku i ostala tražena zaglavlja.
    Dostupan kontrolisan zabranjeni resurs blokira konkretna direktiva, bez
    zaobilaženja CSP-a u testu. Igra i AI prikaz ostaju funkcionalni.
+5. Normalan production startup i validacija ugovora ne pokreću eval capability
+   probe i ne stvaraju CSP prekršaj. Runtime validacija ostaje aktivna;
+   kontrolisan pokušaj dinamičkog izvršenja se i dalje blokira.
 
 ### US4 — Tim može ponoviti i objasniti dokaz bez otkrivanja tajni (P2)
 
