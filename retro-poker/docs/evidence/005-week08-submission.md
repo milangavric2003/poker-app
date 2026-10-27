@@ -17,6 +17,7 @@ i zajedno i spremni su za prezentaciju 28.10.** To je korisnik potvrdio u razgov
 | Završni Week08 merge | [PR #11](https://github.com/milangavric2003/poker-app/pull/11) |
 | Milanova završna dorada | [PR #12](https://github.com/milangavric2003/poker-app/pull/12) |
 | Hosted CI proverenog main commita | [40558876322 — Windows i Linux PASS](https://github.com/milangavric2003/poker-app/actions/runs/40558876322) |
+| Naknadno usklađivanje dokaza | [`665fa88` i Windows/Linux CI PASS](https://github.com/milangavric2003/poker-app/actions/runs/40589947604) |
 
 Commit sa ovim dokumentom je naknadna dokumentaciona finalizacija istog runtime-a;
 ne zamenjuje tehnički checkpoint niti izmišlja ranije rezultate testova.
@@ -47,8 +48,9 @@ pozitivne kontrole i stvarne granice zaključka. Fake testovi ne dokazuju ponaš
    potvrđena je 27.10. Formalni nastup 28.10. i stvarni individualni ulazi/ishodi
    ostaju T030. Milan potvrđuje da su obojica predložila i lokalno izvršila
    negativnu proveru povećanja `maxSteps`; dokumentovan je njegov ishod uz
-   Codexovo uputstvo, dok Vedranov zaseban izlaz nije sačuvan.
-   [Obrazac za zapis](005-phase7-demo.md).
+   Codexovo uputstvo. Vedran je, prema Milanovoj potvrdi, proverio ulaz,
+   očekivanje, odgovor i stanje; njegov tačan izlaz nije sačuvan.
+   [Lokalna proba i obrazac za formalni zapis](005-phase7-demo.md).
 2. **Evidence:** [aktuelni T00–T17 rezultati i tri ista ulaza pre/posle](../EVIDENCE_W08.md)
    stoje ispred jasno označenog istorijskog plana. Početni `NOT RUN` i RED zapisi
    nisu prepravljeni u naknadni PASS.

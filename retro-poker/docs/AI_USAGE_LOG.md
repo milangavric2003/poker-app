@@ -12,6 +12,8 @@ korisnička potvrda, ne formalna odbrana ili samostalni test bez detalja.
 Milan je naknadno potvrdio da su obojica predložila i lokalno izvršila negativnu
 proveru `maxSteps`; raniji konkretni postupak je Codexovo uputstvo uz sačuvan
 Milanov ishod. Vedranov zaseban izlaz nije pronađen u dokumentaciji.
+Milanova dodatna potvrda navodi da je Vedran proverio ulaz, očekivanje,
+odgovor i stanje partije; tačan HTTP izlaz/brojači nisu dostavljeni.
 Stvarni ishod pre dokumentacionih izmena: 123/123 security, 1040/1040 full,
 27/27 Chromium E2E sa build-om, typecheck i lint PASS na `main@c2a0d95`.
 E2E je generisao 14 izmenjenih istorijskih screenshotova; vraćeni su na HEAD.

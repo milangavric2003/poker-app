@@ -9,6 +9,9 @@ promene izvršnog koda. [Paket za predaju](evidence/005-week08-submission.md),
 [Windows/Linux CI za tehnički checkpoint](https://github.com/milangavric2003/poker-app/actions/runs/40558876322)
 razdvajaju kod, lokalne rezultate i hosted provere. T001–T029 i T031–T034 su
 završeni; **T030 ostaje otvoren za formalni zajednički demo i individualnu proveru**.
+[Naknadni dokumentacioni commit `665fa88`](https://github.com/milangavric2003/poker-app/commit/665fa888c3d13a437a9d77f8b4079a632ae835c8)
+ima [Windows/Linux CI PASS](https://github.com/milangavric2003/poker-app/actions/runs/40589947604)
+za isti runtime; GitHub run je proveren za taj konkretan SHA.
 Vedran i Milan su, prema korisnikovoj potvrdi 27.10, lokalno isprobali aplikaciju
 i demo zasebno i zajedno i spremni su za prezentaciju 28.10. Ta potvrda ne navodi
 tačne ulaze/ishode njihovih zasebno osmišljenih negativnih slučajeva i ne označava
@@ -17,8 +20,10 @@ Milan je zatim potvrdio da su **obojica predložila i lokalno izvršila negativn
 proveru povećanja `maxSteps`**. Prethodni [konkretni `maxSteps:999` zapis](evidence/005-milan-human-check.json)
 čuva poreklo Codexovog uputstva i Milanovo izvršenje (400/`INVALID_INPUT`,
 partija i usage nepromenjeni). Nova potvrda odnosi se na ljudski predlog
-slučaja i Vedranovo lokalno izvršenje, ne menja poreklo tog uputstva. Zaseban
-Vedranov izlaz i brojači nisu sačuvani; formalna individualna varijanta ostaje T030.
+slučaja i Vedranovo lokalno izvršenje, ne menja poreklo tog uputstva. Prema
+Milanovoj dopuni, Vedran je proverio ulaz, očekivanje, odgovor i stanje partije;
+zaseban tačan HTTP izlaz i brojači nisu sačuvani. [Zapis lokalne probe](evidence/005-phase7-demo.md)
+razdvaja opažanja oba člana. Formalna individualna varijanta ostaje T030.
 
 ### Završni rezultati T00–T17
 
@@ -132,7 +137,7 @@ maxSteps extra 400/bez efekta, normalan coaching 2/1, regeneracija, slow GET i m
 Remote CI za **07db76b** sada je stvarno potvrđen na Windows/Linux:
 [run](https://github.com/milangavric2003/poker-app/actions/runs/40409602714),
 [API sažetak](evidence/005-milan-remote-ci.json). Lokalne T032/T033 izmene nisu
-objavljene i nemaju novi remote CI. **T030 i T031 ostaju otvoreni.**
+objavljene i nemaju novi remote CI. **T030 i T031 su tada bili otvoreni.**
 Sledeći 2026-10-26 blok je prethodni checkpoint, ne aktuelni CI status.
 
 **Aktuelno 2026-10-26 — Faza 7:** lokalna završna matrica T00–T17 prolazi,
@@ -148,7 +153,7 @@ direktorijum i iste security/full/type/lint/build provere prolaze; lock nepromen
 audit **0**. T029 je lokalni izolovani dokaz uz pripremljen CI.
 GitHub API za tačan početni HEAD vraća **0 run-ova**; novi radni patch nije objavljen,
 remote CI nije PASS. Korisnik potvrđuje da ljudski doprinosi/demo još nisu spremni:
-**T030 i zavisni T031 otvoreni; Week08 nije završen.**
+**T030 i tada zavisni T031 bili su otvoreni; Week08 tada nije bio završen.**
 Aktuelni rezultati imaju prednost nad istorijskim statusima ispod.
 
 ## Istorija prethodnih checkpoint-a (ne predstavlja aktuelni status)
@@ -252,7 +257,8 @@ violations [], bez CSP, broj script zahteva 2→3. Kontrole ostaju otvorene.
 `npm run test:security` postoji i trenutno izlazi 1 (4 PASS/1 T13 FAIL).
 Običan `npm test`: 910 PASS/1 očekivan T13 FAIL; typecheck/lint/build PASS.
 Prvi setup/type/lint padovi ostaju sačuvani; nisu predstavljeni kao security RED.
-Završna T00–T17 matrica i sva posle poređenja još NOT RUN. Sledeći task **T008**.
+Završna T00–T17 matrica i sva posle poređenja tada su još NOT RUN. Sledeći
+task bio je **T008**.
 
 ## 1. Opseg i checkpoint
 

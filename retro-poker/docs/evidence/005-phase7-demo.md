@@ -13,10 +13,22 @@ zasebnim ulazima i ishodima svakog člana. Ne zamenjuje formalno izvođenje niti
 potvrđuje individualnu odbranu. Milan je dodatno potvrdio da su obojica predložila
 i lokalno izvršila negativnu proveru povećanja `maxSteps`. Raniji [zapis konkretne probe](005-milan-human-check.json)
 pripisuje Codexu uputstvo, a Milanu izvršenje `maxSteps:999` sa 400 i
-nepromenjenim stanjem/usage-om. Vedranov zaseban izlaz i brojači nisu sačuvani;
-njegovo lokalno izvršenje je potvrđeno u razgovoru, ne u mašinskom tragu.
-Posle prezentacije dopisati
-stvarni tok i individualne odgovore u T030, uz proverljive ulaze/ishode.
+nepromenjenim stanjem/usage-om. Milan dodatno potvrđuje da je Vedran pri svom
+lokalnom pokušaju proverio ulaz, očekivanje, odgovor i stanje partije. Tačan
+Vedranov odgovor i brojači nisu sačuvani u mašinskom tragu. Posle prezentacije
+dopisati stvarni tok i individualne odgovore u T030, uz proverljive ulaze/ishode.
+
+## Lokalna proba — potvrđeno u razgovoru 27.10.
+
+| Član | Šta je lokalno urađeno | Sačuvan ishod / granica dokaza |
+|---|---|---|
+| Vedran | Aplikaciju i demo isprobao zasebno i sa Milanom; predložio i izvršio proveru povećanja `maxSteps`, proverio ulaz, očekivanje, odgovor i stanje partije. | Izvršenje je Milanova potvrda u razgovoru. Nije sačuvan Vedranov zaseban HTTP izlaz, broj provider/tool poziva ni usage poređenje. |
+| Milan | Aplikaciju i demo isprobao zasebno i sa Vedranom; predložio proveru povećanja `maxSteps` i izvršio `maxSteps:999` u vođenom HTTP primeru, uz normalan coaching. | [Prijavljeno 400/`INVALID_INPUT`, nepromenjena partija i usage](005-milan-human-check.json). Konkretno uputstvo je Codexov primer. |
+
+Ovo beleži **lokalnu probu**. Trajanje zajedničkog nastupa i objašnjenja u
+formalnoj individualnoj odbrani još nisu zabeleženi; zato T030 ostaje otvoren.
+
+## Istorijski status pre kasnijih ljudskih potvrda
 
 2026-10-26. **NIJE IZVEDENO / T030 otvoren.** Codex priprema nije ljudski demo.
 Rani zahtev za konkretne potvrde poslat je korisniku tokom završne provere.
@@ -37,8 +49,9 @@ novog W08 negativnog testa, razumevanja ili izvedenog demo-a.
 Milan je 2026-10-27 prijavio izvršen asistentski maxSteps negativni primer
 (400, stanje/metrike nepromenjeni) i uspešan normalan street coaching.
 [Stvarni prijavljeni ishodi i ograničenja](005-milan-human-check.json).
-Ovo potvrđuje taj ručni pregled; samostalna ideja testa, ceo doprinos oba člana,
-osam minuta demo-a i individualna varijanta ostaju nepotvrđeni. T030 je otvoren.
+Ovaj raniji zapis potvrđuje Milanov ručni pregled. Kasnija ljudska potvrda
+predloga i Vedranovog izvršenja nalazi se u aktuelnoj tabeli iznad. Osam minuta
+formalnog demo-a i individualna varijanta i dalje nisu izvedeni; T030 je otvoren.
 
 Pre demo-a: Node 24.20.0/npm 11.19.0, clean instalacija i Chromium. Bez `.env`,
 pravih ključeva, live CLI-ja ili `dev:backend`. Koristiti postojeće automatizovane
@@ -92,3 +105,14 @@ komandu/actual/exit, kratko objašnjenje granice i ograničenja, reviewer-a i po
 izvedenog demo-a/individualne varijante. Ne pripisivati Codex predlog kao samostalnu
 ideju. Ćutanje i commit author nisu potvrda. T031 je dokumentaciono završen;
 T030 se zatvara tek po ovom zapisu.
+
+## Zapis formalne prezentacije — popuniti nakon izvođenja 28.10.
+
+| Stavka | Stvarni zapis |
+|---|---|
+| Zajednički demo | Datum, početak/kraj, trajanje, šta je prikazano i stvarni ishod — čeka izvođenje. |
+| Vedranova individualna varijanta | Njegov ulaz i očekivanje pre testa; komanda, izlaz/status i brojači; objašnjena kontrola i njena granica — čeka izvođenje. |
+| Milanova individualna varijanta | Njegov ulaz i očekivanje pre testa; komanda, izlaz/status i brojači; objašnjena kontrola i njena granica — čeka izvođenje. |
+| Potvrda para | Ko je pregledao rezultat drugog člana i kada — čeka potvrdu. |
+
+Tek posle stvarnih opažanja dopisati ovaj zapis i označiti T030 završenim.

@@ -1013,3 +1013,5 @@ ne sadrži pojedinačne ulaze i ishode samostalno osmišljenih testova. Milanova
 naknadna potvrda da su obojica predložila i lokalno izvršila `maxSteps` slučaj
 uzeta je kao ljudski izveštaj; prethodni JSON za konkretno uputstvo i Milanov
 ishod ostaje netaknut. Vedranov zaseban izlaz nije sačuvan.
+Milanova dodatna potvrda navodi da je Vedran pri lokalnom pokušaju proverio
+ulaz, očekivanje, odgovor i stanje partije, bez sačuvanog tačnog HTTP izlaza.

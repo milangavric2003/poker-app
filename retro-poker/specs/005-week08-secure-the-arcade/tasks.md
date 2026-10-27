@@ -7,6 +7,8 @@ je potvrđena, formalno izvođenje nije. Vedran i Milan su, prema korisnikovoj
 potvrdi 27.10, lokalno isprobali aplikaciju i demo zasebno i zajedno.
 Milan potvrđuje da su obojica predložila i lokalno izvršila negativnu proveru
 `maxSteps`; Milanov ishod je zapisan, Vedranov zaseban izlaz nije. To ne zatvara T030.
+Vedran je, prema Milanovoj dopuni, proverio ulaz, očekivanje, odgovor i stanje
+partije; tačan HTTP izlaz nije sačuvan.
 Windows/Linux CI konačne implementacije PASS.
 [Paket za predaju i aktuelni status](../../docs/evidence/005-week08-submission.md).
 **Input**: [spec](spec.md), [plan](plan.md), [data-model](data-model.md),

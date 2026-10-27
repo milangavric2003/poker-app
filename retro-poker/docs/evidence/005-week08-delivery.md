@@ -9,6 +9,8 @@ zamenjuje zapis pojedinačnih negativnih testova i formalne odbrane.
 Milan dodatno potvrđuje da su obojica predložila i lokalno izvršila negativnu
 proveru povećanja `maxSteps`. [Raniji konkretni zapis](005-milan-human-check.json)
 čuva Milanov ishod uz Codexovo uputstvo; Vedranov zaseban izlaz nije sačuvan.
+Milanova dopuna precizira da je Vedran proverio ulaz, očekivanje, odgovor i
+stanje partije u svom lokalnom pokušaju; tačan HTTP izlaz nije dostavljen.
 [Konačni paket i linkovi](005-week08-submission.md).
 Odeljci ispod čuvaju prethodni checkpoint pre objave i tadašnji plan.
 
