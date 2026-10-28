@@ -1,5 +1,10 @@
 # T030 — priprema demo-a i ljudske potvrde
 
+**Dopuna 2026-10-28:** Vedran je dostavio sopstvene slike, ručni HTTP 400 i
+rezultate 37 HTTP, 123 security i 6 browser testova, svi PASS.
+[Zapis lokalne probe i granice dokaza](005-vedran-human-check-2026-10-28.md).
+Ovo dopunjuje raniju Milanovu potvrdu; ne zatvara formalni deo T030.
+
 **Aktuelno 2026-10-27:** korisnik potvrđuje da su Vedran i Milan lokalno
 isprobali aplikaciju i demo zasebno i zajedno, i da su spremni za prezentaciju
 28.10. T031 dokumentacija/linkovi su završeni unapred; T030 ostaje otvoren za

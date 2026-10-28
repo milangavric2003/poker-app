@@ -1,5 +1,10 @@
 # EVIDENCE_W08 — Secure the Arcade
 
+**Dopuna 2026-10-28:** [Vedranova uspešna lokalna proba i dostavljeni rezultati](evidence/005-vedran-human-check-2026-10-28.md):
+coaching, ponovna analiza, AI usage, nova partija i mobilni prikaz potvrđeni;
+ručni negativni zahtev HTTP 400. Korisnik je pokrenuo HTTP 37/37, security
+123/123 i security browser 6/6 PASS. Formalni deo T030 ostaje otvoren.
+
 ## Aktuelni status za predaju — 2026-10-27
 
 **Opseg:** lokalni single-user demo, sintetički podaci i fake provider. Tehnički
